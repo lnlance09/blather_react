@@ -1,0 +1,23 @@
+@import '../../../css/colors.scss';
+
+.footerSegment {
+    background: $electromagnetic !important;
+    border: none !important;
+    box-shadow: none !important;
+    margin-top: 5.5em !important;
+    padding: 1em 0em !important;
+    text-align: center;
+
+    .ui.inverted.list .item a:not(.ui) {
+        color: $linx-white !important;
+
+        &:hover {
+            color: darken($linx-white, 5%) !important;
+        }
+    }
+
+    p {
+        color: $linx-white !important;
+        font-size: 12px;
+    }
+}

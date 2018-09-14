@@ -1,0 +1,32 @@
+.resultItem {
+  background: #ffffff;
+  cursor: pointer;
+  padding: 5px; }
+  .resultItem:hover {
+    background: #f5f6fa !important; }
+    .resultItem:hover .extraList .item {
+      background: #f5f6fa; }
+  .resultItem:not(:first-child) {
+    margin-top: 8px !important; }
+  .resultItem:not(:last-child) {
+    margin-bottom: 8px !important; }
+  .resultItem .meta {
+    margin-top: 3px !important; }
+    .resultItem .meta .label {
+      background: #40739e !important;
+      color: #ffffff; }
+  .resultItem .description {
+    white-space: pre-line; }
+  .resultItem .content {
+    padding: 0.2em 0.5em !important; }
+  .resultItem .extra .extraList {
+    margin-bottom: 0;
+    margin-top: 0; }
+    .resultItem .extra .extraList .item {
+      border: none !important;
+      color: #2f3640;
+      margin-bottom: 0 !important; }
+      .resultItem .extra .extraList .item:nth-of-type(2) {
+        margin-left: 2px !important; }
+  .resultItem .image img {
+    border-radius: 0 !important; }

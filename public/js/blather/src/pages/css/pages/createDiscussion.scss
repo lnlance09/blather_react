@@ -1,0 +1,74 @@
+@import '../../../css/colors.scss';
+
+.createDiscussionPage {
+        .header {
+            .icon {
+                color: $blue-nights;
+                cursor: pointer;
+                display: none !important;
+                font-size: 18px;
+                line-height: 36px !important;
+                margin-right: 0 !important;
+                vertical-align: middle;
+            }
+
+            &:hover {
+                .icon {
+                    display: inline !important;
+                }
+            }
+        }
+
+        .contentContainer {
+            background: $white;
+            border: none !important;
+            padding: 0 !important;
+
+            .segment {
+                border: none !important;
+                margin: 0;
+                padding: 0;
+
+                .ui.form {
+                    .field label {
+                        font-size: 15px;
+                    }
+
+                    .provenWrongTextArea {
+                        margin-top: 1em;
+                    }
+
+                    .submitDiscussionButton {
+                        background: $vanadyl-blue;
+                        margin-top: 1em;
+
+                        &:hover {
+                            background: $protoss-pylos;
+                        }
+                    }
+
+                    .titleInput input, textarea {
+                        padding: 8px;
+                    }
+                }
+            }
+
+            .previewSegment {
+                .descriptionTitle, .extraTitle {
+                    
+                }
+
+                .descriptionPreview, .extraPreview {
+                    background: $linx-white;
+                    min-height: 80px;
+                    padding: 8px;
+                }
+            }
+        }
+
+    .rightSide {
+        .discussionTagsHeader {
+            font-size: 24px !important;
+        }
+    }
+}

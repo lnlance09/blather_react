@@ -1,0 +1,332 @@
+.aboutPage .logoContainer {
+  background: #f5f6fa;
+  padding: 12px 0; }
+  .aboutPage .logoContainer .header.aboutHeader {
+    line-height: 1; }
+    .aboutPage .logoContainer .header.aboutHeader .sub.header {
+      margin-top: 6px; }
+    .aboutPage .logoContainer .header.aboutHeader .blatherLogo {
+      margin-bottom: 8px; }
+      .aboutPage .logoContainer .header.aboutHeader .blatherLogo .blatherLogoSvg {
+        fill: #0097e6;
+        height: 84px;
+        line-height: 96px;
+        vertical-align: middle;
+        width: 84px; }
+    .aboutPage .logoContainer .header.aboutHeader span {
+      line-height: 96px; }
+
+.aboutPage .contactForm button {
+  background: #0097e6 !important;
+  float: right;
+  margin-right: 0; }
+  .aboutPage .contactForm button:hover {
+    background: #0086cd !important; }
+
+.aboutPage .contactForm .message {
+  box-shadow: 0 0 0 1px rgba(163, 194, 147, 0.4) inset, 0 0 0 0 transparent !important; }
+
+.createDiscussionPage .header .icon {
+  color: #353b48;
+  cursor: pointer;
+  display: none !important;
+  font-size: 18px;
+  line-height: 36px !important;
+  margin-right: 0 !important;
+  vertical-align: middle; }
+
+.createDiscussionPage .header:hover .icon {
+  display: inline !important; }
+
+.createDiscussionPage .contentContainer {
+  background: #ffffff;
+  border: none !important;
+  padding: 0 !important; }
+  .createDiscussionPage .contentContainer .segment {
+    border: none !important;
+    margin: 0;
+    padding: 0; }
+    .createDiscussionPage .contentContainer .segment .ui.form .field label {
+      font-size: 15px; }
+    .createDiscussionPage .contentContainer .segment .ui.form .provenWrongTextArea {
+      margin-top: 1em; }
+    .createDiscussionPage .contentContainer .segment .ui.form .submitDiscussionButton {
+      background: #0097e6;
+      margin-top: 1em; }
+      .createDiscussionPage .contentContainer .segment .ui.form .submitDiscussionButton:hover {
+        background: #00a8ff; }
+    .createDiscussionPage .contentContainer .segment .ui.form .titleInput input, .createDiscussionPage .contentContainer .segment .ui.form textarea {
+      padding: 8px; }
+  .createDiscussionPage .contentContainer .previewSegment .descriptionPreview, .createDiscussionPage .contentContainer .previewSegment .extraPreview {
+    background: #f5f6fa;
+    min-height: 80px;
+    padding: 8px; }
+
+.createDiscussionPage .rightSide .discussionTagsHeader {
+  font-size: 24px !important; }
+
+.discussionPage .evidenceSection .evidenceSegment, .discussionPage .evidenceSection .extraSegment {
+  border-radius: 0 !important;
+  font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+  font-size: 16px !important; }
+
+.discussionPage .steps {
+  border-radius: 0 !important; }
+  .discussionPage .steps .headerLogo {
+    height: 35px;
+    margin-right: 12px;
+    width: 35px; }
+    .discussionPage .steps .headerLogo .svgHeaderLogo {
+      fill: #0097e6;
+      height: 35px;
+      width: 35px; }
+
+.discussionsPage .discussionsContainer {
+  border: none !important;
+  padding: 0; }
+
+.fallaciesPage .fallaciesMenu {
+  border: none !important;
+  box-shadow: none !important; }
+  .fallaciesPage .fallaciesMenu .item:first-child {
+    border-radius: 0 !important; }
+
+.fallaciesPage .ui.vertical.menu .active.item {
+  background: #00a8ff !important;
+  color: #ffffff; }
+  .fallaciesPage .ui.vertical.menu .active.item:hover {
+    color: #ffffff; }
+
+.fallaciesPage .mainFallacy {
+  display: none;
+  font-size: 18px; }
+  .fallaciesPage .mainFallacy .header {
+    padding-bottom: 0 !important; }
+  .fallaciesPage .mainFallacy p {
+    border: none !important;
+    font-size: 15px;
+    padding-top: 0 !important; }
+  .fallaciesPage .mainFallacy .segment {
+    background: #ffffff !important;
+    border: none !important;
+    padding-top: 0; }
+    .fallaciesPage .mainFallacy .segment .comments {
+      margin-top: 5px !important; }
+      .fallaciesPage .mainFallacy .segment .comments .comment .avatar img {
+        border-radius: 0 !important; }
+  .fallaciesPage .mainFallacy.active {
+    display: block; }
+
+.fallacyPage .menuContainer .statistic .label, .fallacyPage .menuContainer .statistic .value {
+  color: #353b48; }
+
+.fallacyPage .discussionContainer {
+  margin-top: 1.3em; }
+  .fallacyPage .discussionContainer button {
+    background: #0097e6;
+    margin-top: 10px; }
+    .fallacyPage .discussionContainer button:hover {
+      background: #0086cd; }
+
+.fallacyPage .commentsContent {
+  margin-top: 12px; }
+
+.fallacyPage .fallacyMainMenu {
+  margin-top: 10px; }
+  .fallacyPage .fallacyMainMenu .ui.tabular.menu .active.item {
+    border-radius: 0 !important; }
+  .fallacyPage .fallacyMainMenu .ui.secondary.pointing.menu {
+    border-bottom: solid 2px #dcdde1; }
+  .fallacyPage .fallacyMainMenu .ui.secondary.pointing.menu .active.item {
+    border-color: #2f3640;
+    color: #353b48; }
+
+.DraftEditor-root {
+  font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif; }
+
+.socialMediaPage .menu.socialMediaPageMenu {
+  margin-top: 40px !important; }
+  .socialMediaPage .menu.socialMediaPageMenu .active.item {
+    border-radius: 0 !important; }
+
+.socialMediaPage .profilePic img {
+  border: none !important; }
+
+.socialMediaPage .profileContentContainer {
+  border: none !important;
+  min-height: 450px;
+  padding: 0 !important; }
+
+.postPage .mainContainer {
+  padding: 0 !important; }
+
+.postPage .sticky div {
+  z-index: 1000; }
+
+.postPage .sticky .breadcrumbContainer {
+  background: #f5f6fa;
+  border-bottom: solid 1px rgba(220, 221, 225, 0.6);
+  margin-top: 60px;
+  padding: 8px 30px;
+  width: 100%; }
+  .postPage .sticky .breadcrumbContainer .breadcrumb {
+    line-height: 20px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding: 0 30px; }
+
+.searchPage .searchMenu {
+  border: solid 1px rgba(220, 221, 225, 0.6) !important;
+  box-shadow: none !important; }
+  .searchPage .searchMenu .item:first-child {
+    padding: 0; }
+  .searchPage .searchMenu .item .input input {
+    border: none !important;
+    border-radius: 0 !important; }
+  .searchPage .searchMenu .item .icon {
+    font-size: 18px;
+    line-height: 14px;
+    vertical-align: middle; }
+    .searchPage .searchMenu .item .icon.chatIcon {
+      color: #e1b12c; }
+
+.searchPage .ui.vertical.menu .active.item {
+  background: #00a8ff !important;
+  color: #ffffff; }
+  .searchPage .ui.vertical.menu .active.item:hover {
+    color: #ffffff; }
+
+.searchPage .ui.vertical.menu > .active.item {
+  border-radius: 0px !important; }
+
+.searchPage .searchContentContainer {
+  border: none !important;
+  background: #ffffff;
+  min-height: 300px;
+  padding: 0 !important; }
+
+.settingsPage .settingsMenu {
+  border: solid 1px rgba(220, 221, 225, 0.6) !important;
+  box-shadow: none !important; }
+  .settingsPage .settingsMenu .item:first-child {
+    border-radius: 0 !important; }
+
+.settingsPage .ui.vertical.menu .active.item {
+  background: #00a8ff !important;
+  color: #ffffff; }
+  .settingsPage .ui.vertical.menu .active.item:hover {
+    color: #ffffff; }
+
+.settingsPage .ui.vertical.menu > .active.item {
+  border-radius: 0px !important; }
+
+.settingsPage .settingsContent .segment {
+  background: #ffffff !important;
+  border: solid 1px rgba(220, 221, 225, 0.6) !important;
+  min-height: 400px; }
+
+.settingsPage .settingsContent .firstParagraph {
+  text-align: center; }
+
+.settingsPage .settingsContent .changePasswordBox .passwordSubmit {
+  background: #487eb0; }
+
+.loginContainer {
+  background: #f5f6fa;
+  height: 100%;
+  padding-top: 60px; }
+  .loginContainer .loginForm {
+    height: 100%; }
+    .loginContainer .loginForm .header {
+      margin-top: 0; }
+
+.usersPage .changePicBtn {
+  background: #0097e6 !important; }
+  .usersPage .changePicBtn:hover {
+    background: #00a8ff !important; }
+  .usersPage .changePicBtn .icon {
+    color: #ffffff !important; }
+
+.usersPage .profilePic img {
+  border: none !important; }
+
+.usersPage .menu.profileMenu {
+  margin-top: 40px !important; }
+  .usersPage .menu.profileMenu .active.item {
+    border-radius: 0 !important; }
+
+.usersPage .profileContentContainer {
+  border: none !important;
+  padding: 0 !important; }
+
+.rightSide {
+  margin-left: 0;
+  padding-left: 0 !important; }
+
+*:not(img) {
+  border-radius: 0 !important; }
+
+button {
+  color: #ffffff !important; }
+  button:hover {
+    color: #ffffff !important; }
+
+textarea {
+  border: solid 1px rgba(220, 221, 225, 0.6);
+  color: #2f3640;
+  outline: none !important;
+  padding: 8px;
+  width: 100%; }
+
+.dropdown {
+  border-radius: 0 !important; }
+  .dropdown:focus {
+    border-radius: 0 !important; }
+
+.lazyLoadSegment {
+  border-radius: 0 !important;
+  box-shadow: none !important; }
+
+.input input {
+  border-radius: 0 !important; }
+
+.segment {
+  background: rgba(245, 246, 250, 0.3) !important;
+  border: solid 1px rgba(220, 221, 225, 0.6) !important;
+  box-shadow: none !important;
+  padding: 8px; }
+  .segment.dimmer {
+    border: solid 1px rgba(245, 246, 250, 0.5); }
+
+.ui.active.transition.visible.dimmer {
+  background: rgba(255, 255, 255, 0.8) !important; }
+  .ui.active.transition.visible.dimmer button {
+    background: #44bd32; }
+    .ui.active.transition.visible.dimmer button:hover {
+      background: #4cd137; }
+
+.externalUrl {
+  color: #0097e6;
+  cursor: pointer; }
+  .externalUrl:hover {
+    color: #01a8ff; }
+
+.clearfix {
+  clear: both; }
+
+.facebookIcon {
+  color: #3b5998; }
+
+.twitterIcon {
+  color: #0084b4; }
+
+.youtubeIcon {
+  color: #ff0000; }
+
+.Linkify {
+  color: #2f3640 !important; }
+  .Linkify a {
+    color: #0097e6 !important; }
+
+.modals.dimmer .ui.scrolling.modal {
+  margin: 60px 0 70px 0 !important; }

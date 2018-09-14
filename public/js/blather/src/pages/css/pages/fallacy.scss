@@ -1,0 +1,49 @@
+@import '../../../css/colors.scss';
+
+.fallacyPage {
+    .menuContainer {
+        .statistic {
+            .label, .value {
+                color: $blue-nights;
+            }
+        }
+    }
+
+    .discussionContainer {
+        margin-top: 1.3em;
+
+        button {
+            background: $vanadyl-blue;
+            margin-top: 10px;
+
+            &:hover {
+                background: darken($vanadyl-blue, 5%);
+            }
+        }
+    }
+
+    .commentsContent {
+        margin-top: 12px;
+    }
+
+    .fallacyMainMenu {
+        margin-top: 10px;
+
+        .ui.tabular.menu .active.item {
+            border-radius: 0 !important;
+        }
+
+        .ui.secondary.pointing.menu {
+            border-bottom: solid 2px $hint-of-pensive;
+        }
+
+        .ui.secondary.pointing.menu .active.item {
+            border-color: $electromagnetic;
+            color: $blue-nights;
+        }
+    }
+}
+
+.DraftEditor-root {
+    font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+}

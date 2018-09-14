@@ -1,0 +1,27 @@
+.aboutPage .logoContainer {
+  background: #f5f6fa;
+  padding: 12px 0; }
+  .aboutPage .logoContainer .header.aboutHeader {
+    line-height: 1; }
+    .aboutPage .logoContainer .header.aboutHeader .sub.header {
+      margin-top: 6px; }
+    .aboutPage .logoContainer .header.aboutHeader .blatherLogo {
+      margin-bottom: 8px; }
+      .aboutPage .logoContainer .header.aboutHeader .blatherLogo .blatherLogoSvg {
+        fill: #0097e6;
+        height: 84px;
+        line-height: 96px;
+        vertical-align: middle;
+        width: 84px; }
+    .aboutPage .logoContainer .header.aboutHeader span {
+      line-height: 96px; }
+
+.aboutPage .contactForm button {
+  background: #0097e6 !important;
+  float: right;
+  margin-right: 0; }
+  .aboutPage .contactForm button:hover {
+    background: #0086cd !important; }
+
+.aboutPage .contactForm .message {
+  box-shadow: 0 0 0 1px rgba(163, 194, 147, 0.4) inset, 0 0 0 0 transparent !important; }

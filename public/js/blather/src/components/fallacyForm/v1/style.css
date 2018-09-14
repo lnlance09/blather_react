@@ -1,0 +1,38 @@
+.fallacyForm .attached.fluid.segment {
+  background: #ffffff !important;
+  border: solid 1px rgba(220, 221, 225, 0.6) !important; }
+
+.fallacyForm .headerMsg {
+  border: solid 1px rgba(220, 221, 225, 0.6) !important;
+  box-shadow: none !important; }
+
+.fallacyForm .startTime, .fallacyForm .field.contradictionStartTime {
+  padding-left: 0 !important;
+  padding-right: 0 !important; }
+
+.fallacyForm .contradictionWrapper {
+  background: #f5f6fa;
+  margin-top: 0.9em; }
+  .fallacyForm .contradictionWrapper.active {
+    padding: 10px; }
+  .fallacyForm .contradictionWrapper .channelCard .content {
+    background: #f5f6fa; }
+
+.fallacyForm .contradictionMsg {
+  border-radius: 0 !important; }
+
+.fallacyForm button {
+  background: #0097e6 !important;
+  margin-top: 12px !important; }
+  .fallacyForm button:hover {
+    background: #00a8ff !important; }
+
+.ui.modal .content .assignAnotherBtn {
+  background: #e84118 !important; }
+  .ui.modal .content .assignAnotherBtn:hover {
+    background: #d23a15 !important; }
+
+.ui.modal .content .viewFallacyBtn {
+  background: #0097e6 !important; }
+  .ui.modal .content .viewFallacyBtn:hover {
+    background: #0086cd !important; }

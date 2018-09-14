@@ -1,0 +1,166 @@
+@import '../../../css/colors.scss';
+
+.youTubeVideo {
+    .segment {
+        background: $white !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+    }
+
+    .youTubeTitle {
+        background: $white;
+        margin-top: 7px;
+    }
+
+    .channelCard {
+        border: none !important;
+        box-shadow: none !important;
+        margin-bottom: 14px !important;
+
+        &.hasComment {
+            margin-bottom: 0 !important;
+        }
+
+        .content {
+            padding: 0 !important;
+
+            .header {
+                font-size: 16px !important;
+                font-weight: 400 !important;
+            }
+
+            .meta {
+                font-size: 12px !important;
+            }
+
+            &.extra {
+                color: $blue-nights;
+                line-height: 1.5em;
+                margin-top: 5px;
+                padding-top: 10px !important;
+
+                .icon.archive {
+                    color: $chain-gang-grey;
+                    cursor: pointer;
+                    float: right;
+                    vertical-align: middle;
+                }
+
+                .archiveMsg {
+                    box-shadow: 0 0 0 1px $positive-green-border inset, 0 0 0 0 transparent !important;
+                    margin-bottom: 0 !important;
+
+                    a {
+                        color: $vanadyl-blue;
+
+                        &:hover {
+                            color: darken($vanadyl-blue, 5%);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .videoPlayer {
+        width: 100% !important;
+    }
+
+    .ui.progress {
+        border-radius: 0 !important;
+
+        .bar {
+            background: $mazarine-blue;
+            border-radius: 0 !important;
+        }
+    }
+
+    .toggleComments {
+        float: right;
+        fontSize: 18px; 
+        margin-right: 0;
+    }
+
+    .commentsDimmer {
+        border: solid 1px  $dimmer-border;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        padding: 10px !important;
+
+        .header {
+            color: $electromagnetic !important;
+        }
+
+        button {
+            background: $download-progress;
+            color: $white;
+        }
+    }
+
+    .comments {
+        max-width: none !important;
+
+        .comment {
+            cursor: pointer;
+            margin: 0;
+
+            .avatar img {
+                border-radius: 0 !important;
+            }
+
+            .actions {
+                a {
+                    color: $electromagnetic;
+
+                    .icon {
+                        color: $vanadyl-blue;
+                    }
+
+                    &.youtubeLink {
+                        &:hover {
+                            text-decoration: underline;
+                        }
+                    }
+                }
+
+                .likeComment {
+                    cursor: default !important;
+                }
+            }
+        }
+    }
+}
+
+.youtubeCommentModal {
+    .comments {
+        .comment {
+            cursor: pointer;
+            margin: 0;
+
+            .avatar img {
+                border-radius: 0 !important;
+            }
+
+            .actions {
+                a {
+                    color: $electromagnetic;
+
+                    .icon {
+                        color: $vanadyl-blue;
+                    }
+
+                    &.youtubeLink {
+                        &:hover {
+                            text-decoration: underline;
+                        }
+                    }
+                }
+
+                .likeComment {
+                    cursor: default !important;
+                }
+            }
+        }
+    }
+}

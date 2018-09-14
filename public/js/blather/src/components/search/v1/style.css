@@ -1,0 +1,17 @@
+.navSearch .input {
+  width: 100%; }
+
+.navSearch .results {
+  width: 100% !important; }
+
+.navSearch .result {
+  padding: 6px !important; }
+  .navSearch .result .searchItem .header {
+    margin-bottom: 3px !important;
+    margin-top: 0 !important; }
+  .navSearch .result .searchItem .dropDownItemPic {
+    border-radius: 0 !important;
+    float: left !important;
+    height: 50px !important;
+    margin-right: 8px;
+    width: 50px !important; }

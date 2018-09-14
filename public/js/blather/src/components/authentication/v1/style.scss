@@ -1,0 +1,53 @@
+@import '../../../css/colors.scss';
+
+.signInLogo {
+    display: inline;
+    fill: $vanadyl-blue;
+    height: 48px;
+    width: 48px;
+}
+
+.authSegment {
+    background: $linx-white !important;
+    border: none !important;
+    box-shadow: none !important;
+    margin-bottom: 0 !important;
+    padding: 0 !important;
+
+    .form {
+        .input {
+            input {
+                border-radius: 0;
+
+                &:active, &:focus {
+                    border-radius: 0;
+                }
+            }
+        }
+
+        button {
+            background: $naval !important;
+        }
+    }
+
+    .error.message {
+        border-radius: 0;
+    }
+}
+
+.authInfoSegment {
+    background: $linx-white !important;
+    border: none !important;
+    box-shadow: none !important;
+    margin-top: 0 !important;
+
+    .registerLink {
+        color: $vanadyl-blue;
+        cursor: pointer;
+        margin-left: 5px;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}

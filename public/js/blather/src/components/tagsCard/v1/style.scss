@@ -1,0 +1,65 @@
+@import '../../../css/colors.scss';
+
+.ui.card.tagsCard {
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    margin-top: 12px !important;
+
+    .content {
+        border: none;
+        padding: 0 !important;
+
+        .header {
+            color: $blue-nights;
+
+            .editTagsIcon {
+                color: $vanadyl-blue;
+                cursor: pointer;
+                display: none !important;
+                float: right;
+                font-size: 18px;
+                margin-right: 0 !important;
+
+                &.editing {
+                    color: $harley-davidson-orange;
+                }
+            }
+
+            &:hover {
+                .editTagsIcon {
+                    display: inline !important;
+                }
+            }
+        }
+    }
+
+    .tagsList {
+        .item {
+            .icon {
+                color: $harley-davidson-orange !important;
+                display: none;
+            }
+
+            &:hover {
+                .icon {
+                    cursor: pointer;
+                    display: inline;
+                }
+            }
+        }
+    }
+}
+
+.ui.small.modal {
+    margin-top: 100px !important;
+
+    .tagModalBtn {
+        background: $vanadyl-blue;
+        float: right;
+        margin-top: 12px;
+
+        &:hover {
+            background: darken($vanadyl-blue, 5%);
+        }
+    }
+}

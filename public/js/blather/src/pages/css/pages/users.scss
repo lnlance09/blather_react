@@ -1,0 +1,32 @@
+@import '../../../css/colors.scss';
+
+.usersPage {
+    .changePicBtn {
+        background: $vanadyl-blue !important;
+
+        &:hover {
+            background: $protoss-pylos !important;
+        }
+
+        .icon {
+            color: $white !important;
+        }
+    }
+
+    .profilePic img {
+        border: none !important;
+    }
+
+    .menu.profileMenu {
+        margin-top: 40px !important;
+
+        .active.item {
+            border-radius: 0 !important;
+        }
+    }
+
+    .profileContentContainer {
+        border: none !important;
+        padding: 0 !important;
+    }
+}

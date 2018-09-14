@@ -1,0 +1,85 @@
+#settings {
+	left: 33.3%;
+    position: relative;
+    width: 100%;
+
+    h1 {
+    	border-bottom: solid 1px $border-gray;
+    	color: $textColor;
+    	font-size: 24px;
+    	margin: 5px;
+    	padding: 5px 5px 10px 5px;
+    }
+
+    #changePassword {
+        padding: 5px;
+
+        .successMsg {
+            background: $blockGreen;
+            color: $white;
+            display: none;
+            margin-bottom: 10px;
+            padding: 10px;
+            text-align: center;
+
+            &.error {
+                background: $youtubeRed;
+            }
+
+            p {
+                color: $white;
+                font-size: 16px;
+                margin: 0;
+            }
+        }
+
+        .form-group {
+            label {
+                color: $textColor;
+                display: none;
+                font-weight: normal;
+            }
+
+            .form-control {
+                border: solid 1px $border-gray;
+                color: $textColor;
+                font-size: 18px;
+                padding: 5px;
+
+                &.error {
+                    border: solid 1px $youtubeRed;
+                }
+            }
+        }
+    }
+
+    #linkedAccounts {
+        .col-md-4 {
+            padding: 10px 0;
+
+            span {
+                color: $textColor;
+            }
+
+            .iconWrapper {
+                margin-bottom: 12px;
+
+                .fa {
+                    font-size: 32px;
+                }
+
+                .fa-facebook {
+                    color: $facebookBlue;
+                }
+
+                .fa-twitter {
+                    color: $twitterBlue;
+                }
+
+                .fa-youtube {
+                    color: $youtubeRed;
+                }
+            }
+        }
+    }
+}

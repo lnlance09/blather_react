@@ -1,0 +1,39 @@
+@import '../../../css/colors.scss';
+
+.aboutCard {
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    margin-top: 5px !important;
+
+    .editAboutIcon {
+        cursor: pointer;
+        float: right;
+    }
+
+    .content {
+        border: none !important;
+        padding-left: 0 !important;
+        padding-right: 3px !important;
+    }
+
+    &:hover {
+        .editAboutIcon {
+            display: inline;
+        }
+    }
+
+    .description {
+        color: $electromagnetic !important;
+        word-wrap: break-word;
+    }
+
+    .updateAboutButton {
+        background: $seabrook !important;
+        margin-top: 5px;
+
+        &:hover {
+            background: $naval !important;
+        }
+    }
+}

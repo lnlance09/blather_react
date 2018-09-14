@@ -1,0 +1,58 @@
+@import '../../../css/colors.scss';
+
+.fallaciesPage {
+    .fallaciesMenu {
+        border: none !important;
+        box-shadow: none !important;
+
+        .item:first-child {
+            border-radius: 0 !important;
+        }
+    }
+
+    .ui.vertical.menu .active.item {
+        background: $protoss-pylos !important;
+        color: $white;
+
+        &:hover {
+            color: $white;
+        }
+    }
+
+    .mainFallacy {
+        display: none;
+        font-size: 18px;
+
+        .header {
+            padding-bottom: 0 !important;
+        }
+
+        p {
+            border: none !important;
+            font-size: 15px;
+            padding-top: 0 !important;
+        }
+
+        .segment {
+            background: $white !important;
+            border: none !important;
+            padding-top: 0;
+
+            .comments {
+                margin-top: 5px !important;
+
+                .comment {
+                    .avatar {
+                        img {
+                            border-radius: 0 !important;
+                        }
+                    }
+                }
+            }
+        }
+
+        &.active {
+            display: block;
+        }
+    }
+}

@@ -1,0 +1,636 @@
+#mainContent {
+    left: 33.3%;
+    position: relative;
+    width: 100%;
+
+    @media screen and (max-width: $break-xsmall) {
+        left: 0;
+    }
+
+    h1 {
+        color: $black;
+        font-size: 36px;
+        margin-bottom: 5px;
+        margin-top: 5px;
+    }
+
+    h2 {
+        margin-top: 0;
+    }
+
+    h2#pageTitle {
+        color: $textColor;
+        margin-bottom: 0;
+        margin-top: -78px;
+        text-align: center;
+
+        img {
+            background: $white;
+            border: solid 1px #e1e8ed;
+            height: 150px;
+            margin-bottom: 10px;
+            padding: 5px;
+            width: 150px;
+        }
+
+        .svg {
+            height: 150px;
+            width: 150px;
+        }
+
+        .fa {
+            color: $twitterBlue;
+            vertical-align: middle;
+        }
+
+        @media screen and (max-width: $break-xsmall) {
+            font-size: 20px;
+
+            img {
+                height: 120px;
+                width: 120px;
+            }
+        }
+    }
+
+    p#followerCount {
+        color: $boldSubTextColor;
+        font-size: 20px;
+        margin-bottom: 3px;
+        text-align: center;
+
+        @media screen and (max-width: $break-xsmall) {
+            font-size: 14px;
+        }
+    }
+
+    p#pageWebsite {
+        font-size: 15px;
+        text-align: center;
+    }
+
+    #pageCoverPic {
+        height: 140px;
+        left: 0;
+        position: relative;  
+        top: 0; 
+        width: 100%; 
+        z-index: -1;
+
+        @media screen and (max-width: $break-xsmall) {
+            height: 90px;
+        }
+    }
+
+    #aboutBar {
+        color: $textColor;
+        font-size: 14px;
+        margin: 12px 8px 0 8px;
+        padding: 6px 10px;
+
+        p {
+            font-size: 14px;
+        }
+
+        @media screen and (max-width: $break-xsmall) {
+            margin-top: 3px;
+
+            p {
+                font-size: 13px;
+            }
+        }
+    }
+
+    #aboutBarUser {
+        background: $instBackground;
+        border-bottom: solid 1px $instBorderColor;
+        border-top: solid 1px $instBorderColor;
+        margin: 12px 8px;
+        padding: 6px 10px;
+
+        p.pageAbout {
+            color: $textColor;
+            display: -webkit-box;
+            font-size: 14px;
+            margin: 0;
+            overflow: hidden;
+            text-align: left;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+            word-wrap: break-word; 
+        }
+    }
+
+    #aboutBarUser {
+        background: $white;
+        border: none;
+
+        p.pageAbout {
+            text-align: center;
+        }
+    }
+
+    p#pageAbout {
+        display: none; 
+    }
+
+    .ajaxLoader {
+        padding: 200px 0;
+        text-align: center;
+
+        .fa {
+            font-size: 48px;
+        }
+    }
+
+    .sectionHeader {
+        padding: 0;
+        width: 100%;
+
+        h3 {
+            border-bottom: solid 1px $border-gray;
+            color: $textColor;
+            margin: 0;
+            padding: 8px 8px;
+
+            @media screen and (max-width: $break-xsmall) {
+                font-size: 16px;
+            }
+        }
+    }
+
+    #loadPageContent {
+        #influencesSection {
+            #influencesContent {
+                padding: 5px 0;
+
+                span.label {
+                    border-radius: 0;
+                    cursor: pointer;
+                    display: inline-block;
+                    font-size: 13px;
+                    line-height: 1.5;
+                    margin: 3px;
+                    padding-right: 12px;
+
+                    &.twitter {
+                        background: $twitterBlue;
+
+                        &:hover {
+                            background: lighten($twitterBlue, 5%);
+                        }
+                    }
+
+                    &.fb {
+                        background: $facebookBlue;
+
+                        &:hover {
+                            background: lighten($facebookBlue, 5%);
+                        }
+                    }
+
+                    &.youtube {
+                        background: $youtubeRed;
+
+                        &:hover {
+                            background: lighten($youtubeRed, 5%);
+                        }
+                    }
+
+                    .fa-close {
+                        margin-left: 5px;
+                    }
+                }
+            }
+        }
+
+        #archivedSection {
+            #archivedContent {
+                padding: 5px 0;
+
+                .link {
+                    background: $almostWhite;
+                    border: solid 1px $border-gray;
+                    border-bottom: none;
+                    cursor: pointer;
+
+                    &:nth-of-type(odd) {
+                        background: $white;
+                    }
+
+                    &:last-of-type {
+                        border-bottom: solid 1px $border-gray;
+                    }
+
+                    p {
+                        font-size: 16px;
+                        line-height: 1;
+                        margin: 0;
+                        padding: 10px 5px;
+
+                        i {
+                            margin-right: 5px;
+
+                            &.fa-facebook {
+                                color: $facebookBlue;
+                            }
+
+                            &.fa-twitter {
+                                color: $twitterBlue;
+                            }
+
+                            &.fa-youtube {
+                                color: $youtubeRed;
+                            }
+
+                            &.fa-caret-right {
+                                color: $textColor;
+                                display: none;
+                            }
+
+                            &.fa-caret-down {
+                                color: $textColor;
+                            }
+                        }
+                    }
+
+                    &:hover {
+                        .fa-caret-right {
+                            display: inline;
+                        }
+                    }
+
+                    .linkPanel {
+                        display: none;
+
+                        p {
+                            color: $textColor;
+                            line-height: 1.4;
+                            margin: 0;
+                            padding: 5px;
+
+                            &.addedOn {
+                                font-style: italic;
+                            }
+                        }
+                    }
+                }
+
+                .btn {
+                    margin-top: 5px;
+                } 
+            }
+        }
+
+        #fallacySection {
+            #fallacyCloud {
+                padding: 4px 0;
+
+                #commentFallacyCloud {
+                    display: none;
+                }
+
+                span.label {
+                    background: $blube;
+                    border-radius: 0;
+                    cursor: pointer;
+                    display: inline-block;
+                    font-size: 14px;
+                    line-height: 1.5;
+                    margin: 3px;
+                    padding-right: 8px;
+
+                    &:first-of-type {
+                        margin-left: 0;
+                    }
+
+                    &:hover {
+                        background: darken($blube, 7%);
+                    }
+
+                    .fCount {
+                        font-weight: 700;
+                        margin-left: 4px;
+                    }
+                }
+            }
+
+            ul.nav-tabs {
+                border-bottom: solid 1px $border-gray;
+                margin: 4px 0;
+
+                li {
+                    a {
+                        border-bottom-color: transparent;
+                        border-radius: 0;
+                        color: $boldSubTextColor;
+
+                        &:hover {
+                            background: $helsinki;
+                        }
+
+                        &:focus {
+                            background-color: $white;
+                        }
+                    }
+
+                    &.active {
+                        a {
+                            color: $textColor;
+                            border-top: solid 2px $quebec;
+                        }
+                    }
+                }
+            }
+
+            #fallacyAboutText {
+                background: $instBackground;
+                border-bottom: solid 1px $instBorderColor;
+                border-top: solid 1px $instBorderColor;
+                margin: 4px 0 0 0;
+
+                p {
+                    color: $textColor;
+                    font-size: 14px;
+                    margin: 0;
+                    padding: 5px 10px;
+
+                    @media screen and (max-width: $break-xsmall) {
+                        font-size: 12px;
+                        padding: 3px 6px;
+                    }
+                }
+            }
+        }
+
+        #fallacyContent {
+            margin: 0;
+
+            .assignedFallacyBlock {
+                .originalTweet {
+                    background: $helsinki;
+                    border-top: solid 1px $border-gray;
+                    font-size: 16px;
+                    padding: 5px;
+
+                    img {
+                        height: 40px;
+                        vertical-align: middle;
+                        width: 40px;
+                    }
+
+                    span.verticalBreak {
+                        bottom: 5px;
+                        color: $boldSubTextColor;
+                        display: inline-block; 
+                        left: 2px;
+                        position: relative;
+                        vertical-align: top;
+
+                        .text-muted {
+                            font-size: 16px;
+                        }
+
+                        a {
+                            display: inline-block;
+                        }
+                    }
+                }
+
+                p.tweetText {
+                    color: $textColor;
+                    font-size: 16px;
+                    height: auto;
+                    margin: -30px 0 8px 50px;
+                    text-align: left;
+                }
+            }
+        }
+
+        #morePageFallaciesAjax {
+            display: none;
+        }
+    }
+
+    #actualContent {
+        margin: 0;
+
+        .row {
+            margin: 8px 0 0 0;
+
+            &:first-of-type {
+                margin-top: 0;
+            }
+
+            .col-md-4 {
+                cursor: pointer;
+                padding: 0 10px;
+
+                &:first-of-type {
+                    padding-left: 0;
+                }
+
+                &:nth-of-type(2) {
+
+                }
+
+                &:nth-of-type(3) {
+                    padding-right: 0;
+                }
+
+                &.tweetBlock {
+                    padding: 10px;
+                }
+
+                h4.tweetTitle {
+                    font-size: 16px;
+                    margin-bottom: 4px;
+                    margin-top: 0;
+                    overflow: hidden;
+
+                    img {
+                        background: $white;
+                        border: solid 1px $border-gray;
+                        height: 54px;
+                        margin-right: 3px;
+                        padding: 4px;
+                        vertical-align: middle;
+                        width: 54px;
+                    }
+
+                    span.verticalBreak {
+                        display: inline-block; 
+                        vertical-align: top;
+
+                        .text-muted {
+                            color: $subTextColor;
+                        }
+
+                        a {
+                            display: inline-block;
+                        }
+                    }
+                }
+
+                p.status, 
+                p.title,
+                p.tweetText {
+                    color: $textColor;
+                    font-size: 14px;
+                    margin-bottom: 0;
+                    overflow: hidden;
+                    padding: 6px;
+
+                    &.nopic {
+                        -webkit-line-clamp: 5;
+                    }
+                }
+
+                p.status {
+                    display: -webkit-box;
+                    margin-top: 10px;
+                    min-height: 71px;
+                    -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 3;
+                    word-wrap: break-word; 
+                }
+
+                p.tweetText {
+                    height: 90px;
+                    padding: 6px 0;
+                }
+
+                p.title {
+                    min-height: 56px;
+
+                    a {
+                        display: -webkit-box;
+                        font-size: 16px;
+                        overflow: hidden;
+                        -webkit-box-orient: vertical;
+                        -webkit-line-clamp: 2;
+                        word-wrap: break-word;
+                    }
+                }
+
+                .attachmentInfo {
+                    background: $almostWhite;
+                    cursor: pointer;
+                    margin-top: 10px;
+                    overflow: hidden;
+
+                    .attachmentPicWrapper {
+                        border: solid 1px $border-gray;
+                        border-bottom: none;
+                        border-bottom-left-radius: 0 !important;
+                        border-bottom-right-radius: 0 !important;
+                        border-radius: 6px;
+                        overflow: hidden;
+                        padding: 4px;
+
+                        img {
+                            height: 150px;
+                            object-fit: contain;
+                            overflow: hidden;
+                            width: 100%;
+                        }
+                    }
+
+                    video {
+                        padding: 5px;
+                        width: 100%;
+                    }
+
+                    .attachmentMeta {
+                        background: $white;
+                        border: solid 1px $border-gray;
+                        cursor: pointer;
+                        min-height: 81px;
+                        padding: 10px 14px;
+                        transition: 0.3s;
+
+                        p {
+                            &.metaTitle {
+                                color: $textColor;
+                                font-weight: 700;
+                            }
+
+                            &.metaDescription {
+                                color: $subTextColor;
+                                display: -webkit-box;
+                                margin-bottom: 0;
+                                overflow: hidden;
+                                -webkit-box-orient: vertical;
+                                -webkit-line-clamp: 3;
+                                word-wrap: break-word;
+                            }
+
+                            &.metaUrl {
+                                color: #8899a6;
+                            }
+                        }
+                    }
+                }
+
+                .postStats {
+                    background: $backgroundGray;
+                    border-bottom: solid 1px $border-gray;
+                    border-top: solid 1px $border-gray;
+                    font-weight: 700;
+                    padding: 6px;
+
+                    .retweetCount, 
+                    .favoriteCount, 
+                    .commentCount, 
+                    .likeCount {
+                        color: $textColor;
+                        float: left;
+                        font-size: 16px;
+                        padding: 0 10px;
+
+                        .fa {
+                            color: $boldSubTextColor;
+                        }
+                    }
+
+                    .retweetCount, .likeCount {
+                        padding-left: 0;
+                    }
+
+                    .viewOnNetwork {
+                        cursor: pointer;
+                        font-size: 16px;
+                    }
+
+                    .markAsFallacy {
+                        color: $black;
+                        cursor: pointer;
+                        font-size: 16px;
+                        padding-left: 8px;
+                    }
+                }
+            }
+        }
+    }
+
+    .hasNotJoined {
+        margin: 25px 20px;
+        text-align: center;
+
+        p {
+            color: $textColor;
+            font-size: 18px;
+            margin: 0;
+
+            .fa {
+                color: $koivu;
+                cursor: pointer;
+            }
+        }
+    }
+
+    #buttonWrapper, 
+    #fallacyButtonWrapper {
+        margin: 8px 0 0 0;
+    }
+}

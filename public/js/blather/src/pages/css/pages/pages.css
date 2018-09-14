@@ -1,0 +1,12 @@
+.socialMediaPage .menu.socialMediaPageMenu {
+  margin-top: 40px !important; }
+  .socialMediaPage .menu.socialMediaPageMenu .active.item {
+    border-radius: 0 !important; }
+
+.socialMediaPage .profilePic img {
+  border: none !important; }
+
+.socialMediaPage .profileContentContainer {
+  border: none !important;
+  min-height: 450px;
+  padding: 0 !important; }

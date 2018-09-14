@@ -1,0 +1,116 @@
+@import './pages/about.scss';
+@import './pages/createDiscussion.scss';
+@import './pages/discussion.scss';
+@import './pages/discussions.scss';
+@import './pages/fallacies.scss';
+@import './pages/fallacy.scss';
+@import './pages/pages.scss';
+@import './pages/post.scss';
+@import './pages/search.scss';
+@import './pages/settings.scss';
+@import './pages/signIn.scss';
+@import './pages/users.scss';
+@import '../../css/colors.scss';
+
+.rightSide {
+    margin-left: 0;
+    padding-left: 0 !important;
+}
+
+*:not(img) {
+    border-radius: 0 !important;
+}
+
+button {
+    color: $white !important;
+
+    &:hover {
+        color: $white !important;
+    }
+}
+
+textarea {
+    border: solid 1px $container-border-color;
+    color: $electromagnetic;
+    outline: none !important;
+    padding: 8px;
+    width: 100%;
+}
+
+.dropdown {
+    border-radius: 0 !important;
+
+    &:focus {
+        border-radius: 0 !important;
+    }
+}
+
+.lazyLoadSegment {
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+
+.input {
+    input {
+        border-radius: 0 !important;
+    }
+}
+
+.segment {
+    background: $container-content-background !important;
+    border: solid 1px $container-border-color !important;
+    box-shadow: none !important;
+    padding: 8px;
+
+    &.dimmer {
+        border: solid 1px  $dimmer-border;
+    }
+}
+
+.ui.active.transition.visible.dimmer {
+    background: $dimmer-background !important;
+
+    button {
+        background: $skirret-green;
+
+        &:hover {
+            background: $download-progress;
+        }
+    }
+}
+
+.externalUrl {
+    color: $vanadyl-blue;
+    cursor: pointer;
+
+    &:hover {
+        color: lighten($vanadyl-blue, 5%);
+    }
+}
+
+.clearfix {
+    clear: both;
+}
+
+.facebookIcon {
+    color: $facebook;
+}
+
+.twitterIcon {
+    color: $twitter;
+}
+
+.youtubeIcon {
+    color: $youtube;
+}
+
+.Linkify {
+    color: $electromagnetic !important;
+    a {
+        color: $vanadyl-blue !important;
+    }
+}
+
+.modals.dimmer .ui.scrolling.modal {
+    margin: 60px 0 70px 0 !important;
+}

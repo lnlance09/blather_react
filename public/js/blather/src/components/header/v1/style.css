@@ -1,0 +1,42 @@
+.pageHeader .menu.globalHeader {
+  background: #2f3640 !important;
+  height: 60px;
+  z-index: 1001 !important; }
+  .pageHeader .menu.globalHeader .headerContainer {
+    padding-left: 30px;
+    padding-right: 30px; }
+    .pageHeader .menu.globalHeader .headerContainer .headerMenuItem {
+      margin-right: 0 !important; }
+      .pageHeader .menu.globalHeader .headerContainer .headerMenuItem .headerLogo {
+        cursor: pointer;
+        display: inline;
+        fill: #0097e6;
+        height: 36px;
+        line-height: 4;
+        margin-right: 12px;
+        vertical-align: middle;
+        width: 36px; }
+        .pageHeader .menu.globalHeader .headerContainer .headerMenuItem .headerLogo:hover {
+          fill: #01a8ff; }
+    .pageHeader .menu.globalHeader .headerContainer .fallaciesLink, .pageHeader .menu.globalHeader .headerContainer .discussionsLink, .pageHeader .menu.globalHeader .headerContainer .signInLink {
+      color: #f5f6fa;
+      font-size: 15px !important;
+      font-weight: 500 !important;
+      padding-left: 10px !important;
+      padding-right: 10px !important; }
+      .pageHeader .menu.globalHeader .headerContainer .fallaciesLink:hover, .pageHeader .menu.globalHeader .headerContainer .discussionsLink:hover, .pageHeader .menu.globalHeader .headerContainer .signInLink:hover {
+        color: white;
+        background: rgba(0, 0, 0, 0) !important; }
+    .pageHeader .menu.globalHeader .headerContainer .dropDownMenu {
+      font-size: 15px;
+      font-weight: 500 !important; }
+      .pageHeader .menu.globalHeader .headerContainer .dropDownMenu .menu.visible {
+        z-index: 1001; }
+        .pageHeader .menu.globalHeader .headerContainer .dropDownMenu .menu.visible .item a {
+          color: rgba(0, 0, 0, 0.8) !important; }
+    .pageHeader .menu.globalHeader .headerContainer .searchTab {
+      background: #1da1f2;
+      border-bottom-left-radius: 0;
+      border-top-left-radius: 0;
+      color: #ffffff;
+      font-weight: normal; }

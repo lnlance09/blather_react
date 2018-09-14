@@ -1,0 +1,35 @@
+.ui.card.tagsCard {
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  margin-top: 12px !important; }
+  .ui.card.tagsCard .content {
+    border: none;
+    padding: 0 !important; }
+    .ui.card.tagsCard .content .header {
+      color: #353b48; }
+      .ui.card.tagsCard .content .header .editTagsIcon {
+        color: #0097e6;
+        cursor: pointer;
+        display: none !important;
+        float: right;
+        font-size: 18px;
+        margin-right: 0 !important; }
+        .ui.card.tagsCard .content .header .editTagsIcon.editing {
+          color: #e84118; }
+      .ui.card.tagsCard .content .header:hover .editTagsIcon {
+        display: inline !important; }
+  .ui.card.tagsCard .tagsList .item .icon {
+    color: #e84118 !important;
+    display: none; }
+  .ui.card.tagsCard .tagsList .item:hover .icon {
+    cursor: pointer;
+    display: inline; }
+
+.ui.small.modal {
+  margin-top: 100px !important; }
+  .ui.small.modal .tagModalBtn {
+    background: #0097e6;
+    float: right;
+    margin-top: 12px; }
+    .ui.small.modal .tagModalBtn:hover {
+      background: #0086cd; }

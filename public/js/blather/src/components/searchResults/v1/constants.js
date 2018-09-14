@@ -1,0 +1,2 @@
+export const GET_SEARCH_RESULTS = 'search:GET_SEARCH_RESULTS';
+export const REFRESH_YOUTUBE_TOKEN = 'user:REFRESH_YOUTUBE_TOKEN';

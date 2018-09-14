@@ -1,0 +1,15 @@
+@import '../../../css/colors.scss';
+
+.loginContainer {
+    background: $linx-white;
+    height: 100%;
+    padding-top: 60px;
+
+    .loginForm {
+        height: 100%;
+
+        .header {
+            margin-top: 0;
+        }
+    } 
+}

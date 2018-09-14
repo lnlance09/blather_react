@@ -1,0 +1,22 @@
+.aboutCard {
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  margin-top: 5px !important; }
+  .aboutCard .editAboutIcon {
+    cursor: pointer;
+    float: right; }
+  .aboutCard .content {
+    border: none !important;
+    padding-left: 0 !important;
+    padding-right: 3px !important; }
+  .aboutCard:hover .editAboutIcon {
+    display: inline; }
+  .aboutCard .description {
+    color: #2f3640 !important;
+    word-wrap: break-word; }
+  .aboutCard .updateAboutButton {
+    background: #487eb0 !important;
+    margin-top: 5px; }
+    .aboutCard .updateAboutButton:hover {
+      background: #40739e !important; }

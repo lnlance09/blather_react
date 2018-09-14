@@ -1,0 +1,1 @@
+export const GET_FALLACIES = 'fallacies:GET_FALLACIES';

@@ -1,0 +1,15 @@
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteCond %{REQUEST_FILENAME} !-l
+RewriteRule ^(.*)$ index.php/$1 [L]
+
+#ProxyPass /api http://127.0.0.1:8888/blather/
+#ProxyPassReverse /api http://127.0.0.1:8888/blather/
+
+#RewriteBase /
+#RewriteRule .* - [env=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+#Header add Access-Control-Allow-Origin "*"
+#Header add Access-Control-Allow-Headers "origin, x-requested-with, content-type"
+#Header add Access-Control-Allow-Methods "PUT, GET, POST, DELETE, OPTIONS"
+

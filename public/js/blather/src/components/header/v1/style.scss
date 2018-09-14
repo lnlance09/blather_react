@@ -1,0 +1,69 @@
+@import '../../../css/colors.scss';
+
+.pageHeader {
+    .menu.globalHeader {
+        background: $electromagnetic !important;
+        height: 60px;
+        z-index: 1001 !important;
+
+        .headerContainer {
+            padding-left: 30px;
+            padding-right: 30px;
+
+            .headerMenuItem {
+                margin-right: 0 !important;
+                
+                .headerLogo {
+                    cursor: pointer;
+                    display: inline;
+                    fill: $vanadyl-blue;
+                    height: 36px;
+                    line-height: 4;
+                    margin-right: 12px;
+                    vertical-align: middle;
+                    width: 36px;
+
+                    &:hover {
+                        fill: lighten($vanadyl-blue, 5%);
+                    }
+                }
+            }
+
+            .fallaciesLink, .discussionsLink, .signInLink {
+                color: $linx-white;
+                font-size: 15px !important;
+                font-weight: 500 !important;
+                padding-left: 10px !important;
+                padding-right: 10px !important;
+
+                &:hover {
+                    color: lighten($linx-white, 5%);
+                    background: rgba(0,0,0,0) !important;
+                }
+            }
+
+            .dropDownMenu {
+                font-size: 15px;
+                font-weight: 500 !important;
+                
+                .menu.visible {
+                    z-index: 1001;
+
+                    .item {
+                        a {
+                            color: rgba(0,0,0,0.8) !important;
+                        }
+                    }
+                }
+            }
+
+            .searchTab {
+                background: #1da1f2;
+                border-bottom-left-radius: 0;
+                border-top-left-radius: 0;
+                color: $white;
+                font-weight: normal;
+            }
+        }
+    }
+}

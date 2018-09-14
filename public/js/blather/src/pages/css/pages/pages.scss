@@ -1,0 +1,21 @@
+@import '../../../css/colors.scss';
+
+.socialMediaPage {
+    .menu.socialMediaPageMenu {
+        margin-top: 40px !important;
+
+        .active.item {
+            border-radius: 0 !important;
+        }
+    }
+
+    .profilePic img {
+        border: none !important;
+    }
+
+    .profileContentContainer {
+        border: none !important;
+        min-height: 450px;
+        padding: 0 !important;
+    }
+}

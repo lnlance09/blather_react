@@ -1,0 +1,133 @@
+@import '../../../css/colors.scss';
+
+.tweet {
+    &.clickable {
+        cursor: pointer;
+    }
+
+    &:first-of-type {
+        margin-top: 0;
+    }
+
+    .archiveMsg {
+        box-shadow: 0 0 0 1px $positive-green-border inset, 0 0 0 0 transparent !important;
+        margin-bottom: 0 !important;
+    }
+
+    .retweetedText {
+        color: $subheader-grey;
+        font-size: 13px;
+        padding: 6px 10px;
+    }
+
+    .card {
+        background: $white;
+        border: solid 1px $container-border-color !important;
+        border-radius: 0;
+        box-shadow: none !important;
+
+        .content {
+            border-top: none !important;
+            padding: 7px 14px !important;
+
+            &.quotedTweetContent, .quotedTweet {
+                background: $white !important;
+            }
+
+            &.extra {
+                background: $white;
+                border-top: solid 1px $container-border-color !important;
+                padding: 1px 14px !important;
+
+                .list {
+                    .item {
+                        .content {
+                            background: $white !important;
+                            padding-left: 7px !important;
+
+                            .header {
+                                span {
+                                    color: $electromagnetic;
+                                }
+                            }
+                        }
+
+                        .icon.retweet {
+                            color: $vanadyl-blue;
+                        }
+
+                        .icon.like {
+                            color: $harley-davidson-orange;
+                        }
+
+                        .icon.archive {
+                            color: $chain-gang-grey;
+                            cursor: pointer;
+                        }
+
+                        &.archiveListItem {
+                            .content {
+                                padding-right: 0 !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .quotedTweet {
+        border: solid 1px $tweet-border-color !important;
+        margin-bottom: 5px !important;
+
+        .quotedTweetContent {
+            padding: 12px;
+
+            .quotedScreenName {
+                color: rgba(0,0,0,.7);
+                font-weight: normal;
+                margin-left: 4px;
+            }
+
+            .quotedTextTweet {
+                font-size: 14px;
+            }
+
+            .quotedHeader {
+                font-size: 14px !important;
+            }
+        }
+    }
+
+    .tweetUserImg {
+        margin-right: 9px !important;
+        width: 48px;
+    }
+
+    .tweetUserName {
+        color: $electromagnetic !important;
+        font-size: 18px !important;
+    }
+
+    .tweetUserScreenName {
+        font-size: 14px !important;
+        margin-top: 0px;
+    }
+
+    .tweetUserTweet {
+        color: $electromagnetic !important;
+        font-size: 16px !important;
+    }
+
+    .tweetTime {
+        margin-left: 4px;
+    }
+
+    .mediaImg {
+        margin-top: 10px;
+    }
+
+    .mediaVideo {
+        margin-top: 10px;
+    }
+}

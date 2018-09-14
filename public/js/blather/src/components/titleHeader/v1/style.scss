@@ -1,0 +1,45 @@
+@import '../../../css/colors.scss';
+
+.titleHeader {
+    .header {
+        color: $electromagnetic;
+
+        .sub.header {
+            color: $blueberry-soda;
+        }
+
+        .editHeaderIcon {
+            color: $vanadyl-blue;
+            cursor: pointer;
+            display: none !important;
+            float: right;
+            line-height: 36px;
+            margin-right: 0 !important;
+
+            &.check {
+                color: $skirret-green;
+            }
+
+            &.close {
+                color: $harley-davidson-orange;
+            }
+        }
+
+        .titleInput {
+            width: 96% !important;
+            
+            input {
+                border-radius: 0 !important;
+                font-size: 24px;
+                line-height: 24px;
+                padding: 4px 10px;
+            }
+        }
+
+        &:hover {
+            .editHeaderIcon {
+                display: inline !important;
+            }
+        }
+    }
+}

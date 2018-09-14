@@ -1,0 +1,18 @@
+.usersPage .changePicBtn {
+  background: #0097e6 !important; }
+  .usersPage .changePicBtn:hover {
+    background: #00a8ff !important; }
+  .usersPage .changePicBtn .icon {
+    color: #ffffff !important; }
+
+.usersPage .profilePic img {
+  border: none !important; }
+
+.usersPage .menu.profileMenu {
+  margin-top: 40px !important; }
+  .usersPage .menu.profileMenu .active.item {
+    border-radius: 0 !important; }
+
+.usersPage .profileContentContainer {
+  border: none !important;
+  padding: 0 !important; }

@@ -1,0 +1,37 @@
+.modal {
+  z-index: 999999; }
+  .modal .modal-content {
+    margin-top: 60px;
+    border-radius: 0; }
+    .modal .modal-content .modal-header h3 {
+      font-size: 28px;
+      margin: 0;
+      padding: 0; }
+      @media screen and (max-width: 768px) {
+        .modal .modal-content .modal-header h3 {
+          font-size: 20px; } }
+      .modal .modal-content .modal-header h3 .close {
+        font-size: inherit;
+        margin-top: 5px; }
+    .modal .modal-content .modal-header i {
+      color: #000; }
+      @media screen and (max-width: 768px) {
+        .modal .modal-content .modal-header i {
+          font-size: 20px; } }
+    .modal .modal-content .modal-header .fa-globe {
+      color: #82b919 !important; }
+    .modal .modal-content h4 {
+      font-size: 32px;
+      text-align: center; }
+      @media screen and (max-width: 768px) {
+        .modal .modal-content h4 {
+          font-size: 22px; } }
+    .modal .modal-content .modal-body {
+      background: #fff; }
+      .modal .modal-content .modal-body a {
+        font-size: 24px; }
+    .modal .modal-content .modal-footer {
+      text-align: right; }
+    .modal .modal-content .ajax-loader {
+      margin-top: 0;
+      padding: 50px 0; }

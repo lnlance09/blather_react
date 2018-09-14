@@ -1,0 +1,46 @@
+@import '../../../css/colors.scss';
+
+.conversation {
+    margin-top: 25px;
+
+    .form {
+        button {
+            background: $twitter !important;
+            margin-top: 12px;
+
+            &:hover {
+                background: darken($twitter, 5%) !important;
+            }
+        }
+    }
+
+    .statusActionSegment {
+        height: 116px;
+
+        .youtubeButton {
+            background: $youtube !important;
+            margin-top: 0 !important;
+
+            &:hover {
+                background: darken($youtube, 5%) !important;
+            }
+        }
+
+        .twitterButton {
+            background: $twitter;
+            color: $white;
+
+            &:hover {
+                background: darken($twitter, 5%);
+            }
+        }
+    }
+
+    .card {
+        box-shadow: 0 1px 3px 0 $card-box-shadow, 0 0 0 1px $card-box-shadow;
+        
+        .content {
+            border: none;
+        }
+    }
+}

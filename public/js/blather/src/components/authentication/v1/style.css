@@ -1,0 +1,32 @@
+.signInLogo {
+  display: inline;
+  fill: #0097e6;
+  height: 48px;
+  width: 48px; }
+
+.authSegment {
+  background: #f5f6fa !important;
+  border: none !important;
+  box-shadow: none !important;
+  margin-bottom: 0 !important;
+  padding: 0 !important; }
+  .authSegment .form .input input {
+    border-radius: 0; }
+    .authSegment .form .input input:active, .authSegment .form .input input:focus {
+      border-radius: 0; }
+  .authSegment .form button {
+    background: #40739e !important; }
+  .authSegment .error.message {
+    border-radius: 0; }
+
+.authInfoSegment {
+  background: #f5f6fa !important;
+  border: none !important;
+  box-shadow: none !important;
+  margin-top: 0 !important; }
+  .authInfoSegment .registerLink {
+    color: #0097e6;
+    cursor: pointer;
+    margin-left: 5px; }
+    .authInfoSegment .registerLink:hover {
+      text-decoration: underline; }

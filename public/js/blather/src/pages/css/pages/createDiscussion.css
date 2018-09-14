@@ -1,0 +1,38 @@
+.createDiscussionPage .header .icon {
+  color: #353b48;
+  cursor: pointer;
+  display: none !important;
+  font-size: 18px;
+  line-height: 36px !important;
+  margin-right: 0 !important;
+  vertical-align: middle; }
+
+.createDiscussionPage .header:hover .icon {
+  display: inline !important; }
+
+.createDiscussionPage .contentContainer {
+  background: #ffffff;
+  border: none !important;
+  padding: 0 !important; }
+  .createDiscussionPage .contentContainer .segment {
+    border: none !important;
+    margin: 0;
+    padding: 0; }
+    .createDiscussionPage .contentContainer .segment .ui.form .field label {
+      font-size: 15px; }
+    .createDiscussionPage .contentContainer .segment .ui.form .provenWrongTextArea {
+      margin-top: 1em; }
+    .createDiscussionPage .contentContainer .segment .ui.form .submitDiscussionButton {
+      background: #0097e6;
+      margin-top: 1em; }
+      .createDiscussionPage .contentContainer .segment .ui.form .submitDiscussionButton:hover {
+        background: #00a8ff; }
+    .createDiscussionPage .contentContainer .segment .ui.form .titleInput input, .createDiscussionPage .contentContainer .segment .ui.form textarea {
+      padding: 8px; }
+  .createDiscussionPage .contentContainer .previewSegment .descriptionPreview, .createDiscussionPage .contentContainer .previewSegment .extraPreview {
+    background: #f5f6fa;
+    min-height: 80px;
+    padding: 8px; }
+
+.createDiscussionPage .rightSide .discussionTagsHeader {
+  font-size: 24px !important; }

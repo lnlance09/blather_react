@@ -1,0 +1,21 @@
+@import '../../../css/colors.scss';
+
+.commentsSection {
+    .comment {
+        .avatar {
+            img {
+                border-radius: 0 !important;
+            }
+        }
+    }
+
+    form {
+        button {
+            background: $vanadyl-blue !important;
+
+            &:hover {
+                background: darken($vanadyl-blue, 5%) !important;
+            }
+        }
+    }
+}

@@ -1,0 +1,31 @@
+.fallaciesPage .fallaciesMenu {
+  border: none !important;
+  box-shadow: none !important; }
+  .fallaciesPage .fallaciesMenu .item:first-child {
+    border-radius: 0 !important; }
+
+.fallaciesPage .ui.vertical.menu .active.item {
+  background: #00a8ff !important;
+  color: #ffffff; }
+  .fallaciesPage .ui.vertical.menu .active.item:hover {
+    color: #ffffff; }
+
+.fallaciesPage .mainFallacy {
+  display: none;
+  font-size: 18px; }
+  .fallaciesPage .mainFallacy .header {
+    padding-bottom: 0 !important; }
+  .fallaciesPage .mainFallacy p {
+    border: none !important;
+    font-size: 15px;
+    padding-top: 0 !important; }
+  .fallaciesPage .mainFallacy .segment {
+    background: #ffffff !important;
+    border: none !important;
+    padding-top: 0; }
+    .fallaciesPage .mainFallacy .segment .comments {
+      margin-top: 5px !important; }
+      .fallaciesPage .mainFallacy .segment .comments .comment .avatar img {
+        border-radius: 0 !important; }
+  .fallaciesPage .mainFallacy.active {
+    display: block; }

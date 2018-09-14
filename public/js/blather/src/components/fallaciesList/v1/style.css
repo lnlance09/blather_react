@@ -1,0 +1,12 @@
+.fallaciesList .fallaciesFilter .ui.dropdown {
+  border-radius: 0 !important; }
+
+.fallaciesList .emptyFallaciesContainer {
+  padding: 5px;
+  text-align: center; }
+  .fallaciesList .emptyFallaciesContainer .header {
+    font-size: 20px; }
+  .fallaciesList .emptyFallaciesContainer .message {
+    background: #ffffff;
+    border: none !important;
+    box-shadow: none !important; }
