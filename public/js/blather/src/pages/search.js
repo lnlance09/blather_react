@@ -90,7 +90,7 @@ class SearchPage extends Component {
     }
 
     render() {
-        const { activeIndex, activeItem, bearer, fallacies, height, page, value } = this.state;
+        const { activeIndex, activeItem, authenticated, bearer, fallacies, height, page, value, user } = this.state;
         const fallacyItem = rawFallacies.map((item, i) => (
             <Form.Checkbox 
                 checked={fallacies.indexOf(item.id.toString()) !== -1}
@@ -141,18 +141,6 @@ class SearchPage extends Component {
                                             }}
                                             placeholder='Search...'
                                             value={value}
-                                        />
-                                    </Menu.Item>
-                                    <Menu.Item
-                                        active={activeItem === 'facebook'}
-                                        name='facebook'
-                                        onClick={this.handleItemClick}
-                                    >
-                                        Pages
-                                        <Icon 
-                                            className='facebookIcon' 
-                                            inverted={activeItem === 'facebook'}
-                                            name='facebook' 
                                         />
                                     </Menu.Item>
                                     <Menu.Item
@@ -209,12 +197,15 @@ class SearchPage extends Component {
 
                             <Grid.Column className='rightSide' width={11}>
                                 <SearchResults 
+                                    authenticated={authenticated}
                                     bearer={bearer}
                                     fallacies={fallacies.join(',')}
+                                    history={this.props.history}
+                                    linkedTwitter={authenticated ? user.linkedTwitter : false}
+                                    linkedYoutube={authenticated ? user.linkedYoutube : false}
                                     page={page}
                                     q={value}
                                     type={activeItem}
-                                    {...this.props}
                                 />
                             </Grid.Column>
                         </Grid>

@@ -109,10 +109,34 @@
 			]);
 			$token = $this->twitter->getRequestToken();
 			echo json_encode([
-				'success' => true,
+				'error' => false,
 				'twitterAccessSecret' => $token['oauth_token_secret'],
 				'twitterAccessToken' => $token['oauth_token'],
 				'twitterUrl' => $this->twitter->authorizeUrl.'?oauth_token='.$token['oauth_token']
+			]);
+		}
+
+		public function requestToken() {
+			if(!$this->user) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'You must login'
+				]);
+				exit;
+			}
+
+			$token = $this->twitter->getRequestToken();
+			if(!$token) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'Cannot generate token'
+				]);
+				exit;
+			}
+
+			echo json_encode([
+				'error' => false,
+				'url' => $this->twitter->authorizeUrl.'?oauth_token='.$token['oauth_token']
 			]);
 		}
 

@@ -238,11 +238,17 @@
 			}
 
 			if($query[0]['email'] === $data['email']) {
-				return ['error' => true, 'msg' => 'A user with that email already exists'];
+				return [
+					'error' => true, 
+					'msg' => 'A user with that email already exists'
+				];
 			}
 
 			if($query[0]['username'] === $data['username']) {
-				return ['error' => true, 'msg' => 'A user with that username already exists'];
+				return [
+					'error' => true, 
+					'msg' => 'A user with that username already exists'
+				];
 			}
 
 			return false;

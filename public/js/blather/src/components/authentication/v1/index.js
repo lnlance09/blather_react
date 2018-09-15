@@ -60,33 +60,19 @@ class Authentication extends Component {
         this.props.switchTab(this.state.login)
     }
 
-    onChangeEmail(e, { value }) {
-        this.setState({ email: value })
-    }
+    onChangeEmail = (e, { value }) => this.setState({ email: value })
 
-    onChangeVerificationCode(e, { value }) {
-        this.setState({ verificationCode: value })
-    }
+    onChangeVerificationCode = (e, { value }) => this.setState({ verificationCode: value })
 
-    onChangePassword(e, { value }) {
-        this.setState({ password: value })
-    }
+    onChangePassword = (e, { value }) => this.setState({ password: value })
 
-    onRegChangeEmail(e, { value }) {
-        this.setState({ regEmail: value })
-    }
+    onRegChangeEmail = (e, { value }) => this.setState({ regEmail: value })
 
-    onRegChangeName(e, { value }) {
-        this.setState({ name: value })
-    }
+    onRegChangeName = (e, { value }) => this.setState({ name: value })
 
-    onRegChangePassword(e, { value }) {
-        this.setState({ regPassword: value })
-    }
+    onRegChangePassword = (e, { value }) => this.setState({ regPassword: value })
 
-    onRegChangeUsername(e, { value }) {
-        this.setState({ username: value })
-    }
+    onRegChangeUsername = (e, { value }) => this.setState({ username: value })
 
     submitEmailVerificationForm(e) {
         e.preventDefault();
@@ -268,9 +254,9 @@ class Authentication extends Component {
             <Provider store={store}>
                 <div>
                     <ReactSVG
+                        className='signInLogo'
                         path={Logo}
                         svgClassName='signInLogo'
-                        className='signInLogo'
                     />
                     <Header as='h1'>{headerText()}</Header>
                     <Segment className='authSegment' style={{ borderRadius: '0' }}>
@@ -278,7 +264,6 @@ class Authentication extends Component {
                         {errorMsg(this.props)}
                         {emailVerificationForm(this.props)}
                     </Segment>
-
                     {infoBox()}
                 </div>
             </Provider>)
@@ -330,17 +315,21 @@ Authentication.propTypes = {
 }
 
 Authentication.defaultProps = {
-    login: true
+    login: true,
+    submitLoginForm: submitLoginForm,
+    submitRegistrationForm: submitRegistrationForm,
+    switchTab: switchTab,
+    verifyEmail: verifyEmail
 }
 
 const mapStateToProps = (state, ownProps) => ({
     ...state.user,
     ...ownProps
-});
+})
 
 export default connect(mapStateToProps, { 
     submitLoginForm, 
     submitRegistrationForm, 
     switchTab,
     verifyEmail
-})(Authentication);
+})(Authentication)

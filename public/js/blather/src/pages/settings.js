@@ -4,13 +4,12 @@ import { adjustTimezone } from '../utils/dateFunctions';
 import { DisplayMetaTags } from '../utils/metaFunctions';
 import { 
     changePassword,
-    linkFacebook,
     linkTwitter,
     linkYouTube,
-    removeFacebook,
     removeTwitter,
     removeYouTube,
-    resetPasswordProps
+    resetPasswordProps,
+    twitterRequestToken
 } from '../components/authentication/v1/actions';
 import { Provider, connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
@@ -26,7 +25,6 @@ import {
     Message,
     Segment
 } from 'semantic-ui-react';
-// import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 import Moment from 'react-moment';
 import PageFooter from '../components/footer/v1/';
 import PageHeader from '../components/header/v1/';
@@ -44,16 +42,8 @@ class SettingsPage extends Component {
         const parsed = qs.parse(this.props.location.search)
 
         let activeItem = 'basic';
-        if(['facebook', 'twitter', 'youtube'].indexOf(props.match.params.tab) !== -1) {
+        if(['twitter', 'youtube'].indexOf(props.match.params.tab) !== -1) {
             activeItem = props.match.params.tab
-        }
-
-        // Get authorization code for Facebbok from URL
-        if(activeItem === 'facebook' && parsed.code && !currentState.user.data.linkedFb) {
-            this.props.linkFacebook({
-                bearer: this.props.bearer,
-                code: parsed.code
-            })
         }
 
         // Get authorization code for Twitter from URL
@@ -86,6 +76,7 @@ class SettingsPage extends Component {
         this.onChangePassword = this.onChangePassword.bind(this)
         this.onChangeNewPassword = this.onChangeNewPassword.bind(this)
         this.onChangeConfirmPassword = this.onChangeConfirmPassword.bind(this)
+        this.redirectToUrl = this.redirectToUrl.bind(this)
         this.setPassword = this.setPassword.bind(this)
     }
 
@@ -104,16 +95,26 @@ class SettingsPage extends Component {
         }
     }
 
-    onChangeConfirmPassword(e, { value }) {
-        this.setState({ confirmPassword: value })
-    }
+    onChangeConfirmPassword = (e, { value }) => this.setState({ confirmPassword: value })
 
-    onChangeNewPassword(e, { value }) {
-        this.setState({ newPassword: value })
-    }
+    onChangeNewPassword = (e, { value }) => this.setState({ newPassword: value })
 
-    onChangePassword(e, { value }) {
-        this.setState({ password: value })
+    onChangePassword = (e, { value }) => this.setState({ password: value })
+
+    redirectToUrl = (e) => {
+        let url = null
+        switch(this.state.activeItem) {
+            case'twitter':
+                url = this.props.data.twitterUrl
+                break
+            case'youtube':
+                url = this.props.data.youtubeUrl
+                break
+            default:
+        }
+        if(url) {
+            window.open(url, '_self')
+        }
     }
 
     setPassword(e) {
@@ -128,30 +129,14 @@ class SettingsPage extends Component {
     }
 
     handleItemClick = (e, { name }) => {
+        if(name === 'twitter') {
+            this.props.twitterRequestToken(this.props.bearer)
+        }
         this.setState({ activeItem: name })
     }
 
     render() {
-        const { activeItem, confirmPassword, loading, newPassword, password } = this.state
-        const redirectToUrl = (e) => {
-            let url = null;
-            switch(activeItem) {
-                case'facebook':
-                    url = this.props.data.fbUrl
-                    break
-                case'twitter':
-                    url = this.props.data.twitterUrl
-                    break
-                case'youtube':
-                    url = this.props.data.youtubeUrl
-                    break
-                default:
-            }
-            if(url) {
-                window.open(url, '_self')
-            }
-        }
-
+        const { activeItem, confirmPassword, height, loading, newPassword, password } = this.state
         const activeItemDiv = activeItem => {
             if(activeItem === 'basic') {
                 const joinDate = adjustTimezone(this.props.data.dateCreated)
@@ -204,48 +189,6 @@ class SettingsPage extends Component {
                 )
             }
 
-            if(activeItem === 'facebook') {
-                const fbDate = adjustTimezone(this.props.data.fbDate)
-                const list = [
-                    "Basic info. This includes your name, username, and profile picture.",
-                    "Your posts. Other users will be able to point out fallacious reasoning. This also allows you to assign fallacies to Facebook posts"
-                ]
-
-                return (
-                    <div>
-                        {this.props.data.linkedFb ? (
-                            <div>
-                                <p className='firstParagraph'>
-                                    You linked your Facebook account <Moment date={fbDate} fromNow interval={60000} />
-                                </p>
-
-                                <div style={{ textAlign: 'center' }}>
-                                    <Button 
-                                        as='a' 
-                                        color='facebook'
-                                        compact 
-                                        onClick={(e) => {
-                                            this.props.removeFacebook(this.props.bearer)
-                                        }}
-                                    >
-                                        <Icon name='facebook' /> Remove access
-                                    </Button>
-                                </div>
-                            </div>
-                        ) : (
-                            <div>
-                                <Message header='What we are requesting' info list={list} />
-                                <p className='firstParagraph'>
-                                    <Button color='facebook' compact onClick={redirectToUrl}>
-                                        <Icon name='facebook' /> Link your account
-                                    </Button>
-                                </p>
-                            </div>
-                        )}
-                    </div>
-                )
-            }
-
             if(activeItem === 'twitter') {
                 const twitterDate = adjustTimezone(this.props.data.twitterDate)
                 const list = [
@@ -276,7 +219,11 @@ class SettingsPage extends Component {
                             <div>
                                 <Message header='What we are requesting' info list={list} />
                                 <p className='firstParagraph'>
-                                    <Button color='twitter' compact onClick={redirectToUrl}>
+                                    <Button 
+                                        color='twitter' 
+                                        compact 
+                                        onClick={this.redirectToUrl}
+                                    >
                                         <Icon name='twitter' /> Link your account
                                     </Button>
                                 </p>
@@ -316,7 +263,11 @@ class SettingsPage extends Component {
                             <div>
                                 <Message header='What we are requesting' info list={list} />
                                 <p className='firstParagraph'>
-                                    <Button color='youtube' compact onClick={redirectToUrl}>
+                                    <Button 
+                                        color='youtube' 
+                                        compact 
+                                        onClick={this.redirectToUrl}
+                                    >
                                         <Icon name='youtube' /> Link your account
                                     </Button>
                                 </p>
@@ -337,7 +288,7 @@ class SettingsPage extends Component {
                     />
                     <Container
                         className='mainContainer'
-                        style={{ minHeight: this.state.height +'px' }}
+                        style={{ minHeight: height +'px' }}
                         textAlign='left'
                     >
                         <Header as='h1'>
@@ -357,19 +308,6 @@ class SettingsPage extends Component {
                                         active={activeItem === 'basic'}
                                         onClick={this.handleItemClick}
                                     />
-                                    <Menu.Item
-                                        name='facebook'
-                                        key='facebook'
-                                        active={activeItem === 'facebook'}
-                                        onClick={this.handleItemClick}
-                                    >
-                                        Facebook
-                                        <Icon 
-                                            className='facebookIcon' 
-                                            inverted={activeItem === 'facebook'}
-                                            name='facebook' 
-                                        />
-                                    </Menu.Item>
                                     <Menu.Item
                                         name='twitter'
                                         key='twitter'
@@ -425,13 +363,9 @@ SettingsPage.propTypes = {
         bio: PropTypes.string,
         dateCreated: PropTypes.string,
         email: PropTypes.string,
-        fbAccessToken: PropTypes.string,
-        fbDate: PropTypes.string,
-        fbId: PropTypes.string,
         name: PropTypes.string,
         id: PropTypes.string,
         img: PropTypes.string,
-        linkedFb: PropTypes.bool,
         linkedTwitter: PropTypes.bool,
         linkedYoutube: PropTypes.bool,
         twitterAccessToken: PropTypes.string,
@@ -457,7 +391,9 @@ SettingsPage.propTypes = {
 }
 
 SettingsPage.defaultProps = {
-
+    changePassword: changePassword,
+    removeTwitter: removeTwitter,
+    removeYouTube: removeYouTube
 }
 
 const mapStateToProps = (state, ownProps) => {
@@ -469,11 +405,10 @@ const mapStateToProps = (state, ownProps) => {
 
 export default connect(mapStateToProps, { 
     changePassword,
-    linkFacebook, 
     linkTwitter,
     linkYouTube, 
-    removeFacebook, 
     removeTwitter, 
     removeYouTube,
-    resetPasswordProps
+    resetPasswordProps,
+    twitterRequestToken
 })(SettingsPage)

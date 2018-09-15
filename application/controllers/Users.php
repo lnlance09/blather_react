@@ -350,15 +350,23 @@
 			}
 
 			$register = $this->users->register($params);
-			if($register['error']) {
+			if(!$register) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'Something went wrong. Please try again.'
 				]);
 				exit;
 			}
+
+			if($register['error']) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => $register['msg']
+				]);
+				exit;
+			}
 			
-			$msg = "Hi ".$params['name'].',<br><br>Your verification code is '.$params['verification_code'].'.';
+			$msg = "Hi ".$params['name'].',<br><br>Your verification code is '.$params['verification_code'];
 			$this->load->library('My_PHPMailer');
 			$mail = new PHPMailer();
 			$mail->IsSMTP();
@@ -378,12 +386,6 @@
 				echo json_encode($register);
 				exit;
 			}
-
-			/*
-			echo json_encode([
-				'error' => $register['msg']
-			]);
-			*/
 		}
 
 		public function uniqueFallacies() {
@@ -405,10 +407,14 @@
 		public function verifyEmail() {
 			if(!$this->user) {
 				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'You must login to verify your account'
+				]);
 				exit;
 			}
 
 			if($this->input->post('code') !== $this->user->verificationCode) {
+				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'Incorrect verification code'
 				]);

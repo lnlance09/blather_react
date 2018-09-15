@@ -3,8 +3,10 @@ import { fetchSearchResults } from './actions';
 import { refreshYouTubeToken } from '../../authentication/v1/actions';
 import { formatNumber, formatPlural } from '../../../utils/textFunctions';
 import { connect, Provider } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { 
     Container,
+    Icon,
     Image,
     Item,
     Message,
@@ -85,18 +87,15 @@ class SearchResults extends Component {
                 case'fallacies':
                     let dateCreated = (
                         <div>
-                            {result.fallacy_name} - Assigned by {result.name} <Moment date={result.date_created} fromNow />
+                            Assigned by {result.user_name} <Moment date={result.date_created} fromNow />
                         </div>
                     )
                     return {
                         description: result.explanation,
-                        extra: {
-                            count: result.view_count,
-                            term: 'view'
-                        },
+                        extra: null,
                         img: result.page_profile_pic,
                         meta: dateCreated,
-                        tags: [],
+                        tags: [`${result.fallacy_name}`],
                         title: result.title,
                         url: `/fallacies/${result.id}`
                     }
@@ -157,6 +156,33 @@ class SearchResults extends Component {
             }
             return null
         }
+        const linkAccountMsg = props => {
+            if(props.authenticated && props.type === 'twitter' && !props.linkedTwitter) {
+                return (
+                    <Message className='linkAccountMsg' icon>
+                        <Icon className='twitterIcon' name='twitter' />
+                        <Message.Content>
+                            <Message.Header>Link your Twitter</Message.Header>
+                            You can search live results after you <Link to={`/settings/twitter`}>link</Link> your account
+                        </Message.Content>
+                    </Message>
+                )
+            }
+
+            if(props.authenticated && props.type === 'youtube' && !props.linkedYoutube) {
+                return (
+                    <Message className='linkAccountMsg' icon>
+                        <Icon className='youtubeIcon' name='youtube' />
+                        <Message.Content>
+                            <Message.Header>Link your YouTube</Message.Header>
+                            You can search live results after you <Link to={`/settings/youtube`}>link</Link> your account
+                        </Message.Content>
+                    </Message>
+                )
+            }
+
+            return null
+        }
         const resultsHeader = count => (
             <Statistic size='tiny'>
                 <Statistic.Value>{formatNumber(count)}</Statistic.Value>
@@ -174,7 +200,7 @@ class SearchResults extends Component {
 
             if(props.count > 0) {
                 return (
-                    <Item.Group>
+                    <Item.Group divided>
                         { searchResults }
                     </Item.Group>
                 )
@@ -221,6 +247,7 @@ class SearchResults extends Component {
                         </div>
                         <div className='clearfix'></div>
                     </div>
+                    {linkAccountMsg(this.props)}
                     <Container className='searchContentContainer'>
                         <Visibility 
                             continuous
@@ -238,11 +265,14 @@ class SearchResults extends Component {
 }
 
 SearchResults.propTypes = {
+    authenticated: PropTypes.bool,
     count: PropTypes.number,
     data: PropTypes.array,
     error: PropTypes.bool,
     fetchSearchResults: PropTypes.func,
     hasMore: PropTypes.bool,
+    linkedTwitter: PropTypes.bool,
+    linkedYoutube: PropTypes.bool,
     loading: PropTypes.bool,
     nextPageToken: PropTypes.string,
     page: PropTypes.number,
@@ -262,7 +292,7 @@ SearchResults.defaultProps = {
     page: 0,
     q: '',
     refreshYouTubeToken: refreshYouTubeToken,
-    type: 'facebook'
+    type: 'twitter'
 }
 
 const mapStateToProps = (state, ownProps) => ({

@@ -16,8 +16,8 @@ export const changePassword = ({bearer, confirmPassword, newPassword, password})
         json: true
     }, function(err, response, body) {
         dispatch({
-            type: constants.CHANGE_PASSWORD,
-            payload: body
+            payload: body,
+            type: constants.CHANGE_PASSWORD
         })
     })
 }
@@ -48,43 +48,15 @@ export const changeProfilePic = ({bearer, file}) => dispatch => {
             body.bearer = token;
 
              dispatch({
-                type: constants.CHANGE_PROFILE_PIC,
-                payload: body
+                payload: body,
+                type: constants.CHANGE_PROFILE_PIC
             })
         })
     }
     fr.readAsArrayBuffer(file);
 }
 
-export const linkFacebook = ({bearer, code}) => (dispatch, getState) => {
-    request.post(`${window.location.origin}/api/fb/getCredentials`, {
-        form: {
-            code
-        },
-        headers: {
-            'Authorization': bearer 
-        },
-        json: true
-    }, function(err, response, body) {
-        let localData = parseJwt();
-        if(body.linked_fb) {
-            localData.linkedFb = 1
-            localData.fbAccessToken = body.fb_access_token
-            localData.fbDate = body.fb_date
-            localData.fbId = body.fb_id
-            localData.fbUrl = body.fbUrl
-            const token = setToken(localData)
-            body.bearer = token
-        }
-
-        dispatch({
-            type: constants.LINK_FACEBOOK_ACCOUNT,
-            payload: body
-        })
-    })
-}
-
-export const linkTwitter = ({bearer, secret, token, verifier}) => (dispatch, getState) => {
+export const linkTwitter = ({bearer, secret, token, verifier}) => dispatch => {
     request.post(`${window.location.origin}/api/twitter/getCredentials`, {
         form: {
             oauth_token: token,
@@ -109,13 +81,13 @@ export const linkTwitter = ({bearer, secret, token, verifier}) => (dispatch, get
         body.bearer = token
 
         dispatch({
-            type: constants.LINK_TWITTER_ACCOUNT,
-            payload: body
+            payload: body,
+            type: constants.LINK_TWITTER_ACCOUNT
         })
     })
 }
 
-export const linkYouTube = ({bearer, code}) => (dispatch, getState) => {
+export const linkYouTube = ({bearer, code}) => dispatch => {
     request.post(`${window.location.origin}/api/youtube/redirect`, {
         form: {
             code: code
@@ -136,13 +108,13 @@ export const linkYouTube = ({bearer, code}) => (dispatch, getState) => {
         }
 
         dispatch({
-            type: constants.LINK_YOUTUBE_ACCOUNT,
-            payload: body
+            payload: body,
+            type: constants.LINK_YOUTUBE_ACCOUNT
         })
     })
 }
 
-export const logout = () => (dispatch, getState) => {
+export const logout = () => dispatch => {
     localStorage.removeItem('jwtToken');
     dispatch({
         type: constants.LOGOUT
@@ -162,50 +134,26 @@ export const refreshYouTubeToken = ({bearer}) => dispatch => {
             const token = setToken(localData)
 
             dispatch({
-                type: constants.REFRESH_YOUTUBE_TOKEN,
                 payload: {
                     bearer: token,
                     youtubeRefreshToken: body.refreshToken
-                }
+                },
+                type: constants.REFRESH_YOUTUBE_TOKEN
             })
         }
     })
 }
 
-export const removeFacebook = bearer => (dispatch, getState) => {
-    request.post(`${window.location.origin}/api/fb/remove`, {
-        headers: {
-            'Authorization': bearer 
-        },
-        json: true
-    }, function(err, response, body) {
-        if(body.success) {
-            let localData = parseJwt();
-            localData.linkedFb = 0
-            localData.fbAccessToken = body.fbAccessToken
-            localData.fbDate = null
-            localData.fbId = null
-            const token = setToken(localData)
-            body.bearer = token
-
-            dispatch({
-                type: constants.REMOVE_FACEBOOK_ACCOUNT,
-                payload: body
-            })
-        }
-    })
-}
-
-export const removeTwitter = bearer => (dispatch, getState) => {
+export const removeTwitter = bearer => dispatch => {
     request.post(`${window.location.origin}/api/twitter/remove`, {
         headers: {
             'Authorization': bearer 
         },
         json: true
     }, function(err, response, body) {
-        if(body.success) {
+        if(!body.error) {
             let localData = parseJwt();
-            localData.linkedTwitter = 0
+            localData.linkedTwitter = false
             localData.twitterAccessSecret = body.twitterAccessSecret
             localData.twitterAccessToken = body.twitterAccessToken
             localData.twitterDate = null
@@ -216,35 +164,35 @@ export const removeTwitter = bearer => (dispatch, getState) => {
             body.bearer = token
 
             dispatch({
-                type: constants.REMOVE_TWITTER_ACCOUNT,
-                payload: body
+                payload: body,
+                type: constants.REMOVE_TWITTER_ACCOUNT
             })
         }
     })
 }
 
-export const removeYouTube = bearer => (dispatch, getState) => {
+export const removeYouTube = bearer => dispatch => {
     request.post(`${window.location.origin}/api/youtube/remove`, {
         headers: {
             'Authorization': bearer 
         },
         json: true
     }, function(err, response, body) {
-         if(body.success) {
+         if(!body.error) {
             let localData = parseJwt()
-            localData.linkedYoutube = 0
-            localData.youtubeAccessToken = ''
-            localData.youtubeDate = ''
-            localData.youtubeId = ''
-            localData.youtubeRefreshToken = ''
+            localData.linkedYoutube = false
+            localData.youtubeAccessToken = null
+            localData.youtubeDate = null
+            localData.youtubeId = null
+            localData.youtubeRefreshToken = null
             localData.youtubeUrl = body.youtubeUrl
             const token = setToken(localData)
             body.bearer = token
         }
 
         dispatch({
+            payload: body,
             type: constants.REMOVE_YOUTUBE_ACCOUNT,
-            payload: body
         })
     })
 }
@@ -255,7 +203,7 @@ export const resetPasswordProps = () => dispatch => {
     })
 }
 
-export const submitLoginForm = ({email, password}) => (dispatch, getState) => {
+export const submitLoginForm = ({email, password}) => dispatch => {
     request.post(`${window.location.origin}/api/users/login`, {
         form: {
             email: email,
@@ -269,13 +217,13 @@ export const submitLoginForm = ({email, password}) => (dispatch, getState) => {
         }
 
         dispatch({
-            type: constants.SET_USER_DATA,
-            payload: body
+            payload: body,
+            type: constants.SET_USER_DATA
         })
     })
 }
 
-export const submitRegistrationForm = ({email, name, password, username}) => (dispatch, getState) => {
+export const submitRegistrationForm = ({email, name, password, username}) => dispatch => {
     request.post(`${window.location.origin}/api/users/register`, {
         form: {
             email: email,
@@ -288,20 +236,43 @@ export const submitRegistrationForm = ({email, name, password, username}) => (di
         if(!body.error) {
             const token = jwt.sign({data: body.user}, 'secret', {expiresIn: 60*60})
             localStorage.setItem('jwtToken', token)
-            body.user.bearer = token
+            body.bearer = token
         }
 
         dispatch({
-            type: constants.SET_USER_DATA,
-            payload: body
+            payload: body,
+            type: constants.SET_USER_DATA
         })
     })
 }
 
-export const switchTab = (tab) => dispatch => {
+export const switchTab = tab => dispatch => {
     dispatch({
-        type: constants.SWITCH_TAB,
-        tab: tab
+        tab: tab,
+        type: constants.SWITCH_TAB
+    })
+}
+
+export const twitterRequestToken = bearer => dispatch => {
+    request.post(`${window.location.origin}/api/twitter/requestToken`, {
+        headers: {
+            'Authorization': bearer 
+        },
+        json: true
+    }, function(err, response, body) {
+        if(!body.error) {
+            let localData = parseJwt()
+            localData.twitterUrl = body.url
+            const token = setToken(localData)
+
+            dispatch({
+                payload: {
+                    twitterUrl: body.url, 
+                    bearer: token
+                },
+                type: constants.SET_TWITTER_URL
+            })
+        }
     })
 }
 
@@ -321,14 +292,17 @@ export const updateAbout = ({bearer, bio}) => dispatch => {
             const token = setToken(localData)
 
             dispatch({
-                type: constants.UPDATE_ABOUT,
-                payload: {bio: bio, bearer: token}
+                payload: {
+                    bio: bio, 
+                    bearer: token
+                },
+                type: constants.UPDATE_ABOUT
             })
         }
     })
 }
 
-export const verifyEmail = ({code, bearer}) => (dispatch, getState) => {
+export const verifyEmail = ({code, bearer}) => dispatch => {
     request.post(`${window.location.origin}/api/users/verifyEmail`, {
         form: {
             code: code
@@ -343,8 +317,8 @@ export const verifyEmail = ({code, bearer}) => (dispatch, getState) => {
         }
 
         dispatch({
-            type: constants.VERIFY_EMAIL,
-            payload: body
+            payload: body,
+            type: constants.VERIFY_EMAIL
         })
     })
 }

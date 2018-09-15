@@ -43,17 +43,21 @@ class ResultItem extends Component {
             if(props.extra.length > 1) {
                 return (
                     <List className='extraList' horizontal>
-                        {props.extra.map((result, i) => (
-                            <List.Item>
-                                <b>{formatNumber(result.count)}</b> {formatPlural(result.count, result.term)}
-                            </List.Item>
-                        ))}
+                        {props.extra.map((result, i) => {
+                            if(parseInt(result.count,10) > 0) {
+                                return (
+                                    <List.Item key={`${props.key}_${i}`}>
+                                        <b>{formatNumber(result.count)}</b> {formatPlural(result.count, result.term)}
+                                    </List.Item>
+                                )
+                            }
+                        })}
                     </List>
                 )
             }
 
             if(props.extra) {
-                return `${formatNumber(props.extra.count)} ${formatPlural(props.extra.count, props.extra.term)}`
+                return props.extra.count > 0 ? `${formatNumber(props.extra.count)} ${formatPlural(props.extra.count, props.extra.term)}` : null
             }
 
             return null
@@ -100,7 +104,7 @@ class ResultItem extends Component {
             )
         }
         const RenderTags = tags => tags.map((tag, i) => (
-            <Label horizontal key={`tag_${i}`}>
+            <Label horizontal key={`${this.props.key}_label_${i}`}>
                 {tag}
             </Label>
         ))
@@ -127,7 +131,8 @@ ResultItem.propTypes = {
         PropTypes.object
     ]),
     img: PropTypes.string,
-    key: PropTypes.number,
+    id: PropTypes.string,
+    key: PropTypes.string,
     meta: PropTypes.oneOfType([
         PropTypes.bool,
         PropTypes.object,

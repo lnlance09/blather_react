@@ -10,8 +10,12 @@
     }
 
     .emptyMsg {
-        border-radius: 0 !important;
         box-shadow: 0 0 0 1px $warning-yellow-border inset, 0 0 0 0 transparent !important;
+        margin-top: 8px !important;
+    }
+
+    .linkAccountMsg {
+        box-shadow: 0 0 0 1px $regular-msg-border inset, 0 0 0 0 transparent !important;
     }
 
     .ui.active.transition.visible.dimmer {

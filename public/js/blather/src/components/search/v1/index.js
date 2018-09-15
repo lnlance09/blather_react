@@ -113,7 +113,6 @@ class NavSearch extends Component {
                 placeholder={props.placeholder}
                 results={results}
                 resultRenderer={resultRenderer}
-                selectFirstResult
             />
         )
 

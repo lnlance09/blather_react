@@ -17,7 +17,7 @@
   .authSegment .form button {
     background: #40739e !important; }
   .authSegment .error.message {
-    border-radius: 0; }
+    margin-bottom: 14px; }
 
 .authInfoSegment {
   background: #f5f6fa !important;

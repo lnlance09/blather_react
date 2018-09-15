@@ -142,10 +142,10 @@ const test = (state = initial(), action) => {
                 data: {
                     ...state.data,
                     linkedYoutube: false,
-                    youtubeAccessToken: '',
-                    youtubeDate: '',
-                    youtubeId: '',
-                    youtubeRefreshToken: '',
+                    youtubeAccessToken: null,
+                    youtubeDate: null,
+                    youtubeId: null,
+                    youtubeRefreshToken: null,
                     youtubeUrl: action.payload.youtubeUrl
                 }
             }
@@ -159,12 +159,23 @@ const test = (state = initial(), action) => {
                 passwordErrorMsg: ''
             }
 
+        case constants.SET_TWITTER_URL:
+            return {
+                ...state,
+                bearer: action.payload.bearer,
+                data: {
+                    ...state.data,
+                    twitterUrl: action.payload.twitterUrl,
+                }
+            }
+
         case constants.SET_USER_DATA:
             let authenticated = false
             let loginError = false
             let loginErrorMsg = ''
             let user = {}
             let verify = false;
+
             if(action.payload.error) {
                 loginError = true;
                 loginErrorMsg = action.payload.error;
@@ -179,14 +190,9 @@ const test = (state = initial(), action) => {
                     dateCreated: action.payload.user.dateCreated,
                     email: action.payload.user.email,
                     emailVerified: action.payload.user.emailVerified,
-                    fbAccessToken: action.payload.user.fbAccessToken,
-                    fbDate: action.payload.user.fbDate,
-                    fbId: action.payload.user.fbId,
-                    fbUrl: action.payload.user.fbUrl,
                     name: action.payload.user.name,
                     id: action.payload.user.id,
                     img: action.payload.user.img,
-                    linkedFb: action.payload.user.linkedFb,
                     linkedTwitter: action.payload.user.linkedTwitter,
                     linkedYoutube: action.payload.user.linkedYoutube,
                     twitterAccessToken: action.payload.user.twitterAccessToken,

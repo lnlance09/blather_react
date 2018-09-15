@@ -176,6 +176,9 @@
 		public function remove() {
 			if(!($this->user ? $this->user->linkedYoutube : false)) {
 				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'You must link your youtube account'
+				]);
 				exit;
 			}
 
