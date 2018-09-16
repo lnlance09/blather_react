@@ -27,13 +27,9 @@ const fallacy = (state = initial(), action) => {
             }
 
             if(fallacy.network === 'youtube') {
-                video = {
-                    channel: {
-                        id: fallacy.video_channel_id,
-                        img: fallacy.video_channel_img,
-                        title: fallacy.video_channel_name
-                    },
-                    comment: {
+                let comment = null
+                if(fallacy.comment_video_id) {
+                    comment = {
                         dateCreated: fallacy.comment_created_at,
                         id: fallacy.comment_id,
                         likeCount: fallacy.comment_like_count,
@@ -43,7 +39,16 @@ const fallacy = (state = initial(), action) => {
                             img: fallacy.page_profile_pic,
                             title: fallacy.page_name
                         }
+                    }
+                }
+
+                video = {
+                    channel: {
+                        id: fallacy.video_channel_id,
+                        img: fallacy.video_channel_img,
+                        title: fallacy.video_channel_name
                     },
+                    comment: comment,
                     dateCreated: fallacy.video_created_at,
                     description: fallacy.video_description,
                     id: fallacy.video_video_id,
@@ -65,9 +70,9 @@ const fallacy = (state = initial(), action) => {
             }
 
             if(payload.fallacy.contradiction_network === 'youtube') {
-                let comment = null
+                let contradictionComment = null
                 if(fallacy.contradiction_comment_id) {
-                    comment = {
+                    contradictionComment = {
                         dateCreated: fallacy.contradiction_comment_created_at,
                         id: fallacy.contradiction_comment_id,
                         likeCount: fallacy.contradiction_comment_like_count,
@@ -86,7 +91,7 @@ const fallacy = (state = initial(), action) => {
                             img: fallacy.contradiction_page_profile_pic,
                             title: fallacy.contradiction_page_name
                         },
-                        comment: comment,
+                        comment: contradictionComment,
                         dateCreated: fallacy.contradiction_video_created_at,
                         description: fallacy.contradiction_video_description,
                         endTime: fallacy.contradiction_end_time,

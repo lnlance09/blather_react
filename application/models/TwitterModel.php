@@ -386,12 +386,12 @@
                 if(!$tweet) {
                     return [
                         'code' => 404,
-                        'error' => 'That video does not exist'
+                        'error' => 'That tweet does not exist'
                     ];
                 }
 
                 return [
-                    'data' => json_decode($tweet['tweet_json']),
+                    'data' => json_decode($tweet['tweet_json'], true),
                     'error' => false
                 ];
             }

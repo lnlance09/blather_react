@@ -1,5 +1,7 @@
 import './style.css';
-import { } from './actions';
+import { dateDifference } from '../../../utils/dateFunctions';
+import { fallacyDropdownOptions } from '../../../utils/fallacyFunctions';
+import { formatDuration } from '../../../utils/textFunctions';
 import { connect } from 'react-redux';
 import { 
     Button,
@@ -9,11 +11,10 @@ import {
     Header,
     Icon,
     Image,
+    List,
     Segment,
     TextArea
 } from 'semantic-ui-react';
-import { dateDifference } from '../../../utils/dateFunctions';
-import { fallacyDropdownOptions } from '../../../utils/fallacyFunctions';
 import ParagraphPic from '../../../images/short-paragraph.png';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
@@ -70,7 +71,7 @@ class FallacyExample extends Component {
     }
 
     render() {
-        const { editing, explanation, fallacyId, fallacyName } = this.state
+        const { editing, explanation } = this.state
         const EditButton = ({props}) => {
             if(props.explanation) {
                 if(props.canEdit) {
@@ -128,12 +129,35 @@ class FallacyExample extends Component {
                     </div>
                 )}
                 {!props.explanation && (
-                    <Segment className='lazyLoadSegment'>
+                    <Segment className='lazyLoadSegment' loading>
                         <Image fluid src={ParagraphPic} />
                     </Segment>
                 )}
             </div>
         )
+        const FeaturedInVideo = (video, props) => {
+            if(video.channel.id !== props.user.id && !video.comment) {
+                const link = `/pages/${props.user.type}/${props.user.type === 'twitter' ? props.user.username : props.user.id}`
+                return (
+                    <List>
+                        <List.Item>
+                            <Image avatar src={props.user.img} />
+                            <List.Content>
+                                <List.Header 
+                                    as='a' 
+                                    onClick={() => props.history.push(link)}
+                                >
+                                    {props.user.name}
+                                </List.Header>
+                                <List.Description>
+                                    Is in this video {video.startTime > 0 ? `at ${formatDuration(video.startTime)}` : ''}
+                                </List.Description>
+                            </List.Content>
+                        </List.Item>
+                    </List>
+                )
+            }
+        }
         const Material = props => (
             <div className='fallacyMaterial'>
                 <Header as='h3' size='medium'>
@@ -151,7 +175,7 @@ class FallacyExample extends Component {
                     </div>
                 )}
                 {!this.props.user && (
-                    <Segment className='lazyLoadSegment'>
+                    <Segment className='lazyLoadSegment' loading>
                         <Image fluid src={ParagraphPic} />
                     </Segment>
                 )}
@@ -193,19 +217,23 @@ class FallacyExample extends Component {
 
             if(material.video) {
                 return (
-                    <YouTubeVideo 
-                        channel={material.video.channel}
-                        comment={material.video.comment}
-                        dateCreated={material.video.dateCreated}
-                        description={material.video.description}
-                        history={props.history}
-                        id={material.video.id}
-                        showChannel={false}
-                        showStats={false}
-                        startTime={material.video.startTime}
-                        stats={material.video.stats}
-                        title={material.video.title}
-                    />
+                    <div>
+                        <YouTubeVideo 
+                            channel={material.video.channel}
+                            comment={material.video.comment}
+                            dateCreated={material.video.dateCreated}
+                            description={material.video.description}
+                            history={props.history}
+                            id={material.video.id}
+                            showChannel={false}
+                            showComment={material.video.comment !== null}
+                            showStats={false}
+                            startTime={material.video.startTime}
+                            stats={material.video.stats}
+                            title={material.video.title}
+                        />
+                        {FeaturedInVideo(material.video, props)}
+                    </div>
                 )
             }
             return null
@@ -219,7 +247,7 @@ class FallacyExample extends Component {
                 }
                 if(props.video) {
                     dateOne = props.video.dateCreated
-                    if(props.video.comment.id) {
+                    if(props.video.comment) {
                         dateOne = props.video.comment.dateCreated
                     }
                 }
@@ -238,8 +266,6 @@ class FallacyExample extends Component {
             return null
         }
 
-        console.log('pppp')
-        console.log(this.props)
         return (
             <div className='fallacyExample'>
                 {this.props.showExplanation && (

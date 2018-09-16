@@ -87,7 +87,7 @@ class Conversation extends Component {
                 <Dimmer.Dimmable 
                     as={Segment} 
                     blurring
-                    className='statusActionSegment borderless'
+                    className='statusActionSegment'
                     dimmed
                 >
                     <Dimmer active inverted>

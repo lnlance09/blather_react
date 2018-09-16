@@ -70,8 +70,6 @@ class SocialMediaPage extends Component {
 
     determineItemsLabel(network) {
         switch(network) {
-            case'fb':
-                return 'posts'
             case'twitter':
                 return 'tweets'
             case'youtube':
@@ -96,17 +94,13 @@ class SocialMediaPage extends Component {
                 window.location.reload()
             }, 200)
         }
-        const DimmerMsg = ({props}) => {
+        const DimmerMsg = ({btn, msg, props}) => {
             return (
-                <Dimmer active={authenticated ? false : true}>
+                <Dimmer active>
                     <Header as='h2'>
-                        {props.posts.error ? props.posts.errorMsg : 'Sign in to view'}
+                        {msg}
                     </Header>
-                    {!authenticated && (
-                        <Button onClick={(e) => props.history.push('/signin')}>
-                            Sign in
-                        </Button>
-                    )}
+                    {btn}
                 </Dimmer>
             )
         }
@@ -157,40 +151,70 @@ class SocialMediaPage extends Component {
                     )
                 }
 
+                
                 if(authenticated) {
-                    switch(activeItem) {
-                        case'tweets':
-                            return (
-                                <div>
-                                    <TweetList 
-                                        bearer={bearer} 
-                                        history={props.history}
-                                        username={props.username} 
-                                    />
-                                </div>
-                            )
-                        case'videos':
-                            return (
-                                <div>
-                                    <VideoList 
-                                        bearer={bearer} 
-                                        channelId={id} 
-                                        history={this.props.history}
-                                    />
-                                </div>
-                            )
-                        default:
-                            return null
+                    if(activeItem === 'tweets' && props.data.linkedTwitter) {
+                        return (
+                            <div>
+                                <TweetList 
+                                    bearer={bearer} 
+                                    history={props.history}
+                                    username={id} 
+                                />
+                            </div>
+                        )
                     }
-                }
-            }
 
-            return (
-                <Dimmer.Dimmable as={Segment} dimmed>
-                    {LazyLoadDefault}
-                    <DimmerMsg props={props} />
-                </Dimmer.Dimmable>
-            )
+                    if(activeItem === 'videos' && props.data.linkedYoutube) {
+                        return (
+                            <div>
+                                <VideoList 
+                                    bearer={bearer} 
+                                    channelId={id} 
+                                    history={props.history}
+                                />
+                            </div>
+                        )
+                    }
+
+                    return (
+                        <Dimmer.Dimmable as={Segment} dimmed>
+                            {LazyLoadDefault}
+                            <DimmerMsg 
+                                btn={(
+                                    <Button 
+                                        color={props.network}
+                                        icon
+                                        onClick={() => props.history.push(`/settings/${props.network}`)}
+                                    >
+                                        <Icon name={props.network} /> Link your {props.network}
+                                    </Button>
+                                )}
+                                msg={`Link your ${props.network} to start calling ${props.name} out`}
+                                props={props} 
+                            />
+                        </Dimmer.Dimmable>
+                    )
+                }
+
+                return (
+                    <Dimmer.Dimmable as={Segment} dimmed>
+                        {LazyLoadDefault}
+                        <DimmerMsg 
+                            btn={(
+                                <Button 
+                                    color='blue'
+                                    onClick={() => props.history.push('/signin')}
+                                >
+                                    Sign in
+                                </Button>
+                            )}
+                            msg={`Sign in to start calling ${props.name} out`}
+                            props={props} 
+                        />
+                    </Dimmer.Dimmable>
+                )
+            }
         }
 
         return (

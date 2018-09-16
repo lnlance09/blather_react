@@ -38,10 +38,10 @@ class Header extends Component {
                         text={props.data.name}
                     >
                         <Dropdown.Menu>
-                            <Dropdown.Item onClick={() => this.props.history.push(`/users/${props.data.username}`)}>
+                            <Dropdown.Item onClick={() => props.history.push(`/users/${props.data.username}`)}>
                                 Profile
                             </Dropdown.Item>
-                            <Dropdown.Item onClick={() => this.props.history.push(`/settings`)}>
+                            <Dropdown.Item onClick={() => props.history.push(`/settings`)}>
                                 Settings
                             </Dropdown.Item>
                             <Dropdown.Item onClick={this.onLogout}>

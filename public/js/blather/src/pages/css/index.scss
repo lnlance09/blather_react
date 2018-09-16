@@ -69,14 +69,6 @@ textarea {
 
 .ui.active.transition.visible.dimmer {
     background: $dimmer-background !important;
-
-    button {
-        background: $skirret-green;
-
-        &:hover {
-            background: $download-progress;
-        }
-    }
 }
 
 .externalUrl {

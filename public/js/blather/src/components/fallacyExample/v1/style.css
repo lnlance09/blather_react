@@ -1,6 +1,3 @@
-.fallacyExample .segment {
-  border-radius: 0 !important; }
-
 .fallacyExample .fallacyMaterial {
   margin-top: 15px; }
 
@@ -36,9 +33,3 @@
   font-size: 14px !important;
   height: 300px !important;
   padding-left: 3px; }
-
-.fallacyExample .fallacyExplanation .evidenceEditorToolbar button {
-  border: solid 1px rgba(0, 0, 0, 0.1) !important; }
-
-.fallacyExample .fallacyExplanation .evidenceEditorToolbar .InputPopover__root___3Hpj9 {
-  border: solid 1px rgba(0, 0, 0, 0.1) !important; }

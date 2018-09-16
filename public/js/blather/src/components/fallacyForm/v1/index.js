@@ -41,6 +41,7 @@ class FallacyForm extends Component {
             visible: true
         }
         this.handleDismiss = this.handleDismiss.bind(this)
+        this.onChangeAssignee = this.onChangeAssignee.bind(this)
         this.onChangeContradiction = this.onChangeContradiction.bind(this)
         this.onChangeEndTime = this.onChangeEndTime.bind(this)
         this.onChangeExplanation = this.onChangeExplanation.bind(this)
@@ -51,12 +52,19 @@ class FallacyForm extends Component {
         this.closeModal = this.closeModal.bind(this)
     }
 
-    closeModal = () => this.setState({ 
-        explanation: '',
-        id: 1,
-        open: false,
-        title: ''
-    })
+    closeModal = () => {
+        this.setState({ 
+            explanation: '',
+            id: 1,
+            open: false,
+            title: ''
+        })
+        this.props.clearContradiction()
+    }
+
+    onChangeAssignee = () => {
+        this.setState({ changed: true })
+    }
 
     onChangeContradiction = (e) => {
         if(e.keyCode === 8) {
@@ -82,8 +90,17 @@ class FallacyForm extends Component {
     onSubmitForm(e) {
         // Make sure that a fallacy assigned to a tweet with a contradiction as a tweet is from the same twitter profile
         const state = store.getState()
-        const page = state.fallacyForm.pageInfo ? state.fallacyForm.pageInfo : this.props.pageInfo
-        if(this.props.fallacy.contradiction.network === 'twitter' && page.id !== this.props.fallacy.contradiction.pageId) {
+        const postPage = state.post.pageInfo ? state.post.pageInfo : this.props.pageInfo
+        const formPage = state.fallacyForm.pageInfo ? state.fallacyForm.pageInfo : this.props.pageInfo
+        const page = this.props.info ? (this.props.info.comment !== null ? postPage : formPage) : this.props.pageInfo
+
+        let contradiction = this.props.fallacy.contradiction
+        if(contradiction.network === 'twitter' && page.id !== contradiction.pageId) {
+            return false
+        }
+
+        if(contradiction.network === 'youtube' && this.props.network === 'youtube' 
+        && contradiction.pageId !== page.id) {
             return false
         }
 
@@ -91,9 +108,10 @@ class FallacyForm extends Component {
             loading: true, 
             open: true 
         })
+        contradiction = !_.isEmpty(contradiction) ? (!contradiction.error ? JSON.stringify(contradiction) : null) : null
         this.props.assignFallacy({
             bearer: this.props.bearer,
-            contradiction: !_.isEmpty(this.props.fallacy.contradiction) ? JSON.stringify(this.props.fallacy.contradiction) : null,
+            contradiction: contradiction,
             commentId: this.props.commentId,
             explanation: this.state.explanation,
             fallacyId: this.state.id,
@@ -118,9 +136,21 @@ class FallacyForm extends Component {
         const contradiction = this.props.fallacy.contradiction
         const contradictionError = contradiction ? contradiction.error : false
         const contradictionErrorMsg = contradiction ? contradiction.errorMsg : false
-        const page = currentState.fallacyForm.pageInfo ? currentState.fallacyForm.pageInfo : this.props.pageInfo
-        const contradictionValid = contradiction ? (contradiction.network === 'twitter' && contradiction.pageId !== page.id ? false : true) : null
+        const formPage = currentState.fallacyForm.pageInfo ? currentState.fallacyForm.pageInfo : this.props.pageInfo
+        const postPage = currentState.post.pageInfo ? currentState.post.pageInfo : this.props.pageInfo
+        const page = this.props.info ? (this.props.info.comment !== null ? postPage : formPage) : this.props.pageInfo
         const canAssign = this.props.info ? this.props.network === 'youtube' && !this.props.commentId : false
+
+        let contradictionValid = true
+        if(contradiction) {
+            if(contradiction.network === 'twitter' && contradiction.pageId !== page.id) {
+                contradictionValid = false
+            }
+            if(contradiction.network === 'youtube' && this.props.network === 'youtube' 
+            && contradiction.pageId !== page.id) {
+                contradictionValid = false
+            }
+        }
 
         if(contradictionError && contradictionErrorMsg === 'Refresh token') {
             this.props.refreshYouTubeToken({
@@ -161,8 +191,21 @@ class FallacyForm extends Component {
             let msg = ''
             if(contradiction.error) {
                 msg = contradiction.errorMsg
-            } else if(!contradictionValid) {
-                msg = `Only tweets from ${page.name} can be used for doublethink. Try a tweet from ${page.name} or a YouTube video featuring ${page.name}.`
+            } else if(contradiction.network === 'twitter' && !contradictionValid) {
+                if(props.info.comment === null) {
+                    msg = `Only tweets from ${page.name} can be used for doublethink. Try a tweet from ${page.name} or a YouTube video featuring ${page.name}.`
+                } else {
+                    msg = `Only comments and videos from ${page.name} can be used for doublethink.`
+                }
+            } else if (contradiction.network === 'youtube' && !contradictionValid) {
+                if(page.type === 'youtube') {
+                    msg = `Only comments and videos from ${page.name} can be used for doublethink.`
+                } 
+                if(page.type === 'twitter') {
+                    msg = `YouTube comments cannot be used for doublethink when the fallacy is assigned to a Twitter user in the video. 
+
+                    Change the assignee to ${page.name}'s YouTube channel.`
+                }
             }
             if(contradiction.error || !contradictionValid) {
                 return (
@@ -204,6 +247,7 @@ class FallacyForm extends Component {
                 case'youtube':
                     let video = contradiction.data
                     let comment = null
+                    let showVideo = true
                     if(contradiction.type === 'comment') {
                         comment = {
                             dateCreated: video.date_created,
@@ -212,7 +256,7 @@ class FallacyForm extends Component {
                             message: video.message,
                             user: video.commenter
                         }
-                        video = contradiction.data.video
+                        showVideo = false
                     }
 
                     return (
@@ -222,11 +266,13 @@ class FallacyForm extends Component {
                             comment={comment}
                             contradiction
                             dateCreated={video.date_created}
-                            id={video.id}
+                            id={contradiction.mediaId}
                             placeholder={video.img}
                             publishedAt={video.date_created}
+                            showComment={comment !== null}
                             showComments={false}
                             showStats={false}
+                            showVideo={showVideo}
                             startTime={contradiction.startTime}
                             title={video.title}
                         />
@@ -244,13 +290,14 @@ class FallacyForm extends Component {
         const SelectAssignee = props => (
             <SearchForm 
                 defaultValue={props.info.channel.title}
+                onChangeAssignee={this.onChangeAssignee}
                 placeholder='Who in this video should the fallacy be assigned to?'
                 source='fallacyForm'
-                width={'100%'} 
+                width={'100%'}
             />
         )
         const StartTime = (props, contradiction = false) => {
-            if(contradiction ? props.fallacy.contradiction.network === 'youtube' : props.network === 'youtube') {
+            if(contradiction ? contradiction.network === 'youtube' && !contradiction.commentId : props.network === 'youtube' && !props.commentId) {
                 const time = contradiction ? props.fallacy.contradiction.data.currentTime : props.info.currentTime
                 return (
                     <Form.Field>

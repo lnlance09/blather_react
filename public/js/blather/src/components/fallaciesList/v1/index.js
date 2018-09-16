@@ -136,7 +136,7 @@ class FallaciesList extends Component {
                     let img = props.assignedBy ? result.page_profile_pic : result.user_img
                     let meta = (
                         <div>
-                            {result.fallacy_name} - <Moment date={adjustTimezone(result.date_created)} fromNow />
+                            Assigned to {result.page_name} - <Moment date={adjustTimezone(result.date_created)} fromNow />
                         </div>
                     )
                     return (
@@ -181,7 +181,10 @@ class FallaciesList extends Component {
                                 onBottomVisible={this.loadMore} 
                                 style={{ marginTop: '14px' }}
                             >
-                                <Item.Group className='fallacyItems'>
+                                <Item.Group 
+                                    className='fallacyItems'
+                                    divided
+                                >
                                     {renderFallacies(this.props)}
                                 </Item.Group>
                             </Visibility>
@@ -237,4 +240,4 @@ const mapStateToProps = (state, ownProps) => ({
     ...ownProps
 })
 
-export default connect(mapStateToProps, { getFallacies })(FallaciesList);
+export default connect(mapStateToProps, { getFallacies })(FallaciesList)

@@ -1,11 +1,11 @@
 .youTubeVideo .segment {
-  background: #ffffff !important;
+  background: transparent;
   border: none !important;
   box-shadow: none !important;
   padding: 0 !important; }
 
 .youTubeVideo .youTubeTitle {
-  background: #ffffff;
+  background: transparent;
   margin-top: 7px; }
 
 .youTubeVideo .channelCard {

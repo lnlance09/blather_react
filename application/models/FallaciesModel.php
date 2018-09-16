@@ -333,10 +333,10 @@
                 $this->db->where('p.social_media_id', $assigned_to);
             }
 
-            if($object_id && $network == 'twitter') {
+            if($object_id) {
                 $this->db->where([
-                    'fe.network' => 'twitter',
-                    'fe.media_id' => (int)$object_id
+                    'fe.network' => $network,
+                    'fe.media_id' => $network === 'twitter' ? (int)$object_id : $object_id
                 ]);
             }
 

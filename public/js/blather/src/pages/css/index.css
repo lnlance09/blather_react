@@ -300,10 +300,6 @@ textarea {
 
 .ui.active.transition.visible.dimmer {
   background: rgba(255, 255, 255, 0.8) !important; }
-  .ui.active.transition.visible.dimmer button {
-    background: #44bd32; }
-    .ui.active.transition.visible.dimmer button:hover {
-      background: #4cd137; }
 
 .externalUrl {
   color: #0097e6;

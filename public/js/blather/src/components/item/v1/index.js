@@ -51,6 +51,7 @@ class ResultItem extends Component {
                                     </List.Item>
                                 )
                             }
+                            return null
                         })}
                     </List>
                 )

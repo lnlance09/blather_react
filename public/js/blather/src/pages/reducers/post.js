@@ -47,6 +47,32 @@ const post = (state = initial(), action) => {
                 type: payload.type
             }
 
+        case constants.INSERT_COMMENT:
+            return {
+                ...state,
+                info: {
+                    ...state.info,
+                    comment: {
+                        dateCreated: payload.data.date_created,
+                        id: payload.data.id,
+                        likeCount: payload.data.like_count,
+                        message: payload.data.message,
+                        user: {
+                            about: payload.data.commenter.about,
+                            id: payload.data.commenter.id,
+                            img: payload.data.commenter.img,
+                            title: payload.data.commenter.title
+                        }
+                    }
+                },
+                pageInfo: {
+                    id: payload.data.commenter.id,
+                    name: payload.data.commenter.title,
+                    type: 'youtube',
+                    username: ''
+                }
+            }
+
         case constants.SET_CURRENT_VIDEO_TIME:
             return {
                 ...state,
@@ -62,6 +88,15 @@ const post = (state = initial(), action) => {
                 info: {
                     ...state.info,
                     endTime: action.payload
+                }
+            }
+
+        case constants.UNSET_COMMENT:
+            return {
+                ...state,
+                info: {
+                    ...state.info,
+                    comment: null
                 }
             }
 

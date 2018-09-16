@@ -63,8 +63,8 @@ export const insertComment = ({bearer, id, videoId}) => dispatch => {
         }
     }, function(err, response, body) {
         dispatch({
-            type: constants.INSERT_COMMENT,
-            payload: body
+            payload: body,
+            type: constants.INSERT_COMMENT
         })
     })
 }
@@ -82,5 +82,11 @@ export const setDuration = ({duration}) => dispatch => {
     dispatch({
         type: constants.SET_DURATION,
         payload: duration
+    })
+}
+
+export const unsetComment = () => dispatch => {
+    dispatch({
+        type: constants.UNSET_COMMENT
     })
 }

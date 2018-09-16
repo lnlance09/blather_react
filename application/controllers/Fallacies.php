@@ -191,27 +191,30 @@
 
 					echo json_encode([
 						'commentId' => null,
-						'data' => $object['data'],
+						'data' => !$object['error'] ? $object['data'] : null,
 						'error' => $object['error'],
 						'endTime' => null,
 						'mediaId' => $parse['object_id'],
 						'network' => 'twitter',
-						'pageId' => $object['data']['user']['id_str'],
+						'pageId' => !$object['error'] ? $object['data']['user']['id_str'] : null,
 						'startTime' => null,
 						'type' => 'tweet',
-						'username' => $object['data']['user']['screen_name']
+						'username' => !$object['error'] ? $object['data']['user']['screen_name'] : null
 					]);
 					break;
 				case'youtube':
 				case'youtu.be':
 					$auth = $this->user ? $this->user->linkedYoutube : false;
 					$token = $auth ? $this->user->youtubeAccessToken : null;
-					if($parse['comment_id']) {
+					$commentId = $parse['comment_id'];
+					$videoId = $parse['object_id'];
+
+					if($commentId) {
 						$type = 'comment';
-						$object = $this->youtube->getCommentExtended($parse['comment_id'], $auth, $token);
+						$object = $this->youtube->getCommentExtended($commentId, $videoId, $auth, $token);
 					} else {
 						$type = 'video';
-						$object = $this->youtube->getVideoExtended($parse['object_id'], $auth, $token);
+						$object = $this->youtube->getVideoExtended($videoId, $auth, $token);
 					}
 					
 					if($object['error']) {
@@ -221,11 +224,11 @@
 					}
 
 					echo json_encode([
-						'commentId' => $parse['comment_id'],
+						'commentId' => $commentId,
 						'data' => $object['data'],
 						'error' => $object['error'],
 						'endTime' => $parse['end_time'],
-						'mediaId' => $parse['object_id'],
+						'mediaId' => $videoId,
 						'network' => 'youtube',
 						'pageId' => $type === 'comment' ? $object['data']['commenter']['id'] : $object['data']['channel']['id'],
 						'startTime' => $parse['start_time'],

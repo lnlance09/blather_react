@@ -60,6 +60,7 @@ class NavSearch extends Component {
         }
 
         if(this.props.source === 'fallacyForm') {
+            this.props.onChangeAssignee()
             this.props.selectAssignee({
                 id: data.result.social_media_id,
                 name: data.result.title,
@@ -137,6 +138,7 @@ class NavSearch extends Component {
 
 NavSearch.propTypes = {
     defaultValue: PropTypes.string,
+    onChangeAssignee: PropTypes.func,
     placeholder: PropTypes.string,
     selectAssignee: PropTypes.func,
     source: PropTypes.string,
@@ -145,7 +147,6 @@ NavSearch.propTypes = {
 
 NavSearch.defaultProps = {
     placeholder: 'Search pages',
-    selectAssignee: selectAssignee,
     source: 'header',
     width: '360px'
 }

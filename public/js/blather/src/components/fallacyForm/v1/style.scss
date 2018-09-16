@@ -41,6 +41,10 @@
             background: $protoss-pylos !important;
         }
     }
+
+    .ui.error.message {
+        box-shadow: 0 0 0 1px $error-msg-border inset, 0 0 0 0 transparent !important;
+    }
 }
 
 .ui.modal {

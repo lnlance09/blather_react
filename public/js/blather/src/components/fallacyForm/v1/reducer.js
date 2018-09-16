@@ -25,7 +25,7 @@ const fallacyForm = (state = initial(), action) => {
                 fallacyFormErrorMsg: '',
                 fallacy: {
                     assignedBy: parseInt(fallacy.assigned_by, 10),
-                    contradiction: fallacy.contradiction ? fallacy.contradiction : {},
+                    contradiction: null,
                     explanation: fallacy.explanation,
                     fallacyId: parseInt(fallacy.fallacy_id, 10),
                     id: parseInt(fallacy.id, 10),
@@ -51,9 +51,16 @@ const fallacyForm = (state = initial(), action) => {
                     fallacy: {
                         ...state.fallacy,
                         contradiction: {
+                            commentId: '',
                             data: null,
                             error: true,
-                            errorMsg: action.payload.error
+                            errorMsg: action.payload.error,
+                            mediaId: null,
+                            network: '',
+                            pageId: '',
+                            startTime: '',
+                            type: '',
+                            username: ''
                         }
                     }
                 }

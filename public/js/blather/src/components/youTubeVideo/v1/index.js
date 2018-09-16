@@ -5,12 +5,12 @@ import {
     fetchVideoComments, 
     insertComment,
     setCurrentVideoTime, 
-    setDuration 
+    setDuration,
+    unsetComment
 } from '../../../pages/actions/post';
-import { setContradictionVideoTime } from '../../fallacyForm/v1/actions';
+import { clearContradiction, setContradictionVideoTime } from '../../fallacyForm/v1/actions';
 import { adjustTimezone } from '../../../utils/dateFunctions';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { 
     Button,
     Card,
@@ -30,6 +30,7 @@ import {
 } from 'semantic-ui-react';
 import _ from 'lodash';
 import FallacyForm from '../../fallacyForm/v1/';
+import ImagePic from '../../../images/image-square.png';
 import Moment from 'react-moment';
 import ParagraphPic from '../../../images/short-paragraph.png';
 import PropTypes from 'prop-types';
@@ -62,6 +63,7 @@ class YouTubeVideo extends Component {
         this.onClickArchive = this.onClickArchive.bind(this)
         this.openModal = this.openModal.bind(this)
         this.setTime = this.setTime.bind(this)
+        this.viewCommentOnYoutube = this.viewCommentOnYoutube.bind(this)
     }
 
     componentDidMount() {
@@ -79,7 +81,11 @@ class YouTubeVideo extends Component {
         this.setState({ archiveVisible: nextProps.archive ? true : false })
     }
 
-    closeModal = () => this.setState({ open: false })
+    closeModal = () => {
+        this.setState({ open: false })
+        this.props.clearContradiction()
+        this.props.unsetComment()
+    }
 
     loadMore = () => {
         if(this.state.authenticated && this.props.comments.nextPageToken && this.state.visible) {
@@ -127,11 +133,15 @@ class YouTubeVideo extends Component {
         }
     }
 
+    viewCommentOnYoutube = () => {
+        window.open(`https://www.youtube.com/watch?v=${this.props.id}&lc=${this.props.comment.id}`, '_blank')
+    }
+
     render() {
         const { animation, archiveVisible, authenticated, commentId, duration, i, r, replyId, visible, open } = this.state
         const dateCreated = adjustTimezone(this.props.dateCreated)
         const ArchiveIcon = props => {
-            if(props.canArchive && !props.archive) {
+            if(!props.archive) {
                 return (
                     <div>
                         Archive this video 
@@ -145,7 +155,7 @@ class YouTubeVideo extends Component {
             }
         }
         const ArchiveInfo = props => {
-            if(props.canArchive && props.archive) {
+            if(props.archive) {
                 const archiveDate = adjustTimezone(props.archive.date_created)
                 return (
                     <Transition animation={animation} duration={duration} visible={archiveVisible}>
@@ -162,8 +172,10 @@ class YouTubeVideo extends Component {
                     <Card className={`channelCard ${props.comment ? 'hasComment' : null}`} fluid>
                         <Card.Content>
                             <Image circular floated='left' size='mini' src={props.channel.img} />
-                            <Card.Header>
-                                <Link to={`/pages/youtube/${props.channel.id}`}>{props.channel.title}</Link>
+                            <Card.Header
+                                onClick={() => props.history.push(`/pages/youtube/${props.channel.id}`)}
+                            >
+                                {props.channel.title}
                             </Card.Header>
                             <Card.Meta><Moment date={dateCreated} fromNow /></Card.Meta>
                             <Card.Description>
@@ -174,10 +186,12 @@ class YouTubeVideo extends Component {
                                 />
                             </Card.Description>
                         </Card.Content>
-                        <Card.Content extra>
-                            {ArchiveIcon(props)}
-                            {ArchiveInfo(props)}
-                        </Card.Content>
+                        {props.canArchive && (
+                            <Card.Content extra>
+                                {ArchiveIcon(props)}
+                                {ArchiveInfo(props)}
+                            </Card.Content>
+                        )}
                     </Card>
                 )
             }
@@ -216,7 +230,7 @@ class YouTubeVideo extends Component {
                             <FallacyForm 
                                 authenticated={authenticated}
                                 bearer={props.bearer}
-                                commentId={commentId}
+                                commentId={replyId ? replyId : commentId}
                                 history={this.props.history}
                                 network='youtube'
                                 objectId={props.id}
@@ -294,6 +308,12 @@ class YouTubeVideo extends Component {
                 })
             }
 
+            if(props.comments.error === false && props.comments.count === 0 && props.showComments) {
+                return (
+                    <p style={{ textAlign: 'center' }}>There are no comments...</p>
+                )
+            }
+
             if(props.comments.code === 403) {
                 return (
                     <p>
@@ -319,7 +339,10 @@ class YouTubeVideo extends Component {
                         key={id} 
                         onClick={() => { this.openModal(snippet.parentId, i, r, id) }}
                     >
-                        <Comment.Avatar src={snippet.authorProfileImageUrl} />
+                        <Comment.Avatar 
+                            onError={i => i.target.src = ImagePic}
+                            src={snippet.authorProfileImageUrl} 
+                        />
                         <Comment.Content>
                             <Comment.Author as='a'>{snippet.authorDisplayName}</Comment.Author>
                             <Comment.Metadata>
@@ -331,9 +354,12 @@ class YouTubeVideo extends Component {
                             <Comment.Actions>
                                 <Comment.Action className='likeComment'>
                                     <Icon name='thumbs up' />
-                                    {snippet.likeCount}
+                                    {formatNumber(snippet.likeCount)}
                                 </Comment.Action>
-                                <Comment.Action className='youtubeLink' onClick={() => window.location.href = link}>
+                                <Comment.Action 
+                                    className='youtubeLink' 
+                                    onClick={() => window.location.href = link}
+                                >
                                     <Icon color='red' name='youtube' />
                                     View on YouTube
                                 </Comment.Action>
@@ -373,7 +399,10 @@ class YouTubeVideo extends Component {
             const showReplies = replies && !reply && snippet.totalReplyCount > 0
             return (
                 <Comment key={id}>
-                    <Comment.Avatar src={content.authorProfileImageUrl} />
+                    <Comment.Avatar 
+                        onError={i => i.target.src = ImagePic}
+                        src={content.authorProfileImageUrl} 
+                    />
                     <Comment.Content
                         onClick={() => { this.openModal(id, i) }}
                     >
@@ -387,9 +416,12 @@ class YouTubeVideo extends Component {
                         <Comment.Actions>
                             <Comment.Action className='likeComment'>
                                 <Icon name='thumbs up' />
-                                {content.likeCount}
+                                {formatNumber(content.likeCount)}
                             </Comment.Action>
-                            <Comment.Action className='youtubeLink' onClick={() => window.location.href = link}>
+                            <Comment.Action 
+                                className='youtubeLink' 
+                                onClick={() => window.open(link, '_blank')}
+                            >
                                 <Icon color='red' name='youtube' />
                                 View on YouTube
                             </Comment.Action>
@@ -404,44 +436,51 @@ class YouTubeVideo extends Component {
             )
         }
         const PopularityBar = props => (
-            <Progress percent={props.stats.likePct} progress />
+            <Progress percent={props.stats ? props.stats.likePct: null} progress />
         )
 
         return (
              <div className="youTubeVideo">
                 <Segment>
-                    <ReactPlayer
-                        className='videoPlayer'
-                        controls
-                        onDuration={(e) => this.props.setDuration({ duration: e })}
-                        onProgress={this.setTime}
-                        url={`https://www.youtube.com/watch?v=${this.props.id}&t=${this.props.startTime}`}
-                    />
-                    <Header className='youTubeTitle' size='medium'>
-                        {this.props.title}
-                    </Header>
-
-                    {this.props.showChannel && (
+                    {this.props.showVideo && (
                         <div>
-                            {ChannelCard(this.props)}
+                            <ReactPlayer
+                                className='videoPlayer'
+                                controls
+                                onDuration={(e) => this.props.setDuration({ duration: e })}
+                                onProgress={this.setTime}
+                                url={`https://www.youtube.com/watch?v=${this.props.id}&t=${this.props.startTime}`}
+                            />
+                            <Header className='youTubeTitle' size='medium'>
+                                {this.props.title}
+                            </Header>
+
+                            {this.props.showChannel && (
+                                <div>
+                                    {ChannelCard(this.props)}
+                                </div>
+                            )}
+
+                            {this.props.showStats && (
+                                <div>
+                                    {PopularityBar(this.props)}
+                                    <DisplayStats props={this.props} />
+                                </div>
+                            )}
                         </div>
                     )}
 
-                    {this.props.showStats && (
-                        <div>
-                            {PopularityBar(this.props)}
-                            <DisplayStats props={this.props} />
-                        </div>
-                    )}
-
-                    {this.props.comment && (
-                        <Comment.Group style={{ marginTop: '0' }}>
+                    {this.props.showComment && (
+                        <Comment.Group style={{ marginTop: '10px' }}>
                             <Comment>
-                                <Comment.Avatar src={this.props.comment.user.img} />
+                                <Comment.Avatar 
+                                    onError={i => i.target.src = ImagePic}
+                                    src={this.props.comment.user.img} 
+                                />
                                 <Comment.Content>
                                     <Comment.Author 
                                         as='a'
-                                        onClick={() => window.location.href = `https://www.youtube.com/channel/${this.props.comment.user.id}`}
+                                        onClick={() => this.props.history.push(`/pages/youtube/${this.props.comment.user.id}`)}
                                     >
                                         {this.props.comment.user.title}
                                     </Comment.Author>
@@ -454,11 +493,11 @@ class YouTubeVideo extends Component {
                                     <Comment.Actions>
                                         <Comment.Action className='likeComment'>
                                             <Icon name='thumbs up' />
-                                            {this.props.comment.likeCount}
+                                            {formatNumber(this.props.comment.likeCount)}
                                         </Comment.Action>
                                         <Comment.Action 
                                             className='youtubeLink' 
-                                            onClick={() => window.location.href = `https://www.youtube.com/watch?v=${this.props.id}&lc=${this.props.comment.id}`}
+                                            onClick={this.viewCommentOnYoutube}
                                         >
                                             <Icon color='red' name='youtube' />
                                             View on YouTube
@@ -497,6 +536,7 @@ YouTubeVideo.propTypes = {
         img: PropTypes.string,
         title: PropTypes.string
     }),
+    clearContradiction: PropTypes.func,
     comment: PropTypes.shape({
         dateCreated: PropTypes.string,
         id: PropTypes.string,
@@ -529,8 +569,10 @@ YouTubeVideo.propTypes = {
     setCurrentVideoTime: PropTypes.func,
     setDuration: PropTypes.func,
     showChannel: PropTypes.bool,
+    showComment: PropTypes.bool,
     showComments: PropTypes.bool,
     showStats: PropTypes.bool,
+    showVideo: PropTypes.bool,
     startTime: PropTypes.string,
     stats: PropTypes.shape({
         commentCount: PropTypes.number,
@@ -539,16 +581,18 @@ YouTubeVideo.propTypes = {
         likePct: PropTypes.number,
         viewCount: PropTypes.number
     }),
-    title: PropTypes.string
+    title: PropTypes.string,
+    unsetComment: PropTypes.func
 }
 
 YouTubeVideo.defaultProps = {
     canArchive: false,
     channel: {},
+    clearContradiction: clearContradiction,
     comments: {
         code: 0,
         count: 0,
-        error: false,
+        error: null,
         items: [],
         nextPageToken: null,
         page: 0
@@ -560,9 +604,12 @@ YouTubeVideo.defaultProps = {
     setCurrentVideoTime: setCurrentVideoTime,
     setDuration: setDuration,
     showChannel: true,
+    showComment: false,
     showComments: false,
     showStats: true,
-    statists: {}
+    showVideo: true,
+    statists: {},
+    unsetComment: unsetComment
 }
 
 const mapStateToProps = (state, ownProps) => ({
@@ -571,10 +618,12 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 export default connect(mapStateToProps, { 
+    clearContradiction,
     createArchive,
     fetchVideoComments, 
     insertComment,
     setCurrentVideoTime,
     setDuration,
-    setContradictionVideoTime
+    setContradictionVideoTime,
+    unsetComment
 })(YouTubeVideo)

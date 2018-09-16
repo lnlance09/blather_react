@@ -6,6 +6,7 @@
     .conversation .form button:hover {
       background: #00719b !important; }
   .conversation .statusActionSegment {
+    border: none !important;
     height: 116px; }
     .conversation .statusActionSegment .youtubeButton {
       background: #ff0000 !important;

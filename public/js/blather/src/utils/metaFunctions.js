@@ -71,7 +71,7 @@ export const DisplayMetaTags = ({page, props, state}) => {
                 if(props.type === 'video') {
                     title = props.info.title
                 } else {
-                    title = `Tweet by ${props.info.user.name}`
+                    title = `Tweet by ${props.info.user ? props.info.user.name : ''}`
                 }
                 metaTags = {
                     description: `Does the logic in this ${props.type} make sense? Call out fallacious reasoning and ask this creator of this content to explain his or her self.`,

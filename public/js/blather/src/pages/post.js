@@ -62,18 +62,6 @@ class Post extends Component {
                     type: 'tweet',
                     url: `twitter/tweet?id=${id}`
                 }
-            case'/status/:id':
-                return {
-                    network: 'facebook',
-                    type: 'status',
-                    url: `fb/status?id=${id}`
-                }
-            case'/status/:id/:commentId':
-                return {
-                    network: 'facebook',
-                    type: 'facebook_comment',
-                    url: ``
-                }
             case'/video/:id':
                 return {
                     network: 'youtube',
@@ -106,7 +94,7 @@ class Post extends Component {
         const containerClassName = this.props.info ? 'mainContainer bc' : 'mainContainer'
         const user = this.props.info ? (network === 'twitter' ? this.props.info.user: this.props.info.channel) : null
         const Breadcrumbs = ({props}) => {
-            if(props.info) {
+            if(props.info ? props.info.channel || props.info.user : false) {
                 switch(type) {
                     case'tweet':
                         return (

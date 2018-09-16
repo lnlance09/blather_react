@@ -27,6 +27,9 @@
   .fallacyForm button:hover {
     background: #00a8ff !important; }
 
+.fallacyForm .ui.error.message {
+  box-shadow: 0 0 0 1px rgba(224, 180, 180, 0.4) inset, 0 0 0 0 transparent !important; }
+
 .ui.modal .content .assignAnotherBtn {
   background: #e84118 !important; }
   .ui.modal .content .assignAnotherBtn:hover {

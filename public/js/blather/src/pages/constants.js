@@ -20,5 +20,6 @@ export const SET_DURATION = 'video:SET_DURATION';
 export const SET_FALLACY_TAGS = 'fallacy:SET_TAGS';
 export const SUBMIT_DISCUSSION = 'discussion:SUBMIT_DISCUSSION';
 export const SUBMIT_FALLACY_CONVERSATION = 'fallacy:SUBMIT_FALLACY_CONVERSATION';
+export const UNSET_COMMENT = 'post:UNSET_COMMENT';
 export const UPDATE_DISCUSSION = 'discussion:UPDATE_DISCUSSION';
 export const UPDATE_FALLACY = 'fallacy:UPDATE_FALLACY';

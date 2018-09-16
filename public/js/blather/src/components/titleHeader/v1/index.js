@@ -5,10 +5,8 @@ import { connect } from 'react-redux';
 import { 
     Header,
     Icon,
-    Image,
     Input
 } from 'semantic-ui-react';
-import ParagraphPic from '../../../images/short-paragraph.png';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
@@ -93,10 +91,6 @@ class TitleHeader extends Component {
                             </Header.Subheader>
                         )}
                     </Header>
-                )}
-
-                {!this.props.title && (
-                    <Image src={ParagraphPic} />
                 )}
             </div>
         )
