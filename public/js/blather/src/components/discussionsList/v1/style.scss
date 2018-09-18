@@ -7,19 +7,7 @@
         padding: 12px; 
 
         .fields {
-            margin-bottom: 0 !important;
-
-            input {
-                border-radius: 0 !important;
-            }
-
-            .field {
-                .selection.dropdown {
-                    border-radius: 0 !important;
-                }
-            }
-
-            .fields.equal {
+            &:last-of-type {
                 margin-bottom: 0 !important;
             }
 
@@ -30,7 +18,7 @@
                 height: 100%;
 
                 &:hover {
-                    background: $protoss-pylos !important;
+                    background: darken($vanadyl-blue, 5%) !important;
                 }
             }
         }

@@ -21,8 +21,7 @@ import store from '../store';
 
 class SearchPage extends Component {
     constructor(props) {
-        super(props);
-        document.body.style.background = '#fff'
+        super(props)
         const height = window.innerHeight
         const query = qs.parse(this.props.location.search)
         const type = this.props.match.params.type

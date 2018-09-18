@@ -1,10 +1,6 @@
 .resultItem {
   background: #ffffff;
   cursor: pointer; }
-  .resultItem:hover {
-    background: #f5f6fa !important; }
-    .resultItem:hover .extraList .item {
-      background: #f5f6fa; }
   .resultItem .meta {
     margin-top: 3px !important; }
     .resultItem .meta .label {

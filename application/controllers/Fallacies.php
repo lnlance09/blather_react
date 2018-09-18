@@ -146,6 +146,14 @@
 			]);
 		}
 
+		public function getTags() {
+			$tags = $this->fallacies->getTags();
+			echo json_encode([
+				'error' => false,
+				'tags' => $tags
+			]);
+		}
+
 		public function uniqueFallacies() {
 			$id = $this->input->get('id');
 			$type = $this->input->get('type');
@@ -275,6 +283,46 @@
 			]);
 		}
 
+		public function removeTag() {
+			$id = $this->input->post('id');
+			$tagId = $this->input->post('tagId');
+
+			if(!$this->user) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'You must be logged in'
+				]);
+				exit;
+			}
+
+			if(empty($tagId)) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'You must include a tag'
+				]);
+			}
+
+			$fallacy = $this->fallacies->search($id);
+			if(empty($fallacy)) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'This fallacy does not exist'
+				]);
+			}
+
+			if($fallacy[0]['assigned_by'] !== $this->user->id) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'You do not have permission to edit this fallacy'
+				]);
+			}
+
+			$this->fallacies->removeTag($id, $tagId);
+			echo json_encode([
+				'error' => false
+			]);
+		}
+
 		public function submitConversation() {
 			if(!$this->user) {
 				$this->output->set_status_header(401);
@@ -287,8 +335,8 @@
 			$id = $this->input->post('id');
 			$msg = $this->input->post('msg');
 
-			$count = $this->fallacies->search($id, null, null, null, null, null, null, null, null, true);
-			if(!$count) {
+			$fallacy = $this->fallacies->search($id, null, null, null, null, null, null, null, null);
+			if(empty($fallacy)) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'This fallacy does not exist'
@@ -299,9 +347,13 @@
 			if(empty($msg)) {
 				$this->output->set_status_header(401);
 				echo json_encode([
-					'error' => 'Your post cannot be blank'
+					'error' => 'Your response cannot be blank'
 				]);
 				exit;
+			}
+
+			if($fallacy[0]['status'] === 0) {
+				$this->fallacies->updateStatus($id, 1);
 			}
 
 			$this->fallacies->submitConversation($id, $this->user->id, $msg);
@@ -312,6 +364,7 @@
 						'img' => 'http://localhost:3000/img/profile_pics/'.$this->user->img,
 						'message' => $msg,
 						'name' => $this->user->name,
+						'status' => 1,
 						'user_id' => $this->user->id
 					]
 				],
@@ -385,15 +438,11 @@
 			$fallacyId = !$this->fallacies->fallacyTypeExists($fallacyId) ? $fallacy[0]['fallacy_id'] : $fallacyId;
 			$title = empty($title) ? $fallacy[0]['title'] : $title; 
 			$explanation = empty($explanation) ? $fallacy[0]['explanation'] : $explanation;
-			
-			$this->fallacies->updateFallacy($id, $explanation, $fallacyId, $tags, $title);
+			$this->fallacies->updateFallacy($id, $explanation, $fallacyId, $tags, $title, $this->user->id);
+			$fallacy = $this->fallacies->search($id);
 			echo json_encode([
 				'error' => false,
-				'fallacy' => [
-					'explanation' => $explanation,
-					'fallacyId' => $fallacyId,
-					'title' => $title
-				]
+				'fallacy' => $fallacy[0]
 			]);
 		}
 	}

@@ -20,6 +20,27 @@ export const fetchDiscussion = ({bearer, id}) => dispatch => {
     })
 }
 
+export const removeDiscussionTag = ({bearer, id, tagId, tagName}) => dispatch => {
+    request.post(`${window.location.origin}/api/discussions/removeTag`, {
+        form: {
+            id,
+            tagId
+        },
+        headers: {
+            'Authorization': bearer 
+        },
+        json: true
+    }, function(err, response, body) {
+        dispatch({
+            type: constants.REMOVE_DISCUSSION_TAG,
+            payload: {
+                id: tagId,
+                name: tagName
+            }
+        })
+    })
+}
+
 export const setTags = ({value, text}) => dispatch => {
     dispatch({
         type: constants.SET_DISCUSSION_TAGS,

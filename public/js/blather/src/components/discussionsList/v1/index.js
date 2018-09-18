@@ -2,7 +2,6 @@ import './style.css';
 import { fetchDiscussions } from './actions';
 import { adjustTimezone } from '../../../utils/dateFunctions';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { 
     Button,
     Dropdown,
@@ -174,9 +173,10 @@ class DiscussionsList extends Component {
                             className='createDiscussionBtn'
                             compact
                             icon
+                            onClick={() => props.history.push('/discussion/create')}
                             style={{ float: 'right' }}
                         >
-                            <Link to='/discussion/create'><Icon name='plus'/></Link>
+                            <Icon name='plus'/>
                         </Button>
                     </Form.Field>
                 </Form.Group>
@@ -193,10 +193,12 @@ class DiscussionsList extends Component {
                             onChange={this.onChangeSearchTerm}
                             placeholder='Search discussions...' 
                             value={q}
-                            width={props.onUserPage ? 7 : 7}
+                            width={props.onUserPage ? 7 : 16}
                         />
+                    </Form.Group>
+                    <Form.Group>
                         {!props.onUserPage && (
-                            <Form.Field width={4}>
+                            <Form.Field width={7}>
                                 <Dropdown 
                                     fluid
                                     onChange={this.onSelectStartedBy}
@@ -206,7 +208,7 @@ class DiscussionsList extends Component {
                                 />
                             </Form.Field>
                         )}
-                        <Form.Field width={props.onUserPage ? 6 : 4}>
+                        <Form.Field width={props.onUserPage ? 6 : 7}>
                             <Dropdown 
                                 fluid
                                 onChange={this.onSelectWith}
@@ -215,7 +217,7 @@ class DiscussionsList extends Component {
                                 selection
                             />
                         </Form.Field>
-                        <Form.Field width={props.onUserPage ? 3 : 3}>
+                        <Form.Field width={props.onUserPage ? 3 : 4}>
                             <Dropdown 
                                 fluid
                                 onChange={this.onSelectStatus}
@@ -255,6 +257,7 @@ class DiscussionsList extends Component {
                 } else {
                     return (
                         <Item key={`discussion_${i}`}>
+                            <Item.Image size='small' src={ImagePic} />
                             <Item.Content>
                                 <Image fluid src={ParagraphPic} />
                             </Item.Content>
@@ -290,7 +293,7 @@ class DiscussionsList extends Component {
                         onBottomVisible={this.loadMore} 
                         style={{ marginTop: '14px' }}
                     >
-                        <Item.Group className='discussionItems'>
+                        <Item.Group className='discussionItems' divided>
                             {renderDiscussions(this.props)}
                             {lazyLoadSegments(this.props)}
                         </Item.Group>

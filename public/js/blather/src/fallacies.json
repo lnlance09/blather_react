@@ -42,21 +42,25 @@
    },
    {
       "id":"4",
-      "description":"Where a proposition is claimed to be true or good solely because many people believe it to be so.",
+      "description":"Where something is claimed to be true or good solely because lots of others believe it to be so.",
       "name":"Ad Populum Bandwagoning",
       "dialogue": [
          {
             "name": "Blathering Bill",
-            "message": ""
+            "message": "Bitcoin at 20k is a steal! I'm stocking up."
          },
          {
             "name": "Rational Rob",
-            "message": ""
+            "message": "Have you given this invesment much thought?"
+         },
+         {
+            "name": "Blathering Bill",
+            "message": "No, but just look at the all the other people buying right now. What could possibly go wrong?"
          }
       ]
    },
    {
-      "id":"7",
+      "id":"5",
       "description":"The arguer tries to inflate the worth of his argument by associating it with a well known authority who is not an actual authority on the subject at hand. The arguer may also try to use his\/her own authority to persuade listeners.",
       "name":"Appeal to Authority",
       "dialogue": [
@@ -75,18 +79,22 @@
       ]
    },
    {
-      "id":"8",
+      "id":"6",
       "description":"This is really just a threat. The arguer tries to get others to adopt his\/her point of view or else the arguer will cause them harm.",
       "name":"Appeal to Force",
       "dialogue": [
          {
             "name": "Blathering Bill",
             "message": "You better start liking Nickelback or I'll tell your wife that you cheated on her!"
+         },
+         {
+            "name": "Rational Rob",
+            "message": "Okay. Okay..."
          }
       ]
    },
    {
-      "id":"9",
+      "id":"7",
       "description":"Wherein judgment is based solely on whether the subject of judgment is \"natural\" or \"unnatural.\"",
       "name":"Appeal to Nature",
       "dialogue": [
@@ -101,7 +109,7 @@
       ]
    },
    {
-      "id":"10",
+      "id":"8",
       "description":"This form of argument tries to pursued the listener that an idea must be true because it has been believed or practiced for a long time.",
       "name":"Appeal to Tradition",
       "dialogue": [
@@ -116,7 +124,7 @@
       ]
    },
    {
-      "id":"11",
+      "id":"9",
       "description":"The arguer claims priviliged knowledge of a questionable entity by claiming to be a victim of it (and thereby shielding himself from criticism).",
       "name":"Appeal to Victimization",
       "dialogue": [
@@ -131,7 +139,7 @@
       ]
    },
    {
-      "id":"12",
+      "id":"10",
       "description":"The arguer produces an overwhelming array of statements and\/or technical jargon in a relatively short period of time. The opponent is unable to address them all or even understand them. Observers will likely be impressed, but have no way of checking the validity of the claims.",
       "name":"Argumentum Verbosium",
       "dialogue": [
@@ -146,8 +154,8 @@
       ]
    },
    {
-      "id":"58",
-      "description":null,
+      "id":"11",
+      "description":"Making a claim without offering any proof to substantiate it.",
       "name":"Baseless Claim",
       "dialogue": [
          {
@@ -161,7 +169,7 @@
       ]
    },
    {
-      "id":"14",
+      "id":"12",
       "description":"The arguer gives the impression that there are only two extreme positions that are possible. This does not allow for moderate, middle grounds or grey areas.",
       "name":"Black or White",
       "dialogue": [
@@ -176,22 +184,26 @@
       ]
    },
    {
-      "id":"15",
+      "id":"13",
       "description":"The belief that destruction is economically befeficial because it will provide jobs to people who will rebuild what was destroyed. This fails to take into consideration all of the ways that the money could have been spent if it were not needed to rebuld what was destroyed.",
       "name":"Broken Window Fallacy",
       "dialogue": [
          {
             "name": "Blathering Bill",
-            "message": ""
+            "message": "I hope this hurricane that's headed our way next Friday is crazy big and destroys a lot of homes!"
          },
          {
             "name": "Rational Rob",
-            "message": ""
+            "message": "Why?"
+         },
+         {
+            "name": "Blathering Bill",
+            "message": "I just lost my job again and I can sure use another one. This will boost economy. It'll give lots of people jobs rebuilding."
          }
       ]
    },
    {
-      "id":"16",
+      "id":"14",
       "description":"Instead of providing evidence to support a claim, the arguer implies that it is true because his\/her opponent has not proved it to be false. Extraordinary claims require extraordinary evidence' (Carl Sagan).",
       "name":"Burden of Proof",
       "dialogue": [
@@ -214,7 +226,7 @@
       ]
    },
    {
-      "id":"17",
+      "id":"15",
       "description":"The act of pointing at individual cases or data that seem to confirm a particular position, while ignoring a significant portion of related cases or data that may contradict that position.",
       "name":"Cherry Picking",
       "dialogue": [
@@ -225,7 +237,7 @@
       ]
    },
    {
-      "id":"13",
+      "id":"16",
       "description":"Providing what is essentially the conclusion of the argument as a premise.",
       "name":"Circular Reasoning",
       "dialogue": [
@@ -248,7 +260,7 @@
       ]
    },
    {
-      "id":"18",
+      "id":"17",
       "description":"The composition fallacy is committed when one assumes that a quality of a thing can be determined by the quality of its individual parts.",
       "name":"Composition Fallacy",
       "dialogue": [
@@ -263,7 +275,7 @@
       ]
    },
    {
-      "id":"19",
+      "id":"18",
       "description":"Improperly rejecting a claim for being imprecise.",
       "name":"Continuum Fallacy",
       "dialogue": [
@@ -278,7 +290,7 @@
       ]
    },
    {
-      "id":"20",
+      "id":"19",
       "description":"This is a combination of two fallacies; appeal to victimization and appeal to force. Typically, the role of the person who is using this fallacy will constanty shift between victim and aggressor. One minute, they'll claim to be a helpless victim and the next, they'll outright threaten you. The result is general confusion as the viewers will most likely not know which role is genuine.",
       "name":"Cry Bullying",
       "dialogue": [
@@ -293,26 +305,7 @@
       ]
    },
    {
-      "id":"21",
-      "description":"When two things seem to happen in correlation with each other, many will mistakenly think that one thing caused the other when no such causal relationship has been established.",
-      "name":"Cum Hoc Ergo Propter Hoc",
-      "dialogue": [
-         {
-            "name": "Blathering Bill",
-            "message": "It's miracle! Just one day after I asked god to heal my sore throat it went away!"
-         },
-         {
-            "name": "Rational Rob",
-            "message": "Are you sure that it didn't have anything to do with visiting the doctor?"
-         },
-         {
-            "name": "Blathering Bill",
-            "message": "Nope. It was god!"
-         }
-      ]
-   },
-   {
-      "id":"22",
+      "id":"20",
       "description":"The division fallacy is committed when one assumes that a quality of a thing's individual parts can be determined by the quality of the whole.",
       "name":"Division Fallacy",
       "dialogue": [
@@ -327,22 +320,34 @@
       ]
    },
    {
-      "id":"52",
+      "id":"21",
       "description":"The power of holding two contradictory beliefs in one's mind simultaneously, and accepting both of them.",
       "name":"Doublethink",
       "dialogue": [
          {
             "name": "Blathering Bill",
-            "message": ""
+            "message": "Our rights come from God and people need to stop trying to take them away."
          },
          {
             "name": "Rational Rob",
-            "message": ""
+            "message": "I hear ya. The government has really trampled the rights of a lot of undocumented immigrants."
+         },
+         {
+            "name": "Blathering Bill",
+            "message": "They ain't Americans. So they don't have any rights here."
+         },
+         {
+            "name": "Rational Rob",
+            "message": "Aren't rights God given?"
+         },
+         {
+            "name": "Blathering Bill",
+            "message": "..."
          }
       ]
    },
    {
-      "id":"59",
+      "id":"22",
       "description":null,
       "name":"Factual Inaccuracy",
       "dialogue": [
@@ -362,32 +367,36 @@
       "name":"Fallacy Fallacy",
       "dialogue": [
          {
+            "name": "Rational Rob",
+            "message": "I might need to adjust my diet. My doctor says that my cholesterol is up."
+         },
+         {
             "name": "Blathering Bill",
-            "message": ""
+            "message": "Ha. Your doctor says so? That's an appeal to authority. Don't just listen to him because he's a doctor."
+         }
+      ]
+   },
+   {
+      "id":"24",
+      "description":"Describes a situation of logical and apparent equivalence, when in fact there is none.",
+      "name":"False Equivalence",
+      "dialogue": [
+         {
+            "name": "Rational Rob",
+            "message": "Guns kill way too many people each year. They should be tougher to get."
+         },
+         {
+            "name": "Blathering Bill",
+            "message": "What about cars? Many more people die each year in car accidents. Should they be tougher to get too?"
          },
          {
             "name": "Rational Rob",
-            "message": ""
+            "message": "Guns are designed to kill. Cars are designed to transport people from one place to another."
          }
       ]
    },
    {
       "id":"25",
-      "description":"Describes a situation of logical and apparent equivalence, when in fact there is none.",
-      "name":"False Equivalence",
-      "dialogue": [
-         {
-            "name": "Blathering Bill",
-            "message": ""
-         },
-         {
-            "name": "Rational Rob",
-            "message": ""
-         }
-      ]
-   },
-   {
-      "id":"53",
       "description":"A rhetorical tactic that asserts that if your ideas are ridiculed, then they must be valid. This fallacy earns its name from Galileo\u2018s famous persecution at the hands of the Catholic Church for his defense of heliocentrism in the face of the orthodox Biblical literalism of the day.",
       "name":"Galileo's Gambit",
       "dialogue": [
@@ -412,31 +421,35 @@
       "dialogue": [
          {
             "name": "Blathering Bill",
-            "message": ""
+            "message": "I'm gonna order a new jacket just so I'm prepared for the blizzard that's header our way."
          },
          {
             "name": "Rational Rob",
-            "message": ""
+            "message": "We live in Miami. It doesn't even snow here."
+         },
+         {
+            "name": "Blathering Bill",
+            "message": "My point exactly. It hasn't snowed here in so long that we're long overdue for a snow storm. A blizzard will be coming any day now..."
          }
       ]
    },
    {
       "id":"27",
-      "description":"When a conclusion is suggested based solely on something or someone's origin rather than its current meaning or context.",
+      "description":"Discrediting the source or origin of an argument instead of the argument itself.",
       "name":"Genetic Fallacy",
       "dialogue": [
          {
-            "name": "Blathering Bill",
-            "message": ""
+            "name": "Rational Rob",
+            "message": "Check out the article from the New York Times that I sent you. I'd like to hear your take."
          },
          {
-            "name": "Rational Rob",
-            "message": ""
+            "name": "Blathering Bill",
+            "message": "It ain't real. It's fake news."
          }
       ]
    },
    {
-      "id":"50",
+      "id":"28",
       "description":"This one doesn't appear on most lists of logical fallacies that are found on the internet and it isn't technically a fallacy. Although, it is a way of poisoning the well and discrediting someone. Godwin's law was first coined in 1990 by author and attorney Mike Godwin. It states that \"As an online discussion grows longer, the probability of a comparison involving Hitler approaches 1.\"\t",
       "name":"Godwin's Law",
       "dialogue": [
@@ -451,17 +464,13 @@
       ]
    },
    {
-      "id":"28",
+      "id":"29",
       "description":"The arguer attributes a property to an entire group based only on observing that property in an individual.",
       "name":"Hasty Generalization",
       "dialogue": [
          {
             "name": "Blathering Bill",
-            "message": ""
-         },
-         {
-            "name": "Rational Rob",
-            "message": ""
+            "message": "People from Salt Lake City sure do party hard. I had a roommate in college who was from there."
          }
       ]
    },
@@ -496,21 +505,6 @@
       ]
    },
    {
-      "id":"29",
-      "description":"The arguer attempts to discredit their opponent and\/or their contention by incorrectly asserting that they're somehow either racist, sexist or bigoted. This may come in the form of an Ad Hominem.",
-      "name":"Microagression Fallacy",
-      "dialogue": [
-         {
-            "name": "Blathering Bill",
-            "message": ""
-         },
-         {
-            "name": "Rational Rob",
-            "message": ""
-         }
-      ]
-   },
-   {
       "id":"32",
       "description":"Assuming that the compromise between two positions is correct.",
       "name":"Middle Ground",
@@ -527,7 +521,7 @@
    },
    {
       "id":"33",
-      "description":"In which one assumes a 'holier-than-thou' attitude in an attempt to make oneself look good to win an argument. Basically, disagree with me and you're morally bankrupt. This fallacy is very similar to the Hate Speech Fallacy in the sense that proponents of the latter also tend to scramble for the moral high ground.",
+      "description":"In which one assumes a 'holier-than-thou' attitude in an attempt to make oneself look good to win an argument.",
       "name":"Moral High Ground",
       "dialogue": [
          {
@@ -577,31 +571,39 @@
       "dialogue": [
          {
             "name": "Blathering Bill",
-            "message": ""
+            "message": "It is the duty of police officers to protect and serve with integrity and honesty. They would never break the law."
          },
          {
             "name": "Rational Rob",
-            "message": ""
+            "message": "Really? Hundreds of cops get busted each and every year for corruption and brutality."
+         },
+         {
+            "name": "Blathering Bill",
+            "message": "They aren't real cops."
          }
       ]
    },
    {
-      "id":"38",
+      "id":"37",
       "description":"A precedes B, therefore A caused B.",
       "name":"Post Hoc Fallacy",
       "dialogue": [
          {
             "name": "Blathering Bill",
-            "message": ""
+            "message": "It's miracle! Just one day after I asked god to heal my sore throat it went away!"
          },
          {
             "name": "Rational Rob",
-            "message": ""
+            "message": "Are you sure that it didn't have anything to do with visiting the doctor?"
+         },
+         {
+            "name": "Blathering Bill",
+            "message": "Nope. It was god!"
          }
       ]
    },
    {
-      "id":"56",
+      "id":"38",
       "description":"A type of non-sequitir whereby one asserts that if a group of people doesn't have a certain amount of a certain kind of person, that discrimination and\/or bigotry is the culprit.",
       "name":"Quota Fallacy",
       "dialogue": [
@@ -616,7 +618,7 @@
       ]
    },
    {
-      "id":"24",
+      "id":"39",
       "description":"Refers to the selective excerpting of words from their original context in a way that distorts the source's intended meaning.",
       "name":"Quoting out of Context",
       "dialogue": [
@@ -631,7 +633,7 @@
       ]
    },
    {
-      "id":"39",
+      "id":"40",
       "description":"A speaker attempts to distract an audience by deviating from the topic at hand by introducing a separate argument the speaker believes is easier to speak to.",
       "name":"Red Herring",
       "dialogue": [
@@ -646,7 +648,7 @@
       ]
    },
    {
-      "id":"40",
+      "id":"41",
       "description":"Conspiracy theory style reasoning wherein an argument is dismissed because the person who is putting it forth is assumed be profiting from the position that they're taking. This can also be an ad hominem attack. It's common for the person whose argument has been dismissed to be accused of being on a company's payroll. This assumes that the only legitimate reason one can have for taking a certain position is personal gain.",
       "name":"Shill Gambit",
       "dialogue": [
@@ -665,37 +667,57 @@
       ]
    },
    {
-      "id":"41",
+      "id":"42",
       "description":"The arguer tries to convince others that one action will lead to a series of events that will eventually lead to an ultimate, usually unwanted, consequence. This is fallacious if it is unlikely that each intermediate step will necessarily follow the preceding one.",
       "name":"Slippery Slope Fallacy",
       "dialogue": [
          {
             "name": "Blathering Bill",
-            "message": ""
+            "message": "Gays shouldn't be allowed to get married!"
          },
          {
             "name": "Rational Rob",
-            "message": ""
-         }
-      ]
-   },
-   {
-      "id":"42",
-      "description":"The arguer attempts to explain a discrepancy in his\/her argument by assigning special properties to his\/her position that immunizes it from criticism. Special Pleading may render a claim unfalsifiable. The fallacy of Special Pleading occurs when someone argues that a case is an exception to a rule based upon an irrelevant characteristic that does not define an exception. Special Pleading also may occur when the arguer implies that opponents of his\/her point of view cannot possibly understand it because they lack the capacity or skills needed to comprehend it.",
-      "name":"Special Pleading",
-      "dialogue": [
+            "message": "Why not?"
+         },
          {
             "name": "Blathering Bill",
-            "message": ""
-         },
-         {
-            "name": "Rational Rob",
-            "message": ""
+            "message": "We've gotta draw the line somewhere. Before you know it, people will be given the right to marry children. Then their pets. And before you know it, they'll be marrying their cars."
          }
       ]
    },
    {
       "id":"43",
+      "description":"The arguer attempts to explain a discrepancy in his\/her argument by assigning special properties to his\/her position that immunizes it from criticism. Special Pleading may render a claim unfalsifiable. The fallacy of Special Pleading occurs when someone argues that a case is an exception to a rule based upon an irrelevant characteristic that does not define an exception. Special Pleading also may occur when the arguer implies that opponents of his\/her point of view cannot possibly understand it because they lack the capacity or skills needed to comprehend it.",
+      "name":"Special Pleading",
+      "dialogue": [
+         {
+            "name": "Rational Rob",
+            "message": "You're totally wrong about that quote by Abraham Lincoln about not believing everything you read on the internet. That quote isn't real."
+         },
+         {
+            "name": "Blathering Bill",
+            "message": "There isn't any universal truth. Each person has their own version of the what's true."
+         },
+         {
+            "name": "Rational Rob",
+            "message": "...and you believe that to be true?"
+         },
+         {
+            "name": "Blathering Bill",
+            "message": "Yep"
+         },
+         {
+            "name": "Rational Rob",
+            "message": "I thought that nothing was universally true?"
+         },
+         {
+            "name": "Blathering Bill",
+            "message": "Well... except for that."
+         }
+      ]
+   },
+   {
+      "id":"44",
       "description":"Giving the impression of refuting an opponent's argument, while actually refuting an argument that was not advanced by that opponent.",
       "name":"Strawman",
       "dialogue": [
@@ -725,17 +747,17 @@
       ]
    },
    {
-      "id":"57",
+      "id":"46",
       "description":"A type of non-sequitir whereby one attempts to take credit for the deeds of someone else who belongs to the same group of people as the person putting forth the argument.",
       "name":"Tribal Fallacy",
       "dialogue": [
          {
-            "name": "Blathering Bill",
-            "message": ""
+            "name": "Rational Rob",
+            "message": "I saw on your LinkedIn profile that you listed the creation of Facebook as one of your accomplishments. What's up with that?"
          },
          {
-            "name": "Rational Rob",
-            "message": ""
+            "name": "Blathering Bill",
+            "message": "Well, Mark and I have both worked as programmers."
          }
       ]
    },
@@ -755,7 +777,7 @@
       ]
    },
    {
-      "id":"49",
+      "id":"48",
       "description":"A claim that is asserted that cannot be proven wrong. No evidence suffices as valid evidence.",
       "name":"Unfalsifiable Claim",
       "dialogue": [
@@ -774,7 +796,7 @@
       ]
    },
    {
-      "id":"54",
+      "id":"49",
       "description":"This happens when someone changes the definition of a word in such a way that reality conforms to their biases or lies.",
       "name":"Word Redefinition",
       "dialogue": [
@@ -789,7 +811,7 @@
       ]
    },
    {
-      "id":"48",
+      "id":"50",
       "description":"This isn't any sort of coherent argument or rhetoric. However, it often masquerades as one if the person communicating it is well spoken. This is essentially just a confused or unintelligible mixture of seemingly random words and phrases.",
       "name":"Word Salad",
       "dialogue": [

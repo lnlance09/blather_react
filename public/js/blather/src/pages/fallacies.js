@@ -20,14 +20,29 @@ import store from '../store';
 
 class Fallacies extends Component {
     constructor(props) {
-        super(props);
-        document.body.style.background = '#fff'
+        super(props)
         this.state = { 
-            activeItem: 'Ad Hominem Abusive'
+            activeItem: 'Ad Hominem Abusive',
+            intervalId: 0
         }
     }
 
-    handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+    scrollStep() {
+        if(window.pageYOffset === 0) {
+            clearInterval(this.state.intervalId);
+        }
+        window.scroll(0, window.pageYOffset - 50);
+    }
+
+    scrollToTop() {
+        let intervalId = setInterval(this.scrollStep.bind(this), '16.66');
+        this.setState({ intervalId: intervalId });
+    }
+
+    handleItemClick = (e, { name }) => {
+        this.scrollToTop()
+        this.setState({ activeItem: name })
+    }
 
     render() {
         const { activeItem } = this.state;
@@ -67,7 +82,7 @@ class Fallacies extends Component {
                     </div>
                 )
             }
-            return null;
+            return null
         })
 
         return (
@@ -100,7 +115,6 @@ class Fallacies extends Component {
                                     { fallaciesSidebar }
                                 </Menu>
                             </Grid.Column>
-
                             <Grid.Column className='rightSide' width={11}>
                                 { fallaciesMain }
                             </Grid.Column>
@@ -117,4 +131,4 @@ Fallacies.propTypes = {
     fallacies: PropTypes.object
 }
 
-export default Fallacies;
+export default Fallacies

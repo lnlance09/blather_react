@@ -7,6 +7,7 @@ import {
     Button,
     Card,
     Dimmer,
+    Divider,
     Form,
     Header,
     Icon,
@@ -16,6 +17,7 @@ import {
     TextArea
 } from 'semantic-ui-react';
 import { adjustTimezone } from '../../../utils/dateFunctions';
+import Marked from 'marked';
 import Moment from 'react-moment';
 import ParagraphPic from '../../../images/short-paragraph.png';
 import PropTypes from 'prop-types';
@@ -34,6 +36,19 @@ class Conversation extends Component {
                 id: this.props.fallacyId
             })
         }
+
+        Marked.setOptions({
+            renderer: new Marked.Renderer(),
+            highlight: function(code) {
+                // return require('highlight.js').highlightAuto(code).value;
+            },
+            pedantic: false,
+            breaks: false,
+            sanitize: false,
+            smartLists: true,
+            smartypants: false,
+            xhtml: false
+        })
 
         this.onChangeMessage = this.onChangeMessage.bind(this)
         this.submitForm = this.submitForm.bind(this)
@@ -81,87 +96,107 @@ class Conversation extends Component {
             }
         }
         const ContactUser = props => {
-            let userLink = `/pages/${props.user.type}/`
-            userLink += props.user.type === 'twitter' ? props.user.username : props.user.id
-            return (
-                <Dimmer.Dimmable 
-                    as={Segment} 
-                    blurring
-                    className='statusActionSegment'
-                    dimmed
-                >
-                    <Dimmer active inverted>
-                        {props.user && (
-                            <div>
-                                <Header size='small'>
-                                    Waiting for <Link to={userLink}>{props.user.name}</Link> to offer an explanation...
-                                </Header>
-                                {CallOutUser(props)}
-                            </div>
-                        )}
-                    </Dimmer>
-                </Dimmer.Dimmable>
-            )
-        }
-        const RenderPosts = props => {
-            if(props.conversation) {
-                const convoCount = props.conversation.length
-                return props.conversation.map((convo, i) => {
+            switch(props.status) {
+                case 0:
+                    const userLink = `/pages/${props.user.type}/${props.user.type === 'twitter' ? props.user.username : props.user.id}`
                     return (
-                        <Card 
-                            fluid
-                            raised={i === (convoCount-1) ? true : false}
+                        <Dimmer.Dimmable 
+                            as={Segment} 
+                            blurring
+                            className='statusActionSegment'
+                            dimmed
                         >
-                            <Card.Content>
-                                <Image 
-                                    circular 
-                                    floated='left' 
-                                    size='mini' 
-                                    src={convo.img} 
-                                />
-                                <Card.Header>{convo.name}</Card.Header>
-                                <Card.Meta><Moment date={adjustTimezone(convo.date_created)} fromNow interval={60000} /></Card.Meta>
-                                <Card.Description>
-                                    {convo.message}
-                                </Card.Description>
-                            </Card.Content>
-                        </Card>
+                            <Dimmer active inverted>
+                                {props.user && (
+                                    <div>
+                                        <Header size='small'>
+                                            Waiting for <Link to={userLink}>{props.user.name}</Link> to offer an explanation...
+                                        </Header>
+                                        {CallOutUser(props)}
+                                    </div>
+                                )}
+                            </Dimmer>
+                        </Dimmer.Dimmable>
                     )
-                })
+                case 1:
+                    return (
+                        <p>Waiting on {props.user.name}</p>
+                    )
+                default:
+                    return null
             }
         }
-        const InitialStatus = props => {
-            if(props.status === 0) {
-                if(props.canRespond) {
-                    return (
-                        <Form
-                            error={props.error}
-                            onSubmit={this.submitForm}
-                        >
-                            <TextArea 
-                                className='convoTextArea' 
-                                onChange={this.onChangeMessage}
-                                placeholder={`Tell ${props.createdBy.name} why this is not a fallacy`} 
-                                rows={10} 
-                                value={message}
-                            />
-                            {props.error && (
-                                <Message 
-                                    content={props.errorMsg}
-                                    error
-                                />
-                            )}
-                            <Button content='Add' floated='right'/>
-                            <div className='clearfix'></div>
-                        </Form>
-                    )
-                } else {
-                    return (
+        const ConvoCard = convo => (
+            <Card fluid>
+                <Card.Content>
+                    <Image 
+                        circular 
+                        floated='left' 
+                        size='mini' 
+                        src={convo.img} 
+                    />
+                    <Card.Header>{convo.name}</Card.Header>
+                    <Card.Meta><Moment date={adjustTimezone(convo.date_created)} fromNow interval={60000} /></Card.Meta>
+                    <Card.Description
+                        dangerouslySetInnerHTML={{__html: Marked(convo.message)}}
+                    >
+                    </Card.Description>
+                </Card.Content>
+            </Card>
+        )
+        const RenderPosts = props => {
+            if(props.conversation) {
+                const convos = []
+                const count = props.conversation.length
+                for(let i = 0; i < count; i+=2) {
+                    let round = i === 0 ? 1 : (i/2)+1
+                    convos.push(
                         <div>
-                            {ContactUser(props)}
+                            <Divider horizontal>Round {round}</Divider>
+                            <div>
+                                {ConvoCard(props.conversation[i])}
+                                {i+1 <= parseInt(count-1,10) ? ConvoCard(props.conversation[i+1]) : null}
+                            </div>
                         </div>
                     )
                 }
+                return convos
+            }
+        }
+        const InitialStatus = props => {
+            if(props.canRespond) {
+                return (
+                    <Form
+                        error={props.error}
+                        onSubmit={this.submitForm}
+                    >
+                        <TextArea 
+                            className='convoTextArea' 
+                            onChange={this.onChangeMessage}
+                            placeholder={`Tell ${props.createdBy.name} why this is not a fallacy`} 
+                            rows={10} 
+                            value={message}
+                        />
+                        {props.error && (
+                            <Message 
+                                className='convoErrorMsg'
+                                content={props.errorMsg}
+                                error
+                            />
+                        )}
+                        <Button className='convoRespondBtn' floated='right'>
+                            <Icon name='pencil' />
+                            Respond
+                        </Button>
+                        <div className='clearfix'></div>
+                    </Form>
+                )
+            } else {
+                return (
+                    <div>
+                        {ContactUser(props)}
+                    </div>
+                )
             }
         }
 
@@ -171,12 +206,14 @@ class Conversation extends Component {
                     Conversation
                     {this.props.createdBy && (
                         <Header.Subheader>
-                            {this.props.user.name} will attempt to explain to {this.props.createdBy.name} how this logic makes sense
+                            {this.props.user.name} will explain his reasoning
                         </Header.Subheader>
                     )}
                 </Header>
                 {RenderPosts(this.props)}
-                {InitialStatus(this.props)}
+                <div className='convoResponseSection'>
+                    {InitialStatus(this.props)}
+                </div>
             </div>
         )
     }

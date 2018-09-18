@@ -4,14 +4,23 @@
     margin-top: 25px;
 
     .form {
-        button {
-            background: $twitter !important;
+        .convoRespondBtn {
+            background: $vanadyl-blue !important;
             margin-top: 12px;
 
             &:hover {
-                background: darken($twitter, 5%) !important;
+                background: darken($vanadyl-blue, 5%) !important;
             }
         }
+
+        .ui.error.message.convoErrorMsg {
+            box-shadow: 0 0 0 1px $error-msg-border inset, 0 0 0 0 transparent !important;
+            margin-bottom: 0;
+        }
+    }
+
+    .convoResponseSection {
+        margin-top: 20px;
     }
 
     .statusActionSegment {

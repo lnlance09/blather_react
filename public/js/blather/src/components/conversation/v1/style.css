@@ -1,10 +1,15 @@
 .conversation {
   margin-top: 25px; }
-  .conversation .form button {
-    background: #0084b4 !important;
+  .conversation .form .convoRespondBtn {
+    background: #0097e6 !important;
     margin-top: 12px; }
-    .conversation .form button:hover {
-      background: #00719b !important; }
+    .conversation .form .convoRespondBtn:hover {
+      background: #0086cd !important; }
+  .conversation .form .ui.error.message.convoErrorMsg {
+    box-shadow: 0 0 0 1px rgba(224, 180, 180, 0.4) inset, 0 0 0 0 transparent !important;
+    margin-bottom: 0; }
+  .conversation .convoResponseSection {
+    margin-top: 20px; }
   .conversation .statusActionSegment {
     border: none !important;
     height: 116px; }

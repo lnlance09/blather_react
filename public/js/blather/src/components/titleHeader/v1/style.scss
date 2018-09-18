@@ -13,8 +13,7 @@
             cursor: pointer;
             display: none !important;
             float: right;
-            line-height: 36px;
-            margin-right: 0 !important;
+            line-height: 42px;
 
             &.check {
                 color: $skirret-green;
@@ -26,13 +25,13 @@
         }
 
         .titleInput {
-            width: 96% !important;
+            width: 94% !important;
             
             input {
                 border-radius: 0 !important;
-                font-size: 24px;
+                font-size: 18px;
                 line-height: 24px;
-                padding: 4px 10px;
+                padding: 4px 6px;
             }
         }
 

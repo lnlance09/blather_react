@@ -3,7 +3,6 @@
 .aboutCard {
     border: none !important;
     box-shadow: none !important;
-    border-radius: 0 !important;
     margin-top: 5px !important;
 
     .editAboutIcon {
@@ -15,6 +14,15 @@
         border: none !important;
         padding-left: 0 !important;
         padding-right: 3px !important;
+    }
+
+    .editAboutIcon {
+        display: none;
+        color: $vanadyl-blue !important;
+
+        &.close {
+            color: $harley-davidson-orange !important;
+        }
     }
 
     &:hover {
@@ -29,11 +37,11 @@
     }
 
     .updateAboutButton {
-        background: $seabrook !important;
+        background: $vanadyl-blue !important;
         margin-top: 5px;
 
         &:hover {
-            background: $naval !important;
+            background: darken($vanadyl-blue, 5%) !important;
         }
     }
 }

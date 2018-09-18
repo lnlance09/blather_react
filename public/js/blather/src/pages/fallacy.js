@@ -46,9 +46,7 @@ class Fallacy extends Component {
     }
 
     componentDidMount() {
-        this.props.fetchCommentCount({
-            id: this.state.id
-        })
+        this.props.fetchCommentCount({ id: this.state.id })
         this.props.fetchFallacy({
             bearer: this.state.bearer,
             id: this.state.id
@@ -57,12 +55,7 @@ class Fallacy extends Component {
 
     handleHide = () => this.setState({ active: false })
 
-    handleItemClick = (e, { name }) => {
-        this.setState({ activeItem: name })
-        if(name === 'comments') {
-
-        }
-    }
+    handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
     handleShow = () => this.setState({ active: true })
 
@@ -80,7 +73,7 @@ class Fallacy extends Component {
         const canEdit = this.props.createdBy ? this.props.createdBy.id === userId : false
         const FallacyMenu = props => (
             <div className='fallacyMainMenu'>
-                <Menu pointing secondary>
+                <Menu tabular>
                     <Menu.Item
                         active={activeItem === 'conversation'} 
                         name='conversation' 
@@ -158,6 +151,29 @@ class Fallacy extends Component {
                     return null
             }
         }
+        const ShowTags = props => {
+            let tags = null
+            if(props.tag_ids) {
+                const tagIds = props.tag_ids.split(',')
+                const tagNames = props.tag_names.split(',')
+                Array.prototype.zip = function(arr) {
+                    return this.map(function(e, i) {
+                        return {id: e, name: arr[i]}
+                    })
+                }
+                tags = tagIds.zip(tagNames)
+            }
+
+            return (
+                <TagsCard 
+                    bearer={bearer}
+                    canEdit={canEdit}
+                    id={id}
+                    tags={tags ? tags : []}
+                    type='fallacy'
+                />
+            )
+        }
 
         return (
             <Provider store={store}>
@@ -189,12 +205,7 @@ class Fallacy extends Component {
                                     )}
                                 </Grid.Column>
                                 <Grid.Column className='rightSide' width={4}>
-                                    <TagsCard 
-                                        bearer={bearer}
-                                        canEdit={canEdit}
-                                        tags={this.props.tags ? this.props.tags : []}
-                                        type='fallacy'
-                                    />
+                                    {ShowTags(this.props)}
                                 </Grid.Column>
                             </Grid>
                         </Container>
@@ -229,7 +240,8 @@ Fallacy.propTypes = {
     fetchFallacy: PropTypes.func,
     id: PropTypes.number,
     status: PropTypes.number,
-    tags: PropTypes.array,
+    tag_ids: PropTypes.string,
+    tag_names: PropTypes.string,
     title: PropTypes.string,
     tweet: PropTypes.object,
     video: PropTypes.object,

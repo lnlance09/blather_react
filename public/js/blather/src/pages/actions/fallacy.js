@@ -84,6 +84,27 @@ export const postComment = ({bearer, id, message }) => dispatch => {
     })
 }
 
+export const removeFallacyTag = ({bearer, id, tagId, tagName}) => dispatch => {
+    request.post(`${window.location.origin}/api/fallacies/removeTag`, {
+        form: {
+            id,
+            tagId
+        },
+        headers: {
+            'Authorization': bearer 
+        },
+        json: true
+    }, function(err, response, body) {
+        dispatch({
+            type: constants.REMOVE_FALLACY_TAG,
+            payload: {
+                id: tagId,
+                name: tagName
+            }
+        })
+    })
+}
+
 export const setTags = ({value, text}) => dispatch => {
     dispatch({
         type: constants.SET_FALLACY_TAGS,

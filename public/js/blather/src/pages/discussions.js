@@ -14,7 +14,6 @@ import store from '../store';
 class DiscussionsPage extends Component {
     constructor(props) {
         super(props)
-        document.body.style.background = '#fff'
         const height = window.innerHeight
         const currentState = store.getState()
         const bearer = currentState.user.bearer

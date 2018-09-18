@@ -1,7 +1,5 @@
 .ui.card.tagsCard {
-  box-shadow: none !important;
-  border-radius: 0 !important;
-  margin-top: 12px !important; }
+  box-shadow: none !important; }
   .ui.card.tagsCard .content {
     border: none;
     padding: 0 !important; }

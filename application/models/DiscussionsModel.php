@@ -144,8 +144,23 @@
             }
         }
 
+        public function removeTag($id, $tagId) {
+            $this->db->where([
+                'discussion_id' => $id,
+                'tag_id' => $tagId
+            ]);
+            $this->db->delete('discussion_tags');
+        }
+
         public function searchDiscussions($q = null, $by = null, $with = null, $status = null, $tags = null, $page = 0, $just_count = false) {
-            $select = "d.id AS discussion_id, description, d.date_created AS discussion_date, title, cu.name AS creator_user_name, CONCAT('http://localhost:3000/img/profile_pics/', cu.img) AS creator_img, au.name AS acceptor_user_name, CONCAT('http://localhost:3000/img/profile_pics/', au.img) AS acceptor_img";
+            $select = "d.id AS discussion_id, 
+                description, 
+                d.date_created AS discussion_date, 
+                title, 
+                cu.name AS creator_user_name, 
+                CONCAT('http://localhost:3000/img/profile_pics/', cu.img) AS creator_img, 
+                au.name AS acceptor_user_name, 
+                CONCAT('http://localhost:3000/img/profile_pics/', au.img) AS acceptor_img";
 
             if($tags) {
                 $select .= ",GROUP_CONCAT(t.text) AS tags";
@@ -204,16 +219,12 @@
 
         public function updateDiscussion($id, $title, $description, $extra, $userId, $tags = null) {
             $this->db->where('id', $id);
-            $update = $this->db->update('discussions', [
+            $this->db->update('discussions', [
                 'description' => $description,
                 'extra' => $extra,
                 'last_updated' => date('Y-m-d H:i:s'),
                 'title' => $title
             ]);
-
-            if(!$update) {
-                return false;
-            }
 
             if($tags) {
                 $this->insertDiscussionTags($id, $tags, $userId);

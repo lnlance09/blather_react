@@ -17,6 +17,7 @@ import SearchPage from './pages/search';
 import Settings from './pages/settings';
 import SignIn from './pages/signIn';
 import store from './store';
+import Tags from './pages/tags';
 import Users from './pages/users';
 
 ReactDOM.render(
@@ -60,6 +61,11 @@ ReactDOM.render(
 
             <Switch>
                 <Route path='/tweet/:id' component={Post} />
+            </Switch>
+
+            <Switch>
+                <Route path='/tag/create' component={Tags} />
+                <Route path='/tags/:name' component={Tags} />
             </Switch>
 
             <Switch>

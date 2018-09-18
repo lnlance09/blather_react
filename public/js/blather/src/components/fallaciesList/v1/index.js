@@ -146,7 +146,7 @@ class FallaciesList extends Component {
                                 count: result.view_count,
                                 term: 'view'
                             }}
-                            history={this.props.history}
+                            history={props.history}
                             id={`fallacy_${i}`}
                             img={img}
                             key={`fallacy_${i}`}

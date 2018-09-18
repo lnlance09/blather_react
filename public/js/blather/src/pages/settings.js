@@ -35,8 +35,7 @@ import store from '../store';
 
 class SettingsPage extends Component {
     constructor(props) {
-        super(props);
-        document.body.style.background = 'rgba(245, 246, 250,1.0)'
+        super(props)
         const height = window.innerHeight
         const currentState = store.getState()
         const parsed = qs.parse(this.props.location.search)

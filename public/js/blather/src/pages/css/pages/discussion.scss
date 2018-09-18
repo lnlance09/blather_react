@@ -3,15 +3,16 @@
 .discussionPage {
     .evidenceSection {
         .evidenceSegment, .extraSegment {
-            border-radius: 0 !important;
             font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
             font-size: 16px !important;
         }
     }
 
-    .steps {
-        border-radius: 0 !important;
+    .ui.grid {
+        margin-top: 0 !important;
+    }
 
+    .steps {
         .headerLogo {
             height: 35px;
             margin-right: 12px;

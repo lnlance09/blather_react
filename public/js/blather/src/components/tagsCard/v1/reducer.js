@@ -1,17 +1,7 @@
 import * as constants from './constants';
 
-/**
- * @return {object} - the initial state
- */
 const initial = () => ({});
 
-/**
- * Change the state of this widget
- *
- * @param {object} state
- * @param {object} action
- * @return {object}
- */
 const test = (state = initial(), action) => {
     switch (action.type) {
         case constants.CHANGE_ME:
@@ -25,4 +15,4 @@ const test = (state = initial(), action) => {
     }
 };
 
-export default test;
+export default test

@@ -1,7 +1,8 @@
 import './style.css';
-import { updateFallacy } from '../../../pages/actions/fallacy';
-import { updateDiscussion } from '../../../pages/actions/discussion';
+import { removeFallacyTag, updateFallacy } from '../../../pages/actions/fallacy';
+import { removeDiscussionTag, updateDiscussion } from '../../../pages/actions/discussion';
 import { connect, Provider } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { 
     Button,
     Card,
@@ -25,6 +26,7 @@ class TagsCard extends Component {
         }
 
         this.closeModal = this.closeModal.bind(this)
+        this.deleteTag = this.deleteTag.bind(this)
         this.handleAddition = this.handleAddition.bind(this)
         this.updateTags = this.updateTags.bind(this)
     }
@@ -35,12 +37,28 @@ class TagsCard extends Component {
         this.fetchTags()
     }
 
-    deleteTags() {
-        
+    deleteTag(id, name) {
+        if(this.props.type === 'fallacy') {
+            this.props.removeFallacyTag({ 
+                bearer: this.props.bearer,
+                id: this.props.id,
+                tagId: id,
+                tagName: name
+            })
+        }
+        if(this.props.type === 'discussion') {
+            this.props.removeDiscussionTag({ 
+                bearer: this.props.bearer,
+                id: this.props.id,
+                tagId: id,
+                tagName: name
+            })
+        }
     }
 
     fetchTags() {
-        return fetch(`${window.location.origin}/api/discussions/getTags`, {
+        const endpoint = this.props.type === 'discussion' ? 'discussions' : 'fallacies'
+        return fetch(`${window.location.origin}/api/${endpoint}/getTags`, {
             headers:{
                 'Content-Type': 'application/json'
             }
@@ -54,18 +72,16 @@ class TagsCard extends Component {
     }
 
     handleAddition = (e, { value }) => this.setState({ options: [{ text: value, value }, ...this.state.options] })
-
     handleChange = (e, { value }) => this.setState({ tags: value })
-
     updateTags = () => {
         this.setState({ editing: false, open: false })
         if(this.props.type === 'fallacy') {
             this.props.updateFallacy({ 
                 bearer: this.props.bearer,
+                id: this.props.id,
                 tags: this.state.tags
             })
         }
-
         if(this.props.type === 'discussion') {
             this.props.updateDiscussion({ 
                 bearer: this.props.bearer,
@@ -111,13 +127,13 @@ class TagsCard extends Component {
             </Modal>
         )
         const RenderTags = this.props.tags.map(tag => (
-            <List.Item>
-                {tag.name}
+            <List.Item key={`${tag.name}`}>
+                <Link to={`/tags/${tag.name}`}>{tag.name}</Link>
                 {this.props.canEdit && (
                     <List.Content floated='right'>
                         <Icon 
                             name='close' 
-                            onClick={this.deleteTag}
+                            onClick={() => this.deleteTag(tag.id, tag.name)}
                         />
                     </List.Content>
                 )}
@@ -126,7 +142,7 @@ class TagsCard extends Component {
         const ShowTags = props => {
             if(props.tags.length > 0) {
                 return (
-                    <List className='tagsList' divided relaxed>
+                    <List className='tagsList' relaxed>
                         {RenderTags}
                     </List>
                 )
@@ -173,6 +189,8 @@ TagsCard.propTypes = {
     bearer: PropTypes.string,
     canEdit: PropTypes.bool,
     id: PropTypes.number,
+    removeDiscussionTag: PropTypes.func,
+    removeFallacyTag: PropTypes.func,
     tags: PropTypes.oneOfType([
         PropTypes.array,
         PropTypes.bool
@@ -185,14 +203,30 @@ TagsCard.propTypes = {
 TagsCard.defaultProps = {
     canEdit: false,
     type: 'fallacy',
+    removeDiscussionTag: removeDiscussionTag,
+    removeFallacyTag: removeFallacyTag,
     updateDiscussion: updateDiscussion,
     updateFallacy: updateFallacy
 }
 
-const mapStateToProps = (state, ownProps) => ({
-    ...state.discussion,
-    ...state.fallacy,
-    ...ownProps
-})
+const mapStateToProps = (state, ownProps) => {
+    if(ownProps.type === 'fallacy') {
+        return {
+            ...state.fallacy,
+            ...ownProps
+        }
+    }
+    if(ownProps.type === 'discussion') {
+       return {
+            ...state.discussion,
+            ...ownProps
+        }
+    }
+}
 
-export default connect(mapStateToProps, { updateDiscussion, updateFallacy })(TagsCard);
+export default connect(mapStateToProps, { 
+    removeDiscussionTag,
+    removeFallacyTag,
+    updateDiscussion, 
+    updateFallacy 
+})(TagsCard)

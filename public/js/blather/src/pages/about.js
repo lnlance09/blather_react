@@ -24,7 +24,6 @@ import store from '../store';
 class About extends Component {
     constructor(props) {
         super(props)
-        document.body.style.background = '#fff'
         const height = window.innerHeight
         this.state = {
             height,

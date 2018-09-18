@@ -2,12 +2,8 @@
 
 .settingsPage {
     .settingsMenu {
-        border: solid 1px $container-border-color !important;
+        border: none !important;
         box-shadow: none !important;
-
-        .item:first-child {
-            border-radius: 0 !important;
-        }
     }
 
     .ui.vertical.menu .active.item {
@@ -19,15 +15,16 @@
         }
     }
 
-    .ui.vertical.menu > .active.item {
-        border-radius: 0px !important;
-    }
-
     .settingsContent {
         .segment {
             background: $white !important;
-            border: solid 1px $container-border-color !important;
+            border: none !important;
+            box-shadow: 0 0 0 1px $regular-msg-border inset, 0 0 0 0 transparent !important;
             min-height: 400px;
+
+            .ui.info.message {
+                box-shadow: 0 0 0 1px $info-msg-border inset, 0 0 0 0 transparent !important;
+            }
         }
 
         .firstParagraph {

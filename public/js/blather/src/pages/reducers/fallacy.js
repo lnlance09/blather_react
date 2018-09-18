@@ -15,14 +15,13 @@ const fallacy = (state = initial(), action) => {
 
             if(fallacy.network === 'twitter') {
                 tweet = JSON.parse(fallacy.tweet_json)
+                tweet.archive = null
                 if(fallacy.archive_code) {
                     tweet.archive = {
                         code: fallacy.archive_code,
                         date_created: fallacy.archive_date_created,
                         object_id: fallacy.archive_object_id
                     }
-                } else {
-                    tweet.archive = null
                 }
             }
 
@@ -125,6 +124,8 @@ const fallacy = (state = initial(), action) => {
                 status: parseInt(fallacy.status,10),
                 title: fallacy.title,
                 startTime: fallacy.start_time,
+                tag_ids: fallacy.tag_ids,
+                tag_names: fallacy.tag_names,
                 tweet: tweet,
                 user: {
                     id: fallacy.page_id,
@@ -160,13 +161,24 @@ const fallacy = (state = initial(), action) => {
 
         case constants.POST_COMMENT:
             const comments = state.comments.results ? [payload.comment, ...state.comments.results] : payload.comment
-            const count = state.comments.count+1
             return {
                 ...state,
                 comments: {
-                    count: count,
+                    count: state.comments.count+1,
                     results: comments
                 }
+            }
+
+        case constants.REMOVE_FALLACY_TAG:
+            let tagIds = state.tag_ids.split(',')
+            let tagNames = state.tag_names.split(',')
+            tagIds = tagIds.filter(item => item !== payload.id)
+            tagNames = tagNames.filter(item => item !== payload.name)
+            
+            return {
+                ...state,
+                tags_ids: tagIds.join(','),
+                tag_names: tagNames.join(',')
             }
 
         case constants.SET_FALLACY_TAGS:
@@ -184,13 +196,14 @@ const fallacy = (state = initial(), action) => {
                     submitted: false
                 }
             }
-
             const convo = state.conversation ? [...state.conversation, ...payload.conversation] : payload.conversation
             return {
                 ...state,
+                canRespond: false,
                 conversation: convo,
                 error: false,
                 errorMsg: '',
+                status: payload.conversation.status,
                 submitted: true
             }
 
@@ -205,6 +218,8 @@ const fallacy = (state = initial(), action) => {
                 explanation: payload.fallacy.explanation,
                 fallacyId: parseInt(payload.fallacy.fallacyId, 10),
                 fallacyName: payload.fallacy.fallacyName,
+                tag_ids: payload.fallacy.tag_ids,
+                tag_names: payload.fallacy.tag_names,
                 title: payload.fallacy.title
             }
 

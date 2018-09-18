@@ -109,6 +109,46 @@
 			]);
 		}
 
+		public function removeTag() {
+			$id = $this->input->post('id');
+			$tagId = $this->input->post('tagId');
+
+			if(!$this->user) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'You must be logged in'
+				]);
+				exit;
+			}
+
+			if(empty($tagId)) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'You must include a tag'
+				]);
+			}
+
+			$discussion = $this->discussions->getDiscussion($id);
+			if(empty($discussion)) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'This discussion does not exist'
+				]);
+			}
+
+			if($discussion['discussion_created_by'] !== $this->user->id) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'You do not have permission to edit this discussion'
+				]);
+			}
+
+			$this->discussions->removeTag($id, $tagId);
+			echo json_encode([
+				'error' => false
+			]);
+		}
+
 		public function search() {
 			$by = $this->input->get('startedBy');
 			$page = $this->input->get('page');

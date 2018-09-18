@@ -84,7 +84,7 @@ class FallacyExample extends Component {
             return null
         }
         const Explanation = props => (
-            <div className='fallacyExplanation' style={{ marginTop: '15px' }}>
+            <div className='fallacyExplanation'>
                 <Header as='h2' size='medium'>
                     {props.fallacyName}
                     <EditButton props={props} />

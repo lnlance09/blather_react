@@ -3,6 +3,10 @@
 .navSearch {
     .input {
         width: 100%;
+
+        input {
+            // border-radius: .28571429rem !important;
+        }
     }
 
     .results {

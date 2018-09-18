@@ -4,14 +4,6 @@
     background: $white;
     cursor: pointer;
 
-    &:hover {
-        background: $linx-white !important;
-
-        .extraList .item {
-            background: $linx-white;
-        }
-    }
-
     .meta {
         margin-top: 3px !important;
 

@@ -30,7 +30,6 @@ import TitleHeader from '../components/titleHeader/v1/';
 class UserPage extends Component {
     constructor(props) {
         super(props)
-        document.body.style.background = '#fff'
         const tabs = ['discussions', 'fallacies', 'archives']
         const height = window.innerHeight
         const currentState = store.getState()
@@ -57,7 +56,7 @@ class UserPage extends Component {
             aboutValue: user.data.bio ? user.data.bio : '',
             active: false,
             activeItem: tab ? tab : 'discussions',
-            animation: 'slide up',
+            animation: 'zoom',
             authenticated,
             bearer,
             duration: 500,
@@ -207,8 +206,7 @@ class UserPage extends Component {
                                 />
                                 <Menu
                                     className='profileMenu' 
-                                    pointing
-                                    secondary
+                                    tabular
                                 >
                                     <Menu.Item 
                                         active={activeItem === 'discussions'} 

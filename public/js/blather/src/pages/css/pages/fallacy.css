@@ -1,13 +1,8 @@
 .fallacyPage .menuContainer .statistic .label, .fallacyPage .menuContainer .statistic .value {
   color: #353b48; }
 
-.fallacyPage .discussionContainer {
-  margin-top: 1.3em; }
-  .fallacyPage .discussionContainer button {
-    background: #0097e6;
-    margin-top: 10px; }
-    .fallacyPage .discussionContainer button:hover {
-      background: #0086cd; }
+.fallacyPage .ui.grid {
+  margin-top: 0 !important; }
 
 .fallacyPage .commentsContent {
   margin-top: 12px; }
@@ -21,6 +16,3 @@
   .fallacyPage .fallacyMainMenu .ui.secondary.pointing.menu .active.item {
     border-color: #2f3640;
     color: #353b48; }
-
-.DraftEditor-root {
-  font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif; }

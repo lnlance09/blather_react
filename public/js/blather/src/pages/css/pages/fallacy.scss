@@ -9,17 +9,8 @@
         }
     }
 
-    .discussionContainer {
-        margin-top: 1.3em;
-
-        button {
-            background: $vanadyl-blue;
-            margin-top: 10px;
-
-            &:hover {
-                background: darken($vanadyl-blue, 5%);
-            }
-        }
+    .ui.grid {
+        margin-top: 0 !important;
     }
 
     .commentsContent {
@@ -42,8 +33,4 @@
             color: $blue-nights;
         }
     }
-}
-
-.DraftEditor-root {
-    font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
 }

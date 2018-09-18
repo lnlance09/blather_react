@@ -9,6 +9,7 @@ import {
     Message,
     Visibility
 } from 'semantic-ui-react';
+import ImagePic from '../../../images/image-square.png';
 import Moment from 'react-moment';
 import ParagraphPic from '../../../images/short-paragraph.png';
 import PropTypes from 'prop-types';
@@ -74,6 +75,7 @@ class ArchivesList extends Component {
                 } else {
                     return (
                         <Item key={`fallacy_${i}`}>
+                            <Item.Image size='small' src={ImagePic} />
                             <Item.Content>
                                 <Image fluid src={ParagraphPic} />
                             </Item.Content>
@@ -109,7 +111,7 @@ class ArchivesList extends Component {
                         onBottomVisible={this.loadMore} 
                         style={{ marginTop: '14px' }}
                     >
-                        <Item.Group className='fallacyItems'>
+                        <Item.Group className='fallacyItems' divided>
                             {renderArchives(this.props)}
                         </Item.Group>
                     </Visibility>

@@ -26,18 +26,6 @@
 .aboutPage .contactForm .message {
   box-shadow: 0 0 0 1px rgba(163, 194, 147, 0.4) inset, 0 0 0 0 transparent !important; }
 
-.createDiscussionPage .header .icon {
-  color: #353b48;
-  cursor: pointer;
-  display: none !important;
-  font-size: 18px;
-  line-height: 36px !important;
-  margin-right: 0 !important;
-  vertical-align: middle; }
-
-.createDiscussionPage .header:hover .icon {
-  display: inline !important; }
-
 .createDiscussionPage .contentContainer {
   background: #ffffff;
   border: none !important;
@@ -54,32 +42,46 @@
       background: #0097e6;
       margin-top: 1em; }
       .createDiscussionPage .contentContainer .segment .ui.form .submitDiscussionButton:hover {
-        background: #00a8ff; }
+        background: #0086cd !important; }
+    .createDiscussionPage .contentContainer .segment .ui.form .previewDiscussionButton {
+      background: #44bd32;
+      color: #ffffff;
+      margin-top: 1em; }
+      .createDiscussionPage .contentContainer .segment .ui.form .previewDiscussionButton:hover {
+        background: #3da92d !important; }
     .createDiscussionPage .contentContainer .segment .ui.form .titleInput input, .createDiscussionPage .contentContainer .segment .ui.form textarea {
       padding: 8px; }
+  .createDiscussionPage .contentContainer .previewSegment .descriptionTitle, .createDiscussionPage .contentContainer .previewSegment .extraTitle {
+    background: #ffffff;
+    margin-bottom: 5px; }
   .createDiscussionPage .contentContainer .previewSegment .descriptionPreview, .createDiscussionPage .contentContainer .previewSegment .extraPreview {
     background: #f5f6fa;
     min-height: 80px;
     padding: 8px; }
+  .createDiscussionPage .contentContainer .exitPreviewButton {
+    background: #e84118;
+    margin-top: 1em; }
+    .createDiscussionPage .contentContainer .exitPreviewButton:hover {
+      background: #d23a15 !important; }
 
 .createDiscussionPage .rightSide .discussionTagsHeader {
   font-size: 24px !important; }
 
 .discussionPage .evidenceSection .evidenceSegment, .discussionPage .evidenceSection .extraSegment {
-  border-radius: 0 !important;
   font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
   font-size: 16px !important; }
 
-.discussionPage .steps {
-  border-radius: 0 !important; }
-  .discussionPage .steps .headerLogo {
+.discussionPage .ui.grid {
+  margin-top: 0 !important; }
+
+.discussionPage .steps .headerLogo {
+  height: 35px;
+  margin-right: 12px;
+  width: 35px; }
+  .discussionPage .steps .headerLogo .svgHeaderLogo {
+    fill: #0097e6;
     height: 35px;
-    margin-right: 12px;
     width: 35px; }
-    .discussionPage .steps .headerLogo .svgHeaderLogo {
-      fill: #0097e6;
-      height: 35px;
-      width: 35px; }
 
 .discussionsPage .discussionsContainer {
   border: none !important;
@@ -120,13 +122,8 @@
 .fallacyPage .menuContainer .statistic .label, .fallacyPage .menuContainer .statistic .value {
   color: #353b48; }
 
-.fallacyPage .discussionContainer {
-  margin-top: 1.3em; }
-  .fallacyPage .discussionContainer button {
-    background: #0097e6;
-    margin-top: 10px; }
-    .fallacyPage .discussionContainer button:hover {
-      background: #0086cd; }
+.fallacyPage .ui.grid {
+  margin-top: 0 !important; }
 
 .fallacyPage .commentsContent {
   margin-top: 12px; }
@@ -140,9 +137,6 @@
   .fallacyPage .fallacyMainMenu .ui.secondary.pointing.menu .active.item {
     border-color: #2f3640;
     color: #353b48; }
-
-.DraftEditor-root {
-  font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif; }
 
 .socialMediaPage .menu.socialMediaPageMenu {
   margin-top: 40px !important; }
@@ -206,10 +200,8 @@
   padding: 0 !important; }
 
 .settingsPage .settingsMenu {
-  border: solid 1px rgba(220, 221, 225, 0.6) !important;
+  border: none !important;
   box-shadow: none !important; }
-  .settingsPage .settingsMenu .item:first-child {
-    border-radius: 0 !important; }
 
 .settingsPage .ui.vertical.menu .active.item {
   background: #00a8ff !important;
@@ -217,13 +209,13 @@
   .settingsPage .ui.vertical.menu .active.item:hover {
     color: #ffffff; }
 
-.settingsPage .ui.vertical.menu > .active.item {
-  border-radius: 0px !important; }
-
 .settingsPage .settingsContent .segment {
   background: #ffffff !important;
-  border: solid 1px rgba(220, 221, 225, 0.6) !important;
+  border: none !important;
+  box-shadow: 0 0 0 1px rgba(34, 36, 38, 0.1) inset, 0 0 0 0 transparent !important;
   min-height: 400px; }
+  .settingsPage .settingsContent .segment .ui.info.message {
+    box-shadow: 0 0 0 1px rgba(169, 213, 222, 0.4) inset, 0 0 0 0 transparent !important; }
 
 .settingsPage .settingsContent .firstParagraph {
   text-align: center; }
@@ -239,6 +231,9 @@
     height: 100%; }
     .loginContainer .loginForm .header {
       margin-top: 0; }
+
+.tagsPage .segment img {
+  margin-bottom: 1.2em; }
 
 .usersPage .changePicBtn {
   background: #0097e6 !important; }

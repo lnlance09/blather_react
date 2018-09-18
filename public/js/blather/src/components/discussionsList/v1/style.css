@@ -2,21 +2,15 @@
   background: rgba(245, 246, 250, 0.3) !important;
   border: solid 1px rgba(220, 221, 225, 0.6) !important;
   padding: 12px; }
-  .discussionsList .discussionsFilter .fields {
+  .discussionsList .discussionsFilter .fields:last-of-type {
     margin-bottom: 0 !important; }
-    .discussionsList .discussionsFilter .fields input {
-      border-radius: 0 !important; }
-    .discussionsList .discussionsFilter .fields .field .selection.dropdown {
-      border-radius: 0 !important; }
-    .discussionsList .discussionsFilter .fields .fields.equal {
-      margin-bottom: 0 !important; }
-    .discussionsList .discussionsFilter .fields .searchDiscussionsBtn {
-      background: #0097e6 !important;
-      color: #ffffff !important;
-      cursor: pointer;
-      height: 100%; }
-      .discussionsList .discussionsFilter .fields .searchDiscussionsBtn:hover {
-        background: #00a8ff !important; }
+  .discussionsList .discussionsFilter .fields .searchDiscussionsBtn {
+    background: #0097e6 !important;
+    color: #ffffff !important;
+    cursor: pointer;
+    height: 100%; }
+    .discussionsList .discussionsFilter .fields .searchDiscussionsBtn:hover {
+      background: #0086cd !important; }
   .discussionsList .discussionsFilter .createDiscussionBtn {
     background: #ffffff !important;
     border: solid 1px rgba(34, 36, 38, 0.15) !important;

@@ -1,15 +1,15 @@
 .discussionPage .evidenceSection .evidenceSegment, .discussionPage .evidenceSection .extraSegment {
-  border-radius: 0 !important;
   font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
   font-size: 16px !important; }
 
-.discussionPage .steps {
-  border-radius: 0 !important; }
-  .discussionPage .steps .headerLogo {
+.discussionPage .ui.grid {
+  margin-top: 0 !important; }
+
+.discussionPage .steps .headerLogo {
+  height: 35px;
+  margin-right: 12px;
+  width: 35px; }
+  .discussionPage .steps .headerLogo .svgHeaderLogo {
+    fill: #0097e6;
     height: 35px;
-    margin-right: 12px;
     width: 35px; }
-    .discussionPage .steps .headerLogo .svgHeaderLogo {
-      fill: #0097e6;
-      height: 35px;
-      width: 35px; }

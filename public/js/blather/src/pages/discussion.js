@@ -25,8 +25,7 @@ import TitleHeader from '../components/titleHeader/v1/';
 
 class DiscussionPage extends Component {
     constructor(props) {
-        super(props);
-        document.body.style.background = '#fff'
+        super(props)
         const id = this.props.match.params.id
         const height = window.innerHeight
         const currentState = store.getState()
@@ -65,7 +64,7 @@ class DiscussionPage extends Component {
         const createdAt = adjustTimezone(this.props.date_created)
         const EvidenceSection = props => {
             return (
-                <div style={{ marginTop: '15px' }}>
+                <div>
                     <Container fluid>
                         <Header as='h2' size='medium'>
                             Evidence
@@ -151,7 +150,7 @@ class DiscussionPage extends Component {
                     />
                     <Container
                         className='mainContainer'
-                        style={{ minHeight: height +'px' }}
+                        style={{ marginTop: '5em', minHeight: height +'px' }}
                         textAlign='left'
                     >
                         <HeaderSection props={this.props} />
@@ -200,4 +199,4 @@ const mapStateToProps = (state, ownProps) => {
     }
 }
 
-export default connect(mapStateToProps, { fetchDiscussion })(DiscussionPage);
+export default connect(mapStateToProps, { fetchDiscussion })(DiscussionPage)

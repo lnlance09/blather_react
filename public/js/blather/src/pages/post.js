@@ -26,8 +26,7 @@ import YouTubeVideo from '../components/youTubeVideo/v1/';
 
 class Post extends Component {
     constructor(props) {
-        super(props);
-        document.body.style.background = '#fff'
+        super(props)
         const height = window.innerHeight
         const path = this.props.match.path
         const id = this.props.match.params.id

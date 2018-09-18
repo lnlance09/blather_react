@@ -33,7 +33,6 @@ import VideoList from '../components/videoList/v1/';
 class SocialMediaPage extends Component {
     constructor(props) {
         super(props)
-        document.body.style.background = '#fff'
         const height = window.innerHeight;
         const id = this.props.match.params.id
         const network = this.props.match.params.network
@@ -249,8 +248,7 @@ class SocialMediaPage extends Component {
                                     {PageHeaderInfo(this.props)}
                                     <Menu
                                         className='socialMediaPageMenu' 
-                                        pointing
-                                        secondary
+                                        tabular
                                     >
                                         <Menu.Item 
                                             active={activeItem === itemsLabel} 

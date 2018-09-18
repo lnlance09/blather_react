@@ -146,6 +146,47 @@
             return $results;
         }
 
+        public function insertFallacyTags($id, $tags, $userId) {
+            foreach($tags as $tag) {
+                $this->db->select('id');
+                $this->db->where('value', $tag);
+                $query = $this->db->get('tags');
+                $result = $query->result_array();
+                
+                if(count($result) === 0) {
+                    $this->db->insert('tags', [
+                        'created_by' => $userId,
+                        'date_created' => date('Y-m-d H:i:s'),
+                        'text' => $tag,
+                        'value' => $tag
+                    ]);
+                    $tagId = $this->db->insert_id();
+
+                    $this->db->insert('fallacy_tags', [
+                        'discussion_id' => $id,
+                        'tag_id' => $tagId
+                    ]);
+                } else {
+                    $tag_id = $result[0]['id'];
+                    $this->db->select('COUNT(*) AS count');
+                    $this->db->where([
+                        'fallacy_id' => $id,
+                        'tag_id' => $tag_id
+                    ]);
+                    $query = $this->db->get('fallacy_tags');
+                    $result = $query->result_array();
+                    
+                    if($result[0]['count'] == 0) {
+                        $this->db->insert('fallacy_tags', [
+                            'date_created' => date('Y-m-d H:i:s'),
+                            'fallacy_id' => $id,
+                            'tag_id' => $tag_id
+                        ]);
+                    }
+                }
+            }
+        }
+
         public function getUniqueFallacies($id, $type = 'user') {
             $this->db->select("f.id AS value, f.name AS key, CONCAT(f.name, ' (', COUNT(*), ')') AS text");
             $this->db->join('fallacies f', 'fe.fallacy_id = f.id');
@@ -164,6 +205,14 @@
             return $results;
         }
 
+        public function removeTag($id, $tagId) {
+            $this->db->where([
+                'fallacy_id' => $id,
+                'tag_id' => $tagId
+            ]);
+            $this->db->delete('fallacy_tags');
+        }
+
         public function search($id = null, $q = null, $assigned_by = null, $assigned_to = null, $network = null, $object_id = null, $comment_id = null, $fallacies = null, $page = 0, $just_count = false) {
             
             $select = "f.name AS fallacy_name,
@@ -179,8 +228,6 @@
                 fe.title,
                 fe.view_count,
 
-                GROUP_CONCAT(t.text) AS tags, 
-
                 p.name AS page_name,
                 p.profile_pic AS page_profile_pic,
                 p.social_media_id AS page_id,
@@ -195,6 +242,9 @@
                 a.code AS archive_code,
                 a.object_id AS archive_object_id,
                 a.date_created AS archive_date_created,
+
+                GROUP_CONCAT(DISTINCT t.id SEPARATOR ', ') tag_ids, 
+                GROUP_CONCAT(DISTINCT t.value SEPARATOR ', ') AS tag_names,
 
                 (
                     CASE 
@@ -282,7 +332,7 @@
             $this->db->join('archived_links a', 'a.object_id = fe.media_id AND a.user_id = fe.assigned_by', 'left');
 
             $this->db->join('fallacy_tags ft', 'fe.id = ft.fallacy_id', 'left');
-            $this->db->join('(SELECT id, text FROM tags) t', 'ft.tag_id = t.id', 'left');
+            $this->db->join('tags t', 'ft.tag_id = t.id', 'left');
 
             $this->db->join('twitter_users tu', 'p.social_media_id = tu.twitter_id', 'left');
             $this->db->join('youtube_users yu', 'p.social_media_id = yu.youtube_id', 'left');
@@ -367,7 +417,7 @@
             ]);
         }
 
-        public function updateFallacy($id, $explanation, $fallacy_id, $tags, $title, $contradiction = null) {
+        public function updateFallacy($id, $explanation, $fallacy_id, $tags = null, $title, $userId, $contradiction = null) {
             $this->db->where('id', $id);
             $this->db->update('fallacy_entries', [
                 'explanation' => strip_tags($explanation),
@@ -375,6 +425,15 @@
                 'last_updated' => date('Y-m-d H:i:s'),
                 'title' => $title
             ]);
+
+            if($tags) {
+                $this->insertFallacyTags($id, $tags, $userId);
+            }
+        }
+
+        public function updateStatus($id, $status) {
+            $sql = "UPDATE fallacy_entries SET status = ? WHERE id = ?";
+            $this->db->query($sql, [$status, $id]);
         }
 
         public function updateViewCount($id) {

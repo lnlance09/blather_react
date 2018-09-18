@@ -7,6 +7,7 @@ import {
 	Button,
 	Container,
 	Dimmer,
+	Divider,
 	Dropdown,
 	Form,
 	Grid,
@@ -26,8 +27,7 @@ import store from '../store';
 
 class CreateDiscussionPage extends Component {
 	constructor(props) {
-		super(props);
-		document.body.style.background = '#fff'
+		super(props)
 		const currentState = store.getState()
 		const bearer = currentState.user.bearer
 		const authenticated = currentState.user.authenticated
@@ -90,13 +90,9 @@ class CreateDiscussionPage extends Component {
 	}
 
 	handleAddition = (e, { value }) => this.setState({ options: [{ text: value, value }, ...this.state.options]})
-
 	handleChange = (e, { value }) => this.setState({ tags: value })
-
 	onChangeDescription = (e, { value }) => this.setState({ description: value });
-
 	onChangeExtra = (e, { value }) => this.setState({ extra: value });
-
 	onChangeTitle = (e, { value }) => this.setState({ title: value })
 
 	submitDiscussion(e) {
@@ -138,7 +134,7 @@ class CreateDiscussionPage extends Component {
 		const hasUpdated = authenticated && (title !== '' || description !== '' || extra !== '') ? true : false
 		const DiscussionForm = props => {
 			return (
-				<Transition animation='slide left' duration={duration} visible={visible}>
+				<Transition animation='fade' duration={duration} visible={visible}>
 					<Dimmer.Dimmable as={Segment} dimmed={authenticated ? false : true}>
 						<Form 
 							loading={loading && !props.error} 
@@ -151,7 +147,7 @@ class CreateDiscussionPage extends Component {
 								label='What is your claim?'
 								maxLength={250}
 								onChange={this.onChangeTitle}
-								placeholder='What is your claim?'
+								placeholder='Please be concise'
 								value={title}
 							/>
 							<Form.Field 
@@ -161,7 +157,7 @@ class CreateDiscussionPage extends Component {
 								label='Why do you beleive this to be true?'
 								onChange={this.onChangeDescription}
 								placeholder="What is your evidence? Try to use reputable sources."
-								rows={10}
+								rows={15}
 								value={description}
 							/>
 							<Form.Field 
@@ -171,7 +167,7 @@ class CreateDiscussionPage extends Component {
 								label='What would it take for you to be proven wrong?'
 								onChange={this.onChangeExtra}
 								placeholder="If the answer is nothing then don't bother posting."
-								rows={10}
+								rows={12}
 								value={extra}
 							/>
 							<Dropdown
@@ -187,6 +183,18 @@ class CreateDiscussionPage extends Component {
 								selection
 								value={tags}
 							/>
+							{hasUpdated && (
+								<div>
+									<Button
+										as='a'
+										className='previewDiscussionButton' 
+										content='Preview'
+										fluid
+										onClick={this.togglePreview}
+									/>
+									<Divider horizontal>Or</Divider>
+								</div>
+							)}
 							<Button 
 								className='submitDiscussionButton' 
 								content='Start the discussion'
@@ -208,21 +216,13 @@ class CreateDiscussionPage extends Component {
 			)
 		}
 		const HeaderTitle = (
-			<Header as='h1' dividing>
+			<Header as='h1'>
 				Start a Discussion
-				{hasUpdated && (
-					<Icon
-						name='pencil'
-						onClick={this.togglePreview}
-						size='tiny'
-						style={{ float: 'right' }}
-					/>
-				)}
 			</Header>
 		)
 		const Preview = () => {
 			return (
-				<Transition animation='slide right' duration={duration} visible={preview}>
+				<Transition animation='fade' duration={duration} visible={preview}>
 					<Segment className='previewSegment'>
 						<Header size='medium'>{title}</Header>
 						<div>
@@ -241,6 +241,12 @@ class CreateDiscussionPage extends Component {
 							>
 							</div>
 						</div>
+						<Button
+							className='exitPreviewButton' 
+							content='Exit preview'
+							fluid
+							onClick={this.togglePreview}
+						/>
 					</Segment>
 				</Transition>
 			)
@@ -268,7 +274,7 @@ class CreateDiscussionPage extends Component {
 									<Header as='h2' className='discussionTagsHeader'>
 										Tips
 									</Header>
-									<List divided relaxed>
+									<List relaxed>
 										<List.Item>
 											Try not to employ any logical fallacies
 										</List.Item>

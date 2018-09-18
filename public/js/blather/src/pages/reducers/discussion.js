@@ -25,6 +25,18 @@ const discussion = (state = initial(), action) => {
                 }
             }
 
+        case constants.REMOVE_DISCUSSION_TAG:
+            let tagIds = state.tag_ids.split(',')
+            let tagNames = state.tag_names.split(',')
+            tagIds = tagIds.filter(item => item !== payload.id)
+            tagNames = tagNames.filter(item => item !== payload.name)
+            
+            return {
+                ...state,
+                tags_ids: tagIds.join(','),
+                tag_names: tagNames.join(',')
+            }
+
         case constants.SET_DISCUSSION_TAGS:
             return {
                 ...state,
