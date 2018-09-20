@@ -8,6 +8,7 @@
 			$this->baseUrl = $this->config->base_url();
 			$this->load->model('FallaciesModel', 'fallacies');
 			$this->load->model('FacebookModel', 'fb');
+			$this->load->model('TagsModel', 'tags');
 			$this->load->model('TwitterModel', 'twitter');
 			$this->load->model('YouTubeModel', 'youtube');
 		}
@@ -143,14 +144,6 @@
 			$convo = $this->fallacies->getConversation($id);
 			echo json_encode([
 				'conversation' => $convo
-			]);
-		}
-
-		public function getTags() {
-			$tags = $this->fallacies->getTags();
-			echo json_encode([
-				'error' => false,
-				'tags' => $tags
 			]);
 		}
 
@@ -317,7 +310,7 @@
 				]);
 			}
 
-			$this->fallacies->removeTag($id, $tagId);
+			$this->tags->removeTag($id, $tagId, 'fallacy');
 			echo json_encode([
 				'error' => false
 			]);
@@ -410,7 +403,7 @@
 				exit;
 			}
 
-			$id = $this->input->post('id');
+			$id = (int)$this->input->post('id');
 			$endTime = $this->input->post('endTime');
 			$explanation = $this->input->post('explanation');
 			$fallacyId = $this->input->post('fallacyId');

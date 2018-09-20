@@ -26,7 +26,7 @@ export const fetchDiscussions = ({bearer, page, q, startedBy, status, tags, with
 }
 
 export const fetchTags = () => dispatch => {
-    request.get(`${window.location.origin}/api/discussions/getTags`, {
+    request.get(`${window.location.origin}/api/tags/getTags`, {
         json: true
     }, function(err, response, body) {
         dispatch({

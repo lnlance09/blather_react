@@ -13,15 +13,24 @@
         }
     }
 
-    .profilePic img {
-        border: none !important;
+    .profilePic {
+        img {
+            border: none !important;
+        }
     }
 
     .menu.profileMenu {
         margin-top: 40px !important;
 
-        .active.item {
-            border-radius: 0 !important;
+        .item {
+            &.active {
+                border-radius: 0 !important;
+            }
+
+            .label {
+                background: $linx-white;
+                color: $electromagnetic;
+            }
         }
     }
 

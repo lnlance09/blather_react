@@ -31,6 +31,7 @@
   border: none !important;
   padding: 0 !important; }
   .createDiscussionPage .contentContainer .segment {
+    background: #ffffff !important;
     border: none !important;
     margin: 0;
     padding: 0; }
@@ -67,7 +68,8 @@
 .createDiscussionPage .rightSide .discussionTagsHeader {
   font-size: 24px !important; }
 
-.discussionPage .evidenceSection .evidenceSegment, .discussionPage .evidenceSection .extraSegment {
+.discussionPage .evidenceSection .evidenceSegment,
+.discussionPage .evidenceSection .extraSegment {
   font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
   font-size: 16px !important; }
 
@@ -125,9 +127,6 @@
 .fallacyPage .ui.grid {
   margin-top: 0 !important; }
 
-.fallacyPage .commentsContent {
-  margin-top: 12px; }
-
 .fallacyPage .fallacyMainMenu {
   margin-top: 10px; }
   .fallacyPage .fallacyMainMenu .ui.tabular.menu .active.item {
@@ -150,6 +149,9 @@
   border: none !important;
   min-height: 450px;
   padding: 0 !important; }
+
+.socialMediaPage .ui.active.transition.visible.dimmer {
+  background: rgba(255, 255, 255, 0.8) !important; }
 
 .postPage .mainContainer {
   padding: 0 !important; }
@@ -247,8 +249,11 @@
 
 .usersPage .menu.profileMenu {
   margin-top: 40px !important; }
-  .usersPage .menu.profileMenu .active.item {
+  .usersPage .menu.profileMenu .item.active {
     border-radius: 0 !important; }
+  .usersPage .menu.profileMenu .item .label {
+    background: #f5f6fa;
+    color: #2f3640; }
 
 .usersPage .profileContentContainer {
   border: none !important;
@@ -285,6 +290,22 @@ textarea {
 .input input {
   border-radius: 0 !important; }
 
+.ui.upward.selection.dropdown.visible {
+  border-radius: 0 !important; }
+
+.search.selection.dropdown:hover {
+  border-color: rgba(34, 36, 38, 0.15) !important; }
+
+.search.selection.dropdown .ui.label {
+  background: #44bd32;
+  border: none !important;
+  box-shadow: none !important;
+  color: #ffffff;
+  padding: 6px 12px; }
+
+.search.selection.active.dropdown {
+  border-color: #96c8da !important; }
+
 .segment {
   background: rgba(245, 246, 250, 0.3) !important;
   border: solid 1px rgba(220, 221, 225, 0.6) !important;
@@ -292,9 +313,6 @@ textarea {
   padding: 8px; }
   .segment.dimmer {
     border: solid 1px rgba(245, 246, 250, 0.5); }
-
-.ui.active.transition.visible.dimmer {
-  background: rgba(255, 255, 255, 0.8) !important; }
 
 .externalUrl {
   color: #0097e6;

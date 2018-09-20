@@ -19,10 +19,11 @@ class TagsCard extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            edited: false,
             editing: false,
             open: false,
             options: [],
-            tags: props.tags
+            tags: null
         }
 
         this.closeModal = this.closeModal.bind(this)
@@ -57,8 +58,7 @@ class TagsCard extends Component {
     }
 
     fetchTags() {
-        const endpoint = this.props.type === 'discussion' ? 'discussions' : 'fallacies'
-        return fetch(`${window.location.origin}/api/${endpoint}/getTags`, {
+        return fetch(`${window.location.origin}/api/tags/getTags`, {
             headers:{
                 'Content-Type': 'application/json'
             }
@@ -72,7 +72,7 @@ class TagsCard extends Component {
     }
 
     handleAddition = (e, { value }) => this.setState({ options: [{ text: value, value }, ...this.state.options] })
-    handleChange = (e, { value }) => this.setState({ tags: value })
+    handleChange = (e, { value }) => this.setState({ edited: true, tags: value })
     updateTags = () => {
         this.setState({ editing: false, open: false })
         if(this.props.type === 'fallacy') {
@@ -92,10 +92,16 @@ class TagsCard extends Component {
     }
 
     render() {
-        const { open, options, tags } = this.state
+        let { edited, open, options, tags } = this.state
+        if(tags === null && !edited) {
+            // tags = this.props.tags
+        }
+
         const TagsModal = (
              <Modal 
+                basic
                 centered={false}
+                className='tagsModal'
                 onClose={this.closeModal} 
                 open={open} 
                 size='small'
@@ -127,10 +133,11 @@ class TagsCard extends Component {
             </Modal>
         )
         const RenderTags = this.props.tags.map(tag => (
-            <List.Item key={`${tag.name}`}>
-                <Link to={`/tags/${tag.name}`}>{tag.name}</Link>
+            <List.Item key={`tag_${tag.name}`}>
+                <Link id={tag.id} to={`/tags/${tag.name}`}>{tag.name}</Link>
                 {this.props.canEdit && (
                     <List.Content floated='right'>
+                        {tag.id}
                         <Icon 
                             name='close' 
                             onClick={() => this.deleteTag(tag.id, tag.name)}
@@ -140,6 +147,10 @@ class TagsCard extends Component {
             </List.Item>
         ))
         const ShowTags = props => {
+            if(props.loading) {
+                return
+            }
+
             if(props.tags.length > 0) {
                 return (
                     <List className='tagsList' relaxed>
@@ -147,6 +158,7 @@ class TagsCard extends Component {
                     </List>
                 )
             }
+
             return (
                 <div>
                     No tags have been added
@@ -170,9 +182,7 @@ class TagsCard extends Component {
                                 )}
                             </Card.Header>
                             <Card.Description>
-                                <div>
-                                    {ShowTags(this.props)}
-                                </div>
+                                {ShowTags(this.props)}
                             </Card.Description>
                         </Card.Content>
                     </Card>
@@ -189,6 +199,7 @@ TagsCard.propTypes = {
     bearer: PropTypes.string,
     canEdit: PropTypes.bool,
     id: PropTypes.number,
+    loading: PropTypes.bool,
     removeDiscussionTag: PropTypes.func,
     removeFallacyTag: PropTypes.func,
     tags: PropTypes.oneOfType([
@@ -202,6 +213,7 @@ TagsCard.propTypes = {
 
 TagsCard.defaultProps = {
     canEdit: false,
+    loading: true,
     type: 'fallacy',
     removeDiscussionTag: removeDiscussionTag,
     removeFallacyTag: removeFallacyTag,

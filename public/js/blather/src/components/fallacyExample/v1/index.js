@@ -1,4 +1,5 @@
 import './style.css';
+import { editExplanation, updateFallacy } from '../../../pages/actions/fallacy';
 import { dateDifference } from '../../../utils/dateFunctions';
 import { fallacyDropdownOptions } from '../../../utils/fallacyFunctions';
 import { formatDuration } from '../../../utils/textFunctions';
@@ -15,6 +16,7 @@ import {
     Segment,
     TextArea
 } from 'semantic-ui-react';
+import nl2br from 'react-nl2br';
 import ParagraphPic from '../../../images/short-paragraph.png';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
@@ -26,9 +28,7 @@ class FallacyExample extends Component {
         super(props)
         this.state = {
             editing: false,
-            explanation: props.explanation,
-            fallacyId: props.fallacyId,
-            fallacyName: props.fallacyName,
+            explanation: '',
             loading: false
         }
 
@@ -38,35 +38,39 @@ class FallacyExample extends Component {
         this.updateFallacy = this.updateFallacy.bind(this)
     }
 
-    componentWillMount() {
-        
+    onChangeExplanation = (e, { value }) => {
+        this.setState({ explanation: value })
     }
 
-    onChangeExplanation = (e, { value }) => this.setState({ explanation: value })
-
     onChangeFallacy = (e, { value }) => {
-        this.setState({ 
-            fallacyId: parseInt(value, 10),
+        this.props.updateFallacy({
+            bearer: this.props.bearer,
+            id: this.props.id,
+            explanation: this.props.explanation,
+            fallacyId: parseInt(value,10),
             fallacyName: e.target.textContent
         })
     }
 
     onClickEdit = () => {
         this.setState({ 
-            editing: this.state.editing ? false : true,
+            editing: this.state.editing === false,
             explanation: this.props.explanation
         })
     }
 
     updateFallacy(e) {
         e.preventDefault()
-        this.setState({ editing: false, loading: true })
+        this.setState({ 
+            editing: false,
+            loading: true 
+        })
         this.props.updateFallacy({
             bearer: this.props.bearer,
             id: this.props.id,
             explanation: this.state.explanation,
-            fallacyId: this.state.fallacyId,
-            fallacyName: this.state.fallacyName,
+            fallacyId: parseInt(this.props.fallacyId,10),
+            fallacyName: this.props.fallacyName,
         })
     }
 
@@ -89,18 +93,18 @@ class FallacyExample extends Component {
                     {props.fallacyName}
                     <EditButton props={props} />
                 </Header>
-                {props.explanation && (
+                {props.fallacyId && (
                     <div>
                         {editing && (
                             <Form onSubmit={this.updateFallacy}>
                                 <Form.Field>
                                     <Dropdown 
                                         className='fallacyDropdown'
-                                        defaultValue={''+ props.fallacyId +''}
+                                        defaultValue={`${props.fallacyId}`}
                                         onChange={this.onChangeFallacy}
                                         options={fallacyDropdownOptions}
                                         placeholder='Select a fallacy'
-                                        search 
+                                        search
                                         selection
                                     />
                                 </Form.Field>
@@ -123,7 +127,7 @@ class FallacyExample extends Component {
                         )}
                         {!editing && (
                             <p>
-                                {props.explanation}
+                                {nl2br(props.explanation)}
                             </p>
                         )}
                     </div>
@@ -282,11 +286,13 @@ class FallacyExample extends Component {
 FallacyExample.propTypes = {
     bearer: PropTypes.string,
     canEdit: PropTypes.bool,
+    editExplanation: PropTypes.func,
     showExplanation: PropTypes.bool
 }
 
 FallacyExample.defaultProps = {
     canEdit: false,
+    editExplanation: editExplanation,
     showExplanation: true
 }
 
@@ -295,4 +301,7 @@ const mapStateToProps = (state, ownProps) => ({
     ...ownProps
 })
 
-export default connect(mapStateToProps, { })(FallacyExample);
+export default connect(mapStateToProps, { 
+    editExplanation, 
+    updateFallacy 
+})(FallacyExample)

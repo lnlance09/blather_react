@@ -1,4 +1,5 @@
 export const CREATE_ARCHIVE = 'post:CREATE_ARCHIVE';
+export const EDIT_EXPLANATION = 'fallacy:EDIT_EXPLANATION';
 export const FETCH_VIDEO_COMMENTS = 'video:FETCH_VIDEO_COMMENTS';
 export const GET_ARCHIVED_LINKS = 'pageUser:GET_ARCHIVED_LINKS';
 export const GET_COMMENTS = 'fallacy:GET_COMMENTS';

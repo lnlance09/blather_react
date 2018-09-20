@@ -24,7 +24,7 @@ import TitleHeader from '../components/titleHeader/v1/';
 
 class Fallacy extends Component {
     constructor(props) {
-        super(props);
+        super(props)
         const height = window.innerHeight
         const id = parseInt(this.props.match.params.id,10)
         const currentState = store.getState()
@@ -169,6 +169,7 @@ class Fallacy extends Component {
                     bearer={bearer}
                     canEdit={canEdit}
                     id={id}
+                    loading={tags ? false : true}
                     tags={tags ? tags : []}
                     type='fallacy'
                 />

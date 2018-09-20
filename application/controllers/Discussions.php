@@ -8,6 +8,7 @@
 			$this->baseUrl = $this->config->base_url();
 			$this->load->helper('common_helper');
 			$this->load->model('DiscussionsModel', 'discussions');
+			$this->load->model('TagsModel', 'tags');
 		}
 
 		public function index() {
@@ -88,14 +89,6 @@
 			]);
 		}
 
-		public function getTags() {
-			$tags = $this->discussions->getTags();
-			echo json_encode([
-				'error' => false,
-				'tags' => $tags
-			]);
-		}
-
 		public function getUsers() {
 			$startedBy = $this->input->get('startedBy');
 			$withUser = $this->input->get('withUser');
@@ -143,7 +136,7 @@
 				]);
 			}
 
-			$this->discussions->removeTag($id, $tagId);
+			$this->tags->removeTag($id, $tagId, 'discussion');
 			echo json_encode([
 				'error' => false
 			]);

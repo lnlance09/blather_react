@@ -214,6 +214,7 @@ class YouTubeVideo extends Component {
                 return (
                     <Modal 
                         className='youtubeCommentModal'
+                        inverted='true'
                         onClose={this.closeModal} 
                         open={open} 
                         size='small'

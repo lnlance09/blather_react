@@ -32,7 +32,6 @@ class DiscussionPage extends Component {
         const bearer = currentState.user.bearer
         const authenticated = currentState.user.authenticated
         const isMine = currentState.user.id === this.props.user.id
-
         this.state = {
             authenticated,
             bearer,
@@ -60,7 +59,7 @@ class DiscussionPage extends Component {
     }
 
     render() {
-        const { bearer, extra, height, id, isMine } = this.state
+        const { bearer, height, id, isMine } = this.state
         const createdAt = adjustTimezone(this.props.date_created)
         const EvidenceSection = props => {
             return (
@@ -135,6 +134,7 @@ class DiscussionPage extends Component {
                     bearer={bearer}
                     canEdit={isMine}
                     id={props.id}
+                    loading={tags ? false : true}
                     tags={tags ? tags : []}
                     type='discussion'
                 />

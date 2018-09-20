@@ -33,9 +33,7 @@ class AboutCard extends Component {
         this.updateDescription = this.updateDescription.bind(this)
     }
 
-    onChangeText = (e, { value }) => {
-        this.setState({ value })
-    }
+    onChangeText = (e, { value }) => this.setState({ value })
 
     updateDescription = () => {
         this.setState({ editing: false })
@@ -124,4 +122,4 @@ const mapStateToProps = (state, ownProps) => ({
     ...ownProps
 })
 
-export default connect(mapStateToProps, { updateAbout })(AboutCard);
+export default connect(mapStateToProps, { updateAbout })(AboutCard)

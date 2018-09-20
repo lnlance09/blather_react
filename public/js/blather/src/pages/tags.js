@@ -32,7 +32,6 @@ class Tags extends Component {
         const authenticated = currentState.user.authenticated
         const bearer = currentState.user.bearer
         const userId = parseInt(currentState.user.data.id,10)
-
         this.state = {
             authenticated,
             bearer,
@@ -40,10 +39,6 @@ class Tags extends Component {
             name,
             userId
         }
-    }
-
-    componentWillMount() {
-        
     }
 
     render() {

@@ -1,15 +1,14 @@
-.fallacyRef {
-  margin-top: 15px; }
-  .fallacyRef .header.attached {
-    background: #ffffff;
-    border: none !important;
-    color: #2f3640;
-    font-size: 16px !important;
-    padding: 0 !important; }
-  .fallacyRef .fallacySegment {
-    background: #ffffff !important;
-    border: none !important;
-    margin-top: 7px !important;
-    padding: 0 !important; }
-    .fallacyRef .fallacySegment img {
-      border-radius: 0 !important; }
+.fallacyRef .header.attached {
+  background: #ffffff;
+  border: none !important;
+  color: #2f3640;
+  font-size: 16px !important;
+  padding: 0 !important; }
+
+.fallacyRef .fallacySegment {
+  background: #ffffff !important;
+  border: none !important;
+  margin-top: 7px !important;
+  padding: 0 !important; }
+  .fallacyRef .fallacySegment img {
+    border-radius: 0 !important; }

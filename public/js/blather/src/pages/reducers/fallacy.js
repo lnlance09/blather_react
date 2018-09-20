@@ -40,7 +40,6 @@ const fallacy = (state = initial(), action) => {
                         }
                     }
                 }
-
                 video = {
                     channel: {
                         id: fallacy.video_channel_id,
@@ -138,6 +137,12 @@ const fallacy = (state = initial(), action) => {
                 viewCount: parseInt(fallacy.view_count,10)
             }
 
+        case constants.EDIT_EXPLANATION:
+            return {
+                ...state,
+                explanation: payload.explanation
+            }
+
         case constants.GET_COMMENTS:
             return {
                 ...state,
@@ -172,12 +177,12 @@ const fallacy = (state = initial(), action) => {
         case constants.REMOVE_FALLACY_TAG:
             let tagIds = state.tag_ids.split(',')
             let tagNames = state.tag_names.split(',')
-            tagIds = tagIds.filter(item => item !== payload.id)
-            tagNames = tagNames.filter(item => item !== payload.name)
+            tagIds = tagIds.filter(item => parseInt(item.trim(),10) !== parseInt(payload.id.trim(),10))
+            tagNames = tagNames.filter(item => item.trim() !== payload.name.trim())
             
             return {
                 ...state,
-                tags_ids: tagIds.join(','),
+                tag_ids: tagIds.join(','),
                 tag_names: tagNames.join(',')
             }
 
@@ -216,8 +221,8 @@ const fallacy = (state = initial(), action) => {
             return {
                 ...state,
                 explanation: payload.fallacy.explanation,
-                fallacyId: parseInt(payload.fallacy.fallacyId, 10),
-                fallacyName: payload.fallacy.fallacyName,
+                fallacyId: parseInt(payload.fallacy.fallacy_id,10),
+                fallacyName: payload.fallacy.fallacy_name,
                 tag_ids: payload.fallacy.tag_ids,
                 tag_names: payload.fallacy.tag_names,
                 title: payload.fallacy.title

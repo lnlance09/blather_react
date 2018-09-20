@@ -96,62 +96,6 @@
             return $results;
         }
 
-        public function getTags() {
-            $this->db->select('id, text, value');
-            $query = $this->db->get('tags');
-            $results = $query->result_array();
-            return $results;
-        }
-
-        public function insertDiscussionTags($id, $tags, $userId) {
-            foreach($tags as $tag) {
-                $this->db->select('id');
-                $this->db->where('value', $tag);
-                $query = $this->db->get('tags');
-                $result = $query->result_array();
-                
-                if(count($result) === 0) {
-                    $this->db->insert('tags', [
-                        'created_by' => $userId,
-                        'date_created' => date('Y-m-d H:i:s'),
-                        'text' => $tag,
-                        'value' => $tag
-                    ]);
-                    $tagId = $this->db->insert_id();
-
-                    $this->db->insert('discussion_tags', [
-                        'discussion_id' => $id,
-                        'tag_id' => $tagId
-                    ]);
-                } else {
-                    $tag_id = $result[0]['id'];
-                    $this->db->select('COUNT(*) AS count');
-                    $this->db->where([
-                        'discussion_id' => $id,
-                        'tag_id' => $tag_id
-                    ]);
-                    $query = $this->db->get('discussion_tags');
-                    $result = $query->result_array();
-                    
-                    if($result[0]['count'] == 0) {
-                        $this->db->insert('discussion_tags', [
-                            'date_created' => date('Y-m-d H:i:s'),
-                            'discussion_id' => $id,
-                            'tag_id' => $tag_id
-                        ]);
-                    }
-                }
-            }
-        }
-
-        public function removeTag($id, $tagId) {
-            $this->db->where([
-                'discussion_id' => $id,
-                'tag_id' => $tagId
-            ]);
-            $this->db->delete('discussion_tags');
-        }
-
         public function searchDiscussions($q = null, $by = null, $with = null, $status = null, $tags = null, $page = 0, $just_count = false) {
             $select = "d.id AS discussion_id, 
                 description, 
@@ -227,7 +171,7 @@
             ]);
 
             if($tags) {
-                $this->insertDiscussionTags($id, $tags, $userId);
+                $this->tags->insertTags($id, $tags, 'discussion', $userId);
             }
         }
     }

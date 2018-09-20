@@ -95,6 +95,7 @@ class Fallacies extends Component {
                     <Container
                         ref={this.handleContextRef}
                         className='mainContainer'
+                        style={{ marginTop: '5em' }}
                         textAlign='left'
                     >
                         <Header as='h1' dividing>

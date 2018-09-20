@@ -139,54 +139,6 @@
             return $result;
         }
 
-        public function getTags() {
-            $this->db->select('id, text, value');
-            $query = $this->db->get('tags');
-            $results = $query->result_array();
-            return $results;
-        }
-
-        public function insertFallacyTags($id, $tags, $userId) {
-            foreach($tags as $tag) {
-                $this->db->select('id');
-                $this->db->where('value', $tag);
-                $query = $this->db->get('tags');
-                $result = $query->result_array();
-                
-                if(count($result) === 0) {
-                    $this->db->insert('tags', [
-                        'created_by' => $userId,
-                        'date_created' => date('Y-m-d H:i:s'),
-                        'text' => $tag,
-                        'value' => $tag
-                    ]);
-                    $tagId = $this->db->insert_id();
-
-                    $this->db->insert('fallacy_tags', [
-                        'discussion_id' => $id,
-                        'tag_id' => $tagId
-                    ]);
-                } else {
-                    $tag_id = $result[0]['id'];
-                    $this->db->select('COUNT(*) AS count');
-                    $this->db->where([
-                        'fallacy_id' => $id,
-                        'tag_id' => $tag_id
-                    ]);
-                    $query = $this->db->get('fallacy_tags');
-                    $result = $query->result_array();
-                    
-                    if($result[0]['count'] == 0) {
-                        $this->db->insert('fallacy_tags', [
-                            'date_created' => date('Y-m-d H:i:s'),
-                            'fallacy_id' => $id,
-                            'tag_id' => $tag_id
-                        ]);
-                    }
-                }
-            }
-        }
-
         public function getUniqueFallacies($id, $type = 'user') {
             $this->db->select("f.id AS value, f.name AS key, CONCAT(f.name, ' (', COUNT(*), ')') AS text");
             $this->db->join('fallacies f', 'fe.fallacy_id = f.id');
@@ -203,14 +155,6 @@
             $this->db->order_by('COUNT(*)', 'DESC');
             $results = $this->db->get('fallacy_entries fe')->result_array();
             return $results;
-        }
-
-        public function removeTag($id, $tagId) {
-            $this->db->where([
-                'fallacy_id' => $id,
-                'tag_id' => $tagId
-            ]);
-            $this->db->delete('fallacy_tags');
         }
 
         public function search($id = null, $q = null, $assigned_by = null, $assigned_to = null, $network = null, $object_id = null, $comment_id = null, $fallacies = null, $page = 0, $just_count = false) {
@@ -420,14 +364,14 @@
         public function updateFallacy($id, $explanation, $fallacy_id, $tags = null, $title, $userId, $contradiction = null) {
             $this->db->where('id', $id);
             $this->db->update('fallacy_entries', [
-                'explanation' => strip_tags($explanation),
+                'explanation' => $explanation,
                 'fallacy_id' => $fallacy_id,
                 'last_updated' => date('Y-m-d H:i:s'),
                 'title' => $title
             ]);
 
             if($tags) {
-                $this->insertFallacyTags($id, $tags, $userId);
+                $this->tags->insertTags($id, $tags, 'fallacy', $userId);
             }
         }
 

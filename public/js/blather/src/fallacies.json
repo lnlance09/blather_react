@@ -732,6 +732,29 @@
       ]
    },
    {
+      "id":"50",
+      "description":"Cherry picking data that supports your contention while ignoring data that contradcits it. Basically, confirmation bias.",
+      "name":"Texas Sharpshooter",
+      "dialogue": [
+         {
+            "name": "Blathering Bill",
+            "message": "My fortune teller told me that something positive was in my future in the form of a white piece of paper. Today, I received a letter in the mail telling me that all the charges against me have been dropped! She knows her stuff!"
+         },
+         {
+            "name": "Rational Rob",
+            "message": "Yeah... but she also talked about a million other things."
+         },
+         {
+            "name": "Blathering Bill",
+            "message": "So what!"
+         },
+         {
+            "name": "Rational Rob",
+            "message": "If you make enough predictions, then sooner or later some of them will probably become true. But, that's because of pure luck; not any uncanny ability to predict the future with accuracy."
+         }
+      ]
+   },
+   {
       "id":"45",
       "description":"A commonly used phrase, sometimes passing as folk wisdom, used to quell cognitive dissonance, conceal lack of thought-entertainment, move on to other topics etc. but in any case, end the debate with a clich\u00e9\u2014not a point.",
       "name":"Thought Terminating Clich\u00e9",
@@ -812,6 +835,21 @@
    },
    {
       "id":"50",
+      "description":"A deflection tactic that is used to shift the focus of attention away from what is being criticized on to other stuff that is similar but has is totally irrelevant.",
+      "name":"Whataboutism",
+      "dialogue": [
+         {
+            "name": "Rational Rob",
+            "message": "What?"
+         },
+         {
+            "name": "Blathering Bill",
+            "message": "Orderliness imparts reality to a symbolic representation of acceptance."
+         }
+      ]
+   },
+   {
+      "id":"51",
       "description":"This isn't any sort of coherent argument or rhetoric. However, it often masquerades as one if the person communicating it is well spoken. This is essentially just a confused or unintelligible mixture of seemingly random words and phrases.",
       "name":"Word Salad",
       "dialogue": [
@@ -826,7 +864,7 @@
       ]
    },
    {
-      "id":"51",
+      "id":"52",
       "description":"When one assumes that someone else\u2019s gain is a loss to other players; and the total amount of the available money or resources is fixed. A logical fallacy often occurs when this particular game theory is applied to economic or political discussions amongst non-economists \u2013 leading to false beliefs that the amount of wealth or jobs in the economy is fixed.",
       "name":"Zero Sum Fallacy",
       "dialogue": [

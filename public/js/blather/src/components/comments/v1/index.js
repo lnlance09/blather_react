@@ -95,6 +95,7 @@ class CommentsSection extends Component {
                     value={message}
                 />
                 <Button 
+                    compact
                     content='Post' 
                     style={{ float: 'right', marginRight: '0' }}
                     type='submit'

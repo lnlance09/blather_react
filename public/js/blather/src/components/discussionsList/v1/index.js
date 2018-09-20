@@ -68,7 +68,7 @@ class DiscussionsList extends Component {
     }
 
     fetchTags() {
-        return fetch(`${window.location.origin}/api/discussions/getTags`, {
+        return fetch(`${window.location.origin}/api/tags/getTags`, {
             headers:{
                 'Content-Type': 'application/json'
             }

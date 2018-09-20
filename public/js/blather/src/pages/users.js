@@ -11,6 +11,7 @@ import {
     Header,
     Icon,
     Image,
+    Label,
     Menu,
     Transition
 } from 'semantic-ui-react'; 
@@ -53,7 +54,7 @@ class UserPage extends Component {
         })
 
         this.state = {
-            aboutValue: user.data.bio ? user.data.bio : '',
+            about: user.data.bio ? user.data.bio : '',
             active: false,
             activeItem: tab ? tab : 'discussions',
             animation: 'zoom',
@@ -72,7 +73,7 @@ class UserPage extends Component {
         this.onChangeAbout = this.onChangeAbout.bind(this)
     }
 
-    onChangeAbout = (e, { value }) => this.setState({ aboutValue: value })
+    onChangeAbout = (e, { value }) => this.setState({ about: value })
 
     componentDidMount() {
         this.setState({ visible: true })
@@ -101,19 +102,19 @@ class UserPage extends Component {
         this.setState({ editing: false })
         this.props.updateAbout({ 
             bearer: this.state.bearer,
-            bio: this.state.aboutValue
+            bio: this.state.about
         })
     }
 
     render() {
-        const { aboutValue, active, activeItem, animation, bearer, duration, height, isMyProfile, visible } = this.state
+        const { about, active, activeItem, animation, bearer, duration, height, isMyProfile, visible } = this.state
         const pic = !this.props.user.img && !this.props.loading ? defaultImg : this.props.user.img
         const inverted = true
         const aboutCard = props => (
             <AboutCard 
                 bearer={bearer}
                 canEdit={isMyProfile}
-                description={aboutValue}
+                description={about}
                 title='About'
                 type='user'
             />
@@ -146,7 +147,7 @@ class UserPage extends Component {
             }
             return (<Image src={pic} style={{ border: 'none' }} />)
         }
-        const showContent = props => {
+        const ShowContent = props => {
             if(props.user.id) {
                 switch(activeItem) {
                     case'discussions':
@@ -206,32 +207,42 @@ class UserPage extends Component {
                                 />
                                 <Menu
                                     className='profileMenu' 
-                                    tabular
+                                    pointing
+                                    secondary
                                 >
                                     <Menu.Item 
                                         active={activeItem === 'discussions'} 
                                         name='discussions'
                                         onClick={this.handleItemClick} 
                                     >
-                                        Discussions {this.props.user.discussionCount > 0 ? `(${this.props.user.discussionCount})` : ''}
+                                        Discussions {' '}
+                                        {this.props.user.discussionCount > 0 && (
+                                            <Label circular>{this.props.user.discussionCount}</Label>
+                                        )}
                                     </Menu.Item>
                                     <Menu.Item 
                                         active={activeItem === 'fallacies'} 
                                         name='fallacies' 
                                         onClick={this.handleItemClick} 
                                     >
-                                        Fallacies {this.props.user.fallacyCount > 0 ? `(${this.props.user.fallacyCount})` : ''}
+                                        Fallacies {' '}
+                                        {this.props.user.fallacyCount > 0 && (
+                                            <Label circular>{this.props.user.fallacyCount}</Label>
+                                        )}
                                     </Menu.Item>
                                     <Menu.Item 
                                         active={activeItem === 'archives'} 
                                         name='archives' 
                                         onClick={this.handleItemClick} 
                                     >
-                                        Archives {this.props.user.archiveCount > 0 ? `(${this.props.user.archiveCount})` : ''}
+                                        Archives {' '}
+                                        {this.props.user.archiveCount > 0 && (
+                                            <Label circular>{this.props.user.archiveCount}</Label>
+                                        )}
                                     </Menu.Item>
                                 </Menu>
                                 <Container className='profileContentContainer'>
-                                    {showContent(this.props)}
+                                    {ShowContent(this.props)}
                                 </Container>
                             </Grid.Column>
                         </Grid>
@@ -280,4 +291,8 @@ const mapStateToProps = (state, ownProps) => {
     }
 }
 
-export default connect(mapStateToProps, { fetchUserData, changeProfilePic, updateAbout })(UserPage);
+export default connect(mapStateToProps, { 
+    fetchUserData, 
+    changeProfilePic, 
+    updateAbout 
+})(UserPage)

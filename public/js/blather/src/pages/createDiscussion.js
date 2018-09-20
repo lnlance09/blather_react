@@ -76,7 +76,7 @@ class CreateDiscussionPage extends Component {
 	}
 
 	fetchTags() {
-		return fetch(`${window.location.origin}/api/discussions/getTags`, {
+		return fetch(`${window.location.origin}/api/tags/getTags`, {
 			headers:{
 				'Content-Type': 'application/json'
 			}
@@ -123,6 +123,7 @@ class CreateDiscussionPage extends Component {
 			duration,
 			extra, 
 			hasSubmitted, 
+			height,
 			loading, 
 			options, 
 			preview, 
@@ -186,21 +187,28 @@ class CreateDiscussionPage extends Component {
 							{hasUpdated && (
 								<div>
 									<Button
+										animated='vertical'
 										as='a'
 										className='previewDiscussionButton' 
 										content='Preview'
 										fluid
 										onClick={this.togglePreview}
-									/>
+									>
+										<Button.Content visible>Preview</Button.Content>
+										<Button.Content hidden>
+											<Icon name='eye' />
+										</Button.Content>
+									</Button>
 									<Divider horizontal>Or</Divider>
 								</div>
 							)}
 							<Button 
 								className='submitDiscussionButton' 
-								content='Start the discussion'
 								fluid
 								type='submit'
-							/>
+							>
+								<Button.Content visible>Start the dicussion</Button.Content>
+							</Button>
 						</Form>
 						<Dimmer active={authenticated ? false : true}>
 							<Header as='h2'>
@@ -242,11 +250,16 @@ class CreateDiscussionPage extends Component {
 							</div>
 						</div>
 						<Button
+							animated
 							className='exitPreviewButton' 
-							content='Exit preview'
 							fluid
 							onClick={this.togglePreview}
-						/>
+						>
+							<Button.Content hidden>Exit preview</Button.Content>
+							<Button.Content visible>
+								<Icon name='close' />
+							</Button.Content>
+						</Button>
 					</Segment>
 				</Transition>
 			)
@@ -260,7 +273,11 @@ class CreateDiscussionPage extends Component {
 						<PageHeader
 							{...this.props}
 						/>
-						<Container className='mainContainer' textAlign='left'>
+						<Container 
+							className='mainContainer'
+							style={{ marginTop: '5em', minHeight: height +'px' }}
+							textAlign='left'
+						>
 							{HeaderTitle}
 							<Grid>
 								<Grid.Column className='leftSide' width={12}>
@@ -321,4 +338,7 @@ const mapStateToProps = (state, ownProps) => {
 	}
 }
 
-export default connect(mapStateToProps, { setTags, submitDiscussion })(CreateDiscussionPage)
+export default connect(mapStateToProps, { 
+	setTags, 
+	submitDiscussion 
+})(CreateDiscussionPage)

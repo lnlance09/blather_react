@@ -57,6 +57,28 @@ textarea {
     }
 }
 
+.ui.upward.selection.dropdown.visible {
+    border-radius: 0 !important;
+}
+
+.search.selection.dropdown {
+    &:hover {
+        border-color: $dropdown-border-color !important;
+    }
+
+    .ui.label {
+        background: $skirret-green;
+        border: none !important;
+        box-shadow: none !important;
+        color: $white;
+        padding: 6px 12px;
+    }
+}
+
+.search.selection.active.dropdown {
+    border-color: #96c8da !important;
+}
+
 .segment {
     background: $container-content-background !important;
     border: solid 1px $container-border-color !important;
@@ -66,10 +88,6 @@ textarea {
     &.dimmer {
         border: solid 1px  $dimmer-border;
     }
-}
-
-.ui.active.transition.visible.dimmer {
-    background: $dimmer-background !important;
 }
 
 .externalUrl {

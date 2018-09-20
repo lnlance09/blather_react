@@ -1,72 +1,73 @@
 @import '../../../css/colors.scss';
 
 .createDiscussionPage {
-        .contentContainer {
-            background: $white;
+    .contentContainer {
+        background: $white;
+        border: none !important;
+        padding: 0 !important;
+
+        .segment {
+            background: $white !important;
             border: none !important;
-            padding: 0 !important;
+            margin: 0;
+            padding: 0;
 
-            .segment {
-                border: none !important;
-                margin: 0;
-                padding: 0;
-
-                .ui.form {
-                    .field label {
-                        font-size: 15px;
-                    }
-
-                    .provenWrongTextArea {
-                        margin-top: 1em;
-                    }
-
-                    .submitDiscussionButton {
-                        background: $vanadyl-blue;
-                        margin-top: 1em;
-
-                        &:hover {
-                            background: darken($vanadyl-blue, 5%) !important;
-                        }
-                    }
-
-                    .previewDiscussionButton {
-                        background: $skirret-green;
-                        color: $white;
-                        margin-top: 1em;
-
-                        &:hover {
-                            background: darken($skirret-green, 5%) !important;
-                        }
-                    }
-
-                    .titleInput input, textarea {
-                        padding: 8px;
-                    }
-                }
-            }
-
-            .previewSegment {
-                .descriptionTitle, .extraTitle {
-                    background: $white;
-                    margin-bottom: 5px;
+            .ui.form {
+                .field label {
+                    font-size: 15px;
                 }
 
-                .descriptionPreview, .extraPreview {
-                    background: $linx-white;
-                    min-height: 80px;
+                .provenWrongTextArea {
+                    margin-top: 1em;
+                }
+
+                .submitDiscussionButton {
+                    background: $vanadyl-blue;
+                    margin-top: 1em;
+
+                    &:hover {
+                        background: darken($vanadyl-blue, 5%) !important;
+                    }
+                }
+
+                .previewDiscussionButton {
+                    background: $skirret-green;
+                    color: $white;
+                    margin-top: 1em;
+
+                    &:hover {
+                        background: darken($skirret-green, 5%) !important;
+                    }
+                }
+
+                .titleInput input, textarea {
                     padding: 8px;
                 }
             }
+        }
 
-            .exitPreviewButton {
-                background: $harley-davidson-orange;
-                margin-top: 1em;
+        .previewSegment {
+            .descriptionTitle, .extraTitle {
+                background: $white;
+                margin-bottom: 5px;
+            }
 
-                &:hover {
-                    background: darken($harley-davidson-orange, 5%) !important;
-                }
+            .descriptionPreview, .extraPreview {
+                background: $linx-white;
+                min-height: 80px;
+                padding: 8px;
             }
         }
+
+        .exitPreviewButton {
+            background: $harley-davidson-orange;
+            margin-top: 1em;
+
+            &:hover {
+                background: darken($harley-davidson-orange, 5%) !important;
+            }
+        }
+    }
 
     .rightSide {
         .discussionTagsHeader {

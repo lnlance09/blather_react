@@ -153,4 +153,4 @@ const mapStateToProps = (state, ownProps) => ({
     ...ownProps
 })
 
-export default connect(mapStateToProps, { getArchives })(ArchivesList);
+export default connect(mapStateToProps, { getArchives })(ArchivesList)

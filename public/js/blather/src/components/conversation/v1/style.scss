@@ -4,18 +4,91 @@
     margin-top: 25px;
 
     .form {
-        .convoRespondBtn {
-            background: $vanadyl-blue !important;
-            margin-top: 12px;
+        .actionSegment {
+            line-height: 30.5px;
+            margin-top: 15px;
 
-            &:hover {
-                background: darken($vanadyl-blue, 5%) !important;
+            .actionOptions {
+                display: inline-block;
+            }
+        }
+
+        .menu {
+            .item {
+                .icon {
+                    &.paper.plane {
+                        color: $nanohanacha-gold !important;
+                    }
+
+                    &.close {
+                        color: $harley-davidson-orange !important;
+                    }
+
+                    &.check {
+                        color: $skirret-green !important;
+                    }
+                }
+            }
+        }
+
+        .convoRespondBtn {
+            color: $electromagnetic;
+            float: right;
+            margin-right: 0;
+
+            &.respond {
+                background: $nanohanacha-gold !important;
+                &:hover {
+                    background: darken($nanohanacha-gold, 5%) !important;
+                }
+            }
+
+            &.close {
+                background: $harley-davidson-orange !important;
+                &:hover {
+                    background: darken($harley-davidson-orange, 5%) !important;
+                }
+            }
+
+            &.convince {
+                background: $skirret-green !important;
+                &:hover {
+                    background: darken($skirret-green, 5%) !important;
+                }
+            }
+        }
+
+        .extraText {
+            font-weight: bold;
+
+            &.respond {
+                color: $nanohanacha-gold !important;
+            }
+
+            &.close {
+                color: $harley-davidson-orange !important;
+            }
+
+            &.convince {
+                color: $skirret-green !important;
             }
         }
 
         .ui.error.message.convoErrorMsg {
             box-shadow: 0 0 0 1px $error-msg-border inset, 0 0 0 0 transparent !important;
             margin-bottom: 0;
+        }
+
+        .convoTextArea {
+            &.close {
+                border: none;
+                box-shadow: 0 0 0 1px $harley-davidson-orange-light inset, 0 0 0 0 transparent !important;
+            }
+
+            &.convince {
+                border: none;
+                box-shadow: 0 0 0 1px $skirret-green-light inset, 0 0 0 0 transparent !important;
+            }
         }
     }
 

@@ -48,12 +48,29 @@
     }
 }
 
-.ui.small.modal {
+.ui.small.modal.tagsModal {
     margin-top: 100px !important;
+
+    .header {
+        padding: 10px 13px 0 13px;
+    }
+
+    .content {
+        padding: 0.8em;
+    }
+
+    .search.selection.dropdown {
+        border: solid 1px $white !important;
+
+        .menu.transition {
+            border: none !important;
+        }
+    }
 
     .tagModalBtn {
         background: $vanadyl-blue;
         float: right;
+        margin-right: 0;
         margin-top: 12px;
 
         &:hover {

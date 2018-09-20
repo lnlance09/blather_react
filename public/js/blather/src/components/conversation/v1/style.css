@@ -1,13 +1,49 @@
 .conversation {
   margin-top: 25px; }
+  .conversation .form .actionSegment {
+    line-height: 30.5px;
+    margin-top: 15px; }
+    .conversation .form .actionSegment .actionOptions {
+      display: inline-block; }
+  .conversation .form .menu .item .icon.paper.plane {
+    color: #e1b12c !important; }
+  .conversation .form .menu .item .icon.close {
+    color: #e84118 !important; }
+  .conversation .form .menu .item .icon.check {
+    color: #44bd32 !important; }
   .conversation .form .convoRespondBtn {
-    background: #0097e6 !important;
-    margin-top: 12px; }
-    .conversation .form .convoRespondBtn:hover {
-      background: #0086cd !important; }
+    color: #2f3640;
+    float: right;
+    margin-right: 0; }
+    .conversation .form .convoRespondBtn.respond {
+      background: #e1b12c !important; }
+      .conversation .form .convoRespondBtn.respond:hover {
+        background: #d5a51e !important; }
+    .conversation .form .convoRespondBtn.close {
+      background: #e84118 !important; }
+      .conversation .form .convoRespondBtn.close:hover {
+        background: #d23a15 !important; }
+    .conversation .form .convoRespondBtn.convince {
+      background: #44bd32 !important; }
+      .conversation .form .convoRespondBtn.convince:hover {
+        background: #3da92d !important; }
+  .conversation .form .extraText {
+    font-weight: bold; }
+    .conversation .form .extraText.respond {
+      color: #e1b12c !important; }
+    .conversation .form .extraText.close {
+      color: #e84118 !important; }
+    .conversation .form .extraText.convince {
+      color: #44bd32 !important; }
   .conversation .form .ui.error.message.convoErrorMsg {
     box-shadow: 0 0 0 1px rgba(224, 180, 180, 0.4) inset, 0 0 0 0 transparent !important;
     margin-bottom: 0; }
+  .conversation .form .convoTextArea.close {
+    border: none;
+    box-shadow: 0 0 0 1px rgba(232, 65, 24, 0.3) inset, 0 0 0 0 transparent !important; }
+  .conversation .form .convoTextArea.convince {
+    border: none;
+    box-shadow: 0 0 0 1px rgba(68, 189, 50, 0.3) inset, 0 0 0 0 transparent !important; }
   .conversation .convoResponseSection {
     margin-top: 20px; }
   .conversation .statusActionSegment {

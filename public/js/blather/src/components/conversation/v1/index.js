@@ -8,6 +8,7 @@ import {
     Card,
     Dimmer,
     Divider,
+    Dropdown,
     Form,
     Header,
     Icon,
@@ -27,7 +28,13 @@ class Conversation extends Component {
     constructor(props) {
         super(props)
         this.state = { 
-            message: ''
+            disabled: false,
+            extraText: '',
+            icon: 'paper plane',
+            message: '',
+            placeholder: null,
+            text: 'respond',
+            value: 'respond'
         }
 
         if(this.props.fallacyId) {
@@ -51,10 +58,39 @@ class Conversation extends Component {
         })
 
         this.onChangeMessage = this.onChangeMessage.bind(this)
+        this.selectOption = this.selectOption.bind(this)
         this.submitForm = this.submitForm.bind(this)
     }
 
-    onChangeMessage = (e, { value }) => this.setState({ message: value })
+    onChangeMessage = (e, { value }) => this.setState({ disabled: value === '', message: value })
+
+    selectOption = (e, { icon, text, value }) => {
+        let extraText = ''
+        let placeholder = ''
+        switch(value) {
+            case'respond':
+                extraText = ''
+                placeholder = `Tell ${this.props.createdBy.name} why this is not a fallacy`
+                break
+            case'close':
+                extraText = 'This conversation is a waste of time.'
+                placeholder = `Why wasn't this conversation with ${this.props.createdBy.name} productive?`
+                break
+            case'convince':
+                extraText = "I've heard enough to be convinced."
+                placeholder = `What was it that ${this.props.createdBy.name} said that changed your mind?`
+                break
+            default:
+        }
+
+        this.setState({ 
+            extraText,
+            icon,
+            placeholder,
+            text,
+            value
+        })
+    }
 
     submitForm() {
         this.setState({ message: '' })
@@ -66,7 +102,36 @@ class Conversation extends Component {
     }
 
     render() {
-        const { message } = this.state
+        const { disabled, extraText, icon, message, placeholder, text, value } = this.state
+        const ChooseAction = props => (
+            <Dropdown 
+                icon={false}
+                inline
+                labeled
+                text={text}
+            >
+                <Dropdown.Menu>
+                    <Dropdown.Item 
+                        icon='paper plane'
+                        onClick={this.selectOption}
+                        text='respond'
+                        value='respond'
+                    />
+                    <Dropdown.Item 
+                        icon='close'
+                        onClick={this.selectOption}
+                        text='close this conversation' 
+                        value='close'
+                    />
+                    <Dropdown.Item 
+                        icon='check'
+                        onClick={this.selectOption}
+                        text='change my mind' 
+                        value='convince'
+                    />
+                </Dropdown.Menu>
+            </Dropdown>
+        )
         const CallOutUser = props => {
             if(props.user.type === 'twitter') {
                 return (
@@ -130,7 +195,6 @@ class Conversation extends Component {
             <Card fluid>
                 <Card.Content>
                     <Image 
-                        circular 
                         floated='left' 
                         size='mini' 
                         src={convo.img} 
@@ -145,10 +209,10 @@ class Conversation extends Component {
             </Card>
         )
         const RenderPosts = props => {
-            if(props.conversation) {
-                const convos = []
-                const count = props.conversation.length
-                for(let i = 0; i < count; i+=2) {
+            const convos = []
+            const count = props.conversation.length
+            for(let i = 0; i < count; i+=2) {
+                if(props.conversation[i].user_id) {
                     let round = i === 0 ? 1 : (i/2)+1
                     convos.push(
                         <div>
@@ -159,9 +223,15 @@ class Conversation extends Component {
                             </div>
                         </div>
                     )
+                } else {
+                    convos.push(
+                        <Segment key={`lazyLoad_${i}`}>
+                            <Image fluid src={ParagraphPic} />
+                        </Segment>
+                    )
                 }
-                return convos
             }
+            return convos
         }
         const InitialStatus = props => {
             if(props.canRespond) {
@@ -171,10 +241,10 @@ class Conversation extends Component {
                         onSubmit={this.submitForm}
                     >
                         <TextArea 
-                            className='convoTextArea' 
+                            className={`convoTextArea ${value}`} 
                             onChange={this.onChangeMessage}
-                            placeholder={`Tell ${props.createdBy.name} why this is not a fallacy`} 
-                            rows={10} 
+                            placeholder={placeholder ? placeholder : `Tell ${props.createdBy.name} why this is not a fallacy`} 
+                            rows={6} 
                             value={message}
                         />
                         {props.error && (
@@ -184,11 +254,19 @@ class Conversation extends Component {
                                 error
                             />
                         )}
-                        <Button className='convoRespondBtn' floated='right'>
-                            <Icon name='pencil' />
-                            Respond
-                        </Button>
-                        <div className='clearfix'></div>
+                        <div className='actionSegment'>
+                            <div className='actionOptions'>
+                                I'd like to {ChooseAction(this.props)}. 
+                                {' '} <span className={`extraText ${value}`}>{extraText}</span>
+                            </div>
+                            <Button 
+                                className={`convoRespondBtn ${value}`}
+                                compact
+                                disabled={disabled}
+                                icon={icon}
+                            />
+                            <div className='clearfix'></div>
+                        </div>
                     </Form>
                 )
             } else {
@@ -240,16 +318,19 @@ Conversation.propTypes = {
 }
 
 Conversation.defaultProps = {
+    conversation: [{},{},{},{},{}],
     error: false,
     fetchConversation: fetchConversation,
     submitConversation: submitConversation,
     submitted: false
 }
 
-
 const mapStateToProps = (state, ownProps) => ({
     ...state.fallacy,
     ...ownProps
 })
 
-export default connect(mapStateToProps, { fetchConversation, submitConversation })(Conversation);
+export default connect(mapStateToProps, { 
+    fetchConversation, 
+    submitConversation 
+})(Conversation)

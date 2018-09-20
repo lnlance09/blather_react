@@ -92,6 +92,10 @@ class TitleHeader extends Component {
                         )}
                     </Header>
                 )}
+
+                {!this.props.title && (
+                    <div style={{ height: '55px' }}></div>
+                )}
             </div>
         )
     }

@@ -23,11 +23,20 @@
     cursor: pointer;
     display: inline; }
 
-.ui.small.modal {
+.ui.small.modal.tagsModal {
   margin-top: 100px !important; }
-  .ui.small.modal .tagModalBtn {
+  .ui.small.modal.tagsModal .header {
+    padding: 10px 13px 0 13px; }
+  .ui.small.modal.tagsModal .content {
+    padding: 0.8em; }
+  .ui.small.modal.tagsModal .search.selection.dropdown {
+    border: solid 1px #ffffff !important; }
+    .ui.small.modal.tagsModal .search.selection.dropdown .menu.transition {
+      border: none !important; }
+  .ui.small.modal.tagsModal .tagModalBtn {
     background: #0097e6;
     float: right;
+    margin-right: 0;
     margin-top: 12px; }
-    .ui.small.modal .tagModalBtn:hover {
+    .ui.small.modal.tagsModal .tagModalBtn:hover {
       background: #0086cd; }

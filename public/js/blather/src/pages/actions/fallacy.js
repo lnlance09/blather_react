@@ -1,6 +1,15 @@
 import * as constants from '../constants';
 import request from 'request';
 
+export const editExplanation = ({explanation}) => dispatch => {
+    dispatch({
+        type: constants.EDIT_EXPLANATION,
+        payload: {
+            explanation
+        }
+    })
+}
+
 export const fetchCommentCount = ({id}) => dispatch => {
     request.get(`${window.location.origin}/api/fallacies/getCommentCount`, {
         json: true,
@@ -148,7 +157,6 @@ export const updateFallacy = ({bearer, explanation, fallacyId, fallacyName, id, 
         if(!body.error) {
             body.fallacy.fallacyName = fallacyName
         }
-
         dispatch({
             type: constants.UPDATE_FALLACY,
             payload: body
