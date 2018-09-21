@@ -197,7 +197,7 @@
                         CASE 
                             WHEN tu.twitter_id IS NULL 
                                 THEN FALSE
-                                ELSE TRUE 
+                                ELSE TRUE
                         END
                     WHEN (p.type = 'youtube') 
                         THEN 
@@ -277,9 +277,6 @@
 
             $this->db->join('fallacy_tags ft', 'fe.id = ft.fallacy_id', 'left');
             $this->db->join('tags t', 'ft.tag_id = t.id', 'left');
-
-            $this->db->join('twitter_users tu', 'p.social_media_id = tu.twitter_id', 'left');
-            $this->db->join('youtube_users yu', 'p.social_media_id = yu.youtube_id', 'left');
 
             if($id) {
                 $this->db->join('twitter_posts tp', 'fe.media_id = tp.tweet_id', 'left');

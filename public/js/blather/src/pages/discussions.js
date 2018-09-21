@@ -68,4 +68,4 @@ const mapStateToProps = (state, ownProps) => {
     }
 }
 
-export default connect(mapStateToProps, { })(DiscussionsPage);
+export default connect(mapStateToProps, { })(DiscussionsPage)

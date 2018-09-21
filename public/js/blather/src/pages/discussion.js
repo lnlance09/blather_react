@@ -1,6 +1,7 @@
 import './css/index.css';
 import { adjustTimezone } from '../utils/dateFunctions';
 import { DisplayMetaTags } from '../utils/metaFunctions';
+import { sanitizeText } from '../utils/textFunctions';
 import { fetchDiscussion } from './actions/discussion';
 import { Provider, connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -12,13 +13,13 @@ import {
     Image,
     Loader
 } from 'semantic-ui-react';
+import Marked from 'marked';
 import Moment from 'react-moment';
 import PageFooter from '../components/footer/v1/';
 import PageHeader from '../components/header/v1/';
 import ParagraphPic from '../images/short-paragraph.png';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import sanitizeHtml from 'sanitize-html';
 import store from '../store';
 import TagsCard from '../components/tagsCard/v1/';
 import TitleHeader from '../components/titleHeader/v1/';
@@ -32,6 +33,20 @@ class DiscussionPage extends Component {
         const bearer = currentState.user.bearer
         const authenticated = currentState.user.authenticated
         const isMine = currentState.user.id === this.props.user.id
+
+        Marked.setOptions({
+            renderer: new Marked.Renderer(),
+            highlight: function(code) {
+                // return require('highlight.js').highlightAuto(code).value;
+            },
+            pedantic: false,
+            breaks: false,
+            sanitize: false,
+            smartLists: true,
+            smartypants: false,
+            xhtml: false
+        })
+
         this.state = {
             authenticated,
             bearer,
@@ -45,17 +60,6 @@ class DiscussionPage extends Component {
         if(this.props.id === undefined) {
             this.props.fetchDiscussion({bearer: this.state.bearer, id: this.state.id})
         }
-    }
-
-    sanitizeHtml(html) {
-        const sanitized = sanitizeHtml(html, {
-            allowedTags: [ 'b', 'i', 'em', 'strong', 'a', 'p', 'ul', 'ol' ],
-            allowedAttributes: {
-                'a': [ 'href' ]
-            },
-            allowedIframeHostnames: ['www.youtube.com']
-        })
-        return { __html:  sanitized}
     }
 
     render() {
@@ -77,11 +81,13 @@ class DiscussionPage extends Component {
                             </div>
                         )}
                         {props.description && (
-                            <p>{props.description}</p>
+                            <div
+                                dangerouslySetInnerHTML={{__html: sanitizeText(Marked(props.description))}}
+                            ></div>
                         )}
 
                         <Header ash='h3' size='medium'>
-                            What's needed to change {this.props.user.name}'s mind
+                            What's needed to change {props.user.name}'s mind
                         </Header>
                         {!props.extra && (
                             <div>
@@ -92,7 +98,9 @@ class DiscussionPage extends Component {
                             </div>
                         )}
                         {props.extra && (
-                            <p>{props.extra}</p>
+                            <div
+                                dangerouslySetInnerHTML={{__html: sanitizeText(Marked(props.extra))}}
+                            ></div>
                         )}
                     </Container>
                 </div>
@@ -179,12 +187,12 @@ DiscussionPage.propTypes = {
     tag_ids: PropTypes.string,
     tag_names: PropTypes.string,
     title: PropTypes.string,
-    user: {
+    user: PropTypes.shape({
         id: PropTypes.number,
         img: PropTypes.string,
         name: PropTypes.string,
         username: PropTypes.string
-    }
+    })
 }
 
 DiscussionPage.defaultProps = {

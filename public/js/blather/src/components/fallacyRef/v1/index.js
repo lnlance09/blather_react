@@ -80,4 +80,4 @@ const mapStateToProps = (state, ownProps) => ({
     ...ownProps
 })
 
-export default connect(mapStateToProps, { })(FallacyRef);
+export default connect(mapStateToProps, { })(FallacyRef)

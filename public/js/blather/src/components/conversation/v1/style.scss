@@ -83,17 +83,47 @@
             &.close {
                 border: none;
                 box-shadow: 0 0 0 1px $harley-davidson-orange-light inset, 0 0 0 0 transparent !important;
+
+                &::-webkit-input-placeholder {
+                    color: $harley-davidson-orange;
+                }
+                &::-moz-placeholder {
+                    color: $harley-davidson-orange;
+                }
+                &:-ms-input-placeholder {
+                    color: $harley-davidson-orange;
+                }
+                &:-moz-placeholder {
+                    color: $harley-davidson-orange;
+                }
             }
 
             &.convince {
                 border: none;
                 box-shadow: 0 0 0 1px $skirret-green-light inset, 0 0 0 0 transparent !important;
+
+                &::-webkit-input-placeholder {
+                    color: $skirret-green;
+                }
+                &::-moz-placeholder {
+                    color: $skirret-green;
+                }
+                &:-ms-input-placeholder {
+                    color: $skirret-green;
+                }
+                &:-moz-placeholder {
+                    color: $skirret-green;
+                }
             }
         }
     }
 
+    .convoContainer {
+        margin-bottom: 18px;
+    }
+
     .convoResponseSection {
-        margin-top: 20px;
+        margin-top: 0;
     }
 
     .statusActionSegment {

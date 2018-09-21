@@ -232,7 +232,7 @@ class CreateDiscussionPage extends Component {
 			return (
 				<Transition animation='fade' duration={duration} visible={preview}>
 					<Segment className='previewSegment'>
-						<Header size='medium'>{title}</Header>
+						<Header size='large'>{title}</Header>
 						<div>
 							<Header className='descriptionTitle' size='medium'>Evidence</Header>
 							<div
@@ -242,7 +242,7 @@ class CreateDiscussionPage extends Component {
 							</div>
 						</div>
 						<div style={{ marginTop: '15px' }}>
-							<Header className='extraTitle' size='medium'>What it takes to change {user.name}'s mind</Header>
+							<Header className='extraTitle' size='medium'>What it takes to change my mind</Header>
 							<div
 								className='extraPreview' 
 								dangerouslySetInnerHTML={{__html: Marked(extra)}}

@@ -24,7 +24,7 @@
 
             $id = $this->db->insert_id();
             if($tags) {
-                $this->insertDiscussionTags($id, $tags, $userId);
+                $this->tags->insertTags($id, $tags, 'discussion', $userId);
             }
             $discussion = $this->getDiscussion($id, false, true, true);
             return $discussion;

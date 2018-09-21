@@ -153,4 +153,4 @@ const mapStateToProps = (state, ownProps) => ({
     ...ownProps
 })
 
-export default connect(mapStateToProps, { fetchPagePosts })(VideoList);
+export default connect(mapStateToProps, { fetchPagePosts })(VideoList)

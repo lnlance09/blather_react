@@ -73,7 +73,10 @@ class Fallacy extends Component {
         const canEdit = this.props.createdBy ? this.props.createdBy.id === userId : false
         const FallacyMenu = props => (
             <div className='fallacyMainMenu'>
-                <Menu tabular>
+                <Menu 
+                    pointing
+                    secondary
+                >
                     <Menu.Item
                         active={activeItem === 'conversation'} 
                         name='conversation' 

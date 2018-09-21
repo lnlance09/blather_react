@@ -137,7 +137,6 @@ class TagsCard extends Component {
                 <Link id={tag.id} to={`/tags/${tag.name}`}>{tag.name}</Link>
                 {this.props.canEdit && (
                     <List.Content floated='right'>
-                        {tag.id}
                         <Icon 
                             name='close' 
                             onClick={() => this.deleteTag(tag.id, tag.name)}

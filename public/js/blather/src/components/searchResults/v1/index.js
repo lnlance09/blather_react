@@ -300,4 +300,7 @@ const mapStateToProps = (state, ownProps) => ({
     ...ownProps
 })
 
-export default connect(mapStateToProps, { fetchSearchResults, refreshYouTubeToken })(SearchResults);
+export default connect(mapStateToProps, { 
+    fetchSearchResults, 
+    refreshYouTubeToken 
+})(SearchResults)

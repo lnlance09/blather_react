@@ -56,9 +56,8 @@
     background: #ffffff;
     margin-bottom: 5px; }
   .createDiscussionPage .contentContainer .previewSegment .descriptionPreview, .createDiscussionPage .contentContainer .previewSegment .extraPreview {
-    background: #f5f6fa;
     min-height: 80px;
-    padding: 8px; }
+    padding: 0; }
   .createDiscussionPage .contentContainer .exitPreviewButton {
     background: #e84118;
     margin-top: 1em; }
@@ -319,6 +318,9 @@ textarea {
   cursor: pointer; }
   .externalUrl:hover {
     color: #01a8ff; }
+
+.ui.secondary.pointing.menu .active.item {
+  border-color: #0097e6 !important; }
 
 .clearfix {
   clear: both; }

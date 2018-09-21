@@ -99,6 +99,10 @@ textarea {
     }
 }
 
+.ui.secondary.pointing.menu .active.item {
+    border-color: $vanadyl-blue !important;
+}
+
 .clearfix {
     clear: both;
 }

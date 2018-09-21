@@ -33,7 +33,7 @@ const discussion = (state = initial(), action) => {
             
             return {
                 ...state,
-                tags_ids: tagIds.join(','),
+                tag_ids: tagIds.join(','),
                 tag_names: tagNames.join(',')
             }
 

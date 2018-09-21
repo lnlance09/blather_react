@@ -24,6 +24,7 @@
 				exit;
 			}
 
+			// FormatArray($results);
 			$fallacy = $results[0];
 			$this->fallacies->updateViewCount($id);
 			echo json_encode([

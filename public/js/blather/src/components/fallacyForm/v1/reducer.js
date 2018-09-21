@@ -1,6 +1,6 @@
 import * as constants from './constants';
 
-const initial = () => ({});
+const initial = () => ({})
 
 const fallacyForm = (state = initial(), action) => {
     switch(action.type) {

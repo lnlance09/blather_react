@@ -1,6 +1,6 @@
 import * as constants from './constants';
 
-const initial = () => ({});
+const initial = () => ({})
 
 const test = (state = initial(), action) => {
     switch (action.type) {
@@ -11,8 +11,8 @@ const test = (state = initial(), action) => {
             };
     
         default:
-            return state;
+            return state
     }
-};
+}
 
-export default test;
+export default test

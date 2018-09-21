@@ -23,10 +23,13 @@ import Moment from 'react-moment';
 import ParagraphPic from '../../../images/short-paragraph.png';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import store from '../../../store';
 
 class Conversation extends Component {
     constructor(props) {
         super(props)
+        const currentState = store.getState()
+        const user = currentState.user
         this.state = { 
             disabled: false,
             extraText: '',
@@ -34,6 +37,7 @@ class Conversation extends Component {
             message: '',
             placeholder: null,
             text: 'respond',
+            user: user.data,
             value: 'respond'
         }
 
@@ -102,7 +106,9 @@ class Conversation extends Component {
     }
 
     render() {
-        const { disabled, extraText, icon, message, placeholder, text, value } = this.state
+        const { disabled, extraText, icon, message, placeholder, text, user, value } = this.state
+        const canRespondTwitter = this.props.user ? user.linkedTwitter && this.props.tweet && user.twitterId === this.props.user.id : false
+        const canRespondYoutube = this.props.user ? user.linkedYoutube && this.props.video && user.youtubeId === this.props.user.id : false
         const ChooseAction = props => (
             <Dropdown 
                 icon={false}
@@ -234,7 +240,7 @@ class Conversation extends Component {
             return convos
         }
         const InitialStatus = props => {
-            if(props.canRespond) {
+            if(props.authenticated && (canRespondTwitter || canRespondTwitter)) {
                 return (
                     <Form
                         error={props.error}
@@ -288,8 +294,11 @@ class Conversation extends Component {
                         </Header.Subheader>
                     )}
                 </Header>
-                {RenderPosts(this.props)}
+                <div className='convoContainer'>
+                    {RenderPosts(this.props)}
+                </div>
                 <div className='convoResponseSection'>
+                    <Divider hidden />
                     {InitialStatus(this.props)}
                 </div>
             </div>

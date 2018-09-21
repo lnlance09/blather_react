@@ -250,7 +250,7 @@ const test = (state = initial(), action) => {
             }
 
         default:
-            return state;
+            return state
     }
 }
 

@@ -28,9 +28,8 @@
     background: #ffffff;
     margin-bottom: 5px; }
   .createDiscussionPage .contentContainer .previewSegment .descriptionPreview, .createDiscussionPage .contentContainer .previewSegment .extraPreview {
-    background: #f5f6fa;
     min-height: 80px;
-    padding: 8px; }
+    padding: 0; }
   .createDiscussionPage .contentContainer .exitPreviewButton {
     background: #e84118;
     margin-top: 1em; }

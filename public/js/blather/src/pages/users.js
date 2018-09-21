@@ -85,7 +85,6 @@ class UserPage extends Component {
     }
 
     handleHide = () => this.setState({ active: false })
-
     handleShow = () => this.setState({ active: true })
 
     onDrop(files) {

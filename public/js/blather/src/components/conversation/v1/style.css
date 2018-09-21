@@ -41,11 +41,29 @@
   .conversation .form .convoTextArea.close {
     border: none;
     box-shadow: 0 0 0 1px rgba(232, 65, 24, 0.3) inset, 0 0 0 0 transparent !important; }
+    .conversation .form .convoTextArea.close::-webkit-input-placeholder {
+      color: #e84118; }
+    .conversation .form .convoTextArea.close::-moz-placeholder {
+      color: #e84118; }
+    .conversation .form .convoTextArea.close:-ms-input-placeholder {
+      color: #e84118; }
+    .conversation .form .convoTextArea.close:-moz-placeholder {
+      color: #e84118; }
   .conversation .form .convoTextArea.convince {
     border: none;
     box-shadow: 0 0 0 1px rgba(68, 189, 50, 0.3) inset, 0 0 0 0 transparent !important; }
+    .conversation .form .convoTextArea.convince::-webkit-input-placeholder {
+      color: #44bd32; }
+    .conversation .form .convoTextArea.convince::-moz-placeholder {
+      color: #44bd32; }
+    .conversation .form .convoTextArea.convince:-ms-input-placeholder {
+      color: #44bd32; }
+    .conversation .form .convoTextArea.convince:-moz-placeholder {
+      color: #44bd32; }
+  .conversation .convoContainer {
+    margin-bottom: 18px; }
   .conversation .convoResponseSection {
-    margin-top: 20px; }
+    margin-top: 0; }
   .conversation .statusActionSegment {
     border: none !important;
     height: 116px; }

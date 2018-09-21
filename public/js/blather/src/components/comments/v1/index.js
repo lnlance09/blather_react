@@ -145,4 +145,4 @@ const mapStateToProps = (state, ownProps) => ({
     ...ownProps
 })
 
-export default connect(mapStateToProps, { fetchComments, postComment })(CommentsSection);
+export default connect(mapStateToProps, { fetchComments, postComment })(CommentsSection)

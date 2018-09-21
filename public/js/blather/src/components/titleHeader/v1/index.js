@@ -131,4 +131,7 @@ const mapStateToProps = (state, ownProps) => ({
     ...ownProps
 })
 
-export default connect(mapStateToProps, { updateDiscussion, updateFallacy })(TitleHeader);
+export default connect(mapStateToProps, { 
+    updateDiscussion, 
+    updateFallacy 
+})(TitleHeader)

@@ -1,11 +1,12 @@
 import './style.css';
-import { formatNumber, formatPlural } from '../../../utils/textFunctions';
+import { formatNumber, formatPlural, sanitizeText } from '../../../utils/textFunctions';
 import { 
     Image,
     Item,
     Label,
     List
 } from 'semantic-ui-react';
+import Marked from 'marked';
 import ImagePic from '../../../images/image-square.png';
 import ParagraphPic from '../../../images/short-paragraph.png';
 import PropTypes from 'prop-types';
@@ -14,6 +15,22 @@ import sanitizeHtml from 'sanitize-html';
 import TextTruncate from 'react-text-truncate';
 
 class ResultItem extends Component {
+    constructor(props) {
+        super(props)
+        Marked.setOptions({
+            renderer: new Marked.Renderer(),
+            highlight: function(code) {
+                // return require('highlight.js').highlightAuto(code).value;
+            },
+            pedantic: false,
+            breaks: false,
+            sanitize: false,
+            smartLists: true,
+            smartypants: false,
+            xhtml: false
+        })
+    }
+
     componentWillMount() {
         
     }
@@ -88,7 +105,7 @@ class ResultItem extends Component {
                         <TextTruncate
                             line={3}
                             truncateText='...'
-                            text={props.sanitize && props.description !== null ? this.sanitizeHtml(props.description) : props.description}
+                            text={props.sanitize && props.description !== null ? this.sanitizeHtml(Marked(props.description)) : Marked(props.description)}
                         />
                     </Item.Description>
                     {props.extra && (
