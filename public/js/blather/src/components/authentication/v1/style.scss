@@ -15,22 +15,17 @@
     padding: 0 !important;
 
     .form {
-        .input {
-            input {
-                border-radius: 0;
-
-                &:active, &:focus {
-                    border-radius: 0;
-                }
-            }
-        }
-
         button {
             background: $naval !important;
+
+            &:hover {
+                background: darken($naval,5%) !important;
+            }
         }
     }
 
     .error.message {
+        box-shadow: 0 0 0 1px $error-msg-border inset, 0 0 0 0 transparent !important;
         margin-bottom: 14px;
     }
 }

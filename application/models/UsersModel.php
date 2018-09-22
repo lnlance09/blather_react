@@ -72,10 +72,9 @@
 		 */
 		public function getArchivedLinks($data, $page = 0, $just_count = false) {
 			$post = array_key_exists('object_id', $data);
+			$select = 'a.code, a.date_created, a.link, a.network';
 			if($just_count) {
 				$select = 'COUNT(*) AS count';
-			} else {
-				$select = 'a.code, a.date_created, a.link, a.network';
 			}
 
 			if(!$just_count && !$post) {
@@ -111,10 +110,6 @@
 			$results = $this->db->get('archived_links a')->result_array();
 			if($just_count) {
 				return $results[0]['count'];
-			}
-
-			if(empty($results)) {
-				return false;
 			}
 
 			if($post) {
@@ -225,7 +220,7 @@
 						'email' => $data['email'],
 						'emailVerified' => false,
 						'id' => $this->db->insert_id(),
-						'img' => $this->baseUrl.'public/img/svg/mr.svg',
+						'img' => null,
 						'name' => $data['name'],
 						'twitterAccessSecret' => $twitterOauthSecret,
 						'twitterAccessToken' => $twitterOauthToken,

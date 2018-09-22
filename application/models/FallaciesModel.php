@@ -118,7 +118,6 @@
                 if($page !== null) {
                     $perPage = 10;
                     $limit = $page*$perPage;
-                    // $this->db->limit($perPage, $limit);
                 }
             }
 
@@ -139,6 +138,13 @@
             return $result;
         }
 
+        public function getFallacyCount($id) {
+            $this->db->select('COUNT(*) AS count');
+            $this->db->where('page_id', $id);
+            $result = $this->db->get('fallacy_entries')->result_array();
+            return $result[0]['count'];
+        }
+
         public function getUniqueFallacies($id, $type = 'user') {
             $this->db->select("f.id AS value, f.name AS key, CONCAT(f.name, ' (', COUNT(*), ')') AS text");
             $this->db->join('fallacies f', 'fe.fallacy_id = f.id');
@@ -153,8 +159,18 @@
 
             $this->db->group_by('f.id');
             $this->db->order_by('COUNT(*)', 'DESC');
-            $results = $this->db->get('fallacy_entries fe')->result_array();
-            return $results;
+            return $this->db->get('fallacy_entries fe')->result_array();
+        }
+
+        public function insertFallacyRefs() {
+            $file = file_get_contents(getcwd().'/public/js/blather/src/fallacies.json');
+            $json = @json_decode($file, true);
+            for($i=0;$i<count($json);$i++) {
+                $this->db->insert('fallacies', [
+                    'description' => $json[$i]['description'],
+                    'name' => $json[$i]['name']
+                ]);
+            }
         }
 
         public function search($id = null, $q = null, $assigned_by = null, $assigned_to = null, $network = null, $object_id = null, $comment_id = null, $fallacies = null, $page = 0, $just_count = false) {
@@ -277,6 +293,9 @@
 
             $this->db->join('fallacy_tags ft', 'fe.id = ft.fallacy_id', 'left');
             $this->db->join('tags t', 'ft.tag_id = t.id', 'left');
+
+            $this->db->join('twitter_users tu', 'p.social_media_id = tu.twitter_id', 'left');
+            $this->db->join('youtube_users yu', 'p.social_media_id = yu.youtube_id', 'left');
 
             if($id) {
                 $this->db->join('twitter_posts tp', 'fe.media_id = tp.tweet_id', 'left');

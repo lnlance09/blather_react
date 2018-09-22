@@ -20,6 +20,23 @@ export const fetchDiscussion = ({bearer, id}) => dispatch => {
     })
 }
 
+export const fetchDiscussionConversation = ({bearer, id}) => dispatch => {
+    request.get(`${window.location.origin}/api/discussions/getConversation`, {
+        headers: {
+            'Authorization': bearer 
+        },
+        json: true,
+        qs: {
+            id
+        },
+    }, function(err, response, body) {
+        dispatch({
+            type: constants.GET_DISCUSSION_CONVERSATION,
+            payload: body
+        })
+    })
+}
+
 export const removeDiscussionTag = ({bearer, id, tagId, tagName}) => dispatch => {
     request.post(`${window.location.origin}/api/discussions/removeTag`, {
         form: {
@@ -66,6 +83,43 @@ export const submitDiscussion = ({bearer, description, extra, id = null, tags, t
             type: constants.SUBMIT_DISCUSSION,
             payload: body
         })
+    })
+}
+
+export const submitDiscussionConversation = ({bearer, id, msg, status}) => dispatch => {
+    request.post(`${window.location.origin}/api/discussions/submitConversation`, {
+        form: {
+            id,
+            msg,
+            status
+        },
+        headers: {
+            'Authorization': bearer 
+        },
+        json: true
+    }, function(err, response, body) {
+        dispatch({
+            type: constants.SUBMIT_DISCUSSION_CONVERSATION,
+            payload: body
+        })
+    })
+}
+
+export const updateDescription = ({description}) => dispatch => {
+    dispatch({
+        type: constants.UPDATE_DESCRIPTION,
+        payload: {
+            description
+        }
+    })
+}
+
+export const updateExtra = ({extra}) => dispatch => {
+    dispatch({
+        type: constants.UPDATE_EXTRA,
+        payload: {
+            extra
+        }
     })
 }
 

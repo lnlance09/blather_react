@@ -18,6 +18,20 @@ export const createArchive = ({bearer, url}) => dispatch => {
     })
 }
 
+export const fetchPostData = ({bearer, url}) => dispatch => {
+    request.get(`${window.location.origin}/api/${url}`, {
+        headers: {
+            'Authorization': bearer 
+        },
+        json: true
+    }, function(err, response, body) {
+        dispatch({
+            type: constants.GET_POST_DATA,
+            payload: body
+        })
+    })
+}
+
 export const fetchVideoComments = ({bearer, id, nextPageToken, page}) => dispatch => {
     request.get(`${window.location.origin}/api/youtube/getComments`, {
         headers: {
@@ -32,20 +46,6 @@ export const fetchVideoComments = ({bearer, id, nextPageToken, page}) => dispatc
     }, function(err, response, body) {
         dispatch({
             type: constants.FETCH_VIDEO_COMMENTS,
-            payload: body
-        })
-    })
-}
-
-export const fetchPostData = ({bearer, url}) => dispatch => {
-    request.get(`${window.location.origin}/api/${url}`, {
-        headers: {
-            'Authorization': bearer 
-        },
-        json: true
-    }, function(err, response, body) {
-        dispatch({
-            type: constants.GET_POST_DATA,
             payload: body
         })
     })

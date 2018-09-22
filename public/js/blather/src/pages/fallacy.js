@@ -6,6 +6,9 @@ import { Link } from 'react-router-dom';
 import { 
     Container,
     Grid,
+    Header,
+    Image,
+    Label,
     Menu
 } from 'semantic-ui-react';
 import { adjustTimezone } from '../utils/dateFunctions';
@@ -21,6 +24,7 @@ import React, { Component } from 'react';
 import store from '../store';
 import TagsCard from '../components/tagsCard/v1/';
 import TitleHeader from '../components/titleHeader/v1/';
+import TrumpImg from './images/trump.svg';
 
 class Fallacy extends Component {
     constructor(props) {
@@ -60,7 +64,7 @@ class Fallacy extends Component {
     handleShow = () => this.setState({ active: true })
 
     onChange = (value) => {
-        this.setState({value})
+        this.setState({ value })
         if(this.props.onChange) {
             this.props.onChange(value.toString('html'));
         }
@@ -87,7 +91,10 @@ class Fallacy extends Component {
                         name='comments'
                         onClick={this.handleItemClick}
                     >
-                        Comments {props.commentCount > 0 ? `(${props.commentCount})` : ''}
+                        Comments {''}
+                        {props.commentCount > 0 && (
+                            <Label circular>{props.commentCount}</Label>
+                        )}
                     </Menu.Item>
                     <Menu.Item
                         active={activeItem === 'reference'}
@@ -186,33 +193,47 @@ class Fallacy extends Component {
                         <PageHeader 
                             {...this.props}
                         />
-                        <Container
-                            className='mainContainer'
-                            style={{ marginTop: '5em', minHeight: height +'px' }}
-                            textAlign='left'
-                        >
-                            <FallacyTitle props={this.props} />
-                            {FallacyMenu(this.props)}
-                            <Grid>
-                                <Grid.Column className='leftSide' width={12}>
-                                    {ShowContent(this.props)}
-                                    {activeItem === 'conversation' && (
-                                        <Conversation  
-                                            authenticated={authenticated}
-                                            bearer={bearer}
-                                            canRespond={this.props.canRespond}
-                                            createdBy={this.props.createdBy}
-                                            fallacyId={id}
-                                            status={this.props.status}
-                                            user={this.props.user}
-                                        />
-                                    )}
-                                </Grid.Column>
-                                <Grid.Column className='rightSide' width={4}>
-                                    {ShowTags(this.props)}
-                                </Grid.Column>
-                            </Grid>
-                        </Container>
+                        {!this.props.error && (
+                            <Container
+                                className='mainContainer'
+                                style={{ marginTop: '5em', minHeight: height +'px' }}
+                                textAlign='left'
+                            >
+                                <FallacyTitle props={this.props} />
+                                {FallacyMenu(this.props)}
+                                <Grid>
+                                    <Grid.Column className='leftSide' width={12}>
+                                        {ShowContent(this.props)}
+                                        {activeItem === 'conversation' && (
+                                            <Conversation 
+                                                acceptedBy={this.props.user}
+                                                authenticated={authenticated}
+                                                bearer={bearer}
+                                                createdBy={this.props.createdBy}
+                                                fallacyId={id}
+                                                loading={this.props.convoLoading}
+                                                source='fallacy'
+                                                status={this.props.status}
+                                            />
+                                        )}
+                                    </Grid.Column>
+                                    <Grid.Column className='rightSide' width={4}>
+                                        {ShowTags(this.props)}
+                                    </Grid.Column>
+                                </Grid>
+                            </Container>
+                        )}
+                        {this.props.error && (
+                            <Container 
+                                className='mainContainer'
+                                style={{ marginTop: '8em', minHeight: height +'px'}} 
+                                text 
+                                textAlign='center'
+                            >
+                                <Image centered disabled size='medium' src={TrumpImg} />
+                                <Header size='medium'>This fallacy does not exist!</Header>
+                            </Container>
+                        )}
                     <PageFooter />
                 </div>
             </Provider>
@@ -221,13 +242,13 @@ class Fallacy extends Component {
 }
 
 Fallacy.propTypes = {
-    canRespond: PropTypes.bool,
     commentCount: PropTypes.number,
-    conversation: PropTypes.array,
     comments: PropTypes.shape({
         count: PropTypes.number,
         results: PropTypes.array
     }),
+    conversation: PropTypes.array,
+    convoLoading: PropTypes.bool,
     createdAt: PropTypes.string,
     createdBy: PropTypes.shape({
         id: PropTypes.number,
@@ -260,7 +281,7 @@ Fallacy.propTypes = {
 }
 
 Fallacy.defaultProps = {
-    canRespond: false,
+    convoLoading: true,
     error: false,
     fetchCommentCount: fetchCommentCount,
     fetchFallacy: fetchFallacy

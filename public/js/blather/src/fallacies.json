@@ -21,11 +21,15 @@
       "dialogue": [
          {
             "name": "Blathering Bill",
-            "message": ""
+            "message": "John is a scumbag."
          },
          {
             "name": "Rational Rob",
-            "message": ""
+            "message": "Why?"
+         },
+         {
+            "name": "Blathering Bill",
+            "message": "Because I saw him hanging out with Rick and Rick is a scumbag."
          }
       ]
    },
@@ -130,26 +134,26 @@
       "dialogue": [
          {
             "name": "Blathering Bill",
-            "message": ""
+            "message": "Santa Claus is real. I know because he woke me up last Christmas eve and forced me to help him deliver presents in the blistering cold. So, don't even ask me if I have proof! I have all the proof I need."
          },
          {
             "name": "Rational Rob",
-            "message": ""
+            "message": "Okay..."
          }
       ]
    },
    {
       "id":"10",
-      "description":"The arguer produces an overwhelming array of statements and\/or technical jargon in a relatively short period of time. The opponent is unable to address them all or even understand them. Observers will likely be impressed, but have no way of checking the validity of the claims.",
+      "description":"The arguer produces an overwhelming array of statements and\/or technical jargon in a relatively short period of time. The opponent is unable to address them all or even understand them. Observers will likely be impressed, but have no way of checking the validity of the claims. More often than not, the claims are untrue or aren't even relevant to what is being discussed.",
       "name":"Argumentum Verbosium",
       "dialogue": [
          {
-            "name": "Blathering Bill",
-            "message": ""
+            "name": "Rational Rob",
+            "message": "Why do you want to deport me?"
          },
          {
-            "name": "Rational Rob",
-            "message": ""
+            "name": "Blathering Bill",
+            "message": "Well, we did it as a way to bring attention to the fact that we have all of these foreigners and the Russian government, the official Chinese government, now said political power goes out the barrel of a gun. It killed about 80 million people because he's the only guy that have the guns. So we did it to point out that this is globalism, and the mega banks that control the planet and brag that they've taken over in Bloomberg, AP, Reuters, you name it, brag that they're going to get our guns as well. They've taken everybody's guns but the Swiss and the American people. And when they get our guns, they can have their world tyranny while the government buys 1.6 billion bullets, armored vehicles, tanks, helicopters, predator drones, armed now in U.S. skies, being used to arrest people in North Dakota. The Second Amendment isn't there for duck hunting. It's there to protect us from tyrannical government and street thugs. Take the women in India. Your piece earlier on CNN I was watching during Anderson Cooper's show. Didn't tell you that the women of India have signed giant petitions to get firearms because the police can't and won't protect them. The answer is... Wait a minute. I have FBI crime statistics that come out a year late, 2011, 20-plus percent crime drop in the last nine years. Real violent crime because more guns means less crime. Britain took the guns 15, 16 years ago. Tripling of your overall violent crime. True we have a higher gun violence level, but overall, muggings, stabbings, deaths, you -- those men raped that woman in India to death with an iron rod four feet long. You can't ban the iron rods. The guns -- the iron rods, Piers, didn't do it, the tyrants did it. Hitler took the guns, Stalin took the guns, Mao took the guns. Fidel Castro took the guns. Hugo Chavez took the guns, and I'm here to tell you, 1776 will commence again if you try to take our firearms. It doesn't matter how many lemmings you get out there on the street begging for them to have their guns taken. We will not relinquish them. Do you understand? That why you're going to fail and the establishment knows no matter how much propaganda, the republic will rise again when you attempt to take our gun. My family in the Texas revolution in Santa Ana. My family was at the core on both sides starting left, because Santa Ana came to take the guns at Gonzalez, Texas."
          }
       ]
    },
@@ -160,11 +164,15 @@
       "dialogue": [
          {
             "name": "Blathering Bill",
-            "message": ""
+            "message": "My new car gets 500 miles per gallon!"
          },
          {
             "name": "Rational Rob",
-            "message": ""
+            "message": "Proof?"
+         },
+         {
+            "name": "Blathering Bill",
+            "message": "..."
          }
       ]
    },
@@ -266,11 +274,7 @@
       "dialogue": [
          {
             "name": "Blathering Bill",
-            "message": ""
-         },
-         {
-            "name": "Rational Rob",
-            "message": ""
+            "message": "Your brain is made of molecules. Molecules do not have consciousness. Therefore, your brain cannot be the source of consciousness."
          }
       ]
    },
@@ -281,11 +285,7 @@
       "dialogue": [
          {
             "name": "Blathering Bill",
-            "message": ""
-         },
-         {
-            "name": "Rational Rob",
-            "message": ""
+            "message": "The temperature of the globe has only gone up a fration of a percent over the past 20 years and we haven't seen any catastrophic events. What's another few degrees gonna do?"
          }
       ]
    },
@@ -296,11 +296,15 @@
       "dialogue": [
          {
             "name": "Blathering Bill",
-            "message": ""
+            "message": "You better loan me some money or else I'll move out and you'll have to find a new roommate."
          },
          {
             "name": "Rational Rob",
-            "message": ""
+            "message": "What? Why do I have to loan you money?"
+         },
+         {
+            "name": "Blathering Bill",
+            "message": "I'm a quarter Native American and it's the least you can do for me considering how your people committed genocide against ingigenous people. Plus, you're a Redskins fan and that shirt with that logo on it really oppresses me."
          }
       ]
    },
@@ -311,11 +315,11 @@
       "dialogue": [
          {
             "name": "Blathering Bill",
-            "message": ""
+            "message": "Food from Mexico is amazing! I hope our new roommate, Javier, can whip us up some good quesedillas."
          },
          {
             "name": "Rational Rob",
-            "message": ""
+            "message": "Ugh"
          }
       ]
    },
@@ -348,21 +352,36 @@
    },
    {
       "id":"22",
-      "description":null,
-      "name":"Factual Inaccuracy",
+      "description":"This isn't a fallacy; it's just a very cruel and dishonest tactic. This happens when someone uses a tragedy to advance their narrative or for their own personal gain. The gains can vary and can range from mere attention on social media to money or favors. This happens a lot after school shooting in the United States. Using this fallacy typically indicates a clear lack of empathy on behalf of the person employing it.",
+      "name":"Exploiting Tragedies",
       "dialogue": [
          {
-            "name": "Blathering Bill",
-            "message": ""
+            "name": "Rational Rob",
+            "message": "That's awful what happened to Peggy. Suicide can be prevented if people have access to good mental health treatment."
          },
          {
-            "name": "Rational Rob",
-            "message": ""
+            "name": "Blathering Bill",
+            "message": "Yeah, but remember what I told you about those liberals? Liberalism is a mental disorder and Peggy's death confirms that."
          }
       ]
    },
    {
       "id":"23",
+      "description": "An inaccurate fact that is used to advance an argument.",
+      "name":"Factual Inaccuracy",
+      "dialogue": [
+         {
+            "name": "Blathering Bill",
+            "message": "Trump's response to Hurricane Harvey may have sucked but Obama's response to Katrina in 2005 was bad too."
+         },
+         {
+            "name": "Rational Rob",
+            "message": "Pretty sure that Obama wasn't president in 2005."
+         }
+      ]
+   },
+   {
+      "id":"24",
       "description":"This is a tricky one that skeptics have to be wary of. We may be tempted to claim that the conclusion of an argument is wrong because the arguer used a logical fallacy in his or her reasoning. Just because a fallacy was used does not mean that the conclusion is necessarily incorrect.",
       "name":"Fallacy Fallacy",
       "dialogue": [
@@ -377,7 +396,7 @@
       ]
    },
    {
-      "id":"24",
+      "id":"25",
       "description":"Describes a situation of logical and apparent equivalence, when in fact there is none.",
       "name":"False Equivalence",
       "dialogue": [
@@ -396,7 +415,7 @@
       ]
    },
    {
-      "id":"25",
+      "id":"26",
       "description":"A rhetorical tactic that asserts that if your ideas are ridiculed, then they must be valid. This fallacy earns its name from Galileo\u2018s famous persecution at the hands of the Catholic Church for his defense of heliocentrism in the face of the orthodox Biblical literalism of the day.",
       "name":"Galileo's Gambit",
       "dialogue": [
@@ -415,7 +434,7 @@
       ]
    },
    {
-      "id":"26",
+      "id":"27",
       "description":"The mistaken belief that a random event must be due to happen soon if it has not happened in an unusually long time.",
       "name":"Gambler's Fallacy",
       "dialogue": [
@@ -434,7 +453,7 @@
       ]
    },
    {
-      "id":"27",
+      "id":"28",
       "description":"Discrediting the source or origin of an argument instead of the argument itself.",
       "name":"Genetic Fallacy",
       "dialogue": [
@@ -449,7 +468,7 @@
       ]
    },
    {
-      "id":"28",
+      "id":"29",
       "description":"This one doesn't appear on most lists of logical fallacies that are found on the internet and it isn't technically a fallacy. Although, it is a way of poisoning the well and discrediting someone. Godwin's law was first coined in 1990 by author and attorney Mike Godwin. It states that \"As an online discussion grows longer, the probability of a comparison involving Hitler approaches 1.\"\t",
       "name":"Godwin's Law",
       "dialogue": [
@@ -464,28 +483,13 @@
       ]
    },
    {
-      "id":"29",
+      "id":"30",
       "description":"The arguer attributes a property to an entire group based only on observing that property in an individual.",
       "name":"Hasty Generalization",
       "dialogue": [
          {
             "name": "Blathering Bill",
-            "message": "People from Salt Lake City sure do party hard. I had a roommate in college who was from there."
-         }
-      ]
-   },
-   {
-      "id":"30",
-      "description":"Using multiple, jointly inconsistent arguments to defend a position.",
-      "name":"Kettle Logic",
-      "dialogue": [
-         {
-            "name": "Blathering Bill",
-            "message": ""
-         },
-         {
-            "name": "Rational Rob",
-            "message": ""
+            "message": "People from Salt Lake City sure are crazy. I had a roommate in college who was from there and she partied all the time."
          }
       ]
    },
@@ -496,76 +500,87 @@
       "dialogue": [
          {
             "name": "Blathering Bill",
-            "message": ""
+            "message": "You still cheat on your wife, Bill?"
          },
          {
             "name": "Rational Rob",
-            "message": ""
+            "message": "I never did in the first place."
          }
       ]
    },
    {
       "id":"32",
-      "description":"Assuming that the compromise between two positions is correct.",
-      "name":"Middle Ground",
+      "description":"The belief that technological progress that be slowed down or even halted so jobs will not be lost.",
+      "name":"Luddite Fallacy",
       "dialogue": [
          {
             "name": "Blathering Bill",
-            "message": ""
+            "message": "Never use ATM's or self-checkout machines at the supermarket."
          },
          {
             "name": "Rational Rob",
-            "message": ""
+            "message": "Why? How come?"
+         },
+         {
+            "name": "Blathering Bill",
+            "message": "They take jobs away from tellers and cashiers."
+         },
+         {
+            "name": "Rational Rob",
+            "message": "Should I stop using email too because that takes jobs away from the post office?"
          }
       ]
    },
    {
       "id":"33",
-      "description":"In which one assumes a 'holier-than-thou' attitude in an attempt to make oneself look good to win an argument.",
-      "name":"Moral High Ground",
+      "description":"Assuming that the compromise between two positions is correct.",
+      "name":"Middle Ground",
       "dialogue": [
          {
             "name": "Blathering Bill",
-            "message": ""
-         },
-         {
-            "name": "Rational Rob",
-            "message": ""
+            "message": "Scientists say that global warming is real but the guys down at the bodega say that it isn't. It's probably only half real..."
          }
       ]
    },
    {
       "id":"34",
-      "description":"When criteria are met that falsify the arguer's position, the arguer changes the criteria and claims that his\/her position is still valid.",
-      "name":"Moving the Goalposts",
+      "description":"In which one assumes a 'holier-than-thou' attitude in an attempt to make oneself look good to win an argument.",
+      "name":"Moral High Ground",
       "dialogue": [
          {
             "name": "Blathering Bill",
-            "message": ""
-         },
-         {
-            "name": "Rational Rob",
-            "message": ""
+            "message": "AIDS is a man made disease. Trust me, I've volunteered at an AIDS clinic for years and I've helped plenty of sick children."
          }
       ]
    },
    {
       "id":"35",
-      "description":"When arguing against an action or policy, this fallacy is committed if the arguer declares the action to be useless if it does not lead to ideal conditions. It is related to the false dichotomy in that it implies that if the action does not lead to perfection, then it is useless. It does not recognize that simple improvement is worthwhile. Essentially, if it isn't perfect, then it is useless.",
-      "name":"Nirvana Fallacy",
+      "description":"When criteria are met that falsify the arguer's position, the arguer changes the criteria and claims that his\/her position is still valid.",
+      "name":"Moving the Goalposts",
       "dialogue": [
          {
-            "name": "Blathering Bill",
-            "message": ""
+            "name": "Rational Rob",
+            "message": "If evolution ins't real then how do humans become resistant to antibiotics over time?"
          },
          {
-            "name": "Rational Rob",
-            "message": ""
+            "name": "Blathering Bill",
+            "message": "Small amounts of evolution are possible. But, not a lot."
          }
       ]
    },
    {
       "id":"36",
+      "description":"When arguing against an action or policy, this fallacy is committed if the arguer declares the action to be useless if it does not lead to ideal conditions. It is related to the false dichotomy in that it implies that if the action does not lead to perfection, then it is useless. It does not recognize that simple improvement is worthwhile. Essentially, if it isn't perfect, then it is useless.",
+      "name":"Nirvana Fallacy",
+      "dialogue": [
+         {
+            "name": "Blathering Bill",
+            "message": "Why should murder be illegal? People still kill each other anyways."
+         }
+      ]
+   },
+   {
+      "id":"37",
       "description":"If the premise of the argument is falsified with a counter example, rather than changing the conclusion, the arguer changes the definition of a major premise to make both the premise and the conclusion true. Typically, the arguer makes a sweeping generalization about a an entire group. This is usually done by implying that the group is bound and defined by the arbitrary quality. If an exception to this generalization is pointed out, the arguer dismisses the exception as not truly belonging to the group in the first place.",
       "name":"No True Scotsman",
       "dialogue": [
@@ -584,7 +599,7 @@
       ]
    },
    {
-      "id":"37",
+      "id":"38",
       "description":"A precedes B, therefore A caused B.",
       "name":"Post Hoc Fallacy",
       "dialogue": [
@@ -603,7 +618,7 @@
       ]
    },
    {
-      "id":"38",
+      "id":"39",
       "description":"A type of non-sequitir whereby one asserts that if a group of people doesn't have a certain amount of a certain kind of person, that discrimination and\/or bigotry is the culprit.",
       "name":"Quota Fallacy",
       "dialogue": [
@@ -618,37 +633,49 @@
       ]
    },
    {
-      "id":"39",
+      "id":"40",
       "description":"Refers to the selective excerpting of words from their original context in a way that distorts the source's intended meaning.",
       "name":"Quoting out of Context",
       "dialogue": [
          {
             "name": "Blathering Bill",
-            "message": ""
+            "message": "I just want to quote from Einstein. 'Science without religion is lame, religion without science is blind.' From Steven Hawking: 'It would be very difficult to explain why the universe would have begun just this way, except as the act of a god who intended to create beings like us.'"
          },
          {
             "name": "Rational Rob",
-            "message": ""
-         }
-      ]
-   },
-   {
-      "id":"40",
-      "description":"A speaker attempts to distract an audience by deviating from the topic at hand by introducing a separate argument the speaker believes is easier to speak to.",
-      "name":"Red Herring",
-      "dialogue": [
+            "message": "Wasn't Einstein an atheist?"
+         },
          {
             "name": "Blathering Bill",
-            "message": ""
-         },
-         {
-            "name": "Rational Rob",
-            "message": ""
+            "message": "Nope. I've got the quote right here."
          }
       ]
    },
    {
       "id":"41",
+      "description":"A speaker attempts to distract an audience by deviating from the topic at hand by introducing a separate argument the speaker believes is easier to speak to.",
+      "name":"Red Herring",
+      "dialogue": [
+         {
+            "name": "Rational Rob",
+            "message": "It's wrong to steal from your neighbors. Don't you think you should stopit already?"
+         },
+         {
+            "name": "Blathering Bill",
+            "message": "But, who defines what is moral?"
+         },
+         {
+            "name": "Rational Rob",
+            "message": "As humans, we have an innate sense of morality that's built into all of us with the exception of psychopaths."
+         },
+         {
+            "name": "Blathering Bill",
+            "message": "Medication may help people with mental illness develop a sense of morality."
+         }
+      ]
+   },
+   {
+      "id":"42",
       "description":"Conspiracy theory style reasoning wherein an argument is dismissed because the person who is putting it forth is assumed be profiting from the position that they're taking. This can also be an ad hominem attack. It's common for the person whose argument has been dismissed to be accused of being on a company's payroll. This assumes that the only legitimate reason one can have for taking a certain position is personal gain.",
       "name":"Shill Gambit",
       "dialogue": [
@@ -667,7 +694,7 @@
       ]
    },
    {
-      "id":"42",
+      "id":"43",
       "description":"The arguer tries to convince others that one action will lead to a series of events that will eventually lead to an ultimate, usually unwanted, consequence. This is fallacious if it is unlikely that each intermediate step will necessarily follow the preceding one.",
       "name":"Slippery Slope Fallacy",
       "dialogue": [
@@ -686,7 +713,7 @@
       ]
    },
    {
-      "id":"43",
+      "id":"44",
       "description":"The arguer attempts to explain a discrepancy in his\/her argument by assigning special properties to his\/her position that immunizes it from criticism. Special Pleading may render a claim unfalsifiable. The fallacy of Special Pleading occurs when someone argues that a case is an exception to a rule based upon an irrelevant characteristic that does not define an exception. Special Pleading also may occur when the arguer implies that opponents of his\/her point of view cannot possibly understand it because they lack the capacity or skills needed to comprehend it.",
       "name":"Special Pleading",
       "dialogue": [
@@ -717,22 +744,22 @@
       ]
    },
    {
-      "id":"44",
+      "id":"45",
       "description":"Giving the impression of refuting an opponent's argument, while actually refuting an argument that was not advanced by that opponent.",
       "name":"Strawman",
       "dialogue": [
          {
             "name": "Blathering Bill",
-            "message": ""
+            "message": "The military receives way too much of the budget."
          },
          {
             "name": "Rational Rob",
-            "message": ""
+            "message": "You just hate America and don't care about protecting it!"
          }
       ]
    },
    {
-      "id":"50",
+      "id":"46",
       "description":"Cherry picking data that supports your contention while ignoring data that contradcits it. Basically, confirmation bias.",
       "name":"Texas Sharpshooter",
       "dialogue": [
@@ -755,22 +782,22 @@
       ]
    },
    {
-      "id":"45",
+      "id":"47",
       "description":"A commonly used phrase, sometimes passing as folk wisdom, used to quell cognitive dissonance, conceal lack of thought-entertainment, move on to other topics etc. but in any case, end the debate with a clich\u00e9\u2014not a point.",
       "name":"Thought Terminating Clich\u00e9",
       "dialogue": [
          {
-            "name": "Blathering Bill",
-            "message": ""
+            "name": "Rational Rob",
+            "message": "I can usually tolerate a lot, but your religious rituals are starting to affect me."
          },
          {
-            "name": "Rational Rob",
-            "message": ""
+            "name": "Blathering Bill",
+            "message": "It's a relationship; not a religion."
          }
       ]
    },
    {
-      "id":"46",
+      "id":"48",
       "description":"A type of non-sequitir whereby one attempts to take credit for the deeds of someone else who belongs to the same group of people as the person putting forth the argument.",
       "name":"Tribal Fallacy",
       "dialogue": [
@@ -785,22 +812,30 @@
       ]
    },
    {
-      "id":"47",
+      "id":"49",
       "description":"When a person attempts to justify an action against another person because the other person did take or would take the same action against him or her.",
       "name":"Two Wrongs Make a Right",
       "dialogue": [
          {
+            "name": "Rational Rob",
+            "message": "Did you contact the person whose ID was in that wallet that you found last night?"
+         },
+         {
             "name": "Blathering Bill",
-            "message": ""
+            "message": "I'm not gonna return it."
          },
          {
             "name": "Rational Rob",
-            "message": ""
+            "message": "Why not?"
+         },
+         {
+            "name": "Blathering Bill",
+            "message": "They would never contact me if they had found my wallet."
          }
       ]
    },
    {
-      "id":"48",
+      "id":"50",
       "description":"A claim that is asserted that cannot be proven wrong. No evidence suffices as valid evidence.",
       "name":"Unfalsifiable Claim",
       "dialogue": [
@@ -819,7 +854,7 @@
       ]
    },
    {
-      "id":"49",
+      "id":"51",
       "description":"This happens when someone changes the definition of a word in such a way that reality conforms to their biases or lies.",
       "name":"Word Redefinition",
       "dialogue": [
@@ -834,22 +869,22 @@
       ]
    },
    {
-      "id":"50",
-      "description":"A deflection tactic that is used to shift the focus of attention away from what is being criticized on to other stuff that is similar but has is totally irrelevant.",
+      "id":"52",
+      "description":"A deflection tactic that is used to shift the focus of attention away from what is being criticized on to other stuff that is totally irrelevant.",
       "name":"Whataboutism",
       "dialogue": [
          {
             "name": "Rational Rob",
-            "message": "What?"
+            "message": "What's going on in Venezuela right now is awful."
          },
          {
             "name": "Blathering Bill",
-            "message": "Orderliness imparts reality to a symbolic representation of acceptance."
+            "message": "But, what about what's going on right here in America?"
          }
       ]
    },
    {
-      "id":"51",
+      "id":"53",
       "description":"This isn't any sort of coherent argument or rhetoric. However, it often masquerades as one if the person communicating it is well spoken. This is essentially just a confused or unintelligible mixture of seemingly random words and phrases.",
       "name":"Word Salad",
       "dialogue": [
@@ -864,7 +899,7 @@
       ]
    },
    {
-      "id":"52",
+      "id":"54",
       "description":"When one assumes that someone else\u2019s gain is a loss to other players; and the total amount of the available money or resources is fixed. A logical fallacy often occurs when this particular game theory is applied to economic or political discussions amongst non-economists \u2013 leading to false beliefs that the amount of wealth or jobs in the economy is fixed.",
       "name":"Zero Sum Fallacy",
       "dialogue": [

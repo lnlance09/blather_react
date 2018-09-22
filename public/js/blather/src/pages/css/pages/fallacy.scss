@@ -16,17 +16,13 @@
     .fallacyMainMenu {
         margin-top: 10px;
 
-        .ui.tabular.menu .active.item {
-            border-radius: 0 !important;
-        }
+        .item {
+            height: 50px;
 
-        .ui.secondary.pointing.menu {
-            border-bottom: solid 2px $hint-of-pensive;
-        }
-
-        .ui.secondary.pointing.menu .active.item {
-            border-color: $electromagnetic;
-            color: $blue-nights;
+            .label {
+                background: $linx-white;
+                color: $electromagnetic;
+            }
         }
     }
 }

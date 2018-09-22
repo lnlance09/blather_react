@@ -290,7 +290,7 @@ const mapStateToProps = (state, ownProps) => {
     }
 }
 
-export default connect(mapStateToProps, { 
+export default connect(mapStateToProps, {
     fetchUserData, 
     changeProfilePic, 
     updateAbout 

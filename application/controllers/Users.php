@@ -1,5 +1,6 @@
 <?php
-	defined('BASEPATH') OR exit('No direct script access allowed');
+	// defined('BASEPATH') OR exit('No direct script access allowed');
+	date_default_timezone_set('UTC');
 
 	class Users extends CI_Controller {
 		public function __construct() {       
@@ -149,6 +150,7 @@
 			}
 
 			$code = createArchive($url);
+			$data = [];
 			if($code && $this->user) {
 				$data = [
 					'code' => $code,
@@ -158,7 +160,7 @@
 					'network' => $parse['network'],
 					'object_id' => $parse['object_id'],
 					'page_id' => $parse['username'],
-					'user_id' => $this->user->id 
+					'user_id' => $this->user->id
 				];
 				$archive = $this->users->createArchive($data);
 			}

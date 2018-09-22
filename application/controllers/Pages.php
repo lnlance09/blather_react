@@ -43,6 +43,15 @@
 			echo json_encode($page);
 		}
 
+		public function getFallacyCount() {
+			$id = $this->input->get('id');
+			$count = $this->fallacies->getFallacyCount($id);
+			echo json_encode([
+				'count' => (int)$count,
+				'error' => false
+			]);
+		}
+
 		public function getPagePosts() {
 			$id = $this->input->get('id');
 			$lastId = $this->input->get('lastId');

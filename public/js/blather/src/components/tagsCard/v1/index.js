@@ -149,7 +149,6 @@ class TagsCard extends Component {
             if(props.loading) {
                 return
             }
-
             if(props.tags.length > 0) {
                 return (
                     <List className='tagsList' relaxed>
@@ -157,7 +156,6 @@ class TagsCard extends Component {
                     </List>
                 )
             }
-
             return (
                 <div>
                     No tags have been added

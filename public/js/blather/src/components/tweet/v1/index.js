@@ -89,8 +89,10 @@ class Tweet extends Component {
                 const archiveDate = adjustTimezone(props.archive.date_created)
                 return (
                     <Transition animation={animation} duration={duration} visible={visible}>
-                        <Message className='archiveMsg' positive style={{ borderRadius: '0' }}>
-                            <Icon name='checkmark' /> You archived this <a href={`http://archive.is/${props.archive.code}`}>tweet</a> <Moment date={archiveDate} fromNow />
+                        <Message className='archiveMsg' positive>
+                            <Icon name='checkmark' /> You archived this {' '}
+                            <a href={`http://archive.is/${props.archive.code}`} target='_blank'>tweet</a> {' '}
+                            <Moment date={archiveDate} fromNow />
                         </Message>
                     </Transition>
                 )
@@ -129,7 +131,6 @@ class Tweet extends Component {
                     }
                 })
             }
-
             return false;
         }
         const quotedTweet = props => {

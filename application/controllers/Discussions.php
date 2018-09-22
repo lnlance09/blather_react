@@ -89,6 +89,14 @@
 			]);
 		}
 
+		public function getConversation() {
+			$id = $this->input->get('id');
+			$convo = $this->discussions->getConversation($id);
+			echo json_encode([
+				'conversation' => $convo
+			]);
+		}
+
 		public function getUsers() {
 			$startedBy = $this->input->get('startedBy');
 			$withUser = $this->input->get('withUser');
@@ -165,6 +173,87 @@
 			]);
 		}
 
+		public function submitConversation() {
+			$id = $this->input->post('id');
+			$msg = $this->input->post('msg');
+			$status = (int)$this->input->post('status');
+
+			if(!$this->user) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'You must be logged in'
+				]);
+				exit;
+			}
+
+			if(!in_array($status, [1,2,3])) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'That status is not supported'
+				]);
+				exit;
+			}
+
+			$discussion = $this->discussions->getDiscussion($id, true);
+			if(!$discussion) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'This discussion does not exist'
+				]);
+				exit;
+			}
+
+			if((int)$discussion['status'] === 2 || (int)$discussion['status'] === 3) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'This discussion has ended'
+				]);
+				exit;
+			}
+
+			$lastPost = $this->discussions->lastConvoExchange($id);
+			if(!$lastPost && (int)$discussion['created_by'] === $this->user->id) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'You cannot have a conversation with yourself'
+				]);
+				exit;
+			}
+
+			if((int)$lastPost['user_id'] === $this->user->id) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'You have to wait your turn'
+				]);
+				exit;
+			}
+
+			if(empty($msg)) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'Your response cannot be blank'
+				]);
+				exit;
+			}
+
+			$accepted_by = (int)$discussion['status'] === 0 ? $this->user->id : null;
+			$this->discussions->updateStatus($id, $status, $accepted_by);
+			$this->discussions->submitConversation($id, $this->user->id, $msg);
+			echo json_encode([
+				'conversation' => [
+					[
+						'date_created' => date('Y-m-d H:i:s'),
+						'img' => $this->user->img ? 'http://localhost:3000/img/profile_pics/'.$this->user->img : null,
+						'message' => $msg,
+						'name' => $this->user->name,
+						'status' => 1,
+						'user_id' => $this->user->id
+					]
+				],
+				'error' => false
+			]);
+		}
+
 		public function update() {
 			if(!$this->user) {
 				$this->output->set_status_header(401);
@@ -209,9 +298,8 @@
 				exit;
 			}
 
-			$description = empty($description) ? $exists['description'] : null;
-			$extra = empty($extra) ? $exists['extra'] : null;
-
+			$description = empty($description) ? $exists['description'] : $description;
+			$extra = empty($extra) ? $exists['extra'] : $extra;
 			$this->discussions->updateDiscussion($id, $title, $description, $extra, $this->user->id, $tags);
 			$discussion = $this->discussions->getDiscussion($id, false, true, true);
 			echo json_encode([

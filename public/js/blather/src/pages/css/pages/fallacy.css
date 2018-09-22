@@ -6,10 +6,8 @@
 
 .fallacyPage .fallacyMainMenu {
   margin-top: 10px; }
-  .fallacyPage .fallacyMainMenu .ui.tabular.menu .active.item {
-    border-radius: 0 !important; }
-  .fallacyPage .fallacyMainMenu .ui.secondary.pointing.menu {
-    border-bottom: solid 2px #dcdde1; }
-  .fallacyPage .fallacyMainMenu .ui.secondary.pointing.menu .active.item {
-    border-color: #2f3640;
-    color: #353b48; }
+  .fallacyPage .fallacyMainMenu .item {
+    height: 50px; }
+    .fallacyPage .fallacyMainMenu .item .label {
+      background: #f5f6fa;
+      color: #2f3640; }

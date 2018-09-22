@@ -12,10 +12,20 @@
     margin-bottom: 0;
     margin-top: 0; }
     .resultItem .extra .extraList .item {
-      border: none !important;
       color: #2f3640;
       margin-bottom: 0 !important; }
       .resultItem .extra .extraList .item:nth-of-type(2) {
         margin-left: 8px !important; }
+  .resultItem .extra .label {
+    background: #487eb0 !important;
+    color: #ffffff;
+    font-weight: normal; }
   .resultItem .image img {
-    border-radius: 0 !important; }
+    border: none !important; }
+  .resultItem .image .label.check {
+    border-color: #44bd32; }
+  .resultItem .image .label.close {
+    border-color: #e84118; }
+  .resultItem .image .label .icon {
+    color: #ffffff;
+    opacity: 0.8; }

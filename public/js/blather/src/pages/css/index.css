@@ -67,6 +67,25 @@
 .createDiscussionPage .rightSide .discussionTagsHeader {
   font-size: 24px !important; }
 
+.discussionPage .header {
+  color: #353b48; }
+  .discussionPage .header .editButton {
+    color: #0097e6;
+    cursor: pointer;
+    display: none !important;
+    float: right;
+    font-size: 18px;
+    margin-right: 0 !important; }
+    .discussionPage .header .editButton.editing {
+      color: #e84118; }
+  .discussionPage .header:hover .editButton {
+    display: inline !important; }
+
+.discussionPage .updateDiscussionBtn {
+  background: #0097e6 !important; }
+  .discussionPage .updateDiscussionBtn:hover {
+    background: #0086cd !important; }
+
 .discussionPage .evidenceSection .evidenceSegment,
 .discussionPage .evidenceSection .extraSegment {
   font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
@@ -128,18 +147,19 @@
 
 .fallacyPage .fallacyMainMenu {
   margin-top: 10px; }
-  .fallacyPage .fallacyMainMenu .ui.tabular.menu .active.item {
-    border-radius: 0 !important; }
-  .fallacyPage .fallacyMainMenu .ui.secondary.pointing.menu {
-    border-bottom: solid 2px #dcdde1; }
-  .fallacyPage .fallacyMainMenu .ui.secondary.pointing.menu .active.item {
-    border-color: #2f3640;
-    color: #353b48; }
+  .fallacyPage .fallacyMainMenu .item {
+    height: 50px; }
+    .fallacyPage .fallacyMainMenu .item .label {
+      background: #f5f6fa;
+      color: #2f3640; }
 
 .socialMediaPage .menu.socialMediaPageMenu {
   margin-top: 40px !important; }
-  .socialMediaPage .menu.socialMediaPageMenu .active.item {
-    border-radius: 0 !important; }
+  .socialMediaPage .menu.socialMediaPageMenu .item {
+    height: 50px; }
+    .socialMediaPage .menu.socialMediaPageMenu .item .label {
+      background: #f5f6fa;
+      color: #2f3640; }
 
 .socialMediaPage .profilePic img {
   border: none !important; }
@@ -248,11 +268,11 @@
 
 .usersPage .menu.profileMenu {
   margin-top: 40px !important; }
-  .usersPage .menu.profileMenu .item.active {
-    border-radius: 0 !important; }
-  .usersPage .menu.profileMenu .item .label {
-    background: #f5f6fa;
-    color: #2f3640; }
+  .usersPage .menu.profileMenu .item {
+    height: 50px; }
+    .usersPage .menu.profileMenu .item .label {
+      background: #f5f6fa;
+      color: #2f3640; }
 
 .usersPage .profileContentContainer {
   border: none !important;

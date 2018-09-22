@@ -1,7 +1,7 @@
 import './css/index.css';
 import { refreshYouTubeToken } from '../components/authentication/v1/actions';
 import { DisplayMetaTags } from '../utils/metaFunctions';
-import { fetchPageData } from './actions/page';
+import { fetchFallacyCount, fetchPageData } from './actions/page';
 import { Provider, connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { 
@@ -12,6 +12,7 @@ import {
     Header,
     Icon,
     Image,
+    Label,
     Menu,
     Segment,
     Transition
@@ -60,6 +61,9 @@ class SocialMediaPage extends Component {
             bearer: this.state.bearer,
             id: this.state.id, 
             type: this.state.network
+        })
+        this.props.fetchFallacyCount({
+            id: this.state.id
         })
     }
 
@@ -150,7 +154,6 @@ class SocialMediaPage extends Component {
                     )
                 }
 
-                
                 if(authenticated) {
                     if(activeItem === 'tweets' && props.data.linkedTwitter) {
                         return (
@@ -248,7 +251,8 @@ class SocialMediaPage extends Component {
                                     {PageHeaderInfo(this.props)}
                                     <Menu
                                         className='socialMediaPageMenu' 
-                                        tabular
+                                        pointing
+                                        secondary
                                     >
                                         <Menu.Item 
                                             active={activeItem === itemsLabel} 
@@ -259,7 +263,12 @@ class SocialMediaPage extends Component {
                                             active={activeItem === 'fallacies'} 
                                             name='fallacies' 
                                             onClick={this.handleItemClick} 
-                                        />
+                                        >
+                                            Fallacies {' '}
+                                            {this.props.fallacyCount > 0 && (
+                                                <Label circular>{this.props.fallacyCount}</Label>
+                                            )}
+                                        </Menu.Item>
                                     </Menu>
                                     <Container className='profileContentContainer'>
                                         {ShowContent(this.props)}
@@ -293,6 +302,7 @@ SocialMediaPage.propTypes = {
     errorCode: PropTypes.number,
     exists: PropTypes.bool,
     externalUrl: PropTypes.string,
+    fallacyCount: PropTypes.number,
     fetchPageData: PropTypes.func,
     id: PropTypes.oneOfType([
         PropTypes.string,
@@ -345,5 +355,7 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 export default withRouter(connect(mapStateToProps, { 
-    fetchPageData, refreshYouTubeToken 
+    fetchFallacyCount,
+    fetchPageData,
+    refreshYouTubeToken
 })(SocialMediaPage))

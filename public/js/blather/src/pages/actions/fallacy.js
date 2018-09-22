@@ -39,7 +39,7 @@ export const fetchComments = ({id, page}) => dispatch => {
     })
 }
 
-export const fetchConversation = ({bearer, id}) => dispatch => {
+export const fetchFallacyConversation = ({bearer, id}) => dispatch => {
     request.get(`${window.location.origin}/api/fallacies/getConversation`, {
         headers: {
             'Authorization': bearer 
@@ -66,12 +66,10 @@ export const fetchFallacy = ({bearer, id}) => dispatch => {
             id
         },
     }, function(err, response, body) {
-        if(!body.error) {
-            dispatch({
-                type: constants.GET_FALLACY,
-                payload: body
-            })
-        }
+        dispatch({
+            type: constants.GET_FALLACY,
+            payload: body
+        })
     })
 }
 
@@ -121,7 +119,7 @@ export const setTags = ({value, text}) => dispatch => {
     })
 }
 
-export const submitConversation = ({bearer, id, msg}) => dispatch => {
+export const submitFallacyConversation = ({bearer, id, msg}) => dispatch => {
     request.post(`${window.location.origin}/api/fallacies/submitConversation`, {
         form: {
             id,

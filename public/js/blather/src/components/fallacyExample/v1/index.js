@@ -190,7 +190,6 @@ class FallacyExample extends Component {
             if(contradiction) {
                 material = props.contradiction
             }
-
             if(material.tweet) {
                 return (
                     <Tweet 
@@ -218,7 +217,6 @@ class FallacyExample extends Component {
                     />
                 )
             }
-
             if(material.video) {
                 return (
                     <div>

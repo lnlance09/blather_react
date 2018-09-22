@@ -92,7 +92,9 @@ class Post extends Component {
         const videoExists = this.props.error && this.props.errorCode === 404 && network === 'youtube' ? false : true
         const containerClassName = this.props.info ? 'mainContainer bc' : 'mainContainer'
         const user = this.props.info ? (network === 'twitter' ? this.props.info.user: this.props.info.channel) : null
-        const Breadcrumbs = ({props}) => {
+        const Breadcrumbs = props => {
+            console.log('breadcrumbs')
+            console.log(props)
             if(props.info ? props.info.channel || props.info.user : false) {
                 switch(type) {
                     case'tweet':
@@ -239,7 +241,7 @@ class Post extends Component {
                         <Sticky className='sticky' context={contextRef}>
                             <div className='breadcrumbContainer'>
                                 <Container>
-                                    <Breadcrumbs props={this.props} />
+                                    {Breadcrumbs(this.props)}
                                 </Container>
                             </div>
                         </Sticky>

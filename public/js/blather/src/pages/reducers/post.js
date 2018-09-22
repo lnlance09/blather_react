@@ -24,7 +24,9 @@ const post = (state = initial(), action) => {
                 }
             }
 
-            const items = action.payload.page > 0 ? [...state.comments.items, ...action.payload.comments.items] : action.payload.comments.items
+            const items = action.payload.page > 0 ? 
+            [...state.comments.items, ...action.payload.comments.items] : 
+            action.payload.comments.items
             return {
                 ...state,
                 comments: {

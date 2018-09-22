@@ -4,8 +4,13 @@
     .menu.socialMediaPageMenu {
         margin-top: 40px !important;
 
-        .active.item {
-            border-radius: 0 !important;
+        .item {
+            height: 50px;
+
+            .label {
+                background: $linx-white;
+                color: $electromagnetic;
+            }
         }
     }
 

@@ -39,7 +39,17 @@ ReactDOM.render(
 
             <Switch>
                 <Route path='/fallacies' exact component={Fallacies} />
-                <Route path='/fallacies/:id' exact component={Fallacy} />
+                <Route 
+                    path='/fallacies/:id' 
+                    exact 
+                    render={(props) => {
+                        const id = props.match.params.id 
+                        if(Number.isInteger(parseInt(id,10))) {
+                            return (<Fallacy {...props} />)
+                        }
+                        return (<Fallacies {...props} />)
+                    }} 
+                />
             </Switch>
 
             <Switch>

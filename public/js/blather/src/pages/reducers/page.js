@@ -65,8 +65,14 @@ const page = (state = initial(), action) => {
                 }
             }
 
+        case constants.SET_FALLACY_COUNT:
+            return {
+                ...state,
+                fallacyCount: payload.count
+            }
+
         default:
-            return state;
+            return state
     }
 }
 

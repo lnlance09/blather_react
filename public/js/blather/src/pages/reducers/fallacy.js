@@ -8,6 +8,13 @@ const fallacy = (state = initial(), action) => {
     const payload = action.payload
     switch(action.type) {
         case constants.GET_FALLACY:
+            if(payload.error) {
+                return {
+                    ...state,
+                    error: true
+                }
+            }
+
             const fallacy = payload.fallacy
             let contradiction = null
             let tweet = null
@@ -117,6 +124,7 @@ const fallacy = (state = initial(), action) => {
                     name: fallacy.user_name,
                     username: fallacy.user_username
                 },
+                error: false,
                 explanation: fallacy.explanation,
                 fallacyId: parseInt(fallacy.fallacy_id,10),
                 fallacyName: fallacy.fallacy_name,
@@ -161,7 +169,8 @@ const fallacy = (state = initial(), action) => {
         case constants.GET_FALLACY_CONVERSATION:
             return {
                 ...state,
-                conversation: payload.conversation
+                conversation: payload.conversation,
+                convoLoading: false
             }
 
         case constants.POST_COMMENT:
@@ -204,7 +213,6 @@ const fallacy = (state = initial(), action) => {
             const convo = state.conversation ? [...state.conversation, ...payload.conversation] : payload.conversation
             return {
                 ...state,
-                canRespond: false,
                 conversation: convo,
                 error: false,
                 errorMsg: '',
@@ -229,7 +237,7 @@ const fallacy = (state = initial(), action) => {
             }
 
         default:
-            return state;
+            return state
     }
 }
 

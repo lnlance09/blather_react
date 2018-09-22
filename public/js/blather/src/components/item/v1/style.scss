@@ -25,7 +25,6 @@
             margin-top: 0;
 
             .item {
-                border: none !important;
                 color: $electromagnetic;
                 margin-bottom: 0 !important;
 
@@ -34,9 +33,32 @@
                 }
             }
         }
+
+        .label {
+            background: $seabrook !important;
+            color: $white;
+            font-weight: normal;
+        }
     }
 
-    .image img {
-        border-radius: 0 !important;
+    .image {
+        img {
+            border: none !important;
+        }
+
+        .label {
+            &.check {
+                border-color: $skirret-green;
+            }
+
+            &.close {
+                border-color: $harley-davidson-orange;
+            }
+
+            .icon {
+                color: $white;
+                opacity: 0.8;
+            }
+        }
     }
 }

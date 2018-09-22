@@ -1,5 +1,5 @@
 import './style.css';
-import { formatNumber, formatPlural, sanitizeText } from '../../../utils/textFunctions';
+import { formatNumber, formatPlural } from '../../../utils/textFunctions';
 import { 
     Image,
     Item,
@@ -73,16 +73,21 @@ class ResultItem extends Component {
                     </List>
                 )
             }
-
             if(props.extra) {
                 return props.extra.count > 0 ? `${formatNumber(props.extra.count)} ${formatPlural(props.extra.count, props.extra.term)}` : null
             }
-
             return null
         }
         const ItemImage = props => {
             if(props.img) {
-                return (<Item.Image onError={i => i.target.src = ImagePic} size='small' src={props.img} />)
+                return (
+                    <Item.Image 
+                        label={props.label}
+                        onError={i => i.target.src = ImagePic} 
+                        size='small' 
+                        src={props.img} 
+                    />
+                )
             }
             return null
         }
@@ -151,6 +156,10 @@ ResultItem.propTypes = {
     img: PropTypes.string,
     id: PropTypes.string,
     key: PropTypes.string,
+    label: PropTypes.oneOfType([
+        PropTypes.bool,
+        PropTypes.object
+    ]),
     meta: PropTypes.oneOfType([
         PropTypes.bool,
         PropTypes.object,

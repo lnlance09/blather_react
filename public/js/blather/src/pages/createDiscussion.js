@@ -129,7 +129,6 @@ class CreateDiscussionPage extends Component {
 			preview, 
 			tags, 
 			title, 
-			user,
 			visible 
 		} = this.state
 		const hasUpdated = authenticated && (title !== '' || description !== '' || extra !== '') ? true : false

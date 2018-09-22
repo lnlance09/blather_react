@@ -220,7 +220,7 @@
 			}
 
 			echo json_encode([
-				'archive' => $archive,
+				'archive' => empty($archive) ? false : $archive,
 				'data' => $video['data'],
 				'is_live_search' => $auth,
 				'type' => 'video'

@@ -2,19 +2,24 @@ import './css/index.css';
 import { adjustTimezone } from '../utils/dateFunctions';
 import { DisplayMetaTags } from '../utils/metaFunctions';
 import { sanitizeText } from '../utils/textFunctions';
-import { fetchDiscussion } from './actions/discussion';
+import { fetchDiscussion, updateDescription, updateDiscussion, updateExtra } from './actions/discussion';
 import { Provider, connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { 
+    Button,
     Container,
     Dimmer,
+    Form,
     Grid,
     Header,
+    Icon,
     Image,
-    Loader
+    Loader,
+    TextArea
 } from 'semantic-ui-react';
 import Marked from 'marked';
 import Moment from 'react-moment';
+import Conversation from '../components/conversation/v1/';
 import PageFooter from '../components/footer/v1/';
 import PageHeader from '../components/header/v1/';
 import ParagraphPic from '../images/short-paragraph.png';
@@ -27,12 +32,12 @@ import TitleHeader from '../components/titleHeader/v1/';
 class DiscussionPage extends Component {
     constructor(props) {
         super(props)
-        const id = this.props.match.params.id
         const height = window.innerHeight
+        const id = parseInt(this.props.match.params.id,10)
         const currentState = store.getState()
-        const bearer = currentState.user.bearer
-        const authenticated = currentState.user.authenticated
-        const isMine = currentState.user.id === this.props.user.id
+        const user = currentState.user
+        const bearer = user.bearer
+        const authenticated = user.authenticated
 
         Marked.setOptions({
             renderer: new Marked.Renderer(),
@@ -50,10 +55,17 @@ class DiscussionPage extends Component {
         this.state = {
             authenticated,
             bearer,
+            editingDescription: false,
+            editingExtra: false,
             height,
             id,
-            isMine
+            user
         }
+
+        this.onClickEditDescription = this.onClickEditDescription.bind(this)
+        this.onClickEditExtra = this.onClickEditExtra.bind(this)
+        this.updateDescription = this.updateDescription.bind(this)
+        this.updateExtra = this.updateExtra.bind(this)
     }
 
     componentWillMount() {
@@ -62,56 +74,157 @@ class DiscussionPage extends Component {
         }
     }
 
+    onClickEditDescription = () => {
+        this.setState({ editingDescription: this.state.editingDescription === false })
+    }
+
+    onClickEditExtra = () => {
+        this.setState({ editingExtra: this.state.editingExtra === false })
+    }
+
+    updateDescription = (e, { value }) => {
+        this.props.updateDescription({ description: value })
+    }
+
+    updateDiscussion = () => {
+        if(this.props.description && this.props.extra !== '') {
+            this.props.updateDiscussion({ 
+                bearer: this.state.bearer,
+                description: this.props.description,
+                extra: this.props.extra,
+                id: this.props.id
+            })
+            this.setState({ editingDescription: false, editingExtra: false })
+        }
+    }
+
+    updateExtra = (e, { value }) => {
+        this.props.updateExtra({ extra: value })
+    }
+
     render() {
-        const { bearer, height, id, isMine } = this.state
+        const { authenticated, bearer, editingDescription, editingExtra, height, id, user } = this.state
         const createdAt = adjustTimezone(this.props.date_created)
+        const isMine = this.props.createdBy ? parseInt(user.data.id,10) === this.props.createdBy.id : false
+        const EditButton = ({props, type}) => {
+            if(isMine) {
+                if(type === 'description') {
+                    if(props.description) {
+                        if(editingDescription) {
+                            return (<Icon className='editButton editing' name='close' onClick={this.onClickEditDescription} />)
+                        }
+                        return (<Icon className='editButton' name='pencil' onClick={this.onClickEditDescription} />)
+                    }
+                }
+                if(type === 'extra') {
+                    if(props.extra) {
+                        if(editingExtra) {
+                            return (<Icon className='editButton editing' name='close' onClick={this.onClickEditExtra} />)
+                        }
+                        return (<Icon className='editButton' name='pencil' onClick={this.onClickEditExtra} />)
+                    }
+                }
+            }
+            return null
+        }
         const EvidenceSection = props => {
             return (
                 <div>
                     <Container fluid>
                         <Header as='h2' size='medium'>
                             Evidence
+                            <EditButton props={props} type='description' />
                         </Header>
-                        {!props.description && (
+                        {editingDescription && (
+                            <Form onSubmit={this.updateDiscussion}>
+                                <Form.Field>
+                                    <TextArea 
+                                        onChange={this.updateDescription}
+                                        placeholder='What is your evidence? Try to use reputable sources.'
+                                        rows={15}
+                                        value={props.description}
+                                    />
+                                </Form.Field>
+                                <Button 
+                                    className='updateDiscussionBtn'
+                                    compact
+                                    content='Update'
+                                    fluid
+                                    type='submit'
+                                />
+                            </Form>
+                        )}
+                        {!editingDescription && (
                             <div>
-                                <Dimmer active inverted>
-                                    <Loader active inline='centered' size='medium' />
-                                </Dimmer>
-                                <Image src={ParagraphPic} fluid /> 
+                                {!props.description && (
+                                    <div>
+                                        <Dimmer active inverted>
+                                            <Loader active inline='centered' size='medium' />
+                                        </Dimmer>
+                                        <Image src={ParagraphPic} fluid /> 
+                                    </div>
+                                )}
+                                {props.description && (
+                                    <div
+                                        dangerouslySetInnerHTML={{__html: sanitizeText(Marked(props.description))}}
+                                    ></div>
+                                )}
                             </div>
                         )}
-                        {props.description && (
-                            <div
-                                dangerouslySetInnerHTML={{__html: sanitizeText(Marked(props.description))}}
-                            ></div>
-                        )}
-
                         <Header ash='h3' size='medium'>
-                            What's needed to change {props.user.name}'s mind
+                            {props.createdBy ? `What's needed to change ${props.createdBy.name}'s mind` : ''}
+                            <EditButton props={props} type='extra' />
                         </Header>
-                        {!props.extra && (
-                            <div>
-                                <Dimmer active inverted>
-                                    <Loader active inline='centered' size='medium' />
-                                </Dimmer>
-                                <Image src={ParagraphPic} fluid /> 
-                            </div>
+                        {editingExtra && (
+                            <Form onSubmit={this.updateDiscussion}>
+                                <Form.Field>
+                                    <TextArea 
+                                        onChange={this.updateExtra}
+                                        placeholder='What is your evidence? Try to use reputable sources.'
+                                        rows={15}
+                                        value={props.extra}
+                                    />
+                                </Form.Field>
+                                <Button 
+                                    className='updateDiscussionBtn'
+                                    compact
+                                    content='Update'
+                                    fluid
+                                    type='submit'
+                                />
+                            </Form>
                         )}
-                        {props.extra && (
-                            <div
-                                dangerouslySetInnerHTML={{__html: sanitizeText(Marked(props.extra))}}
-                            ></div>
+                        {!editingExtra && (
+                            <div>
+                                {!props.extra && (
+                                    <div>
+                                        <Dimmer active inverted>
+                                            <Loader active inline='centered' size='medium' />
+                                        </Dimmer>
+                                        <Image src={ParagraphPic} fluid /> 
+                                    </div>
+                                )}
+                                {props.extra && (
+                                    <div
+                                        dangerouslySetInnerHTML={{__html: sanitizeText(Marked(props.extra))}}
+                                    ></div>
+                                )}
+                            </div>
                         )}
                     </Container>
                 </div>
             )
         }
         const HeaderSection = ({props}) => {
-            const subheader = (
-                <div>
-                    Created <Moment date={createdAt} fromNow interval={60000} /> by <Link to={`/users/${props.user.username}`}>{props.user.name}</Link>
-                </div>
-            )
+            let subheader = null
+            if(props.createdBy) {
+                subheader = (
+                    <div>
+                        Created <Moment date={createdAt} fromNow interval={60000} /> {' '}
+                        by <Link to={`/users/${props.createdBy.username}`}>{props.createdBy.name}</Link>
+                    </div>
+                )
+            }
             return (
                 <TitleHeader
                     bearer={bearer}
@@ -126,9 +239,9 @@ class DiscussionPage extends Component {
         }
         const ShowTags = props => {
             let tags = null
-            if(props.tag_ids) {
-                const tagIds = props.tag_ids.split(',')
-                const tagNames = props.tag_names.split(',')
+            if(props.tagIds) {
+                let tagIds = props.tagIds.split(',')
+                let tagNames = props.tagNames.split(',')
                 Array.prototype.zip = function(arr) {
                     return this.map(function(e, i) {
                         return {id: e, name: arr[i]}
@@ -165,6 +278,16 @@ class DiscussionPage extends Component {
                         <Grid>
                             <Grid.Column className='leftSide' width={12}>
                                 {EvidenceSection(this.props)}
+                                <Conversation 
+                                    acceptedBy={this.props.acceptedBy}
+                                    authenticated={authenticated}
+                                    bearer={bearer}
+                                    createdBy={this.props.createdBy}
+                                    discussionId={id}
+                                    loading={this.props.convoLoading}
+                                    source='discussion'
+                                    status={this.props.status}
+                                />
                             </Grid.Column>
                             <Grid.Column className='rightSide' width={4}>
                                 {ShowTags(this.props)}
@@ -179,25 +302,40 @@ class DiscussionPage extends Component {
 }
 
 DiscussionPage.propTypes = {
-    date_created: PropTypes.string,
-    description: PropTypes.string,
-    extra: PropTypes.string,
-    fetchDiscussion: PropTypes.func,
-    id: PropTypes.number,
-    tag_ids: PropTypes.string,
-    tag_names: PropTypes.string,
-    title: PropTypes.string,
-    user: PropTypes.shape({
+    acceptedBy: PropTypes.shape({
         id: PropTypes.number,
         img: PropTypes.string,
         name: PropTypes.string,
         username: PropTypes.string
-    })
+    }),
+    createdBy: PropTypes.shape({
+        id: PropTypes.number,
+        img: PropTypes.string,
+        name: PropTypes.string,
+        username: PropTypes.string
+    }),
+    convoLoading: PropTypes.bool,
+    dateCreated: PropTypes.string,
+    description: PropTypes.string,
+    extra: PropTypes.string,
+    fetchDiscussion: PropTypes.func,
+    id: PropTypes.number,
+    status: PropTypes.number,
+    tagIds: PropTypes.string,
+    tagNames: PropTypes.string,
+    title: PropTypes.string,
+    updateDescription: PropTypes.func,
+    updateDiscussion: PropTypes.func,
+    updateExtra: PropTypes.func
 }
 
 DiscussionPage.defaultProps = {
+    convoLoading: true,
     fetchDiscussios: fetchDiscussion,
-    user: {}
+    user: null,
+    updateDescription: updateDescription,
+    updateDiscussion: updateDiscussion,
+    updateExtra: updateExtra
 }
 
 const mapStateToProps = (state, ownProps) => {
@@ -207,4 +345,9 @@ const mapStateToProps = (state, ownProps) => {
     }
 }
 
-export default connect(mapStateToProps, { fetchDiscussion })(DiscussionPage)
+export default connect(mapStateToProps, { 
+    fetchDiscussion,
+    updateDescription,
+    updateDiscussion,
+    updateExtra
+})(DiscussionPage)

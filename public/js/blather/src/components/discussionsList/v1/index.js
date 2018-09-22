@@ -34,9 +34,18 @@ class DiscussionsList extends Component {
             startedBy: props.filter.startedBy,
             status: props.filter.status,
             statusOptions: [
-                {key: 'pending', text: 'Pending', value: 1},
-                {key: 'active', text: 'Active', value: 2},
-                {key: 'changed_min', text: 'Convinced', value: 3}
+                {key: 'pending', label: { 
+                    color: 'yellow', empty: true, circular: true 
+                }, text: 'Pending', value: 0},
+                {key: 'active', label: { 
+                    color: 'blue', empty: true, circular: true 
+                }, text: 'Active', value: 1},
+                {key: 'stopped', label: { 
+                    color: 'red', empty: true, circular: true 
+                }, text: 'Stopped', value: 2},
+                {key: 'convinced', label: { 
+                    color: 'green', empty: true, circular: true 
+                },text: 'Convinced', value: 3}
             ],
             tagsOptions: [],
             tags: [],
@@ -56,7 +65,6 @@ class DiscussionsList extends Component {
 
     componentDidMount() {
         this.props.fetchDiscussions({
-            bearer: this.props.bearer,
             startedBy: this.props.filter.startedBy
         })
         this.fetchTags()
@@ -111,10 +119,10 @@ class DiscussionsList extends Component {
                 page: newPage 
             })
             this.props.fetchDiscussions({
-                bearer: this.state.bearer,
                 page: newPage,
                 q: this.state.q,
                 startedBy: this.state.startedBy,
+                status: this.state.status,
                 tags: this.state.tags,
                 withUser: this.state.with
             })
@@ -132,10 +140,10 @@ class DiscussionsList extends Component {
     onSubmitForm() {
         this.setState({ page: 0 })
         this.props.fetchDiscussions({
-            bearer: this.state.bearer,
             page: 0,
             q: this.state.q,
             startedBy: this.state.startedBy,
+            status: this.state.status,
             tags: this.state.tags,
             withUser: this.state.with
         })
@@ -220,6 +228,7 @@ class DiscussionsList extends Component {
                         <Form.Field width={props.onUserPage ? 3 : 4}>
                             <Dropdown 
                                 fluid
+                                labeled
                                 onChange={this.onSelectStatus}
                                 options={statusOptions}
                                 placeholder='Status'
@@ -239,6 +248,13 @@ class DiscussionsList extends Component {
                             Created by {result.creator_user_name} <Moment date={adjustTimezone(result.discussion_date)} fromNow /> 
                         </div>
                     )
+                    let label = false
+                    if(parseInt(result.status,10) === 2) {
+                        label = {className: 'close', corner: 'right', icon: 'close'}
+                    }
+                    if(parseInt(result.status,10) === 3) {
+                        label = {className: 'check', corner: 'right', icon: 'check'}
+                    }
                     return (
                         <ResultItem 
                             description={result.description}
@@ -246,6 +262,7 @@ class DiscussionsList extends Component {
                             id={`discussion_${i}`}
                             img={result.creator_img ? result.creator_img : result.acceptor_img}
                             key={`discussion_${i}`}
+                            label={label}
                             meta={meta}
                             sanitize
                             tags={result.tags ? result.tags.split(',') : null}

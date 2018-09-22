@@ -142,7 +142,7 @@ ArchivesList.propTypes = {
 }
 
 ArchivesList.defaultProps = {
-    archives: [{},{},{},{},{},{},{},{},{},{}],
+    archives: [{},{},{},{},{},{},{},{}],
     getArchives: getArchives,
     page: 0
 }

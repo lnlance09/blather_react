@@ -24,11 +24,10 @@
 				exit;
 			}
 
-			// FormatArray($results);
 			$fallacy = $results[0];
 			$this->fallacies->updateViewCount($id);
 			echo json_encode([
-				'error' => false,
+				'error' => $fallacy['id'] === null,
 				'fallacy' => $fallacy
 			]);
 		}
@@ -148,22 +147,8 @@
 			]);
 		}
 
-		public function uniqueFallacies() {
-			$id = $this->input->get('id');
-			$type = $this->input->get('type');
-
-			if(empty($id)) {
-				$this->output->set_status_header(401);
-				echo json_encode([
-					'error' => 'You need to specify a page'
-				]);
-				exit;
-			}
-
-			$fallacies = $this->fallacies->getUniqueFallacies($id, $type);
-			echo json_encode([
-				'fallacies' => $fallacies
-			]);
+		public function insertReference() {
+			$this->fallacies->insertFallacyRefs();
 		}
 
 		public function parseUrl() {
@@ -328,7 +313,7 @@
 
 			$id = $this->input->post('id');
 			$msg = $this->input->post('msg');
-
+			$status = $this->input->post('status');
 			$fallacy = $this->fallacies->search($id, null, null, null, null, null, null, null, null);
 			if(empty($fallacy)) {
 				$this->output->set_status_header(401);
@@ -392,6 +377,24 @@
 				'page' => (int)$page,
 				'pages' => ceil($count/$limit),
 				'results' => !$results ? [] : $results
+			]);
+		}
+
+		public function uniqueFallacies() {
+			$id = $this->input->get('id');
+			$type = $this->input->get('type');
+
+			if(empty($id)) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'You need to specify a page'
+				]);
+				exit;
+			}
+
+			$fallacies = $this->fallacies->getUniqueFallacies($id, $type);
+			echo json_encode([
+				'fallacies' => $fallacies
 			]);
 		}
 

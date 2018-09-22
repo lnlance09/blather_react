@@ -1,7 +1,10 @@
 .socialMediaPage .menu.socialMediaPageMenu {
   margin-top: 40px !important; }
-  .socialMediaPage .menu.socialMediaPageMenu .active.item {
-    border-radius: 0 !important; }
+  .socialMediaPage .menu.socialMediaPageMenu .item {
+    height: 50px; }
+    .socialMediaPage .menu.socialMediaPageMenu .item .label {
+      background: #f5f6fa;
+      color: #2f3640; }
 
 .socialMediaPage .profilePic img {
   border: none !important; }

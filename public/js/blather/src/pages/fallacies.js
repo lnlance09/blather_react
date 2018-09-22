@@ -21,8 +21,10 @@ import store from '../store';
 class Fallacies extends Component {
     constructor(props) {
         super(props)
+        const name = this.props.match.params.id
+        const parsedName = name ? name.split('_').join(' ') : false
         this.state = { 
-            activeItem: 'Ad Hominem Abusive',
+            activeItem: parsedName ? parsedName : 'ad hominem abusive',
             intervalId: 0
         }
     }
@@ -42,15 +44,16 @@ class Fallacies extends Component {
     handleItemClick = (e, { name }) => {
         this.scrollToTop()
         this.setState({ activeItem: name })
+        this.props.history.push(`/fallacies/${name.split(' ').join('_')}`)
     }
 
     render() {
         const { activeItem } = this.state;
         const fallaciesSidebar = fallacies.map(fallacy => (
             <Menu.Item
-                active={activeItem === fallacy.name}
+                active={activeItem === fallacy.name.toLowerCase()}
                 key={fallacy.id}
-                name={fallacy.name}
+                name={fallacy.name.toLowerCase()}
                 onClick={this.handleItemClick}
             />
         ))
@@ -67,7 +70,7 @@ class Fallacies extends Component {
             )
         })
         const fallaciesMain = fallacies.map((fallacy, i) => {
-            if(fallacy.name === activeItem) {
+            if(fallacy.name.toLowerCase() === activeItem) {
                 return (
                     <div className='mainFallacy active' key={fallacy.id}>
                         <Header as='p' attached='top'>

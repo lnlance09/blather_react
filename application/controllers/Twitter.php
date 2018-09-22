@@ -164,7 +164,7 @@
 			}
 
 			echo json_encode([
-				'archive' => $archive,
+				'archive' => empty($archive) ? false : $archive,
 				'data' => $tweet['error'] ? null : $tweet['data'],
 				'error' => $tweet['error'] ? $tweet['code'] : false,
 				'is_live_search' => $auth,

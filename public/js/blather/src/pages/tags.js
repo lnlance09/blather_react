@@ -6,14 +6,10 @@ import Moment from 'react-moment';
 import { connect, Provider } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { 
-    Button,
     Container,
-    Form,
     Grid,
-    Header,
     Image,
-    Segment,
-    TextArea
+    Segment
 } from 'semantic-ui-react';
 import PageFooter from '../components/footer/v1/';
 import PageHeader from '../components/header/v1/';
@@ -42,7 +38,7 @@ class Tags extends Component {
     }
 
     render() {
-        const { activeItem, authenticated, bearer, height, msg, name } = this.state
+        const { authenticated, bearer, height, name } = this.state
         const TagTitle = ({props}) => {
             const subheader = (
                 <div>

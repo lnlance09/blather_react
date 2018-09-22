@@ -1,7 +1,7 @@
 @import '../../../css/colors.scss';
 
 .conversation {
-    margin-top: 25px;
+    margin-top: 35px;
 
     .form {
         .actionSegment {
@@ -17,7 +17,7 @@
             .item {
                 .icon {
                     &.paper.plane {
-                        color: $nanohanacha-gold !important;
+                        color: $vanadyl-blue !important;
                     }
 
                     &.close {
@@ -37,9 +37,9 @@
             margin-right: 0;
 
             &.respond {
-                background: $nanohanacha-gold !important;
+                background: $vanadyl-blue !important;
                 &:hover {
-                    background: darken($nanohanacha-gold, 5%) !important;
+                    background: darken($vanadyl-blue, 5%) !important;
                 }
             }
 
@@ -62,7 +62,7 @@
             font-weight: bold;
 
             &.respond {
-                color: $nanohanacha-gold !important;
+                color: $vanadyl-blue !important;
             }
 
             &.close {
@@ -81,38 +81,40 @@
 
         .convoTextArea {
             &.close {
-                border: none;
-                box-shadow: 0 0 0 1px $harley-davidson-orange-light inset, 0 0 0 0 transparent !important;
+                &:focus {
+                    border: solid 1px $harley-davidson-orange-light;
 
-                &::-webkit-input-placeholder {
-                    color: $harley-davidson-orange;
-                }
-                &::-moz-placeholder {
-                    color: $harley-davidson-orange;
-                }
-                &:-ms-input-placeholder {
-                    color: $harley-davidson-orange;
-                }
-                &:-moz-placeholder {
-                    color: $harley-davidson-orange;
+                    &::-webkit-input-placeholder {
+                        color: $harley-davidson-orange;
+                    }
+                    &::-moz-placeholder {
+                        color: $harley-davidson-orange;
+                    }
+                    &:-ms-input-placeholder {
+                        color: $harley-davidson-orange;
+                    }
+                    &:-moz-placeholder {
+                        color: $harley-davidson-orange;
+                    }
                 }
             }
 
             &.convince {
-                border: none;
-                box-shadow: 0 0 0 1px $skirret-green-light inset, 0 0 0 0 transparent !important;
+                &:focus {
+                    border: solid 1px $skirret-green-light;
 
-                &::-webkit-input-placeholder {
-                    color: $skirret-green;
-                }
-                &::-moz-placeholder {
-                    color: $skirret-green;
-                }
-                &:-ms-input-placeholder {
-                    color: $skirret-green;
-                }
-                &:-moz-placeholder {
-                    color: $skirret-green;
+                    &::-webkit-input-placeholder {
+                        color: $skirret-green;
+                    }
+                    &::-moz-placeholder {
+                        color: $skirret-green;
+                    }
+                    &:-ms-input-placeholder {
+                        color: $skirret-green;
+                    }
+                    &:-moz-placeholder {
+                        color: $skirret-green;
+                    }
                 }
             }
         }
@@ -124,6 +126,14 @@
 
     .convoResponseSection {
         margin-top: 0;
+
+        .ui.icon.message.waitMsg {
+            box-shadow: 0 0 0 1px $regular-msg-border inset, 0 0 0 0 transparent !important;
+
+            .icon {
+                color: $mazarine-blue;
+            }
+        }
     }
 
     .statusActionSegment {
@@ -150,10 +160,37 @@
     }
 
     .card {
+        border: none;
         box-shadow: 0 1px 3px 0 $card-box-shadow, 0 0 0 1px $card-box-shadow;
+        // border: solid 1px $container-border-color;
+        // box-shadow: none;
         
         .content {
             border: none;
+
+            .ui.mini.image {
+                height: 35px;
+                width: 35px;
+            }
+
+            .header {
+                font-size: 15px !important;
+            }
+        }
+
+        .label {
+            &.check {
+                border-color: $skirret-green;
+            }
+
+            &.close {
+                border-color: $harley-davidson-orange;
+            }
+
+            .icon {
+                color: $white;
+                opacity: 0.8;
+            }
         }
     }
 }
