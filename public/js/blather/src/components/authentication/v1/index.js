@@ -1,42 +1,42 @@
-import './style.css';
-import { 
-    submitLoginForm, 
-    submitRegistrationForm, 
-    switchTab, 
-    verifyEmail 
-} from './actions';
-import { Provider, connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import { 
+import "./style.css";
+import {
+    submitLoginForm,
+    submitRegistrationForm,
+    switchTab,
+    verifyEmail
+} from "./actions";
+import { Provider, connect } from "react-redux";
+import { Redirect } from "react-router-dom";
+import {
     Button,
     Form,
     Header,
     Input,
     Message,
     Segment
-} from 'semantic-ui-react';
-import Logo from 'components/header/v1/images/logo.svg';
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-import ReactSVG from 'react-svg';
-import store from 'store';
+} from "semantic-ui-react";
+import Logo from "components/header/v1/images/logo.svg";
+import PropTypes from "prop-types";
+import React, { Component } from "react";
+import ReactSVG from "react-svg";
+import store from "store";
 
 class Authentication extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: '',
+            email: "",
             loadingLogin: false,
             loadingRegistration: false,
             login: true,
             loginError: false,
-            name: '',
-            password: '',
-            regEmail: '', 
-            regPassword: '',
+            name: "",
+            password: "",
+            regEmail: "",
+            regPassword: "",
             user: {},
-            username: '',
-            verificationCode: '',
+            username: "",
+            verificationCode: "",
             verify: false
         };
 
@@ -47,127 +47,144 @@ class Authentication extends Component {
         this.onRegChangeEmail = this.onRegChangeEmail.bind(this);
         this.onRegChangePassword = this.onRegChangePassword.bind(this);
         this.onRegChangeUsername = this.onRegChangeUsername.bind(this);
-        this.onChangeVerificationCode = this.onChangeVerificationCode.bind(this);
+        this.onChangeVerificationCode = this.onChangeVerificationCode.bind(
+            this
+        );
 
         this.onClick = this.onClick.bind(this);
         this.submitLoginForm = this.submitLoginForm.bind(this);
         this.submitRegistrationForm = this.submitRegistrationForm.bind(this);
-        this.submitEmailVerificationForm = this.submitEmailVerificationForm.bind(this);
+        this.submitEmailVerificationForm = this.submitEmailVerificationForm.bind(
+            this
+        );
     }
 
     onClick() {
-        this.setState({ login: this.state.login ? false : true })
-        this.props.switchTab(this.state.login)
+        this.setState({ login: this.state.login ? false : true });
+        this.props.switchTab(this.state.login);
     }
 
-    onChangeEmail = (e, { value }) => this.setState({ email: value })
+    onChangeEmail = (e, { value }) => this.setState({ email: value });
 
-    onChangeVerificationCode = (e, { value }) => this.setState({ verificationCode: value })
+    onChangeVerificationCode = (e, { value }) =>
+        this.setState({ verificationCode: value });
 
-    onChangePassword = (e, { value }) => this.setState({ password: value })
+    onChangePassword = (e, { value }) => this.setState({ password: value });
 
-    onRegChangeEmail = (e, { value }) => this.setState({ regEmail: value })
+    onRegChangeEmail = (e, { value }) => this.setState({ regEmail: value });
 
-    onRegChangeName = (e, { value }) => this.setState({ name: value })
+    onRegChangeName = (e, { value }) => this.setState({ name: value });
 
-    onRegChangePassword = (e, { value }) => this.setState({ regPassword: value })
+    onRegChangePassword = (e, { value }) =>
+        this.setState({ regPassword: value });
 
-    onRegChangeUsername = (e, { value }) => this.setState({ username: value })
+    onRegChangeUsername = (e, { value }) => this.setState({ username: value });
 
     submitEmailVerificationForm(e) {
         e.preventDefault();
-        if(this.state.verificationCode.length > 3) {
+        if (this.state.verificationCode.length > 3) {
             this.props.verifyEmail({
                 bearer: this.props.bearer,
                 code: this.state.verificationCode
-            })
+            });
         }
     }
 
     submitLoginForm(e) {
-        e.preventDefault()
-        this.setState({ loadingLogin: true })
-        if(this.state.email.length > 0 && this.state.password.length > 0) {
+        e.preventDefault();
+        this.setState({ loadingLogin: true });
+        if (this.state.email.length > 0 && this.state.password.length > 0) {
             this.props.submitLoginForm({
                 email: this.state.email,
                 password: this.state.password
-            })
-        } 
+            });
+        }
     }
 
     submitRegistrationForm(e) {
-        e.preventDefault()
-        this.setState({ loadingRegistration: true })
+        e.preventDefault();
+        this.setState({ loadingRegistration: true });
         this.props.submitRegistrationForm({
             email: this.state.regEmail,
             name: this.state.name,
             password: this.state.regPassword,
             username: this.state.username
-        })
+        });
     }
 
     render() {
-        const { email, loadingLogin, loadingRegistration, login, name, password, regEmail, regPassword, username, verificationCode } = this.state
+        const {
+            email,
+            loadingLogin,
+            loadingRegistration,
+            login,
+            name,
+            password,
+            regEmail,
+            regPassword,
+            username,
+            verificationCode
+        } = this.state;
         const emailVerificationForm = props => {
-            if(props.verify) {
+            if (props.verify) {
                 return (
                     <div>
                         <Form onSubmit={this.submitEmailVerificationForm}>
                             <Form.Field>
                                 <Input
                                     onChange={this.onChangeVerificationCode}
-                                    placeholder='Verification code'
+                                    placeholder="Verification code"
                                     value={verificationCode}
                                 />
                             </Form.Field>
                             <Button
-                                color='green'
-                                content='Verify'
+                                color="green"
+                                content="Verify"
                                 fluid
-                                type='submit'
+                                type="submit"
                             />
                         </Form>
                     </div>
-                )
+                );
             }
         };
 
         const headerText = () => {
-            if(!this.props.verify) {
-                return login ? 'Sign in to Blather' : 'Create an account';
+            if (!this.props.verify) {
+                return login ? "Sign in to Blather" : "Create an account";
             }
-            return 'Please verify your email';
-        }
+            return "Please verify your email";
+        };
 
         const infoBox = () => {
-            if(!this.props.verify) {
+            if (!this.props.verify) {
                 return (
-                    <Segment className='authInfoSegment' style={{ borderRadius: '0' }}>
+                    <Segment
+                        className="authInfoSegment"
+                        style={{ borderRadius: "0" }}
+                    >
                         {registerText()}
-                        <span className='registerLink' onClick={this.onClick}>
-                             {registerButton()}
+                        <span className="registerLink" onClick={this.onClick}>
+                            {registerButton()}
                         </span>
                     </Segment>
-                )
+                );
             }
-        }
+        };
 
-        const registerText = () => (
-            login ? 'New to Blather?' : 'Already have an account?'
-        )
+        const registerText = () =>
+            login ? "New to Blather?" : "Already have an account?";
 
-        const registerButton = () => (
-            login ? 'Create an account' : 'Sign in'
-        )
+        const registerButton = () => (login ? "Create an account" : "Sign in");
 
         const errorMsg = props => {
-            if(props.loginError && props.loginErrorMsg) {
-                return (<Message error content={props.loginErrorMsg} />)
+            if (props.loginError && props.loginErrorMsg) {
+                return <Message error content={props.loginErrorMsg} />;
             }
-        }
+        };
 
         const mainForm = () => {
-            if(login && !this.props.verify) {
+            if (login && !this.props.verify) {
                 return (
                     <div>
                         <Form
@@ -176,56 +193,58 @@ class Authentication extends Component {
                         >
                             <Form.Field>
                                 <Input
-                                    onChange={this.onChangeEmail} 
-                                    placeholder='Email or username'
+                                    onChange={this.onChangeEmail}
+                                    placeholder="Email or username"
                                     value={email}
                                 />
                             </Form.Field>
                             <Form.Field>
                                 <Input
                                     onChange={this.onChangePassword}
-                                    placeholder='Password' 
-                                    type='password' 
+                                    placeholder="Password"
+                                    type="password"
                                     value={password}
                                 />
                             </Form.Field>
                             <Button
-                                color='green'
-                                content='Login'
+                                color="green"
+                                content="Login"
                                 fluid
-                                type='submit'
+                                type="submit"
                             />
                         </Form>
                     </div>
-                )
+                );
             }
 
-            if(!login && !this.props.verify) {
+            if (!login && !this.props.verify) {
                 return (
                     <div>
                         <Form
-                            loading={loadingRegistration && !this.props.loginError}
+                            loading={
+                                loadingRegistration && !this.props.loginError
+                            }
                             onSubmit={this.submitRegistrationForm}
                         >
                             <Form.Field>
                                 <Input
                                     onChange={this.onRegChangeEmail}
-                                    placeholder='Email'
+                                    placeholder="Email"
                                     value={regEmail}
                                 />
                             </Form.Field>
                             <Form.Field>
                                 <Input
-                                    autoComplete='off'
+                                    autoComplete="off"
                                     onChange={this.onRegChangeName}
-                                    placeholder='Full name'
+                                    placeholder="Full name"
                                     value={name}
                                 />
                             </Form.Field>
                             <Form.Field>
                                 <Input
                                     onChange={this.onRegChangeUsername}
-                                    placeholder='Username'
+                                    placeholder="Username"
                                     value={username}
                                 />
                             </Form.Field>
@@ -233,40 +252,44 @@ class Authentication extends Component {
                                 <Input
                                     onChange={this.onRegChangePassword}
                                     value={regPassword}
-                                    placeholder='Password'
-                                    type='password'
+                                    placeholder="Password"
+                                    type="password"
                                 />
                             </Form.Field>
                             <Button
-                                color='green'
-                                content='Create an account'
+                                color="green"
+                                content="Create an account"
                                 fluid
-                                type='submit'
+                                type="submit"
                             />
                         </Form>
                     </div>
-                )
+                );
             }
-        }
+        };
 
-        return (
-            (this.props.data.emailVerified ? <Redirect to='/' /> : 
+        return this.props.data.emailVerified ? (
+            <Redirect to="/" />
+        ) : (
             <Provider store={store}>
                 <div>
                     <ReactSVG
-                        className='signInLogo'
+                        className="signInLogo"
                         path={Logo}
-                        svgClassName='signInLogo'
+                        svgClassName="signInLogo"
                     />
-                    <Header as='h1'>{headerText()}</Header>
-                    <Segment className='authSegment' style={{ borderRadius: '0' }}>
+                    <Header as="h1">{headerText()}</Header>
+                    <Segment
+                        className="authSegment"
+                        style={{ borderRadius: "0" }}
+                    >
                         {mainForm()}
                         {errorMsg(this.props)}
                         {emailVerificationForm(this.props)}
                     </Segment>
                     {infoBox()}
                 </div>
-            </Provider>)
+            </Provider>
         );
     }
 }
@@ -312,7 +335,7 @@ Authentication.propTypes = {
     verificationCode: PropTypes.string,
     verify: PropTypes.bool,
     verifyEmail: PropTypes.func
-}
+};
 
 Authentication.defaultProps = {
     login: true,
@@ -320,16 +343,19 @@ Authentication.defaultProps = {
     submitRegistrationForm: submitRegistrationForm,
     switchTab: switchTab,
     verifyEmail: verifyEmail
-}
+};
 
 const mapStateToProps = (state, ownProps) => ({
     ...state.user,
     ...ownProps
-})
+});
 
-export default connect(mapStateToProps, { 
-    submitLoginForm, 
-    submitRegistrationForm, 
-    switchTab,
-    verifyEmail
-})(Authentication)
+export default connect(
+    mapStateToProps,
+    {
+        submitLoginForm,
+        submitRegistrationForm,
+        switchTab,
+        verifyEmail
+    }
+)(Authentication);

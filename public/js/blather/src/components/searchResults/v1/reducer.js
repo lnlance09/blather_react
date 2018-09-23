@@ -1,11 +1,14 @@
-import * as constants from './constants';
+import * as constants from "./constants";
 
-const initial = () => ({})
+const initial = () => ({});
 
 const test = (state = initial(), action) => {
     switch (action.type) {
         case constants.GET_SEARCH_RESULTS:
-            const data = action.payload.page > 0 ? [...state.data, ...action.payload.results] : action.payload.results
+            const data =
+                action.payload.page > 0
+                    ? [...state.data, ...action.payload.results]
+                    : action.payload.results;
             return {
                 ...state,
                 count: action.payload.count,
@@ -17,16 +20,16 @@ const test = (state = initial(), action) => {
                 nextPageToken: action.payload.nextPageToken,
                 page: action.payload.page,
                 pages: action.payload.pages
-            }
+            };
         case constants.REFRESH_YOUTUBE_TOKEN:
             return {
                 ...state,
                 bearer: action.payload.bearer,
                 youtubeAccessToken: action.payload.refreshToken
-            }
+            };
         default:
             return state;
     }
-}
+};
 
-export default test
+export default test;

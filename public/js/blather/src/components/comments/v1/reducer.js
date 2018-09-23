@@ -1,12 +1,12 @@
-import * as constants from './constants';
+import * as constants from "./constants";
 
-const initial = () => ({})
+const initial = () => ({});
 
 const comments = (state = initial(), action) => {
     switch (action.type) {
         default:
-            return state
+            return state;
     }
-}
+};
 
-export default comments
+export default comments;

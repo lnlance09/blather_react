@@ -1,12 +1,12 @@
-import './css/index.css';
-import { adjustTimezone } from 'utils/dateFunctions';
-import { DisplayMetaTags } from 'utils/metaFunctions';
-import { fetchTagInfo, updateTag } from './actions/tag';
-import Moment from 'react-moment';
-import Dropzone from 'react-dropzone';
-import { connect, Provider } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { 
+import "./css/index.css";
+import { adjustTimezone } from "utils/dateFunctions";
+import { DisplayMetaTags } from "utils/metaFunctions";
+import { fetchTagInfo, updateTag } from "./actions/tag";
+import Moment from "react-moment";
+import Dropzone from "react-dropzone";
+import { connect, Provider } from "react-redux";
+import { Link } from "react-router-dom";
+import {
     Button,
     Container,
     Dimmer,
@@ -17,24 +17,24 @@ import {
     Image,
     Segment,
     TextArea
-} from 'semantic-ui-react';
-import defaultImg from 'pages/images/trump.svg';
-import PageFooter from 'components/footer/v1/';
-import PageHeader from 'components/header/v1/';
-import ParagraphPic from 'images/short-paragraph.png';
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-import store from 'store';
-import TitleHeader from 'components/titleHeader/v1/';
+} from "semantic-ui-react";
+import defaultImg from "images/trump.svg";
+import PageFooter from "components/footer/v1/";
+import PageHeader from "components/header/v1/";
+import ParagraphPic from "images/short-paragraph.png";
+import PropTypes from "prop-types";
+import React, { Component } from "react";
+import store from "store";
+import TitleHeader from "components/titleHeader/v1/";
 
 class Tags extends Component {
     constructor(props) {
-        super(props)
-        const id = parseInt(this.props.match.params.id,10)
-        const currentState = store.getState()
-        const authenticated = currentState.user.authenticated
-        const bearer = currentState.user.bearer
-        const userId = parseInt(currentState.user.data.id,10)
+        super(props);
+        const id = parseInt(this.props.match.params.id, 10);
+        const currentState = store.getState();
+        const authenticated = currentState.user.authenticated;
+        const bearer = currentState.user.bearer;
+        const userId = parseInt(currentState.user.data.id, 10);
         this.state = {
             active: false,
             authenticated,
@@ -43,60 +43,85 @@ class Tags extends Component {
             editing: false,
             inverted: true,
             userId
-        }
+        };
 
-        this.props.fetchTagInfo({ id })
+        this.props.fetchTagInfo({ id });
 
-        this.onChangeDescription = this.onChangeDescription.bind(this)
-        this.onClickEdit = this.onClickEdit.bind(this)
-        this.updateTag = this.updateTag.bind(this)
+        this.onChangeDescription = this.onChangeDescription.bind(this);
+        this.onClickEdit = this.onClickEdit.bind(this);
+        this.updateTag = this.updateTag.bind(this);
     }
 
-    handleHide = () => this.setState({ active: false })
-    handleShow = () => this.setState({ active: true })
-    onChangeDescription = (e, { value }) => this.setState({ description: value })
+    handleHide = () => this.setState({ active: false });
+    handleShow = () => this.setState({ active: true });
+    onChangeDescription = (e, { value }) =>
+        this.setState({ description: value });
     onClickEdit = () => {
-        this.setState({ 
+        this.setState({
             description: this.props.description,
             editing: this.state.editing === false
-        })
-    }
+        });
+    };
 
     updateTag = () => {
         this.props.updateTag({
             id: this.props.id,
             description: this.state.description
-        })
-    }
+        });
+    };
 
     render() {
-        const { active, authenticated, bearer, editing, id, inverted, name } = this.state
-        const pic = !this.props.img && !this.props.loading ? defaultImg : this.props.img
+        const {
+            active,
+            authenticated,
+            bearer,
+            editing,
+            id,
+            inverted,
+            name
+        } = this.state;
+        const pic =
+            !this.props.img && !this.props.loading
+                ? defaultImg
+                : this.props.img;
         const content = (
             <div>
-                <Dropzone onDrop={this.onDrop} style={{ width: '100%', height: '100%', border: 'none' }}>
-                    <Header as='h2'>
-                        Change pic
-                    </Header>
-                    <Button className='changePicBtn' icon>
-                        <Icon name='image' />
+                <Dropzone
+                    onDrop={this.onDrop}
+                    style={{ width: "100%", height: "100%", border: "none" }}
+                >
+                    <Header as="h2">Change pic</Header>
+                    <Button className="changePicBtn" icon>
+                        <Icon name="image" />
                     </Button>
                 </Dropzone>
             </div>
-        )
-        const EditButton = ({props}) => {
-            if(!props.loading) {
-                if(authenticated) {
-                    if(editing) {
-                        return (<Icon className='editButton editing' name='close' onClick={this.onClickEdit} />)
+        );
+        const EditButton = ({ props }) => {
+            if (!props.loading) {
+                if (authenticated) {
+                    if (editing) {
+                        return (
+                            <Icon
+                                className="editButton editing"
+                                name="close"
+                                onClick={this.onClickEdit}
+                            />
+                        );
                     }
-                    return (<Icon className='editButton' name='pencil' onClick={this.onClickEdit} />)
+                    return (
+                        <Icon
+                            className="editButton"
+                            name="pencil"
+                            onClick={this.onClickEdit}
+                        />
+                    );
                 }
             }
-            return null
-        }
+            return null;
+        };
         const ProfilePic = props => {
-            if(authenticated) {
+            if (authenticated) {
                 return (
                     <Dimmer.Dimmable
                         as={Image}
@@ -104,52 +129,58 @@ class Tags extends Component {
                         dimmer={{ active, content, inverted }}
                         onMouseEnter={this.handleShow}
                         onMouseLeave={this.handleHide}
-                        size='medium'
+                        size="medium"
                         src={pic}
                     />
-                )
+                );
             }
-            return (<Image src={pic} style={{ border: 'none' }} />)
-        }
-        const TagTitle = ({props}) => {
-            console.log('t')
-            console.log(props)
+            return <Image src={pic} style={{ border: "none" }} />;
+        };
+        const TagTitle = ({ props }) => {
+            console.log("t");
+            console.log(props);
             const subheader = (
                 <div>
                     {props.createdBy && (
                         <div>
-                            <Icon name='tag' /> {' '}
-                            Created <Moment date={adjustTimezone(props.dateCreated)} fromNow interval={60000} /> {' '}
-                            by <Link to={`/users/${props.createdBy.username}`}>{props.createdBy.name}</Link>
+                            <Icon name="tag" /> Created{" "}
+                            <Moment
+                                date={adjustTimezone(props.dateCreated)}
+                                fromNow
+                                interval={60000}
+                            />{" "}
+                            by{" "}
+                            <Link to={`/users/${props.createdBy.username}`}>
+                                {props.createdBy.name}
+                            </Link>
                         </div>
                     )}
                 </div>
-            )
+            );
             return (
-                <TitleHeader 
+                <TitleHeader
                     bearer={bearer}
                     canEdit={false}
                     id={id}
                     subheader={subheader}
                     title={props.name}
-                    type='tag'
+                    type="tag"
                 />
-            )
-        }
+            );
+        };
 
         return (
             <Provider store={store}>
-                <div className='tagsPage'>
-                    <DisplayMetaTags page='tags' props={this.props} state={this.state} />
-                    <PageHeader
-                        {...this.props}
+                <div className="tagsPage">
+                    <DisplayMetaTags
+                        page="tags"
+                        props={this.props}
+                        state={this.state}
                     />
-                    <Container
-                        className='mainContainer'
-                        textAlign='left'
-                    >
+                    <PageHeader {...this.props} />
+                    <Container className="mainContainer" textAlign="left">
                         <Grid>
-                            <Grid.Column className='leftSide' width={4}>
+                            <Grid.Column className="leftSide" width={4}>
                                 {ProfilePic(this.props)}
                             </Grid.Column>
                             <Grid.Column width={12}>
@@ -165,30 +196,31 @@ class Tags extends Component {
                                 )}
                                 {!this.props.loading && (
                                     <Segment basic>
-                                        <div style={{ height: '30px' }}>
+                                        <div style={{ height: "30px" }}>
                                             <EditButton props={this.props} />
                                         </div>
                                         {editing && (
                                             <Form onSubmit={this.updateTag}>
                                                 <Form.Field>
-                                                    <TextArea 
-                                                        onChange={this.onChangeDescription}
-                                                        rows={25} 
+                                                    <TextArea
+                                                        onChange={
+                                                            this
+                                                                .onChangeDescription
+                                                        }
+                                                        rows={25}
                                                     />
                                                 </Form.Field>
-                                                <Button 
-                                                    className='updateBtn'
+                                                <Button
+                                                    className="updateBtn"
                                                     compact
-                                                    content='Update' 
-                                                    fluid 
-                                                    type='submit' 
+                                                    content="Update"
+                                                    fluid
+                                                    type="submit"
                                                 />
                                             </Form>
                                         )}
                                         {!editing && (
-                                            <div>
-                                                {this.props.description}
-                                            </div>
+                                            <div>{this.props.description}</div>
                                         )}
                                     </Segment>
                                 )}
@@ -198,7 +230,7 @@ class Tags extends Component {
                     <PageFooter />
                 </div>
             </Provider>
-        )
+        );
     }
 }
 
@@ -217,22 +249,25 @@ Tags.propTypes = {
     loading: PropTypes.bool,
     name: PropTypes.string,
     updateTag: PropTypes.func
-}
+};
 
 Tags.defaultProps = {
     fetchTagInfo: fetchTagInfo,
     loading: true,
     updateTag: updateTag
-}
+};
 
 const mapStateToProps = (state, ownProps) => {
     return {
         ...state.tag,
         ...ownProps
-    }
-}
+    };
+};
 
-export default connect(mapStateToProps, { 
-    fetchTagInfo,
-    updateTag
-})(Tags)
+export default connect(
+    mapStateToProps,
+    {
+        fetchTagInfo,
+        updateTag
+    }
+)(Tags);

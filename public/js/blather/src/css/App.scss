@@ -12,11 +12,6 @@ body {
     margin: auto;
 }
 
-.App-logo {
-    animation: App-logo-spin infinite 20s linear;
-    height: 80px;
-}
-
 .mainContainer {
     min-height: 100vh;
     margin-top: 5em;
@@ -32,13 +27,4 @@ body {
         font-size: 16px !important;
         margin-top: 4.6em;
     }
-}
-
-.menuContainer {
-    margin-top: 12px;
-}
-
-@keyframes App-logo-spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
 }

@@ -13,13 +13,13 @@
 @import './pages/users.scss';
 @import '../../css/colors.scss';
 
+*:not(img) {
+    border-radius: 0 !important;
+}
+
 .rightSide {
     margin-left: 0;
     padding-left: 0 !important;
-}
-
-*:not(img) {
-    border-radius: 0 !important;
 }
 
 button {

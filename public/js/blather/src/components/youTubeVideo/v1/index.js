@@ -1,20 +1,20 @@
-import './style.css';
-import { createArchive } from 'pages/actions/post';
-import { formatNumber, formatPlural } from 'utils/textFunctions';
-import { 
-    fetchVideoComments, 
+import "./style.css";
+import { createArchive } from "pages/actions/post";
+import { formatNumber, formatPlural } from "utils/textFunctions";
+import {
+    fetchVideoComments,
     insertComment,
-    setCurrentVideoTime, 
+    setCurrentVideoTime,
     setDuration,
     unsetComment
-} from 'pages/actions/post';
-import { 
-    clearContradiction, 
-    setContradictionVideoTime 
-} from 'components/fallacyForm/v1/actions';
-import { adjustTimezone } from 'utils/dateFunctions';
-import { connect } from 'react-redux';
-import { 
+} from "pages/actions/post";
+import {
+    clearContradiction,
+    setContradictionVideoTime
+} from "components/fallacyForm/v1/actions";
+import { adjustTimezone } from "utils/dateFunctions";
+import { connect } from "react-redux";
+import {
     Button,
     Card,
     Comment,
@@ -30,25 +30,25 @@ import {
     Statistic,
     Transition,
     Visibility
-} from 'semantic-ui-react';
-import _ from 'lodash';
-import FallacyForm from 'components/fallacyForm/v1/';
-import ImagePic from 'images/image-square.png';
-import Moment from 'react-moment';
-import ParagraphPic from 'images/short-paragraph.png';
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-import ReactPlayer from 'react-player';
-import store from 'store';
-import TextTruncate from 'react-text-truncate';
+} from "semantic-ui-react";
+import _ from "lodash";
+import FallacyForm from "components/fallacyForm/v1/";
+import ImagePic from "images/image-square.png";
+import Moment from "react-moment";
+import ParagraphPic from "images/short-paragraph.png";
+import PropTypes from "prop-types";
+import React, { Component } from "react";
+import ReactPlayer from "react-player";
+import store from "store";
+import TextTruncate from "react-text-truncate";
 
 class YouTubeVideo extends Component {
     constructor(props) {
-        super(props)
-        const currentState = store.getState()
-        const authenticated = currentState.user.authenticated
+        super(props);
+        const currentState = store.getState();
+        const authenticated = currentState.user.authenticated;
         this.state = {
-            animation: 'scale',
+            animation: "scale",
             archiveVisible: false,
             authenticated,
             commentId: null,
@@ -60,132 +60,180 @@ class YouTubeVideo extends Component {
             r: null,
             replyId: null,
             visible: props.showComments ? true : false
-        }
+        };
 
-        this.closeModal = this.closeModal.bind(this)
-        this.onClickArchive = this.onClickArchive.bind(this)
-        this.openModal = this.openModal.bind(this)
-        this.setTime = this.setTime.bind(this)
-        this.viewCommentOnYoutube = this.viewCommentOnYoutube.bind(this)
+        this.closeModal = this.closeModal.bind(this);
+        this.onClickArchive = this.onClickArchive.bind(this);
+        this.openModal = this.openModal.bind(this);
+        this.setTime = this.setTime.bind(this);
+        this.viewCommentOnYoutube = this.viewCommentOnYoutube.bind(this);
     }
 
     componentDidMount() {
-        if(this.props.showComments) {
+        if (this.props.showComments) {
             this.props.fetchVideoComments({
                 bearer: this.props.bearer,
                 id: this.props.id
-            })
-            this.loadMore = _.debounce(this.loadMore.bind(this), 200)
+            });
+            this.loadMore = _.debounce(this.loadMore.bind(this), 200);
         }
-        this.setState({ archiveVisible: this.props.archive ? true : false })
+        this.setState({ archiveVisible: this.props.archive ? true : false });
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({ archiveVisible: nextProps.archive ? true : false })
+        this.setState({ archiveVisible: nextProps.archive ? true : false });
     }
 
     closeModal = () => {
-        this.setState({ open: false })
-        this.props.clearContradiction()
-        this.props.unsetComment()
-    }
+        this.setState({ open: false });
+        this.props.clearContradiction();
+        this.props.unsetComment();
+    };
 
     loadMore = () => {
-        if(this.state.authenticated && this.props.comments.nextPageToken && this.state.visible) {
-            const newPage = parseInt(this.props.comments.page+1, 10)
-            this.setState({ 
+        if (
+            this.state.authenticated &&
+            this.props.comments.nextPageToken &&
+            this.state.visible
+        ) {
+            const newPage = parseInt(this.props.comments.page + 1, 10);
+            this.setState({
                 loadingMore: true,
-                page: newPage 
-            })
+                page: newPage
+            });
             this.props.fetchVideoComments({
                 bearer: this.props.bearer,
                 id: this.props.id,
                 page: newPage,
                 nextPageToken: this.props.comments.nextPageToken
-            })
+            });
         }
-    }
+    };
 
     onClickArchive = () => {
         this.props.createArchive({
             bearer: this.props.bearer,
             url: `https://www.youtube.com/watch?v=${this.props.id}`
-        })
-    }
+        });
+    };
 
     openModal = (commentId, i, r = null, replyId = null) => {
-        this.setState({ 
-            open: true, 
-            commentId, 
+        this.setState({
+            open: true,
+            commentId,
             i,
             r,
             replyId
-        })
+        });
         this.props.insertComment({
             bearer: this.props.bearer,
             id: replyId ? replyId : commentId,
             videoId: this.props.id
-        })
-    }
+        });
+    };
 
-    setTime = (e) => {
-        if(this.props.contradiction) {
-            this.props.setContradictionVideoTime(e.playedSeconds)
+    setTime = e => {
+        if (this.props.contradiction) {
+            this.props.setContradictionVideoTime(e.playedSeconds);
         } else {
-            this.props.setCurrentVideoTime(e.playedSeconds)
+            this.props.setCurrentVideoTime(e.playedSeconds);
         }
-    }
+    };
 
     viewCommentOnYoutube = () => {
-        window.open(`https://www.youtube.com/watch?v=${this.props.id}&lc=${this.props.comment.id}`, '_blank')
-    }
+        window.open(
+            `https://www.youtube.com/watch?v=${this.props.id}&lc=${
+                this.props.comment.id
+            }`,
+            "_blank"
+        );
+    };
 
     render() {
-        const { animation, archiveVisible, authenticated, commentId, duration, i, r, replyId, visible, open } = this.state
-        const dateCreated = adjustTimezone(this.props.dateCreated)
+        const {
+            animation,
+            archiveVisible,
+            authenticated,
+            commentId,
+            duration,
+            i,
+            r,
+            replyId,
+            visible,
+            open
+        } = this.state;
+        const dateCreated = adjustTimezone(this.props.dateCreated);
         const ArchiveIcon = props => {
-            if(!props.archive) {
+            if (!props.archive) {
                 return (
                     <div>
-                        Archive this video 
-                        <Icon 
-                            name='archive' 
+                        Archive this video
+                        <Icon
+                            name="archive"
                             onClick={this.onClickArchive}
-                            size='large'
+                            size="large"
                         />
                     </div>
-                )
+                );
             }
-        }
+        };
         const ArchiveInfo = props => {
-            if(props.archive) {
-                const archiveDate = adjustTimezone(props.archive.date_created)
+            if (props.archive) {
+                const archiveDate = adjustTimezone(props.archive.date_created);
                 return (
-                    <Transition animation={animation} duration={duration} visible={archiveVisible}>
-                        <Message className='archiveMsg' positive style={{ borderRadius: '0' }}>
-                            <Icon name='checkmark' /> You archived this <a href={`http://archive.is/${props.archive.code}`}>video</a> <Moment date={archiveDate} fromNow />
+                    <Transition
+                        animation={animation}
+                        duration={duration}
+                        visible={archiveVisible}
+                    >
+                        <Message
+                            className="archiveMsg"
+                            positive
+                            style={{ borderRadius: "0" }}
+                        >
+                            <Icon name="checkmark" /> You archived this{" "}
+                            <a href={`http://archive.is/${props.archive.code}`}>
+                                video
+                            </a>{" "}
+                            <Moment date={archiveDate} fromNow />
                         </Message>
                     </Transition>
-                )
+                );
             }
-        }
+        };
         const ChannelCard = props => {
-            if(props.channel) {
+            if (props.channel) {
                 return (
-                    <Card className={`channelCard ${props.comment ? 'hasComment' : null}`} fluid>
+                    <Card
+                        className={`channelCard ${
+                            props.comment ? "hasComment" : null
+                        }`}
+                        fluid
+                    >
                         <Card.Content>
-                            <Image circular floated='left' size='mini' src={props.channel.img} />
+                            <Image
+                                circular
+                                floated="left"
+                                size="mini"
+                                src={props.channel.img}
+                            />
                             <Card.Header
-                                onClick={() => props.history.push(`/pages/youtube/${props.channel.id}`)}
+                                onClick={() =>
+                                    props.history.push(
+                                        `/pages/youtube/${props.channel.id}`
+                                    )
+                                }
                             >
                                 {props.channel.title}
                             </Card.Header>
-                            <Card.Meta><Moment date={dateCreated} fromNow /></Card.Meta>
+                            <Card.Meta>
+                                <Moment date={dateCreated} fromNow />
+                            </Card.Meta>
                             <Card.Description>
                                 <TextTruncate
                                     line={3}
                                     text={props.description}
-                                    truncateText='...'
+                                    truncateText="..."
                                 />
                             </Card.Description>
                         </Card.Content>
@@ -196,75 +244,87 @@ class YouTubeVideo extends Component {
                             </Card.Content>
                         )}
                     </Card>
-                )
+                );
             }
-            return (<Image fluid src={ParagraphPic} />)
-        }
+            return <Image fluid src={ParagraphPic} />;
+        };
         const CommentModal = (i, props, r = null, replyId = null) => {
-            if(props.comments.count > 0 && i !== null) {
-                let comment = props.comments.items[i]
+            if (props.comments.count > 0 && i !== null) {
+                let comment = props.comments.items[i];
                 let commentUser = {
-                    id: comment.snippet.topLevelComment.snippet.authorChannelId.value,
-                    name: comment.snippet.topLevelComment.snippet.authorDisplayName,
-                    type: 'youtube',
+                    id:
+                        comment.snippet.topLevelComment.snippet.authorChannelId
+                            .value,
+                    name:
+                        comment.snippet.topLevelComment.snippet
+                            .authorDisplayName,
+                    type: "youtube",
                     username: null
-                }
+                };
 
-                if(replyId) {
-                    comment = comment.replies.comments[r]
+                if (replyId) {
+                    comment = comment.replies.comments[r];
                 }
 
                 return (
-                    <Modal 
-                        className='youtubeCommentModal'
-                        inverted='true'
-                        onClose={this.closeModal} 
-                        open={open} 
-                        size='small'
+                    <Modal
+                        className="youtubeCommentModal"
+                        inverted="true"
+                        onClose={this.closeModal}
+                        open={open}
+                        size="small"
                     >
                         <Modal.Header>Assign a fallacy</Modal.Header>
                         <Modal.Content>
                             <Comment.Group>
-                                <IndividualComment 
-                                    comment={comment} 
+                                <IndividualComment
+                                    comment={comment}
                                     i={i}
                                     reply={replyId !== null}
                                 />
                             </Comment.Group>
-                            <FallacyForm 
+                            <FallacyForm
                                 authenticated={authenticated}
                                 bearer={props.bearer}
                                 commentId={replyId ? replyId : commentId}
                                 history={this.props.history}
-                                network='youtube'
+                                network="youtube"
                                 objectId={props.id}
                                 pageInfo={commentUser}
                                 user={commentUser}
                             />
                         </Modal.Content>
                     </Modal>
-                )
+                );
             }
-            return null
-        }
+            return null;
+        };
         const CommentsSection = props => {
-            if(props.showComments) {
+            if (props.showComments) {
                 return (
-                    <div style={{ marginTop: '10px' }}>
-                        <Header dividing size='medium'>
+                    <div style={{ marginTop: "10px" }}>
+                        <Header dividing size="medium">
                             Comments
                             <Radio
-                                className='toggleComments'
+                                className="toggleComments"
                                 checked={visible}
-                                onChange={(e) => this.setState({ visible: visible ? false : true  })}
+                                onChange={e =>
+                                    this.setState({
+                                        visible: visible ? false : true
+                                    })
+                                }
                                 toggle
                             />
                         </Header>
-                        <Transition animation={animation} duration={duration} visible={visible}>
-                            <Visibility 
+                        <Transition
+                            animation={animation}
+                            duration={duration}
+                            visible={visible}
+                        >
+                            <Visibility
                                 continuous
-                                offset={[50,50]}
-                                onBottomVisible={this.loadMore} 
+                                offset={[50, 50]}
+                                onBottomVisible={this.loadMore}
                             >
                                 {authenticated && (
                                     <Comment.Group>
@@ -272,20 +332,26 @@ class YouTubeVideo extends Component {
                                     </Comment.Group>
                                 )}
                                 {!authenticated && (
-                                    <Dimmer.Dimmable 
-                                        as={Segment} 
-                                        className='commentsDimmer'
+                                    <Dimmer.Dimmable
+                                        as={Segment}
+                                        className="commentsDimmer"
                                         blurring
                                         dimmed
                                     >
-                                        <Segment className='lazyLoadSegment'>
+                                        <Segment className="lazyLoadSegment">
                                             <Image fluid src={ParagraphPic} />
                                         </Segment>
                                         <Dimmer active inverted>
-                                            <Header as='h2'>
+                                            <Header as="h2">
                                                 Sign in to see comments
                                             </Header>
-                                            <Button onClick={(e) => props.history.push('/signin')}>
+                                            <Button
+                                                onClick={e =>
+                                                    props.history.push(
+                                                        "/signin"
+                                                    )
+                                                }
+                                            >
                                                 Sign in
                                             </Button>
                                         </Dimmer>
@@ -294,139 +360,181 @@ class YouTubeVideo extends Component {
                             </Visibility>
                         </Transition>
                     </div>
-                )
+                );
             }
-            return null
-        }
+            return null;
+        };
         const DisplayComments = props => {
-            if(!props.comments.error && props.comments.count > 0 && props.showComments) {
+            if (
+                !props.comments.error &&
+                props.comments.count > 0 &&
+                props.showComments
+            ) {
                 return props.comments.items.map((comment, i) => {
                     return (
-                        <IndividualComment 
-                            comment={comment} 
-                            i={i} 
+                        <IndividualComment
+                            comment={comment}
+                            i={i}
                             key={`individualComment${i}`}
                             replies
                         />
-                    )
-                })
+                    );
+                });
             }
 
-            if(props.comments.error === false && props.comments.count === 0 && props.showComments) {
+            if (
+                props.comments.error === false &&
+                props.comments.count === 0 &&
+                props.showComments
+            ) {
                 return (
-                    <p style={{ textAlign: 'center' }}>There are no comments...</p>
-                )
-            }
-
-            if(props.comments.code === 403) {
-                return (
-                    <p>
-                        Comments have been disabled on this video
+                    <p style={{ textAlign: "center" }}>
+                        There are no comments...
                     </p>
-                )
+                );
             }
 
-            return [{},{},{},{},{},{},{}].map((comment, i) => (
-                <Segment key={`lazyLoadComment_${i}`} className='lazyLoadSegment'>
+            if (props.comments.code === 403) {
+                return <p>Comments have been disabled on this video</p>;
+            }
+
+            return [{}, {}, {}, {}, {}, {}, {}].map((comment, i) => (
+                <Segment
+                    key={`lazyLoadComment_${i}`}
+                    className="lazyLoadSegment"
+                >
                     <Image fluid src={ParagraphPic} />
                 </Segment>
-            ))
-        }
-        const DisplayReplies = ({i, replies}) => {
+            ));
+        };
+        const DisplayReplies = ({ i, replies }) => {
             return replies.comments.map((reply, r) => {
-                let id = reply.id
-                let snippet = reply.snippet
-                let videoId = snippet.videoId
-                let link = `https://www.youtube.com/watch?v=${videoId}&lc=${id}`
+                let id = reply.id;
+                let snippet = reply.snippet;
+                let videoId = snippet.videoId;
+                let link = `https://www.youtube.com/watch?v=${videoId}&lc=${id}`;
                 return (
-                    <Comment 
-                        key={id} 
-                        onClick={() => { this.openModal(snippet.parentId, i, r, id) }}
+                    <Comment
+                        key={id}
+                        onClick={() => {
+                            this.openModal(snippet.parentId, i, r, id);
+                        }}
                     >
-                        <Comment.Avatar 
-                            onError={i => i.target.src = ImagePic}
-                            src={snippet.authorProfileImageUrl} 
+                        <Comment.Avatar
+                            onError={i => (i.target.src = ImagePic)}
+                            src={snippet.authorProfileImageUrl}
                         />
                         <Comment.Content>
-                            <Comment.Author as='a'>{snippet.authorDisplayName}</Comment.Author>
+                            <Comment.Author as="a">
+                                {snippet.authorDisplayName}
+                            </Comment.Author>
                             <Comment.Metadata>
-                                <div><Moment date={snippet.publishedAt} fromNow /></div>
+                                <div>
+                                    <Moment
+                                        date={snippet.publishedAt}
+                                        fromNow
+                                    />
+                                </div>
                             </Comment.Metadata>
-                            <Comment.Text>
-                                {snippet.textOriginal}
-                            </Comment.Text>
+                            <Comment.Text>{snippet.textOriginal}</Comment.Text>
                             <Comment.Actions>
-                                <Comment.Action className='likeComment'>
-                                    <Icon name='thumbs up' />
+                                <Comment.Action className="likeComment">
+                                    <Icon name="thumbs up" />
                                     {formatNumber(snippet.likeCount)}
                                 </Comment.Action>
-                                <Comment.Action 
-                                    className='youtubeLink' 
-                                    onClick={() => window.location.href = link}
+                                <Comment.Action
+                                    className="youtubeLink"
+                                    onClick={() =>
+                                        (window.location.href = link)
+                                    }
                                 >
-                                    <Icon color='red' name='youtube' />
+                                    <Icon color="red" name="youtube" />
                                     View on YouTube
                                 </Comment.Action>
                             </Comment.Actions>
                         </Comment.Content>
                     </Comment>
-                )
-            })
-        }
-        const DisplayStats = ({props}) => (
-            <div className='stats'>
-                <div style={{ float: 'left' }}>
-                    <Statistic size='tiny'>
-                        <Statistic.Value>{formatNumber(props.stats.viewCount)}</Statistic.Value>
-                        <Statistic.Label>{formatPlural(props.stats.viewCount, 'view')}</Statistic.Label>
+                );
+            });
+        };
+        const DisplayStats = ({ props }) => (
+            <div className="stats">
+                <div style={{ float: "left" }}>
+                    <Statistic size="tiny">
+                        <Statistic.Value>
+                            {formatNumber(props.stats.viewCount)}
+                        </Statistic.Value>
+                        <Statistic.Label>
+                            {formatPlural(props.stats.viewCount, "view")}
+                        </Statistic.Label>
                     </Statistic>
                 </div>
-                <div style={{ float: 'right' }}>
-                    <Statistic size='tiny'>
-                        <Statistic.Value>{formatNumber(props.stats.likeCount)}</Statistic.Value>
-                        <Statistic.Label>{formatPlural(props.stats.likeCount, 'like')}</Statistic.Label>
+                <div style={{ float: "right" }}>
+                    <Statistic size="tiny">
+                        <Statistic.Value>
+                            {formatNumber(props.stats.likeCount)}
+                        </Statistic.Value>
+                        <Statistic.Label>
+                            {formatPlural(props.stats.likeCount, "like")}
+                        </Statistic.Label>
                     </Statistic>
-                    <Statistic size='tiny'>
-                        <Statistic.Value>{formatNumber(props.stats.dislikeCount)}</Statistic.Value>
-                        <Statistic.Label>{formatPlural(props.stats.dislikeCount, 'dislike')}</Statistic.Label>
+                    <Statistic size="tiny">
+                        <Statistic.Value>
+                            {formatNumber(props.stats.dislikeCount)}
+                        </Statistic.Value>
+                        <Statistic.Label>
+                            {formatPlural(props.stats.dislikeCount, "dislike")}
+                        </Statistic.Label>
                     </Statistic>
                 </div>
-                <div className='clearfix'></div>
+                <div className="clearfix" />
             </div>
-        )
-        const IndividualComment = ({comment, i, reply = false, replies = false}) => {
-            let snippet = comment.snippet
-            let id  = reply ? comment.id : snippet.topLevelComment.id
-            let content = reply ? comment.snippet : snippet.topLevelComment.snippet
-            let videoId = snippet.videoId
-            let link = `https://www.youtube.com/watch?v=${videoId}&lc=${id}`
-            const showReplies = replies && !reply && snippet.totalReplyCount > 0
+        );
+        const IndividualComment = ({
+            comment,
+            i,
+            reply = false,
+            replies = false
+        }) => {
+            let snippet = comment.snippet;
+            let id = reply ? comment.id : snippet.topLevelComment.id;
+            let content = reply
+                ? comment.snippet
+                : snippet.topLevelComment.snippet;
+            let videoId = snippet.videoId;
+            let link = `https://www.youtube.com/watch?v=${videoId}&lc=${id}`;
+            const showReplies =
+                replies && !reply && snippet.totalReplyCount > 0;
             return (
                 <Comment key={id}>
-                    <Comment.Avatar 
-                        onError={i => i.target.src = ImagePic}
-                        src={content.authorProfileImageUrl} 
+                    <Comment.Avatar
+                        onError={i => (i.target.src = ImagePic)}
+                        src={content.authorProfileImageUrl}
                     />
                     <Comment.Content
-                        onClick={() => { this.openModal(id, i) }}
+                        onClick={() => {
+                            this.openModal(id, i);
+                        }}
                     >
-                        <Comment.Author as='a'>{content.authorDisplayName}</Comment.Author>
+                        <Comment.Author as="a">
+                            {content.authorDisplayName}
+                        </Comment.Author>
                         <Comment.Metadata>
-                            <div><Moment date={content.publishedAt} fromNow /></div>
+                            <div>
+                                <Moment date={content.publishedAt} fromNow />
+                            </div>
                         </Comment.Metadata>
-                        <Comment.Text>
-                            {content.textOriginal}
-                        </Comment.Text>
+                        <Comment.Text>{content.textOriginal}</Comment.Text>
                         <Comment.Actions>
-                            <Comment.Action className='likeComment'>
-                                <Icon name='thumbs up' />
+                            <Comment.Action className="likeComment">
+                                <Icon name="thumbs up" />
                                 {formatNumber(content.likeCount)}
                             </Comment.Action>
-                            <Comment.Action 
-                                className='youtubeLink' 
-                                onClick={() => window.open(link, '_blank')}
+                            <Comment.Action
+                                className="youtubeLink"
+                                onClick={() => window.open(link, "_blank")}
                             >
-                                <Icon color='red' name='youtube' />
+                                <Icon color="red" name="youtube" />
                                 View on YouTube
                             </Comment.Action>
                         </Comment.Actions>
@@ -437,32 +545,37 @@ class YouTubeVideo extends Component {
                         </Comment.Group>
                     )}
                 </Comment>
-            )
-        }
+            );
+        };
         const PopularityBar = props => (
-            <Progress percent={props.stats ? props.stats.likePct: null} progress />
-        )
+            <Progress
+                percent={props.stats ? props.stats.likePct : null}
+                progress
+            />
+        );
 
         return (
-             <div className="youTubeVideo">
+            <div className="youTubeVideo">
                 <Segment>
                     {this.props.showVideo && (
                         <div>
                             <ReactPlayer
-                                className='videoPlayer'
+                                className="videoPlayer"
                                 controls
-                                onDuration={(e) => this.props.setDuration({ duration: e })}
+                                onDuration={e =>
+                                    this.props.setDuration({ duration: e })
+                                }
                                 onProgress={this.setTime}
-                                url={`https://www.youtube.com/watch?v=${this.props.id}&t=${this.props.startTime}`}
+                                url={`https://www.youtube.com/watch?v=${
+                                    this.props.id
+                                }&t=${this.props.startTime}`}
                             />
-                            <Header className='youTubeTitle' size='medium'>
+                            <Header className="youTubeTitle" size="medium">
                                 {this.props.title}
                             </Header>
 
                             {this.props.showChannel && (
-                                <div>
-                                    {ChannelCard(this.props)}
-                                </div>
+                                <div>{ChannelCard(this.props)}</div>
                             )}
 
                             {this.props.showStats && (
@@ -475,35 +588,51 @@ class YouTubeVideo extends Component {
                     )}
 
                     {this.props.showComment && (
-                        <Comment.Group style={{ marginTop: '10px' }}>
+                        <Comment.Group style={{ marginTop: "10px" }}>
                             <Comment>
-                                <Comment.Avatar 
-                                    onError={i => i.target.src = ImagePic}
-                                    src={this.props.comment.user.img} 
+                                <Comment.Avatar
+                                    onError={i => (i.target.src = ImagePic)}
+                                    src={this.props.comment.user.img}
                                 />
                                 <Comment.Content>
-                                    <Comment.Author 
-                                        as='a'
-                                        onClick={() => this.props.history.push(`/pages/youtube/${this.props.comment.user.id}`)}
+                                    <Comment.Author
+                                        as="a"
+                                        onClick={() =>
+                                            this.props.history.push(
+                                                `/pages/youtube/${
+                                                    this.props.comment.user.id
+                                                }`
+                                            )
+                                        }
                                     >
                                         {this.props.comment.user.title}
                                     </Comment.Author>
                                     <Comment.Metadata>
-                                        <div><Moment date={this.props.comment.dateCreated} fromNow /></div>
+                                        <div>
+                                            <Moment
+                                                date={
+                                                    this.props.comment
+                                                        .dateCreated
+                                                }
+                                                fromNow
+                                            />
+                                        </div>
                                     </Comment.Metadata>
                                     <Comment.Text>
                                         {this.props.comment.message}
                                     </Comment.Text>
                                     <Comment.Actions>
-                                        <Comment.Action className='likeComment'>
-                                            <Icon name='thumbs up' />
-                                            {formatNumber(this.props.comment.likeCount)}
+                                        <Comment.Action className="likeComment">
+                                            <Icon name="thumbs up" />
+                                            {formatNumber(
+                                                this.props.comment.likeCount
+                                            )}
                                         </Comment.Action>
-                                        <Comment.Action 
-                                            className='youtubeLink' 
+                                        <Comment.Action
+                                            className="youtubeLink"
                                             onClick={this.viewCommentOnYoutube}
                                         >
-                                            <Icon color='red' name='youtube' />
+                                            <Icon color="red" name="youtube" />
                                             View on YouTube
                                         </Comment.Action>
                                     </Comment.Actions>
@@ -587,7 +716,7 @@ YouTubeVideo.propTypes = {
     }),
     title: PropTypes.string,
     unsetComment: PropTypes.func
-}
+};
 
 YouTubeVideo.defaultProps = {
     canArchive: false,
@@ -614,20 +743,23 @@ YouTubeVideo.defaultProps = {
     showVideo: true,
     statists: {},
     unsetComment: unsetComment
-}
+};
 
 const mapStateToProps = (state, ownProps) => ({
     ...state.post,
     ...ownProps
-})
+});
 
-export default connect(mapStateToProps, { 
-    clearContradiction,
-    createArchive,
-    fetchVideoComments, 
-    insertComment,
-    setCurrentVideoTime,
-    setDuration,
-    setContradictionVideoTime,
-    unsetComment
-})(YouTubeVideo)
+export default connect(
+    mapStateToProps,
+    {
+        clearContradiction,
+        createArchive,
+        fetchVideoComments,
+        insertComment,
+        setCurrentVideoTime,
+        setDuration,
+        setContradictionVideoTime,
+        unsetComment
+    }
+)(YouTubeVideo);

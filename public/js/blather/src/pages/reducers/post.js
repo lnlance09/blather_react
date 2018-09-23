@@ -1,32 +1,34 @@
-import * as constants from '../constants';
+import * as constants from "../constants";
 
-const initial = () => ({
-
-})
+const initial = () => ({});
 
 const post = (state = initial(), action) => {
-    const payload = action.payload
-    switch(action.type) {
+    const payload = action.payload;
+    switch (action.type) {
         case constants.CREATE_ARCHIVE:
             return {
                 ...state,
-                archive: action.payload.archive 
-            }
+                archive: action.payload.archive
+            };
 
         case constants.FETCH_VIDEO_COMMENTS:
-            if(action.payload.error) {
+            if (action.payload.error) {
                 return {
                     ...state,
                     comments: {
                         code: action.payload.code,
                         error: action.payload.error
                     }
-                }
+                };
             }
 
-            const items = action.payload.page > 0 ? 
-            [...state.comments.items, ...action.payload.comments.items] : 
-            action.payload.comments.items
+            const items =
+                action.payload.page > 0
+                    ? [
+                          ...state.comments.items,
+                          ...action.payload.comments.items
+                      ]
+                    : action.payload.comments.items;
             return {
                 ...state,
                 comments: {
@@ -37,7 +39,7 @@ const post = (state = initial(), action) => {
                     nextPageToken: action.payload.comments.nextPageToken,
                     page: action.payload.page
                 }
-            }
+            };
 
         case constants.GET_POST_DATA:
             return {
@@ -47,7 +49,7 @@ const post = (state = initial(), action) => {
                 errorCode: payload.code,
                 info: payload.data,
                 type: payload.type
-            }
+            };
 
         case constants.INSERT_COMMENT:
             return {
@@ -70,10 +72,10 @@ const post = (state = initial(), action) => {
                 pageInfo: {
                     id: payload.data.commenter.id,
                     name: payload.data.commenter.title,
-                    type: 'youtube',
-                    username: ''
+                    type: "youtube",
+                    username: ""
                 }
-            }
+            };
 
         case constants.SET_CURRENT_VIDEO_TIME:
             return {
@@ -82,7 +84,7 @@ const post = (state = initial(), action) => {
                     ...state.info,
                     currentTime: Math.floor(payload.time)
                 }
-            }
+            };
 
         case constants.SET_DURATION:
             return {
@@ -91,7 +93,7 @@ const post = (state = initial(), action) => {
                     ...state.info,
                     endTime: action.payload
                 }
-            }
+            };
 
         case constants.UNSET_COMMENT:
             return {
@@ -100,11 +102,11 @@ const post = (state = initial(), action) => {
                     ...state.info,
                     comment: null
                 }
-            }
+            };
 
         default:
-            return state
+            return state;
     }
-}
+};
 
-export default post
+export default post;

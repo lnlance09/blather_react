@@ -1,12 +1,10 @@
-import * as constants from '../constants';
+import * as constants from "../constants";
 
-const initial = () => ({
-
-})
+const initial = () => ({});
 
 const tag = (state = initial(), action) => {
-    const payload = action.payload
-    switch(action.type) {
+    const payload = action.payload;
+    switch (action.type) {
         case constants.FETCH_TAG_INFO:
             return {
                 ...state,
@@ -22,15 +20,15 @@ const tag = (state = initial(), action) => {
                 img: payload.tag.tag_img,
                 loading: false,
                 name: payload.tag.tag_name
-            }
+            };
         case constants.UPDATE_TAG:
             return {
                 ...state,
                 description: payload.tag.description
-            }
+            };
         default:
-            return state
+            return state;
     }
-}
+};
 
-export default tag
+export default tag;

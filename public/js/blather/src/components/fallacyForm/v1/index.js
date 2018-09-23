@@ -1,14 +1,14 @@
-import './style.css';
-import { 
-    assignFallacy, 
-    clearContradiction, 
+import "./style.css";
+import {
+    assignFallacy,
+    clearContradiction,
     parseContradiction,
-    selectAssignee 
-} from './actions';
-import { refreshYouTubeToken } from 'components/authentication/v1/actions';
-import { formatDuration } from 'utils/textFunctions';
-import { connect, Provider } from 'react-redux';
-import { 
+    selectAssignee
+} from "./actions";
+import { refreshYouTubeToken } from "components/authentication/v1/actions";
+import { formatDuration } from "utils/textFunctions";
+import { connect, Provider } from "react-redux";
+import {
     Button,
     Dropdown,
     Form,
@@ -17,98 +17,117 @@ import {
     Message,
     Modal,
     TextArea
-} from 'semantic-ui-react';
-import { fallacyDropdownOptions } from 'utils/fallacyFunctions';
-import _ from 'lodash';
-import fallacies from 'fallacies.json';
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-import SearchForm from 'components/search/v1/';
-import store from 'store';
-import Tweet from 'components/tweet/v1/';
-import YouTubeVideo from 'components/youTubeVideo/v1/';
+} from "semantic-ui-react";
+import { fallacyDropdownOptions } from "utils/fallacyFunctions";
+import _ from "lodash";
+import fallacies from "fallacies.json";
+import PropTypes from "prop-types";
+import React, { Component } from "react";
+import SearchForm from "components/search/v1/";
+import store from "store";
+import Tweet from "components/tweet/v1/";
+import YouTubeVideo from "components/youTubeVideo/v1/";
 
 class FallacyForm extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
-            url: '',
-            explanation: '',
+            url: "",
+            explanation: "",
             id: 1,
             loading: false,
             open: false,
-            title: '',
+            title: "",
             visible: true
-        }
-        this.handleDismiss = this.handleDismiss.bind(this)
-        this.onChangeAssignee = this.onChangeAssignee.bind(this)
-        this.onChangeContradiction = this.onChangeContradiction.bind(this)
-        this.onChangeEndTime = this.onChangeEndTime.bind(this)
-        this.onChangeExplanation = this.onChangeExplanation.bind(this)
-        this.onChangeFallacy = this.onChangeFallacy.bind(this)
-        this.onChangeTitle = this.onChangeTitle.bind(this)
-        this.onPaste = this.onPaste.bind(this)
-        this.onSubmitForm = this.onSubmitForm.bind(this)
-        this.closeModal = this.closeModal.bind(this)
+        };
+        this.handleDismiss = this.handleDismiss.bind(this);
+        this.onChangeAssignee = this.onChangeAssignee.bind(this);
+        this.onChangeContradiction = this.onChangeContradiction.bind(this);
+        this.onChangeEndTime = this.onChangeEndTime.bind(this);
+        this.onChangeExplanation = this.onChangeExplanation.bind(this);
+        this.onChangeFallacy = this.onChangeFallacy.bind(this);
+        this.onChangeTitle = this.onChangeTitle.bind(this);
+        this.onPaste = this.onPaste.bind(this);
+        this.onSubmitForm = this.onSubmitForm.bind(this);
+        this.closeModal = this.closeModal.bind(this);
     }
 
     closeModal = () => {
-        this.setState({ 
-            explanation: '',
+        this.setState({
+            explanation: "",
             id: 1,
             open: false,
-            title: ''
-        })
-        this.props.clearContradiction()
-    }
+            title: ""
+        });
+        this.props.clearContradiction();
+    };
 
     onChangeAssignee = () => {
-        this.setState({ changed: true })
-    }
+        this.setState({ changed: true });
+    };
 
-    onChangeContradiction = (e) => {
-        if(e.keyCode === 8) {
-            this.setState({ url: '' })
-            this.props.clearContradiction()
+    onChangeContradiction = e => {
+        if (e.keyCode === 8) {
+            this.setState({ url: "" });
+            this.props.clearContradiction();
         }
-    }
+    };
 
-    onChangeEndTime = (e, { value }) => this.setState({ endTime: value })
-    onChangeExplanation = (e, { value }) => this.setState({ explanation: value })
-    onChangeFallacy = (e, { value }) => this.setState({ id: value })
-    onChangeTitle = (e, { value }) => this.setState({ title: value })
+    onChangeEndTime = (e, { value }) => this.setState({ endTime: value });
+    onChangeExplanation = (e, { value }) =>
+        this.setState({ explanation: value });
+    onChangeFallacy = (e, { value }) => this.setState({ id: value });
+    onChangeTitle = (e, { value }) => this.setState({ title: value });
 
     onPaste = e => {
-        const value = e.clipboardData.getData('Text')
-        this.setState({ url: value })
+        const value = e.clipboardData.getData("Text");
+        this.setState({ url: value });
         this.props.parseContradiction({
             bearer: this.props.bearer,
             url: value
-        })
-    }
+        });
+    };
 
     onSubmitForm(e) {
         // Make sure that a fallacy assigned to a tweet with a contradiction as a tweet is from the same twitter profile
-        const state = store.getState()
-        const postPage = state.post.pageInfo ? state.post.pageInfo : this.props.pageInfo
-        const formPage = state.fallacyForm.pageInfo ? state.fallacyForm.pageInfo : this.props.pageInfo
-        const page = this.props.info ? (this.props.info.comment !== null ? postPage : formPage) : this.props.pageInfo
+        const state = store.getState();
+        const postPage = state.post.pageInfo
+            ? state.post.pageInfo
+            : this.props.pageInfo;
+        const formPage = state.fallacyForm.pageInfo
+            ? state.fallacyForm.pageInfo
+            : this.props.pageInfo;
+        const page = this.props.info
+            ? this.props.info.comment !== null
+                ? postPage
+                : formPage
+            : this.props.pageInfo;
 
-        let contradiction = this.props.fallacy.contradiction
-        if(contradiction.network === 'twitter' && page.id !== contradiction.pageId) {
-            return false
+        let contradiction = this.props.fallacy.contradiction;
+        if (
+            contradiction.network === "twitter" &&
+            page.id !== contradiction.pageId
+        ) {
+            return false;
         }
 
-        if(contradiction.network === 'youtube' && this.props.network === 'youtube' 
-        && contradiction.pageId !== page.id) {
-            return false
+        if (
+            contradiction.network === "youtube" &&
+            this.props.network === "youtube" &&
+            contradiction.pageId !== page.id
+        ) {
+            return false;
         }
 
-        this.setState({ 
-            loading: true, 
-            open: true 
-        })
-        contradiction = !_.isEmpty(contradiction) ? (!contradiction.error ? JSON.stringify(contradiction) : null) : null
+        this.setState({
+            loading: true,
+            open: true
+        });
+        contradiction = !_.isEmpty(contradiction)
+            ? !contradiction.error
+                ? JSON.stringify(contradiction)
+                : null
+            : null;
         this.props.assignFallacy({
             bearer: this.props.bearer,
             contradiction: contradiction,
@@ -120,108 +139,138 @@ class FallacyForm extends Component {
             pageId: page.id,
             startTime: this.props.info.currentTime,
             title: this.state.title
-        })
+        });
     }
 
     handleDismiss = () => {
-        this.setState({ visible: false })
+        this.setState({ visible: false });
         setTimeout(() => {
-            this.setState({ visible: true })
-        }, 2000)
-    }
+            this.setState({ visible: true });
+        }, 2000);
+    };
 
     render() {
-        const { explanation, id, open, title, url } = this.state
-        const currentState = store.getState()
-        const contradiction = this.props.fallacy.contradiction
-        const contradictionError = contradiction ? contradiction.error : false
-        const contradictionErrorMsg = contradiction ? contradiction.errorMsg : false
-        const formPage = currentState.fallacyForm.pageInfo ? currentState.fallacyForm.pageInfo : this.props.pageInfo
-        const postPage = currentState.post.pageInfo ? currentState.post.pageInfo : this.props.pageInfo
-        const page = this.props.info ? (this.props.info.comment !== null ? postPage : formPage) : this.props.pageInfo
-        const canAssign = this.props.info ? this.props.network === 'youtube' && !this.props.commentId : false
+        const { explanation, id, open, title, url } = this.state;
+        const currentState = store.getState();
+        const contradiction = this.props.fallacy.contradiction;
+        const contradictionError = contradiction ? contradiction.error : false;
+        const contradictionErrorMsg = contradiction
+            ? contradiction.errorMsg
+            : false;
+        const formPage = currentState.fallacyForm.pageInfo
+            ? currentState.fallacyForm.pageInfo
+            : this.props.pageInfo;
+        const postPage = currentState.post.pageInfo
+            ? currentState.post.pageInfo
+            : this.props.pageInfo;
+        const page = this.props.info
+            ? this.props.info.comment !== null
+                ? postPage
+                : formPage
+            : this.props.pageInfo;
+        const canAssign = this.props.info
+            ? this.props.network === "youtube" && !this.props.commentId
+            : false;
 
-        let contradictionValid = true
-        if(contradiction) {
-            if(contradiction.network === 'twitter' && contradiction.pageId !== page.id) {
-                contradictionValid = false
+        let contradictionValid = true;
+        if (contradiction) {
+            if (
+                contradiction.network === "twitter" &&
+                contradiction.pageId !== page.id
+            ) {
+                contradictionValid = false;
             }
-            if(contradiction.network === 'youtube' && this.props.network === 'youtube' 
-            && contradiction.pageId !== page.id) {
-                contradictionValid = false
+            if (
+                contradiction.network === "youtube" &&
+                this.props.network === "youtube" &&
+                contradiction.pageId !== page.id
+            ) {
+                contradictionValid = false;
             }
         }
 
-        if(contradictionError && contradictionErrorMsg === 'Refresh token') {
+        if (contradictionError && contradictionErrorMsg === "Refresh token") {
             this.props.refreshYouTubeToken({
                 bearer: this.props.bearer
-            })
+            });
             setTimeout(() => {
-                window.location.reload()
+                window.location.reload();
             }, 800);
         }
 
         const ContradictionInput = props => {
-            if(id === '52') {
-                const contClassName = contradiction.data ? ' active' : ''
+            if (id === "52") {
+                const contClassName = contradiction.data ? " active" : "";
                 return (
                     <Form.Field>
-                        <Input 
-                            className='contradictionInput'
-                            icon='paperclip' 
-                            iconPosition='left' 
+                        <Input
+                            className="contradictionInput"
+                            icon="paperclip"
+                            iconPosition="left"
                             onKeyUp={this.onChangeContradiction}
                             onPaste={this.onPaste}
-                            placeholder='Link to contradiction' 
+                            placeholder="Link to contradiction"
                             value={url}
                         />
                         {contradiction && (
-                            <div className={`contradictionWrapper${contClassName}`}>
+                            <div
+                                className={`contradictionWrapper${contClassName}`}
+                            >
                                 {DisplayContradiction(props)}
                                 {ContradictionMsg(props)}
                                 {StartTime(props, true)}
                             </div>
                         )}
                     </Form.Field>
-                )
+                );
             }
-            return null
-        }
+            return null;
+        };
         const ContradictionMsg = props => {
-            let msg = ''
-            if(contradiction.error) {
-                msg = contradiction.errorMsg
-            } else if(contradiction.network === 'twitter' && !contradictionValid) {
-                if(props.info.comment === null) {
-                    msg = `Only tweets from ${page.name} can be used for doublethink. Try a tweet from ${page.name} or a YouTube video featuring ${page.name}.`
+            let msg = "";
+            if (contradiction.error) {
+                msg = contradiction.errorMsg;
+            } else if (
+                contradiction.network === "twitter" &&
+                !contradictionValid
+            ) {
+                if (props.info.comment === null) {
+                    msg = `Only tweets from ${
+                        page.name
+                    } can be used for doublethink. Try a tweet from ${
+                        page.name
+                    } or a YouTube video featuring ${page.name}.`;
                 } else {
-                    msg = `Only comments and videos from ${page.name} can be used for doublethink.`
+                    msg = `Only comments and videos from ${
+                        page.name
+                    } can be used for doublethink.`;
                 }
-            } else if (contradiction.network === 'youtube' && !contradictionValid) {
-                if(page.type === 'youtube') {
-                    msg = `Only comments and videos from ${page.name} can be used for doublethink.`
-                } 
-                if(page.type === 'twitter') {
+            } else if (
+                contradiction.network === "youtube" &&
+                !contradictionValid
+            ) {
+                if (page.type === "youtube") {
+                    msg = `Only comments and videos from ${
+                        page.name
+                    } can be used for doublethink.`;
+                }
+                if (page.type === "twitter") {
                     msg = `YouTube comments cannot be used for doublethink when the fallacy is assigned to a Twitter user in the video. 
 
-                    Change the assignee to ${page.name}'s YouTube channel.`
+                    Change the assignee to ${page.name}'s YouTube channel.`;
                 }
             }
-            if(contradiction.error || !contradictionValid) {
+            if (contradiction.error || !contradictionValid) {
                 return (
-                    <Message
-                        className='contradictionMsg'
-                        content={msg}
-                        error
-                    />
-                )
+                    <Message className="contradictionMsg" content={msg} error />
+                );
             }
-            return null
-        }
+            return null;
+        };
         const DisplayContradiction = props => {
-            switch(contradiction.network) {
-                case'twitter':
-                    const tweet = contradiction.data
+            switch (contradiction.network) {
+                case "twitter":
+                    const tweet = contradiction.data;
                     return (
                         <Tweet
                             created_at={tweet.created_at}
@@ -230,37 +279,44 @@ class FallacyForm extends Component {
                             id={tweet.id_str}
                             is_quote_status={tweet.is_quote_status}
                             quoted_status={
-                                tweet.quoted_status === undefined && tweet.is_quote_status ? 
-                                tweet.retweeted_status : 
-                                tweet.quoted_status
+                                tweet.quoted_status === undefined &&
+                                tweet.is_quote_status
+                                    ? tweet.retweeted_status
+                                    : tweet.quoted_status
                             }
                             quoted_status_id_str={tweet.quoted_status_id_str}
-                            quoted_status_permalink={tweet.quoted_status_permalink}
-                            retweeted_status={tweet.retweeted_status === undefined ? false : props.post.data.retweeted_status}
+                            quoted_status_permalink={
+                                tweet.quoted_status_permalink
+                            }
+                            retweeted_status={
+                                tweet.retweeted_status === undefined
+                                    ? false
+                                    : props.post.data.retweeted_status
+                            }
                             stats={{
                                 favorite_count: tweet.favorite_count,
                                 retweet_count: tweet.retweet_count
                             }}
                             user={tweet.user}
                         />
-                    )
-                case'youtube':
-                    let video = contradiction.data
-                    let comment = null
-                    let showVideo = true
-                    if(contradiction.type === 'comment') {
+                    );
+                case "youtube":
+                    let video = contradiction.data;
+                    let comment = null;
+                    let showVideo = true;
+                    if (contradiction.type === "comment") {
                         comment = {
                             dateCreated: video.date_created,
                             id: video.id,
                             likeCount: video.like_count,
                             message: video.message,
                             user: video.commenter
-                        }
-                        showVideo = false
+                        };
+                        showVideo = false;
                     }
 
                     return (
-                        <YouTubeVideo 
+                        <YouTubeVideo
                             bearer={props.bearer}
                             channel={video.channel}
                             comment={comment}
@@ -276,78 +332,109 @@ class FallacyForm extends Component {
                             startTime={contradiction.startTime}
                             title={video.title}
                         />
-                    )
+                    );
                 default:
-                    return null
+                    return null;
             }
-        }
-        const ErrorMsg = ({props}) => {
-            if(props.fallacyFormError && props.fallacyFormErrorMsg) {
-                return (<Message content={props.fallacyFormErrorMsg} error />)
+        };
+        const ErrorMsg = ({ props }) => {
+            if (props.fallacyFormError && props.fallacyFormErrorMsg) {
+                return <Message content={props.fallacyFormErrorMsg} error />;
             }
-            return null
-        }
+            return null;
+        };
         const SelectAssignee = props => (
-            <SearchForm 
+            <SearchForm
                 defaultValue={props.info.channel.title}
                 onChangeAssignee={this.onChangeAssignee}
-                placeholder='Who in this video should the fallacy be assigned to?'
-                source='fallacyForm'
-                width={'100%'}
+                placeholder="Who in this video should the fallacy be assigned to?"
+                source="fallacyForm"
+                width={"100%"}
             />
-        )
+        );
         const StartTime = (props, contradiction = false) => {
-            if(contradiction ? contradiction.network === 'youtube' && !contradiction.commentId : props.network === 'youtube' && !props.commentId) {
-                const time = contradiction ? props.fallacy.contradiction.data.currentTime : props.info.currentTime
+            if (
+                contradiction
+                    ? contradiction.network === "youtube" &&
+                      !contradiction.commentId
+                    : props.network === "youtube" && !props.commentId
+            ) {
+                const time = contradiction
+                    ? props.fallacy.contradiction.data.currentTime
+                    : props.info.currentTime;
                 return (
                     <Form.Field>
                         <label>Video will start at</label>
                         <Input
-                            className={contradiction ? 'contradictionStartTime' : 'startTime'}
+                            className={
+                                contradiction
+                                    ? "contradictionStartTime"
+                                    : "startTime"
+                            }
                             disabled={props.authenticated ? false : true}
-                            placeholder='Start time'
+                            placeholder="Start time"
                             value={formatDuration(time)}
                         />
                     </Form.Field>
-                )
+                );
             }
-            return null
-        }
+            return null;
+        };
         const SuccessModal = props => {
-            if(props.assigned) {
-                const assigneeLink = page.type === 'youtube' ? page.id : page.username
+            if (props.assigned) {
+                const assigneeLink =
+                    page.type === "youtube" ? page.id : page.username;
                 return (
-                    <Modal 
+                    <Modal
                         centered={false}
-                        dimmer='blurring' 
-                        inverted='true'
-                        onClose={this.closeModal} 
-                        open={open} 
-                        size='small'
+                        dimmer="blurring"
+                        inverted="true"
+                        onClose={this.closeModal}
+                        open={open}
+                        size="small"
                     >
                         <Modal.Header>
-                            <Icon color='green' name='check' /> Your fallacy has been assigned
+                            <Icon color="green" name="check" /> Your fallacy has
+                            been assigned
                         </Modal.Header>
                         <Modal.Content>
                             <p>
-                                <a 
-                                    style={{ cursor: 'pointer' }}
-                                    onClick={() => this.props.history.push(`/pages/${page.type}/${assigneeLink}`)}
+                                <a
+                                    style={{ cursor: "pointer" }}
+                                    onClick={() =>
+                                        this.props.history.push(
+                                            `/pages/${
+                                                page.type
+                                            }/${assigneeLink}`
+                                        )
+                                    }
                                 >
                                     {page.name}
-                                </a> will have the opportunity to respond to this accusation of fallacious reasoning and counter your claim.
+                                </a>{" "}
+                                will have the opportunity to respond to this
+                                accusation of fallacious reasoning and counter
+                                your claim.
                             </p>
-                            <div style={{ marginTop: '1.6em', textAlign: 'center' }}>
+                            <div
+                                style={{
+                                    marginTop: "1.6em",
+                                    textAlign: "center"
+                                }}
+                            >
                                 <Button.Group>
                                     <Button
-                                        className='viewFallacyBtn'
-                                        content='View this fallacy'
-                                        onClick={() => this.props.history.push(`/fallacies/${props.fallacy.id}`)}
+                                        className="viewFallacyBtn"
+                                        content="View this fallacy"
+                                        onClick={() =>
+                                            this.props.history.push(
+                                                `/fallacies/${props.fallacy.id}`
+                                            )
+                                        }
                                     />
                                     <Button.Or />
-                                    <Button 
-                                        className='assignAnotherBtn'
-                                        content='Assign another one'
+                                    <Button
+                                        className="assignAnotherBtn"
+                                        content="Assign another one"
                                         onClick={this.closeModal}
                                         positive
                                     />
@@ -355,86 +442,92 @@ class FallacyForm extends Component {
                             </div>
                         </Modal.Content>
                     </Modal>
-                )
+                );
             }
-            return null
-        }
-        
-        return ( 
+            return null;
+        };
+
+        return (
             <Provider store={store}>
-                <div className='fallacyForm'>
+                <div className="fallacyForm">
                     <Message
                         attached
-                        className='headerMsg'
-                        content='Assign a fallacy'
-                        header='Does this logic make sense?'
+                        className="headerMsg"
+                        content="Assign a fallacy"
+                        header="Does this logic make sense?"
                     />
-                    <Form 
-                        className='attached fluid segment'
-                        error={this.props.fallacyFormError || contradictionError || !contradictionValid}
+                    <Form
+                        className="attached fluid segment"
+                        error={
+                            this.props.fallacyFormError ||
+                            contradictionError ||
+                            !contradictionValid
+                        }
                         loading={this.props.loading}
                         onSubmit={this.onSubmitForm}
                     >
                         {canAssign && (
                             <div>
                                 {StartTime(this.props)}
-                                <div style={{ marginBottom: '1em' }}>
+                                <div style={{ marginBottom: "1em" }}>
                                     {SelectAssignee(this.props)}
                                 </div>
                             </div>
                         )}
-                        <Form.Field disabled={this.props.authenticated ? false : true}>
-                            <Dropdown 
-                                className='fallacyDropdown'
-                                defaultValue={'1'}
+                        <Form.Field
+                            disabled={this.props.authenticated ? false : true}
+                        >
+                            <Dropdown
+                                className="fallacyDropdown"
+                                defaultValue={"1"}
                                 fluid
                                 onChange={this.onChangeFallacy}
                                 options={fallacyDropdownOptions}
-                                placeholder='Select a fallacy'
-                                search 
+                                placeholder="Select a fallacy"
+                                search
                                 selection
                             />
                         </Form.Field>
                         {ContradictionInput(this.props)}
-                        <Form.Field disabled={this.props.authenticated ? false : true}>
-                            <Input 
-                                className='titleField'
+                        <Form.Field
+                            disabled={this.props.authenticated ? false : true}
+                        >
+                            <Input
+                                className="titleField"
                                 fluid
                                 onChange={this.onChangeTitle}
-                                placeholder='Title' 
+                                placeholder="Title"
                                 value={title}
                             />
                         </Form.Field>
-                        <Form.Field disabled={this.props.authenticated ? false : true}>
-                            <TextArea 
+                        <Form.Field
+                            disabled={this.props.authenticated ? false : true}
+                        >
+                            <TextArea
                                 onChange={this.onChangeExplanation}
-                                placeholder='Explain how this is a fallacy' 
-                                rows={8} 
+                                placeholder="Explain how this is a fallacy"
+                                rows={8}
                                 value={explanation}
                             />
                         </Form.Field>
                         <ErrorMsg props={this.props} />
                         {this.props.authenticated && (
-                            <Button 
-                                content='Assign' 
-                                fluid 
-                                type='submit' 
-                            />
+                            <Button content="Assign" fluid type="submit" />
                         )}
                         {!this.props.authenticated && (
-                            <Button 
-                                content='Sign in to start assigning fallacies'
-                                fluid 
-                                onClick={() => this.props.history.push('/signin')}
+                            <Button
+                                content="Sign in to start assigning fallacies"
+                                fluid
+                                onClick={() =>
+                                    this.props.history.push("/signin")
+                                }
                             />
                         )}
                     </Form>
-                    <div>
-                        {SuccessModal(this.props)}
-                    </div>
+                    <div>{SuccessModal(this.props)}</div>
                 </div>
             </Provider>
-        )
+        );
     }
 }
 
@@ -453,22 +546,16 @@ FallacyForm.propTypes = {
         assignedBy: PropTypes.number,
         contradiction: PropTypes.shape({
             commentId: PropTypes.string,
-            data: PropTypes.oneOfType([
-                PropTypes.bool,
-                PropTypes.object
-            ]),
+            data: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
             duration: PropTypes.number,
             error: PropTypes.bool,
             errorMsg: PropTypes.string,
             mediaId: PropTypes.string,
             network: PropTypes.string,
-            pageId: PropTypes.oneOfType([
-                PropTypes.number,
-                PropTypes.string
-            ]),
+            pageId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
             startTime: PropTypes.string,
             type: PropTypes.string,
-            username: PropTypes.string 
+            username: PropTypes.string
         }),
         duration: PropTypes.number,
         explanation: PropTypes.string,
@@ -487,7 +574,7 @@ FallacyForm.propTypes = {
     parseContradiction: PropTypes.func,
     user: PropTypes.object,
     username: PropTypes.string
-}
+};
 
 FallacyForm.defaultProps = {
     assigned: false,
@@ -498,18 +585,21 @@ FallacyForm.defaultProps = {
     fallacy: {
         contradiction: {}
     }
-}
+};
 
 const mapStateToProps = (state, ownProps) => ({
     ...state.fallacyForm,
     ...state.post,
     ...ownProps
-})
+});
 
-export default connect(mapStateToProps, { 
-    assignFallacy, 
-    clearContradiction,
-    parseContradiction, 
-    refreshYouTubeToken,
-    selectAssignee
-})(FallacyForm)
+export default connect(
+    mapStateToProps,
+    {
+        assignFallacy,
+        clearContradiction,
+        parseContradiction,
+        refreshYouTubeToken,
+        selectAssignee
+    }
+)(FallacyForm);

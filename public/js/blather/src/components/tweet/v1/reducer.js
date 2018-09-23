@@ -1,21 +1,22 @@
-import * as constants from './constants';
+import * as constants from "./constants";
 
-const initial = () => ({
-
-})
+const initial = () => ({});
 
 const test = (state = initial(), action) => {
-    switch(action.type) {
+    switch (action.type) {
         case constants.SET_DATA:
             let quoted_tweet = {};
-            if(action.payload.is_quote_status) {
+            if (action.payload.is_quote_status) {
                 const quote = action.payload.quoted_status;
                 let qFullText = quote.full_text;
 
-                if(quote.display_text_range.length > 0) {
+                if (quote.display_text_range.length > 0) {
                     const qTextStart = quote.display_text_range[0];
                     const qTextLength = quote.display_text_range[1];
-                    qFullText = quote.full_text.substring(qTextStart, qTextLength);
+                    qFullText = quote.full_text.substring(
+                        qTextStart,
+                        qTextLength
+                    );
                 }
 
                 quoted_tweet = {
@@ -30,7 +31,7 @@ const test = (state = initial(), action) => {
                     user: {
                         description: quote.user.description,
                         id: quote.user.id,
-                        location:quote.user.location,
+                        location: quote.user.location,
                         name: quote.user.name,
                         profile_image_url: quote.user.profile_image_url,
                         screen_name: quote.user.screen_name
@@ -39,10 +40,13 @@ const test = (state = initial(), action) => {
             }
 
             let fullText = action.payload.full_text;
-            if(action.payload.display_text_range) {
+            if (action.payload.display_text_range) {
                 const textStart = action.payload.display_text_range[0];
                 const textLength = action.payload.display_text_range[1];
-                fullText = action.payload.full_text.substring(textStart, textLength);
+                fullText = action.payload.full_text.substring(
+                    textStart,
+                    textLength
+                );
             }
 
             return {
@@ -69,6 +73,6 @@ const test = (state = initial(), action) => {
         default:
             return state;
     }
-}
+};
 
-export default test
+export default test;

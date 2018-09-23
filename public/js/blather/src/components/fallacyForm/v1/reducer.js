@@ -1,11 +1,11 @@
-import * as constants from './constants';
+import * as constants from "./constants";
 
-const initial = () => ({})
+const initial = () => ({});
 
 const fallacyForm = (state = initial(), action) => {
-    switch(action.type) {
+    switch (action.type) {
         case constants.ASSIGN_FALLACY:
-            if(action.payload.error) {
+            if (action.payload.error) {
                 return {
                     ...state,
                     assigned: false,
@@ -13,16 +13,16 @@ const fallacyForm = (state = initial(), action) => {
                     fallacyFormErrorCode: action.payload.code,
                     fallacyFormErrorMsg: action.payload.error,
                     loading: false
-                }
+                };
             }
 
-            const fallacy = action.payload.fallacy
+            const fallacy = action.payload.fallacy;
             return {
                 ...state,
                 assigned: true,
                 fallacyFormError: false,
                 fallacyFormErrorCode: 0,
-                fallacyFormErrorMsg: '',
+                fallacyFormErrorMsg: "",
                 fallacy: {
                     assignedBy: parseInt(fallacy.assigned_by, 10),
                     contradiction: null,
@@ -33,7 +33,7 @@ const fallacyForm = (state = initial(), action) => {
                 },
                 pageId: fallacy.page_id,
                 objectId: fallacy.tweet_id
-            }
+            };
 
         case constants.CLEAR_CONTRADICTION:
             return {
@@ -42,32 +42,32 @@ const fallacyForm = (state = initial(), action) => {
                     ...state.fallacy,
                     contradiction: {}
                 }
-            }
+            };
 
         case constants.PARSE_CONTRADICTION:
-            if(action.payload.error) {
+            if (action.payload.error) {
                 return {
                     ...state,
                     fallacy: {
                         ...state.fallacy,
                         contradiction: {
-                            commentId: '',
+                            commentId: "",
                             data: null,
                             error: true,
                             errorMsg: action.payload.error,
                             mediaId: null,
-                            network: '',
-                            pageId: '',
-                            startTime: '',
-                            type: '',
-                            username: ''
+                            network: "",
+                            pageId: "",
+                            startTime: "",
+                            type: "",
+                            username: ""
                         }
                     }
-                }
+                };
             }
 
-            const data = action.payload.data
-            data.currentTime = action.payload.startTime
+            const data = action.payload.data;
+            data.currentTime = action.payload.startTime;
             return {
                 ...state,
                 fallacy: {
@@ -76,7 +76,7 @@ const fallacyForm = (state = initial(), action) => {
                         commentId: action.payload.commentId,
                         data: data,
                         error: false,
-                        errorMsg: '',
+                        errorMsg: "",
                         mediaId: action.payload.mediaId,
                         network: action.payload.network,
                         pageId: action.payload.pageId,
@@ -85,13 +85,13 @@ const fallacyForm = (state = initial(), action) => {
                         username: action.payload.username
                     }
                 }
-            }
+            };
 
         case constants.SELECT_ASSIGNEE:
             return {
                 ...state,
-                pageInfo: action.payload.page 
-            }
+                pageInfo: action.payload.page
+            };
 
         case constants.SET_CONTRADICTION_VIDEO_TIME:
             return {
@@ -106,11 +106,11 @@ const fallacyForm = (state = initial(), action) => {
                         }
                     }
                 }
-            }
+            };
 
         default:
-            return state
+            return state;
     }
-}
+};
 
-export default fallacyForm
+export default fallacyForm;

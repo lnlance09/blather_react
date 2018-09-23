@@ -1,66 +1,74 @@
-import * as constants from './constants';
-import request from 'request';
+import * as constants from "./constants";
+import request from "request";
 
-export const assignFallacy = ({ 
-    bearer, 
+export const assignFallacy = ({
+    bearer,
     commentId,
-    contradiction, 
-    explanation, 
+    contradiction,
+    explanation,
     fallacyId,
-    network, 
+    network,
     objectId,
-    pageId, 
+    pageId,
     startTime,
-    title, 
+    title
 }) => dispatch => {
-    request.post(`${window.location.origin}/api/fallacies/assign`, {
-        form: {
-            commentId,
-            contradiction,
-            explanation,
-            fallacyId,
-            network,
-            pageId,
-            objectId,
-            startTime,
-            title
+    request.post(
+        `${window.location.origin}/api/fallacies/assign`,
+        {
+            form: {
+                commentId,
+                contradiction,
+                explanation,
+                fallacyId,
+                network,
+                pageId,
+                objectId,
+                startTime,
+                title
+            },
+            headers: {
+                Authorization: bearer
+            },
+            json: true
         },
-        headers: {
-            'Authorization': bearer 
-        },
-        json: true
-    }, function(err, response, body) {
-        dispatch({
-            type: constants.ASSIGN_FALLACY,
-            payload: body
-        })
-    })
-}
+        function(err, response, body) {
+            dispatch({
+                type: constants.ASSIGN_FALLACY,
+                payload: body
+            });
+        }
+    );
+};
 
 export const clearContradiction = () => dispatch => {
     dispatch({
         type: constants.CLEAR_CONTRADICTION
-    })
-}
+    });
+};
 
-export const parseContradiction = ({bearer, url}) => dispatch => {
-    request.post(`${window.location.origin}/api/fallacies/parseUrl`, {
-        form: {
-            url
+export const parseContradiction = ({ bearer, url }) => dispatch => {
+    request.post(
+        `${window.location.origin}/api/fallacies/parseUrl`,
+        {
+            form: {
+                url
+            },
+            headers: {
+                Authorization: bearer
+            },
+            json: true
         },
-        headers: {
-            'Authorization': bearer 
-        },
-        json: true
-    }, function(err, response, body) {
-        dispatch({
-            type: constants.PARSE_CONTRADICTION,
-            payload: body
-        })
-    })
-}
+        function(err, response, body) {
+            dispatch({
+                type: constants.PARSE_CONTRADICTION,
+                payload: body
+            });
+        }
+    );
+};
 
-export const selectAssignee = ({id, name, type, username}) => dispatch => {
+export const selectAssignee = ({ id, name, type, username }) => dispatch => {
     dispatch({
         payload: {
             page: {
@@ -71,8 +79,8 @@ export const selectAssignee = ({id, name, type, username}) => dispatch => {
             }
         },
         type: constants.SELECT_ASSIGNEE
-    })
-}
+    });
+};
 
 export const setContradictionVideoTime = time => dispatch => {
     dispatch({
@@ -80,5 +88,5 @@ export const setContradictionVideoTime = time => dispatch => {
         payload: {
             time
         }
-    })
-}
+    });
+};

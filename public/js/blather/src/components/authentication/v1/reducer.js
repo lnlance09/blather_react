@@ -1,17 +1,17 @@
-import * as constants from './constants';
-import jwt from 'jsonwebtoken';
+import * as constants from "./constants";
+import jwt from "jsonwebtoken";
 
-let authenticated = false
-let localData = {}
-let verify = false
-const token = localStorage.getItem('jwtToken')
-jwt.verify(token, 'secret', (err, decoded) => {
-    if(decoded) {
+let authenticated = false;
+let localData = {};
+let verify = false;
+const token = localStorage.getItem("jwtToken");
+jwt.verify(token, "secret", (err, decoded) => {
+    if (decoded) {
         authenticated = true;
         localData = decoded.data;
-        verify = !localData.emailVerified ? true : false
+        verify = !localData.emailVerified ? true : false;
     }
-})
+});
 
 const initial = () => ({
     authenticated: authenticated,
@@ -19,7 +19,7 @@ const initial = () => ({
     data: localData,
     passwordError: false,
     verify: verify
-})
+});
 
 const test = (state = initial(), action) => {
     switch (action.type) {
@@ -29,7 +29,7 @@ const test = (state = initial(), action) => {
                 passwordChangeSuccessful: action.payload.error ? false : true,
                 passwordError: action.payload.error ? true : false,
                 passwordErrorMsg: action.payload.error
-            }
+            };
 
         case constants.CHANGE_PROFILE_PIC:
             return {
@@ -38,7 +38,7 @@ const test = (state = initial(), action) => {
                     ...state.data,
                     img: action.payload.img
                 }
-            }
+            };
 
         case constants.LINK_FACEBOOK_ACCOUNT:
             return {
@@ -52,7 +52,7 @@ const test = (state = initial(), action) => {
                     fbId: action.payload.fb_id,
                     fbUrl: action.payload.fb_url
                 }
-            }
+            };
 
         case constants.LINK_TWITTER_ACCOUNT:
             return {
@@ -68,10 +68,10 @@ const test = (state = initial(), action) => {
                     twitterUrl: action.payload.twitter_url,
                     twitterUsername: action.payload.twitter_username
                 }
-            }
+            };
 
         case constants.LINK_YOUTUBE_ACCOUNT:
-            if(action.payload.linked_youtube) {
+            if (action.payload.linked_youtube) {
                 return {
                     ...state,
                     bearer: action.payload.bearer,
@@ -81,14 +81,15 @@ const test = (state = initial(), action) => {
                         youtubeAccessToken: action.payload.youtube_access_token,
                         youtubeDate: action.payload.youtube_date,
                         youtubeId: action.payload.youtube_id,
-                        youtubeRefreshToken: action.payload.youtube_refresh_token
+                        youtubeRefreshToken:
+                            action.payload.youtube_refresh_token
                     }
                 };
             }
 
             return {
-                ...state,
-            }
+                ...state
+            };
 
         case constants.LOGOUT:
             return {
@@ -96,14 +97,14 @@ const test = (state = initial(), action) => {
                 authenticated: false,
                 data: {},
                 verify: false
-            }
+            };
 
         case constants.REFRESH_YOUTUBE_TOKEN:
             return {
                 ...state,
                 bearer: action.payload.bearer,
                 youtubeAccessToken: action.payload.refreshToken
-            }
+            };
 
         case constants.REMOVE_FACEBOOK_ACCOUNT:
             return {
@@ -117,7 +118,7 @@ const test = (state = initial(), action) => {
                     fbId: null,
                     fbUrl: action.payload.fbUrl
                 }
-            }
+            };
 
         case constants.REMOVE_TWITTER_ACCOUNT:
             return {
@@ -133,7 +134,7 @@ const test = (state = initial(), action) => {
                     twitterUrl: action.payload.twitterUrl,
                     twitterUsername: null
                 }
-            }
+            };
 
         case constants.REMOVE_YOUTUBE_ACCOUNT:
             return {
@@ -148,7 +149,7 @@ const test = (state = initial(), action) => {
                     youtubeRefreshToken: null,
                     youtubeUrl: action.payload.youtubeUrl
                 }
-            }
+            };
 
         case constants.RESET_PASSWORD_PROPS:
             return {
@@ -156,8 +157,8 @@ const test = (state = initial(), action) => {
                 loading: false,
                 passwordChangeSuccessful: false,
                 passwordError: false,
-                passwordErrorMsg: ''
-            }
+                passwordErrorMsg: ""
+            };
 
         case constants.SET_TWITTER_URL:
             return {
@@ -165,26 +166,26 @@ const test = (state = initial(), action) => {
                 bearer: action.payload.bearer,
                 data: {
                     ...state.data,
-                    twitterUrl: action.payload.twitterUrl,
+                    twitterUrl: action.payload.twitterUrl
                 }
-            }
+            };
 
         case constants.SET_USER_DATA:
-            let authenticated = false
-            let loginError = false
-            let loginErrorMsg = ''
-            let user = {}
+            let authenticated = false;
+            let loginError = false;
+            let loginErrorMsg = "";
+            let user = {};
             let verify = false;
 
-            if(action.payload.error) {
+            if (action.payload.error) {
                 loginError = true;
                 loginErrorMsg = action.payload.error;
             } else {
-                if(!action.payload.user.emailVerified) {
-                    verify = true
+                if (!action.payload.user.emailVerified) {
+                    verify = true;
                 }
 
-                authenticated = true
+                authenticated = true;
                 user = {
                     bio: action.payload.user.bio,
                     dateCreated: action.payload.user.dateCreated,
@@ -196,7 +197,8 @@ const test = (state = initial(), action) => {
                     linkedTwitter: action.payload.user.linkedTwitter,
                     linkedYoutube: action.payload.user.linkedYoutube,
                     twitterAccessToken: action.payload.user.twitterAccessToken,
-                    twitterAccessSecret: action.payload.user.twitterAccessSecret,
+                    twitterAccessSecret:
+                        action.payload.user.twitterAccessSecret,
                     twitterDate: action.payload.user.twitterDate,
                     twitterId: action.payload.user.twitterId,
                     twitterUrl: action.payload.user.twitterUrl,
@@ -205,9 +207,10 @@ const test = (state = initial(), action) => {
                     youtubeAccessToken: action.payload.user.youtubeAccessToken,
                     youtubeDate: action.payload.user.youtubeDate,
                     youtubeId: action.payload.user.youtubeId,
-                    youtubeRefreshToken: action.payload.user.youtubeRefreshToken,
+                    youtubeRefreshToken:
+                        action.payload.user.youtubeRefreshToken,
                     youtubeUrl: action.payload.user.youtubeUrl
-                }
+                };
             }
 
             return {
@@ -220,13 +223,13 @@ const test = (state = initial(), action) => {
                 loginError: loginError,
                 loginErrorMsg: loginErrorMsg,
                 verify: verify
-            }
+            };
 
         case constants.SWITCH_TAB:
             return {
                 ...state,
-                loginError: (action.tab.tab ? true : false)
-            }
+                loginError: action.tab.tab ? true : false
+            };
 
         case constants.UPDATE_ABOUT:
             return {
@@ -236,7 +239,7 @@ const test = (state = initial(), action) => {
                     ...state.data,
                     bio: action.payload.bio
                 }
-            }
+            };
 
         case constants.VERIFY_EMAIL:
             return {
@@ -247,11 +250,11 @@ const test = (state = initial(), action) => {
                 },
                 loginError: action.payload.error,
                 loginErrorMsg: action.payload.error
-            }
+            };
 
         default:
-            return state
+            return state;
     }
-}
+};
 
-export default test
+export default test;

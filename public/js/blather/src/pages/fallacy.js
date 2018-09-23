@@ -1,239 +1,250 @@
-import './css/index.css';
-import { mapIdsToNames } from 'utils/arrayFunctions';
-import { adjustTimezone } from 'utils/dateFunctions';
-import { DisplayMetaTags } from 'utils/metaFunctions';
-import { 
-    fetchCommentCount, 
-    fetchFallacy, 
-    updateFallacy 
-} from 'pages/actions/fallacy';
-import { Provider, connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { 
-    Container,
-    Grid,
-    Header,
-    Image,
-    Label,
-    Menu
-} from 'semantic-ui-react';
-import Comments from 'components/comments/v1/';
-import Conversation from 'components/conversation/v1/';
-import FallacyExample from 'components/fallacyExample/v1/';
-import FallacyRef from 'components/fallacyRef/v1/';
-import Moment from 'react-moment';
-import PageFooter from 'components/footer/v1/';
-import PageHeader from 'components/header/v1/';
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-import store from 'store';
-import TagsCard from 'components/tagsCard/v1/';
-import TitleHeader from 'components/titleHeader/v1/';
-import TrumpImg from 'pages/images/trump.svg';
+import "./css/index.css";
+import { mapIdsToNames } from "utils/arrayFunctions";
+import { adjustTimezone } from "utils/dateFunctions";
+import { DisplayMetaTags } from "utils/metaFunctions";
+import {
+    fetchCommentCount,
+    fetchFallacy,
+    updateFallacy
+} from "pages/actions/fallacy";
+import { Provider, connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { Container, Grid, Header, Image, Label, Menu } from "semantic-ui-react";
+import Comments from "components/comments/v1/";
+import Conversation from "components/conversation/v1/";
+import FallacyExample from "components/fallacyExample/v1/";
+import FallacyRef from "components/fallacyRef/v1/";
+import Moment from "react-moment";
+import PageFooter from "components/footer/v1/";
+import PageHeader from "components/header/v1/";
+import PropTypes from "prop-types";
+import React, { Component } from "react";
+import store from "store";
+import TagsCard from "components/tagsCard/v1/";
+import TitleHeader from "components/titleHeader/v1/";
+import TrumpImg from "images/trump.svg";
 
 class Fallacy extends Component {
     constructor(props) {
-        super(props)
-        const id = parseInt(this.props.match.params.id,10)
-        const currentState = store.getState()
-        const authenticated = currentState.user.authenticated
-        const bearer = currentState.user.bearer
-        const userId = parseInt(currentState.user.data.id,10)
+        super(props);
+        const id = parseInt(this.props.match.params.id, 10);
+        const currentState = store.getState();
+        const authenticated = currentState.user.authenticated;
+        const bearer = currentState.user.bearer;
+        const userId = parseInt(currentState.user.data.id, 10);
 
-        this.state = { 
-            activeItem: 'conversation',
+        this.state = {
+            activeItem: "conversation",
             authenticated,
             bearer,
             editing: false,
             id,
             show: false,
             userId,
-            value: ''
-        }
+            value: ""
+        };
     }
 
     componentDidMount() {
-        this.props.fetchCommentCount({ id: this.state.id })
+        this.props.fetchCommentCount({ id: this.state.id });
         this.props.fetchFallacy({
             bearer: this.state.bearer,
             id: this.state.id
-        })
+        });
     }
 
-    handleHide = () => this.setState({ active: false })
+    handleHide = () => this.setState({ active: false });
 
-    handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+    handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
-    handleShow = () => this.setState({ active: true })
+    handleShow = () => this.setState({ active: true });
 
-    onChange = (value) => {
-        this.setState({ value })
-        if(this.props.onChange) {
-            this.props.onChange(value.toString('html'));
+    onChange = value => {
+        this.setState({ value });
+        if (this.props.onChange) {
+            this.props.onChange(value.toString("html"));
         }
-    }
+    };
 
-    showImage = () => this.setState({ show: true })
+    showImage = () => this.setState({ show: true });
 
     render() {
-        const { activeItem, authenticated, bearer, id, userId } = this.state
-        const canEdit = this.props.createdBy ? this.props.createdBy.id === userId : false
+        const { activeItem, authenticated, bearer, id, userId } = this.state;
+        const canEdit = this.props.createdBy
+            ? this.props.createdBy.id === userId
+            : false;
         const FallacyMenu = props => (
-            <div className='fallacyMainMenu'>
-                <Menu 
-                    pointing
-                    secondary
-                >
+            <div className="fallacyMainMenu">
+                <Menu pointing secondary>
                     <Menu.Item
-                        active={activeItem === 'conversation'} 
-                        name='conversation' 
-                        onClick={this.handleItemClick} 
+                        active={activeItem === "conversation"}
+                        name="conversation"
+                        onClick={this.handleItemClick}
                     />
                     <Menu.Item
-                        active={activeItem === 'comments'}
-                        name='comments'
+                        active={activeItem === "comments"}
+                        name="comments"
                         onClick={this.handleItemClick}
                     >
-                        Comments {''}
+                        Comments {""}
                         {props.commentCount > 0 && (
                             <Label circular>{props.commentCount}</Label>
                         )}
                     </Menu.Item>
                     <Menu.Item
-                        active={activeItem === 'reference'}
-                        name='reference'
+                        active={activeItem === "reference"}
+                        name="reference"
                         onClick={this.handleItemClick}
                     />
                 </Menu>
             </div>
-        )
-        const FallacyTitle = ({props}) => {
+        );
+        const FallacyTitle = ({ props }) => {
             const subheader = (
                 <div>
                     {props.createdBy && (
                         <div>
-                            Created <Moment date={adjustTimezone(props.createdAt)} fromNow interval={60000} /> by <Link to={`/users/${props.createdBy.username}`}>{props.createdBy.name}</Link>
+                            Created{" "}
+                            <Moment
+                                date={adjustTimezone(props.createdAt)}
+                                fromNow
+                                interval={60000}
+                            />{" "}
+                            by{" "}
+                            <Link to={`/users/${props.createdBy.username}`}>
+                                {props.createdBy.name}
+                            </Link>
                         </div>
                     )}
                 </div>
-            )
+            );
             return (
-                <TitleHeader 
+                <TitleHeader
                     bearer={bearer}
                     canEdit={canEdit}
                     id={id}
                     subheader={subheader}
                     title={props.title}
-                    type='fallacy'
+                    type="fallacy"
                 />
-            )
-        }
+            );
+        };
         const ShowContent = props => {
-            switch(activeItem) {
-                case'conversation':
+            switch (activeItem) {
+                case "conversation":
                     return (
                         <div>
-                            <div className='materialWrapper'> 
-                                <FallacyExample 
-                                    bearer={bearer} 
-                                    canEdit={props.createdBy ? props.createdBy.id === userId : false}
+                            <div className="materialWrapper">
+                                <FallacyExample
+                                    bearer={bearer}
+                                    canEdit={
+                                        props.createdBy
+                                            ? props.createdBy.id === userId
+                                            : false
+                                    }
                                     history={props.history}
                                     id={id}
                                 />
                             </div>
                         </div>
-                    )
-                case'comments':
+                    );
+                case "comments":
                     return (
-                        <div className='commentsContent'>
-                            <Comments 
+                        <div className="commentsContent">
+                            <Comments
                                 authenticated={authenticated}
                                 bearer={bearer}
                                 history={this.props.history}
-                                id={id} 
+                                id={id}
                             />
                         </div>
-                    )
-                case'reference':
+                    );
+                case "reference":
                     return (
-                        <div className='fallacyContent'>
+                        <div className="fallacyContent">
                             <FallacyRef id={props.fallacyId} />
                         </div>
-                    )
+                    );
                 default:
-                    return null
+                    return null;
             }
-        }
+        };
         const ShowTags = props => {
-            let tags = null
-            if(props.tag_ids) {
-                tags = mapIdsToNames(props.tag_ids, props.tag_names)
+            let tags = null;
+            if (props.tag_ids) {
+                tags = mapIdsToNames(props.tag_ids, props.tag_names);
             }
 
             return (
-                <TagsCard 
+                <TagsCard
                     bearer={bearer}
                     canEdit={canEdit}
                     history={props.history}
                     id={id}
                     loading={tags ? false : true}
                     tags={tags ? tags : []}
-                    type='fallacy'
+                    type="fallacy"
                 />
-            )
-        }
+            );
+        };
 
         return (
             <Provider store={store}>
-                <div className='fallacyPage'>
-                    <DisplayMetaTags page='fallacy' props={this.props} state={this.state} />
-                        <PageHeader 
-                            {...this.props}
-                        />
-                        {!this.props.error && (
-                            <Container
-                                className='mainContainer'
-                                textAlign='left'
-                            >
-                                <FallacyTitle props={this.props} />
-                                {FallacyMenu(this.props)}
-                                <Grid>
-                                    <Grid.Column className='leftSide' width={12}>
-                                        {ShowContent(this.props)}
-                                        {activeItem === 'conversation' && (
-                                            <Conversation 
-                                                acceptedBy={this.props.user}
-                                                authenticated={authenticated}
-                                                bearer={bearer}
-                                                createdBy={this.props.createdBy}
-                                                fallacyId={id}
-                                                loading={this.props.convoLoading}
-                                                source='fallacy'
-                                                status={this.props.status}
-                                            />
-                                        )}
-                                    </Grid.Column>
-                                    <Grid.Column className='rightSide' width={4}>
-                                        {ShowTags(this.props)}
-                                    </Grid.Column>
-                                </Grid>
-                            </Container>
-                        )}
-                        {this.props.error && (
-                            <Container 
-                                className='mainContainer'
-                                style={{ marginTop: '8em'}} 
-                                text 
-                                textAlign='center'
-                            >
-                                <Image centered disabled size='medium' src={TrumpImg} />
-                                <Header size='medium'>This fallacy does not exist!</Header>
-                            </Container>
-                        )}
+                <div className="fallacyPage">
+                    <DisplayMetaTags
+                        page="fallacy"
+                        props={this.props}
+                        state={this.state}
+                    />
+                    <PageHeader {...this.props} />
+                    {!this.props.error && (
+                        <Container className="mainContainer" textAlign="left">
+                            <FallacyTitle props={this.props} />
+                            {FallacyMenu(this.props)}
+                            <Grid>
+                                <Grid.Column className="leftSide" width={12}>
+                                    {ShowContent(this.props)}
+                                    {activeItem === "conversation" && (
+                                        <Conversation
+                                            acceptedBy={this.props.user}
+                                            authenticated={authenticated}
+                                            bearer={bearer}
+                                            createdBy={this.props.createdBy}
+                                            fallacyId={id}
+                                            loading={this.props.convoLoading}
+                                            source="fallacy"
+                                            status={this.props.status}
+                                        />
+                                    )}
+                                </Grid.Column>
+                                <Grid.Column className="rightSide" width={4}>
+                                    {ShowTags(this.props)}
+                                </Grid.Column>
+                            </Grid>
+                        </Container>
+                    )}
+                    {this.props.error && (
+                        <Container
+                            className="mainContainer"
+                            style={{ marginTop: "8em" }}
+                            text
+                            textAlign="center"
+                        >
+                            <Image
+                                centered
+                                disabled
+                                size="medium"
+                                src={TrumpImg}
+                            />
+                            <Header size="medium">
+                                This fallacy does not exist!
+                            </Header>
+                        </Container>
+                    )}
                     <PageFooter />
                 </div>
             </Provider>
-        )
+        );
     }
 }
 
@@ -274,24 +285,27 @@ Fallacy.propTypes = {
         username: PropTypes.string
     }),
     viewCount: PropTypes.number
-}
+};
 
 Fallacy.defaultProps = {
     convoLoading: true,
     error: false,
     fetchCommentCount: fetchCommentCount,
     fetchFallacy: fetchFallacy
-}
+};
 
 const mapStateToProps = (state, ownProps) => {
     return {
         ...state.fallacy,
         ...ownProps
-    }
-}
+    };
+};
 
-export default connect(mapStateToProps, { 
-    fetchCommentCount,
-    fetchFallacy, 
-    updateFallacy 
-})(Fallacy)
+export default connect(
+    mapStateToProps,
+    {
+        fetchCommentCount,
+        fetchFallacy,
+        updateFallacy
+    }
+)(Fallacy);

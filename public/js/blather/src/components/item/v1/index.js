@@ -1,22 +1,17 @@
-import './style.css';
-import { formatNumber, formatPlural } from 'utils/textFunctions';
-import { 
-    Image,
-    Item,
-    Label,
-    List
-} from 'semantic-ui-react';
-import Marked from 'marked';
-import ImagePic from 'images/image-square.png';
-import ParagraphPic from 'images/short-paragraph.png';
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-import sanitizeHtml from 'sanitize-html';
-import TextTruncate from 'react-text-truncate';
+import "./style.css";
+import { formatNumber, formatPlural } from "utils/textFunctions";
+import { Image, Item, Label, List } from "semantic-ui-react";
+import Marked from "marked";
+import ImagePic from "images/image-square.png";
+import ParagraphPic from "images/short-paragraph.png";
+import PropTypes from "prop-types";
+import React, { Component } from "react";
+import sanitizeHtml from "sanitize-html";
+import TextTruncate from "react-text-truncate";
 
 class ResultItem extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         Marked.setOptions({
             renderer: new Marked.Renderer(),
             highlight: function(code) {
@@ -28,121 +23,132 @@ class ResultItem extends Component {
             smartLists: true,
             smartypants: false,
             xhtml: false
-        })
+        });
     }
 
-    componentWillMount() {
-        
-    }
+    componentWillMount() {}
 
     redirectToUrl = () => {
-        if(this.props.redirect) {
-            this.props.history.push(this.props.url)
+        if (this.props.redirect) {
+            this.props.history.push(this.props.url);
         } else {
-            window.open(this.props.url, '_blank').focus()
+            window.open(this.props.url, "_blank").focus();
         }
-    }
+    };
 
     sanitizeHtml(html) {
-        let removeBreaks = html === undefined ? html : html.replace(/(\r\n\t|\n|\r\t)/gm, " ")
+        let removeBreaks =
+            html === undefined ? html : html.replace(/(\r\n\t|\n|\r\t)/gm, " ");
         const sanitized = sanitizeHtml(removeBreaks, {
-            allowedTags: [ ],
+            allowedTags: [],
             allowedAttributes: {
-                'a': [ 'href' ]
+                a: ["href"]
             },
-            allowedIframeHostnames: ['www.youtube.com']
-        })
-        return sanitized
+            allowedIframeHostnames: ["www.youtube.com"]
+        });
+        return sanitized;
     }
 
     render() {
         const ItemExtra = props => {
-            if(props.extra.length > 1) {
+            if (props.extra.length > 1) {
                 return (
-                    <List className='extraList' horizontal>
+                    <List className="extraList" horizontal>
                         {props.extra.map((result, i) => {
-                            if(parseInt(result.count,10) > 0) {
+                            if (parseInt(result.count, 10) > 0) {
                                 return (
                                     <List.Item key={`${props.key}_${i}`}>
-                                        <b>{formatNumber(result.count)}</b> {formatPlural(result.count, result.term)}
+                                        <b>{formatNumber(result.count)}</b>{" "}
+                                        {formatPlural(
+                                            result.count,
+                                            result.term
+                                        )}
                                     </List.Item>
-                                )
+                                );
                             }
-                            return null
+                            return null;
                         })}
                     </List>
-                )
+                );
             }
-            if(props.extra) {
-                return props.extra.count > 0 ? `${formatNumber(props.extra.count)} ${formatPlural(props.extra.count, props.extra.term)}` : null
+            if (props.extra) {
+                return props.extra.count > 0
+                    ? `${formatNumber(props.extra.count)} ${formatPlural(
+                          props.extra.count,
+                          props.extra.term
+                      )}`
+                    : null;
             }
-            return null
-        }
+            return null;
+        };
         const ItemImage = props => {
-            if(props.img) {
+            if (props.img) {
                 return (
-                    <Item.Image 
+                    <Item.Image
                         label={props.label}
-                        onError={i => i.target.src = ImagePic} 
-                        size='small' 
-                        src={props.img} 
+                        onError={i => (i.target.src = ImagePic)}
+                        size="small"
+                        src={props.img}
                     />
-                )
+                );
             }
-            return null
-        }
+            return null;
+        };
         const ItemContent = props => {
-            if(props.type === 'lazyLoad') {
+            if (props.type === "lazyLoad") {
                 return (
                     <Item.Content>
                         <Image fluid src={ParagraphPic} />
                     </Item.Content>
-                )
+                );
             }
 
             return (
                 <Item.Content>
                     <Item.Header>{props.title}</Item.Header>
-                    {props.meta && (
-                        <Item.Meta>{props.meta}</Item.Meta>
-                    )}
+                    {props.meta && <Item.Meta>{props.meta}</Item.Meta>}
                     <Item.Description>
                         <TextTruncate
                             line={3}
-                            truncateText='...'
-                            text={props.sanitize && props.description !== null && props.description !== undefined ? this.sanitizeHtml(Marked(props.description)) : null}
+                            truncateText="..."
+                            text={
+                                props.sanitize &&
+                                props.description !== null &&
+                                props.description !== undefined
+                                    ? this.sanitizeHtml(
+                                          Marked(props.description)
+                                      )
+                                    : null
+                            }
                         />
                     </Item.Description>
                     {props.extra && (
-                        <Item.Extra>
-                            {ItemExtra(this.props)}
-                        </Item.Extra>
+                        <Item.Extra>{ItemExtra(this.props)}</Item.Extra>
                     )}
                     {props.tags && (
-                        <Item.Extra>
-                            {RenderTags(this.props.tags)}
-                        </Item.Extra>
+                        <Item.Extra>{RenderTags(this.props.tags)}</Item.Extra>
                     )}
                 </Item.Content>
-            )
-        }
-        const RenderTags = tags => tags.map((tag, i) => (
-            <Label horizontal key={`${this.props.key}_label_${i}`}>
-                {tag}
-            </Label>
-        ))
+            );
+        };
+        const RenderTags = tags =>
+            tags.map((tag, i) => (
+                <Label horizontal key={`${this.props.key}_label_${i}`}>
+                    {tag}
+                </Label>
+            ));
 
         return (
-            <Item 
-                className='resultItem'
+            <Item
+                className="resultItem"
                 key={this.props.id}
                 onClick={this.redirectToUrl}
-                style={{ cursor: 'pointer' }}
+                style={{ cursor: "pointer" }}
             >
                 {ItemImage(this.props)}
                 {ItemContent(this.props)}
             </Item>
-        )
+        );
     }
 }
 
@@ -156,10 +162,7 @@ ResultItem.propTypes = {
     img: PropTypes.string,
     id: PropTypes.string,
     key: PropTypes.string,
-    label: PropTypes.oneOfType([
-        PropTypes.bool,
-        PropTypes.object
-    ]),
+    label: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
     meta: PropTypes.oneOfType([
         PropTypes.bool,
         PropTypes.object,
@@ -171,10 +174,10 @@ ResultItem.propTypes = {
     title: PropTypes.string,
     type: PropTypes.string,
     url: PropTypes.string
-}
+};
 
 ResultItem.defaultProps = {
     redirect: true
-}
+};
 
-export default ResultItem
+export default ResultItem;
