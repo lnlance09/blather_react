@@ -1,6 +1,7 @@
-.fallacyForm .attached.fluid.segment {
+.fallacyForm .ui.form.attached.fluid.segment {
   background: #ffffff !important;
-  border: solid 1px rgba(220, 221, 225, 0.6) !important; }
+  border: solid 1px rgba(220, 221, 225, 0.6) !important;
+  padding: 14px !important; }
 
 .fallacyForm .headerMsg {
   border: solid 1px rgba(220, 221, 225, 0.6) !important;

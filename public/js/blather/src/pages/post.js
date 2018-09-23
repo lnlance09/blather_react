@@ -27,7 +27,6 @@ import YouTubeVideo from '../components/youTubeVideo/v1/';
 class Post extends Component {
     constructor(props) {
         super(props)
-        const height = window.innerHeight
         const path = this.props.match.path
         const id = this.props.match.params.id
         const commentId = this.props.match.params.commentId
@@ -39,7 +38,6 @@ class Post extends Component {
             authenticated,
             bearer,
             commentId,
-            height,
             id,
             network,
             type
@@ -79,7 +77,7 @@ class Post extends Component {
     }
 
     render() {
-        const { authenticated, bearer, commentId, contextRef, height, id, network, type } = this.state
+        const { authenticated, bearer, commentId, contextRef, id, network, type } = this.state
         if(this.props.error && this.props.errorCode !== 404 && network === 'youtube') {
             this.props.refreshYouTubeToken({
                 bearer
@@ -95,32 +93,36 @@ class Post extends Component {
         const Breadcrumbs = props => {
             console.log('breadcrumbs')
             console.log(props)
-            if(props.info ? props.info.channel || props.info.user : false) {
+            if(props.info) {
                 switch(type) {
                     case'tweet':
-                        return (
-                            <Breadcrumb>
-                                <Breadcrumb.Section link onClick={() => this.props.history.push('/search/twitter')}>Twitter profiles</Breadcrumb.Section>
-                                <Breadcrumb.Divider icon='right chevron' />
-                                <Breadcrumb.Section link onClick={() => this.props.history.push(`/pages/twitter/${props.info.user.screen_name}`)}>{props.info.user.name}</Breadcrumb.Section>
-                                <Breadcrumb.Divider icon='right chevron' />
-                                <Breadcrumb.Section link onClick={() => this.props.history.push(`/pages/twitter/${props.info.user.screen_name}/tweets`)}>Tweets</Breadcrumb.Section>
-                                <Breadcrumb.Divider icon='right chevron' />
-                                <Breadcrumb.Section active>{props.info.id}</Breadcrumb.Section>
-                            </Breadcrumb>
-                        )
+                        if(props.info.user) {
+                            return (
+                                <Breadcrumb>
+                                    <Breadcrumb.Section link onClick={() => this.props.history.push('/search/twitter')}>Twitter profiles</Breadcrumb.Section>
+                                    <Breadcrumb.Divider icon='right chevron' />
+                                    <Breadcrumb.Section link onClick={() => this.props.history.push(`/pages/twitter/${props.info.user.screen_name}`)}>{props.info.user.name}</Breadcrumb.Section>
+                                    <Breadcrumb.Divider icon='right chevron' />
+                                    <Breadcrumb.Section link onClick={() => this.props.history.push(`/pages/twitter/${props.info.user.screen_name}/tweets`)}>Tweets</Breadcrumb.Section>
+                                    <Breadcrumb.Divider icon='right chevron' />
+                                    <Breadcrumb.Section active>{props.info.id}</Breadcrumb.Section>
+                                </Breadcrumb>
+                            )
+                        }
                     case'video':
-                        return (
-                            <Breadcrumb>
-                                <Breadcrumb.Section link onClick={() => this.props.history.push('/search/youtube')}>YouTube channels</Breadcrumb.Section>
-                                <Breadcrumb.Divider icon='right chevron' />
-                                <Breadcrumb.Section link onClick={() => this.props.history.push(`/pages/youtube/${props.info.channel.id}`)}>{props.info.channel.title}</Breadcrumb.Section>
-                                <Breadcrumb.Divider icon='right chevron' />
-                                <Breadcrumb.Section link onClick={() => this.props.history.push(`/pages/youtube/${props.info.channel.id}/videos`)}>Videos</Breadcrumb.Section>
-                                <Breadcrumb.Divider icon='right chevron' />
-                                <Breadcrumb.Section active>{props.info.id}</Breadcrumb.Section>
-                            </Breadcrumb>
-                        )
+                        if(props.info.channel) {
+                            return (
+                                <Breadcrumb>
+                                    <Breadcrumb.Section link onClick={() => this.props.history.push('/search/youtube')}>YouTube channels</Breadcrumb.Section>
+                                    <Breadcrumb.Divider icon='right chevron' />
+                                    <Breadcrumb.Section link onClick={() => this.props.history.push(`/pages/youtube/${props.info.channel.id}`)}>{props.info.channel.title}</Breadcrumb.Section>
+                                    <Breadcrumb.Divider icon='right chevron' />
+                                    <Breadcrumb.Section link onClick={() => this.props.history.push(`/pages/youtube/${props.info.channel.id}/videos`)}>Videos</Breadcrumb.Section>
+                                    <Breadcrumb.Divider icon='right chevron' />
+                                    <Breadcrumb.Section active>{props.info.id}</Breadcrumb.Section>
+                                </Breadcrumb>
+                            )
+                        }
                     default:
                         return null
                 }
@@ -250,7 +252,6 @@ class Post extends Component {
                     <Container
                         className={containerClassName}
                         ref={this.handleContextRef}
-                        style={{ minHeight: height +'px'}}
                         text
                         textAlign='left'
                     >

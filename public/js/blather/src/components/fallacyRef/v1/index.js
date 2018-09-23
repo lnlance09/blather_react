@@ -33,7 +33,7 @@ class FallacyRef extends Component {
         const fallacyConversation = dialogue => dialogue.map((item, i) => {
             const pic = item.name === 'Blathering Bill' ? BillPic : RobPic
             return (
-                <Comment key={item.name}>
+                <Comment key={`${item.name}_${i}`}>
                     <Comment.Avatar src={pic} />
                     <Comment.Content>
                         <Comment.Author as='a'>{item.name}</Comment.Author>

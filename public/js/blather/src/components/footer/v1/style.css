@@ -1,14 +1,14 @@
-.footerSegment {
+.ui.bottom.attached.segment.footerSegment {
   background: #2f3640 !important;
   border: none !important;
   box-shadow: none !important;
   margin-top: 5.5em !important;
   padding: 1em 0em !important;
   text-align: center; }
-  .footerSegment .ui.inverted.list .item a:not(.ui) {
+  .ui.bottom.attached.segment.footerSegment .ui.inverted.list .item a:not(.ui) {
     color: #f5f6fa !important; }
-    .footerSegment .ui.inverted.list .item a:not(.ui):hover {
+    .ui.bottom.attached.segment.footerSegment .ui.inverted.list .item a:not(.ui):hover {
       color: #e4e7f2 !important; }
-  .footerSegment p {
+  .ui.bottom.attached.segment.footerSegment p {
     color: #f5f6fa !important;
     font-size: 12px; }

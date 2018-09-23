@@ -6,4 +6,47 @@
             margin-bottom: 1.2em;
         }
     }
+
+    .editButton {
+        color: $vanadyl-blue;
+        cursor: pointer;
+        display: none !important;
+        float: right;
+        font-size: 18px;
+        margin-right: 0 !important;
+
+        &.editing {
+            color: $harley-davidson-orange;
+        }
+    }
+
+    &:hover {
+        .editButton {
+            display: inline !important;
+        }
+    }
+
+    .segment.basic {
+        padding: 0;
+    }
+
+    .changePicBtn {
+        background: $vanadyl-blue !important;
+
+        &:hover {
+            background: $protoss-pylos !important;
+        }
+
+        .icon {
+            color: $white !important;
+        }
+    }
+
+    .updateBtn {
+        background: $vanadyl-blue !important;
+
+        &:hover {
+            background: darken($vanadyl-blue, 5%) !important;
+        }
+    }
 }

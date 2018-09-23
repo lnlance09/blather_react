@@ -79,7 +79,7 @@ textarea {
     border-color: #96c8da !important;
 }
 
-.segment {
+.segment:not(.basic,.lazyLoadSegment) {
     background: $container-content-background !important;
     border: solid 1px $container-border-color !important;
     box-shadow: none !important;

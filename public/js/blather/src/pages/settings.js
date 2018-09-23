@@ -36,7 +36,6 @@ import store from '../store';
 class SettingsPage extends Component {
     constructor(props) {
         super(props)
-        const height = window.innerHeight
         const currentState = store.getState()
         const parsed = qs.parse(this.props.location.search)
 
@@ -64,9 +63,8 @@ class SettingsPage extends Component {
         }
 
         this.state = { 
-            activeItem: activeItem,
+            activeItem,
             confirmPassword: '',
-            height: height,
             loading: false,
             newPassword: '',
             password: ''
@@ -135,7 +133,7 @@ class SettingsPage extends Component {
     }
 
     render() {
-        const { activeItem, confirmPassword, height, loading, newPassword, password } = this.state
+        const { activeItem, confirmPassword, loading, newPassword, password } = this.state
         const activeItemDiv = activeItem => {
             if(activeItem === 'basic') {
                 const joinDate = adjustTimezone(this.props.data.dateCreated)
@@ -287,14 +285,13 @@ class SettingsPage extends Component {
                     />
                     <Container
                         className='mainContainer'
-                        style={{ minHeight: height +'px' }}
                         textAlign='left'
                     >
                         <Header as='h1'>
                             Settings
                         </Header>
                         <Grid>
-                            <Grid.Column width={5}>
+                            <Grid.Column width={4}>
                                 <Menu 
                                     borderless
                                     className='settingsMenu'
@@ -337,7 +334,7 @@ class SettingsPage extends Component {
                             </Grid.Column>
                             <Grid.Column 
                                 className='rightSide'
-                                width={11}
+                                width={12}
                             >
                                 <div className='settingsContent'>
                                     <Segment attached>

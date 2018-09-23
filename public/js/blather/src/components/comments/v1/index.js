@@ -10,6 +10,7 @@ import {
     Segment
 } from 'semantic-ui-react';
 import Moment from 'react-moment';
+import defaultImg from '../../../pages/images/trump.svg';
 import ParagraphPic from '../../../images/short-paragraph.png';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
@@ -52,7 +53,10 @@ class CommentsSection extends Component {
                 return props.comments.results.map((comment, i) => {
                     return (
                         <Comment key={`fallacy_comment_${i}`}>
-                            <Comment.Avatar size='tiny' src={comment.img} />
+                            <Comment.Avatar 
+                                size='tiny' 
+                                src={comment.img ? comment.img : defaultImg} 
+                            />
                             <Comment.Content>
                                 <Comment.Author 
                                     as='a'

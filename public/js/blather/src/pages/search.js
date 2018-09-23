@@ -22,7 +22,6 @@ import store from '../store';
 class SearchPage extends Component {
     constructor(props) {
         super(props)
-        const height = window.innerHeight
         const query = qs.parse(this.props.location.search)
         const type = this.props.match.params.type
         const currentState = store.getState()
@@ -36,7 +35,6 @@ class SearchPage extends Component {
             authenticated,
             bearer,
             fallacies: query.fallacies ? query.fallacies.split(',') : [],
-            height,
             types,
             user: currentState.user.data,
             value: query.q
@@ -89,7 +87,7 @@ class SearchPage extends Component {
     }
 
     render() {
-        const { activeIndex, activeItem, authenticated, bearer, fallacies, height, page, value, user } = this.state;
+        const { activeIndex, activeItem, authenticated, bearer, fallacies, page, value, user } = this.state;
         const fallacyItem = rawFallacies.map((item, i) => (
             <Form.Checkbox 
                 checked={fallacies.indexOf(item.id.toString()) !== -1}
@@ -117,7 +115,6 @@ class SearchPage extends Component {
                     />
                     <Container
                         className='mainContainer'
-                        style={{ minHeight: height +'px' }}
                         textAlign='left'
                     >
                         <Grid>

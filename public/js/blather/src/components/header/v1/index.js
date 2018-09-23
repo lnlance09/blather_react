@@ -66,40 +66,38 @@ class Header extends Component {
 
         return (
             <Provider store={store}>
-                <div>
-                    <div className='pageHeader'>
-                        <Menu
-                            borderless
-                            className='globalHeader'
-                            fitted='vertically'
-                            fixed='top' 
-                            inverted
-                        >
-                            <Container className='headerContainer'>
-                                <Menu.Item className='headerMenuItem'>
-                                    <ReactSVG
-                                        className='headerLogo'
-                                        evalScripts='always'
-                                        onClick={() => {
-                                            this.props.history.push('/')
-                                        }}
-                                        path={Logo}
-                                        svgClassName='svgHeaderLogo'
-                                    />
-                                    <NavSearch 
-                                        history={this.props.history}
-                                    />
-                                </Menu.Item>
-                                <Menu.Item className='fallaciesLink'>
-                                    <Link to='/fallacies'>Fallacies</Link>
-                                </Menu.Item>
-                                <Menu.Item className='discussionsLink'>
-                                    <Link to='/discussions'>Discussions</Link>
-                                </Menu.Item>
-                                {loginButton(this.props)}
-                            </Container>
-                        </Menu>
-                    </div>
+                <div className='pageHeader'>
+                    <Menu
+                        borderless
+                        className='globalHeader'
+                        fitted='vertically'
+                        fixed='top' 
+                        inverted
+                    >
+                        <Container className='headerContainer'>
+                            <Menu.Item className='headerMenuItem'>
+                                <ReactSVG
+                                    className='headerLogo'
+                                    evalScripts='always'
+                                    onClick={() => {
+                                        this.props.history.push('/')
+                                    }}
+                                    path={Logo}
+                                    svgClassName='svgHeaderLogo'
+                                />
+                                <NavSearch 
+                                    history={this.props.history}
+                                />
+                            </Menu.Item>
+                            <Menu.Item className='fallaciesLink'>
+                                <Link to='/fallacies'>Fallacies</Link>
+                            </Menu.Item>
+                            <Menu.Item className='discussionsLink'>
+                                <Link to='/discussions'>Discussions</Link>
+                            </Menu.Item>
+                            {loginButton(this.props)}
+                        </Container>
+                    </Menu>
                 </div>
             </Provider>
         );

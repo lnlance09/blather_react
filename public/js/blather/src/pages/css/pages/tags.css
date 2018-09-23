@@ -1,2 +1,30 @@
 .tagsPage .segment img {
   margin-bottom: 1.2em; }
+
+.tagsPage .editButton {
+  color: #0097e6;
+  cursor: pointer;
+  display: none !important;
+  float: right;
+  font-size: 18px;
+  margin-right: 0 !important; }
+  .tagsPage .editButton.editing {
+    color: #e84118; }
+
+.tagsPage:hover .editButton {
+  display: inline !important; }
+
+.tagsPage .segment.basic {
+  padding: 0; }
+
+.tagsPage .changePicBtn {
+  background: #0097e6 !important; }
+  .tagsPage .changePicBtn:hover {
+    background: #00a8ff !important; }
+  .tagsPage .changePicBtn .icon {
+    color: #ffffff !important; }
+
+.tagsPage .updateBtn {
+  background: #0097e6 !important; }
+  .tagsPage .updateBtn:hover {
+    background: #0086cd !important; }

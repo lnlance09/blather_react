@@ -8,6 +8,7 @@ import fallacies from './components/fallaciesList/v1/reducer';
 import page from './pages/reducers/page';
 import post from './pages/reducers/post';
 import searchResults from './components/searchResults/v1/reducer';
+import tag from './pages/reducers/tag';
 import user from './components/authentication/v1/reducer';
 import pageUser from './pages/reducers/user';
 
@@ -22,5 +23,6 @@ export default combineReducers({
     pageUser,
     post,
     searchResults,
+    tag,
     user
 })

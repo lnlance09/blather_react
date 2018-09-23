@@ -31,7 +31,7 @@
         }
 
         public function getConversation($id) {
-            $this->db->select("dc.date_created, dc.message, dc.user_id, u.name, CONCAT('http://localhost:3000/img/profile_pics/', u.img) AS img");
+            $this->db->select("dc.date_created, dc.message, dc.user_id, u.name, CONCAT('http://localhost:3000/img/profile_pics/', u.img) AS img, u.username");
             $this->db->join('users u', 'dc.user_id = u.id');
             $this->db->where('dc.discussion_id', $id);
             $this->db->order_by('date_created', 'ASC');
@@ -39,7 +39,7 @@
         }
 
         public function getDiscussion($id, $just_count = false, $include_user = false, $include_tags = false) {
-            $select = "d.id AS discussion_id, title, description, extra, status, d.created_by AS created_by, d.accepted_by AS accepted_by, d.date_created AS discussion_created_at";
+            $select = "d.id AS discussion_id, title, d.description, extra, status, d.created_by AS created_by, d.accepted_by AS accepted_by, d.date_created AS discussion_created_at";
 
             if($include_tags) {
                 $select .= ", GROUP_CONCAT(DISTINCT t.id SEPARATOR ', ') tag_ids, GROUP_CONCAT(DISTINCT t.value SEPARATOR ', ') AS tag_names";
@@ -118,7 +118,7 @@
 
         public function searchDiscussions($q = null, $by = null, $with = null, $status = null, $tags = null, $page = 0, $just_count = false) {
             $select = "d.id AS discussion_id, 
-                description, 
+                d.description, 
                 d.date_created AS discussion_date, 
                 status,
                 title, 

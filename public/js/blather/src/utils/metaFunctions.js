@@ -107,6 +107,13 @@ export const DisplayMetaTags = ({page, props, state}) => {
                 title: 'Sign in'
             }
             break
+        case'tags':
+            metaTags = {
+                description: `${props.name} tag on Blather`,
+                img,
+                title: props.name
+            }
+            break
         case'users':
             metaTags = {
                 description: `${props.user.name}'s discussions, fallacies and archived links on Blather`,

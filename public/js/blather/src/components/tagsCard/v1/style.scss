@@ -7,6 +7,10 @@
         border: none;
         padding: 0 !important;
 
+        .description {
+            margin-top: 1em;
+        }
+
         .header {
             color: $blue-nights;
 
@@ -33,6 +37,16 @@
 
     .tagsList {
         .item {
+            .label {
+                background: $seabrook;
+                color: $white;
+                cursor: pointer;
+
+                &:hover {
+                    background: darken($seabrook, 5%);
+                }
+            }
+
             .icon {
                 color: $harley-davidson-orange !important;
                 display: none;

@@ -1,4 +1,5 @@
 import './css/index.css';
+import { mapIdsToNames } from '../utils/arrayFunctions';
 import { DisplayMetaTags } from '../utils/metaFunctions';
 import { fetchCommentCount, fetchFallacy, updateFallacy } from './actions/fallacy';
 import { Provider, connect } from 'react-redux';
@@ -29,7 +30,6 @@ import TrumpImg from './images/trump.svg';
 class Fallacy extends Component {
     constructor(props) {
         super(props)
-        const height = window.innerHeight
         const id = parseInt(this.props.match.params.id,10)
         const currentState = store.getState()
         const authenticated = currentState.user.authenticated
@@ -41,7 +41,6 @@ class Fallacy extends Component {
             authenticated,
             bearer,
             editing: false,
-            height,
             id,
             show: false,
             userId,
@@ -73,7 +72,7 @@ class Fallacy extends Component {
     showImage = () => this.setState({ show: true })
 
     render() {
-        const { activeItem, authenticated, bearer, height, id, userId } = this.state
+        const { activeItem, authenticated, bearer, id, userId } = this.state
         const canEdit = this.props.createdBy ? this.props.createdBy.id === userId : false
         const FallacyMenu = props => (
             <div className='fallacyMainMenu'>
@@ -164,20 +163,14 @@ class Fallacy extends Component {
         const ShowTags = props => {
             let tags = null
             if(props.tag_ids) {
-                const tagIds = props.tag_ids.split(',')
-                const tagNames = props.tag_names.split(',')
-                Array.prototype.zip = function(arr) {
-                    return this.map(function(e, i) {
-                        return {id: e, name: arr[i]}
-                    })
-                }
-                tags = tagIds.zip(tagNames)
+                tags = mapIdsToNames(props.tag_ids, props.tag_names)
             }
 
             return (
                 <TagsCard 
                     bearer={bearer}
                     canEdit={canEdit}
+                    history={props.history}
                     id={id}
                     loading={tags ? false : true}
                     tags={tags ? tags : []}
@@ -196,7 +189,6 @@ class Fallacy extends Component {
                         {!this.props.error && (
                             <Container
                                 className='mainContainer'
-                                style={{ marginTop: '5em', minHeight: height +'px' }}
                                 textAlign='left'
                             >
                                 <FallacyTitle props={this.props} />
@@ -226,7 +218,7 @@ class Fallacy extends Component {
                         {this.props.error && (
                             <Container 
                                 className='mainContainer'
-                                style={{ marginTop: '8em', minHeight: height +'px'}} 
+                                style={{ marginTop: '8em'}} 
                                 text 
                                 textAlign='center'
                             >

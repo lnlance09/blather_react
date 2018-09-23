@@ -209,6 +209,13 @@ class Authentication extends Component {
                         >
                             <Form.Field>
                                 <Input
+                                    onChange={this.onRegChangeEmail}
+                                    placeholder='Email'
+                                    value={regEmail}
+                                />
+                            </Form.Field>
+                            <Form.Field>
+                                <Input
                                     autoComplete='off'
                                     onChange={this.onRegChangeName}
                                     placeholder='Full name'
@@ -220,13 +227,6 @@ class Authentication extends Component {
                                     onChange={this.onRegChangeUsername}
                                     placeholder='Username'
                                     value={username}
-                                />
-                            </Form.Field>
-                            <Form.Field>
-                                <Input
-                                    onChange={this.onRegChangeEmail}
-                                    placeholder='Email'
-                                    value={regEmail}
                                 />
                             </Form.Field>
                             <Form.Field>

@@ -85,7 +85,6 @@
     .conversation .card .content {
       border: none; }
       .conversation .card .content .ui.mini.image {
-        height: 35px;
         width: 35px; }
       .conversation .card .content .header {
         font-size: 15px !important; }

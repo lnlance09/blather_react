@@ -130,12 +130,11 @@
         }
 
         public function getConversation($id) {
-            $this->db->select("fc.date_created, fc.message, fc.user_id, u.name, CONCAT('http://localhost:3000/img/profile_pics/', u.img) AS img");
+            $this->db->select("fc.date_created, fc.message, fc.user_id, u.name, CONCAT('http://localhost:3000/img/profile_pics/', u.img) AS img, u.username");
             $this->db->join('users u', 'fc.user_id = u.id');
             $this->db->where('fc.fallacy_id', $id);
             $this->db->order_by('date_created', 'ASC');
-            $result = $this->db->get('fallacy_conversations fc')->result_array();
-            return $result;
+            return $this->db->get('fallacy_conversations fc')->result_array();
         }
 
         public function getFallacyCount($id) {
@@ -173,6 +172,15 @@
             }
         }
 
+        public function lastConvoExchange($id) {
+            $this->db->select('*');
+            $this->db->where('fallacy_id', $id);
+            $this->db->order_by('date_created', 'DESC');
+            $this->db->limit(1);
+            $results = $this->db->get('fallacy_conversations')->result_array();
+            return count($results) === 1 ? $results[0] : false;
+        }
+
         public function search($id = null, $q = null, $assigned_by = null, $assigned_to = null, $network = null, $object_id = null, $comment_id = null, $fallacies = null, $page = 0, $just_count = false) {
             
             $select = "f.name AS fallacy_name,
@@ -204,26 +212,7 @@
                 a.date_created AS archive_date_created,
 
                 GROUP_CONCAT(DISTINCT t.id SEPARATOR ', ') tag_ids, 
-                GROUP_CONCAT(DISTINCT t.value SEPARATOR ', ') AS tag_names,
-
-                (
-                    CASE 
-                    WHEN (p.type = 'twitter')
-                        THEN 
-                        CASE 
-                            WHEN tu.twitter_id IS NULL 
-                                THEN FALSE
-                                ELSE TRUE
-                        END
-                    WHEN (p.type = 'youtube') 
-                        THEN 
-                        CASE 
-                            WHEN yu.youtube_id IS NULL 
-                                THEN FALSE
-                                ELSE TRUE
-                        END   
-                    END
-                ) AS can_respond ";
+                GROUP_CONCAT(DISTINCT t.value SEPARATOR ', ') AS tag_names, ";
             if($id) {
                 $select .= ', tp.tweet_json,
 

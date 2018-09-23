@@ -14,7 +14,7 @@
   display: none;
   font-size: 18px; }
   .fallaciesPage .mainFallacy .header {
-    padding-bottom: 0 !important; }
+    padding: 0 !important; }
   .fallaciesPage .mainFallacy p {
     border: none !important;
     font-size: 15px;
@@ -22,7 +22,7 @@
   .fallaciesPage .mainFallacy .segment {
     background: #ffffff !important;
     border: none !important;
-    padding-top: 0; }
+    padding: 0; }
     .fallaciesPage .mainFallacy .segment .comments {
       margin-top: 5px !important; }
       .fallaciesPage .mainFallacy .segment .comments .comment .avatar img {

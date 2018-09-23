@@ -8,6 +8,7 @@ import {
     Card,
     Dropdown,
     Icon,
+    Label,
     List,
     Modal
 } from 'semantic-ui-react';
@@ -93,10 +94,6 @@ class TagsCard extends Component {
 
     render() {
         let { edited, open, options, tags } = this.state
-        if(tags === null && !edited) {
-            // tags = this.props.tags
-        }
-
         const TagsModal = (
              <Modal 
                 basic
@@ -134,7 +131,13 @@ class TagsCard extends Component {
         )
         const RenderTags = this.props.tags.map(tag => (
             <List.Item key={`tag_${tag.name}`}>
-                <Link id={tag.id} to={`/tags/${tag.name}`}>{tag.name}</Link>
+                <Label 
+                    horizontal 
+                    id={tag.id} 
+                    onClick={() => this.props.history.push(`/tags/${tag.id}`)}
+                >
+                    {tag.name}
+                </Label>
                 {this.props.canEdit && (
                     <List.Content floated='right'>
                         <Icon 

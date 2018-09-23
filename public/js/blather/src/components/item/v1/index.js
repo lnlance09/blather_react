@@ -110,7 +110,7 @@ class ResultItem extends Component {
                         <TextTruncate
                             line={3}
                             truncateText='...'
-                            text={props.sanitize && props.description !== null ? this.sanitizeHtml(Marked(props.description)) : Marked(props.description)}
+                            text={props.sanitize && props.description !== null && props.description !== undefined ? this.sanitizeHtml(Marked(props.description)) : null}
                         />
                     </Item.Description>
                     {props.extra && (

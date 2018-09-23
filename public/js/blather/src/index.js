@@ -75,7 +75,7 @@ ReactDOM.render(
 
             <Switch>
                 <Route path='/tag/create' component={Tags} />
-                <Route path='/tags/:name' component={Tags} />
+                <Route path='/tags/:id' component={Tags} />
             </Switch>
 
             <Switch>

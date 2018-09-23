@@ -9,6 +9,16 @@
             $this->db->query("SET time_zone='+0:00'");
         }
 
+        public function getTagInfo($id) {
+            $this->db->select("t.id AS tag_id, t.text AS tag_name, t.description, t.date_created, CONCAT('http://localhost:3000/img/tag_pics/', t.img) AS tag_img,
+
+                u.id AS user_id, u.name AS user_name, CONCAT('http://localhost:3000/img/profile_pics/', u.img) AS user_img, u.username");
+            $this->db->join('users u', 't.created_by = u.id');
+            $this->db->where('t.id', $id);
+            $result = $this->db->get('tags t')->result_array();
+            return count($result) === 1 ? $result[0] : false;
+        }
+
         public function getTags() {
             $this->db->select('id, text, value');
             $query = $this->db->get('tags');
@@ -62,5 +72,12 @@
                 'tag_id' => $tagId
             ]);
             $this->db->delete($type.'_tags');
+        }
+
+        public function updateTag($id, $description) {
+            $this->db->where('id', $id);
+            $this->db->update('tags', [
+                'description' => $description
+            ]);
         }
     }

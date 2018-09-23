@@ -3,6 +3,8 @@
   .ui.card.tagsCard .content {
     border: none;
     padding: 0 !important; }
+    .ui.card.tagsCard .content .description {
+      margin-top: 1em; }
     .ui.card.tagsCard .content .header {
       color: #353b48; }
       .ui.card.tagsCard .content .header .editTagsIcon {
@@ -16,6 +18,12 @@
           color: #e84118; }
       .ui.card.tagsCard .content .header:hover .editTagsIcon {
         display: inline !important; }
+  .ui.card.tagsCard .tagsList .item .label {
+    background: #487eb0;
+    color: #ffffff;
+    cursor: pointer; }
+    .ui.card.tagsCard .tagsList .item .label:hover {
+      background: #41719e; }
   .ui.card.tagsCard .tagsList .item .icon {
     color: #e84118 !important;
     display: none; }

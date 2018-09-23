@@ -232,7 +232,7 @@ class Conversation extends Component {
                             size='mini' 
                             src={convo.img ? convo.img : defaultImg} 
                         />
-                        <Card.Header>{convo.name}</Card.Header>
+                        <Card.Header><Link to={`/users/${convo.username}`}>{convo.name}</Link></Card.Header>
                         <Card.Meta><Moment date={adjustTimezone(convo.date_created)} fromNow interval={60000} /></Card.Meta>
                         <Card.Description
                             dangerouslySetInnerHTML={{__html: Marked(convo.message)}}
@@ -262,7 +262,7 @@ class Conversation extends Component {
             }
             if(props.loading) {
                 return [{},{},{},{},{}].map((item, i) => (
-                    <Dimmer.Dimmable as={Segment} dimmed>
+                    <Dimmer.Dimmable as={Segment} dimmed key={`lazyLoad_${i}`}>
                         <Dimmer active inverted />
                         <Image fluid src={ParagraphPic} />
                     </Dimmer.Dimmable>
@@ -274,11 +274,13 @@ class Conversation extends Component {
             if(props.source === 'fallacy' && props.authenticated) {
                 const respondTwitter = props.user ? user.linkedTwitter && props.tweet && user.twitterId === props.user.id : false
                 const respondYoutube = props.user ? user.linkedYoutube && props.video && user.youtubeId === props.user.id : false
+                /*
                 console.log('d')
                 console.log(props.status)
                 console.log(respondTwitter)
                 console.log(respondYoutube)
                 console.log(myTurn)
+                */
                 if(props.status === 0 && !respondTwitter && !respondYoutube) {
                     return (
                         <div>
@@ -297,9 +299,11 @@ class Conversation extends Component {
 
             if(props.source === 'discussion' && props.authenticated) {
                 if(props.status === 0) {
+                    /*
                     console.log('dddd')
                     console.log(props.createdBy.id)
                     console.log(userId)
+                    */
                     if(props.createdBy.id !== userId) {
                         return (
                             <div>

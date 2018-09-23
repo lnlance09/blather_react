@@ -1,4 +1,5 @@
 import './css/index.css';
+import { mapIdsToNames } from '../utils/arrayFunctions';
 import { adjustTimezone } from '../utils/dateFunctions';
 import { DisplayMetaTags } from '../utils/metaFunctions';
 import { sanitizeText } from '../utils/textFunctions';
@@ -32,7 +33,6 @@ import TitleHeader from '../components/titleHeader/v1/';
 class DiscussionPage extends Component {
     constructor(props) {
         super(props)
-        const height = window.innerHeight
         const id = parseInt(this.props.match.params.id,10)
         const currentState = store.getState()
         const user = currentState.user
@@ -57,7 +57,6 @@ class DiscussionPage extends Component {
             bearer,
             editingDescription: false,
             editingExtra: false,
-            height,
             id,
             user
         }
@@ -103,7 +102,7 @@ class DiscussionPage extends Component {
     }
 
     render() {
-        const { authenticated, bearer, editingDescription, editingExtra, height, id, user } = this.state
+        const { authenticated, bearer, editingDescription, editingExtra, id, user } = this.state
         const createdAt = adjustTimezone(this.props.date_created)
         const isMine = this.props.createdBy ? parseInt(user.data.id,10) === this.props.createdBy.id : false
         const EditButton = ({props, type}) => {
@@ -240,20 +239,14 @@ class DiscussionPage extends Component {
         const ShowTags = props => {
             let tags = null
             if(props.tagIds) {
-                let tagIds = props.tagIds.split(',')
-                let tagNames = props.tagNames.split(',')
-                Array.prototype.zip = function(arr) {
-                    return this.map(function(e, i) {
-                        return {id: e, name: arr[i]}
-                    })
-                }
-                tags = tagIds.zip(tagNames)
+                tags = mapIdsToNames(props.tagIds, props.tagNames)
             }
 
             return (
                 <TagsCard 
                     bearer={bearer}
                     canEdit={isMine}
+                    history={props.history}
                     id={props.id}
                     loading={tags ? false : true}
                     tags={tags ? tags : []}
@@ -271,7 +264,6 @@ class DiscussionPage extends Component {
                     />
                     <Container
                         className='mainContainer'
-                        style={{ marginTop: '5em', minHeight: height +'px' }}
                         textAlign='left'
                     >
                         <HeaderSection props={this.props} />

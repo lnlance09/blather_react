@@ -1,5 +1,6 @@
 export const CREATE_ARCHIVE = 'post:CREATE_ARCHIVE';
 export const EDIT_EXPLANATION = 'fallacy:EDIT_EXPLANATION';
+export const FETCH_TAG_INFO = 'tag:FETCH_TAG_INFO';
 export const FETCH_VIDEO_COMMENTS = 'video:FETCH_VIDEO_COMMENTS';
 export const GET_ARCHIVED_LINKS = 'pageUser:GET_ARCHIVED_LINKS';
 export const GET_COMMENTS = 'fallacy:GET_COMMENTS';
@@ -31,3 +32,4 @@ export const UPDATE_DESCRIPTION = 'discussion:UPDATE_DESCRIPTION';
 export const UPDATE_DISCUSSION = 'discussion:UPDATE_DISCUSSION';
 export const UPDATE_EXTRA = 'discussion:UPDATE_EXTRA';
 export const UPDATE_FALLACY = 'fallacy:UPDATE_FALLACY';
+export const UPDATE_TAG = 'tag:UPDATE_TAG';

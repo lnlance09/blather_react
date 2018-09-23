@@ -113,7 +113,7 @@
 			}
 
 			if($post) {
-				return $results[0];
+				return empty($results) ? false : $results[0];
 			}
 			return $results;
 		}

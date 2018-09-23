@@ -123,7 +123,6 @@ class CreateDiscussionPage extends Component {
 			duration,
 			extra, 
 			hasSubmitted, 
-			height,
 			loading, 
 			options, 
 			preview, 
@@ -274,7 +273,6 @@ class CreateDiscussionPage extends Component {
 						/>
 						<Container 
 							className='mainContainer'
-							style={{ marginTop: '5em', minHeight: height +'px' }}
 							textAlign='left'
 						>
 							{HeaderTitle}

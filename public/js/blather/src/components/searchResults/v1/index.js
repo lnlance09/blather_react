@@ -87,7 +87,7 @@ class SearchResults extends Component {
                 case'fallacies':
                     let dateCreated = (
                         <div>
-                            Assigned by {result.user_name} <Moment date={result.date_created} fromNow />
+                            Assigned <Moment date={result.date_created} fromNow /> by {result.user_name}
                         </div>
                     )
                     return {

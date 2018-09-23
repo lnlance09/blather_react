@@ -24,9 +24,7 @@ import store from '../store';
 class About extends Component {
     constructor(props) {
         super(props)
-        const height = window.innerHeight
         this.state = {
-            height,
             msg: '',
             messageSent: false
         }
@@ -59,7 +57,7 @@ class About extends Component {
     }
 
     render() {
-        const { activeItem, height, msg } = this.state
+        const { activeItem, msg } = this.state
         const AboutSection = () => (
             <div>
                 <p>
@@ -143,14 +141,13 @@ class About extends Component {
 
         return (
             <Provider store={store}>
-                <div className='aboutPage' style={{ height: height +'px' }}>
+                <div className='aboutPage'>
                     <DisplayMetaTags page='about' props={this.props} state={this.state} />
                     <PageHeader
                         {...this.props}
                     />
                     <Container
                         className='mainContainer forText'
-                        style={{ minHeight: height +'px' }}
                         textAlign='left'
                     >
                         <Container className='logoContainer' textAlign='center'>
@@ -212,4 +209,6 @@ const mapStateToProps = (state, ownProps) => {
     }
 }
 
-export default connect(mapStateToProps, { sendContactMsg })(About)
+export default connect(mapStateToProps, { 
+    sendContactMsg 
+})(About)

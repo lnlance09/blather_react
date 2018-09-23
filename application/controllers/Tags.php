@@ -10,7 +10,20 @@
         }
 
         public function index() {
-            
+            $id = $this->input->get('id');
+            $tag = $this->tags->getTagInfo($id);
+            if(!$tag) {
+                $this->output->set_status_header(401);
+                echo json_encode([
+                    'error' => 'This tag does not exist'
+                ]);
+                exit;
+            }
+
+            echo json_encode([
+                'error' => false,
+                'tag' => $tag
+            ]);
         }
 
         public function getTags() {
@@ -18,6 +31,18 @@
             echo json_encode([
                 'error' => false,
                 'tags' => $tags
+            ]);
+        }
+
+        public function update() {
+            $id = $this->input->post('id');
+            $description = $this->input->post('description');
+            $this->tags->updateTag($id, $description);
+            echo json_encode([
+                'error' => false,
+                'tag' => [
+                    'description' => $description
+                ]
             ]);
         }
     }

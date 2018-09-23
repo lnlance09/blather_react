@@ -15,6 +15,10 @@
 		}
 
 		public function changePassword() {
+			$currentPassword = $this->input->post('current_password');
+			$newPassword = $this->input->post('new_password');
+			$confirmPassword = $this->input->post('confirm_password');
+
 			if(!$this->user) {
 				$this->output->set_status_header(401);
 				echo json_encode([
@@ -22,10 +26,6 @@
 				]);
 				exit;
 			}
-			
-			$currentPassword = $this->input->post('current_password');
-			$newPassword = $this->input->post('new_password');
-			$confirmPassword = $this->input->post('confirm_password');
 			
 			if(empty($currentPassword)) {
 				$this->output->set_status_header(401);
@@ -87,11 +87,11 @@
 			}
 
 			$this->load->library('upload', [
-				'allowed_types' => 'jpg|jpeg',
+				'allowed_types' => 'jpg|jpeg|png',
 				'file_ext_tolower' => true,
+				'max_height' => 0,
 				'max_size' => 25000,
 				'max_width' => 0,
-				'max_height' => 0,
 				'upload_path' => './public/img/profile_pics/'
 			]);
 
@@ -105,21 +105,12 @@
 			} 
 
 			$data = $this->upload->data();
-			if($data['image_width'] !== $data['image_height']) {
-				$this->output->set_status_header(400);
-				$data = $this->upload->display_errors();
-				echo json_encode([
-					'error' => 'Your image is a rectangle. It must be a square.'
-				]);
-				exit;
-			}
-
 			$this->users->updateUser($this->user->id, [
 				'img' => $data['file_name']
 			]);
 			echo json_encode([
 				'error' => false,
-				'img' => $data['file_name']
+				'img' => 'http://localhost:3000/img/profile_pics/'.$data['file_name']
 			]);
 		}
 

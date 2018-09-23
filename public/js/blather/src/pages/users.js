@@ -32,7 +32,6 @@ class UserPage extends Component {
     constructor(props) {
         super(props)
         const tabs = ['discussions', 'fallacies', 'archives']
-        const height = window.innerHeight
         const currentState = store.getState()
         const user = currentState.user
         const authenticated = user.authenticated
@@ -63,7 +62,7 @@ class UserPage extends Component {
             duration: 500,
             editing: false,
             files: [],
-            height,
+            inverted: true,
             isMyProfile,
             visible: false,
             username
@@ -106,9 +105,11 @@ class UserPage extends Component {
     }
 
     render() {
-        const { about, active, activeItem, animation, bearer, duration, height, isMyProfile, visible } = this.state
-        const pic = !this.props.user.img && !this.props.loading ? defaultImg : this.props.user.img
-        const inverted = true
+        const { about, active, activeItem, animation, bearer, duration, inverted, isMyProfile, visible } = this.state
+        let pic = !this.props.user.img && !this.props.loading ? defaultImg : this.props.user.img
+        if(isMyProfile) {
+            pic = !this.props.data.img && !this.props.loading ? defaultImg : this.props.data.img
+        }
         const aboutCard = props => (
             <AboutCard 
                 bearer={bearer}
@@ -189,7 +190,6 @@ class UserPage extends Component {
                     />
                     <Container
                         className='mainContainer'
-                        style={{ minHeight: height +'px' }}
                         textAlign='left'
                     >
                         <Grid>
@@ -286,6 +286,7 @@ UserPage.defaultProps = {
 const mapStateToProps = (state, ownProps) => {
     return {
         ...state.pageUser,
+        ...state.user,
         ...ownProps
     }
 }

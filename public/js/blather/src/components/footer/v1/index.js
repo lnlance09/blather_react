@@ -18,8 +18,6 @@ class Footer extends Component {
             <Segment
                 attached='bottom' 
                 className='footerSegment'
-                inverted 
-                vertical
             >
                 <Container style={{ paddingLeft: '30px', paddingRight: '30px' }}>
                     <List 
@@ -39,9 +37,4 @@ class Footer extends Component {
     }
 }
 
-const mapStateToProps = (state, ownProps) => ({
-    ...state.footer,
-    ...ownProps
-})
-
-export default connect(mapStateToProps, { })(Footer)
+export default Footer

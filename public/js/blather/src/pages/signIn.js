@@ -12,21 +12,20 @@ import store from '../store';
 class SignInPage extends Component {
     constructor(props) {
         super(props)
-        const height = window.innerHeight
         const currentState = store.getState()
         if(currentState.user.authenticated && (!currentState.user.verify || currentState.user.emailVerified)) {
             this.props.history.push('/')
         }
 
         this.state = {
-            height
+            
         }
     }
 
     render() {
         return (
             <Provider store={store}>
-                <div className='loginContainer' style={{ height: this.state.height +'px' }}>
+                <div className='loginContainer'>
                     <DisplayMetaTags page='signin' props={this.props} state={this.state} />
                     <Container>
                         <div className='loginForm'>

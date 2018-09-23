@@ -14,20 +14,18 @@ import store from '../store';
 class DiscussionsPage extends Component {
     constructor(props) {
         super(props)
-        const height = window.innerHeight
         const currentState = store.getState()
         const bearer = currentState.user.bearer
         const authenticated = currentState.user.authenticated
 
         this.state = {
             authenticated,
-            bearer,
-            height
+            bearer
         }
     }
 
     render() {
-        const { bearer, height } = this.state
+        const { bearer } = this.state
         return (
             <Provider store={store}>
                 <div className='discussionsPage'>
@@ -37,7 +35,6 @@ class DiscussionsPage extends Component {
                     />
                     <Container
                         className='mainContainer'
-                        style={{ minHeight: height +'px' }}
                         textAlign='left'
                     >
                         <Header as='h1'>

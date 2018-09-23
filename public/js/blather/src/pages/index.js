@@ -34,7 +34,6 @@ import VideoList from '../components/videoList/v1/';
 class SocialMediaPage extends Component {
     constructor(props) {
         super(props)
-        const height = window.innerHeight;
         const id = this.props.match.params.id
         const network = this.props.match.params.network
         const tab = this.props.match.params.tab
@@ -49,7 +48,6 @@ class SocialMediaPage extends Component {
             authenticated,
             bearer,
             duration: 500,
-            height,
             id,
             itemsLabel: label,
             network,
@@ -88,7 +86,7 @@ class SocialMediaPage extends Component {
     }
 
     render() {
-        const { activeItem, animation, authenticated, bearer, duration, height, id, itemsLabel, network, visible } = this.state
+        const { activeItem, animation, authenticated, bearer, duration, id, itemsLabel, network, visible } = this.state
         if(this.props.error && this.props.errorCode !== 404 && network === 'youtube') {
             this.props.refreshYouTubeToken({
                 bearer
@@ -229,7 +227,6 @@ class SocialMediaPage extends Component {
                     {this.props.exists && (
                         <Container 
                             className='mainContainer' 
-                            style={{ minHeight: height +'px'}}
                             textAlign='left'
                         >
                             <Grid>
@@ -281,7 +278,7 @@ class SocialMediaPage extends Component {
                     {!this.props.exists && (
                         <Container 
                             className='mainContainer'
-                            style={{ marginTop: '8em', minHeight: height +'px'}} 
+                            style={{ marginTop: '8em' }} 
                             text 
                             textAlign='center'
                         >

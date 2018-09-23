@@ -253,7 +253,7 @@
 			echo json_encode([
 				'comment' => [
 					'created_at' => date('Y-m-d H:i:s'),
-					'img' => 'http://localhost:3000/img/profile_pics/'.$this->user->img,
+					'img' => $this->user->img ? 'http://localhost:3000/img/profile_pics/'.$this->user->img : null,
 					'message' => strip_tags($msg),
 					'name' => $this->user->name,
 					'user_id' => $this->user->id
@@ -303,6 +303,10 @@
 		}
 
 		public function submitConversation() {
+			$id = $this->input->post('id');
+			$msg = $this->input->post('msg');
+			$status = (int)$this->input->post('status');
+
 			if(!$this->user) {
 				$this->output->set_status_header(401);
 				echo json_encode([
@@ -311,14 +315,44 @@
 				exit;
 			}
 
-			$id = $this->input->post('id');
-			$msg = $this->input->post('msg');
-			$status = $this->input->post('status');
+			if(!in_array($status, [1,2,3])) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'That status is not supported'
+				]);
+				exit;
+			}
+
 			$fallacy = $this->fallacies->search($id, null, null, null, null, null, null, null, null);
-			if(empty($fallacy)) {
+			if(!$fallacy[0]['id']) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'This fallacy does not exist'
+				]);
+				exit;
+			}
+
+			if((int)$fallacy[0]['status'] === 2 || (int)$fallacy[0]['status'] === 3) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'This conversation has ended'
+				]);
+				exit;
+			}
+
+			$lastPost = $this->fallacies->lastConvoExchange($id);
+			if(!$lastPost && (int)$fallacy['created_by'] === $this->user->id) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'You cannot have a conversation with yourself'
+				]);
+				exit;
+			}
+
+			if((int)$lastPost['user_id'] === $this->user->id) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'You have to wait your turn'
 				]);
 				exit;
 			}
@@ -331,16 +365,14 @@
 				exit;
 			}
 
-			if($fallacy[0]['status'] === 0) {
-				$this->fallacies->updateStatus($id, 1);
-			}
-
+			$accepted_by = (int)$fallacy[0]['status'] === 0 ? $this->user->id : null;
+			$this->fallacies->updateStatus($id, $status, $accepted_by);
 			$this->fallacies->submitConversation($id, $this->user->id, $msg);
 			echo json_encode([
 				'conversation' => [
 					[
 						'date_created' => date('Y-m-d H:i:s'),
-						'img' => 'http://localhost:3000/img/profile_pics/'.$this->user->img,
+						'img' => $this->user->img ? 'http://localhost:3000/img/profile_pics/'.$this->user->img : null,
 						'message' => $msg,
 						'name' => $this->user->name,
 						'status' => 1,
