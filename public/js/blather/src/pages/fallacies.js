@@ -1,5 +1,5 @@
 import './css/index.css';
-import { DisplayMetaTags } from '../utils/metaFunctions';
+import { DisplayMetaTags } from 'utils/metaFunctions';
 import { Provider } from 'react-redux';
 import { 
     Comment,
@@ -9,14 +9,14 @@ import {
     Menu,
     Segment
 } from 'semantic-ui-react';
-import BillPic from '../images/avatar/small/mark.png';
-import fallacies from '../fallacies.json';
-import PageFooter from '../components/footer/v1/';
-import PageHeader from '../components/header/v1/';
+import BillPic from 'images/avatar/small/mark.png';
+import fallacies from 'fallacies.json';
+import PageFooter from 'components/footer/v1/';
+import PageHeader from 'components/header/v1/';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import RobPic from '../images/avatar/small/matthew.png';
-import store from '../store';
+import RobPic from 'images/avatar/small/matthew.png';
+import store from 'store';
 
 class Fallacies extends Component {
     constructor(props) {

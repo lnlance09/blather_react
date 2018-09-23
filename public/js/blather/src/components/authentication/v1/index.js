@@ -15,11 +15,11 @@ import {
     Message,
     Segment
 } from 'semantic-ui-react';
-import Logo from '../../header/v1/images/logo.svg';
+import Logo from 'components/header/v1/images/logo.svg';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import ReactSVG from 'react-svg';
-import store from '../../../store';
+import store from 'store';
 
 class Authentication extends Component {
     constructor(props) {

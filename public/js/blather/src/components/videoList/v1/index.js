@@ -1,5 +1,5 @@
 import './style.css';
-import { fetchPagePosts } from '../../../pages/actions/page';
+import { fetchPagePosts } from 'pages/actions/page';
 import { Provider, connect } from 'react-redux';
 import { 
     Image,
@@ -9,12 +9,12 @@ import {
     Visibility
 } from 'semantic-ui-react';
 import _ from 'lodash';
-import ParagraphPic from '../../../images/short-paragraph.png';
+import ParagraphPic from 'images/short-paragraph.png';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Moment from 'react-moment';
-import ResultItem from '../../item/v1/';
-import store from '../../../store';
+import ResultItem from 'components/item/v1/';
+import store from 'store';
 
 class VideoList extends Component {
     constructor(props) {

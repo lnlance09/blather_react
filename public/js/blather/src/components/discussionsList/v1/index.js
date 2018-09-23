@@ -1,6 +1,6 @@
 import './style.css';
 import { fetchDiscussions } from './actions';
-import { adjustTimezone } from '../../../utils/dateFunctions';
+import { adjustTimezone } from 'utils/dateFunctions';
 import { connect } from 'react-redux';
 import { 
     Button,
@@ -13,12 +13,12 @@ import {
     Visibility
 } from 'semantic-ui-react';
 import _ from 'lodash';
-import ImagePic from '../../../images/image-square.png';
+import ImagePic from 'images/image-square.png';
 import Moment from 'react-moment';
-import ParagraphPic from '../../../images/short-paragraph.png';
+import ParagraphPic from 'images/short-paragraph.png';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import ResultItem from '../../../components/item/v1/';
+import ResultItem from 'components/item/v1/';
 
 class DiscussionsList extends Component {
     constructor(props) {

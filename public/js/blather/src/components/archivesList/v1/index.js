@@ -1,6 +1,6 @@
 import './style.css';
-import { getArchives } from '../../../pages/actions/user';
-import { adjustTimezone } from '../../../utils/dateFunctions';
+import { getArchives } from 'pages/actions/user';
+import { adjustTimezone } from 'utils/dateFunctions';
 import { connect } from 'react-redux';
 import { 
     Icon,
@@ -9,11 +9,11 @@ import {
     Message,
     Visibility
 } from 'semantic-ui-react';
-import ImagePic from '../../../images/image-square.png';
+import ImagePic from 'images/image-square.png';
 import Moment from 'react-moment';
-import ParagraphPic from '../../../images/short-paragraph.png';
+import ParagraphPic from 'images/short-paragraph.png';
 import PropTypes from 'prop-types';
-import ResultItem from '../../item/v1/';
+import ResultItem from 'components/item/v1/';
 import React, { Component } from 'react';
 
 class ArchivesList extends Component {

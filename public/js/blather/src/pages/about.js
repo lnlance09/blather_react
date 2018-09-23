@@ -1,6 +1,6 @@
 import './css/index.css';
-import { DisplayMetaTags } from '../utils/metaFunctions';
-import { sendContactMsg } from './actions/about';
+import { DisplayMetaTags } from 'utils/metaFunctions';
+import { sendContactMsg } from 'pages/actions/about';
 import { connect, Provider } from 'react-redux';
 import { 
     Button,
@@ -13,13 +13,13 @@ import {
     TextArea,
     Transition
 } from 'semantic-ui-react';
-import Logo from '../components/header/v1/images/logo.svg';
-import PageFooter from '../components/footer/v1/';
-import PageHeader from '../components/header/v1/';
+import Logo from 'components/header/v1/images/logo.svg';
+import PageFooter from 'components/footer/v1/';
+import PageHeader from 'components/header/v1/';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import ReactSVG from 'react-svg';
-import store from '../store';
+import store from 'store';
 
 class About extends Component {
     constructor(props) {

@@ -31,7 +31,7 @@
         }
 
         public function getConversation($id) {
-            $this->db->select("dc.date_created, dc.message, dc.user_id, u.name, CONCAT('http://localhost:3000/img/profile_pics/', u.img) AS img, u.username");
+            $this->db->select("dc.date_created, dc.message, dc.user_id, u.name, CONCAT('".$this->baseUrl."img/profile_pics/', u.img) AS img, u.username");
             $this->db->join('users u', 'dc.user_id = u.id');
             $this->db->where('dc.discussion_id', $id);
             $this->db->order_by('date_created', 'ASC');
@@ -46,7 +46,7 @@
             }
 
             if($include_user) {
-                $select .= ", cu.name AS created_by_name, cu.username AS created_by_username, CONCAT('http://localhost:3000/img/profile_pics/', cu.img) AS created_by_profile_pic,
+                $select .= ", cu.name AS created_by_name, cu.username AS created_by_username, CONCAT('".$this->baseUrl."img/profile_pics/', cu.img) AS created_by_profile_pic,
 
                     au.name AS accepted_by_name, au.username AS accepted_by_username, CONCAT('http://localhost:3000/img/profile_pics/', au.img) AS accepted_by_profile_pic";
             }
@@ -78,7 +78,7 @@
         public function getDiscussionUsers($startedBy = true, $withUser = false, $both = false, $img = true) {
             $select = 'u.name AS text, u.id AS value';
             if($img) {
-                $select .= ", CONCAT('http://localhost:3000/img/profile_pics/', u.img) AS img";
+                $select .= ", CONCAT('".$this->baseUrl."img/profile_pics/', u.img) AS img";
             }
 
             $this->db->select($select);
@@ -123,9 +123,9 @@
                 status,
                 title, 
                 cu.name AS creator_user_name, 
-                CONCAT('http://localhost:3000/img/profile_pics/', cu.img) AS creator_img, 
+                CONCAT('".$this->baseUrl."img/profile_pics/', cu.img) AS creator_img, 
                 au.name AS acceptor_user_name, 
-                CONCAT('http://localhost:3000/img/profile_pics/', au.img) AS acceptor_img";
+                CONCAT('".$this->baseUrl."img/profile_pics/', au.img) AS acceptor_img";
 
             if($tags) {
                 $select .= ",GROUP_CONCAT(t.text) AS tags";

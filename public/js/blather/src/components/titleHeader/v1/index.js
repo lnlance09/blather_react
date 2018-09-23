@@ -1,6 +1,6 @@
 import './style.css';
-import { updateDiscussion } from '../../../pages/actions/discussion';
-import { updateFallacy } from '../../../pages/actions/fallacy';
+import { updateDiscussion } from 'pages/actions/discussion';
+import { updateFallacy } from 'pages/actions/fallacy';
 import { connect } from 'react-redux';
 import { 
     Header,

@@ -5,8 +5,8 @@ import {
     parseContradiction,
     selectAssignee 
 } from './actions';
-import { refreshYouTubeToken } from '../../authentication/v1/actions';
-import { formatDuration } from '../../../utils/textFunctions';
+import { refreshYouTubeToken } from 'components/authentication/v1/actions';
+import { formatDuration } from 'utils/textFunctions';
 import { connect, Provider } from 'react-redux';
 import { 
     Button,
@@ -18,15 +18,15 @@ import {
     Modal,
     TextArea
 } from 'semantic-ui-react';
-import { fallacyDropdownOptions } from '../../../utils/fallacyFunctions';
+import { fallacyDropdownOptions } from 'utils/fallacyFunctions';
 import _ from 'lodash';
-import fallacies from '../../../fallacies.json';
+import fallacies from 'fallacies.json';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import SearchForm from '../../../components/search/v1/';
-import store from '../../../store';
-import Tweet from '../../../components/tweet/v1/';
-import YouTubeVideo from '../../../components/youTubeVideo/v1/';
+import SearchForm from 'components/search/v1/';
+import store from 'store';
+import Tweet from 'components/tweet/v1/';
+import YouTubeVideo from 'components/youTubeVideo/v1/';
 
 class FallacyForm extends Component {
     constructor(props) {

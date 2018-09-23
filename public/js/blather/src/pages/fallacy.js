@@ -1,7 +1,12 @@
 import './css/index.css';
-import { mapIdsToNames } from '../utils/arrayFunctions';
-import { DisplayMetaTags } from '../utils/metaFunctions';
-import { fetchCommentCount, fetchFallacy, updateFallacy } from './actions/fallacy';
+import { mapIdsToNames } from 'utils/arrayFunctions';
+import { adjustTimezone } from 'utils/dateFunctions';
+import { DisplayMetaTags } from 'utils/metaFunctions';
+import { 
+    fetchCommentCount, 
+    fetchFallacy, 
+    updateFallacy 
+} from 'pages/actions/fallacy';
 import { Provider, connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { 
@@ -12,20 +17,19 @@ import {
     Label,
     Menu
 } from 'semantic-ui-react';
-import { adjustTimezone } from '../utils/dateFunctions';
-import Comments from '../components/comments/v1/';
-import Conversation from '../components/conversation/v1/';
-import FallacyExample from '../components/fallacyExample/v1/';
-import FallacyRef from '../components/fallacyRef/v1/';
+import Comments from 'components/comments/v1/';
+import Conversation from 'components/conversation/v1/';
+import FallacyExample from 'components/fallacyExample/v1/';
+import FallacyRef from 'components/fallacyRef/v1/';
 import Moment from 'react-moment';
-import PageFooter from '../components/footer/v1/';
-import PageHeader from '../components/header/v1/';
+import PageFooter from 'components/footer/v1/';
+import PageHeader from 'components/header/v1/';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import store from '../store';
-import TagsCard from '../components/tagsCard/v1/';
-import TitleHeader from '../components/titleHeader/v1/';
-import TrumpImg from './images/trump.svg';
+import store from 'store';
+import TagsCard from 'components/tagsCard/v1/';
+import TitleHeader from 'components/titleHeader/v1/';
+import TrumpImg from 'pages/images/trump.svg';
 
 class Fallacy extends Component {
     constructor(props) {

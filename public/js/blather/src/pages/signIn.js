@@ -1,13 +1,13 @@
 import './css/index.css';
-import { DisplayMetaTags } from '../utils/metaFunctions';
+import { DisplayMetaTags } from 'utils/metaFunctions';
 import { Provider } from 'react-redux';
 import {
     Container,
     Grid
 } from 'semantic-ui-react';
-import Authentication from '../components/authentication/v1/';
+import Authentication from 'components/authentication/v1/';
 import React, { Component } from 'react';
-import store from '../store';
+import store from 'store';
 
 class SignInPage extends Component {
     constructor(props) {

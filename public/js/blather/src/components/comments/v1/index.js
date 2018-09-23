@@ -1,6 +1,6 @@
 import './style.css';
-import { fetchComments, postComment } from '../../../pages/actions/fallacy';
-import { adjustTimezone } from '../../../utils/dateFunctions';
+import { fetchComments, postComment } from 'pages/actions/fallacy';
+import { adjustTimezone } from 'utils/dateFunctions';
 import { connect } from 'react-redux';
 import { 
     Button,
@@ -10,8 +10,8 @@ import {
     Segment
 } from 'semantic-ui-react';
 import Moment from 'react-moment';
-import defaultImg from '../../../pages/images/trump.svg';
-import ParagraphPic from '../../../images/short-paragraph.png';
+import defaultImg from 'pages/images/trump.svg';
+import ParagraphPic from 'images/short-paragraph.png';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 

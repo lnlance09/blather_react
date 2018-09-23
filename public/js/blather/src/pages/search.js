@@ -1,5 +1,5 @@
 import './css/index.css';
-import { DisplayMetaTags } from '../utils/metaFunctions';
+import { DisplayMetaTags } from 'utils/metaFunctions';
 import { connect, Provider } from 'react-redux';
 import { 
     Accordion,
@@ -10,14 +10,14 @@ import {
     Input,
     Menu
 } from 'semantic-ui-react';
-import PageFooter from '../components/footer/v1/';
-import PageHeader from '../components/header/v1/';
+import PageFooter from 'components/footer/v1/';
+import PageHeader from 'components/header/v1/';
 import PropTypes from 'prop-types';
 import qs from 'query-string';
-import rawFallacies from '../fallacies.json';
+import rawFallacies from 'fallacies.json';
 import React, { Component } from 'react';
-import SearchResults from '../components/searchResults/v1/';
-import store from '../store';
+import SearchResults from 'components/searchResults/v1/';
+import store from 'store';
 
 class SearchPage extends Component {
     constructor(props) {

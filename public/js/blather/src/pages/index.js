@@ -1,7 +1,7 @@
 import './css/index.css';
-import { refreshYouTubeToken } from '../components/authentication/v1/actions';
-import { DisplayMetaTags } from '../utils/metaFunctions';
-import { fetchFallacyCount, fetchPageData } from './actions/page';
+import { refreshYouTubeToken } from 'components/authentication/v1/actions';
+import { DisplayMetaTags } from 'utils/metaFunctions';
+import { fetchFallacyCount, fetchPageData } from 'pages/actions/page';
 import { Provider, connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { 
@@ -17,19 +17,19 @@ import {
     Segment,
     Transition
 } from 'semantic-ui-react';
-import AboutCard from '../components/aboutCard/v1/';
-import defaultImg from '../images/image-square.png';
-import FallaciesList from '../components/fallaciesList/v1/';
-import PageFooter from '../components/footer/v1/';
-import PageHeader from '../components/header/v1/';
-import ParagraphPic from '../images/short-paragraph.png';
+import AboutCard from 'components/aboutCard/v1/';
+import defaultImg from 'images/image-square.png';
+import FallaciesList from 'components/fallaciesList/v1/';
+import PageFooter from 'components/footer/v1/';
+import PageHeader from 'components/header/v1/';
+import ParagraphPic from 'images/short-paragraph.png';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import store from '../store';
-import TitleHeader from '../components/titleHeader/v1/';
-import TrumpImg from './images/trump.svg';
-import TweetList from '../components/tweetList/v1/';
-import VideoList from '../components/videoList/v1/';
+import TitleHeader from 'components/titleHeader/v1/';
+import TrumpImg from 'pages/images/trump.svg';
+import TweetList from 'components/tweetList/v1/';
+import VideoList from 'components/videoList/v1/';
 
 class SocialMediaPage extends Component {
     constructor(props) {

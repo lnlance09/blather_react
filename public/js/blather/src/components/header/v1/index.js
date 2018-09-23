@@ -1,5 +1,5 @@
 import './style.css';
-import { logout } from '../../authentication/v1/actions';
+import { logout } from 'components/authentication/v1/actions';
 import { Provider, connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { 
@@ -8,11 +8,11 @@ import {
     Menu
 } from 'semantic-ui-react';
 import Logo from './images/logo.svg';
-import NavSearch from '../../search/v1/';
+import NavSearch from 'components/search/v1/';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import ReactSVG from 'react-svg';
-import store from '../../../store';
+import store from 'store';
 
 class Header extends Component {
     constructor(props) {

@@ -1,5 +1,5 @@
 import './style.css';
-import { formatNumber, formatPlural } from '../../../utils/textFunctions';
+import { formatNumber, formatPlural } from 'utils/textFunctions';
 import { 
     Image,
     Item,
@@ -7,8 +7,8 @@ import {
     List
 } from 'semantic-ui-react';
 import Marked from 'marked';
-import ImagePic from '../../../images/image-square.png';
-import ParagraphPic from '../../../images/short-paragraph.png';
+import ImagePic from 'images/image-square.png';
+import ParagraphPic from 'images/short-paragraph.png';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import sanitizeHtml from 'sanitize-html';

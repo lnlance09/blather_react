@@ -1,6 +1,6 @@
 import './css/index.css';
-import { adjustTimezone } from '../utils/dateFunctions';
-import { DisplayMetaTags } from '../utils/metaFunctions';
+import { adjustTimezone } from 'utils/dateFunctions';
+import { DisplayMetaTags } from 'utils/metaFunctions';
 import { fetchTagInfo, updateTag } from './actions/tag';
 import Moment from 'react-moment';
 import Dropzone from 'react-dropzone';
@@ -18,14 +18,14 @@ import {
     Segment,
     TextArea
 } from 'semantic-ui-react';
-import defaultImg from './images/trump.svg';
-import PageFooter from '../components/footer/v1/';
-import PageHeader from '../components/header/v1/';
-import ParagraphPic from '../images/short-paragraph.png';
+import defaultImg from 'pages/images/trump.svg';
+import PageFooter from 'components/footer/v1/';
+import PageHeader from 'components/header/v1/';
+import ParagraphPic from 'images/short-paragraph.png';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import store from '../store';
-import TitleHeader from '../components/titleHeader/v1/';
+import store from 'store';
+import TitleHeader from 'components/titleHeader/v1/';
 
 class Tags extends Component {
     constructor(props) {

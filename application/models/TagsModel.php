@@ -12,7 +12,7 @@
         public function getTagInfo($id) {
             $this->db->select("t.id AS tag_id, t.text AS tag_name, t.description, t.date_created, CONCAT('http://localhost:3000/img/tag_pics/', t.img) AS tag_img,
 
-                u.id AS user_id, u.name AS user_name, CONCAT('http://localhost:3000/img/profile_pics/', u.img) AS user_img, u.username");
+                u.id AS user_id, u.name AS user_name, CONCAT('".$this->baseUrl."img/profile_pics/', u.img) AS user_img, u.username");
             $this->db->join('users u', 't.created_by = u.id');
             $this->db->where('t.id', $id);
             $result = $this->db->get('tags t')->result_array();

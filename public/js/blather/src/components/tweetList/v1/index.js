@@ -1,5 +1,5 @@
 import './style.css';
-import { fetchPagePosts } from '../../../pages/actions/page';
+import { fetchPagePosts } from 'pages/actions/page';
 import { connect } from 'react-redux';
 import { 
     Image,
@@ -9,10 +9,10 @@ import {
     Visibility
 } from 'semantic-ui-react';
 import _ from 'lodash';
-import ParagraphPic from '../../../images/short-paragraph.png';
+import ParagraphPic from 'images/short-paragraph.png';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import Tweet from '../../tweet/v1/';
+import Tweet from 'components/tweet/v1/';
 
 class TweetList extends Component {
     constructor(props) {

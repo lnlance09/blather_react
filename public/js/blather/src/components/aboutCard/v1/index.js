@@ -1,6 +1,6 @@
 import './style.css';
-import { updateAbout } from '../../authentication/v1/actions';
-import { linkMentions, linkHashtags } from '../../../utils/linkifyAdditions';
+import { updateAbout } from 'components/authentication/v1/actions';
+import { linkMentions, linkHashtags } from 'utils/linkifyAdditions';
 import { connect, Provider } from 'react-redux';
 import { 
     Button,
@@ -11,7 +11,7 @@ import {
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Linkify from 'react-linkify';
-import store from '../../../store';
+import store from 'store';
 
 class AboutCard extends Component {
     constructor(props) {

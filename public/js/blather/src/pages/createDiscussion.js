@@ -1,6 +1,6 @@
 import './css/index.css';
-import { DisplayMetaTags } from '../utils/metaFunctions';
-import { setTags, submitDiscussion } from './actions/discussion';
+import { DisplayMetaTags } from 'utils/metaFunctions';
+import { setTags, submitDiscussion } from 'pages/actions/discussion';
 import { Provider, connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { 
@@ -19,11 +19,11 @@ import {
 	Transition
 } from 'semantic-ui-react';
 import Marked from 'marked';
-import PageFooter from '../components/footer/v1/';
-import PageHeader from '../components/header/v1/';
+import PageFooter from 'components/footer/v1/';
+import PageHeader from 'components/header/v1/';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import store from '../store';
+import store from 'store';
 
 class CreateDiscussionPage extends Component {
 	constructor(props) {

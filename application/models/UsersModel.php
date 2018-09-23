@@ -176,11 +176,11 @@
 		 * @return [array]            [An array containing data about the user who successfully logged in]
 		 */
 		public function login($email, $password) {
-			$column = (filter_var($email, FILTER_VALIDATE_EMAIL) ? 'email' : 'username');
-			$select = 'users.id, name, username, img, bio, email, email_verified AS emailVerified, linked_youtube AS linkedYoutube, linked_fb AS linkedFb, linked_twitter AS linkedTwitter, verification_code AS verificationCode, users.date_created AS dateCreated,
+			$column = filter_var($email, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+			$select = "users.id, name, username, img, bio, email, email_verified AS emailVerified, linked_youtube AS linkedYoutube, linked_fb AS linkedFb, linked_twitter AS linkedTwitter, verification_code AS verificationCode, users.date_created AS dateCreated,
 				fb_users.date_linked AS fbDate, fb_users.fb_access_token AS fbAccessToken, 
 				twitter_users.date_linked AS twitterDate, twitter_users.twitter_access_token AS twitterAccessToken, twitter_users.twitter_access_secret AS twitterAccessSecret, twitter_users.twitter_id AS twitterId,
-				youtube_users.youtube_access_token AS youtubeAccessToken, youtube_users.date_linked AS youtubeDate, youtube_users.youtube_refresh_token AS youtubeRefreshToken,youtube_users.youtube_id AS youtubeId';
+				youtube_users.youtube_access_token AS youtubeAccessToken, youtube_users.date_linked AS youtubeDate, youtube_users.youtube_refresh_token AS youtubeRefreshToken,youtube_users.youtube_id AS youtubeId";
 			
 			$this->db->select($select);
 			$this->db->where($column.' = "'.$email.'" AND (password = "'.sha1($password).'" OR password_reset = "'.sha1($password).'")');
@@ -253,7 +253,7 @@
 			$params = [];
 			$select = "u.id, u.name, username, bio AS about, 
 					CASE
-						WHEN img IS NOT NULL THEN CONCAT('http://localhost:3000/img/profile_pics/', img)
+						WHEN img IS NOT NULL THEN CONCAT('".$this->baseUrl."img/profile_pics/', img)
 					END AS profile_pic,
 					fallacy_count, discussion_count";
 			if($just_count) {

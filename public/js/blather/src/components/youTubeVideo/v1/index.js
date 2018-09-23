@@ -1,15 +1,18 @@
 import './style.css';
-import { createArchive } from '../../../pages/actions/post';
-import { formatNumber, formatPlural } from '../../../utils/textFunctions';
+import { createArchive } from 'pages/actions/post';
+import { formatNumber, formatPlural } from 'utils/textFunctions';
 import { 
     fetchVideoComments, 
     insertComment,
     setCurrentVideoTime, 
     setDuration,
     unsetComment
-} from '../../../pages/actions/post';
-import { clearContradiction, setContradictionVideoTime } from '../../fallacyForm/v1/actions';
-import { adjustTimezone } from '../../../utils/dateFunctions';
+} from 'pages/actions/post';
+import { 
+    clearContradiction, 
+    setContradictionVideoTime 
+} from 'components/fallacyForm/v1/actions';
+import { adjustTimezone } from 'utils/dateFunctions';
 import { connect } from 'react-redux';
 import { 
     Button,
@@ -29,14 +32,14 @@ import {
     Visibility
 } from 'semantic-ui-react';
 import _ from 'lodash';
-import FallacyForm from '../../fallacyForm/v1/';
-import ImagePic from '../../../images/image-square.png';
+import FallacyForm from 'components/fallacyForm/v1/';
+import ImagePic from 'images/image-square.png';
 import Moment from 'react-moment';
-import ParagraphPic from '../../../images/short-paragraph.png';
+import ParagraphPic from 'images/short-paragraph.png';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import ReactPlayer from 'react-player';
-import store from '../../../store';
+import store from 'store';
 import TextTruncate from 'react-text-truncate';
 
 class YouTubeVideo extends Component {

@@ -1,6 +1,6 @@
 import './style.css';
 import { getFallacies } from './actions';
-import { adjustTimezone } from '../../../utils/dateFunctions';
+import { adjustTimezone } from 'utils/dateFunctions';
 import { connect, Provider } from 'react-redux';
 import { 
     Dropdown,
@@ -10,14 +10,14 @@ import {
     Message,
     Visibility
 } from 'semantic-ui-react';
-import fallacies from '../../../fallacies.json';
-import ImagePic from '../../../images/image-square.png';
+import fallacies from 'fallacies.json';
+import ImagePic from 'images/image-square.png';
 import Moment from 'react-moment';
-import ParagraphPic from '../../../images/short-paragraph.png';
+import ParagraphPic from 'images/short-paragraph.png';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import ResultItem from '../../item/v1/';
-import store from '../../../store';
+import ResultItem from 'components/item/v1/';
+import store from 'store';
 
 class FallaciesList extends Component {
     constructor(props) {

@@ -1,15 +1,15 @@
 import './css/index.css';
-import { DisplayMetaTags } from '../utils/metaFunctions';
+import { DisplayMetaTags } from 'utils/metaFunctions';
 import { Provider, connect } from 'react-redux';
 import { 
     Container,
     Header
 } from 'semantic-ui-react';
-import DiscussionsList from '../components/discussionsList/v1/';
-import PageFooter from '../components/footer/v1/';
-import PageHeader from '../components/header/v1/';
+import DiscussionsList from 'components/discussionsList/v1/';
+import PageFooter from 'components/footer/v1/';
+import PageHeader from 'components/header/v1/';
 import React, { Component } from 'react';
-import store from '../store';
+import store from 'store';
 
 class DiscussionsPage extends Component {
     constructor(props) {

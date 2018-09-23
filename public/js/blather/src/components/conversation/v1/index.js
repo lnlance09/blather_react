@@ -1,6 +1,12 @@
 import './style.css';
-import { fetchFallacyConversation, submitFallacyConversation } from '../../../pages/actions/fallacy';
-import { fetchDiscussionConversation, submitDiscussionConversation } from '../../../pages/actions/discussion';
+import { 
+    fetchFallacyConversation, 
+    submitFallacyConversation 
+} from 'pages/actions/fallacy';
+import { 
+    fetchDiscussionConversation, 
+    submitDiscussionConversation 
+} from 'pages/actions/discussion';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { TwitterShareButton } from 'react-share';
@@ -19,14 +25,14 @@ import {
     Segment,
     TextArea
 } from 'semantic-ui-react';
-import { adjustTimezone } from '../../../utils/dateFunctions';
+import { adjustTimezone } from 'utils/dateFunctions';
 import Marked from 'marked';
 import Moment from 'react-moment';
-import defaultImg from '../../../pages/images/trump.svg';
-import ParagraphPic from '../../../images/short-paragraph.png';
+import defaultImg from 'pages/images/trump.svg';
+import ParagraphPic from 'images/short-paragraph.png';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import store from '../../../store';
+import store from 'store';
 
 class Conversation extends Component {
     constructor(props) {

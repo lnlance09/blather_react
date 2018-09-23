@@ -1,8 +1,8 @@
 import './style.css';
-import { editExplanation, updateFallacy } from '../../../pages/actions/fallacy';
-import { dateDifference } from '../../../utils/dateFunctions';
-import { fallacyDropdownOptions } from '../../../utils/fallacyFunctions';
-import { formatDuration } from '../../../utils/textFunctions';
+import { editExplanation, updateFallacy } from 'pages/actions/fallacy';
+import { dateDifference } from 'utils/dateFunctions';
+import { fallacyDropdownOptions } from 'utils/fallacyFunctions';
+import { formatDuration } from 'utils/textFunctions';
 import { connect } from 'react-redux';
 import { 
     Button,
@@ -17,11 +17,11 @@ import {
     TextArea
 } from 'semantic-ui-react';
 import nl2br from 'react-nl2br';
-import ParagraphPic from '../../../images/short-paragraph.png';
+import ParagraphPic from 'images/short-paragraph.png';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import Tweet from '../../tweet/v1/';
-import YouTubeVideo from '../../youTubeVideo/v1/';
+import Tweet from 'components/tweet/v1/';
+import YouTubeVideo from 'components/youTubeVideo/v1/';
 
 class FallacyExample extends Component {
     constructor(props) {

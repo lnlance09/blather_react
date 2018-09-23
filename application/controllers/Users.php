@@ -110,7 +110,7 @@
 			]);
 			echo json_encode([
 				'error' => false,
-				'img' => 'http://localhost:3000/img/profile_pics/'.$data['file_name']
+				'img' => $this->baseUrl.'img/profile_pics/'.$data['file_name']
 			]);
 		}
 
@@ -188,7 +188,7 @@
 
 		public function getInfo() {
 			$username = $this->input->get('username');
-			$select = "bio, email_verified AS emailVerified, u.id AS id, fb_id AS fbId, CONCAT('http://localhost:3000/img/profile_pics/', u.img) AS img, linked_fb AS linkedFb, linked_twitter AS linkedTwitter, linked_youtube AS linkedYoutube, name, twitter_username AS twitterUsername, username, youtube_id AS youtubeId";
+			$select = "bio, email_verified AS emailVerified, u.id AS id, fb_id AS fbId, CONCAT('".$this->baseUrl."', u.img) AS img, linked_fb AS linkedFb, linked_twitter AS linkedTwitter, linked_youtube AS linkedYoutube, name, twitter_username AS twitterUsername, username, youtube_id AS youtubeId";
 			$info = $this->users->getUserInfo($username, $select);
 
 			if(!$info) {
@@ -241,14 +241,15 @@
 
 			$user = $login[0];
 			$user['emailVerified'] = $user['emailVerified'] === '1';
+			$user['fbUrl'] = $this->fb->loginUrl();
+			$user['img'] = $user['img'] ? $this->baseUrl.'img/profile_pics/'.$user['img'] : null;
 			$user['linkedFb'] = $user['linkedFb'] === '1';
 			$user['linkedTwitter'] = $user['linkedTwitter'] === '1';
 			$user['linkedYoutube'] = $user['linkedYoutube'] === '1';
 			$user['twitterOauthSecret'] = null;
 			$user['twitterOauthToken'] = null;
-			$user['fbUrl'] = $this->fb->loginUrl();
 			$user['twitterUrl'] = null;
-			$user['youtubeUrl'] = ($user['linkedYoutube'] ? null : $this->youtube->getTokenUrl());
+			$user['youtubeUrl'] = $user['linkedYoutube'] ? null : $this->youtube->getTokenUrl();
 
 			if(!$user['linkedTwitter']) {
 				$token = $this->twitter->getRequestToken();

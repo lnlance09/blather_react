@@ -1,7 +1,7 @@
 import './css/index.css';
-import { changeProfilePic, updateAbout } from '../components/authentication/v1/actions';
-import { DisplayMetaTags } from '../utils/metaFunctions';
-import { fetchUserData } from './actions/user';
+import { changeProfilePic, updateAbout } from 'components/authentication/v1/actions';
+import { DisplayMetaTags } from 'utils/metaFunctions';
+import { fetchUserData } from 'pages/actions/user';
 import { Provider, connect } from 'react-redux';
 import { 
     Button,
@@ -15,18 +15,18 @@ import {
     Menu,
     Transition
 } from 'semantic-ui-react'; 
-import AboutCard from '../components/aboutCard/v1/';
-import defaultImg from './images/trump.svg';
-import ArchivesList from '../components/archivesList/v1/';
-import DiscussionsList from '../components/discussionsList/v1/';
+import AboutCard from 'components/aboutCard/v1/';
+import defaultImg from 'pages/images/trump.svg';
+import ArchivesList from 'components/archivesList/v1/';
+import DiscussionsList from 'components/discussionsList/v1/';
 import Dropzone from 'react-dropzone';
-import FallaciesList from '../components/fallaciesList/v1/';
-import PageFooter from '../components/footer/v1/';
-import PageHeader from '../components/header/v1/';
+import FallaciesList from 'components/fallaciesList/v1/';
+import PageFooter from 'components/footer/v1/';
+import PageHeader from 'components/header/v1/';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import store from '../store';
-import TitleHeader from '../components/titleHeader/v1/';
+import store from 'store';
+import TitleHeader from 'components/titleHeader/v1/';
 
 class UserPage extends Component {
     constructor(props) {

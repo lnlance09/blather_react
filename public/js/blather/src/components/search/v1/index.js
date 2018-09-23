@@ -1,5 +1,5 @@
 import './style.css';
-import { selectAssignee } from '../../fallacyForm/v1/actions';
+import { selectAssignee } from 'components/fallacyForm/v1/actions';
 import { connect, Provider } from 'react-redux';
 import { 
     Form,
@@ -11,7 +11,7 @@ import {
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import store from '../../../store';
+import store from 'store';
 
 class NavSearch extends Component {
     constructor(props) {

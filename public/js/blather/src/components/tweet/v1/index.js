@@ -1,7 +1,7 @@
 import './style.css';
-import { createArchive } from '../../../pages/actions/post';
-import { adjustTimezone } from '../../../utils/dateFunctions';
-import { linkMentions, linkHashtags } from '../../../utils/linkifyAdditions';
+import { createArchive } from 'pages/actions/post';
+import { adjustTimezone } from 'utils/dateFunctions';
+import { linkMentions, linkHashtags } from 'utils/linkifyAdditions';
 import { Provider, connect } from 'react-redux';
 import { 
     Card,
@@ -13,13 +13,13 @@ import {
     Popup,
     Transition
 } from 'semantic-ui-react';
-import itemPic from '../../../images/square-image.png';
+import itemPic from 'images/square-image.png';
 import Linkify from 'react-linkify';
 import Moment from 'react-moment';
 import NumberFormat from 'react-number-format';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import store from '../../../store';
+import store from 'store';
 
 class Tweet extends Component {
     constructor(props) {

@@ -243,7 +243,7 @@
 				'conversation' => [
 					[
 						'date_created' => date('Y-m-d H:i:s'),
-						'img' => $this->user->img ? 'http://localhost:3000/img/profile_pics/'.$this->user->img : null,
+						'img' => $this->user->img ? $this->baseUrl.'img/profile_pics/'.$this->user->img : null,
 						'message' => $msg,
 						'name' => $this->user->name,
 						'status' => 1,

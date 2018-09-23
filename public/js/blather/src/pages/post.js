@@ -1,7 +1,7 @@
 import './css/index.css';
-import { refreshYouTubeToken } from '../components/authentication/v1/actions';
-import { DisplayMetaTags } from '../utils/metaFunctions';
-import { fetchPostData } from './actions/post';
+import { refreshYouTubeToken } from 'components/authentication/v1/actions';
+import { DisplayMetaTags } from 'utils/metaFunctions';
+import { fetchPostData } from 'pages/actions/post';
 import { Provider, connect } from 'react-redux';
 import { 
     Breadcrumb,
@@ -12,17 +12,17 @@ import {
     Segment,
     Sticky
 } from 'semantic-ui-react';
-import FallacyForm from '../components/fallacyForm/v1/';
-import FallaciesList from '../components/fallaciesList/v1/';
-import PageFooter from '../components/footer/v1/';
-import PageHeader from '../components/header/v1/';
-import ParagraphPic from '../images/short-paragraph.png';
+import FallacyForm from 'components/fallacyForm/v1/';
+import FallaciesList from 'components/fallaciesList/v1/';
+import PageFooter from 'components/footer/v1/';
+import PageHeader from 'components/header/v1/';
+import ParagraphPic from 'images/short-paragraph.png';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import store from '../store';
-import ThumbnailPic from '../images/image.png';
-import Tweet from '../components/tweet/v1/';
-import YouTubeVideo from '../components/youTubeVideo/v1/';
+import store from 'store';
+import ThumbnailPic from 'images/image.png';
+import Tweet from 'components/tweet/v1/';
+import YouTubeVideo from 'components/youTubeVideo/v1/';
 
 class Post extends Component {
     constructor(props) {

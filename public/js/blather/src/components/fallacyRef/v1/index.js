@@ -5,11 +5,11 @@ import {
     Header,
     Segment
 } from 'semantic-ui-react';
-import BillPic from '../../../images/avatar/small/mark.png';
-import fallacies from '../../../fallacies.json';
+import BillPic from 'images/avatar/small/mark.png';
+import fallacies from 'fallacies.json';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import RobPic from '../../../images/avatar/small/matthew.png';
+import RobPic from 'images/avatar/small/matthew.png';
 
 class FallacyRef extends Component {
     constructor(props) {

@@ -1,9 +1,14 @@
 import './css/index.css';
-import { mapIdsToNames } from '../utils/arrayFunctions';
-import { adjustTimezone } from '../utils/dateFunctions';
-import { DisplayMetaTags } from '../utils/metaFunctions';
-import { sanitizeText } from '../utils/textFunctions';
-import { fetchDiscussion, updateDescription, updateDiscussion, updateExtra } from './actions/discussion';
+import { mapIdsToNames } from 'utils/arrayFunctions';
+import { adjustTimezone } from 'utils/dateFunctions';
+import { DisplayMetaTags } from 'utils/metaFunctions';
+import { sanitizeText } from 'utils/textFunctions';
+import { 
+    fetchDiscussion, 
+    updateDescription, 
+    updateDiscussion, 
+    updateExtra 
+} from 'pages/actions/discussion';
 import { Provider, connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { 
@@ -20,15 +25,15 @@ import {
 } from 'semantic-ui-react';
 import Marked from 'marked';
 import Moment from 'react-moment';
-import Conversation from '../components/conversation/v1/';
-import PageFooter from '../components/footer/v1/';
-import PageHeader from '../components/header/v1/';
-import ParagraphPic from '../images/short-paragraph.png';
+import Conversation from 'components/conversation/v1/';
+import PageFooter from 'components/footer/v1/';
+import PageHeader from 'components/header/v1/';
+import ParagraphPic from 'images/short-paragraph.png';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import store from '../store';
-import TagsCard from '../components/tagsCard/v1/';
-import TitleHeader from '../components/titleHeader/v1/';
+import store from 'store';
+import TagsCard from 'components/tagsCard/v1/';
+import TitleHeader from 'components/titleHeader/v1/';
 
 class DiscussionPage extends Component {
     constructor(props) {
