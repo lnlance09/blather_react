@@ -2,7 +2,7 @@ import "./css/index.css"
 import { adjustTimezone } from "utils/dateFunctions"
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { sanitizeText } from "utils/textFunctions"
-import { changePic, fetchHistory, fetchTagInfo, updateTag } from "./actions/tag"
+import { changePic, fetchHistory, fetchTagInfo, updateDescription, updateTag } from "./actions/tag"
 import Moment from "react-moment"
 import Dropzone from "react-dropzone"
 import { connect, Provider } from "react-redux"
@@ -71,6 +71,7 @@ class Tags extends Component {
 		this.onChangeDescription = this.onChangeDescription.bind(this)
 		this.onClickEdit = this.onClickEdit.bind(this)
 		this.onDrop = this.onDrop.bind(this)
+		this.setVersion = this.setVersion.bind(this)
 		this.updateTag = this.updateTag.bind(this)
 	}
 
@@ -101,6 +102,15 @@ class Tags extends Component {
 		}
 	}
 
+	setVersion = edit => {
+		this.setState({
+			activeItem: "article",
+			editing: false,
+			version: edit.version
+		})
+		this.props.updateDescription({ description: edit.description })
+	}
+
 	updateTag = () => {
 		this.setState({ editing: false })
 		this.props.updateTag({
@@ -120,7 +130,8 @@ class Tags extends Component {
 			editing,
 			id,
 			inverted,
-			name
+			name,
+			version
 		} = this.state
 		const pic = !this.props.img && !this.props.loading ? defaultImg : this.props.img
 		const content = (
@@ -167,16 +178,13 @@ class Tags extends Component {
 		const EditButton = ({ props }) => {
 			if (!props.loading) {
 				if (authenticated) {
-					if (editing) {
-						return (
-							<Icon
-								className="editButton editing"
-								name="close"
-								onClick={this.onClickEdit}
-							/>
-						)
-					}
-					return <Icon className="editButton" name="pencil" onClick={this.onClickEdit} />
+					return (
+						<Icon
+							className={`editButton ${editing ? "editing" : ""}`}
+							name={editing ? "close" : "pencil"}
+							onClick={this.onClickEdit}
+						/>
+					)
 				}
 			}
 			return null
@@ -184,7 +192,10 @@ class Tags extends Component {
 		const HistorySection = props => {
 			return props.editHistory.map((edit, i) => {
 				return (
-					<List.Item key={`editHistory${i}`}>
+					<List.Item
+						className={`${version === edit.version ? "selected" : null}`}
+						key={`editHistory${i}`}
+						onClick={() => this.setVersion(edit)}>
 						<Image size="mini" src={edit.user_img} />
 						<List.Content>
 							<List.Header as="a">{edit.user_name}</List.Header>
@@ -291,7 +302,7 @@ class Tags extends Component {
 										)}
 										{activeItem === "history" && (
 											<div>
-												<List>{HistorySection(this.props)}</List>
+												<List divided>{HistorySection(this.props)}</List>
 											</div>
 										)}
 									</div>
@@ -323,6 +334,7 @@ Tags.propTypes = {
 	img: PropTypes.string,
 	loading: PropTypes.bool,
 	name: PropTypes.string,
+	updateDescription: PropTypes.func,
 	updateTag: PropTypes.func
 }
 
@@ -332,6 +344,7 @@ Tags.defaultProps = {
 	fetchHistory: fetchHistory,
 	fetchTagInfo: fetchTagInfo,
 	loading: true,
+	updateDescription: updateDescription,
 	updateTag: updateTag
 }
 
@@ -348,6 +361,7 @@ export default connect(
 		changePic,
 		fetchHistory,
 		fetchTagInfo,
+		updateDescription,
 		updateTag
 	}
 )(Tags)

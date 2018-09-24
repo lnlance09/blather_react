@@ -121,19 +121,10 @@ class DiscussionPage extends Component {
 			if (isMine) {
 				if (type === "description") {
 					if (props.description) {
-						if (editingDescription) {
-							return (
-								<Icon
-									className="editButton editing"
-									name="close"
-									onClick={this.onClickEditDescription}
-								/>
-							)
-						}
 						return (
 							<Icon
-								className="editButton"
-								name="pencil"
+								className={`editButton ${editingDescription ? "editing" : ""}`}
+								name={editingDescription ? "close" : "pencil"}
 								onClick={this.onClickEditDescription}
 							/>
 						)
@@ -141,19 +132,10 @@ class DiscussionPage extends Component {
 				}
 				if (type === "extra") {
 					if (props.extra) {
-						if (editingExtra) {
-							return (
-								<Icon
-									className="editButton editing"
-									name="close"
-									onClick={this.onClickEditExtra}
-								/>
-							)
-						}
 						return (
 							<Icon
-								className="editButton"
-								name="pencil"
+								className={`editButton ${editingExtra ? "editing" : ""}`}
+								name={editingExtra ? "close" : "pencil"}
 								onClick={this.onClickEditExtra}
 							/>
 						)

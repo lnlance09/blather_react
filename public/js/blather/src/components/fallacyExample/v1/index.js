@@ -79,16 +79,13 @@ class FallacyExample extends Component {
 		const EditButton = ({ props }) => {
 			if (props.explanation) {
 				if (props.canEdit) {
-					if (editing) {
-						return (
-							<Icon
-								className="editButton editing"
-								name="close"
-								onClick={this.onClickEdit}
-							/>
-						)
-					}
-					return <Icon className="editButton" name="pencil" onClick={this.onClickEdit} />
+					return (
+						<Icon
+							className={`editButton ${editing ? "editing" : ""}`}
+							name={editing ? "close" : "pencil"}
+							onClick={this.onClickEdit}
+						/>
+					)
 				}
 			}
 			return null

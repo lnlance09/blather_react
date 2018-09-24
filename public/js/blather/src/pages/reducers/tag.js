@@ -38,6 +38,11 @@ const tag = (state = initial(), action) => {
 				...state,
 				description: payload.tag.description
 			}
+		case constants.UPDATE_TAG_DESCRIPTION:
+			return {
+				...state,
+				description: payload === null ? "" : payload
+			}
 		default:
 			return state
 	}

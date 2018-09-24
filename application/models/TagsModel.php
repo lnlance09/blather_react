@@ -11,7 +11,7 @@
 
         public function getHistory($id) {
             $this->db->select("tv.description, CONCAT('".$this->baseUrl."img/tag_pics/', tv.img) AS tag_img,
-                tv.date_updated, tv.updated_by,
+                tv.date_updated, tv.updated_by,tv.version,
 
                 u.id AS user_id, u.name AS user_name, CONCAT('".$this->baseUrl."img/profile_pics/', u.img) AS user_img, u.username");
             $this->db->join('users u', 'tv.updated_by = u.id');

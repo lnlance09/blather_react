@@ -75,6 +75,13 @@ export const fetchTagInfo = ({ id }) => dispatch => {
 	)
 }
 
+export const updateDescription = ({ description }) => dispatch => {
+	dispatch({
+		type: constants.UPDATE_TAG_DESCRIPTION,
+		payload: description
+	})
+}
+
 export const updateTag = ({ bearer, description, id }) => dispatch => {
 	request.post(
 		`${window.location.origin}/api/tags/update`,

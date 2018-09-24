@@ -2,8 +2,22 @@
 
 .tagsPage {
     .segment {
+        &.basic {
+            padding: 0;
+        }
+
         img {
             margin-bottom: 1.2em;
+        }
+    }
+
+    .list {
+        .item {
+            cursor: pointer;
+
+            &.selected {
+                background: $linx-white;
+            }
         }
     }
 
@@ -30,10 +44,6 @@
                 }
             }
         }
-    }
-
-    .segment.basic {
-        padding: 0;
     }
 
     .changePicBtn {
