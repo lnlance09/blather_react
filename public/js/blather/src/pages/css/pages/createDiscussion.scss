@@ -9,6 +9,7 @@
         .segment {
             background: $white !important;
             border: none !important;
+            box-shadow: none !important;
             margin: 0;
             padding: 0;
 
@@ -47,6 +48,8 @@
         }
 
         .previewSegment {
+            box-shadow: none !important;
+
             .descriptionTitle, .extraTitle {
                 background: $white;
                 margin-bottom: 5px;

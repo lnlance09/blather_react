@@ -2,6 +2,7 @@ import * as constants from "./constants";
 import request from "request";
 
 export const fetchDiscussions = ({
+    both,
     page,
     q,
     startedBy,
@@ -14,6 +15,7 @@ export const fetchDiscussions = ({
         {
             json: true,
             qs: {
+                both,
                 page,
                 q,
                 startedBy,

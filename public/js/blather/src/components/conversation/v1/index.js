@@ -29,6 +29,7 @@ import { adjustTimezone } from "utils/dateFunctions";
 import Marked from "marked";
 import Moment from "react-moment";
 import defaultImg from "images/trump.svg";
+import ImagePic from "images/image-square.png";
 import ParagraphPic from "images/short-paragraph.png";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
@@ -277,6 +278,7 @@ class Conversation extends Component {
                         <Image
                             floated="left"
                             size="mini"
+                            onError={i => (i.target.src = ImagePic)}
                             src={convo.img ? convo.img : defaultImg}
                         />
                         <Card.Header>

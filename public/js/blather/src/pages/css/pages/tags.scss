@@ -7,22 +7,28 @@
         }
     }
 
-    .editButton {
-        color: $vanadyl-blue;
-        cursor: pointer;
-        display: none !important;
-        float: right;
-        font-size: 18px;
-        margin-right: 0 !important;
+    .menu.tagMenu {
+        margin-top: 40px !important;
 
-        &.editing {
-            color: $harley-davidson-orange;
-        }
-    }
+        .item {
+            height: 50px;
 
-    &:hover {
-        .editButton {
-            display: inline !important;
+            .label {
+                background: $linx-white;
+                color: $electromagnetic;
+            }
+
+            .editButton {
+                color: $vanadyl-blue;
+                cursor: pointer;
+                float: right;
+                font-size: 18px;
+                margin-right: 0 !important;
+
+                &.editing {
+                    color: $harley-davidson-orange;
+                }
+            }
         }
     }
 

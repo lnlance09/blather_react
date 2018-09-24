@@ -68,6 +68,7 @@
         color: #273c75; }
   .conversation .statusActionSegment {
     border: none !important;
+    box-shadow: none !important;
     height: 116px; }
     .conversation .statusActionSegment .youtubeButton {
       background: #ff0000 !important;

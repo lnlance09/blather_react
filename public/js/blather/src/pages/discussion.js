@@ -120,7 +120,7 @@ class DiscussionPage extends Component {
             id,
             user
         } = this.state;
-        const createdAt = adjustTimezone(this.props.date_created);
+        const createdAt = adjustTimezone(this.props.dateCreated);
         const isMine = this.props.createdBy
             ? parseInt(user.data.id, 10) === this.props.createdBy.id
             : false;

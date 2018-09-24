@@ -1,7 +1,8 @@
 import "./css/index.css";
 import { adjustTimezone } from "utils/dateFunctions";
 import { DisplayMetaTags } from "utils/metaFunctions";
-import { fetchTagInfo, updateTag } from "./actions/tag";
+import { sanitizeText } from "utils/textFunctions";
+import { changePic, fetchHistory, fetchTagInfo, updateTag } from "./actions/tag";
 import Moment from "react-moment";
 import Dropzone from "react-dropzone";
 import { connect, Provider } from "react-redux";
@@ -15,9 +16,12 @@ import {
     Header,
     Icon,
     Image,
+    List,
+    Menu,
     Segment,
     TextArea
 } from "semantic-ui-react";
+import Marked from "marked";
 import defaultImg from "images/trump.svg";
 import PageFooter from "components/footer/v1/";
 import PageHeader from "components/header/v1/";
@@ -37,22 +41,46 @@ class Tags extends Component {
         const userId = parseInt(currentState.user.data.id, 10);
         this.state = {
             active: false,
+            activeItem: 'article',
             authenticated,
             bearer,
+            description: "",
+            editing: false,
             id,
             editing: false,
+            files: [],
             inverted: true,
             userId
         };
+
+        Marked.setOptions({
+            renderer: new Marked.Renderer(),
+            highlight: function(code) {
+                // return require('highlight.js').highlightAuto(code).value;
+            },
+            pedantic: false,
+            breaks: false,
+            sanitize: false,
+            smartLists: true,
+            smartypants: false,
+            xhtml: false
+        });
 
         this.props.fetchTagInfo({ id });
 
         this.onChangeDescription = this.onChangeDescription.bind(this);
         this.onClickEdit = this.onClickEdit.bind(this);
+        this.onDrop = this.onDrop.bind(this);
         this.updateTag = this.updateTag.bind(this);
     }
 
     handleHide = () => this.setState({ active: false });
+    handleItemClick = (e, { name }) => {
+        this.setState({ activeItem: name });
+        if(name === 'history') {
+            this.props.fetchHistory({ id: this.props.id })
+        }
+    };
     handleShow = () => this.setState({ active: true });
     onChangeDescription = (e, { value }) =>
         this.setState({ description: value });
@@ -63,8 +91,21 @@ class Tags extends Component {
         });
     };
 
+    onDrop(files) {
+        this.setState({ files });
+        if (files.length > 0) {
+            this.props.changePic({
+                bearer: this.state.bearer,
+                file: files[0],
+                id: this.state.id
+            });
+        }
+    }
+
     updateTag = () => {
+        this.setState({ editing: false });
         this.props.updateTag({
+            bearer: this.state.bearer,
             id: this.props.id,
             description: this.state.description
         });
@@ -73,8 +114,10 @@ class Tags extends Component {
     render() {
         const {
             active,
+            activeItem,
             authenticated,
             bearer,
+            description,
             editing,
             id,
             inverted,
@@ -97,6 +140,40 @@ class Tags extends Component {
                 </Dropzone>
             </div>
         );
+        const ArticleSection = props => {
+            if(editing) {
+                return (
+                    <Form onSubmit={this.updateTag}>
+                        <Form.Field>
+                            <TextArea
+                                onChange={
+                                    this
+                                        .onChangeDescription
+                                }
+                                rows={25}
+                                value={description}
+                            />
+                        </Form.Field>
+                        <Button
+                            className="updateBtn"
+                            compact
+                            content="Update"
+                            fluid
+                            type="submit"
+                        />
+                    </Form>
+                )
+            }
+            return (
+                <div
+                    dangerouslySetInnerHTML={{
+                        __html: sanitizeText(
+                            Marked(props.description)
+                        )
+                    }}
+                />
+            )
+        }
         const EditButton = ({ props }) => {
             if (!props.loading) {
                 if (authenticated) {
@@ -120,6 +197,27 @@ class Tags extends Component {
             }
             return null;
         };
+        const HistorySection = props => {
+            return props.editHistory.map((edit, i) => {
+                return (
+                    <List.Item key={`editHistory${i}`}>
+                        <Image size='mini' src={edit.user_img} />
+                        <List.Content>
+                            <List.Header as='a'>{edit.user_name}</List.Header>
+                            <List.Description>
+                                Edited {' '}
+                                <Moment
+                                    date={adjustTimezone(
+                                        edit.date_updated
+                                    )}
+                                    fromNow
+                                />
+                            </List.Description>
+                        </List.Content>
+                    </List.Item>
+                )
+            })
+        }
         const ProfilePic = props => {
             if (authenticated) {
                 return (
@@ -136,14 +234,35 @@ class Tags extends Component {
             }
             return <Image src={pic} style={{ border: "none" }} />;
         };
+        const TagMenu = props => (
+            <Menu 
+                className='tagMenu'
+                pointing 
+                secondary
+            >
+                <Menu.Item
+                    name='article'
+                    active={activeItem === 'article'}
+                    onClick={this.handleItemClick}
+                />
+                <Menu.Item
+                    name='history'
+                    active={activeItem === 'history'}
+                    onClick={this.handleItemClick}
+                />
+                <Menu.Menu position='right'>
+                    <Menu.Item>
+                        <EditButton props={this.props} />
+                    </Menu.Item>
+                </Menu.Menu>
+            </Menu>
+        );
         const TagTitle = ({ props }) => {
-            console.log("t");
-            console.log(props);
             const subheader = (
                 <div>
                     {props.createdBy && (
                         <div>
-                            <Icon name="tag" /> Created{" "}
+                            <Icon className="tag" name="tag" /> Created{" "}
                             <Moment
                                 date={adjustTimezone(props.dateCreated)}
                                 fromNow
@@ -195,34 +314,21 @@ class Tags extends Component {
                                     </Segment>
                                 )}
                                 {!this.props.loading && (
-                                    <Segment basic>
-                                        <div style={{ height: "30px" }}>
-                                            <EditButton props={this.props} />
-                                        </div>
-                                        {editing && (
-                                            <Form onSubmit={this.updateTag}>
-                                                <Form.Field>
-                                                    <TextArea
-                                                        onChange={
-                                                            this
-                                                                .onChangeDescription
-                                                        }
-                                                        rows={25}
-                                                    />
-                                                </Form.Field>
-                                                <Button
-                                                    className="updateBtn"
-                                                    compact
-                                                    content="Update"
-                                                    fluid
-                                                    type="submit"
-                                                />
-                                            </Form>
+                                    <div style={{ marginTop: '20px' }}>
+                                        {TagMenu(this.props)}
+                                        {activeItem === 'article' && (
+                                            <div>
+                                                {ArticleSection(this.props)}
+                                            </div>
                                         )}
-                                        {!editing && (
-                                            <div>{this.props.description}</div>
+                                        {activeItem === 'history' && (
+                                            <div>
+                                                <List>
+                                                    {HistorySection(this.props)}
+                                                </List>
+                                            </div>
                                         )}
-                                    </Segment>
+                                    </div>
                                 )}
                             </Grid.Column>
                         </Grid>
@@ -235,6 +341,7 @@ class Tags extends Component {
 }
 
 Tags.propTypes = {
+    changePic: PropTypes.func,
     createdBy: PropTypes.shape({
         id: PropTypes.number,
         img: PropTypes.string,
@@ -242,7 +349,9 @@ Tags.propTypes = {
         username: PropTypes.string
     }),
     dateCreated: PropTypes.string,
-    description: PropTypes.sting,
+    description: PropTypes.string,
+    editHistory: PropTypes.array,
+    fetchHistory: PropTypes.func,
     fetchTagInfo: PropTypes.func,
     id: PropTypes.number,
     img: PropTypes.string,
@@ -252,6 +361,9 @@ Tags.propTypes = {
 };
 
 Tags.defaultProps = {
+    changePic: changePic,
+    editHistory: [],
+    fetchHistory: fetchHistory,
     fetchTagInfo: fetchTagInfo,
     loading: true,
     updateTag: updateTag
@@ -267,6 +379,8 @@ const mapStateToProps = (state, ownProps) => {
 export default connect(
     mapStateToProps,
     {
+        changePic,
+        fetchHistory,
         fetchTagInfo,
         updateTag
     }

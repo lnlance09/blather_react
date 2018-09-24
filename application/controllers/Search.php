@@ -102,8 +102,19 @@
 
                 case'fallacies':
                     $fallacies = $fallacies ? explode(',', $fallacies) : null;
-                    $count = $this->fallacies->search(null, $q, null, null, null, null, null, $fallacies, $page, true);
-                    $results = $this->fallacies->search(null, $q, null, null, null, null, null, $fallacies, $page, false);
+                    $params = [
+                        'assigned_by' => null,
+                        'assigned_to' => null,
+                        'comment_id' => null,
+                        'fallacies' => $fallacies,
+                        'id' => null,
+                        'network' => null,
+                        'object_id' => null,
+                        'page' => $page,
+                        'q' => $q
+                    ];
+                    $count = $this->fallacies->search($params, true);
+                    $results = $this->fallacies->search($params, false);
                     break;
             }
 

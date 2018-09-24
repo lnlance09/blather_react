@@ -1,5 +1,7 @@
+export const CHANGE_TAG_PIC = "tag:CHANGE_TAG_PIC";
 export const CREATE_ARCHIVE = "post:CREATE_ARCHIVE";
 export const EDIT_EXPLANATION = "fallacy:EDIT_EXPLANATION";
+export const FETCH_TAG_HISTORY = "tag:FETCH_TAG_HISTORY";
 export const FETCH_TAG_INFO = "tag:FETCH_TAG_INFO";
 export const FETCH_VIDEO_COMMENTS = "video:FETCH_VIDEO_COMMENTS";
 export const GET_ARCHIVED_LINKS = "pageUser:GET_ARCHIVED_LINKS";

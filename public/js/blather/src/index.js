@@ -55,8 +55,8 @@ ReactDOM.render(
                 <Switch>
                     <Route path="/fallacies" exact component={Fallacies} />
                     <Route
-                        path="/fallacies/:id"
                         exact
+                        path="/fallacies/:id"
                         render={props => {
                             const id = props.match.params.id;
                             if (Number.isInteger(parseInt(id, 10))) {
@@ -69,8 +69,8 @@ ReactDOM.render(
 
                 <Switch>
                     <Route
-                        path="/pages/:network/:id"
                         exact
+                        path="/pages/:network/:id"
                         render={() => <Page key={window.location.pathname} />}
                     />
                     <Route
@@ -101,8 +101,23 @@ ReactDOM.render(
                 </Switch>
 
                 <Switch>
-                    <Route path="/users/:username" exact component={Users} />
-                    <Route path="/users/:username/:tab" component={Users} />
+                    <Route 
+                        exact
+                        path="/users/:username" 
+                        render={props => {
+                            console.log('router')
+                            console.log(props)
+                            return (<Users {...props} />)
+                        }}
+                    />
+                    <Route 
+                        path="/users/:username/:tab"
+                        render={props => {
+                            console.log('router')
+                            console.log(props)
+                            return (<Users {...props} />)
+                        }}
+                    />
                 </Switch>
 
                 <Switch>

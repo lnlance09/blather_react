@@ -93,10 +93,17 @@ class DiscussionsList extends Component {
 
     componentDidMount() {
         this.props.fetchDiscussions({
-            startedBy: this.props.filter.startedBy
+            both: this.props.filter.both,
+            q: this.props.filter.q,
+            startedBy: this.props.filter.startedBy,
+            status: this.props.filter.status,
+            tags: this.props.filter.tags,
+            withUser: this.props.filter.with
         });
-        this.fetchTags();
-        this.fetchUsers();
+        if(this.props.includeFilter) {
+            this.fetchTags();
+            this.fetchUsers();
+        }
     }
 
     componentWillReceiveProps() {
@@ -120,11 +127,10 @@ class DiscussionsList extends Component {
     }
 
     fetchUsers() {
-        const img = this.props.userImages ? 1 : 0;
         return fetch(
             `${
                 window.location.origin
-            }/api/discussions/getUsers?both=true&img=${img}`,
+            }/api/discussions/getUsers?both=true`,
             {
                 headers: {
                     "Content-Type": "application/json"
@@ -323,9 +329,9 @@ class DiscussionsList extends Component {
                             history={this.props.history}
                             id={`discussion_${i}`}
                             img={
-                                result.creator_img
-                                    ? result.creator_img
-                                    : result.acceptor_img
+                                result.acceptor_img
+                                    ? result.acceptor_img
+                                    : result.creator_img
                             }
                             key={`discussion_${i}`}
                             label={label}
@@ -398,9 +404,10 @@ DiscussionsList.propTypes = {
     count: PropTypes.number,
     fetchDiscussions: PropTypes.func,
     filter: PropTypes.shape({
+        both: PropTypes.bool,
         q: PropTypes.string,
         startedBy: PropTypes.number,
-        status: PropTypes.array,
+        status: PropTypes.number,
         tags: PropTypes.array,
         with: PropTypes.number
     }),
@@ -411,9 +418,7 @@ DiscussionsList.propTypes = {
     onUserPage: PropTypes.bool,
     page: PropTypes.number,
     pages: PropTypes.number,
-    results: PropTypes.array,
-    userId: PropTypes.number,
-    userImages: PropTypes.bool
+    results: PropTypes.array
 };
 
 DiscussionsList.defaultProps = {
@@ -421,8 +426,7 @@ DiscussionsList.defaultProps = {
     filter: {},
     includeFilter: false,
     onUserPage: false,
-    results: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
-    userImages: true
+    results: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}]
 };
 
 const mapStateToProps = (state, ownProps) => ({

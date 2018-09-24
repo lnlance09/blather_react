@@ -39,7 +39,7 @@
         }
 
         public function getDiscussion($id, $just_count = false, $include_user = false, $include_tags = false) {
-            $select = "d.id AS discussion_id, title, d.description, extra, status, d.created_by AS created_by, d.accepted_by AS accepted_by, d.date_created AS discussion_created_at";
+            $select = "d.id AS discussion_id, title, d.description, extra, status, d.created_by AS discussion_created_by, d.accepted_by AS accepted_by, d.date_created AS discussion_created_at";
 
             if($include_tags) {
                 $select .= ", GROUP_CONCAT(DISTINCT t.id SEPARATOR ', ') tag_ids, GROUP_CONCAT(DISTINCT t.value SEPARATOR ', ') AS tag_names";
@@ -116,7 +116,7 @@
             return count($results) === 1 ? $results[0] : false;
         }
 
-        public function searchDiscussions($q = null, $by = null, $with = null, $status = null, $tags = null, $page = 0, $just_count = false) {
+        public function search($data, $just_count = false) {
             $select = "d.id AS discussion_id, 
                 d.description, 
                 d.date_created AS discussion_date, 
@@ -127,8 +127,8 @@
                 au.name AS acceptor_user_name, 
                 CONCAT('".$this->baseUrl."img/profile_pics/', au.img) AS acceptor_img";
 
-            if($tags) {
-                $select .= ",GROUP_CONCAT(t.text) AS tags";
+            if($data['tags']) {
+                $select .= ",GROUP_CONCAT(t.value) AS tags";
             }
 
             if($just_count) {
@@ -137,7 +137,7 @@
 
             $this->db->select($select);
 
-            if($tags) {
+            if($data['tags']) {
                 $this->db->join('discussion_tags dt', 'd.id = dt.discussion_id', 'left');
                 $this->db->join('tags t', 'dt.tag_id = t.id', 'left');
             }
@@ -145,36 +145,43 @@
             $this->db->join('users cu', 'd.created_by = cu.id');
             $this->db->join('users au', 'd.accepted_by = au.id', 'left');
 
-            if($q) {
-                $this->db->where("title LIKE '%".$q."%' OR description LIKE '%".$q."%' OR cu.username LIKE '%".$q."%' OR au.username LIKE '%".$q."%'");
+            if($data['q']) {
+                $this->db->where("title LIKE '%".$data['q']."%' OR d.description LIKE '%".$data['q']."%' OR cu.username LIKE '%".$data['q']."%' OR au.username LIKE '%".$data['q']."%'");
             }
 
-            if($by) {
-                $this->db->where('d.created_by', $by);
+            if($data['by']) {
+                if($data['both']) {
+                    $this->db->group_start();
+                    $this->db->where('d.created_by', (int)$data['by']);
+                    $this->db->or_where('d.accepted_by', (int)$data['by']);
+                    $this->db->group_end();
+                } else {
+                    $this->db->where('d.created_by', (int)$data['by']);
+                }
             }
 
-            if($with) {
-                $this->db->where('d.accepted_by', $with);
+            if($data['with']) {
+                $this->db->where('d.accepted_by', (int)$data['with']);
             }
 
-            if($status) {
-                $this->db->where('d.status', $status);
+            if($data['status'] !== null) {
+                $this->db->where('d.status', $data['status']);
             }
 
-            if(is_array($tags)) {
-                $this->db->where_in('t.value', $tags);
+            if(is_array($data['tags'])) {
+                $this->db->where_in('t.value', $data['tags']);
             }
 
             if(!$just_count) {
                 $limit = 10;
-                $start = $page*$limit;
+                $start = $data['page']*$limit;
                 $this->db->order_by('d.id DESC');
                 $this->db->limit($limit, $start);
             }
 
             if($just_count) {
                 $result = $this->db->get('discussions d')->result();
-                return $result[0]->count;
+                return (int)$result[0]->count;
             }
             
             $this->db->group_by('discussion_id, description, discussion_date, title, creator_user_name');

@@ -142,9 +142,9 @@ class TagsCard extends Component {
                 <Label
                     horizontal
                     id={tag.id}
-                    onClick={() => this.props.history.push(`/tags/${tag.id}`)}
+                    onClick={() => this.props.history.push(`/tags/${tag.id.trim()}`)}
                 >
-                    {tag.name}
+                    {tag.name.trim()}
                 </Label>
                 {this.props.canEdit && (
                     <List.Content floated="right">

@@ -2,6 +2,8 @@
   color: #2f3640; }
   .titleHeader .header .sub.header {
     color: #7f8fa6; }
+    .titleHeader .header .sub.header .icon.tag {
+      color: #40739e; }
   .titleHeader .header .editHeaderIcon {
     color: #0097e6;
     cursor: pointer;

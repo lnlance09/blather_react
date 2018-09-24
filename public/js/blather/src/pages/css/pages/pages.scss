@@ -19,12 +19,17 @@
     }
 
     .profileContentContainer {
-        border: none !important;
+        border: none;
         min-height: 450px;
         padding: 0 !important;
-    }
 
-    .ui.active.transition.visible.dimmer {
-        background: $dimmer-background !important;
+        .segment.dimmed.dimmable {
+            border: solid 1px $container-border-color;
+            box-shadow: none !important;
+
+            .ui.active.transition.visible.dimmer {
+                background: $dimmer-background !important;
+            }
+        }
     }
 }

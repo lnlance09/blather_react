@@ -17,7 +17,7 @@ const discussion = (state = initial(), action) => {
                     username: payload.discussion.accepted_by_username
                 },
                 createdBy: {
-                    id: parseInt(payload.discussion.created_by, 10),
+                    id: parseInt(payload.discussion.discussion_created_by, 10),
                     img: payload.discussion.created_by_profile_pic,
                     name: payload.discussion.created_by_name,
                     username: payload.discussion.created_by_username
@@ -40,15 +40,15 @@ const discussion = (state = initial(), action) => {
             };
 
         case constants.REMOVE_DISCUSSION_TAG:
-            let tagIds = state.tag_ids.split(",");
-            let tagNames = state.tag_names.split(",");
+            let tagIds = state.tagIds.split(",");
+            let tagNames = state.tagNames.split(",");
             tagIds = tagIds.filter(item => item !== payload.id);
             tagNames = tagNames.filter(item => item !== payload.name);
 
             return {
                 ...state,
-                tag_ids: tagIds.join(","),
-                tag_names: tagNames.join(",")
+                tagIds: tagIds.join(","),
+                tagNames: tagNames.join(",")
             };
 
         case constants.SET_DISCUSSION_TAGS:
@@ -69,22 +69,22 @@ const discussion = (state = initial(), action) => {
             }
             return {
                 ...state,
-                date_created: payload.discussion.discussion_created_at,
+                createdBy: {
+                    id: parseInt(payload.discussion.discussion_created_by, 10),
+                    img: payload.discussion.created_by_profile_pic,
+                    name: payload.discussion.created_by_name,
+                    username: payload.discussion.created_by_username
+                },
+                dateCreated: payload.discussion.discussion_created_at,
                 description: payload.discussion.description,
                 error: false,
                 extra: payload.discussion.extra,
                 hasSubmitted: true,
                 id: parseInt(payload.discussion.discussion_id, 10),
                 lastUpdated: payload.discussion.last_updated,
-                tag_ids: payload.discussion.tag_ids,
-                tag_names: payload.discussion.tag_names,
-                title: payload.discussion.title,
-                user: {
-                    id: parseInt(payload.discussion.user_id, 10),
-                    img: payload.discussion.profile_pic,
-                    name: payload.discussion.name,
-                    username: payload.discussion.username
-                }
+                tagIds: payload.discussion.tag_ids,
+                tagNames: payload.discussion.tag_names,
+                title: payload.discussion.title
             };
 
         case constants.SUBMIT_DISCUSSION_CONVERSATION:

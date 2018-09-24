@@ -1,7 +1,7 @@
 import "./style.css";
 import { fetchSearchResults } from "./actions";
-import { refreshYouTubeToken } from "../../authentication/v1/actions";
-import { formatNumber, formatPlural } from "../../../utils/textFunctions";
+import { refreshYouTubeToken } from "components/authentication/v1/actions";
+import { formatNumber, formatPlural } from "utils/textFunctions";
 import { connect, Provider } from "react-redux";
 import { Link } from "react-router-dom";
 import {
@@ -15,13 +15,14 @@ import {
     Visibility
 } from "semantic-ui-react";
 import _ from "lodash";
-import itemPic from "../../../images/image-square.png";
+import ImagePic from "images/image-square.png";
+import itemPic from "images/image-square.png";
 import Moment from "react-moment";
-import ParagraphPic from "../../../images/short-paragraph.png";
+import ParagraphPic from "images/short-paragraph.png";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
-import ResultItem from "../../../components/item/v1/";
-import store from "../../../store";
+import ResultItem from "components/item/v1/";
+import store from "store";
 
 class SearchResults extends Component {
     constructor(props) {
@@ -204,6 +205,14 @@ class SearchResults extends Component {
 
             return null;
         };
+        const lazyLoad = this.props.data.map((result, i) => (
+            <Item key={`lazyLoad${i}`}>
+                <Item.Image size="small" src={ImagePic} />
+                <Item.Content>
+                    <Image fluid src={ParagraphPic} />
+                </Item.Content>
+            </Item>
+        ));
         const resultsHeader = count => (
             <Statistic size="tiny">
                 <Statistic.Value>{formatNumber(count)}</Statistic.Value>
@@ -214,14 +223,7 @@ class SearchResults extends Component {
         );
         const resultItems = props => {
             if (props.loading) {
-                return props.data.map((result, i) => (
-                    <Segment
-                        className="lazyLoadSegment"
-                        key={`lazyLoadSegment_${i}`}
-                    >
-                        <Image fluid src={ParagraphPic} />
-                    </Segment>
-                ));
+                return <Item.Group divided>{lazyLoad}</Item.Group>;
             }
 
             if (props.count > 0) {

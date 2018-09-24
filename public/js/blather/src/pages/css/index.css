@@ -33,6 +33,7 @@
   .createDiscussionPage .contentContainer .segment {
     background: #ffffff !important;
     border: none !important;
+    box-shadow: none !important;
     margin: 0;
     padding: 0; }
     .createDiscussionPage .contentContainer .segment .ui.form .field label {
@@ -52,12 +53,14 @@
         background: #3da92d !important; }
     .createDiscussionPage .contentContainer .segment .ui.form .titleInput input, .createDiscussionPage .contentContainer .segment .ui.form textarea {
       padding: 8px; }
-  .createDiscussionPage .contentContainer .previewSegment .descriptionTitle, .createDiscussionPage .contentContainer .previewSegment .extraTitle {
-    background: #ffffff;
-    margin-bottom: 5px; }
-  .createDiscussionPage .contentContainer .previewSegment .descriptionPreview, .createDiscussionPage .contentContainer .previewSegment .extraPreview {
-    min-height: 80px;
-    padding: 0; }
+  .createDiscussionPage .contentContainer .previewSegment {
+    box-shadow: none !important; }
+    .createDiscussionPage .contentContainer .previewSegment .descriptionTitle, .createDiscussionPage .contentContainer .previewSegment .extraTitle {
+      background: #ffffff;
+      margin-bottom: 5px; }
+    .createDiscussionPage .contentContainer .previewSegment .descriptionPreview, .createDiscussionPage .contentContainer .previewSegment .extraPreview {
+      min-height: 80px;
+      padding: 0; }
   .createDiscussionPage .contentContainer .exitPreviewButton {
     background: #e84118;
     margin-top: 1em; }
@@ -165,12 +168,14 @@
   border: none !important; }
 
 .socialMediaPage .profileContentContainer {
-  border: none !important;
+  border: none;
   min-height: 450px;
   padding: 0 !important; }
-
-.socialMediaPage .ui.active.transition.visible.dimmer {
-  background: rgba(255, 255, 255, 0.8) !important; }
+  .socialMediaPage .profileContentContainer .segment.dimmed.dimmable {
+    border: solid 1px rgba(220, 221, 225, 0.6);
+    box-shadow: none !important; }
+    .socialMediaPage .profileContentContainer .segment.dimmed.dimmable .ui.active.transition.visible.dimmer {
+      background: rgba(255, 255, 255, 0.8) !important; }
 
 .postPage .mainContainer {
   padding: 0 !important; }
@@ -256,18 +261,21 @@
 .tagsPage .segment img {
   margin-bottom: 1.2em; }
 
-.tagsPage .editButton {
-  color: #0097e6;
-  cursor: pointer;
-  display: none !important;
-  float: right;
-  font-size: 18px;
-  margin-right: 0 !important; }
-  .tagsPage .editButton.editing {
-    color: #e84118; }
-
-.tagsPage:hover .editButton {
-  display: inline !important; }
+.tagsPage .menu.tagMenu {
+  margin-top: 40px !important; }
+  .tagsPage .menu.tagMenu .item {
+    height: 50px; }
+    .tagsPage .menu.tagMenu .item .label {
+      background: #f5f6fa;
+      color: #2f3640; }
+    .tagsPage .menu.tagMenu .item .editButton {
+      color: #0097e6;
+      cursor: pointer;
+      float: right;
+      font-size: 18px;
+      margin-right: 0 !important; }
+      .tagsPage .menu.tagMenu .item .editButton.editing {
+        color: #e84118; }
 
 .tagsPage .segment.basic {
   padding: 0; }

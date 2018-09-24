@@ -346,6 +346,7 @@ class YouTubeVideo extends Component {
                                                 Sign in to see comments
                                             </Header>
                                             <Button
+                                                className="signInBtn"
                                                 onClick={e =>
                                                     props.history.push(
                                                         "/signin"

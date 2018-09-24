@@ -11,6 +11,8 @@
 		}
 
 		public function recover() {
+			$email = $this->input->post('email');
+
 			if($this->user) {
 				echo json_encode([
 					'error' => true,
@@ -18,8 +20,7 @@
 				]);
 				exit;
 			}
-			
-			$email = $this->input->post('email');
+
 			if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 				$this->output->set_status_header(400);
 				echo json_encode([

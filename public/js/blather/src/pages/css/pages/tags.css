@@ -1,18 +1,21 @@
 .tagsPage .segment img {
   margin-bottom: 1.2em; }
 
-.tagsPage .editButton {
-  color: #0097e6;
-  cursor: pointer;
-  display: none !important;
-  float: right;
-  font-size: 18px;
-  margin-right: 0 !important; }
-  .tagsPage .editButton.editing {
-    color: #e84118; }
-
-.tagsPage:hover .editButton {
-  display: inline !important; }
+.tagsPage .menu.tagMenu {
+  margin-top: 40px !important; }
+  .tagsPage .menu.tagMenu .item {
+    height: 50px; }
+    .tagsPage .menu.tagMenu .item .label {
+      background: #f5f6fa;
+      color: #2f3640; }
+    .tagsPage .menu.tagMenu .item .editButton {
+      color: #0097e6;
+      cursor: pointer;
+      float: right;
+      font-size: 18px;
+      margin-right: 0 !important; }
+      .tagsPage .menu.tagMenu .item .editButton.editing {
+        color: #e84118; }
 
 .tagsPage .segment.basic {
   padding: 0; }

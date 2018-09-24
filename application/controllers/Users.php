@@ -99,7 +99,7 @@
 				$this->output->set_status_header(403);
 				$data = $this->upload->display_errors();
 				echo json_encode([
-					'errors' => $data
+					'error' => $data
 				]);
 				exit;
 			} 
@@ -188,7 +188,7 @@
 
 		public function getInfo() {
 			$username = $this->input->get('username');
-			$select = "bio, email_verified AS emailVerified, u.id AS id, fb_id AS fbId, CONCAT('".$this->baseUrl."', u.img) AS img, linked_fb AS linkedFb, linked_twitter AS linkedTwitter, linked_youtube AS linkedYoutube, name, twitter_username AS twitterUsername, username, youtube_id AS youtubeId";
+			$select = "bio, email_verified AS emailVerified, u.id AS id, CONCAT('".$this->baseUrl."img/profile_pics/', u.img) AS img, linked_twitter AS linkedTwitter, linked_youtube AS linkedYoutube, name, username";
 			$info = $this->users->getUserInfo($username, $select);
 
 			if(!$info) {
@@ -199,10 +199,35 @@
 				exit;
 			}
 
-			$info['discussion_count'] = (int)$this->discussions->searchDiscussions(null, $info['id'], null, null, null, 0, true);
-			$info['fallacy_count'] = (int)$this->fallacies->search(null, null, $info['id'], null, null, null, null, null, 0, true);
-			$info['archive_count'] = (int)$this->users->getArchivedLinks(['user_id' => $info['id']], 0, true);
-			$info['bio'] = empty($info['bio']) ? $info['name']." has not described himself yet" : $info['bio'];
+			if(empty($info['bio'])) {
+				$info['bio'] = $info['name']." does not have a bio yet";
+			}
+
+			$info['discussion_count'] = $this->discussions->search([
+				'both' => true,
+				'by' => $info['id'],
+				'page' => null,
+				'q' => null,
+				'status' => null,
+				'tags' => false,
+				'with' => null
+			], true);
+
+			$info['fallacy_count'] = $this->fallacies->search([
+				'assigned_by' => $info['id'],
+				'assigned_to' => null,
+				'comment_id' => null,
+				'fallacies' => null,
+				'id' => null,
+				'network' => null,
+				'object_id' => null,
+				'page' => null,
+				'q' => null
+			], true);
+			
+			$info['archive_count'] = $this->users->getArchivedLinks([
+				'user_id' => $info['id']
+			], 0, true);
 
 			echo json_encode([
 				'error' => false,

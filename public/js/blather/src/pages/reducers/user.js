@@ -30,16 +30,12 @@ const pageUser = (state = initial(), action) => {
                     discussionCount: payload.user.discussion_count,
                     emailVerified: payload.user.emailVerified === "1",
                     fallacyCount: payload.user.fallacy_count,
-                    fbId: payload.user.fbId,
                     id: parseInt(payload.user.id, 10),
                     img: payload.user.img,
-                    linkedFb: payload.user.linkedFb === "1",
                     linkedTwitter: payload.user.linkedTwitter === "1",
                     linkedYoutube: payload.user.linkedYoutube === "1",
                     name: payload.user.name,
-                    twitterUsername: payload.user.twitterUsername,
-                    username: payload.user.username,
-                    youtubeId: payload.user.youtubeId
+                    username: payload.user.username
                 }
             };
 

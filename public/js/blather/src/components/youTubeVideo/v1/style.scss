@@ -92,9 +92,12 @@
             color: $electromagnetic !important;
         }
 
-        button {
+        .signInBtn {
             background: $download-progress;
-            color: $white;
+
+            &:hover {
+                background: darken($download-progress, 5%);
+            }
         }
     }
 

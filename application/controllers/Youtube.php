@@ -92,11 +92,8 @@
 			]);
 		}
 
-		public function insertComment() {
-
-		}
-
 		public function redirect() {
+			$code = $this->input->post('code');
 			if(!$this->user) {
 				$this->output->set_status_header(401);
 				echo json_encode([
@@ -106,7 +103,6 @@
 			}
 
 			$linkedYouTube = false;
-			$code = $this->input->post('code');
 			$data = $this->youtube->GetToken($code);
 			$accessToken = $data['access_token'];
 			$refreshToken = $data['refresh_token'];

@@ -181,7 +181,7 @@
             return count($results) === 1 ? $results[0] : false;
         }
 
-        public function search($id = null, $q = null, $assigned_by = null, $assigned_to = null, $network = null, $object_id = null, $comment_id = null, $fallacies = null, $page = 0, $just_count = false) {
+        public function search($data, $just_count = false) {
             
             $select = "f.name AS fallacy_name,
 
@@ -213,7 +213,7 @@
 
                 GROUP_CONCAT(DISTINCT t.id SEPARATOR ', ') tag_ids, 
                 GROUP_CONCAT(DISTINCT t.value SEPARATOR ', ') AS tag_names, ";
-            if($id) {
+            if($data['id']) {
                 $select .= ', tp.tweet_json,
 
                             yv.channel_id AS video_channel_id, 
@@ -283,10 +283,7 @@
             $this->db->join('fallacy_tags ft', 'fe.id = ft.fallacy_id', 'left');
             $this->db->join('tags t', 'ft.tag_id = t.id', 'left');
 
-            $this->db->join('twitter_users tu', 'p.social_media_id = tu.twitter_id', 'left');
-            $this->db->join('youtube_users yu', 'p.social_media_id = yu.youtube_id', 'left');
-
-            if($id) {
+            if($data['id']) {
                 $this->db->join('twitter_posts tp', 'fe.media_id = tp.tweet_id', 'left');
                 $this->db->join('youtube_videos yv', 'fe.media_id = yv.video_id', 'left');
                 $this->db->join('pages yvp', 'yv.channel_id = yvp.social_media_id', 'left');
@@ -300,48 +297,48 @@
                 $this->db->join('youtube_videos cyv', 'c.media_id = cyv.video_id', 'left');
             }
 
-            if($object_id && $network === 'twitter') {
+            if($data['object_id'] && $data['network'] === 'twitter') {
                 $this->db->join('twitter_posts tp', 'fe.media_id = tp.tweet_id');
             }
 
-            if($network === 'youtube') {
-                if($comment_id) {
+            if($data['network'] === 'youtube') {
+                if($data['comment_id']) {
                     $this->db->join('youtube_comments yc', 'fe.comment_id = yc.comment_id');
                 } else {
                     $this->db->join('youtube_videos yv', 'fe.media_id = yv.video_id');
                 }
             }
 
-            if($id) {
-                $this->db->where('fe.id', $id);
+            if($data['id']) {
+                $this->db->where('fe.id', $data['id']);
             }
 
-            if($q) {
-                $this->db->where("title LIKE '%".$q."%' OR explanation LIKE '%".$q."%' ");
+            if($data['q']) {
+                $this->db->where("title LIKE '%".$data['q']."%' OR explanation LIKE '%".$data['q']."%' ");
             }
 
-            if($fallacies) {
-                $this->db->where_in('fe.fallacy_id', $fallacies);
+            if($data['fallacies']) {
+                $this->db->where_in('fe.fallacy_id', $data['fallacies']);
             }
 
-            if($assigned_by) {
-                $this->db->where('fe.assigned_by', $assigned_by);
+            if($data['assigned_by']) {
+                $this->db->where('fe.assigned_by', $data['assigned_by']);
             }
 
-            if($assigned_to) {
-                $this->db->where('p.social_media_id', $assigned_to);
+            if($data['assigned_to']) {
+                $this->db->where('p.social_media_id', $data['assigned_to']);
             }
 
-            if($object_id) {
+            if($data['object_id']) {
                 $this->db->where([
-                    'fe.network' => $network,
-                    'fe.media_id' => $network === 'twitter' ? (int)$object_id : $object_id
+                    'fe.network' => $data['network'],
+                    'fe.media_id' => $data['network'] === 'twitter' ? (int)$data['object_id'] : $data['object_id']
                 ]);
             }
 
-            if(!$just_count && !$id) {
+            if(!$just_count && !$data['id']) {
                 $limit = 10;
-                $start = $page*$limit;
+                $start = $data['page']*$limit;
                 $this->db->order_by('fe.id DESC');
                 $this->db->limit($limit, $start);
                 $this->db->group_by('fe.id');
@@ -349,7 +346,7 @@
 
             if($just_count) {
                 $result = $this->db->get('fallacy_entries fe')->result();
-                return $result[0]->count;
+                return (int)$result[0]->count;
             }
 
             $results = $this->db->get('fallacy_entries fe')->result_array();

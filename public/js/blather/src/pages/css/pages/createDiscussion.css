@@ -5,6 +5,7 @@
   .createDiscussionPage .contentContainer .segment {
     background: #ffffff !important;
     border: none !important;
+    box-shadow: none !important;
     margin: 0;
     padding: 0; }
     .createDiscussionPage .contentContainer .segment .ui.form .field label {
@@ -24,12 +25,14 @@
         background: #3da92d !important; }
     .createDiscussionPage .contentContainer .segment .ui.form .titleInput input, .createDiscussionPage .contentContainer .segment .ui.form textarea {
       padding: 8px; }
-  .createDiscussionPage .contentContainer .previewSegment .descriptionTitle, .createDiscussionPage .contentContainer .previewSegment .extraTitle {
-    background: #ffffff;
-    margin-bottom: 5px; }
-  .createDiscussionPage .contentContainer .previewSegment .descriptionPreview, .createDiscussionPage .contentContainer .previewSegment .extraPreview {
-    min-height: 80px;
-    padding: 0; }
+  .createDiscussionPage .contentContainer .previewSegment {
+    box-shadow: none !important; }
+    .createDiscussionPage .contentContainer .previewSegment .descriptionTitle, .createDiscussionPage .contentContainer .previewSegment .extraTitle {
+      background: #ffffff;
+      margin-bottom: 5px; }
+    .createDiscussionPage .contentContainer .previewSegment .descriptionPreview, .createDiscussionPage .contentContainer .previewSegment .extraPreview {
+      min-height: 80px;
+      padding: 0; }
   .createDiscussionPage .contentContainer .exitPreviewButton {
     background: #e84118;
     margin-top: 1em; }

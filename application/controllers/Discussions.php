@@ -30,6 +30,11 @@
 		}
 
 		public function create() {
+			$title = $this->input->post('title');
+			$description = $this->input->post('description');
+			$extra = $this->input->post('extra');
+			$tags = $this->input->post('tags');
+
 			if(!$this->user) {
 				$this->output->set_status_header(401);
 				echo json_encode([
@@ -37,11 +42,6 @@
 				]);
 			}
 
-			$title = $this->input->post('title');
-			$description = $this->input->post('description');
-			$extra = $this->input->post('extra');
-			$tags = $this->input->post('tags');
-			
 			if(empty($title)) {
 				$this->output->set_status_header(400);
 				echo json_encode([
@@ -82,10 +82,10 @@
 				exit;
 			}
 
-			$discussion = $this->discussions->createDiscussion($title, $description, $extra, 52, $tags);
+			$discussion = $this->discussions->createDiscussion($title, $description, $extra, $this->user->id, $tags);
 			echo json_encode([
-				'error' => $discussion ? false : true,
-				'discussion' => $discussion
+				'discussion' => $discussion,
+				'error' => $discussion ? false : true
 			]);
 		}
 
@@ -151,20 +151,20 @@
 		}
 
 		public function search() {
-			$by = $this->input->get('startedBy');
 			$page = $this->input->get('page');
-			$q = $this->input->get('q');
-			$status = $this->input->get('status');
-			$tags = $this->input->get('tags');
-			$with = $this->input->get('withUser');
-			if(!$tags) {
-				$tags = true;
-			}
-
-			$count = $this->discussions->searchDiscussions($q, $by, $with, $status, $tags, $page, true);
-			$discussions = $this->discussions->searchDiscussions($q, $by, $with, $status, $tags, $page);
+			$params = [
+				'both' => $this->input->get('both'),
+				'by' => $this->input->get('startedBy'),
+				'page' => $page,
+				'q' => $this->input->get('q'),
+				'status' => $this->input->get('status'),
+				'tags' => $this->input->get('tags') ? $this->input->get('tags') : true,
+				'with' => $this->input->get('withUser')
+			];
+			$count = $this->discussions->search($params, true);
+			$discussions = $this->discussions->search($params);
 			echo json_encode([
-				'count' => (int)$count,
+				'count' => $count,
 				'discussions' => $discussions,
 				'error' => false,
 				'hasMore' => $page < ceil($count/10),

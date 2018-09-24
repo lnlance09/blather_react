@@ -6,6 +6,7 @@ import {
 import { DisplayMetaTags } from "utils/metaFunctions";
 import { fetchUserData } from "pages/actions/user";
 import { Provider, connect } from "react-redux";
+import { withRouter } from "react-router";
 import {
     Button,
     Container,
@@ -24,6 +25,7 @@ import ArchivesList from "components/archivesList/v1/";
 import DiscussionsList from "components/discussionsList/v1/";
 import Dropzone from "react-dropzone";
 import FallaciesList from "components/fallaciesList/v1/";
+import ImagePic from "images/image-square.png";
 import PageFooter from "components/footer/v1/";
 import PageHeader from "components/header/v1/";
 import PropTypes from "prop-types";
@@ -35,30 +37,23 @@ class UserPage extends Component {
     constructor(props) {
         super(props);
         const tabs = ["discussions", "fallacies", "archives"];
+        let tab = props.match.params.tab;
+        const username = props.match.params.username;
         const currentState = store.getState();
         const user = currentState.user;
         const authenticated = user.authenticated;
         const bearer = user.bearer;
-        const username = this.props.match.params.username;
-        let tab = this.props.match.params.tab;
+        const myUsername = authenticated ? user.data.username : null;
+        const isMyProfile = username === myUsername;
+
         if (!tabs.includes(tab)) {
             tab = "discussions";
         }
 
-        let isMyProfile = false;
-        if (username === user.data.username) {
-            isMyProfile = true;
-        }
-
-        this.props.fetchUserData({
-            username,
-            bearer: user.bearer
-        });
-
         this.state = {
+            activeItem: tab,
             about: user.data.bio ? user.data.bio : "",
             active: false,
-            activeItem: tab ? tab : "discussions",
             animation: "zoom",
             authenticated,
             bearer,
@@ -67,9 +62,17 @@ class UserPage extends Component {
             files: [],
             inverted: true,
             isMyProfile,
-            visible: false,
-            username
+            myUsername,
+            tab,
+            tabs,
+            username,
+            visible: false
         };
+
+        this.props.fetchUserData({
+            bearer: bearer,
+            username: username
+        });
 
         this.onDrop = this.onDrop.bind(this);
         this.onChangeAbout = this.onChangeAbout.bind(this);
@@ -79,6 +82,29 @@ class UserPage extends Component {
 
     componentDidMount() {
         this.setState({ visible: true });
+    }
+
+    componentWillReceiveProps(newProps) {
+        const username = newProps.match.params.username;
+        if (this.props.user.username !== username) {
+            this.props.fetchUserData({
+                bearer: this.state.bearer,
+                username: username
+            });
+        }
+
+        const isMyProfile = username === this.state.myUsername;
+        let tab = newProps.match.params.tab;
+        if (!this.state.tabs.includes(tab)) {
+            tab = "discussions";
+        }
+
+        this.setState({
+            activeItem: tab,
+            isMyProfile,
+            tab,
+            username
+        });
     }
 
     handleItemClick = (e, { name }) => {
@@ -165,7 +191,13 @@ class UserPage extends Component {
                     />
                 );
             }
-            return <Image src={pic} style={{ border: "none" }} />;
+            return (
+                <Image
+                    src={pic}
+                    onError={i => (i.target.src = ImagePic)}
+                    style={{ border: "none" }}
+                />
+            );
         };
         const ShowContent = props => {
             if (props.user.id) {
@@ -174,10 +206,10 @@ class UserPage extends Component {
                         return (
                             <DiscussionsList
                                 filter={{
+                                    both: true,
                                     startedBy: props.user.id
                                 }}
                                 onUserPage
-                                userImages={false}
                                 {...props}
                             />
                         );
@@ -292,16 +324,12 @@ UserPage.propTypes = {
         discussionCount: PropTypes.number,
         emailVerified: PropTypes.bool,
         fallacyCount: PropTypes.number,
-        fbId: PropTypes.string,
         id: PropTypes.number,
         img: PropTypes.string,
-        linkedFb: PropTypes.bool,
         linkedTwitter: PropTypes.bool,
         linkedYoutube: PropTypes.bool,
         name: PropTypes.string,
-        twitterUsername: PropTypes.string,
-        username: PropTypes.string,
-        youtubeId: PropTypes.string
+        username: PropTypes.string
     })
 };
 
@@ -320,11 +348,13 @@ const mapStateToProps = (state, ownProps) => {
     };
 };
 
-export default connect(
-    mapStateToProps,
-    {
-        fetchUserData,
-        changeProfilePic,
-        updateAbout
-    }
-)(UserPage);
+export default withRouter(
+    connect(
+        mapStateToProps,
+        {
+            fetchUserData,
+            changeProfilePic,
+            updateAbout
+        }
+    )(UserPage)
+);

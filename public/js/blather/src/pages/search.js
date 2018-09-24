@@ -68,7 +68,7 @@ class SearchPage extends Component {
         }
         this.setState({
             activeItem: "fallacies",
-            fallacies: fallacies,
+            fallacies,
             page: 0
         });
 
@@ -80,7 +80,7 @@ class SearchPage extends Component {
         );
     };
 
-    onChangeSearchValue(value) {
+    onChangeSearchValue = (e, { value }) => {
         this.setState({
             page: 0,
             value
@@ -141,11 +141,7 @@ class SearchPage extends Component {
                                     <Menu.Item>
                                         <Input
                                             icon="search"
-                                            onChange={e =>
-                                                this.onChangeSearchValue(
-                                                    e.target.value
-                                                )
-                                            }
+                                            onChange={this.onChangeSearchValue}
                                             onKeyPress={e => {
                                                 if (e.key === "Enter") {
                                                     this.submitSearchForm();

@@ -109,7 +109,7 @@
 
 			$results = $this->db->get('archived_links a')->result_array();
 			if($just_count) {
-				return $results[0]['count'];
+				return (int)$results[0]['count'];
 			}
 
 			if($post) {

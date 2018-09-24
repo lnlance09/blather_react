@@ -60,9 +60,10 @@
   padding: 10px !important; }
   .youTubeVideo .commentsDimmer .header {
     color: #2f3640 !important; }
-  .youTubeVideo .commentsDimmer button {
-    background: #4cd137;
-    color: #ffffff; }
+  .youTubeVideo .commentsDimmer .signInBtn {
+    background: #4cd137; }
+    .youTubeVideo .commentsDimmer .signInBtn:hover {
+      background: #41c22d; }
 
 .youTubeVideo .comments {
   max-width: none !important; }

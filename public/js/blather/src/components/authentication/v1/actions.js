@@ -1,5 +1,5 @@
 import * as constants from "./constants";
-import { parseJwt, setToken } from "../../../utils/token";
+import { parseJwt, setToken } from "utils/token";
 import jwt from "jsonwebtoken";
 import request from "request";
 

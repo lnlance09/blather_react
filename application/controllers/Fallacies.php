@@ -15,7 +15,17 @@
 
 		public function index() {
 			$id = $this->input->get('id');
-			$results = $this->fallacies->search($id);
+			$results = $this->fallacies->search([
+				'assigned_by' => null,
+				'assigned_to' => null,
+				'comment_id' => null,
+				'fallacies' => null,
+				'id' => $id,
+				'network' => null,
+				'object_id' => null,
+				'page' => null,
+				'q' => null
+			]);
 			if(empty($results)) {
 				$this->output->set_status_header(404);
 				echo json_encode([
@@ -233,6 +243,9 @@
 		}
 
 		public function postComment() {
+			$id = $this->input->post('id');
+			$msg = $this->input->post('message');
+
 			if(!$this->user) {
 				$this->output->set_status_header(401);
 				echo json_encode([
@@ -241,8 +254,6 @@
 				exit;
 			}
 
-			$id = $this->input->post('id');
-			$msg = $this->input->post('message');
 			$data = [
 				'created_at' => date('Y-m-d H:i:s'),
 				'fallacy_id' => $id,
@@ -281,7 +292,17 @@
 				]);
 			}
 
-			$fallacy = $this->fallacies->search($id);
+			$fallacy = $this->fallacies->search([
+				'assigned_by' => null,
+				'assigned_to' => null,
+				'comment_id' => null,
+				'fallacies' => null,
+				'id' => $id,
+				'network' => null,
+				'object_id' => null,
+				'page' => null,
+				'q' => null
+			]);
 			if(empty($fallacy)) {
 				$this->output->set_status_header(401);
 				echo json_encode([
@@ -299,6 +320,35 @@
 			$this->tags->removeTag($id, $tagId, 'fallacy');
 			echo json_encode([
 				'error' => false
+			]);
+		}
+
+		public function search() {
+			$page = $this->input->get('page');
+			$results = null;
+			$limit = 10;
+			$start = $page*$limit;
+
+			$params = [
+				'assigned_by' => $this->input->get('assignedBy'),
+				'assigned_to' => $this->input->get('assignedTo'),
+				'comment_id' => $this->input->get('commentId'),
+				'fallacies' => $this->input->get('fallacies'),
+				'id' => null,
+				'network' => $this->input->get('network'),
+				'object_id' => $this->input->get('objectId'),
+				'page' => $page,
+				'q' => trim($this->input->get('q'))
+			];
+			$count = $this->fallacies->search($params, true);
+			$results = $this->fallacies->search($params);
+			echo json_encode([
+				'count' => $count,
+				'error' => false,
+				'hasMore' => $page < ceil($count/$limit),
+				'page' => (int)$page,
+				'pages' => ceil($count/$limit),
+				'results' => !$results ? [] : $results
 			]);
 		}
 
@@ -323,7 +373,17 @@
 				exit;
 			}
 
-			$fallacy = $this->fallacies->search($id, null, null, null, null, null, null, null, null);
+			$fallacy = $this->fallacies->search([
+				'assigned_by' => $id,
+				'assigned_to' => null,
+				'comment_id' => null,
+				'fallacies' => null,
+				'id' => null,
+				'network' => null,
+				'object_id' => null,
+				'page' => null,
+				'q' => null
+			]);
 			if(!$fallacy[0]['id']) {
 				$this->output->set_status_header(401);
 				echo json_encode([
@@ -383,35 +443,6 @@
 			]);
 		}
 
-		public function search() {
-			$assignedBy = $this->input->get('assignedBy');
-			$assignedTo = $this->input->get('assignedTo');
-			$commentId = $this->input->get('commentId');
-			$fallacies = $this->input->get('fallacies');
-			$network = $this->input->get('network');
-			$objectId = $this->input->get('objectId');
-			$page = $this->input->get('page');
-			$q = $this->input->get('q');
-
-			$q = trim($q);
-			$results = null;
-			$error = false;
-			$limit = 10;
-			$start = $page*$limit;
-
-			$count = $this->fallacies->search(null, $q, $assignedBy, $assignedTo, $network, $objectId, $commentId, $fallacies, $page, true);
-			$results = $this->fallacies->search(null, $q, $assignedBy, $assignedTo, $network, $objectId, $commentId, $fallacies, $page);
-
-			echo json_encode([
-				'count' => (int)$count,
-				'error' => false,
-				'hasMore' => $page < ceil($count/$limit),
-				'page' => (int)$page,
-				'pages' => ceil($count/$limit),
-				'results' => !$results ? [] : $results
-			]);
-		}
-
 		public function uniqueFallacies() {
 			$id = $this->input->get('id');
 			$type = $this->input->get('type');
@@ -431,14 +462,6 @@
 		}
 
 		public function update() {
-			if(!$this->user) {
-				$this->output->set_status_header(401);
-				echo json_encode([
-					'error' => 'You are not logged in'
-				]);
-				exit;
-			}
-
 			$id = (int)$this->input->post('id');
 			$endTime = $this->input->post('endTime');
 			$explanation = $this->input->post('explanation');
@@ -447,7 +470,26 @@
 			$tags = $this->input->post('tags');
 			$title = $this->input->post('title');
 
-			$fallacy = $this->fallacies->search($id);
+			if(!$this->user) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'You are not logged in'
+				]);
+				exit;
+			}
+
+			$params = [
+				'assigned_by' => null,
+				'assigned_to' => null,
+				'comment_id' => null,
+				'fallacies' => null,
+				'id' => $id,
+				'network' => null,
+				'object_id' => null,
+				'page' => null,
+				'q' => null
+			];
+			$fallacy = $this->fallacies->search($params);
 			if(empty($fallacy)) {
 				$this->output->set_status_header(404);
 				echo json_encode([
@@ -468,7 +510,8 @@
 			$title = empty($title) ? $fallacy[0]['title'] : $title; 
 			$explanation = empty($explanation) ? $fallacy[0]['explanation'] : $explanation;
 			$this->fallacies->updateFallacy($id, $explanation, $fallacyId, $tags, $title, $this->user->id);
-			$fallacy = $this->fallacies->search($id);
+
+			$fallacy = $this->fallacies->search($params);
 			echo json_encode([
 				'error' => false,
 				'fallacy' => $fallacy[0]
