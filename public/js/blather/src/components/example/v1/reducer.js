@@ -1,9 +1,9 @@
-import * as constants from './constants';
+import * as constants from "./constants"
 
 /**
  * @return {object} - the initial state
  */
-const initial = () => ({});
+const initial = () => ({})
 
 /**
  * Change the state of this widget
@@ -13,16 +13,16 @@ const initial = () => ({});
  * @return {object}
  */
 const test = (state = initial(), action) => {
-    switch (action.type) {
-        case constants.CHANGE_ME:
-            return {
-                ...state,
-                changeMe: action.changeMe
-            };
-    
-        default:
-            return state;
-    }
-};
+	switch (action.type) {
+		case constants.CHANGE_ME:
+			return {
+				...state,
+				changeMe: action.changeMe
+			}
 
-export default test;
+		default:
+			return state
+	}
+}
+
+export default test

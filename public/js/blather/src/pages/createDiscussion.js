@@ -1,8 +1,8 @@
-import "./css/index.css";
-import { DisplayMetaTags } from "utils/metaFunctions";
-import { setTags, submitDiscussion } from "pages/actions/discussion";
-import { Provider, connect } from "react-redux";
-import { Redirect } from "react-router-dom";
+import "./css/index.css"
+import { DisplayMetaTags } from "utils/metaFunctions"
+import { setTags, submitDiscussion } from "pages/actions/discussion"
+import { Provider, connect } from "react-redux"
+import { Redirect } from "react-router-dom"
 import {
 	Button,
 	Container,
@@ -17,20 +17,20 @@ import {
 	Segment,
 	TextArea,
 	Transition
-} from "semantic-ui-react";
-import Marked from "marked";
-import PageFooter from "components/footer/v1/";
-import PageHeader from "components/header/v1/";
-import PropTypes from "prop-types";
-import React, { Component } from "react";
-import store from "store";
+} from "semantic-ui-react"
+import Marked from "marked"
+import PageFooter from "components/footer/v1/"
+import PageHeader from "components/header/v1/"
+import PropTypes from "prop-types"
+import React, { Component } from "react"
+import store from "store"
 
 class CreateDiscussionPage extends Component {
 	constructor(props) {
-		super(props);
-		const currentState = store.getState();
-		const bearer = currentState.user.bearer;
-		const authenticated = currentState.user.authenticated;
+		super(props)
+		const currentState = store.getState()
+		const bearer = currentState.user.bearer
+		const authenticated = currentState.user.authenticated
 		this.state = {
 			authenticated,
 			bearer,
@@ -47,7 +47,7 @@ class CreateDiscussionPage extends Component {
 			values: [],
 			visible: true,
 			user: currentState.user
-		};
+		}
 
 		Marked.setOptions({
 			renderer: new Marked.Renderer(),
@@ -60,19 +60,19 @@ class CreateDiscussionPage extends Component {
 			smartLists: true,
 			smartypants: false,
 			xhtml: false
-		});
+		})
 
-		this.onChangeDescription = this.onChangeDescription.bind(this);
-		this.onChangeExtra = this.onChangeExtra.bind(this);
-		this.onChangeTitle = this.onChangeTitle.bind(this);
-		this.submitDiscussion = this.submitDiscussion.bind(this);
-		this.handleAddition = this.handleAddition.bind(this);
-		this.handleChange = this.handleChange.bind(this);
-		this.togglePreview = this.togglePreview.bind(this);
+		this.onChangeDescription = this.onChangeDescription.bind(this)
+		this.onChangeExtra = this.onChangeExtra.bind(this)
+		this.onChangeTitle = this.onChangeTitle.bind(this)
+		this.submitDiscussion = this.submitDiscussion.bind(this)
+		this.handleAddition = this.handleAddition.bind(this)
+		this.handleChange = this.handleChange.bind(this)
+		this.togglePreview = this.togglePreview.bind(this)
 	}
 
 	componentDidMount() {
-		this.fetchTags();
+		this.fetchTags()
 	}
 
 	fetchTags() {
@@ -84,22 +84,21 @@ class CreateDiscussionPage extends Component {
 			.then(response => {
 				if (response.ok) {
 					response.json().then(data => {
-						this.setState({ options: data.tags });
-					});
+						this.setState({ options: data.tags })
+					})
 				}
 			})
-			.catch(err => console.log(err));
+			.catch(err => console.log(err))
 	}
 
 	handleAddition = (e, { value }) =>
 		this.setState({
 			options: [{ text: value, value }, ...this.state.options]
-		});
-	handleChange = (e, { value }) => this.setState({ tags: value });
-	onChangeDescription = (e, { value }) =>
-		this.setState({ description: value });
-	onChangeExtra = (e, { value }) => this.setState({ extra: value });
-	onChangeTitle = (e, { value }) => this.setState({ title: value });
+		})
+	handleChange = (e, { value }) => this.setState({ tags: value })
+	onChangeDescription = (e, { value }) => this.setState({ description: value })
+	onChangeExtra = (e, { value }) => this.setState({ extra: value })
+	onChangeTitle = (e, { value }) => this.setState({ title: value })
 
 	submitDiscussion(e) {
 		this.props.submitDiscussion({
@@ -108,19 +107,19 @@ class CreateDiscussionPage extends Component {
 			extra: this.state.extra,
 			tags: this.state.tags,
 			title: this.state.title
-		});
+		})
 		this.setState({
 			loading: true,
 			hasSubmitted: true
-		});
+		})
 	}
 
 	togglePreview = () => {
 		this.setState({
 			preview: this.state.preview ? false : true,
 			visible: this.state.visible ? false : true
-		});
-	};
+		})
+	}
 
 	render() {
 		const {
@@ -135,27 +134,14 @@ class CreateDiscussionPage extends Component {
 			tags,
 			title,
 			visible
-		} = this.state;
+		} = this.state
 		const hasUpdated =
-			authenticated &&
-			(title !== "" || description !== "" || extra !== "")
-				? true
-				: false;
+			authenticated && (title !== "" || description !== "" || extra !== "") ? true : false
 		const DiscussionForm = props => {
 			return (
-				<Transition
-					animation="fade"
-					duration={duration}
-					visible={visible}
-				>
-					<Dimmer.Dimmable
-						as={Segment}
-						dimmed={authenticated ? false : true}
-					>
-						<Form
-							loading={loading && !props.error}
-							onSubmit={this.submitDiscussion}
-						>
+				<Transition animation="fade" duration={duration} visible={visible}>
+					<Dimmer.Dimmable as={Segment} dimmed={authenticated ? false : true}>
+						<Form loading={loading && !props.error} onSubmit={this.submitDiscussion}>
 							<Form.Input
 								className="titleInput"
 								error={props.errorType === 101 && title === ""}
@@ -207,11 +193,8 @@ class CreateDiscussionPage extends Component {
 										className="previewDiscussionButton"
 										content="Preview"
 										fluid
-										onClick={this.togglePreview}
-									>
-										<Button.Content visible>
-											Preview
-										</Button.Content>
+										onClick={this.togglePreview}>
+										<Button.Content visible>Preview</Button.Content>
 										<Button.Content hidden>
 											<Icon name="eye" />
 										</Button.Content>
@@ -219,20 +202,12 @@ class CreateDiscussionPage extends Component {
 									<Divider horizontal>Or</Divider>
 								</div>
 							)}
-							<Button
-								className="submitDiscussionButton"
-								fluid
-								type="submit"
-							>
-								<Button.Content visible>
-									Start the dicussion
-								</Button.Content>
+							<Button className="submitDiscussionButton" fluid type="submit">
+								<Button.Content visible>Start the dicussion</Button.Content>
 							</Button>
 						</Form>
 						<Dimmer active={authenticated ? false : true}>
-							<Header as="h2">
-								Sign in to start a discussion
-							</Header>
+							<Header as="h2">Sign in to start a discussion</Header>
 							<Button
 								content="Sign in"
 								onClick={e => props.history.push("/signin")}
@@ -240,16 +215,12 @@ class CreateDiscussionPage extends Component {
 						</Dimmer>
 					</Dimmer.Dimmable>
 				</Transition>
-			);
-		};
-		const HeaderTitle = <Header as="h1">Start a Discussion</Header>;
+			)
+		}
+		const HeaderTitle = <Header as="h1">Start a Discussion</Header>
 		const Preview = () => {
 			return (
-				<Transition
-					animation="fade"
-					duration={duration}
-					visible={preview}
-				>
+				<Transition animation="fade" duration={duration} visible={preview}>
 					<Segment className="previewSegment">
 						<Header size="large">{title}</Header>
 						<div>
@@ -278,8 +249,7 @@ class CreateDiscussionPage extends Component {
 							animated
 							className="exitPreviewButton"
 							fluid
-							onClick={this.togglePreview}
-						>
+							onClick={this.togglePreview}>
 							<Button.Content hidden>Exit preview</Button.Content>
 							<Button.Content visible>
 								<Icon name="close" />
@@ -287,8 +257,8 @@ class CreateDiscussionPage extends Component {
 						</Button>
 					</Segment>
 				</Transition>
-			);
-		};
+			)
+		}
 
 		return this.props.hasSubmitted && hasSubmitted ? (
 			<Redirect to={`/discussions/${this.props.id}`} />
@@ -312,28 +282,21 @@ class CreateDiscussionPage extends Component {
 							</Grid.Column>
 
 							<Grid.Column className="rightSide" width={4}>
-								<Header
-									as="h2"
-									className="discussionTagsHeader"
-								>
+								<Header as="h2" className="discussionTagsHeader">
 									Tips
 								</Header>
 								<List relaxed>
+									<List.Item>Try not to employ any logical fallacies</List.Item>
 									<List.Item>
-										Try not to employ any logical fallacies
+										Always entertain the possibility that you could be wrong
 									</List.Item>
 									<List.Item>
-										Always entertain the possibility that
-										you could be wrong
+										Why be wrong about something for a second longer than you
+										have to?
 									</List.Item>
 									<List.Item>
-										Why be wrong about something for a
-										second longer than you have to?
-									</List.Item>
-									<List.Item>
-										Recognize that your entire sense of
-										identity shouldn't be wrapped up in your
-										beliefs
+										Recognize that your entire sense of identity shouldn't be
+										wrapped up in your beliefs
 									</List.Item>
 								</List>
 							</Grid.Column>
@@ -342,7 +305,7 @@ class CreateDiscussionPage extends Component {
 					<PageFooter />
 				</div>
 			</Provider>
-		);
+		)
 	}
 }
 
@@ -356,7 +319,7 @@ CreateDiscussionPage.propTypes = {
 	setTags: PropTypes.func,
 	submitDiscussion: PropTypes.func,
 	tags: PropTypes.array
-};
+}
 
 CreateDiscussionPage.defaultProps = {
 	discussion: {},
@@ -365,14 +328,14 @@ CreateDiscussionPage.defaultProps = {
 	setTags: setTags,
 	submitDiscussion: submitDiscussion,
 	tags: []
-};
+}
 
 const mapStateToProps = (state, ownProps) => {
 	return {
 		...state.discussion,
 		...ownProps
-	};
-};
+	}
+}
 
 export default connect(
 	mapStateToProps,
@@ -380,4 +343,4 @@ export default connect(
 		setTags,
 		submitDiscussion
 	}
-)(CreateDiscussionPage);
+)(CreateDiscussionPage)

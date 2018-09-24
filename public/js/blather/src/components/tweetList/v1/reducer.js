@@ -1,18 +1,18 @@
-import * as constants from "./constants";
+import * as constants from "./constants"
 
-const initial = () => ({});
+const initial = () => ({})
 
 const test = (state = initial(), action) => {
-    switch (action.type) {
-        case constants.CHANGE_ME:
-            return {
-                ...state,
-                changeMe: action.changeMe
-            };
+	switch (action.type) {
+		case constants.CHANGE_ME:
+			return {
+				...state,
+				changeMe: action.changeMe
+			}
 
-        default:
-            return state;
-    }
-};
+		default:
+			return state
+	}
+}
 
-export default test;
+export default test

@@ -64,6 +64,7 @@
   "scripts": {
     "build-css": "node-sass-chokidar src/ -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
+    "prettify": "prettier --print-width 100 --tab-width 4 --use-tabs true --no-semi true --trailing-comma none --jsx-bracket-same-line true --parser flow --write 'src/**/*.js'",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",

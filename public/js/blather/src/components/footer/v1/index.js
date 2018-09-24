@@ -1,33 +1,31 @@
-import "./style.css";
-import { Link } from "react-router-dom";
-import { Container, List, Segment } from "semantic-ui-react";
-import React, { Component } from "react";
+import "./style.css"
+import { Link } from "react-router-dom"
+import { Container, List, Segment } from "semantic-ui-react"
+import React, { Component } from "react"
 
 class Footer extends Component {
-    componentWillMount() {}
+	componentWillMount() {}
 
-    render() {
-        return (
-            <Segment attached="bottom" className="footerSegment">
-                <Container
-                    style={{ paddingLeft: "30px", paddingRight: "30px" }}
-                >
-                    <List className="footerList" horizontal inverted link>
-                        <List.Item>
-                            <Link to="/about">About</Link>
-                        </List.Item>
-                        <List.Item>
-                            <Link to="/about/contact">Contact Us</Link>
-                        </List.Item>
-                        <List.Item>
-                            <Link to="/about/privacy">Privacy Policy</Link>
-                        </List.Item>
-                    </List>
-                    <p>© 2018 Blather</p>
-                </Container>
-            </Segment>
-        );
-    }
+	render() {
+		return (
+			<Segment attached="bottom" className="footerSegment">
+				<Container style={{ paddingLeft: "30px", paddingRight: "30px" }}>
+					<List className="footerList" horizontal inverted link>
+						<List.Item>
+							<Link to="/about">About</Link>
+						</List.Item>
+						<List.Item>
+							<Link to="/about/contact">Contact Us</Link>
+						</List.Item>
+						<List.Item>
+							<Link to="/about/privacy">Privacy Policy</Link>
+						</List.Item>
+					</List>
+					<p>© 2018 Blather</p>
+				</Container>
+			</Segment>
+		)
+	}
 }
 
-export default Footer;
+export default Footer
