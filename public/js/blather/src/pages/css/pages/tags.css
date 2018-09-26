@@ -11,28 +11,3 @@
 
 .tagsPage .menu.tagMenu {
   margin-top: 40px !important; }
-  .tagsPage .menu.tagMenu .item {
-    height: 50px; }
-    .tagsPage .menu.tagMenu .item .label {
-      background: #f5f6fa;
-      color: #2f3640; }
-    .tagsPage .menu.tagMenu .item .editButton {
-      color: #0097e6;
-      cursor: pointer;
-      float: right;
-      font-size: 18px;
-      margin-right: 0 !important; }
-      .tagsPage .menu.tagMenu .item .editButton.editing {
-        color: #e84118; }
-
-.tagsPage .changePicBtn {
-  background: #0097e6 !important; }
-  .tagsPage .changePicBtn:hover {
-    background: #00a8ff !important; }
-  .tagsPage .changePicBtn .icon {
-    color: #ffffff !important; }
-
-.tagsPage .updateBtn {
-  background: #0097e6 !important; }
-  .tagsPage .updateBtn:hover {
-    background: #0086cd !important; }

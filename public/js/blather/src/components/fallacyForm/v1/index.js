@@ -368,7 +368,7 @@ class FallacyForm extends Component {
 								}}>
 								<Button.Group>
 									<Button
-										className="viewFallacyBtn"
+										color="blue"
 										content="View this fallacy"
 										onClick={() =>
 											this.props.history.push(
@@ -378,7 +378,7 @@ class FallacyForm extends Component {
 									/>
 									<Button.Or />
 									<Button
-										className="assignAnotherBtn"
+										color="red"
 										content="Assign another one"
 										onClick={this.closeModal}
 										positive
@@ -448,10 +448,11 @@ class FallacyForm extends Component {
 						</Form.Field>
 						<ErrorMsg props={this.props} />
 						{this.props.authenticated && (
-							<Button content="Assign" fluid type="submit" />
+							<Button color="blue" content="Assign" fluid type="submit" />
 						)}
 						{!this.props.authenticated && (
 							<Button
+								color="green"
 								content="Sign in to start assigning fallacies"
 								fluid
 								onClick={() => this.props.history.push("/signin")}

@@ -1,40 +1,13 @@
 @import '../../../css/colors.scss';
 
 .settingsPage {
-    .settingsMenu {
-        border: none !important;
-        box-shadow: none !important;
-    }
-
-    .ui.vertical.menu .active.item {
-        background: $protoss-pylos !important;
-        color: $white;
-
-        &:hover {
-            color: $white;
-        }
-    }
-
     .settingsContent {
         .segment {
-            background: $white !important;
-            border: none !important;
-            box-shadow: 0 0 0 1px $regular-msg-border inset, 0 0 0 0 transparent !important;
             min-height: 400px;
-
-            .ui.info.message {
-                box-shadow: 0 0 0 1px $info-msg-border inset, 0 0 0 0 transparent !important;
-            }
         }
 
         .firstParagraph {
             text-align: center;
-        }
-
-        .changePasswordBox {
-            .passwordSubmit {
-                background: $seabrook;
-            }
         }
     }
 }

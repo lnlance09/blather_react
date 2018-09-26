@@ -8,41 +8,16 @@
 }
 
 .authSegment {
-    background: $linx-white !important;
-    border: none !important;
-    box-shadow: none !important;
-    margin-bottom: 0 !important;
-    padding: 0 !important;
-
-    .form {
-        button {
-            background: $naval !important;
-
-            &:hover {
-                background: darken($naval,5%) !important;
-            }
-        }
-    }
-
     .error.message {
-        box-shadow: 0 0 0 1px $error-msg-border inset, 0 0 0 0 transparent !important;
         margin-bottom: 14px;
     }
 }
 
-.authInfoSegment {
-    background: $linx-white !important;
-    border: none !important;
-    box-shadow: none !important;
-    margin-top: 0 !important;
+.registerLink {
+    color: $vanadyl-blue;
+    cursor: pointer;
 
-    .registerLink {
-        color: $vanadyl-blue;
-        cursor: pointer;
-        margin-left: 5px;
-
-        &:hover {
-            text-decoration: underline;
-        }
+    &:hover {
+        text-decoration: underline;
     }
 }

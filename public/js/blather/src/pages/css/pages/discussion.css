@@ -1,35 +1,16 @@
-.discussionPage .header {
-  color: #353b48; }
-  .discussionPage .header .editButton {
-    color: #0097e6;
-    cursor: pointer;
-    display: none !important;
-    float: right;
-    font-size: 18px;
-    margin-right: 0 !important; }
-    .discussionPage .header .editButton.editing {
-      color: #e84118; }
-  .discussionPage .header:hover .editButton {
-    display: inline !important; }
+.discussionPage .header .editButton {
+  cursor: pointer;
+  display: none !important;
+  float: right;
+  font-size: 18px;
+  margin-right: 0 !important; }
 
-.discussionPage .updateDiscussionBtn {
-  background: #0097e6 !important; }
-  .discussionPage .updateDiscussionBtn:hover {
-    background: #0086cd !important; }
+.discussionPage .header:hover .editButton {
+  display: inline !important; }
 
 .discussionPage .evidenceSection .evidenceSegment,
 .discussionPage .evidenceSection .extraSegment {
-  font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
   font-size: 16px !important; }
 
 .discussionPage .ui.grid {
   margin-top: 0 !important; }
-
-.discussionPage .steps .headerLogo {
-  height: 35px;
-  margin-right: 12px;
-  width: 35px; }
-  .discussionPage .steps .headerLogo .svgHeaderLogo {
-    fill: #0097e6;
-    height: 35px;
-    width: 35px; }

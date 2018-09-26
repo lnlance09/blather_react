@@ -184,7 +184,7 @@
                 return (int)$result[0]->count;
             }
             
-            $this->db->group_by('discussion_id, description, discussion_date, title, creator_user_name');
+            $this->db->group_by('d.id');
             $results = $this->db->get('discussions d')->result_array();
             return $results;
         }

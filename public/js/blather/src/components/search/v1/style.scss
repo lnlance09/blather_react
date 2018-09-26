@@ -3,10 +3,6 @@
 .navSearch {
     .input {
         width: 100%;
-
-        input {
-            // border-radius: .28571429rem !important;
-        }
     }
 
     .results {
@@ -23,7 +19,6 @@
             }
 
             .dropDownItemPic {
-                border-radius: 0 !important;
                 float: left !important;
                 height: 50px !important;
                 margin-right: 8px;

@@ -2,39 +2,17 @@
 
 .discussionsList {
     .discussionsFilter {
-        background: $container-content-background !important;
-        border: solid 1px $container-border-color !important;
-        padding: 12px; 
-
         .fields {
             &:last-of-type {
                 margin-bottom: 0 !important;
             }
-
-            .searchDiscussionsBtn {
-                background: $vanadyl-blue !important;
-                color: $white !important;
-                cursor: pointer;
-                height: 100%;
-
-                &:hover {
-                    background: darken($vanadyl-blue, 5%) !important;
-                }
-            }
         }
 
         .createDiscussionBtn {
-            background: $white !important;
-            border: solid 1px $button-border !important;
-            color: $vanadyl-blue !important;
             float: right;
             height: 100%;
             margin-right: 0 !important;
             width: 100%;
-
-            &:hover {
-                background: $linx-white !important;
-            }
 
             a {
                 .icon {
@@ -59,8 +37,6 @@
 
         .message {
             background: $white;
-            border: none !important;
-            box-shadow: none !important;
         }
     }
 }

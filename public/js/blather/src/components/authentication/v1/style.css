@@ -4,28 +4,11 @@
   height: 48px;
   width: 48px; }
 
-.authSegment {
-  background: #f5f6fa !important;
-  border: none !important;
-  box-shadow: none !important;
-  margin-bottom: 0 !important;
-  padding: 0 !important; }
-  .authSegment .form button {
-    background: #40739e !important; }
-    .authSegment .form button:hover {
-      background: #39668c !important; }
-  .authSegment .error.message {
-    box-shadow: 0 0 0 1px rgba(224, 180, 180, 0.4) inset, 0 0 0 0 transparent !important;
-    margin-bottom: 14px; }
+.authSegment .error.message {
+  margin-bottom: 14px; }
 
-.authInfoSegment {
-  background: #f5f6fa !important;
-  border: none !important;
-  box-shadow: none !important;
-  margin-top: 0 !important; }
-  .authInfoSegment .registerLink {
-    color: #0097e6;
-    cursor: pointer;
-    margin-left: 5px; }
-    .authInfoSegment .registerLink:hover {
-      text-decoration: underline; }
+.registerLink {
+  color: #0097e6;
+  cursor: pointer; }
+  .registerLink:hover {
+    text-decoration: underline; }

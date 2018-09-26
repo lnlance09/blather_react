@@ -1,36 +1,23 @@
 @import '../../../css/colors.scss';
 
-.ui.card.tagsCard {
-    box-shadow: none !important;
+.tagsCard {
+    .header {
+        .editTagsIcon {
+            color: $vanadyl-blue;
+            cursor: pointer;
+            display: none !important;
+            float: right;
+            font-size: 18px;
+            margin-right: 0 !important;
 
-    .content {
-        border: none;
-        padding: 0 !important;
-
-        .description {
-            margin-top: 1em;
+            &.editing {
+                color: $harley-davidson-orange;
+            }
         }
 
-        .header {
-            color: $blue-nights;
-
+        &:hover {
             .editTagsIcon {
-                color: $vanadyl-blue;
-                cursor: pointer;
-                display: none !important;
-                float: right;
-                font-size: 18px;
-                margin-right: 0 !important;
-
-                &.editing {
-                    color: $harley-davidson-orange;
-                }
-            }
-
-            &:hover {
-                .editTagsIcon {
-                    display: inline !important;
-                }
+                display: inline !important;
             }
         }
     }
@@ -73,22 +60,8 @@
         padding: 0.8em;
     }
 
-    .search.selection.dropdown {
-        border: solid 1px $white !important;
-
-        .menu.transition {
-            border: none !important;
-        }
-    }
-
     .tagModalBtn {
-        background: $vanadyl-blue;
         float: right;
-        margin-right: 0;
-        margin-top: 12px;
-
-        &:hover {
-            background: darken($vanadyl-blue, 5%);
-        }
+        margin: 15px 0 0;
     }
 }

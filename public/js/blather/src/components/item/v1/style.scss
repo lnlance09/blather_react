@@ -25,7 +25,6 @@
             margin-top: 0;
 
             .item {
-                color: $electromagnetic;
                 margin-bottom: 0 !important;
 
                 &:nth-of-type(2) {
@@ -42,10 +41,6 @@
     }
 
     .image {
-        img {
-            border: none !important;
-        }
-
         .label {
             &.check {
                 border-color: $skirret-green;

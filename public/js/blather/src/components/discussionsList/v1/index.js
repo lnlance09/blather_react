@@ -209,16 +209,12 @@ class DiscussionsList extends Component {
 						/>
 					</Form.Field>
 					<Form.Field width={4}>
-						<Button
-							className="searchDiscussionsBtn"
-							content="Search"
-							fluid
-							type="submit"
-						/>
+						<Button color="blue" content="Search" fluid type="submit" />
 					</Form.Field>
 					<Form.Field width={1}>
 						<Button
 							className="createDiscussionBtn"
+							color="green"
 							compact
 							icon
 							onClick={() => props.history.push("/discussion/create")}

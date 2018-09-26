@@ -1,8 +1,13 @@
 @import '../../../css/colors.scss';
 
 .discussionsPage {
+    .advancedOptions {
+        button {
+            height: 100%;
+        }
+    }
+
     .discussionsContainer {
-        border: none !important;
         padding: 0;
     }
 }

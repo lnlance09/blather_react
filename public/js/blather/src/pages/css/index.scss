@@ -13,52 +13,9 @@
 @import './pages/users.scss';
 @import '../../css/colors.scss';
 
-*:not(img) {
-    border-radius: 0 !important;
-}
-
 .rightSide {
     margin-left: 0;
     padding-left: 0 !important;
-}
-
-button {
-    color: $white !important;
-
-    &:hover {
-        color: $white !important;
-    }
-}
-
-textarea {
-    border: solid 1px $container-border-color;
-    color: $electromagnetic;
-    outline: none !important;
-    padding: 8px;
-    width: 100%;
-}
-
-.dropdown {
-    border-radius: 0 !important;
-
-    &:focus {
-        border-radius: 0 !important;
-    }
-}
-
-.lazyLoadSegment {
-    border-radius: 0 !important;
-    box-shadow: none !important;
-}
-
-.input {
-    input {
-        border-radius: 0 !important;
-    }
-}
-
-.ui.upward.selection.dropdown.visible {
-    border-radius: 0 !important;
 }
 
 .search.selection.dropdown {
@@ -75,19 +32,31 @@ textarea {
     }
 }
 
-.search.selection.active.dropdown {
-    border-color: #96c8da !important;
+.ui.vertical.menu .item {
+    font-weight: normal !important;
+
+    &.active {
+        background: $protoss-pylos !important;
+        color: $white;
+        font-weight: bold !important;
+
+        &:hover {
+            color: $white;
+        }
+    }
 }
 
-.segment:not(.basic,.lazyLoadSegment) {
-    background: $container-content-background !important;
-    border: solid 1px $container-border-color !important;
-    box-shadow: none !important;
-    padding: 8px;
+.ui.secondary.pointing.menu .item {
+    height: 50px;
 
-    &.dimmer {
-        border: solid 1px  $dimmer-border;
+    .label {
+        background: $linx-white;
+        color: $electromagnetic;
     }
+}
+
+.search.selection.active.dropdown {
+    border-color: #96c8da !important;
 }
 
 .externalUrl {
@@ -99,8 +68,12 @@ textarea {
     }
 }
 
-.ui.secondary.pointing.menu .active.item {
-    border-color: $vanadyl-blue !important;
+.Linkify {
+    color: $electromagnetic !important;
+    
+    a {
+        color: $vanadyl-blue !important;
+    }
 }
 
 .clearfix {
@@ -117,13 +90,6 @@ textarea {
 
 .youtubeIcon {
     color: $youtube;
-}
-
-.Linkify {
-    color: $electromagnetic !important;
-    a {
-        color: $vanadyl-blue !important;
-    }
 }
 
 .modals.dimmer .ui.scrolling.modal {

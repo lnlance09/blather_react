@@ -44,7 +44,11 @@ class Authentication extends Component {
 	}
 
 	onClick() {
-		this.setState({ login: this.state.login ? false : true })
+		this.setState({
+			loadingLogin: false,
+			loadingRegistration: false,
+			login: this.state.login ? false : true
+		})
 		this.props.switchTab(this.state.login)
 	}
 
@@ -125,19 +129,22 @@ class Authentication extends Component {
 				)
 			}
 		}
-
+		const errorMsg = props => {
+			if (props.loginError && props.loginErrorMsg) {
+				return <Message content={props.loginErrorMsg} error />
+			}
+		}
 		const headerText = () => {
 			if (!this.props.verify) {
 				return login ? "Sign in to Blather" : "Create an account"
 			}
 			return "Please verify your email"
 		}
-
 		const infoBox = () => {
 			if (!this.props.verify) {
 				return (
-					<Segment className="authInfoSegment" style={{ borderRadius: "0" }}>
-						{registerText()}
+					<Segment basic>
+						{registerText()}{" "}
 						<span className="registerLink" onClick={this.onClick}>
 							{registerButton()}
 						</span>
@@ -145,17 +152,6 @@ class Authentication extends Component {
 				)
 			}
 		}
-
-		const registerText = () => (login ? "New to Blather?" : "Already have an account?")
-
-		const registerButton = () => (login ? "Create an account" : "Sign in")
-
-		const errorMsg = props => {
-			if (props.loginError && props.loginErrorMsg) {
-				return <Message error content={props.loginErrorMsg} />
-			}
-		}
-
 		const mainForm = () => {
 			if (login && !this.props.verify) {
 				return (
@@ -178,7 +174,7 @@ class Authentication extends Component {
 									value={password}
 								/>
 							</Form.Field>
-							<Button color="green" content="Login" fluid type="submit" />
+							<Button color="blue" content="Login" fluid type="submit" />
 						</Form>
 					</div>
 				)
@@ -220,12 +216,14 @@ class Authentication extends Component {
 									type="password"
 								/>
 							</Form.Field>
-							<Button color="green" content="Create an account" fluid type="submit" />
+							<Button color="blue" content="Create an account" fluid type="submit" />
 						</Form>
 					</div>
 				)
 			}
 		}
+		const registerButton = () => (login ? "Create an account" : "Sign in")
+		const registerText = () => (login ? "New to Blather?" : "Already have an account?")
 
 		return this.props.data.emailVerified ? (
 			<Redirect to="/" />
@@ -234,7 +232,7 @@ class Authentication extends Component {
 				<div>
 					<ReactSVG className="signInLogo" path={Logo} svgClassName="signInLogo" />
 					<Header as="h1">{headerText()}</Header>
-					<Segment className="authSegment" style={{ borderRadius: "0" }}>
+					<Segment raised>
 						{mainForm()}
 						{errorMsg(this.props)}
 						{emailVerificationForm(this.props)}

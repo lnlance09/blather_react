@@ -121,7 +121,7 @@ class SearchPage extends Component {
 									borderless
 									fluid
 									vertical>
-									<Menu.Item>
+									<Menu.Item className="searchItem">
 										<Input
 											icon="search"
 											onChange={this.onChangeSearchValue}

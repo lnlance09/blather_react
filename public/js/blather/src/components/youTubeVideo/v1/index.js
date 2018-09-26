@@ -266,6 +266,7 @@ class YouTubeVideo extends Component {
 							Comments
 							<Radio
 								className="toggleComments"
+								color="blue"
 								checked={visible}
 								onChange={e =>
 									this.setState({
@@ -295,7 +296,7 @@ class YouTubeVideo extends Component {
 										<Dimmer active inverted>
 											<Header as="h2">Sign in to see comments</Header>
 											<Button
-												className="signInBtn"
+												color="green"
 												onClick={e => props.history.push("/signin")}>
 												Sign in
 											</Button>
@@ -455,7 +456,7 @@ class YouTubeVideo extends Component {
 			)
 		}
 		const PopularityBar = props => (
-			<Progress percent={props.stats ? props.stats.likePct : null} progress />
+			<Progress color="red" percent={props.stats ? props.stats.likePct : null} progress />
 		)
 
 		return (

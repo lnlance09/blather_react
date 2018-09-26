@@ -2,6 +2,7 @@ import "./style.css"
 import { editExplanation, updateFallacy } from "pages/actions/fallacy"
 import { dateDifference } from "utils/dateFunctions"
 import { fallacyDropdownOptions } from "utils/fallacyFunctions"
+import { sanitizeText } from "utils/textFunctions"
 import { formatDuration } from "utils/textFunctions"
 import { connect } from "react-redux"
 import {
@@ -16,6 +17,7 @@ import {
 	Segment,
 	TextArea
 } from "semantic-ui-react"
+import Marked from "marked"
 import nl2br from "react-nl2br"
 import ParagraphPic from "images/short-paragraph.png"
 import PropTypes from "prop-types"
@@ -128,7 +130,13 @@ class FallacyExample extends Component {
 								/>
 							</Form>
 						)}
-						{!editing && <p>{nl2br(props.explanation)}</p>}
+						{!editing && (
+							<div
+								dangerouslySetInnerHTML={{
+									__html: sanitizeText(Marked(props.explanation))
+								}}
+							/>
+						)}
 					</div>
 				)}
 				{!props.explanation && (
@@ -229,7 +237,7 @@ class FallacyExample extends Component {
 							description={material.video.description}
 							history={props.history}
 							id={material.video.id}
-							showChannel={false}
+							showChannel
 							showComment={material.video.comment !== null}
 							showStats={false}
 							startTime={material.video.startTime}

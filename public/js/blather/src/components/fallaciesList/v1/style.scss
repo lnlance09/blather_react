@@ -1,24 +1,11 @@
 @import '../../../css/colors.scss';
 
 .fallaciesList {
-    .fallaciesFilter {
-        .ui.dropdown {
-            border-radius: 0 !important;
-        }
-    }
-
     .emptyFallaciesContainer {
-        padding: 5px;
         text-align: center;
 
         .header {
             font-size: 20px;
-        }
-
-        .message {
-            background: $white;
-            border: none !important;
-            box-shadow: none !important;
         }
     }
 }

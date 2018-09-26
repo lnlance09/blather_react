@@ -140,7 +140,7 @@ class CreateDiscussionPage extends Component {
 		const DiscussionForm = props => {
 			return (
 				<Transition animation="fade" duration={duration} visible={visible}>
-					<Dimmer.Dimmable as={Segment} dimmed={authenticated ? false : true}>
+					<Dimmer.Dimmable as={Segment} basic dimmed={authenticated ? false : true}>
 						<Form loading={loading && !props.error} onSubmit={this.submitDiscussion}>
 							<Form.Input
 								className="titleInput"
@@ -185,26 +185,28 @@ class CreateDiscussionPage extends Component {
 								selection
 								value={tags}
 							/>
-							{hasUpdated && (
-								<div>
-									<Button
-										animated="vertical"
-										as="a"
-										className="previewDiscussionButton"
-										content="Preview"
-										fluid
-										onClick={this.togglePreview}>
-										<Button.Content visible>Preview</Button.Content>
-										<Button.Content hidden>
-											<Icon name="eye" />
-										</Button.Content>
-									</Button>
-									<Divider horizontal>Or</Divider>
-								</div>
-							)}
-							<Button className="submitDiscussionButton" fluid type="submit">
-								<Button.Content visible>Start the dicussion</Button.Content>
-							</Button>
+							<div style={{ marginTop: "12px" }}>
+								{hasUpdated && (
+									<div>
+										<Button
+											animated="vertical"
+											as="a"
+											color="green"
+											content="Preview"
+											fluid
+											onClick={this.togglePreview}>
+											<Button.Content visible>Preview</Button.Content>
+											<Button.Content hidden>
+												<Icon name="eye" />
+											</Button.Content>
+										</Button>
+										<Divider horizontal>Or</Divider>
+									</div>
+								)}
+								<Button color="blue" fluid type="submit">
+									<Button.Content visible>Start the dicussion</Button.Content>
+								</Button>
+							</div>
 						</Form>
 						<Dimmer active={authenticated ? false : true}>
 							<Header as="h2">Sign in to start a discussion</Header>
@@ -221,10 +223,10 @@ class CreateDiscussionPage extends Component {
 		const Preview = () => {
 			return (
 				<Transition animation="fade" duration={duration} visible={preview}>
-					<Segment className="previewSegment">
+					<Segment basic className="previewSegment">
 						<Header size="large">{title}</Header>
 						<div>
-							<Header className="descriptionTitle" size="medium">
+							<Header className="descriptionTitle" size="small">
 								Evidence
 							</Header>
 							<div
@@ -235,7 +237,7 @@ class CreateDiscussionPage extends Component {
 							/>
 						</div>
 						<div style={{ marginTop: "15px" }}>
-							<Header className="extraTitle" size="medium">
+							<Header className="extraTitle" size="small">
 								What it takes to change my mind
 							</Header>
 							<div
@@ -248,6 +250,7 @@ class CreateDiscussionPage extends Component {
 						<Button
 							animated
 							className="exitPreviewButton"
+							color="red"
 							fluid
 							onClick={this.togglePreview}>
 							<Button.Content hidden>Exit preview</Button.Content>

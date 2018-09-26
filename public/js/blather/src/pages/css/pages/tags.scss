@@ -23,46 +23,5 @@
 
     .menu.tagMenu {
         margin-top: 40px !important;
-
-        .item {
-            height: 50px;
-
-            .label {
-                background: $linx-white;
-                color: $electromagnetic;
-            }
-
-            .editButton {
-                color: $vanadyl-blue;
-                cursor: pointer;
-                float: right;
-                font-size: 18px;
-                margin-right: 0 !important;
-
-                &.editing {
-                    color: $harley-davidson-orange;
-                }
-            }
-        }
-    }
-
-    .changePicBtn {
-        background: $vanadyl-blue !important;
-
-        &:hover {
-            background: $protoss-pylos !important;
-        }
-
-        .icon {
-            color: $white !important;
-        }
-    }
-
-    .updateBtn {
-        background: $vanadyl-blue !important;
-
-        &:hover {
-            background: darken($vanadyl-blue, 5%) !important;
-        }
     }
 }

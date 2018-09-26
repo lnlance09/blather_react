@@ -1,23 +1,5 @@
-.settingsPage .settingsMenu {
-  border: none !important;
-  box-shadow: none !important; }
-
-.settingsPage .ui.vertical.menu .active.item {
-  background: #00a8ff !important;
-  color: #ffffff; }
-  .settingsPage .ui.vertical.menu .active.item:hover {
-    color: #ffffff; }
-
 .settingsPage .settingsContent .segment {
-  background: #ffffff !important;
-  border: none !important;
-  box-shadow: 0 0 0 1px rgba(34, 36, 38, 0.1) inset, 0 0 0 0 transparent !important;
   min-height: 400px; }
-  .settingsPage .settingsContent .segment .ui.info.message {
-    box-shadow: 0 0 0 1px rgba(169, 213, 222, 0.4) inset, 0 0 0 0 transparent !important; }
 
 .settingsPage .settingsContent .firstParagraph {
   text-align: center; }
-
-.settingsPage .settingsContent .changePasswordBox .passwordSubmit {
-  background: #487eb0; }

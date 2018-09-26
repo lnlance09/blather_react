@@ -1,69 +1,16 @@
 @import '../../../css/colors.scss';
 
 .fallacyForm {
-    .ui.form.attached.fluid.segment {
-        background: $white !important;
-        border: solid 1px $container-border-color !important;
-        padding: 14px !important;
-    }
-
-    .headerMsg {
-        border: solid 1px $container-border-color !important;
-        box-shadow: none !important;
-    }
-
     .startTime, .field.contradictionStartTime {
         padding-left: 0 !important;
         padding-right: 0 !important;
     }
 
     .contradictionWrapper {
-        background: $linx-white;
         margin-top: 0.9em;
 
         &.active {
             padding: 10px;
-        }
-
-        .channelCard .content {
-            background: $linx-white;
-        }
-    }
-
-    .contradictionMsg {
-        border-radius: 0 !important;
-    }
-
-    button {
-        background: $vanadyl-blue !important;
-        margin-top: 12px !important;
-
-        &:hover {
-            background: $protoss-pylos !important;
-        }
-    }
-
-    .ui.error.message {
-        box-shadow: 0 0 0 1px $error-msg-border inset, 0 0 0 0 transparent !important;
-    }
-}
-
-.ui.modal {
-    .content {
-        .assignAnotherBtn {
-            background: $harley-davidson-orange !important;
-
-            &:hover {
-                background: darken($harley-davidson-orange, 5%) !important;
-            }
-        }
-
-        .viewFallacyBtn {
-            background: $vanadyl-blue !important;
-
-            &:hover {
-                background: darken($vanadyl-blue, 5%) !important;
-            }
         }
     }
 }

@@ -2,18 +2,18 @@
 
 .searchPage {
     .searchMenu {
-        border: solid 1px $container-border-color !important;
-        box-shadow: none !important;
-
         .item {
-            &:first-child {
-                padding: 0;
+            &.searchItem {
+                padding: 17.5px 16px 17.5px 28px;
+                
+                input {
+                    padding: 0;
+                }
             }
 
-            .input {
+            .ui.icon.input {
                 input {
-                    border: none !important;
-                    border-radius: 0 !important;
+                    border: none;
                 }
             }
 
@@ -21,30 +21,11 @@
                 font-size: 18px;
                 line-height: 14px;
                 vertical-align: middle;
-
-                &.chatIcon {
-                    color: $nanohanacha-gold;
-                }
             }
         }
     }
 
-    .ui.vertical.menu .active.item {
-        background: $protoss-pylos !important;
-        color: $white;
-
-        &:hover {
-            color: $white;
-        }
-    }
-
-    .ui.vertical.menu > .active.item {
-        border-radius: 0px !important;
-    }
-
     .searchContentContainer {
-        border: none !important;
-        background: $white;
         min-height: 300px;
         padding: 0 !important;
     }

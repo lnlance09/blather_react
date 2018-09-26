@@ -66,6 +66,8 @@ class AboutCard extends Component {
 								/>
 							)}
 						</Card.Header>
+					</Card.Content>
+					<Card.Content>
 						<Card.Description>
 							{editing && (
 								<Card.Description>
@@ -77,7 +79,7 @@ class AboutCard extends Component {
 										value={value}
 									/>
 									<Button
-										className="updateAboutButton"
+										color="blue"
 										compact
 										fluid
 										onClick={this.updateDescription}>

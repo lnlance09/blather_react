@@ -43,19 +43,15 @@ class FallacyRef extends Component {
 		return (
 			<div className="fallacyRef">
 				{fallacy && (
-					<div>
-						<Header as="p" attached="top">
+					<Segment piles className="fallacySegment">
+						<Header as="p" size="small">
 							What is a {fallacy.name}?
 						</Header>
-						<Segment attached className="fallacySegment">
-							<p>{fallacy.description}</p>
-							{this.props.showDialogue && (
-								<Comment.Group>
-									{fallacyConversation(fallacy.dialogue)}
-								</Comment.Group>
-							)}
-						</Segment>
-					</div>
+						<p>{fallacy.description}</p>
+						{this.props.showDialogue && (
+							<Comment.Group>{fallacyConversation(fallacy.dialogue)}</Comment.Group>
+						)}
+					</Segment>
 				)}
 			</div>
 		)

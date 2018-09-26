@@ -1,25 +1,15 @@
-.titleHeader .header {
-  color: #2f3640; }
-  .titleHeader .header .sub.header {
-    color: #7f8fa6; }
-    .titleHeader .header .sub.header .icon.tag {
-      color: #40739e; }
-  .titleHeader .header .editHeaderIcon {
-    color: #0097e6;
-    cursor: pointer;
-    display: none !important;
-    float: right;
-    line-height: 42px; }
-    .titleHeader .header .editHeaderIcon.check {
-      color: #44bd32; }
-    .titleHeader .header .editHeaderIcon.close {
-      color: #e84118; }
-  .titleHeader .header .titleInput {
-    width: 94% !important; }
-    .titleHeader .header .titleInput input {
-      border-radius: 0 !important;
-      font-size: 18px;
-      line-height: 24px;
-      padding: 4px 6px; }
-  .titleHeader .header:hover .editHeaderIcon {
-    display: inline !important; }
+.titleHeader .header .editHeaderIcon {
+  cursor: pointer;
+  display: none !important;
+  float: right;
+  line-height: 42px; }
+
+.titleHeader .header .titleInput {
+  width: 94% !important; }
+  .titleHeader .header .titleInput input {
+    font-size: 18px;
+    line-height: 24px;
+    padding: 4px 6px; }
+
+.titleHeader .header:hover .editHeaderIcon {
+  display: inline !important; }

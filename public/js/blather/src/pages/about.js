@@ -112,7 +112,10 @@ class About extends Component {
 							success
 						/>
 					</Transition>
-					<Button type="submit">Send</Button>
+					<Button color="blue" type="submit">
+						Send
+					</Button>
+					<div className="clearfix" />
 				</Form>
 			</div>
 		)

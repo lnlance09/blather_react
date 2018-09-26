@@ -264,7 +264,7 @@
 			echo json_encode([
 				'comment' => [
 					'created_at' => date('Y-m-d H:i:s'),
-					'img' => $this->user->img ? $this->baseUrl.'img/profile_pics/'.$this->user->img : null,
+					'img' => $this->user->img,
 					'message' => strip_tags($msg),
 					'name' => $this->user->name,
 					'user_id' => $this->user->id

@@ -132,7 +132,7 @@ class SearchResults extends Component {
 						meta: `@${result.username}`,
 						tags: [],
 						title: result.name,
-						url: `/pages/users/${result.username}`
+						url: `/users/${result.username}`
 					}
 				case "youtube":
 					let extra = null

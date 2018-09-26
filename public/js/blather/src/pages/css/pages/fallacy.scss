@@ -1,28 +1,11 @@
 @import '../../../css/colors.scss';
 
 .fallacyPage {
-    .menuContainer {
-        .statistic {
-            .label, .value {
-                color: $blue-nights;
-            }
-        }
-    }
-
     .ui.grid {
         margin-top: 0 !important;
     }
 
     .fallacyMainMenu {
         margin-top: 10px;
-
-        .item {
-            height: 50px;
-
-            .label {
-                background: $linx-white;
-                color: $electromagnetic;
-            }
-        }
     }
 }

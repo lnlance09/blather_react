@@ -190,7 +190,7 @@ class SettingsPage extends Component {
 								content="Your password has been successfully changed"
 								success
 							/>
-							<Button className="passwordSubmit" fluid type="submit">
+							<Button color="blue" fluid type="submit">
 								Submit
 							</Button>
 						</Form>
@@ -289,8 +289,8 @@ class SettingsPage extends Component {
 					<Container className="mainContainer" textAlign="left">
 						<Header as="h1">Settings</Header>
 						<Grid>
-							<Grid.Column width={4}>
-								<Menu borderless className="settingsMenu" fluid vertical>
+							<Grid.Column width={5}>
+								<Menu borderless secondary className="settingsMenu" fluid vertical>
 									<Menu.Item
 										name="basic"
 										key="basic"
@@ -323,9 +323,9 @@ class SettingsPage extends Component {
 									</Menu.Item>
 								</Menu>
 							</Grid.Column>
-							<Grid.Column className="rightSide" width={12}>
+							<Grid.Column className="rightSide" width={11}>
 								<div className="settingsContent">
-									<Segment attached>{activeItemDiv(activeItem)}</Segment>
+									<Segment>{activeItemDiv(activeItem)}</Segment>
 								</div>
 							</Grid.Column>
 						</Grid>

@@ -1,5 +1,6 @@
 import "./css/App.css"
-import "semantic-ui-css/semantic.min.css"
+// import "semantic-ui-css/semantic.min.css"
+import "semantic/dist/semantic.min.css"
 import { Provider } from "react-redux"
 import { BrowserRouter, Route, Switch } from "react-router-dom"
 import About from "./pages/about"

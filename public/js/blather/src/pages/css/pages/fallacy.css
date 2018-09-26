@@ -1,13 +1,5 @@
-.fallacyPage .menuContainer .statistic .label, .fallacyPage .menuContainer .statistic .value {
-  color: #353b48; }
-
 .fallacyPage .ui.grid {
   margin-top: 0 !important; }
 
 .fallacyPage .fallacyMainMenu {
   margin-top: 10px; }
-  .fallacyPage .fallacyMainMenu .item {
-    height: 50px; }
-    .fallacyPage .fallacyMainMenu .item .label {
-      background: #f5f6fa;
-      color: #2f3640; }

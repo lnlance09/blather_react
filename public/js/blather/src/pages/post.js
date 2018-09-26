@@ -174,7 +174,7 @@ class Post extends Component {
 			if (props.info) {
 				return (
 					<div style={{ marginTop: "1.2em" }}>
-						<Header dividing size="medium">
+						<Header dividing size="small">
 							Fallacies
 						</Header>
 						<FallaciesList

@@ -1,43 +1,19 @@
 .createDiscussionPage .contentContainer {
-  background: #ffffff;
-  border: none !important;
   padding: 0 !important; }
   .createDiscussionPage .contentContainer .segment {
-    background: #ffffff !important;
-    border: none !important;
-    box-shadow: none !important;
     margin: 0;
     padding: 0; }
     .createDiscussionPage .contentContainer .segment .ui.form .field label {
       font-size: 15px; }
     .createDiscussionPage .contentContainer .segment .ui.form .provenWrongTextArea {
       margin-top: 1em; }
-    .createDiscussionPage .contentContainer .segment .ui.form .submitDiscussionButton {
-      background: #0097e6;
-      margin-top: 1em; }
-      .createDiscussionPage .contentContainer .segment .ui.form .submitDiscussionButton:hover {
-        background: #0086cd !important; }
-    .createDiscussionPage .contentContainer .segment .ui.form .previewDiscussionButton {
-      background: #44bd32;
-      color: #ffffff;
-      margin-top: 1em; }
-      .createDiscussionPage .contentContainer .segment .ui.form .previewDiscussionButton:hover {
-        background: #3da92d !important; }
     .createDiscussionPage .contentContainer .segment .ui.form .titleInput input, .createDiscussionPage .contentContainer .segment .ui.form textarea {
       padding: 8px; }
-  .createDiscussionPage .contentContainer .previewSegment {
-    box-shadow: none !important; }
-    .createDiscussionPage .contentContainer .previewSegment .descriptionTitle, .createDiscussionPage .contentContainer .previewSegment .extraTitle {
-      background: #ffffff;
-      margin-bottom: 5px; }
-    .createDiscussionPage .contentContainer .previewSegment .descriptionPreview, .createDiscussionPage .contentContainer .previewSegment .extraPreview {
-      min-height: 80px;
-      padding: 0; }
-  .createDiscussionPage .contentContainer .exitPreviewButton {
-    background: #e84118;
-    margin-top: 1em; }
-    .createDiscussionPage .contentContainer .exitPreviewButton:hover {
-      background: #d23a15 !important; }
+  .createDiscussionPage .contentContainer .previewSegment .descriptionTitle, .createDiscussionPage .contentContainer .previewSegment .extraTitle {
+    margin-bottom: 5px; }
+  .createDiscussionPage .contentContainer .previewSegment .descriptionPreview, .createDiscussionPage .contentContainer .previewSegment .extraPreview {
+    min-height: 80px;
+    padding: 0; }
 
 .createDiscussionPage .rightSide .discussionTagsHeader {
   font-size: 24px !important; }

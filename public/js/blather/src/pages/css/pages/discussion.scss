@@ -2,19 +2,12 @@
 
 .discussionPage {
     .header {
-        color: $blue-nights;
-
         .editButton {
-            color: $vanadyl-blue;
             cursor: pointer;
             display: none !important;
             float: right;
             font-size: 18px;
             margin-right: 0 !important;
-
-            &.editing {
-                color: $harley-davidson-orange;
-            }
         }
 
         &:hover {
@@ -24,37 +17,14 @@
         }
     }
 
-    .updateDiscussionBtn {
-        background: $vanadyl-blue !important;
-
-        &:hover {
-            background: darken($vanadyl-blue, 5%) !important;
-        }
-    }
-
     .evidenceSection {
         .evidenceSegment, 
         .extraSegment {
-            font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
             font-size: 16px !important;
         }
     }
 
     .ui.grid {
         margin-top: 0 !important;
-    }
-
-    .steps {
-        .headerLogo {
-            height: 35px;
-            margin-right: 12px;
-            width: 35px;
-
-            .svgHeaderLogo {
-                fill: $vanadyl-blue;
-                height: 35px;
-                width: 35px;
-            }
-        }
     }
 }

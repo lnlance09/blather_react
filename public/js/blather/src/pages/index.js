@@ -227,6 +227,7 @@ class SocialMediaPage extends Component {
 										<Image
 											className="profilePic"
 											onError={i => (i.target.src = defaultImg)}
+											rounded
 											src={this.props.img}
 										/>
 									</Transition>

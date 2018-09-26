@@ -10,7 +10,6 @@
     }
 
     .archiveMsg {
-        box-shadow: 0 0 0 1px $positive-green-border inset, 0 0 0 0 transparent !important;
         margin-bottom: 0 !important;
     }
 
@@ -21,13 +20,7 @@
     }
 
     .card {
-        background: $white;
-        border: solid 1px $container-border-color !important;
-        border-radius: 0;
-        box-shadow: none !important;
-
         .content {
-            border-top: none !important;
             padding: 7px 14px !important;
 
             &.quotedTweetContent, .quotedTweet {
@@ -35,14 +28,12 @@
             }
 
             &.extra {
-                background: $white;
                 border-top: solid 1px $container-border-color !important;
                 padding: 1px 14px !important;
 
                 .list {
                     .item {
                         .content {
-                            background: $white !important;
                             padding-left: 7px !important;
 
                             .header {

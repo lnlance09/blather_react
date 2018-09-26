@@ -23,10 +23,11 @@ class Fallacies extends Component {
 	}
 
 	scrollStep() {
+		console.log("scroll step")
 		if (window.pageYOffset === 0) {
-			clearInterval(this.state.intervalId)
+			// clearInterval(this.state.intervalId)
 		}
-		window.scroll(0, window.pageYOffset - 50)
+		// window.scroll(0, window.pageYOffset - 50)
 	}
 
 	scrollToTop() {
@@ -67,10 +68,10 @@ class Fallacies extends Component {
 			if (fallacy.name.toLowerCase() === activeItem) {
 				return (
 					<div className="mainFallacy active" key={fallacy.id}>
-						<Header as="p" attached="top">
-							{fallacy.name}
-						</Header>
-						<Segment attached>
+						<Segment piles>
+							<Header as="p" size="small">
+								{fallacy.name}
+							</Header>
 							<p>{fallacy.description} </p>
 							<Comment.Group>{fallaciesConversation(fallacy.dialogue)}</Comment.Group>
 						</Segment>
@@ -86,9 +87,9 @@ class Fallacies extends Component {
 					<DisplayMetaTags page="fallacies" props={this.props} state={this.state} />
 					<PageHeader {...this.props} />
 					<Container
-						ref={this.handleContextRef}
 						className="mainContainer"
-						textAlign="left">
+						textAlign="left"
+						ref={this.handleContextRef}>
 						<Header as="h1" dividing>
 							Fallacies
 							<Header.Subheader>Plus a few other things...</Header.Subheader>
@@ -96,7 +97,7 @@ class Fallacies extends Component {
 
 						<Grid>
 							<Grid.Column width={5}>
-								<Menu borderless className="fallaciesMenu" fluid vertical>
+								<Menu borderless secondary className="fallaciesMenu" fluid vertical>
 									{fallaciesSidebar}
 								</Menu>
 							</Grid.Column>

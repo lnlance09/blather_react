@@ -1,77 +1,44 @@
-.youTubeVideo .segment {
-  background: transparent;
-  border: none !important;
-  box-shadow: none !important;
-  padding: 0 !important; }
-
 .youTubeVideo .youTubeTitle {
   background: transparent;
   margin-top: 7px; }
 
 .youTubeVideo .channelCard {
-  border: none !important;
-  box-shadow: none !important;
   margin-bottom: 14px !important; }
   .youTubeVideo .channelCard.hasComment {
     margin-bottom: 0 !important; }
-  .youTubeVideo .channelCard .content {
-    padding: 0 !important; }
-    .youTubeVideo .channelCard .content .header {
-      font-size: 16px !important;
-      font-weight: 400 !important; }
-    .youTubeVideo .channelCard .content .meta {
-      font-size: 12px !important; }
-    .youTubeVideo .channelCard .content.extra {
-      color: #353b48;
-      line-height: 1.5em;
-      margin-top: 5px;
-      padding-top: 10px !important; }
-      .youTubeVideo .channelCard .content.extra .icon.archive {
-        color: #718093;
-        cursor: pointer;
-        float: right;
-        vertical-align: middle; }
-      .youTubeVideo .channelCard .content.extra .archiveMsg {
-        box-shadow: 0 0 0 1px rgba(163, 194, 147, 0.4) inset, 0 0 0 0 transparent !important;
-        margin-bottom: 0 !important; }
-        .youTubeVideo .channelCard .content.extra .archiveMsg a {
-          color: #0097e6; }
-          .youTubeVideo .channelCard .content.extra .archiveMsg a:hover {
-            color: #0086cd; }
+  .youTubeVideo .channelCard .content .header {
+    font-size: 16px !important;
+    font-weight: 400 !important; }
+  .youTubeVideo .channelCard .content .meta {
+    font-size: 12px !important; }
+  .youTubeVideo .channelCard .content.extra {
+    line-height: 1.5em;
+    margin-top: 5px;
+    padding-top: 10px !important; }
+    .youTubeVideo .channelCard .content.extra .icon.archive {
+      cursor: pointer;
+      float: right;
+      vertical-align: middle; }
+    .youTubeVideo .channelCard .content.extra .archiveMsg {
+      margin-bottom: 0 !important; }
+      .youTubeVideo .channelCard .content.extra .archiveMsg a {
+        color: #0097e6; }
+        .youTubeVideo .channelCard .content.extra .archiveMsg a:hover {
+          color: #0086cd; }
 
 .youTubeVideo .videoPlayer {
   width: 100% !important; }
-
-.youTubeVideo .ui.progress {
-  border-radius: 0 !important; }
-  .youTubeVideo .ui.progress .bar {
-    background: #273c75;
-    border-radius: 0 !important; }
 
 .youTubeVideo .toggleComments {
   float: right;
   fontSize: 18px;
   margin-right: 0; }
 
-.youTubeVideo .commentsDimmer {
-  border: solid 1px rgba(245, 246, 250, 0.5);
-  border-radius: 0 !important;
-  box-shadow: none !important;
-  padding: 10px !important; }
-  .youTubeVideo .commentsDimmer .header {
-    color: #2f3640 !important; }
-  .youTubeVideo .commentsDimmer .signInBtn {
-    background: #4cd137; }
-    .youTubeVideo .commentsDimmer .signInBtn:hover {
-      background: #41c22d; }
-
 .youTubeVideo .comments {
   max-width: none !important; }
   .youTubeVideo .comments .comment {
     cursor: pointer;
     margin: 0; }
-    .youTubeVideo .comments .comment .avatar img {
-      border-radius: 0 !important; }
     .youTubeVideo .comments .comment .actions a {
       color: #2f3640; }
       .youTubeVideo .comments .comment .actions a .icon {
@@ -84,8 +51,6 @@
 .youtubeCommentModal .comments .comment {
   cursor: pointer;
   margin: 0; }
-  .youtubeCommentModal .comments .comment .avatar img {
-    border-radius: 0 !important; }
   .youtubeCommentModal .comments .comment .actions a {
     color: #2f3640; }
     .youtubeCommentModal .comments .comment .actions a .icon {

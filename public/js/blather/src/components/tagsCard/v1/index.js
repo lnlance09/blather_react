@@ -2,7 +2,7 @@ import "./style.css"
 import { removeFallacyTag, updateFallacy } from "pages/actions/fallacy"
 import { removeDiscussionTag, updateDiscussion } from "pages/actions/discussion"
 import { connect, Provider } from "react-redux"
-import { Button, Card, Dropdown, Icon, Label, List, Modal } from "semantic-ui-react"
+import { Button, Dropdown, Header, Icon, Label, List, Modal } from "semantic-ui-react"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import store from "store"
@@ -116,6 +116,7 @@ class TagsCard extends Component {
 						/>
 						<Button
 							className="tagModalBtn"
+							color="blue"
 							content="Update"
 							onClick={this.updateTags}
 						/>
@@ -155,22 +156,18 @@ class TagsCard extends Component {
 
 		return (
 			<Provider store={store}>
-				<div>
-					<Card className="tagsCard">
-						<Card.Content>
-							<Card.Header>
-								Tags
-								{this.props.canEdit && (
-									<Icon
-										className="editTagsIcon"
-										name="pencil"
-										onClick={() => this.setState({ open: true })}
-									/>
-								)}
-							</Card.Header>
-							<Card.Description>{ShowTags(this.props)}</Card.Description>
-						</Card.Content>
-					</Card>
+				<div className="tagsCard">
+					<Header size="tiny">
+						Tags
+						{this.props.canEdit && (
+							<Icon
+								className="editTagsIcon"
+								name="pencil"
+								onClick={() => this.setState({ open: true })}
+							/>
+						)}
+					</Header>
+					{ShowTags(this.props)}
 					<div>{TagsModal}</div>
 				</div>
 			</Provider>

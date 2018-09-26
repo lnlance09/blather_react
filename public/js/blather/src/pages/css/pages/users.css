@@ -1,21 +1,5 @@
-.usersPage .changePicBtn {
-  background: #0097e6 !important; }
-  .usersPage .changePicBtn:hover {
-    background: #00a8ff !important; }
-  .usersPage .changePicBtn .icon {
-    color: #ffffff !important; }
-
-.usersPage .profilePic img {
-  border: none !important; }
-
 .usersPage .menu.profileMenu {
   margin-top: 40px !important; }
-  .usersPage .menu.profileMenu .item {
-    height: 50px; }
-    .usersPage .menu.profileMenu .item .label {
-      background: #f5f6fa;
-      color: #2f3640; }
 
 .usersPage .profileContentContainer {
-  border: none !important;
   padding: 0 !important; }

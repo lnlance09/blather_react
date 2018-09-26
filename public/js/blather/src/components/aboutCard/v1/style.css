@@ -1,26 +1,20 @@
 .aboutCard {
-  border: none !important;
-  box-shadow: none !important;
-  margin-top: 5px !important; }
+  margin-top: 15px !important; }
   .aboutCard .editAboutIcon {
     cursor: pointer;
     float: right; }
-  .aboutCard .content {
-    border: none !important;
-    padding-left: 0 !important;
-    padding-right: 3px !important; }
   .aboutCard .editAboutIcon {
+    color: #0097e6 !important;
+    cursor: pointer;
     display: none;
-    color: #0097e6 !important; }
+    float: right; }
     .aboutCard .editAboutIcon.close {
       color: #e84118 !important; }
   .aboutCard:hover .editAboutIcon {
     display: inline; }
   .aboutCard .description {
-    color: #2f3640 !important;
     word-wrap: break-word; }
-  .aboutCard .updateAboutButton {
-    background: #0097e6 !important;
-    margin-top: 5px; }
-    .aboutCard .updateAboutButton:hover {
-      background: #0086cd !important; }
+  .aboutCard textarea {
+    border: solid 1px #ffffff !important;
+    margin-bottom: 8px;
+    width: 100%; }

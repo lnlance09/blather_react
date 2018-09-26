@@ -190,10 +190,15 @@ class Conversation extends Component {
 				props.user.type === "twitter" ? props.user.username : props.user.id
 			}`
 			return (
-				<Dimmer.Dimmable as={Segment} blurring className="statusActionSegment" dimmed>
+				<Dimmer.Dimmable
+					as={Segment}
+					blurring
+					className="statusActionSegment"
+					dimmed
+					raised>
 					<Dimmer active inverted>
 						<div>
-							<Header size="small">
+							<Header size="tiny">
 								Waiting for <Link to={userLink}>{props.user.name}</Link> to offer an
 								explanation...
 							</Header>

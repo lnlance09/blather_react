@@ -176,6 +176,7 @@ class UserPage extends Component {
 						dimmer={{ active, content, inverted }}
 						onMouseEnter={this.handleShow}
 						onMouseLeave={this.handleHide}
+						rounded
 						size="medium"
 						src={pic}
 					/>
@@ -183,8 +184,9 @@ class UserPage extends Component {
 			}
 			return (
 				<Image
-					src={pic}
 					onError={i => (i.target.src = ImagePic)}
+					rounded
+					src={pic}
 					style={{ border: "none" }}
 				/>
 			)

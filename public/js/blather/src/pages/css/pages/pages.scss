@@ -3,33 +3,14 @@
 .socialMediaPage {
     .menu.socialMediaPageMenu {
         margin-top: 40px !important;
-
-        .item {
-            height: 50px;
-
-            .label {
-                background: $linx-white;
-                color: $electromagnetic;
-            }
-        }
-    }
-
-    .profilePic img {
-        border: none !important;
     }
 
     .profileContentContainer {
-        border: none;
         min-height: 450px;
         padding: 0 !important;
 
-        .segment.dimmed.dimmable {
-            border: solid 1px $container-border-color;
-            box-shadow: none !important;
-
-            .ui.active.transition.visible.dimmer {
-                background: $dimmer-background !important;
-            }
+        .dimmer {
+            background: $dimmer-background !important;
         }
     }
 }

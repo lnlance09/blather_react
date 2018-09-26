@@ -1,35 +1,30 @@
-.ui.card.tagsCard {
-  box-shadow: none !important; }
-  .ui.card.tagsCard .content {
-    border: none;
-    padding: 0 !important; }
-    .ui.card.tagsCard .content .description {
-      margin-top: 1em; }
-    .ui.card.tagsCard .content .header {
-      color: #353b48; }
-      .ui.card.tagsCard .content .header .editTagsIcon {
-        color: #0097e6;
-        cursor: pointer;
-        display: none !important;
-        float: right;
-        font-size: 18px;
-        margin-right: 0 !important; }
-        .ui.card.tagsCard .content .header .editTagsIcon.editing {
-          color: #e84118; }
-      .ui.card.tagsCard .content .header:hover .editTagsIcon {
-        display: inline !important; }
-  .ui.card.tagsCard .tagsList .item .label {
-    background: #487eb0;
-    color: #ffffff;
-    cursor: pointer; }
-    .ui.card.tagsCard .tagsList .item .label:hover {
-      background: #41719e; }
-  .ui.card.tagsCard .tagsList .item .icon {
-    color: #e84118 !important;
-    display: none; }
-  .ui.card.tagsCard .tagsList .item:hover .icon {
-    cursor: pointer;
-    display: inline; }
+.tagsCard .header .editTagsIcon {
+  color: #0097e6;
+  cursor: pointer;
+  display: none !important;
+  float: right;
+  font-size: 18px;
+  margin-right: 0 !important; }
+  .tagsCard .header .editTagsIcon.editing {
+    color: #e84118; }
+
+.tagsCard .header:hover .editTagsIcon {
+  display: inline !important; }
+
+.tagsCard .tagsList .item .label {
+  background: #487eb0;
+  color: #ffffff;
+  cursor: pointer; }
+  .tagsCard .tagsList .item .label:hover {
+    background: #41719e; }
+
+.tagsCard .tagsList .item .icon {
+  color: #e84118 !important;
+  display: none; }
+
+.tagsCard .tagsList .item:hover .icon {
+  cursor: pointer;
+  display: inline; }
 
 .ui.small.modal.tagsModal {
   margin-top: 100px !important; }
@@ -37,14 +32,6 @@
     padding: 10px 13px 0 13px; }
   .ui.small.modal.tagsModal .content {
     padding: 0.8em; }
-  .ui.small.modal.tagsModal .search.selection.dropdown {
-    border: solid 1px #ffffff !important; }
-    .ui.small.modal.tagsModal .search.selection.dropdown .menu.transition {
-      border: none !important; }
   .ui.small.modal.tagsModal .tagModalBtn {
-    background: #0097e6;
     float: right;
-    margin-right: 0;
-    margin-top: 12px; }
-    .ui.small.modal.tagsModal .tagModalBtn:hover {
-      background: #0086cd; }
+    margin: 15px 0 0; }

@@ -32,7 +32,6 @@
         }
 
         .convoRespondBtn {
-            color: $electromagnetic;
             float: right;
             margin-right: 0;
 
@@ -75,7 +74,6 @@
         }
 
         .ui.error.message.convoErrorMsg {
-            box-shadow: 0 0 0 1px $error-msg-border inset, 0 0 0 0 transparent !important;
             margin-bottom: 0;
         }
 
@@ -128,8 +126,6 @@
         margin-top: 0;
 
         .ui.icon.message.waitMsg {
-            box-shadow: 0 0 0 1px $regular-msg-border inset, 0 0 0 0 transparent !important;
-
             .icon {
                 color: $mazarine-blue;
             }
@@ -137,12 +133,11 @@
     }
 
     .statusActionSegment {
-        border: none !important;
-        box-shadow: none !important;
         height: 116px;
 
         .youtubeButton {
             background: $youtube !important;
+            color: $white;
             margin-top: 0 !important;
 
             &:hover {
@@ -161,14 +156,7 @@
     }
 
     .card {
-        border: none;
-        box-shadow: 0 1px 3px 0 $card-box-shadow, 0 0 0 1px $card-box-shadow;
-        // border: solid 1px $container-border-color;
-        // box-shadow: none;
-        
         .content {
-            border: none;
-
             .ui.mini.image {
                 // height: 35px;
                 width: 35px;

@@ -47,7 +47,6 @@ class Tags extends Component {
 			description: "",
 			editing: false,
 			id,
-			editing: false,
 			files: [],
 			inverted: true,
 			userId
@@ -130,7 +129,6 @@ class Tags extends Component {
 			editing,
 			id,
 			inverted,
-			name,
 			version
 		} = this.state
 		const pic = !this.props.img && !this.props.loading ? defaultImg : this.props.img

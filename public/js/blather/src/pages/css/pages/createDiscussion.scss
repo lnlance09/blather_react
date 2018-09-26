@@ -2,14 +2,9 @@
 
 .createDiscussionPage {
     .contentContainer {
-        background: $white;
-        border: none !important;
         padding: 0 !important;
 
         .segment {
-            background: $white !important;
-            border: none !important;
-            box-shadow: none !important;
             margin: 0;
             padding: 0;
 
@@ -22,25 +17,6 @@
                     margin-top: 1em;
                 }
 
-                .submitDiscussionButton {
-                    background: $vanadyl-blue;
-                    margin-top: 1em;
-
-                    &:hover {
-                        background: darken($vanadyl-blue, 5%) !important;
-                    }
-                }
-
-                .previewDiscussionButton {
-                    background: $skirret-green;
-                    color: $white;
-                    margin-top: 1em;
-
-                    &:hover {
-                        background: darken($skirret-green, 5%) !important;
-                    }
-                }
-
                 .titleInput input, textarea {
                     padding: 8px;
                 }
@@ -48,25 +24,13 @@
         }
 
         .previewSegment {
-            box-shadow: none !important;
-
             .descriptionTitle, .extraTitle {
-                background: $white;
                 margin-bottom: 5px;
             }
 
             .descriptionPreview, .extraPreview {
                 min-height: 80px;
                 padding: 0;
-            }
-        }
-
-        .exitPreviewButton {
-            background: $harley-davidson-orange;
-            margin-top: 1em;
-
-            &:hover {
-                background: darken($harley-davidson-orange, 5%) !important;
             }
         }
     }

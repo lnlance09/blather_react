@@ -51,7 +51,7 @@ class TweetList extends Component {
 			return null
 		}
 		const RenderTweets = this.props.posts.data.map((post, i) => {
-			let marginTop = i === 0 ? 0 : 5
+			let marginTop = i === 0 ? 0 : 12
 			if (post.id) {
 				return (
 					<div key={`tweet_${i}`} style={{ marginTop: `${marginTop}px` }}>

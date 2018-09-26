@@ -1,6 +1,6 @@
 .aboutPage .logoContainer {
-  background: #f5f6fa;
-  padding: 12px 0; }
+  background: #ffffff;
+  padding: 16px 0; }
   .aboutPage .logoContainer .header.aboutHeader {
     line-height: 1; }
     .aboutPage .logoContainer .header.aboutHeader .sub.header {
@@ -17,11 +17,4 @@
       line-height: 96px; }
 
 .aboutPage .contactForm button {
-  background: #0097e6 !important;
-  float: right;
-  margin-right: 0; }
-  .aboutPage .contactForm button:hover {
-    background: #0086cd !important; }
-
-.aboutPage .contactForm .message {
-  box-shadow: 0 0 0 1px rgba(163, 194, 147, 0.4) inset, 0 0 0 0 transparent !important; }
+  float: right; }

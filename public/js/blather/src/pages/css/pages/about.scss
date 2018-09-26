@@ -2,8 +2,8 @@
 
 .aboutPage {
     .logoContainer {
-        background: $linx-white;
-        padding: 12px 0;
+        background: $white;
+        padding: 16px 0;
 
         .header.aboutHeader {
             line-height: 1;
@@ -32,17 +32,7 @@
 
     .contactForm {
         button {
-            background: $vanadyl-blue !important;
             float: right;
-            margin-right: 0;
-
-            &:hover {
-                background: darken($vanadyl-blue, 5%) !important;
-            }
-        }
-
-        .message {
-            box-shadow: 0 0 0 1px $positive-green-border inset, 0 0 0 0 transparent !important;
         }
     }
 }

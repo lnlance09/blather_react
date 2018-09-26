@@ -1,20 +1,8 @@
 .socialMediaPage .menu.socialMediaPageMenu {
   margin-top: 40px !important; }
-  .socialMediaPage .menu.socialMediaPageMenu .item {
-    height: 50px; }
-    .socialMediaPage .menu.socialMediaPageMenu .item .label {
-      background: #f5f6fa;
-      color: #2f3640; }
-
-.socialMediaPage .profilePic img {
-  border: none !important; }
 
 .socialMediaPage .profileContentContainer {
-  border: none;
   min-height: 450px;
   padding: 0 !important; }
-  .socialMediaPage .profileContentContainer .segment.dimmed.dimmable {
-    border: solid 1px rgba(220, 221, 225, 0.6);
-    box-shadow: none !important; }
-    .socialMediaPage .profileContentContainer .segment.dimmed.dimmable .ui.active.transition.visible.dimmer {
-      background: rgba(255, 255, 255, 0.8) !important; }
+  .socialMediaPage .profileContentContainer .dimmer {
+    background: rgba(255, 255, 255, 0.8) !important; }

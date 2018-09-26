@@ -91,6 +91,7 @@ class CommentsSection extends Component {
 					value={message}
 				/>
 				<Button
+					color="blue"
 					compact
 					content="Post"
 					style={{ float: "right", marginRight: "0" }}

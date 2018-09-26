@@ -9,8 +9,14 @@ const tag = (state = initial(), action) => {
 			if (!payload.error) {
 				return {
 					...state,
+					error: false,
 					img: payload.img
 				}
+			}
+
+			return {
+				...state,
+				error: true
 			}
 		case constants.FETCH_TAG_INFO:
 			return {

@@ -4,19 +4,8 @@
     .comment {
         .avatar {
             img {
-                border-radius: 0 !important;
                 height: 36px !important;
                 width: 36px !important;
-            }
-        }
-    }
-
-    form {
-        button {
-            background: $vanadyl-blue !important;
-
-            &:hover {
-                background: darken($vanadyl-blue, 5%) !important;
             }
         }
     }

@@ -2,39 +2,17 @@
 
 .titleHeader {
     .header {
-        color: $electromagnetic;
-
-        .sub.header {
-            color: $blueberry-soda;
-
-            .icon {
-                &.tag {
-                    color: $naval;
-                }
-            }
-        }
-
         .editHeaderIcon {
-            color: $vanadyl-blue;
             cursor: pointer;
             display: none !important;
             float: right;
             line-height: 42px;
-
-            &.check {
-                color: $skirret-green;
-            }
-
-            &.close {
-                color: $harley-davidson-orange;
-            }
         }
 
         .titleInput {
             width: 94% !important;
             
             input {
-                border-radius: 0 !important;
                 font-size: 18px;
                 line-height: 24px;
                 padding: 4px 6px;

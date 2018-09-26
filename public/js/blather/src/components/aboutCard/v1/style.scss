@@ -1,24 +1,18 @@
 @import '../../../css/colors.scss';
 
 .aboutCard {
-    border: none !important;
-    box-shadow: none !important;
-    margin-top: 5px !important;
+    margin-top: 15px !important;
 
     .editAboutIcon {
         cursor: pointer;
         float: right;
     }
 
-    .content {
-        border: none !important;
-        padding-left: 0 !important;
-        padding-right: 3px !important;
-    }
-
     .editAboutIcon {
-        display: none;
         color: $vanadyl-blue !important;
+        cursor: pointer;
+        display: none;
+        float: right;
 
         &.close {
             color: $harley-davidson-orange !important;
@@ -32,16 +26,12 @@
     }
 
     .description {
-        color: $electromagnetic !important;
         word-wrap: break-word;
     }
 
-    .updateAboutButton {
-        background: $vanadyl-blue !important;
-        margin-top: 5px;
-
-        &:hover {
-            background: darken($vanadyl-blue, 5%) !important;
-        }
+    textarea {
+        border: solid 1px $white !important;
+        margin-bottom: 8px;
+        width: 100%;
     }
 }

@@ -7,9 +7,6 @@
         z-index: 1001 !important;
 
         .headerContainer {
-            padding-left: 30px;
-            padding-right: 30px;
-
             .headerMenuItem {
                 margin-right: 0 !important;
                 
@@ -55,14 +52,6 @@
                         }
                     }
                 }
-            }
-
-            .searchTab {
-                background: #1da1f2;
-                border-bottom-left-radius: 0;
-                border-top-left-radius: 0;
-                color: $white;
-                font-weight: normal;
             }
         }
     }

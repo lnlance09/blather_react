@@ -1,30 +1,16 @@
-.discussionsList .discussionsFilter {
-  background: rgba(245, 246, 250, 0.3) !important;
-  border: solid 1px rgba(220, 221, 225, 0.6) !important;
-  padding: 12px; }
-  .discussionsList .discussionsFilter .fields:last-of-type {
-    margin-bottom: 0 !important; }
-  .discussionsList .discussionsFilter .fields .searchDiscussionsBtn {
-    background: #0097e6 !important;
-    color: #ffffff !important;
-    cursor: pointer;
-    height: 100%; }
-    .discussionsList .discussionsFilter .fields .searchDiscussionsBtn:hover {
-      background: #0086cd !important; }
-  .discussionsList .discussionsFilter .createDiscussionBtn {
-    background: #ffffff !important;
-    border: solid 1px rgba(34, 36, 38, 0.15) !important;
-    color: #0097e6 !important;
-    float: right;
-    height: 100%;
-    margin-right: 0 !important;
-    width: 100%; }
-    .discussionsList .discussionsFilter .createDiscussionBtn:hover {
-      background: #f5f6fa !important; }
-    .discussionsList .discussionsFilter .createDiscussionBtn a .icon {
-      margin-right: 0 !important; }
-  .discussionsList .discussionsFilter .advancedOptions {
-    margin-top: 12px; }
+.discussionsList .discussionsFilter .fields:last-of-type {
+  margin-bottom: 0 !important; }
+
+.discussionsList .discussionsFilter .createDiscussionBtn {
+  float: right;
+  height: 100%;
+  margin-right: 0 !important;
+  width: 100%; }
+  .discussionsList .discussionsFilter .createDiscussionBtn a .icon {
+    margin-right: 0 !important; }
+
+.discussionsList .discussionsFilter .advancedOptions {
+  margin-top: 12px; }
 
 .discussionsList .emptyDiscussionContainer {
   height: 200px;
@@ -33,6 +19,4 @@
   .discussionsList .emptyDiscussionContainer .header {
     font-size: 20px; }
   .discussionsList .emptyDiscussionContainer .message {
-    background: #ffffff;
-    border: none !important;
-    box-shadow: none !important; }
+    background: #ffffff; }
