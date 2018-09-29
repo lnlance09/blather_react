@@ -218,7 +218,7 @@ class DiscussionsList extends Component {
 							compact
 							icon
 							onClick={() => props.history.push("/discussion/create")}
-							style={{ float: "right" }}>
+						>
 							<Icon name="plus" />
 						</Button>
 					</Form.Field>
@@ -280,7 +280,7 @@ class DiscussionsList extends Component {
 				if (result.discussion_id) {
 					let meta = (
 						<div>
-							Created by {result.creator_user_name}{" "}
+							{result.acceptor_user_name ? `Accepted by ${result.acceptor_user_name}` : `Created by ${result.creator_user_name}`}{" "}
 							<Moment date={adjustTimezone(result.discussion_date)} fromNow />
 						</div>
 					)
@@ -346,9 +346,10 @@ class DiscussionsList extends Component {
 				{this.props.includeFilter && <div>{FilterSection(this.props)}</div>}
 				{this.props.results.length > 0 && (
 					<Visibility
+						className="discussionsWrapper"
 						continuous
 						onBottomVisible={this.loadMore}
-						style={{ marginTop: "14px" }}>
+					>
 						<Item.Group className="discussionItems" divided>
 							{renderDiscussions(this.props)}
 							{lazyLoadSegments(this.props)}

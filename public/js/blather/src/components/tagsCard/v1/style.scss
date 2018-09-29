@@ -2,8 +2,10 @@
 
 .tagsCard {
     .header {
+        font-weight: 600;
+
         .editTagsIcon {
-            color: $vanadyl-blue;
+            color: $blue;
             cursor: pointer;
             display: none !important;
             float: right;

@@ -1,6 +1,7 @@
 import "./style.css"
 import { fetchFallacyConversation, submitFallacyConversation } from "pages/actions/fallacy"
 import { fetchDiscussionConversation, submitDiscussionConversation } from "pages/actions/discussion"
+import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { connect } from "react-redux"
 import { Link } from "react-router-dom"
 import { TwitterShareButton } from "react-share"
@@ -15,6 +16,7 @@ import {
 	Icon,
 	Image,
 	Label,
+	Popup,
 	Message,
 	Segment,
 	TextArea
@@ -35,6 +37,7 @@ class Conversation extends Component {
 		const currentState = store.getState()
 		const user = currentState.user
 		this.state = {
+			copied: false,
 			disabled: false,
 			extraText: "",
 			icon: "paper plane",
@@ -135,6 +138,7 @@ class Conversation extends Component {
 
 	render() {
 		const {
+			copied,
 			disabled,
 			extraText,
 			icon,
@@ -220,7 +224,7 @@ class Conversation extends Component {
 											"_blank"
 										)
 									}
-									style={{ marginTop: "12px" }}>
+								>
 									<Icon name="youtube" /> Contact {props.user.name}
 								</Button>
 							)}
@@ -230,18 +234,12 @@ class Conversation extends Component {
 			)
 		}
 		const ConvoCard = (convo, i) => {
-			let label = null
-			if (i === convoCount - 1 && (this.props.status === 2 || this.props.status === 3)) {
-				label = (
-					<Label
-						className={`${this.props.status === 2 ? "close" : "check"}`}
-						corner="right">
-						<Icon name={`${this.props.status === 2 ? "close" : "check"}`} />
-					</Label>
-				)
-			}
+			const isLast = i === convoCount - 1
 			return (
-				<Card fluid>
+				<Card 
+					color={isLast && this.props.status === 2 ? "red" : (isLast && this.props.status === 3 ? "green" : null)}
+					fluid
+				>
 					<Card.Content>
 						<Image
 							floated="left"
@@ -265,7 +263,6 @@ class Conversation extends Component {
 							}}
 						/>
 					</Card.Content>
-					{label}
 				</Card>
 			)
 		}
@@ -323,11 +320,6 @@ class Conversation extends Component {
 
 			if (props.source === "discussion" && props.authenticated) {
 				if (props.status === 0) {
-					/*
-                    console.log('dddd')
-                    console.log(props.createdBy.id)
-                    console.log(userId)
-                    */
 					if (props.createdBy.id !== userId) {
 						return (
 							<div>
@@ -341,9 +333,24 @@ class Conversation extends Component {
 						)
 					} else {
 						return (
-							<div style={{ textAlign: "center" }}>
-								Find someone who might be able to change your mind.
-							</div>
+							<Segment className="findOpponent">
+								<p>
+									Find someone who might be able to change your mind.{' '}
+									<Popup
+										openOnTriggerMouseEnter
+										trigger={
+											<CopyToClipboard
+												onCopy={() => this.setState({ copied: true })}
+												text={`${window.location.origin}discussions/${props.discussionId}`}
+											>
+												<Icon color="yellow" name="copy" />
+											</CopyToClipboard>
+										}
+									>
+										<p>{copied ? 'Copied!' : 'Copy this link'}</p>
+									</Popup>
+								</p>
+							</Segment>
 						)
 					}
 				}
@@ -409,7 +416,6 @@ class Conversation extends Component {
 
 		return (
 			<div className="conversation">
-				<Divider />
 				<div className="convoContainer">{RenderPosts(this.props)}</div>
 				<div className="convoResponseSection">
 					{this.props.createdBy && <div>{InitialStatus(this.props)}</div>}

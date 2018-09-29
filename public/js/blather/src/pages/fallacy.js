@@ -211,9 +211,9 @@ class Fallacy extends Component {
 					{this.props.error && (
 						<Container
 							className="mainContainer"
-							style={{ marginTop: "8em" }}
 							text
-							textAlign="center">
+							textAlign="center"
+						>
 							<Image centered disabled size="medium" src={TrumpImg} />
 							<Header size="medium">This fallacy does not exist!</Header>
 						</Container>

@@ -10,7 +10,7 @@
         }
 
         public function index() {
-            $id = $this->input->get('id');
+            $id = (int)$this->input->get('id');
             $tag = $this->tags->getTagInfo($id);
             if(!$tag) {
                 $this->output->set_status_header(401);

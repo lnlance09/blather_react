@@ -21,7 +21,7 @@ const page = (state = initial(), action) => {
 				errorCode: 0,
 				exists: true,
 				externalUrl: payload.data.external_url,
-				id: payload.data.social_media_id,
+				id: payload.data.type === 'youtube' ? payload.data.social_media_id : parseInt(payload.data.social_media_id,10),
 				img: payload.data.profile_pic,
 				name: payload.data.name,
 				network: payload.data.type,

@@ -1,7 +1,7 @@
 @import '../../../css/colors.scss';
 
 .conversation {
-    margin-top: 35px;
+    margin-top: 15px;
 
     .form {
         .actionSegment {
@@ -17,42 +17,43 @@
             .item {
                 .icon {
                     &.paper.plane {
-                        color: $vanadyl-blue !important;
+                        color: $blue !important;
                     }
 
                     &.close {
-                        color: $harley-davidson-orange !important;
+                        color: $red !important;
                     }
 
                     &.check {
-                        color: $skirret-green !important;
+                        color: $green !important;
                     }
                 }
             }
         }
 
         .convoRespondBtn {
+            color: $white;
             float: right;
             margin-right: 0;
 
             &.respond {
-                background: $vanadyl-blue !important;
+                background: $blue !important;
                 &:hover {
-                    background: darken($vanadyl-blue, 5%) !important;
+                    background: darken($blue, 5%) !important;
                 }
             }
 
             &.close {
-                background: $harley-davidson-orange !important;
+                background: $red !important;
                 &:hover {
-                    background: darken($harley-davidson-orange, 5%) !important;
+                    background: darken($red, 5%) !important;
                 }
             }
 
             &.convince {
-                background: $skirret-green !important;
+                background: $green !important;
                 &:hover {
-                    background: darken($skirret-green, 5%) !important;
+                    background: darken($green, 5%) !important;
                 }
             }
         }
@@ -61,15 +62,15 @@
             font-weight: bold;
 
             &.respond {
-                color: $vanadyl-blue !important;
+                color: $blue !important;
             }
 
             &.close {
-                color: $harley-davidson-orange !important;
+                color: $red !important;
             }
 
             &.convince {
-                color: $skirret-green !important;
+                color: $green !important;
             }
         }
 
@@ -80,38 +81,38 @@
         .convoTextArea {
             &.close {
                 &:focus {
-                    border: solid 1px $harley-davidson-orange-light;
+                    border: solid 1px $red;
 
                     &::-webkit-input-placeholder {
-                        color: $harley-davidson-orange;
+                        color: $red;
                     }
                     &::-moz-placeholder {
-                        color: $harley-davidson-orange;
+                        color: $red;
                     }
                     &:-ms-input-placeholder {
-                        color: $harley-davidson-orange;
+                        color: $red;
                     }
                     &:-moz-placeholder {
-                        color: $harley-davidson-orange;
+                        color: $red;
                     }
                 }
             }
 
             &.convince {
                 &:focus {
-                    border: solid 1px $skirret-green-light;
+                    border: solid 1px $green;
 
                     &::-webkit-input-placeholder {
-                        color: $skirret-green;
+                        color: $green;
                     }
                     &::-moz-placeholder {
-                        color: $skirret-green;
+                        color: $green;
                     }
                     &:-ms-input-placeholder {
-                        color: $skirret-green;
+                        color: $green;
                     }
                     &:-moz-placeholder {
-                        color: $skirret-green;
+                        color: $green;
                     }
                 }
             }
@@ -155,6 +156,17 @@
         }
     }
 
+    .findOpponent {
+        p {
+            text-align: center;
+
+            .icon {
+                cursor: pointer;
+                font-size: 18px;
+            }
+        }
+    }
+
     .card {
         .content {
             .ui.mini.image {
@@ -164,21 +176,6 @@
 
             .header {
                 font-size: 15px !important;
-            }
-        }
-
-        .label {
-            &.check {
-                border-color: $skirret-green;
-            }
-
-            &.close {
-                border-color: $harley-davidson-orange;
-            }
-
-            .icon {
-                color: $white;
-                opacity: 0.8;
             }
         }
     }

@@ -20,6 +20,17 @@
             $this->videosUrl = 'https://www.googleapis.com/youtube/v3/videos';
         }
 
+        public function getAllPages() {
+            $this->db->select('*');
+            $this->db->where('type', 'youtube');
+            return $this->db->get('pages')->result_array();
+        }
+
+        public function getAllVideos() {
+            $this->db->select('*');
+            return $this->db->get('youtube_videos')->result_array();
+        }
+
         public function getCommentExtended($id, $videoId, $auth, $token) {
             if($auth) {
                 $comment = $this->getCommentInfo($id, $token, true);

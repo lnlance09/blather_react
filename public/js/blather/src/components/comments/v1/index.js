@@ -73,7 +73,7 @@ class CommentsSection extends Component {
 			}
 
 			if (props.comments.count === 0) {
-				return <p style={{ textAlign: "center" }}>No comments yet...</p>
+				return <p className="emptyMsg">No comments yet...</p>
 			}
 
 			return [{}, {}, {}, {}, {}, {}, {}].map((comment, i) => (
@@ -91,10 +91,10 @@ class CommentsSection extends Component {
 					value={message}
 				/>
 				<Button
+					className="replyBrn"
 					color="blue"
 					compact
 					content="Post"
-					style={{ float: "right", marginRight: "0" }}
 					type="submit"
 				/>
 				<div className="clearfix" />

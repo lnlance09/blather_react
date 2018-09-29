@@ -36,7 +36,7 @@ const fallacy = (state = initial(), action) => {
 					comment = {
 						dateCreated: fallacy.comment_created_at,
 						id: fallacy.comment_id,
-						likeCount: fallacy.comment_like_count,
+						likeCount: parseInt(fallacy.comment_like_count,10),
 						message: fallacy.comment_message,
 						user: {
 							id: fallacy.comment_channel_id,
@@ -54,6 +54,7 @@ const fallacy = (state = initial(), action) => {
 					comment: comment,
 					dateCreated: fallacy.video_created_at,
 					description: fallacy.video_description,
+					endTime: fallacy.end_time,
 					id: fallacy.video_video_id,
 					startTime: fallacy.start_time,
 					stats: {
@@ -81,7 +82,7 @@ const fallacy = (state = initial(), action) => {
 					contradictionComment = {
 						dateCreated: fallacy.contradiction_comment_created_at,
 						id: fallacy.contradiction_comment_id,
-						likeCount: fallacy.contradiction_comment_like_count,
+						likeCount: parseInt(fallacy.contradiction_comment_like_count,10),
 						message: fallacy.contradiction_comment_message,
 						user: {
 							id: fallacy.contradiction_comment_channel_id,

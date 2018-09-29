@@ -50,13 +50,9 @@ class Tweet extends Component {
 					<List floated="right" horizontal>
 						<List.Item className="archiveListItem">
 							<Popup
+								className="archivePopup"
 								content="Archive"
 								position="bottom left"
-								style={{
-									borderRadius: "0",
-									boxShaow: "none",
-									padding: "0.8em"
-								}}
 								trigger={
 									<List.Content>
 										<List.Header>
@@ -97,7 +93,7 @@ class Tweet extends Component {
 					switch (item.type) {
 						case "photo":
 							return (
-								<div key={`embed_${i}`} style={{ textAlign: "center" }}>
+								<div key={`embed_${i}`}>
 									<Image
 										as="a"
 										bordered

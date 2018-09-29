@@ -43,7 +43,7 @@ class FallacyRef extends Component {
 		return (
 			<div className="fallacyRef">
 				{fallacy && (
-					<Segment piles className="fallacySegment">
+					<Segment className="fallacySegment">
 						<Header as="p" size="small">
 							What is a {fallacy.name}?
 						</Header>

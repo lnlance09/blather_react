@@ -25,7 +25,7 @@ const fallacyForm = (state = initial(), action) => {
 				fallacyFormErrorMsg: "",
 				fallacy: {
 					assignedBy: parseInt(fallacy.assigned_by, 10),
-					contradiction: null,
+					contradiction: fallacy.contradiction,
 					explanation: fallacy.explanation,
 					fallacyId: parseInt(fallacy.fallacy_id, 10),
 					id: parseInt(fallacy.id, 10),
@@ -91,6 +91,18 @@ const fallacyForm = (state = initial(), action) => {
 			return {
 				...state,
 				pageInfo: action.payload.page
+			}
+
+		case constants.SET_CONTRADICTION_END_TIME:
+			return {
+				...state,
+				fallacy: {
+					...state.fallacy,
+					contradiction: {
+						...state.fallacy.contradiction,
+						endTime: action.payload.value.value
+					}
+				}
 			}
 
 		case constants.SET_CONTRADICTION_VIDEO_TIME:

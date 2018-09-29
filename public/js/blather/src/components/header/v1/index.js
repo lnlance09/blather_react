@@ -30,8 +30,8 @@ class Header extends Component {
 						className="dropDownMenu right"
 						icon={false}
 						item
-						style={{ borderRadius: "0" }}
-						text={props.data.name}>
+						text={props.data.name}
+					>
 						<Dropdown.Menu>
 							<Dropdown.Item
 								onClick={() => props.history.push(`/users/${props.data.username}`)}>

@@ -32,15 +32,14 @@
             $this->db->join('tag_versions tv', 't.id = tv.tag_id');
             // $this->db->join('users tvu', 'tv.updated_by = tvu.id');
             $this->db->where('t.id', $id);
-            $this->db->where("tv.version = (SELECT MAX(version) FROM tag_versions WHERE id = id)");
-            $result = $this->db->get('tags t', ['id' => $id])->result_array();
+            $this->db->where("tv.version = (SELECT MAX(version) FROM tag_versions WHERE tag_id = ".$id.")");
+            $result = $this->db->get('tags t')->result_array();
             return count($result) === 1 ? $result[0] : false;
         }
 
         public function getTags() {
             $this->db->select('id, value, value AS text');
-            $query = $this->db->get('tags');
-            return $query->result_array();
+            return $this->db->get('tags')->result_array();
         }
 
         public function insertTags($id, $tags, $type, $userId) {

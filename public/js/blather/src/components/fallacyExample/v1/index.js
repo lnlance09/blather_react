@@ -123,6 +123,7 @@ class FallacyExample extends Component {
 								</Form.Field>
 								<Button
 									className="updateBtn"
+									color="blue"
 									compact
 									content="Update"
 									fluid
@@ -235,6 +236,7 @@ class FallacyExample extends Component {
 							comment={material.video.comment}
 							dateCreated={material.video.dateCreated}
 							description={material.video.description}
+							endTime={material.video.endTime}
 							history={props.history}
 							id={material.video.id}
 							showChannel

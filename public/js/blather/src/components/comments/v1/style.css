@@ -1,3 +1,10 @@
 .commentsSection .comment .avatar img {
   height: 36px !important;
   width: 36px !important; }
+
+.commentsSection .replyBtn {
+  float: right;
+  margin-right: 0; }
+
+.commentsSection .emptyMsg {
+  text-align: center; }

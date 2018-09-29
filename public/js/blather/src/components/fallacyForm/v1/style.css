@@ -6,3 +6,10 @@
   margin-top: 0.9em; }
   .fallacyForm .contradictionWrapper.active {
     padding: 10px; }
+
+.fallacyForm .successModal a {
+  cursor: pointer; }
+
+.fallacyForm .successModal .modalBtnWrapper {
+  margin-top: 1.6em;
+  text-align: center; }

@@ -9,7 +9,7 @@ class Footer extends Component {
 	render() {
 		return (
 			<Segment attached="bottom" className="footerSegment">
-				<Container style={{ paddingLeft: "30px", paddingRight: "30px" }}>
+				<Container>
 					<List className="footerList" horizontal inverted link>
 						<List.Item>
 							<Link to="/about">About</Link>

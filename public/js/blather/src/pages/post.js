@@ -32,6 +32,7 @@ class Post extends Component {
 			commentId,
 			id,
 			network,
+			submitted: false,
 			type
 		}
 
@@ -39,9 +40,13 @@ class Post extends Component {
 			bearer: currentState.user.bearer,
 			url
 		})
+
+		this.handleSubmit = this.handleSubmit.bind(this)
 	}
 
 	handleContextRef = contextRef => this.setState({ contextRef })
+
+	handleSubmit = () => this.setState({ submitted: this.state.submitted ? false : true })
 
 	postType(id, commentId, path) {
 		switch (path) {
@@ -88,8 +93,6 @@ class Post extends Component {
 				: this.props.info.channel
 			: null
 		const Breadcrumbs = props => {
-			console.log("breadcrumbs")
-			console.log(props)
 			if (props.info) {
 				switch (type) {
 					case "tweet":
@@ -173,7 +176,7 @@ class Post extends Component {
 		const DisplayFallacies = props => {
 			if (props.info) {
 				return (
-					<div style={{ marginTop: "1.2em" }}>
+					<div className="fallaciesWrapper">
 						<Header dividing size="small">
 							Fallacies
 						</Header>
@@ -295,15 +298,17 @@ class Post extends Component {
 						className={containerClassName}
 						ref={this.handleContextRef}
 						text
-						textAlign="left">
+						textAlign="left"
+					>
 						{DisplayPost(this.props)}
 						{!videoExists && <Message content="This video does not exist" error />}
 						{!this.props.error && (
-							<div style={{ marginTop: "16px" }}>
+							<div className="fallacyFormWrapper">
 								<FallacyForm
 									authenticated={authenticated}
 									bearer={bearer}
 									commentId={commentId}
+									handleSubmit={this.handleSubmit}
 									history={this.props.history}
 									network={network}
 									objectId={id}

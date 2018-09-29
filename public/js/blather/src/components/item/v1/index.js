@@ -134,7 +134,7 @@ class ResultItem extends Component {
 				className="resultItem"
 				key={this.props.id}
 				onClick={this.redirectToUrl}
-				style={{ cursor: "pointer" }}>
+			>
 				{ItemImage(this.props)}
 				{ItemContent(this.props)}
 			</Item>

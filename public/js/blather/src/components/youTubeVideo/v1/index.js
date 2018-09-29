@@ -1,6 +1,6 @@
 import "./style.css"
 import { createArchive } from "pages/actions/post"
-import { formatNumber, formatPlural } from "utils/textFunctions"
+import { formatDuration, formatNumber, formatPlural } from "utils/textFunctions"
 import {
 	fetchVideoComments,
 	insertComment,
@@ -16,8 +16,11 @@ import {
 	Card,
 	Comment,
 	Dimmer,
+	Form,
+	Grid,
 	Header,
 	Icon,
+	Input,
 	Image,
 	Message,
 	Modal,
@@ -49,6 +52,7 @@ class YouTubeVideo extends Component {
 			archiveVisible: false,
 			authenticated,
 			commentId: null,
+			currentState,
 			duration: 400,
 			i: null,
 			loadingMore: false,
@@ -128,9 +132,8 @@ class YouTubeVideo extends Component {
 	setTime = e => {
 		if (this.props.contradiction) {
 			this.props.setContradictionVideoTime(e.playedSeconds)
-		} else {
-			this.props.setCurrentVideoTime(e.playedSeconds)
 		}
+		this.props.setCurrentVideoTime(e.playedSeconds)
 	}
 
 	viewCommentOnYoutube = () => {
@@ -145,6 +148,7 @@ class YouTubeVideo extends Component {
 			animation,
 			archiveVisible,
 			authenticated,
+			currentState,
 			commentId,
 			duration,
 			i,
@@ -169,7 +173,7 @@ class YouTubeVideo extends Component {
 				const archiveDate = adjustTimezone(props.archive.date_created)
 				return (
 					<Transition animation={animation} duration={duration} visible={archiveVisible}>
-						<Message className="archiveMsg" positive style={{ borderRadius: "0" }}>
+						<Message className="archiveMsg" positive>
 							<Icon name="checkmark" /> You archived this{" "}
 							<a href={`http://archive.is/${props.archive.code}`}>video</a>{" "}
 							<Moment date={archiveDate} fromNow />
@@ -261,8 +265,8 @@ class YouTubeVideo extends Component {
 		const CommentsSection = props => {
 			if (props.showComments) {
 				return (
-					<div style={{ marginTop: "10px" }}>
-						<Header dividing size="medium">
+					<div className="commentsSection">
+						<Header dividing size="small">
 							Comments
 							<Radio
 								className="toggleComments"
@@ -280,7 +284,8 @@ class YouTubeVideo extends Component {
 							<Visibility
 								continuous
 								offset={[50, 50]}
-								onBottomVisible={this.loadMore}>
+								onBottomVisible={this.loadMore}
+							>
 								{authenticated && (
 									<Comment.Group>{DisplayComments(this.props)}</Comment.Group>
 								)}
@@ -289,7 +294,8 @@ class YouTubeVideo extends Component {
 										as={Segment}
 										className="commentsDimmer"
 										blurring
-										dimmed>
+										dimmed
+									>
 										<Segment className="lazyLoadSegment">
 											<Image fluid src={ParagraphPic} />
 										</Segment>
@@ -329,11 +335,11 @@ class YouTubeVideo extends Component {
 				props.comments.count === 0 &&
 				props.showComments
 			) {
-				return <p style={{ textAlign: "center" }}>There are no comments...</p>
+				return <p className="emptyCommentMsg">There are no comments...</p>
 			}
 
 			if (props.comments.code === 403) {
-				return <p>Comments have been disabled on this video</p>
+				return <p className="emptyCommentMsg">Comments have been disabled on this video</p>
 			}
 
 			return [{}, {}, {}, {}, {}, {}, {}].map((comment, i) => (
@@ -383,33 +389,38 @@ class YouTubeVideo extends Component {
 				)
 			})
 		}
-		const DisplayStats = ({ props }) => (
-			<div className="stats">
-				<div style={{ float: "left" }}>
-					<Statistic size="tiny">
-						<Statistic.Value>{formatNumber(props.stats.viewCount)}</Statistic.Value>
-						<Statistic.Label>
-							{formatPlural(props.stats.viewCount, "view")}
-						</Statistic.Label>
-					</Statistic>
-				</div>
-				<div style={{ float: "right" }}>
-					<Statistic size="tiny">
-						<Statistic.Value>{formatNumber(props.stats.likeCount)}</Statistic.Value>
-						<Statistic.Label>
-							{formatPlural(props.stats.likeCount, "like")}
-						</Statistic.Label>
-					</Statistic>
-					<Statistic size="tiny">
-						<Statistic.Value>{formatNumber(props.stats.dislikeCount)}</Statistic.Value>
-						<Statistic.Label>
-							{formatPlural(props.stats.dislikeCount, "dislike")}
-						</Statistic.Label>
-					</Statistic>
-				</div>
-				<div className="clearfix" />
-			</div>
-		)
+		const DisplayStats = props => {
+			if(props.stats) {
+				return (
+					<div className="stats">
+						<div className="viewCount">
+							<Statistic size="tiny">
+								<Statistic.Value>{formatNumber(props.stats.viewCount)}</Statistic.Value>
+								<Statistic.Label>
+									{formatPlural(props.stats.viewCount, "view")}
+								</Statistic.Label>
+							</Statistic>
+						</div>
+						<div className="likeCount">
+							<Statistic size="tiny">
+								<Statistic.Value>{formatNumber(props.stats.likeCount)}</Statistic.Value>
+								<Statistic.Label>
+									{formatPlural(props.stats.likeCount, "like")}
+								</Statistic.Label>
+							</Statistic>
+							<Statistic size="tiny">
+								<Statistic.Value>{formatNumber(props.stats.dislikeCount)}</Statistic.Value>
+								<Statistic.Label>
+									{formatPlural(props.stats.dislikeCount, "dislike")}
+								</Statistic.Label>
+							</Statistic>
+						</div>
+						<div className="clearfix" />
+					</div>
+				)
+			}
+			return null
+		}
 		const IndividualComment = ({ comment, i, reply = false, replies = false }) => {
 			let snippet = comment.snippet
 			let id = reply ? comment.id : snippet.topLevelComment.id
@@ -459,6 +470,8 @@ class YouTubeVideo extends Component {
 			<Progress color="red" percent={props.stats ? props.stats.likePct : null} progress />
 		)
 
+		console.log('hi')
+		console.log(this.props)
 		return (
 			<div className="youTubeVideo">
 				<Segment>
@@ -471,7 +484,7 @@ class YouTubeVideo extends Component {
 								onProgress={this.setTime}
 								url={`https://www.youtube.com/watch?v=${this.props.id}&t=${
 									this.props.startTime
-								}`}
+								}&end=${this.props.endTime}`}
 							/>
 							<Header className="youTubeTitle" size="medium">
 								{this.props.title}
@@ -479,17 +492,36 @@ class YouTubeVideo extends Component {
 
 							{this.props.showChannel && <div>{ChannelCard(this.props)}</div>}
 
+							{this.props.showTimes && (
+								<Grid>
+									<Grid.Column width={8}>
+										<Input
+											defaultValue={this.props.startTime}
+											placeholder="Start time"
+											value={formatDuration(this.props.info.currentTime)}
+										/>
+									</Grid.Column>
+									<Grid.Column width={8}>
+										<Input
+											onChange={this.props.changeEndTime}
+											placeholder="End time"
+											value={this.props.endTime}
+										/>
+									</Grid.Column>
+								</Grid>
+							)}
+
 							{this.props.showStats && (
 								<div>
 									{PopularityBar(this.props)}
-									<DisplayStats props={this.props} />
+									{DisplayStats(this.props)}
 								</div>
 							)}
 						</div>
 					)}
 
 					{this.props.showComment && (
-						<Comment.Group style={{ marginTop: "10px" }}>
+						<Comment.Group>
 							<Comment>
 								<Comment.Avatar
 									onError={i => (i.target.src = ImagePic)}
@@ -556,6 +588,7 @@ YouTubeVideo.propTypes = {
 		img: PropTypes.string,
 		title: PropTypes.string
 	}),
+	changeEndTime: PropTypes.func,
 	clearContradiction: PropTypes.func,
 	comment: PropTypes.shape({
 		dateCreated: PropTypes.string,
@@ -592,6 +625,7 @@ YouTubeVideo.propTypes = {
 	showComment: PropTypes.bool,
 	showComments: PropTypes.bool,
 	showStats: PropTypes.bool,
+	showTimes: PropTypes.bool,
 	showVideo: PropTypes.bool,
 	startTime: PropTypes.string,
 	stats: PropTypes.shape({
@@ -627,6 +661,7 @@ YouTubeVideo.defaultProps = {
 	showComment: false,
 	showComments: false,
 	showStats: true,
+	showTimes: false,
 	showVideo: true,
 	statists: {},
 	unsetComment: unsetComment

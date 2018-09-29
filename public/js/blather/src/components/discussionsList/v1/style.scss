@@ -1,6 +1,10 @@
 @import '../../../css/colors.scss';
 
 .discussionsList {
+    .discussionsWrapper {
+        margin-top: 14px;
+    }
+
     .discussionsFilter {
         .fields {
             &:last-of-type {
@@ -23,6 +27,12 @@
 
         .advancedOptions {
             margin-top: 12px;
+        }
+    }
+
+    .advancedOptions {
+        button {
+            height: 100%;
         }
     }
 

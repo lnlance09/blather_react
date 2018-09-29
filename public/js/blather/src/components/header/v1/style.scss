@@ -2,7 +2,7 @@
 
 .pageHeader {
     .menu.globalHeader {
-        background: $electromagnetic !important;
+        background: $black !important;
         height: 60px;
         z-index: 1001 !important;
 
@@ -13,7 +13,7 @@
                 .headerLogo {
                     cursor: pointer;
                     display: inline;
-                    fill: $vanadyl-blue;
+                    fill: $blue;
                     height: 36px;
                     line-height: 4;
                     margin-right: 12px;
@@ -21,7 +21,7 @@
                     width: 36px;
 
                     &:hover {
-                        fill: lighten($vanadyl-blue, 5%);
+                        fill: lighten($blue, 5%);
                     }
                 }
             }

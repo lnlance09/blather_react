@@ -135,10 +135,11 @@ class Tags extends Component {
 		const content = (
 			<div>
 				<Dropzone
+					className="dropzone"
 					onDrop={this.onDrop}
-					style={{ width: "100%", height: "100%", border: "none" }}>
+				>
 					<Header as="h2">Change pic</Header>
-					<Button className="changePicBtn" icon>
+					<Button color="blue" icon>
 						<Icon name="image" />
 					</Button>
 				</Dropzone>
@@ -156,7 +157,7 @@ class Tags extends Component {
 							/>
 						</Form.Field>
 						<Button
-							className="updateBtn"
+							color="blue"
 							compact
 							content="Update"
 							fluid
@@ -219,7 +220,7 @@ class Tags extends Component {
 					/>
 				)
 			}
-			return <Image src={pic} style={{ border: "none" }} />
+			return <Image src={pic} />
 		}
 		const TagMenu = props => (
 			<Menu className="tagMenu" pointing secondary>
@@ -293,7 +294,7 @@ class Tags extends Component {
 									</Segment>
 								)}
 								{!this.props.loading && (
-									<div style={{ marginTop: "20px" }}>
+									<div className="tagsWrapper">
 										{TagMenu(this.props)}
 										{activeItem === "article" && (
 											<div>{ArticleSection(this.props)}</div>

@@ -5,6 +5,7 @@ export const assignFallacy = ({
 	bearer,
 	commentId,
 	contradiction,
+	endTime,
 	explanation,
 	fallacyId,
 	network,
@@ -19,6 +20,7 @@ export const assignFallacy = ({
 			form: {
 				commentId,
 				contradiction,
+				endTime,
 				explanation,
 				fallacyId,
 				network,
@@ -79,6 +81,15 @@ export const selectAssignee = ({ id, name, type, username }) => dispatch => {
 			}
 		},
 		type: constants.SELECT_ASSIGNEE
+	})
+}
+
+export const setContradictionEndTime = value => dispatch => {
+	dispatch({
+		type: constants.SET_CONTRADICTION_END_TIME,
+		payload: {
+			value
+		}
 	})
 }
 

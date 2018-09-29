@@ -1,61 +1,62 @@
 .conversation {
-  margin-top: 35px; }
+  margin-top: 15px; }
   .conversation .form .actionSegment {
     line-height: 30.5px;
     margin-top: 15px; }
     .conversation .form .actionSegment .actionOptions {
       display: inline-block; }
   .conversation .form .menu .item .icon.paper.plane {
-    color: #0097e6 !important; }
+    color: #2196f3 !important; }
   .conversation .form .menu .item .icon.close {
-    color: #e84118 !important; }
+    color: #f44336 !important; }
   .conversation .form .menu .item .icon.check {
-    color: #44bd32 !important; }
+    color: #4Caf50 !important; }
   .conversation .form .convoRespondBtn {
+    color: #ffffff;
     float: right;
     margin-right: 0; }
     .conversation .form .convoRespondBtn.respond {
-      background: #0097e6 !important; }
+      background: #2196f3 !important; }
       .conversation .form .convoRespondBtn.respond:hover {
-        background: #0086cd !important; }
+        background: #0d8aee !important; }
     .conversation .form .convoRespondBtn.close {
-      background: #e84118 !important; }
+      background: #f44336 !important; }
       .conversation .form .convoRespondBtn.close:hover {
-        background: #d23a15 !important; }
+        background: #f32c1e !important; }
     .conversation .form .convoRespondBtn.convince {
-      background: #44bd32 !important; }
+      background: #4Caf50 !important; }
       .conversation .form .convoRespondBtn.convince:hover {
-        background: #3da92d !important; }
+        background: #449d48 !important; }
   .conversation .form .extraText {
     font-weight: bold; }
     .conversation .form .extraText.respond {
-      color: #0097e6 !important; }
+      color: #2196f3 !important; }
     .conversation .form .extraText.close {
-      color: #e84118 !important; }
+      color: #f44336 !important; }
     .conversation .form .extraText.convince {
-      color: #44bd32 !important; }
+      color: #4Caf50 !important; }
   .conversation .form .ui.error.message.convoErrorMsg {
     margin-bottom: 0; }
   .conversation .form .convoTextArea.close:focus {
-    border: solid 1px rgba(232, 65, 24, 0.3); }
+    border: solid 1px #f44336; }
     .conversation .form .convoTextArea.close:focus::-webkit-input-placeholder {
-      color: #e84118; }
+      color: #f44336; }
     .conversation .form .convoTextArea.close:focus::-moz-placeholder {
-      color: #e84118; }
+      color: #f44336; }
     .conversation .form .convoTextArea.close:focus:-ms-input-placeholder {
-      color: #e84118; }
+      color: #f44336; }
     .conversation .form .convoTextArea.close:focus:-moz-placeholder {
-      color: #e84118; }
+      color: #f44336; }
   .conversation .form .convoTextArea.convince:focus {
-    border: solid 1px rgba(68, 189, 50, 0.3); }
+    border: solid 1px #4Caf50; }
     .conversation .form .convoTextArea.convince:focus::-webkit-input-placeholder {
-      color: #44bd32; }
+      color: #4Caf50; }
     .conversation .form .convoTextArea.convince:focus::-moz-placeholder {
-      color: #44bd32; }
+      color: #4Caf50; }
     .conversation .form .convoTextArea.convince:focus:-ms-input-placeholder {
-      color: #44bd32; }
+      color: #4Caf50; }
     .conversation .form .convoTextArea.convince:focus:-moz-placeholder {
-      color: #44bd32; }
+      color: #4Caf50; }
   .conversation .convoContainer {
     margin-bottom: 18px; }
   .conversation .convoResponseSection {
@@ -75,14 +76,12 @@
       color: #ffffff; }
       .conversation .statusActionSegment .twitterButton:hover {
         background: #00719b; }
+  .conversation .findOpponent p {
+    text-align: center; }
+    .conversation .findOpponent p .icon {
+      cursor: pointer;
+      font-size: 18px; }
   .conversation .card .content .ui.mini.image {
     width: 35px; }
   .conversation .card .content .header {
     font-size: 15px !important; }
-  .conversation .card .label.check {
-    border-color: #44bd32; }
-  .conversation .card .label.close {
-    border-color: #e84118; }
-  .conversation .card .label .icon {
-    color: #ffffff;
-    opacity: 0.8; }

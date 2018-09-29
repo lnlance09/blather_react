@@ -1,5 +1,5 @@
 .pageHeader .menu.globalHeader {
-  background: #2f3640 !important;
+  background: #1b1c1d !important;
   height: 60px;
   z-index: 1001 !important; }
   .pageHeader .menu.globalHeader .headerContainer .headerMenuItem {
@@ -7,14 +7,14 @@
     .pageHeader .menu.globalHeader .headerContainer .headerMenuItem .headerLogo {
       cursor: pointer;
       display: inline;
-      fill: #0097e6;
+      fill: #2196f3;
       height: 36px;
       line-height: 4;
       margin-right: 12px;
       vertical-align: middle;
       width: 36px; }
       .pageHeader .menu.globalHeader .headerContainer .headerMenuItem .headerLogo:hover {
-        fill: #01a8ff; }
+        fill: #39a1f4; }
   .pageHeader .menu.globalHeader .headerContainer .fallaciesLink, .pageHeader .menu.globalHeader .headerContainer .discussionsLink, .pageHeader .menu.globalHeader .headerContainer .signInLink {
     color: #f5f6fa;
     font-size: 15px !important;

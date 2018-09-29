@@ -98,16 +98,12 @@ ReactDOM.render(
 						exact
 						path="/users/:username"
 						render={props => {
-							console.log("router")
-							console.log(props)
 							return <Users {...props} />
 						}}
 					/>
 					<Route
 						path="/users/:username/:tab"
 						render={props => {
-							console.log("router")
-							console.log(props)
 							return <Users {...props} />
 						}}
 					/>

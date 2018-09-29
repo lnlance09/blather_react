@@ -23,16 +23,17 @@ class Fallacies extends Component {
 	}
 
 	scrollStep() {
-		console.log("scroll step")
-		if (window.pageYOffset === 0) {
-			// clearInterval(this.state.intervalId)
+		if(this.props.match.path === '/fallacies/:id') {
+			if (window.pageYOffset === 0) {
+				clearInterval(this.state.intervalId)
+			}
+			window.scroll(0, window.pageYOffset - 50)
 		}
-		// window.scroll(0, window.pageYOffset - 50)
 	}
 
 	scrollToTop() {
 		let intervalId = setInterval(this.scrollStep.bind(this), "16.66")
-		this.setState({ intervalId: intervalId })
+		this.setState({ intervalId })
 	}
 
 	handleItemClick = (e, { name }) => {
@@ -68,7 +69,7 @@ class Fallacies extends Component {
 			if (fallacy.name.toLowerCase() === activeItem) {
 				return (
 					<div className="mainFallacy active" key={fallacy.id}>
-						<Segment piles>
+						<Segment>
 							<Header as="p" size="small">
 								{fallacy.name}
 							</Header>

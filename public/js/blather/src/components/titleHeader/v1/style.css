@@ -1,15 +1,18 @@
 .titleHeader .header .editHeaderIcon {
+  color: #2196f3;
   cursor: pointer;
   display: none !important;
   float: right;
   line-height: 42px; }
+  .titleHeader .header .editHeaderIcon.close {
+    color: #e84118; }
 
 .titleHeader .header .titleInput {
   width: 94% !important; }
   .titleHeader .header .titleInput input {
     font-size: 18px;
     line-height: 24px;
-    padding: 4px 6px; }
+    padding: 9px 16px; }
 
 .titleHeader .header:hover .editHeaderIcon {
   display: inline !important; }

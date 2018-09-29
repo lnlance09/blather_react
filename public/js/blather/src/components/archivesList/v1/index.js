@@ -102,9 +102,10 @@ class ArchivesList extends Component {
 			<div className="archivesList">
 				{this.props.archives.length > 0 && (
 					<Visibility
+						className="archiveWrapper"
 						continuous
 						onBottomVisible={this.loadMore}
-						style={{ marginTop: "14px" }}>
+					>
 						<Item.Group className="fallacyItems" divided>
 							{renderArchives(this.props)}
 						</Item.Group>

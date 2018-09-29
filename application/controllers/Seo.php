@@ -8,28 +8,34 @@
 
 				$this->base_url = $this->config->base_url();
 				$this->load->model('DiscussionsModel', 'discussions');
-				$this->load->model('FacebookModel', 'fb');
+				$this->load->model('FallaciesModel', 'fallacies');
+				$this->load->model('TagsModel', 'tags');
 				$this->load->model('TwitterModel', 'twitter');
+				$this->load->model('UsersModel', 'users');
 				$this->load->model('YouTubeModel', 'youtube');
 			}
 
 			public function index() {
-				$fallacies = $this->database->getFeed('all');
-				$pages = $this->database->getPages();
+				$discussions = $this->discussions->getDiscussions();
+				$fallacies = $this->fallacies->getFallacies();
+				$fallacyTypes = $this->fallacies->getFallacyTypes();
+				$tags = $this->tags->getTags();
+				$tweets = $this->twitter->getAllTweets();
+				$twitterPages = $this->twitter->getAllPages();
 				$users = $this->users->getUsers();
-				$fbPosts = $this->fb->getPostFromDB(null);
-				$twitterPosts = $this->twitter->getTweetFromDB(null);
-				$youtubePosts = $this->youtube->getVideoFromDB(null);
-				$fallacyList = $this->database->getFallacyNames();
+				$videos = $this->youtube->getAllVideos();
+				$youtubePages = $this->youtube->getAllPages();
 
 				$this->load->view('sitemap', [
+					'discussions' => $discussions,
 					'fallacies' => $fallacies,
-					'fallacyList' => $fallacyList,
-					'fbPosts' => $fbPosts,
-					'pages' => $pages,
-					'twitterPosts' => $twitterPosts,
+					'fallacyTypes' => $fallacyTypes,
+					'tags' => $tags,
+					'tweets' => $tweets,
+					'twitterPages' => $twitterPages,
 					'users' => $users,
-					'youtubePosts' => $youtubePosts,
+					'videos' => $videos,
+					'youtubePages' => $youtubePages
 				]);
 			}
 		}

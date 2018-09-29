@@ -185,7 +185,7 @@ class CreateDiscussionPage extends Component {
 								selection
 								value={tags}
 							/>
-							<div style={{ marginTop: "12px" }}>
+							<div>
 								{hasUpdated && (
 									<div>
 										<Button
@@ -236,7 +236,7 @@ class CreateDiscussionPage extends Component {
 								}}
 							/>
 						</div>
-						<div style={{ marginTop: "15px" }}>
+						<div className="extraWrapper">
 							<Header className="extraTitle" size="small">
 								What it takes to change my mind
 							</Header>

@@ -88,23 +88,23 @@ const discussion = (state = initial(), action) => {
 			}
 
 		case constants.SUBMIT_DISCUSSION_CONVERSATION:
-			if (payload.error) {
+			if (payload.body.error) {
 				return {
 					...state,
 					error: true,
-					errorMsg: payload.error,
+					errorMsg: payload.body.error,
 					submitted: false
 				}
 			}
 			const convo = state.conversation
-				? [...state.conversation, ...payload.conversation]
-				: payload.conversation
+				? [...state.conversation, ...payload.body.conversation]
+				: payload.discussion.conversation
 			return {
 				...state,
 				conversation: convo,
 				error: false,
 				errorMsg: "",
-				status: payload.conversation.status,
+				status: payload.status,
 				submitted: true
 			}
 

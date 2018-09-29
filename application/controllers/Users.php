@@ -218,7 +218,6 @@
 				'assigned_to' => null,
 				'comment_id' => null,
 				'fallacies' => null,
-				'id' => null,
 				'network' => null,
 				'object_id' => null,
 				'page' => null,

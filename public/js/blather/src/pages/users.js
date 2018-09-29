@@ -158,8 +158,9 @@ class UserPage extends Component {
 		const content = (
 			<div>
 				<Dropzone
+					className="dropdown"
 					onDrop={this.onDrop}
-					style={{ width: "100%", height: "100%", border: "none" }}>
+				>
 					<Header as="h2">Change your pic</Header>
 					<Button className="changePicBtn" icon>
 						<Icon name="image" />
@@ -187,7 +188,6 @@ class UserPage extends Component {
 					onError={i => (i.target.src = ImagePic)}
 					rounded
 					src={pic}
-					style={{ border: "none" }}
 				/>
 			)
 		}

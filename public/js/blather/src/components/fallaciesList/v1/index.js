@@ -59,7 +59,7 @@ class FallaciesList extends Component {
 			default:
 				id = ""
 		}
-		const qs = `?id=${id}&type=${this.props.source}`
+		const qs = `?id=${id}&type=${this.props.source}&network=${this.props.network}`
 		return fetch(`${window.location.origin}/api/fallacies/uniqueFallacies${qs}`, {
 			headers: {
 				"Content-Type": "application/json"
@@ -131,23 +131,20 @@ class FallaciesList extends Component {
 					let img = props.assignedBy ? result.page_profile_pic : result.user_img
 					let meta = (
 						<div>
-							Assigned to {result.page_name} -{" "}
+							{props.source === 'users' ? `Assigned to ${result.page_name}` : `Assigned by ${result.user_name}`}{" "}
 							<Moment date={adjustTimezone(result.date_created)} fromNow />
 						</div>
 					)
 					return (
 						<ResultItem
 							description={result.explanation}
-							extra={{
-								count: result.view_count,
-								term: "view"
-							}}
 							history={props.history}
 							id={`fallacy_${i}`}
 							img={img}
 							key={`fallacy_${i}`}
 							meta={meta}
 							sanitize
+							tags={result.tags ? result.tags.split(",") : null}
 							title={result.title}
 							type="fallacy"
 							url={`/fallacies/${result.id}`}
@@ -173,9 +170,10 @@ class FallaciesList extends Component {
 						<div>
 							<FilterSection props={this.props} />
 							<Visibility
+								className="fallaciesWrapper"
 								continuous
 								onBottomVisible={this.loadMore}
-								style={{ marginTop: "14px" }}>
+							>
 								<Item.Group className="fallacyItems" divided>
 									{renderFallacies(this.props)}
 								</Item.Group>
@@ -198,8 +196,8 @@ class FallaciesList extends Component {
 }
 
 FallaciesList.propTypes = {
-	assignedBy: PropTypes.number,
-	assignedTo: PropTypes.string,
+	assignedBy: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+	assignedTo: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 	commentId: PropTypes.string,
 	emptyMsgContent: PropTypes.string,
 	emptyMsgHeader: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),

@@ -4,7 +4,8 @@
   margin-right: 3px; }
 
 .searchResults .emptyMsg {
-  margin-top: 8px !important; }
+  margin-top: 8px !important;
+  text-align: center; }
 
 .searchResults .ui.active.transition.visible.dimmer {
   background: rgba(255, 255, 255, 0.8) !important; }

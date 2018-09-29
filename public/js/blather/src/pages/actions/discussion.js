@@ -126,7 +126,10 @@ export const submitDiscussionConversation = ({ bearer, id, msg, status }) => dis
 		function(err, response, body) {
 			dispatch({
 				type: constants.SUBMIT_DISCUSSION_CONVERSATION,
-				payload: body
+				payload: {
+					body,
+					status
+				}
 			})
 		}
 	)

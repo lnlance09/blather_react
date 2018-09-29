@@ -164,6 +164,7 @@ class DiscussionPage extends Component {
 								</Form.Field>
 								<Button
 									className="updateDiscussionBtn"
+									color="blue"
 									compact
 									content="Update"
 									fluid
@@ -208,6 +209,7 @@ class DiscussionPage extends Component {
 								</Form.Field>
 								<Button
 									className="updateDiscussionBtn"
+									color="blue"
 									compact
 									content="Update"
 									fluid

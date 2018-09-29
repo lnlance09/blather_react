@@ -9,6 +9,12 @@
         margin-top: 0;
     }
 
+    .archivePopup {
+        border-radius: 0;
+        box-shaow: none;
+        padding: 0.8em;
+    }
+
     .archiveMsg {
         margin-bottom: 0 !important;
     }
@@ -44,7 +50,7 @@
                         }
 
                         .icon.retweet {
-                            color: $vanadyl-blue;
+                            color: $blue;
                         }
 
                         .icon.like {

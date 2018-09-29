@@ -30,6 +30,11 @@
             return $discussion;
         }
 
+        public function getDiscussions() {
+            $this->db->select('*');
+            return $this->db->get('discussions')->result_array();
+        }
+
         public function getConversation($id) {
             $this->db->select("dc.date_created, dc.message, dc.user_id, u.name, CONCAT('".$this->baseUrl."img/profile_pics/', u.img) AS img, u.username");
             $this->db->join('users u', 'dc.user_id = u.id');

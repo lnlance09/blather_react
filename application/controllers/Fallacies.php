@@ -15,18 +15,8 @@
 
 		public function index() {
 			$id = $this->input->get('id');
-			$results = $this->fallacies->search([
-				'assigned_by' => null,
-				'assigned_to' => null,
-				'comment_id' => null,
-				'fallacies' => null,
-				'id' => $id,
-				'network' => null,
-				'object_id' => null,
-				'page' => null,
-				'q' => null
-			]);
-			if(empty($results)) {
+			$fallacy = $this->fallacies->getFallacy($id);
+			if(!$fallacy) {
 				$this->output->set_status_header(404);
 				echo json_encode([
 					'error' => 'Fallacy not found'
@@ -34,7 +24,6 @@
 				exit;
 			}
 
-			$fallacy = $results[0];
 			$this->fallacies->updateViewCount($id);
 			echo json_encode([
 				'error' => $fallacy['id'] === null,
@@ -45,6 +34,7 @@
 		public function assign() {
 			$commentId = $this->input->post('commentId');
 			$contradiction = $this->input->post('contradiction');
+			$endTime = $this->input->post('endTime');
 			$explanation = $this->input->post('explanation');
 			$fallacyId = $this->input->post('fallacyId');
 			$network = $this->input->post('network');
@@ -105,7 +95,19 @@
 					break;
 			}
 
-			$id = $this->fallacies->assignFallacy($userId, $commentId, $explanation, $fallacyId, $objectId, $network, $pageId, $startTime, $title, $contradiction);
+			$id = $this->fallacies->assignFallacy(
+				$userId,
+				$commentId,
+				$endTime,
+				$explanation,
+				$fallacyId,
+				$objectId,
+				$network,
+				$pageId,
+				$startTime,
+				$title,
+				$contradiction
+			);
 			echo json_encode([
 				'error' => false,
 				'fallacy' => [
@@ -162,8 +164,11 @@
 		}
 
 		public function parseUrl() {
-			$url = rawurldecode($this->input->post('url'));
-			$parse = parseUrl($url);
+			$url = $this->input->post('url');
+			$parse = false;
+			if(filter_var($url, FILTER_VALIDATE_URL)) {
+				$parse = parseUrl(rawurldecode($url));
+			}
 
 			if(!$parse) {
 				$this->output->set_status_header(400);
@@ -292,25 +297,15 @@
 				]);
 			}
 
-			$fallacy = $this->fallacies->search([
-				'assigned_by' => null,
-				'assigned_to' => null,
-				'comment_id' => null,
-				'fallacies' => null,
-				'id' => $id,
-				'network' => null,
-				'object_id' => null,
-				'page' => null,
-				'q' => null
-			]);
-			if(empty($fallacy)) {
+			$fallacy = $this->fallacies->getFallacy($id, true);
+			if(!$fallacy) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'This fallacy does not exist'
 				]);
 			}
 
-			if($fallacy[0]['assigned_by'] !== $this->user->id) {
+			if($fallacy['assigned_by'] !== $this->user->id) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You do not have permission to edit this fallacy'
@@ -334,7 +329,6 @@
 				'assigned_to' => $this->input->get('assignedTo'),
 				'comment_id' => $this->input->get('commentId'),
 				'fallacies' => $this->input->get('fallacies'),
-				'id' => null,
 				'network' => $this->input->get('network'),
 				'object_id' => $this->input->get('objectId'),
 				'page' => $page,
@@ -373,18 +367,8 @@
 				exit;
 			}
 
-			$fallacy = $this->fallacies->search([
-				'assigned_by' => $id,
-				'assigned_to' => null,
-				'comment_id' => null,
-				'fallacies' => null,
-				'id' => null,
-				'network' => null,
-				'object_id' => null,
-				'page' => null,
-				'q' => null
-			]);
-			if(!$fallacy[0]['id']) {
+			$fallacy = $this->fallacies->getFallacy($id, true);
+			if(!$fallacy) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'This fallacy does not exist'
@@ -392,7 +376,7 @@
 				exit;
 			}
 
-			if((int)$fallacy[0]['status'] === 2 || (int)$fallacy[0]['status'] === 3) {
+			if((int)$fallacy['status'] === 2 || (int)$fallacy['status'] === 3) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'This conversation has ended'
@@ -401,7 +385,7 @@
 			}
 
 			$lastPost = $this->fallacies->lastConvoExchange($id);
-			if(!$lastPost && (int)$fallacy['created_by'] === $this->user->id) {
+			if(!$lastPost && (int)$fallacy['assigned_by'] === $this->user->id) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You cannot have a conversation with yourself'
@@ -425,7 +409,7 @@
 				exit;
 			}
 
-			$accepted_by = (int)$fallacy[0]['status'] === 0 ? $this->user->id : null;
+			$accepted_by = (int)$fallacy['status'] === 0 ? $this->user->id : null;
 			$this->fallacies->updateStatus($id, $status, $accepted_by);
 			$this->fallacies->submitConversation($id, $this->user->id, $msg);
 			echo json_encode([
@@ -446,6 +430,7 @@
 		public function uniqueFallacies() {
 			$id = $this->input->get('id');
 			$type = $this->input->get('type');
+			$network = $this->input->get('network');
 
 			if(empty($id)) {
 				$this->output->set_status_header(401);
@@ -455,7 +440,7 @@
 				exit;
 			}
 
-			$fallacies = $this->fallacies->getUniqueFallacies($id, $type);
+			$fallacies = $this->fallacies->getUniqueFallacies($id, $type, $network);
 			echo json_encode([
 				'fallacies' => $fallacies
 			]);
@@ -478,19 +463,8 @@
 				exit;
 			}
 
-			$params = [
-				'assigned_by' => null,
-				'assigned_to' => null,
-				'comment_id' => null,
-				'fallacies' => null,
-				'id' => $id,
-				'network' => null,
-				'object_id' => null,
-				'page' => null,
-				'q' => null
-			];
-			$fallacy = $this->fallacies->search($params);
-			if(empty($fallacy)) {
+			$fallacy = $this->fallacies->getFallacy($id, true);
+			if(!$fallacy) {
 				$this->output->set_status_header(404);
 				echo json_encode([
 					'error' => 'This fallacy does not exist'
@@ -498,7 +472,7 @@
 				exit;
 			}
 
-			if($fallacy[0]['assigned_by'] !== $this->user->id) {
+			if($fallacy['assigned_by'] !== $this->user->id) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You do not have permission to edit this fallacy'
@@ -506,9 +480,9 @@
 				exit;
 			}
 
-			$fallacyId = !$this->fallacies->fallacyTypeExists($fallacyId) ? $fallacy[0]['fallacy_id'] : $fallacyId;
-			$title = empty($title) ? $fallacy[0]['title'] : $title; 
-			$explanation = empty($explanation) ? $fallacy[0]['explanation'] : $explanation;
+			$fallacyId = !$this->fallacies->fallacyTypeExists($fallacyId) ? $fallacy['fallacy_id'] : $fallacyId;
+			$title = empty($title) ? $fallacy['title'] : $title; 
+			$explanation = empty($explanation) ? $fallacy['explanation'] : $explanation;
 			$this->fallacies->updateFallacy($id, $explanation, $fallacyId, $tags, $title, $this->user->id);
 
 			$fallacy = $this->fallacies->search($params);

@@ -1,10 +1,13 @@
 .ui.bottom.attached.segment.footerSegment {
-  background: #2f3640 !important;
+  background: #1b1c1d !important;
   border: none !important;
   box-shadow: none !important;
   margin-top: 5.5em !important;
   padding: 1em 0em !important;
   text-align: center; }
+  .ui.bottom.attached.segment.footerSegment .container {
+    padding-left: 30px;
+    padding-right: 30px; }
   .ui.bottom.attached.segment.footerSegment .ui.inverted.list .item a:not(.ui) {
     color: #f5f6fa !important; }
     .ui.bottom.attached.segment.footerSegment .ui.inverted.list .item a:not(.ui):hover {

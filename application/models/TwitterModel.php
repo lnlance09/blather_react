@@ -126,6 +126,17 @@
             return rawurlencode(base64_encode(hash_hmac('sha1', $string, $key, true)));
         }
 
+        public function getAllPages() {
+            $this->db->select('*');
+            $this->db->where('type', 'twitter');
+            return $this->db->get('pages')->result_array();
+        }
+
+        public function getAllTweets() {
+            $this->db->select('*');
+            return $this->db->get('twitter_posts')->result_array();
+        }
+
         /**
          * Make a request to retrieve an access token that is needed for each API request
          * @param  [string] $verifier [The OAuth verifier]

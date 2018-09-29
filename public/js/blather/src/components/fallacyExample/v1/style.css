@@ -2,6 +2,7 @@
   margin-top: 15px; }
 
 .fallacyExample .header .editButton {
+  color: #2196f3;
   cursor: pointer;
   display: none !important;
   float: right;

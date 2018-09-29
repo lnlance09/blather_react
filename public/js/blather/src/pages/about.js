@@ -10,6 +10,7 @@ import {
 	List,
 	Menu,
 	Message,
+	Segment,
 	TextArea,
 	Transition
 } from "semantic-ui-react"
@@ -101,7 +102,7 @@ class About extends Component {
 						<TextArea
 							className="contactTextarea"
 							onChange={this.onChangeMsg}
-							rows={6}
+							rows={8}
 							value={msg}
 						/>
 					</Form.Field>
@@ -139,7 +140,7 @@ class About extends Component {
 					<DisplayMetaTags page="about" props={this.props} state={this.state} />
 					<PageHeader {...this.props} />
 					<Container className="mainContainer forText" textAlign="left">
-						<Container className="logoContainer" textAlign="center">
+						<Segment piled className="logoContainer" textAlign="center">
 							<Header className="aboutHeader" size="huge" textAlign="center">
 								<ReactSVG
 									className="blatherLogo"
@@ -152,7 +153,7 @@ class About extends Component {
 									It's not what you think; it's how you think
 								</Header.Subheader>
 							</Header>
-						</Container>
+						</Segment>
 						<Menu pointing secondary>
 							<Menu.Item
 								active={activeItem === "about"}

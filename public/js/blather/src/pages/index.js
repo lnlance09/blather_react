@@ -60,13 +60,18 @@ class SocialMediaPage extends Component {
 			id: this.state.id,
 			type: this.state.network
 		})
-		this.props.fetchFallacyCount({
-			id: this.state.id
-		})
 	}
 
 	componentWillMount() {
 		this.setState({ visible: true })
+	}
+
+	componentWillReceiveProps(props) {
+		if(props.id) {
+			this.props.fetchFallacyCount({
+				id: this.props.id
+			})
+		}
 	}
 
 	determineItemsLabel(network) {
@@ -136,7 +141,6 @@ class SocialMediaPage extends Component {
 					<Icon
 						className={`${network}Icon`}
 						name={network}
-						style={{ marginLeft: "4px" }}
 					/>
 				</div>
 			)
@@ -266,9 +270,9 @@ class SocialMediaPage extends Component {
 					{!this.props.exists && (
 						<Container
 							className="mainContainer"
-							style={{ marginTop: "8em" }}
 							text
-							textAlign="center">
+							textAlign="center"
+						>
 							<Image centered disabled size="medium" src={TrumpImg} />
 							<Header size="medium">That user does not exist!</Header>
 						</Container>

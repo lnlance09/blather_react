@@ -107,7 +107,6 @@
                         'assigned_to' => null,
                         'comment_id' => null,
                         'fallacies' => $fallacies,
-                        'id' => null,
                         'network' => null,
                         'object_id' => null,
                         'page' => $page,

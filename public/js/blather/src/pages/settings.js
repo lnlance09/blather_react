@@ -151,7 +151,7 @@ class SettingsPage extends Component {
 							<Icon name="clock" /> Joined{" "}
 							<Moment date={joinDate} fromNow interval={60000} />
 						</p>
-						<Header>Change Password</Header>
+						<Header size='tiny'>Change Password</Header>
 						<Form
 							error={this.props.passwordError}
 							loading={
@@ -213,8 +213,7 @@ class SettingsPage extends Component {
 									You linked your Twitter account{" "}
 									<Moment date={twitterDate} fromNow interval={60000} />
 								</p>
-
-								<div style={{ textAlign: "center" }}>
+								<div className="contentWrapper">
 									<Button
 										as="a"
 										color="twitter"
@@ -253,13 +252,13 @@ class SettingsPage extends Component {
 									You linked your YouTube account{" "}
 									<Moment date={youtubeDate} fromNow interval={60000} />
 								</p>
-
-								<div style={{ textAlign: "center" }}>
+								<div className="contentWrapper">
 									<Button
 										as="a"
 										color="youtube"
 										compact
-										onClick={e => this.props.removeYouTube(this.props.bearer)}>
+										onClick={e => this.props.removeYouTube(this.props.bearer)}
+									>
 										<Icon name="youtube" /> Remove access
 									</Button>
 								</div>
@@ -301,7 +300,8 @@ class SettingsPage extends Component {
 										name="twitter"
 										key="twitter"
 										active={activeItem === "twitter"}
-										onClick={this.handleItemClick}>
+										onClick={this.handleItemClick}
+									>
 										Twitter
 										<Icon
 											className="twitterIcon"
@@ -313,7 +313,8 @@ class SettingsPage extends Component {
 										name="youtube"
 										key="youtube"
 										active={activeItem === "youtube"}
-										onClick={this.handleItemClick}>
+										onClick={this.handleItemClick}
+									>
 										YouTube
 										<Icon
 											className="youtubeIcon"
