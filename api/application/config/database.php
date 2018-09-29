@@ -75,7 +75,7 @@ $query_builder = true;
 
 $db['default'] = [
 	'dsn'	=> '',
-	'hostname' => 'blather.cni5l9jtlymn.us-west-2.rds.amazonaws.com',
+	'hostname' => 'blather.cni5l9jtlymn.us-west-2.rds.amazonaws.com:3306',
 	'username' => 'lnlance09',
 	'password' => 'kVQ63hewQNi0bXg',
 	'database' => 'blather',
