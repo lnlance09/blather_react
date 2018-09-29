@@ -1,6 +1,0 @@
-.fallaciesPage .mainFallacy {
-  display: none; }
-  .fallaciesPage .mainFallacy .segment .comments {
-    margin-top: 15px !important; }
-  .fallaciesPage .mainFallacy.active {
-    display: block; }
