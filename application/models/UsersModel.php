@@ -1,11 +1,12 @@
 <?php 
 	class UsersModel extends CI_Model {
-		public function __construct() {       
+		public function __construct() {
 			parent:: __construct();
 
 			$this->baseUrl = $this->config->base_url();
 			$this->load->database();
 			$this->load->helper('common_helper');
+			$this->db->query("SET time_zone='+0:00'");
 		}
 
 		public function alreadyArchived($data) {

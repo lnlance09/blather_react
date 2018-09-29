@@ -3,7 +3,7 @@
   cursor: pointer;
   display: none !important;
   float: right;
-  line-height: 42px; }
+  line-height: 47px; }
   .titleHeader .header .editHeaderIcon.close {
     color: #e84118; }
 
@@ -16,3 +16,6 @@
 
 .titleHeader .header:hover .editHeaderIcon {
   display: inline !important; }
+
+.titleHeader .emptyTitle {
+  height: 55px; }

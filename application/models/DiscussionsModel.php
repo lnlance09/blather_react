@@ -127,8 +127,10 @@
                 d.date_created AS discussion_date, 
                 status,
                 title, 
+                d.created_by AS creator_id,
                 cu.name AS creator_user_name, 
                 CONCAT('".$this->baseUrl."img/profile_pics/', cu.img) AS creator_img, 
+                d.accepted_by AS acceptor_id,
                 au.name AS acceptor_user_name, 
                 CONCAT('".$this->baseUrl."img/profile_pics/', au.img) AS acceptor_img";
 
@@ -190,8 +192,7 @@
             }
             
             $this->db->group_by('d.id');
-            $results = $this->db->get('discussions d')->result_array();
-            return $results;
+            return $this->db->get('discussions d')->result_array();
         }
 
         public function submitConversation($id, $userId, $msg) {
@@ -203,7 +204,14 @@
             ]);
         }
 
-        public function updateDiscussion($id, $title, $description, $extra, $userId, $tags = null) {
+        public function updateDiscussion(
+            $id, 
+            $title, 
+            $description, 
+            $extra, 
+            $userId, 
+            $tags = null
+        ) {
             $this->db->where('id', $id);
             $this->db->update('discussions', [
                 'description' => $description,

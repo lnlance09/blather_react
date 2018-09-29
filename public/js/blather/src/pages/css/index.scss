@@ -55,6 +55,10 @@
     }
 }
 
+a {
+    color: $blue;
+}
+
 .Linkify {
     color: $black !important;
     
@@ -135,6 +139,10 @@
     }
 
     .contactForm {
+        p {
+            margin-bottom: 5px !important;
+        }
+
         button {
             float: right;
         }
@@ -170,6 +178,10 @@
             }
         }
 
+        .btnWrapper {
+            margin-top: 15px;
+        }
+
         .previewSegment {
             .descriptionTitle, .extraTitle {
                 margin-bottom: 5px;
@@ -190,7 +202,7 @@
 }
 
 
-/* Discussions page */
+/* Discussion page */
 .discussionPage {
     .header {
         .editButton {
@@ -210,6 +222,10 @@
         .extraSegment {
             font-size: 16px !important;
         }
+    }
+
+    .extraLazyLoad {
+        margin-top: 20px;
     }
 
     .ui.grid {

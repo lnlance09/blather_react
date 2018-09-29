@@ -14,11 +14,10 @@
 		public function index() {
 			$id = $this->input->get('id');
 			$discussion = $this->discussions->getDiscussion($id, false, true, true);
-			if(empty($discussion)) {
+			if(!$discussion['discussion_id']) {
 				echo json_encode([
 					'error' => true,
-					'errorMsg' => 'This discussion does not exist',
-					'errorType' => 101
+					'errorMsg' => 'This discussion does not exist'
 				]);
 				exit;
 			}

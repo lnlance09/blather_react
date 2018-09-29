@@ -266,7 +266,6 @@ class SocialMediaPage extends Component {
 							</Grid>
 						</Container>
 					)}
-
 					{!this.props.exists && (
 						<Container
 							className="mainContainer"
@@ -274,7 +273,7 @@ class SocialMediaPage extends Component {
 							textAlign="center"
 						>
 							<Image centered disabled size="medium" src={TrumpImg} />
-							<Header size="medium">That user does not exist!</Header>
+							<Header size="medium">This page does not exist!</Header>
 						</Container>
 					)}
 					<PageFooter />

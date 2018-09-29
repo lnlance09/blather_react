@@ -484,11 +484,10 @@
 			$title = empty($title) ? $fallacy['title'] : $title; 
 			$explanation = empty($explanation) ? $fallacy['explanation'] : $explanation;
 			$this->fallacies->updateFallacy($id, $explanation, $fallacyId, $tags, $title, $this->user->id);
-
-			$fallacy = $this->fallacies->search($params);
+			$fallacy = $this->fallacies->getFallacy($id);
 			echo json_encode([
 				'error' => false,
-				'fallacy' => $fallacy[0]
+				'fallacy' => $fallacy
 			]);
 		}
 	}

@@ -6,6 +6,12 @@ const discussion = (state = initial(), action) => {
 	const payload = action.payload
 	switch (action.type) {
 		case constants.GET_DISCUSSION:
+			if(payload.error) {
+				return {
+					...state,
+					error: true
+				}
+			}
 			return {
 				...state,
 				acceptedBy: {
@@ -22,6 +28,7 @@ const discussion = (state = initial(), action) => {
 					name: payload.discussion.created_by_name,
 					username: payload.discussion.created_by_username
 				},
+				error: false,
 				id: parseInt(payload.discussion.discussion_id, 10),
 				dateCreated: payload.discussion.discussion_created_at,
 				description: payload.discussion.description,

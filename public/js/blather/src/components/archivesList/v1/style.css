@@ -1,2 +1,5 @@
 .archivesList .archiveWrapper {
   margin-top: 14px; }
+
+.archivesList .emptyArchiveContainer .message {
+  text-align: center; }

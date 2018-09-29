@@ -30,6 +30,7 @@ import PropTypes from "prop-types"
 import React, { Component } from "react"
 import store from "store"
 import TitleHeader from "components/titleHeader/v1/"
+import TrumpImg from "images/trump.svg"
 
 class Tags extends Component {
 	constructor(props) {
@@ -277,38 +278,50 @@ class Tags extends Component {
 				<div className="tagsPage">
 					<DisplayMetaTags page="tags" props={this.props} state={this.state} />
 					<PageHeader {...this.props} />
-					<Container className="mainContainer" textAlign="left">
-						<Grid>
-							<Grid.Column className="leftSide" width={4}>
-								{ProfilePic(this.props)}
-							</Grid.Column>
-							<Grid.Column width={12}>
-								<TagTitle props={this.props} />
-								{this.props.loading && (
-									<Segment loading>
-										<Image fluid src={ParagraphPic} />
-										<Image fluid src={ParagraphPic} />
-										<Image fluid src={ParagraphPic} />
-										<Image fluid src={ParagraphPic} />
-										<Image fluid src={ParagraphPic} />
-									</Segment>
-								)}
-								{!this.props.loading && (
-									<div className="tagsWrapper">
-										{TagMenu(this.props)}
-										{activeItem === "article" && (
-											<div>{ArticleSection(this.props)}</div>
-										)}
-										{activeItem === "history" && (
-											<div>
-												<List divided>{HistorySection(this.props)}</List>
-											</div>
-										)}
-									</div>
-								)}
-							</Grid.Column>
-						</Grid>
-					</Container>
+					{!this.props.error && (
+						<Container className="mainContainer" textAlign="left">
+							<Grid>
+								<Grid.Column className="leftSide" width={4}>
+									{ProfilePic(this.props)}
+								</Grid.Column>
+								<Grid.Column width={12}>
+									<TagTitle props={this.props} />
+									{this.props.loading && (
+										<Segment loading>
+											<Image fluid src={ParagraphPic} />
+											<Image fluid src={ParagraphPic} />
+											<Image fluid src={ParagraphPic} />
+											<Image fluid src={ParagraphPic} />
+											<Image fluid src={ParagraphPic} />
+										</Segment>
+									)}
+									{!this.props.loading && (
+										<div className="tagsWrapper">
+											{TagMenu(this.props)}
+											{activeItem === "article" && (
+												<div>{ArticleSection(this.props)}</div>
+											)}
+											{activeItem === "history" && (
+												<div>
+													<List divided>{HistorySection(this.props)}</List>
+												</div>
+											)}
+										</div>
+									)}
+								</Grid.Column>
+							</Grid>
+						</Container>
+					)}
+					{this.props.error && (
+						<Container
+							className="mainContainer"
+							text
+							textAlign="center"
+						>
+							<Image centered disabled size="medium" src={TrumpImg} />
+							<Header size="medium">This tag does not exist!</Header>
+						</Container>
+					)}
 					<PageFooter />
 				</div>
 			</Provider>
@@ -327,6 +340,7 @@ Tags.propTypes = {
 	dateCreated: PropTypes.string,
 	description: PropTypes.string,
 	editHistory: PropTypes.array,
+	error: PropTypes.bool,
 	fetchHistory: PropTypes.func,
 	fetchTagInfo: PropTypes.func,
 	id: PropTypes.number,

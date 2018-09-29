@@ -14,13 +14,11 @@ import { Link } from "react-router-dom"
 import {
 	Button,
 	Container,
-	Dimmer,
 	Form,
 	Grid,
 	Header,
 	Icon,
 	Image,
-	Loader,
 	TextArea
 } from "semantic-ui-react"
 import Marked from "marked"
@@ -28,12 +26,12 @@ import Moment from "react-moment"
 import Conversation from "components/conversation/v1/"
 import PageFooter from "components/footer/v1/"
 import PageHeader from "components/header/v1/"
-import ParagraphPic from "images/short-paragraph.png"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import store from "store"
 import TagsCard from "components/tagsCard/v1/"
 import TitleHeader from "components/titleHeader/v1/"
+import TrumpImg from "images/trump.svg"
 
 class DiscussionPage extends Component {
 	constructor(props) {
@@ -147,96 +145,82 @@ class DiscussionPage extends Component {
 		const EvidenceSection = props => {
 			return (
 				<div>
-					<Container fluid>
+					{props.description && (
 						<Header as="h2" size="medium">
 							Evidence
 							<EditButton props={props} type="description" />
 						</Header>
-						{editingDescription && (
-							<Form onSubmit={this.updateDiscussion}>
-								<Form.Field>
-									<TextArea
-										onChange={this.updateDescription}
-										placeholder="What is your evidence? Try to use reputable sources."
-										rows={15}
-										value={props.description}
-									/>
-								</Form.Field>
-								<Button
-									className="updateDiscussionBtn"
-									color="blue"
-									compact
-									content="Update"
-									fluid
-									type="submit"
+					)}
+					{editingDescription && (
+						<Form onSubmit={this.updateDiscussion}>
+							<Form.Field>
+								<TextArea
+									onChange={this.updateDescription}
+									placeholder="What is your evidence? Try to use reputable sources."
+									rows={15}
+									value={props.description}
 								/>
-							</Form>
-						)}
-						{!editingDescription && (
-							<div>
-								{!props.description && (
-									<div>
-										<Dimmer active inverted>
-											<Loader active inline="centered" size="medium" />
-										</Dimmer>
-										<Image src={ParagraphPic} fluid />
-									</div>
-								)}
-								{props.description && (
-									<div
-										dangerouslySetInnerHTML={{
-											__html: sanitizeText(Marked(props.description))
-										}}
-									/>
-								)}
-							</div>
-						)}
+							</Form.Field>
+							<Button
+								className="updateDiscussionBtn"
+								color="blue"
+								compact
+								content="Update"
+								fluid
+								type="submit"
+							/>
+						</Form>
+					)}
+					{!editingDescription && (
+						<div>
+							{props.description && (
+								<div
+									dangerouslySetInnerHTML={{
+										__html: sanitizeText(Marked(props.description))
+									}}
+								/>
+							)}
+						</div>
+					)}
+					{props.extra && (
 						<Header as="h3" size="medium">
 							{props.createdBy
 								? `What's needed to change ${props.createdBy.name}'s mind`
 								: ""}
 							<EditButton props={props} type="extra" />
 						</Header>
-						{editingExtra && (
-							<Form onSubmit={this.updateDiscussion}>
-								<Form.Field>
-									<TextArea
-										onChange={this.updateExtra}
-										placeholder="What is your evidence? Try to use reputable sources."
-										rows={15}
-										value={props.extra}
-									/>
-								</Form.Field>
-								<Button
-									className="updateDiscussionBtn"
-									color="blue"
-									compact
-									content="Update"
-									fluid
-									type="submit"
+					)}
+					{editingExtra && (
+						<Form onSubmit={this.updateDiscussion}>
+							<Form.Field>
+								<TextArea
+									onChange={this.updateExtra}
+									placeholder="What is your evidence? Try to use reputable sources."
+									rows={15}
+									value={props.extra}
 								/>
-							</Form>
-						)}
-						{!editingExtra && (
-							<div>
-								{!props.extra && (
-									<div>
-										<Dimmer active inverted>
-											<Loader active inline="centered" size="medium" />
-										</Dimmer>
-										<Image src={ParagraphPic} fluid />
-									</div>
-								)}
-								{props.extra && (
-									<div
-										dangerouslySetInnerHTML={{
-											__html: sanitizeText(Marked(props.extra))
-										}}
-									/>
-								)}
-							</div>
-						)}
-					</Container>
+							</Form.Field>
+							<Button
+								className="updateDiscussionBtn"
+								color="blue"
+								compact
+								content="Update"
+								fluid
+								type="submit"
+							/>
+						</Form>
+					)}
+					{!editingExtra && (
+						<div>
+							{props.extra && (
+								<div
+									dangerouslySetInnerHTML={{
+										__html: sanitizeText(Marked(props.extra))
+									}}
+								/>
+							)}
+						</div>
+					)}
 				</div>
 			)
 		}
@@ -288,27 +272,39 @@ class DiscussionPage extends Component {
 				<div className="discussionPage">
 					<DisplayMetaTags page="discussion" props={this.props} state={this.state} />
 					<PageHeader {...this.props} />
-					<Container className="mainContainer" textAlign="left">
-						<HeaderSection props={this.props} />
-						<Grid>
-							<Grid.Column className="leftSide" width={12}>
-								{EvidenceSection(this.props)}
-								<Conversation
-									acceptedBy={this.props.acceptedBy}
-									authenticated={authenticated}
-									bearer={bearer}
-									createdBy={this.props.createdBy}
-									discussionId={id}
-									loading={this.props.convoLoading}
-									source="discussion"
-									status={this.props.status}
-								/>
-							</Grid.Column>
-							<Grid.Column className="rightSide" width={4}>
-								{ShowTags(this.props)}
-							</Grid.Column>
-						</Grid>
-					</Container>
+					{!this.props.error && (
+						<Container className="mainContainer" textAlign="left">
+							<HeaderSection props={this.props} />
+							<Grid>
+								<Grid.Column className="leftSide" width={12}>
+									{EvidenceSection(this.props)}
+									<Conversation
+										acceptedBy={this.props.acceptedBy}
+										authenticated={authenticated}
+										bearer={bearer}
+										createdBy={this.props.createdBy}
+										discussionId={id}
+										loading={this.props.convoLoading}
+										source="discussion"
+										status={this.props.status}
+									/>
+								</Grid.Column>
+								<Grid.Column className="rightSide" width={4}>
+									{ShowTags(this.props)}
+								</Grid.Column>
+							</Grid>
+						</Container>
+					)}
+					{this.props.error && (
+						<Container
+							className="mainContainer"
+							text
+							textAlign="center"
+						>
+							<Image centered disabled size="medium" src={TrumpImg} />
+							<Header size="medium">This discussion does not exist!</Header>
+						</Container>
+					)}
 					<PageFooter />
 				</div>
 			</Provider>
@@ -332,6 +328,7 @@ DiscussionPage.propTypes = {
 	convoLoading: PropTypes.bool,
 	dateCreated: PropTypes.string,
 	description: PropTypes.string,
+	error: PropTypes.bool,
 	extra: PropTypes.string,
 	fetchDiscussion: PropTypes.func,
 	id: PropTypes.number,

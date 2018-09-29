@@ -146,7 +146,6 @@
 				$data = [
 					'code' => $code,
 					'comment_id' => $parse['comment_id'],
-					'date_created' => date('Y-m-d H:i:s'),
 					'link' => $url,
 					'network' => $parse['network'],
 					'object_id' => $parse['object_id'],

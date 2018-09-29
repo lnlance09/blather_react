@@ -18,7 +18,6 @@ import {
 	TextArea
 } from "semantic-ui-react"
 import Marked from "marked"
-import nl2br from "react-nl2br"
 import ParagraphPic from "images/short-paragraph.png"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
@@ -215,6 +214,7 @@ class FallacyExample extends Component {
 						}
 						quoted_status_id_str={material.tweet.quoted_status_id_str}
 						quoted_status_permalink={material.tweet.quoted_status_permalink}
+						redirect
 						retweeted_status={
 							material.tweet.retweeted_status === undefined
 								? false
@@ -225,6 +225,7 @@ class FallacyExample extends Component {
 							retweet_count: material.tweet.retweet_count
 						}}
 						user={material.tweet.user}
+						{...this.props.history}
 					/>
 				)
 			}
@@ -239,12 +240,14 @@ class FallacyExample extends Component {
 							endTime={material.video.endTime}
 							history={props.history}
 							id={material.video.id}
+							redirect
 							showChannel
 							showComment={material.video.comment !== null}
 							showStats={false}
 							startTime={material.video.startTime}
 							stats={material.video.stats}
 							title={material.video.title}
+							{...this.props.history}
 						/>
 						{FeaturedInVideo(material.video, props)}
 					</div>

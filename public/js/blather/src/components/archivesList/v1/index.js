@@ -112,7 +112,7 @@ class ArchivesList extends Component {
 					</Visibility>
 				)}
 				{this.props.archives.length === 0 && (
-					<div className="emptyFallaciesContainer">
+					<div className="emptyArchiveContainer">
 						<Message
 							content="This user has not archived anything yet"
 							header="No results"

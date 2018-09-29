@@ -34,7 +34,7 @@ ReactDOM.render(
 						render={props => <About key={window.location.pathname} {...props} />}
 					/>
 					<Route
-						path="/about/:tab(contact|privacy)"
+						path="/about/:tab(contact|rules)"
 						render={props => <About key={window.location.pathname} {...props} />}
 					/>
 				</Switch>

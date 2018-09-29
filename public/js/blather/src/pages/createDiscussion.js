@@ -185,7 +185,7 @@ class CreateDiscussionPage extends Component {
 								selection
 								value={tags}
 							/>
-							<div>
+							<div className="btnWrapper">
 								{hasUpdated && (
 									<div>
 										<Button

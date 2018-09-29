@@ -7,7 +7,6 @@ import { Provider, connect } from "react-redux"
 import { Link } from "react-router-dom"
 import { Container, Grid, Header, Image, Label, Menu } from "semantic-ui-react"
 import Comments from "components/comments/v1/"
-import Conversation from "components/conversation/v1/"
 import FallacyExample from "components/fallacyExample/v1/"
 import FallacyRef from "components/fallacyRef/v1/"
 import Moment from "react-moment"
@@ -189,18 +188,6 @@ class Fallacy extends Component {
 							<Grid>
 								<Grid.Column className="leftSide" width={12}>
 									{ShowContent(this.props)}
-									{activeItem === "conversation" && (
-										<Conversation
-											acceptedBy={this.props.user}
-											authenticated={authenticated}
-											bearer={bearer}
-											createdBy={this.props.createdBy}
-											fallacyId={id}
-											loading={this.props.convoLoading}
-											source="fallacy"
-											status={this.props.status}
-										/>
-									)}
 								</Grid.Column>
 								<Grid.Column className="rightSide" width={4}>
 									{ShowTags(this.props)}

@@ -11,12 +11,12 @@ import {
 import { clearContradiction, setContradictionVideoTime } from "components/fallacyForm/v1/actions"
 import { adjustTimezone } from "utils/dateFunctions"
 import { connect } from "react-redux"
+import { Link } from "react-router-dom"
 import {
 	Button,
 	Card,
 	Comment,
 	Dimmer,
-	Form,
 	Grid,
 	Header,
 	Icon,
@@ -148,7 +148,6 @@ class YouTubeVideo extends Component {
 			animation,
 			archiveVisible,
 			authenticated,
-			currentState,
 			commentId,
 			duration,
 			i,
@@ -236,7 +235,8 @@ class YouTubeVideo extends Component {
 						inverted="true"
 						onClose={this.closeModal}
 						open={open}
-						size="small">
+						size="small"
+					>
 						<Modal.Header>Assign a fallacy</Modal.Header>
 						<Modal.Content>
 							<Comment.Group>
@@ -470,8 +470,6 @@ class YouTubeVideo extends Component {
 			<Progress color="red" percent={props.stats ? props.stats.likePct : null} progress />
 		)
 
-		console.log('hi')
-		console.log(this.props)
 		return (
 			<div className="youTubeVideo">
 				<Segment>
@@ -487,7 +485,7 @@ class YouTubeVideo extends Component {
 								}&end=${this.props.endTime}`}
 							/>
 							<Header className="youTubeTitle" size="medium">
-								{this.props.title}
+								{this.props.redirect ? (<Link to={`/video/${this.props.id}`}>{this.props.title}</Link>) : this.props.title}
 							</Header>
 
 							{this.props.showChannel && <div>{ChannelCard(this.props)}</div>}
@@ -618,6 +616,7 @@ YouTubeVideo.propTypes = {
 	endTime: PropTypes.string,
 	id: PropTypes.string,
 	insertComment: PropTypes.func,
+	redirect: PropTypes.bool,
 	setContradictionVideoTime: PropTypes.func,
 	setCurrentVideoTime: PropTypes.func,
 	setDuration: PropTypes.func,

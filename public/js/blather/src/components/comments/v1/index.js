@@ -91,7 +91,7 @@ class CommentsSection extends Component {
 					value={message}
 				/>
 				<Button
-					className="replyBrn"
+					className="replyBtn"
 					color="blue"
 					compact
 					content="Post"

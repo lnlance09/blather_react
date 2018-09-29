@@ -2,14 +2,17 @@
   padding-left: 0 !important;
   padding-right: 0 !important; }
 
+.fallacyForm .selectAssignee {
+  margin-bottom: 15px; }
+
 .fallacyForm .contradictionWrapper {
   margin-top: 0.9em; }
   .fallacyForm .contradictionWrapper.active {
     padding: 10px; }
 
-.fallacyForm .successModal a {
+.successModal a {
   cursor: pointer; }
 
-.fallacyForm .successModal .modalBtnWrapper {
+.successModal .modalBtnWrapper {
   margin-top: 1.6em;
   text-align: center; }

@@ -43,7 +43,6 @@ class FallacyForm extends Component {
 	}
 
 	changeContradictionEndTime = (e, { value }) => {
-		console.log('change con')
 		this.props.setContradictionEndTime({ value: convertTimeToSeconds(value) })
 	}
 
@@ -95,14 +94,6 @@ class FallacyForm extends Component {
 				page = postPage
 			}
 		}
-		/*
-		console.log('submit form')
-		console.log(page)
-		console.log(postPage)
-		console.log(formPage)
-		console.log(this.props.pageInfo)
-		// const page = this.props.info ? (this.props.info.comment !== null ? postPage : formPage) : this.props.pageInfo
-		*/
 
 		let contradiction = this.props.fallacy.contradiction
 		if (contradiction.network === "twitter" && parseInt(page.id,10) !== parseInt(contradiction.pageId,10)) {
@@ -191,8 +182,6 @@ class FallacyForm extends Component {
 		}
 
 		const ContradictionInput = props => {
-			// console.log(this.props)
-			// console.log(props)
 			const hasContradiction = contradiction ? contradiction.data : false
 			if (id === "21") {
 				const contClassName = contradiction ? " active" : ""
@@ -445,7 +434,7 @@ class FallacyForm extends Component {
 						{canAssign && (
 							<div>
 								{StartTime(this.props)}
-								<div>
+								<div className="selectAssignee">
 									{SelectAssignee(this.props)}
 								</div>
 							</div>

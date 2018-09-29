@@ -15,10 +15,10 @@ class Footer extends Component {
 							<Link to="/about">About</Link>
 						</List.Item>
 						<List.Item>
-							<Link to="/about/contact">Contact Us</Link>
+							<Link to="/about/contact">Contact</Link>
 						</List.Item>
 						<List.Item>
-							<Link to="/about/privacy">Privacy Policy</Link>
+							<Link to="/about/rules">Rules</Link>
 						</List.Item>
 					</List>
 					<p>© 2018 Blather</p>

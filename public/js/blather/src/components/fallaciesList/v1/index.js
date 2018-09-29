@@ -185,7 +185,7 @@ class FallaciesList extends Component {
 							<Message
 								content={this.props.emptyMsgContent}
 								header={this.props.emptyMsgHeader}
-								warning
+								warning={this.props.source === "post"}
 							/>
 						</div>
 					)}

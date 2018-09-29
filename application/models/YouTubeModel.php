@@ -18,6 +18,8 @@
             $this->tokenUrl = 'https://accounts.google.com/o/oauth2/token';
             $this->userUrl = 'https://www.googleapis.com/youtube/v3/channels';
             $this->videosUrl = 'https://www.googleapis.com/youtube/v3/videos';
+
+            $this->db->query("SET time_zone='+0:00'");
         }
 
         public function getAllPages() {

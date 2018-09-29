@@ -1,14 +1,20 @@
 .youTubeVideo .youTubeTitle {
   background: transparent;
   margin-top: 7px; }
+  .youTubeVideo .youTubeTitle a {
+    color: #2196f3; }
 
 .youTubeVideo .channelCard {
   margin-bottom: 14px !important; }
   .youTubeVideo .channelCard.hasComment {
     margin-bottom: 0 !important; }
   .youTubeVideo .channelCard .content .header {
+    color: #2196f3;
+    cursor: pointer;
     font-size: 16px !important;
     font-weight: 400 !important; }
+    .youTubeVideo .channelCard .content .header:hover {
+      text-decoration: underline; }
   .youTubeVideo .channelCard .content .meta {
     font-size: 12px !important; }
   .youTubeVideo .channelCard .content.extra {

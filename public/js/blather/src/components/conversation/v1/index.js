@@ -15,7 +15,6 @@ import {
 	Header,
 	Icon,
 	Image,
-	Label,
 	Popup,
 	Message,
 	Segment,
@@ -303,13 +302,6 @@ class Conversation extends Component {
 				const respondYoutube = props.user
 					? user.linkedYoutube && props.video && user.youtubeId === props.user.id
 					: false
-				/*
-                console.log('d')
-                console.log(props.status)
-                console.log(respondTwitter)
-                console.log(respondYoutube)
-                console.log(myTurn)
-                */
 				if (props.status === 0 && !respondTwitter && !respondYoutube) {
 					return <div>{ContactUser(props)}</div>
 				}
@@ -331,7 +323,9 @@ class Conversation extends Component {
 								)}
 							</div>
 						)
-					} else {
+					}
+
+					if (props.createdBy.id === userId) {
 						return (
 							<Segment className="findOpponent">
 								<p>

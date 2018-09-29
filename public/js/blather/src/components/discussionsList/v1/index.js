@@ -278,9 +278,24 @@ class DiscussionsList extends Component {
 		const renderDiscussions = props => {
 			return props.results.map((result, i) => {
 				if (result.discussion_id) {
-					let meta = (
+					let img = null
+					let sub = ''
+					if(props.source === 'user') {
+						if(result.acceptor_id) {
+							img = parseInt(result.acceptor_id,10)  === props.userId ? result.creator_img : result.acceptor_img
+							sub = result.acceptor_id  === props.userId ? `With ${result.creator_user_name}` : `Accepted by ${result.acceptor_user_name}`
+						} else {
+							img = result.creator_img
+							sub = `Created by ${result.creator_user_name}`
+						}
+					} else {
+						img = result.acceptor_id ? result.acceptor_img : result.creator_img
+						sub = result.acceptor_id ? `Between ${result.creator_user_name} and ${result.acceptor_user_name}` : `Created by ${result.creator_user_name}`
+					}
+
+					const meta = (
 						<div>
-							{result.acceptor_user_name ? `Accepted by ${result.acceptor_user_name}` : `Created by ${result.creator_user_name}`}{" "}
+							{sub} {" "}
 							<Moment date={adjustTimezone(result.discussion_date)} fromNow />
 						</div>
 					)
@@ -304,7 +319,7 @@ class DiscussionsList extends Component {
 							description={result.description}
 							history={this.props.history}
 							id={`discussion_${i}`}
-							img={result.acceptor_img ? result.acceptor_img : result.creator_img}
+							img={img}
 							key={`discussion_${i}`}
 							label={label}
 							meta={meta}
@@ -359,7 +374,11 @@ class DiscussionsList extends Component {
 
 				{this.props.results.length === 0 && (
 					<div className="emptyDiscussionContainer">
-						<Message content="Try modifying your search..." header="No results" />
+						<Message 
+							content="Try modifying your search..." 
+							header="No results" 
+							warning={this.props.source === "post"}
+						/>
 					</div>
 				)}
 			</div>
@@ -385,7 +404,9 @@ DiscussionsList.propTypes = {
 	onUserPage: PropTypes.bool,
 	page: PropTypes.number,
 	pages: PropTypes.number,
-	results: PropTypes.array
+	results: PropTypes.array,
+	source: PropTypes.string,
+	userId: PropTypes.number
 }
 
 DiscussionsList.defaultProps = {

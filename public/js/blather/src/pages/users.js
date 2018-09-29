@@ -29,6 +29,7 @@ import PropTypes from "prop-types"
 import React, { Component } from "react"
 import store from "store"
 import TitleHeader from "components/titleHeader/v1/"
+import TrumpImg from "images/trump.svg"
 
 class UserPage extends Component {
 	constructor(props) {
@@ -54,7 +55,7 @@ class UserPage extends Component {
 			animation: "zoom",
 			authenticated,
 			bearer,
-			duration: 500,
+			duration: 750,
 			editing: false,
 			files: [],
 			inverted: true,
@@ -162,7 +163,7 @@ class UserPage extends Component {
 					onDrop={this.onDrop}
 				>
 					<Header as="h2">Change your pic</Header>
-					<Button className="changePicBtn" icon>
+					<Button className="changePicBtn" color="blue" icon>
 						<Icon name="image" />
 					</Button>
 				</Dropzone>
@@ -202,6 +203,8 @@ class UserPage extends Component {
 									startedBy: props.user.id
 								}}
 								onUserPage
+								source="user"
+								userId={props.user.id}
 								{...props}
 							/>
 						)
@@ -226,59 +229,71 @@ class UserPage extends Component {
 				<div className="usersPage">
 					<DisplayMetaTags page="users" props={this.props} state={this.state} />
 					<PageHeader {...this.props} />
-					<Container className="mainContainer" textAlign="left">
-						<Grid>
-							<Grid.Column width={4}>
-								<Transition
-									animation={animation}
-									duration={duration}
-									visible={visible}>
-									{profilePic(this.props)}
-								</Transition>
-								{aboutCard(this.props)}
-							</Grid.Column>
-							<Grid.Column width={12}>
-								<TitleHeader
-									subheader={`@${this.props.user.username}`}
-									title={this.props.user.name}
-								/>
-								<Menu className="profileMenu" pointing secondary>
-									<Menu.Item
-										active={activeItem === "discussions"}
-										name="discussions"
-										onClick={this.handleItemClick}>
-										Discussions{" "}
-										{this.props.user.discussionCount > 0 && (
-											<Label circular>
-												{this.props.user.discussionCount}
-											</Label>
-										)}
-									</Menu.Item>
-									<Menu.Item
-										active={activeItem === "fallacies"}
-										name="fallacies"
-										onClick={this.handleItemClick}>
-										Fallacies{" "}
-										{this.props.user.fallacyCount > 0 && (
-											<Label circular>{this.props.user.fallacyCount}</Label>
-										)}
-									</Menu.Item>
-									<Menu.Item
-										active={activeItem === "archives"}
-										name="archives"
-										onClick={this.handleItemClick}>
-										Archives{" "}
-										{this.props.user.archiveCount > 0 && (
-											<Label circular>{this.props.user.archiveCount}</Label>
-										)}
-									</Menu.Item>
-								</Menu>
-								<Container className="profileContentContainer">
-									{ShowContent(this.props)}
-								</Container>
-							</Grid.Column>
-						</Grid>
-					</Container>
+					{!this.props.error && (
+						<Container className="mainContainer" textAlign="left">
+							<Grid>
+								<Grid.Column width={4}>
+									<Transition
+										animation={animation}
+										duration={duration}
+										visible={visible}>
+										{profilePic(this.props)}
+									</Transition>
+									{aboutCard(this.props)}
+								</Grid.Column>
+								<Grid.Column width={12}>
+									<TitleHeader
+										subheader={`@${this.props.user.username}`}
+										title={this.props.user.name}
+									/>
+									<Menu className="profileMenu" pointing secondary>
+										<Menu.Item
+											active={activeItem === "discussions"}
+											name="discussions"
+											onClick={this.handleItemClick}>
+											Discussions{" "}
+											{this.props.user.discussionCount > 0 && (
+												<Label circular>
+													{this.props.user.discussionCount}
+												</Label>
+											)}
+										</Menu.Item>
+										<Menu.Item
+											active={activeItem === "fallacies"}
+											name="fallacies"
+											onClick={this.handleItemClick}>
+											Fallacies{" "}
+											{this.props.user.fallacyCount > 0 && (
+												<Label circular>{this.props.user.fallacyCount}</Label>
+											)}
+										</Menu.Item>
+										<Menu.Item
+											active={activeItem === "archives"}
+											name="archives"
+											onClick={this.handleItemClick}>
+											Archives{" "}
+											{this.props.user.archiveCount > 0 && (
+												<Label circular>{this.props.user.archiveCount}</Label>
+											)}
+										</Menu.Item>
+									</Menu>
+									<Container className="profileContentContainer">
+										{ShowContent(this.props)}
+									</Container>
+								</Grid.Column>
+							</Grid>
+						</Container>
+					)}
+					{this.props.error && (
+						<Container
+							className="mainContainer"
+							text
+							textAlign="center"
+						>
+							<Image centered disabled size="medium" src={TrumpImg} />
+							<Header size="medium">This user does not exist!</Header>
+						</Container>
+					)}
 					<PageFooter />
 				</div>
 			</Provider>
@@ -288,6 +303,7 @@ class UserPage extends Component {
 
 UserPage.propTypes = {
 	changeProfilePic: PropTypes.func,
+	error: PropTypes.bool,
 	fetchUserData: PropTypes.func,
 	loading: PropTypes.bool,
 	user: PropTypes.shape({

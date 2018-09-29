@@ -26,6 +26,8 @@
             $this->tweetUrl = 'https://api.twitter.com/1.1/statuses/show.json';
             $this->usersUrl = 'https://api.twitter.com/1.1/users/show.json';
             $this->postTweetUrl = 'https://api.twitter.com/1.1/statuses/update.json';
+
+            $this->db->query("SET time_zone='+0:00'");
         } 
 
         /**
@@ -313,6 +315,7 @@
                 $tweet = $this->getTweetInfo($id, $token, $secret);
                 if(array_key_exists('errors', $tweet)) {
                     return [
+                        'code' => 404,
                         'error' => 'This tweet does not exist'
                     ];
                 }

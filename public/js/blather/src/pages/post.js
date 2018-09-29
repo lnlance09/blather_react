@@ -84,6 +84,8 @@ class Post extends Component {
 			}, 1000)
 		}
 
+		const tweetExists =
+			this.props.error && network === "twitter" ? false : true
 		const videoExists =
 			this.props.error && this.props.errorCode === 404 && network === "youtube" ? false : true
 		const containerClassName = this.props.info ? "mainContainer bc" : "mainContainer"
@@ -267,7 +269,7 @@ class Post extends Component {
 						)
 					}
 				case "youtube_comment":
-					return <div />
+					return null
 				default:
 					return null
 			}
@@ -301,6 +303,7 @@ class Post extends Component {
 						textAlign="left"
 					>
 						{DisplayPost(this.props)}
+						{!tweetExists && <Message content="This tweet does not exist" error />}
 						{!videoExists && <Message content="This video does not exist" error />}
 						{!this.props.error && (
 							<div className="fallacyFormWrapper">

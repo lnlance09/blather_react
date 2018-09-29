@@ -14,12 +14,10 @@ export const fetchDiscussion = ({ bearer, id }) => dispatch => {
 			}
 		},
 		function(err, response, body) {
-			if (!body.error) {
-				dispatch({
-					type: constants.GET_DISCUSSION,
-					payload: body
-				})
-			}
+			dispatch({
+				type: constants.GET_DISCUSSION,
+				payload: body
+			})
 		}
 	)
 }

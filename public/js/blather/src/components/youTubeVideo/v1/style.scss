@@ -4,6 +4,10 @@
     .youTubeTitle {
         background: transparent;
         margin-top: 7px;
+
+        a {
+            color: $blue;
+        }
     }
 
     .channelCard {
@@ -15,8 +19,14 @@
 
         .content {
             .header {
+                color: $blue;
+                cursor: pointer;
                 font-size: 16px !important;
                 font-weight: 400 !important;
+
+                &:hover {
+                    text-decoration: underline;
+                }
             }
 
             .meta {

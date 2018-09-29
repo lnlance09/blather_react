@@ -19,8 +19,15 @@ const pageUser = (state = initial(), action) => {
 			}
 
 		case constants.GET_USER_DATA:
+			if(payload.error) {
+				return {
+					...state,
+					error: true
+				}
+			}
 			return {
 				...state,
+				error: false,
 				loading: false,
 				user: {
 					archiveCount: payload.user.archive_count,
