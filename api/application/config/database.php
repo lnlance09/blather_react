@@ -75,10 +75,10 @@ $query_builder = true;
 
 $db['default'] = [
 	'dsn'	=> '',
-	'hostname' => '127.0.0.1:8889',
+	'hostname' => '18.236.66.36',
 	'username' => 'root',
-	'password' => 'root',
-	'database' => 'blather_react',
+	'password' => 'password',
+	'database' => 'blather',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => false,
