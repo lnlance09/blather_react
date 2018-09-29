@@ -194,7 +194,8 @@ class CreateDiscussionPage extends Component {
 											color="green"
 											content="Preview"
 											fluid
-											onClick={this.togglePreview}>
+											onClick={this.togglePreview}
+										>
 											<Button.Content visible>Preview</Button.Content>
 											<Button.Content hidden>
 												<Icon name="eye" />
@@ -252,7 +253,8 @@ class CreateDiscussionPage extends Component {
 							className="exitPreviewButton"
 							color="red"
 							fluid
-							onClick={this.togglePreview}>
+							onClick={this.togglePreview}
+						>
 							<Button.Content hidden>Exit preview</Button.Content>
 							<Button.Content visible>
 								<Icon name="close" />

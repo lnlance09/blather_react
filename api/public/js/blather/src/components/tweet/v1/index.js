@@ -144,7 +144,8 @@ class Tweet extends Component {
 								<Linkify
 									properties={{
 										target: "_blank"
-									}}>
+									}}
+								>
 									{quotedFullText}
 								</Linkify>
 							</Card.Description>
@@ -249,7 +250,8 @@ class Tweet extends Component {
 								<Linkify
 									properties={{
 										target: "_blank"
-									}}>
+									}}
+								>
 									{this.props.retweeted_status
 										? this.props.retweeted_status.full_text
 										: this.props.full_text}

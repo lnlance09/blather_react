@@ -150,7 +150,6 @@
 			} else {
 				$this->db->where('u.username', $id);
 			}
-			$this->db->join('fb_users fb', 'u.id=fb.user_id', 'left');
 			$this->db->join('twitter_users t', 'u.id=t.user_id', 'left');
 			$this->db->join('youtube_users y', 'u.id=y.user_id', 'left');
 			$query = $this->db->get('users u')->result_array();
@@ -179,13 +178,11 @@
 		public function login($email, $password) {
 			$column = filter_var($email, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 			$select = "users.id, name, username, img, bio, email, email_verified AS emailVerified, linked_youtube AS linkedYoutube, linked_fb AS linkedFb, linked_twitter AS linkedTwitter, verification_code AS verificationCode, users.date_created AS dateCreated,
-				fb_users.date_linked AS fbDate, fb_users.fb_access_token AS fbAccessToken, 
 				twitter_users.date_linked AS twitterDate, twitter_users.twitter_access_token AS twitterAccessToken, twitter_users.twitter_access_secret AS twitterAccessSecret, twitter_users.twitter_id AS twitterId,
 				youtube_users.youtube_access_token AS youtubeAccessToken, youtube_users.date_linked AS youtubeDate, youtube_users.youtube_refresh_token AS youtubeRefreshToken,youtube_users.youtube_id AS youtubeId";
 			
 			$this->db->select($select);
 			$this->db->where($column.' = "'.$email.'" AND (password = "'.sha1($password).'" OR password_reset = "'.sha1($password).'")');
-			$this->db->join('fb_users', 'users.id=fb_users.user_id', 'left');
 			$this->db->join('twitter_users', 'users.id=twitter_users.user_id', 'left');
 			$this->db->join('youtube_users', 'users.id=youtube_users.user_id', 'left');
 			return $this->db->get('users')->result_array();

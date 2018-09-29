@@ -151,7 +151,7 @@ class SettingsPage extends Component {
 							<Icon name="clock" /> Joined{" "}
 							<Moment date={joinDate} fromNow interval={60000} />
 						</p>
-						<Header size='tiny'>Change Password</Header>
+						<Header size="tiny">Change Password</Header>
 						<Form
 							error={this.props.passwordError}
 							loading={
@@ -160,7 +160,8 @@ class SettingsPage extends Component {
 								!this.props.passwordError
 							}
 							onSubmit={this.setPassword}
-							success={this.props.passwordChangeSuccessful}>
+							success={this.props.passwordChangeSuccessful}
+						>
 							<Form.Field>
 								<Input
 									onChange={this.onChangePassword}
@@ -218,7 +219,8 @@ class SettingsPage extends Component {
 										as="a"
 										color="twitter"
 										compact
-										onClick={e => this.props.removeTwitter(this.props.bearer)}>
+										onClick={e => this.props.removeTwitter(this.props.bearer)}
+									>
 										<Icon name="twitter" /> Remove access
 									</Button>
 								</div>

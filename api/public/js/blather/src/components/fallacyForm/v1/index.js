@@ -1,5 +1,11 @@
 import "./style.css"
-import { assignFallacy, clearContradiction, parseContradiction, selectAssignee, setContradictionEndTime } from "./actions"
+import {
+	assignFallacy,
+	clearContradiction,
+	parseContradiction,
+	selectAssignee,
+	setContradictionEndTime
+} from "./actions"
 import { refreshYouTubeToken } from "components/authentication/v1/actions"
 import { convertTimeToSeconds, formatDuration } from "utils/textFunctions"
 import { connect, Provider } from "react-redux"
@@ -19,7 +25,7 @@ class FallacyForm extends Component {
 		super(props)
 		this.state = {
 			changed: false,
-			endTime: '',
+			endTime: "",
 			explanation: "",
 			id: 1,
 			loading: false,
@@ -86,17 +92,22 @@ class FallacyForm extends Component {
 		// Make sure that a fallacy assigned to a tweet with a contradiction as a tweet is from the same twitter profile
 		const state = store.getState()
 		const postPage = state.post.pageInfo ? state.post.pageInfo : this.props.pageInfo
-		const formPage = state.fallacyForm.pageInfo ? state.fallacyForm.pageInfo : this.props.pageInfo
+		const formPage = state.fallacyForm.pageInfo
+			? state.fallacyForm.pageInfo
+			: this.props.pageInfo
 
 		let page = formPage
-		if(this.props.info) {
-			if(this.props.info.comment) {
+		if (this.props.info) {
+			if (this.props.info.comment) {
 				page = postPage
 			}
 		}
 
 		let contradiction = this.props.fallacy.contradiction
-		if (contradiction.network === "twitter" && parseInt(page.id,10) !== parseInt(contradiction.pageId,10)) {
+		if (
+			contradiction.network === "twitter" &&
+			parseInt(page.id, 10) !== parseInt(contradiction.pageId, 10)
+		) {
 			return false
 		}
 
@@ -145,9 +156,13 @@ class FallacyForm extends Component {
 		const contradiction = this.props.fallacy.contradiction
 		const contradictionError = contradiction ? contradiction.error : false
 		const contradictionErrorMsg = contradiction ? contradiction.errorMsg : false
-		const formPage = currentState.fallacyForm.pageInfo ? currentState.fallacyForm.pageInfo : this.props.pageInfo
-		const postPage = currentState.post.pageInfo ? currentState.post.pageInfo : this.props.pageInfo
-		
+		const formPage = currentState.fallacyForm.pageInfo
+			? currentState.fallacyForm.pageInfo
+			: this.props.pageInfo
+		const postPage = currentState.post.pageInfo
+			? currentState.post.pageInfo
+			: this.props.pageInfo
+
 		const page = this.props.info
 			? this.props.info.comment
 				? postPage
@@ -160,7 +175,10 @@ class FallacyForm extends Component {
 
 		let contradictionValid = true
 		if (contradiction) {
-			if (contradiction.network === "twitter" && parseInt(contradiction.pageId,10) !== parseInt(page.id,10)) {
+			if (
+				contradiction.network === "twitter" &&
+				parseInt(contradiction.pageId, 10) !== parseInt(page.id, 10)
+			) {
 				contradictionValid = false
 			}
 			if (
@@ -331,7 +349,7 @@ class FallacyForm extends Component {
 					? props.fallacy.contradiction.data.currentTime
 					: props.info.currentTime
 				return (
-					<Form.Group widths='equal'>
+					<Form.Group widths="equal">
 						<Form.Field>
 							<label>Video will start at</label>
 							<Input
@@ -430,13 +448,12 @@ class FallacyForm extends Component {
 							this.props.fallacyFormError || contradictionError || !contradictionValid
 						}
 						loading={this.props.loading}
-						onSubmit={this.onSubmitForm}>
+						onSubmit={this.onSubmitForm}
+					>
 						{canAssign && (
 							<div>
 								{StartTime(this.props)}
-								<div className="selectAssignee">
-									{SelectAssignee(this.props)}
-								</div>
+								<div className="selectAssignee">{SelectAssignee(this.props)}</div>
 							</div>
 						)}
 						<Form.Field disabled={this.props.authenticated ? false : true}>

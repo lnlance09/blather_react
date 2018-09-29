@@ -97,7 +97,8 @@ class TagsCard extends Component {
 				className="tagsModal"
 				onClose={this.closeModal}
 				open={open}
-				size="small">
+				size="small"
+			>
 				<Modal.Header>Add tags</Modal.Header>
 				<Modal.Content>
 					<Modal.Description>
@@ -130,7 +131,8 @@ class TagsCard extends Component {
 				<Label
 					horizontal
 					id={tag.id}
-					onClick={() => this.props.history.push(`/tags/${tag.id.trim()}`)}>
+					onClick={() => this.props.history.push(`/tags/${tag.id.trim()}`)}
+				>
 					{tag.name.trim()}
 				</Label>
 				{this.props.canEdit && (

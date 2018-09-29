@@ -6,7 +6,7 @@ const discussion = (state = initial(), action) => {
 	const payload = action.payload
 	switch (action.type) {
 		case constants.GET_DISCUSSION:
-			if(payload.error) {
+			if (payload.error) {
 				return {
 					...state,
 					error: true

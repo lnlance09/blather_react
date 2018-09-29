@@ -1,7 +1,7 @@
 import "./style.css"
 import { fetchFallacyConversation, submitFallacyConversation } from "pages/actions/fallacy"
 import { fetchDiscussionConversation, submitDiscussionConversation } from "pages/actions/discussion"
-import { CopyToClipboard } from 'react-copy-to-clipboard'
+import { CopyToClipboard } from "react-copy-to-clipboard"
 import { connect } from "react-redux"
 import { Link } from "react-router-dom"
 import { TwitterShareButton } from "react-share"
@@ -198,7 +198,8 @@ class Conversation extends Component {
 					blurring
 					className="statusActionSegment"
 					dimmed
-					raised>
+					raised
+				>
 					<Dimmer active inverted>
 						<div>
 							<Header size="tiny">
@@ -209,7 +210,8 @@ class Conversation extends Component {
 								<TwitterShareButton
 									className="twitterButton ui icon button"
 									title={`${props.title}`}
-									url={`${window.location.origin}/fallacies/${props.fallacyId}`}>
+									url={`${window.location.origin}/fallacies/${props.fallacyId}`}
+								>
 									<Icon name="twitter" /> Tweet @{props.user.username}
 								</TwitterShareButton>
 							)}
@@ -235,8 +237,14 @@ class Conversation extends Component {
 		const ConvoCard = (convo, i) => {
 			const isLast = i === convoCount - 1
 			return (
-				<Card 
-					color={isLast && this.props.status === 2 ? "red" : (isLast && this.props.status === 3 ? "green" : null)}
+				<Card
+					color={
+						isLast && this.props.status === 2
+							? "red"
+							: isLast && this.props.status === 3
+								? "green"
+								: null
+					}
 					fluid
 				>
 					<Card.Content>
@@ -329,19 +337,21 @@ class Conversation extends Component {
 						return (
 							<Segment className="findOpponent">
 								<p>
-									Find someone who might be able to change your mind.{' '}
+									Find someone who might be able to change your mind.{" "}
 									<Popup
 										openOnTriggerMouseEnter
 										trigger={
 											<CopyToClipboard
 												onCopy={() => this.setState({ copied: true })}
-												text={`${window.location.origin}discussions/${props.discussionId}`}
+												text={`${window.location.origin}discussions/${
+													props.discussionId
+												}`}
 											>
 												<Icon color="yellow" name="copy" />
 											</CopyToClipboard>
 										}
 									>
-										<p>{copied ? 'Copied!' : 'Copy this link'}</p>
+										<p>{copied ? "Copied!" : "Copy this link"}</p>
 									</Popup>
 								</p>
 							</Segment>

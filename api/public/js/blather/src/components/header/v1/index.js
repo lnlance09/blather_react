@@ -34,7 +34,8 @@ class Header extends Component {
 					>
 						<Dropdown.Menu>
 							<Dropdown.Item
-								onClick={() => props.history.push(`/users/${props.data.username}`)}>
+								onClick={() => props.history.push(`/users/${props.data.username}`)}
+							>
 								Profile
 							</Dropdown.Item>
 							<Dropdown.Item onClick={() => props.history.push(`/settings`)}>
@@ -50,7 +51,8 @@ class Header extends Component {
 						className="signInLink"
 						direction="right"
 						onClick={() => this.props.history.push("/signin")}
-						position="right">
+						position="right"
+					>
 						Sign In
 					</Menu.Item>
 				)
@@ -65,7 +67,8 @@ class Header extends Component {
 						className="globalHeader"
 						fitted="vertically"
 						fixed="top"
-						inverted>
+						inverted
+					>
 						<Container className="headerContainer">
 							<Menu.Item className="headerMenuItem">
 								<ReactSVG

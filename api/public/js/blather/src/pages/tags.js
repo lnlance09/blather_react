@@ -135,10 +135,7 @@ class Tags extends Component {
 		const pic = !this.props.img && !this.props.loading ? defaultImg : this.props.img
 		const content = (
 			<div>
-				<Dropzone
-					className="dropzone"
-					onDrop={this.onDrop}
-				>
+				<Dropzone className="dropzone" onDrop={this.onDrop}>
 					<Header as="h2">Change pic</Header>
 					<Button color="blue" icon>
 						<Icon name="image" />
@@ -157,13 +154,7 @@ class Tags extends Component {
 								value={description}
 							/>
 						</Form.Field>
-						<Button
-							color="blue"
-							compact
-							content="Update"
-							fluid
-							type="submit"
-						/>
+						<Button color="blue" compact content="Update" fluid type="submit" />
 					</Form>
 				)
 			}
@@ -195,7 +186,8 @@ class Tags extends Component {
 					<List.Item
 						className={`${version === edit.version ? "selected" : null}`}
 						key={`editHistory${i}`}
-						onClick={() => this.setVersion(edit)}>
+						onClick={() => this.setVersion(edit)}
+					>
 						<Image size="mini" src={edit.user_img} />
 						<List.Content>
 							<List.Header as="a">{edit.user_name}</List.Header>
@@ -303,7 +295,9 @@ class Tags extends Component {
 											)}
 											{activeItem === "history" && (
 												<div>
-													<List divided>{HistorySection(this.props)}</List>
+													<List divided>
+														{HistorySection(this.props)}
+													</List>
 												</div>
 											)}
 										</div>
@@ -313,11 +307,7 @@ class Tags extends Component {
 						</Container>
 					)}
 					{this.props.error && (
-						<Container
-							className="mainContainer"
-							text
-							textAlign="center"
-						>
+						<Container className="mainContainer" text textAlign="center">
 							<Image centered disabled size="medium" src={TrumpImg} />
 							<Header size="medium">This tag does not exist!</Header>
 						</Container>

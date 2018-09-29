@@ -120,7 +120,8 @@ class SearchPage extends Component {
 									className="searchMenu"
 									borderless
 									fluid
-									vertical>
+									vertical
+								>
 									<Menu.Item className="searchItem">
 										<Input
 											icon="search"
@@ -137,7 +138,8 @@ class SearchPage extends Component {
 									<Menu.Item
 										active={activeItem === "twitter"}
 										name="twitter"
-										onClick={this.handleItemClick}>
+										onClick={this.handleItemClick}
+									>
 										Profiles
 										<Icon
 											className="twitterIcon"
@@ -148,7 +150,8 @@ class SearchPage extends Component {
 									<Menu.Item
 										active={activeItem === "youtube"}
 										name="youtube"
-										onClick={this.handleItemClick}>
+										onClick={this.handleItemClick}
+									>
 										Channels
 										<Icon
 											className="youtubeIcon"
@@ -159,7 +162,8 @@ class SearchPage extends Component {
 									<Menu.Item
 										active={activeItem === "users"}
 										name="users"
-										onClick={this.handleItemClick}>
+										onClick={this.handleItemClick}
+									>
 										Users
 										<Icon
 											className="usersIcon"

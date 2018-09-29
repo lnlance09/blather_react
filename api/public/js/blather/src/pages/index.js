@@ -67,7 +67,7 @@ class SocialMediaPage extends Component {
 	}
 
 	componentWillReceiveProps(props) {
-		if(props.id) {
+		if (props.id) {
 			this.props.fetchFallacyCount({
 				id: this.props.id
 			})
@@ -134,14 +134,12 @@ class SocialMediaPage extends Component {
 					{props.username && (
 						<a
 							className="externalUrl"
-							onClick={() => window.open(props.externalUrl, "_blank")}>
+							onClick={() => window.open(props.externalUrl, "_blank")}
+						>
 							@{props.username}
 						</a>
 					)}
-					<Icon
-						className={`${network}Icon`}
-						name={network}
-					/>
+					<Icon className={`${network}Icon`} name={network} />
 				</div>
 			)
 			return <TitleHeader subheader={subheader} title={props.name} />
@@ -185,7 +183,8 @@ class SocialMediaPage extends Component {
 										icon
 										onClick={() =>
 											props.history.push(`/settings/${props.network}`)
-										}>
+										}
+									>
 										<Icon name={props.network} /> Link your {props.network}
 									</Button>
 								}
@@ -227,7 +226,8 @@ class SocialMediaPage extends Component {
 									<Transition
 										animation={animation}
 										duration={duration}
-										visible={visible}>
+										visible={visible}
+									>
 										<Image
 											className="profilePic"
 											onError={i => (i.target.src = defaultImg)}
@@ -252,7 +252,8 @@ class SocialMediaPage extends Component {
 										<Menu.Item
 											active={activeItem === "fallacies"}
 											name="fallacies"
-											onClick={this.handleItemClick}>
+											onClick={this.handleItemClick}
+										>
 											Fallacies{" "}
 											{this.props.fallacyCount > 0 && (
 												<Label circular>{this.props.fallacyCount}</Label>
@@ -267,11 +268,7 @@ class SocialMediaPage extends Component {
 						</Container>
 					)}
 					{!this.props.exists && (
-						<Container
-							className="mainContainer"
-							text
-							textAlign="center"
-						>
+						<Container className="mainContainer" text textAlign="center">
 							<Image centered disabled size="medium" src={TrumpImg} />
 							<Header size="medium">This page does not exist!</Header>
 						</Container>

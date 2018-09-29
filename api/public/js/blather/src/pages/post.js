@@ -84,8 +84,7 @@ class Post extends Component {
 			}, 1000)
 		}
 
-		const tweetExists =
-			this.props.error && network === "twitter" ? false : true
+		const tweetExists = this.props.error && network === "twitter" ? false : true
 		const videoExists =
 			this.props.error && this.props.errorCode === 404 && network === "youtube" ? false : true
 		const containerClassName = this.props.info ? "mainContainer bc" : "mainContainer"
@@ -103,7 +102,8 @@ class Post extends Component {
 								<Breadcrumb>
 									<Breadcrumb.Section
 										link
-										onClick={() => this.props.history.push("/search/twitter")}>
+										onClick={() => this.props.history.push("/search/twitter")}
+									>
 										Twitter profiles
 									</Breadcrumb.Section>
 									<Breadcrumb.Divider icon="right chevron" />
@@ -113,7 +113,8 @@ class Post extends Component {
 											this.props.history.push(
 												`/pages/twitter/${props.info.user.screen_name}`
 											)
-										}>
+										}
+									>
 										{props.info.user.name}
 									</Breadcrumb.Section>
 									<Breadcrumb.Divider icon="right chevron" />
@@ -125,7 +126,8 @@ class Post extends Component {
 													props.info.user.screen_name
 												}/tweets`
 											)
-										}>
+										}
+									>
 										Tweets
 									</Breadcrumb.Section>
 									<Breadcrumb.Divider icon="right chevron" />
@@ -140,7 +142,8 @@ class Post extends Component {
 								<Breadcrumb>
 									<Breadcrumb.Section
 										link
-										onClick={() => this.props.history.push("/search/youtube")}>
+										onClick={() => this.props.history.push("/search/youtube")}
+									>
 										YouTube channels
 									</Breadcrumb.Section>
 									<Breadcrumb.Divider icon="right chevron" />
@@ -150,7 +153,8 @@ class Post extends Component {
 											this.props.history.push(
 												`/pages/youtube/${props.info.channel.id}`
 											)
-										}>
+										}
+									>
 										{props.info.channel.title}
 									</Breadcrumb.Section>
 									<Breadcrumb.Divider icon="right chevron" />
@@ -160,7 +164,8 @@ class Post extends Component {
 											this.props.history.push(
 												`/pages/youtube/${props.info.channel.id}/videos`
 											)
-										}>
+										}
+									>
 										Videos
 									</Breadcrumb.Section>
 									<Breadcrumb.Divider icon="right chevron" />

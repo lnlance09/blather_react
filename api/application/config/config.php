@@ -25,7 +25,6 @@ define('ROOT_DIR', dirname(__FILE__));
 |
 */
 $config['base_url'] = 'http://localhost:3000/';
-// $config['base_url'] = 'http://localhost:8888/blather/';
 
 /*
 |--------------------------------------------------------------------------

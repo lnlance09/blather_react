@@ -158,10 +158,7 @@ class UserPage extends Component {
 		)
 		const content = (
 			<div>
-				<Dropzone
-					className="dropdown"
-					onDrop={this.onDrop}
-				>
+				<Dropzone className="dropdown" onDrop={this.onDrop}>
 					<Header as="h2">Change your pic</Header>
 					<Button className="changePicBtn" color="blue" icon>
 						<Icon name="image" />
@@ -184,13 +181,7 @@ class UserPage extends Component {
 					/>
 				)
 			}
-			return (
-				<Image
-					onError={i => (i.target.src = ImagePic)}
-					rounded
-					src={pic}
-				/>
-			)
+			return <Image onError={i => (i.target.src = ImagePic)} rounded src={pic} />
 		}
 		const ShowContent = props => {
 			if (props.user.id) {
@@ -236,7 +227,8 @@ class UserPage extends Component {
 									<Transition
 										animation={animation}
 										duration={duration}
-										visible={visible}>
+										visible={visible}
+									>
 										{profilePic(this.props)}
 									</Transition>
 									{aboutCard(this.props)}
@@ -250,7 +242,8 @@ class UserPage extends Component {
 										<Menu.Item
 											active={activeItem === "discussions"}
 											name="discussions"
-											onClick={this.handleItemClick}>
+											onClick={this.handleItemClick}
+										>
 											Discussions{" "}
 											{this.props.user.discussionCount > 0 && (
 												<Label circular>
@@ -261,19 +254,25 @@ class UserPage extends Component {
 										<Menu.Item
 											active={activeItem === "fallacies"}
 											name="fallacies"
-											onClick={this.handleItemClick}>
+											onClick={this.handleItemClick}
+										>
 											Fallacies{" "}
 											{this.props.user.fallacyCount > 0 && (
-												<Label circular>{this.props.user.fallacyCount}</Label>
+												<Label circular>
+													{this.props.user.fallacyCount}
+												</Label>
 											)}
 										</Menu.Item>
 										<Menu.Item
 											active={activeItem === "archives"}
 											name="archives"
-											onClick={this.handleItemClick}>
+											onClick={this.handleItemClick}
+										>
 											Archives{" "}
 											{this.props.user.archiveCount > 0 && (
-												<Label circular>{this.props.user.archiveCount}</Label>
+												<Label circular>
+													{this.props.user.archiveCount}
+												</Label>
 											)}
 										</Menu.Item>
 									</Menu>
@@ -285,11 +284,7 @@ class UserPage extends Component {
 						</Container>
 					)}
 					{this.props.error && (
-						<Container
-							className="mainContainer"
-							text
-							textAlign="center"
-						>
+						<Container className="mainContainer" text textAlign="center">
 							<Image centered disabled size="medium" src={TrumpImg} />
 							<Header size="medium">This user does not exist!</Header>
 						</Container>

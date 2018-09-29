@@ -130,11 +130,7 @@ class ResultItem extends Component {
 			))
 
 		return (
-			<Item
-				className="resultItem"
-				key={this.props.id}
-				onClick={this.redirectToUrl}
-			>
+			<Item className="resultItem" key={this.props.id} onClick={this.redirectToUrl}>
 				{ItemImage(this.props)}
 				{ItemContent(this.props)}
 			</Item>

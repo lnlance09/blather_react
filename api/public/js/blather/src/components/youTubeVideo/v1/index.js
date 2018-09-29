@@ -190,7 +190,8 @@ class YouTubeVideo extends Component {
 							<Card.Header
 								onClick={() =>
 									props.history.push(`/pages/youtube/${props.channel.id}`)
-								}>
+								}
+							>
 								{props.channel.title}
 							</Card.Header>
 							<Card.Meta>
@@ -303,7 +304,8 @@ class YouTubeVideo extends Component {
 											<Header as="h2">Sign in to see comments</Header>
 											<Button
 												color="green"
-												onClick={e => props.history.push("/signin")}>
+												onClick={e => props.history.push("/signin")}
+											>
 												Sign in
 											</Button>
 										</Dimmer>
@@ -359,7 +361,8 @@ class YouTubeVideo extends Component {
 						key={id}
 						onClick={() => {
 							this.openModal(snippet.parentId, i, r, id)
-						}}>
+						}}
+					>
 						<Comment.Avatar
 							onError={i => (i.target.src = ImagePic)}
 							src={snippet.authorProfileImageUrl}
@@ -379,7 +382,8 @@ class YouTubeVideo extends Component {
 								</Comment.Action>
 								<Comment.Action
 									className="youtubeLink"
-									onClick={() => (window.location.href = link)}>
+									onClick={() => (window.location.href = link)}
+								>
 									<Icon color="red" name="youtube" />
 									View on YouTube
 								</Comment.Action>
@@ -390,12 +394,14 @@ class YouTubeVideo extends Component {
 			})
 		}
 		const DisplayStats = props => {
-			if(props.stats) {
+			if (props.stats) {
 				return (
 					<div className="stats">
 						<div className="viewCount">
 							<Statistic size="tiny">
-								<Statistic.Value>{formatNumber(props.stats.viewCount)}</Statistic.Value>
+								<Statistic.Value>
+									{formatNumber(props.stats.viewCount)}
+								</Statistic.Value>
 								<Statistic.Label>
 									{formatPlural(props.stats.viewCount, "view")}
 								</Statistic.Label>
@@ -403,13 +409,17 @@ class YouTubeVideo extends Component {
 						</div>
 						<div className="likeCount">
 							<Statistic size="tiny">
-								<Statistic.Value>{formatNumber(props.stats.likeCount)}</Statistic.Value>
+								<Statistic.Value>
+									{formatNumber(props.stats.likeCount)}
+								</Statistic.Value>
 								<Statistic.Label>
 									{formatPlural(props.stats.likeCount, "like")}
 								</Statistic.Label>
 							</Statistic>
 							<Statistic size="tiny">
-								<Statistic.Value>{formatNumber(props.stats.dislikeCount)}</Statistic.Value>
+								<Statistic.Value>
+									{formatNumber(props.stats.dislikeCount)}
+								</Statistic.Value>
 								<Statistic.Label>
 									{formatPlural(props.stats.dislikeCount, "dislike")}
 								</Statistic.Label>
@@ -437,7 +447,8 @@ class YouTubeVideo extends Component {
 					<Comment.Content
 						onClick={() => {
 							this.openModal(id, i)
-						}}>
+						}}
+					>
 						<Comment.Author as="a">{content.authorDisplayName}</Comment.Author>
 						<Comment.Metadata>
 							<div>
@@ -452,7 +463,8 @@ class YouTubeVideo extends Component {
 							</Comment.Action>
 							<Comment.Action
 								className="youtubeLink"
-								onClick={() => window.open(link, "_blank")}>
+								onClick={() => window.open(link, "_blank")}
+							>
 								<Icon color="red" name="youtube" />
 								View on YouTube
 							</Comment.Action>
@@ -485,7 +497,11 @@ class YouTubeVideo extends Component {
 								}&end=${this.props.endTime}`}
 							/>
 							<Header className="youTubeTitle" size="medium">
-								{this.props.redirect ? (<Link to={`/video/${this.props.id}`}>{this.props.title}</Link>) : this.props.title}
+								{this.props.redirect ? (
+									<Link to={`/video/${this.props.id}`}>{this.props.title}</Link>
+								) : (
+									this.props.title
+								)}
 							</Header>
 
 							{this.props.showChannel && <div>{ChannelCard(this.props)}</div>}
@@ -532,7 +548,8 @@ class YouTubeVideo extends Component {
 											this.props.history.push(
 												`/pages/youtube/${this.props.comment.user.id}`
 											)
-										}>
+										}
+									>
 										{this.props.comment.user.title}
 									</Comment.Author>
 									<Comment.Metadata>
@@ -548,7 +565,8 @@ class YouTubeVideo extends Component {
 										</Comment.Action>
 										<Comment.Action
 											className="youtubeLink"
-											onClick={this.viewCommentOnYoutube}>
+											onClick={this.viewCommentOnYoutube}
+										>
 											<Icon color="red" name="youtube" />
 											View on YouTube
 										</Comment.Action>

@@ -124,36 +124,56 @@ class About extends Component {
 		)
 		const RulesSection = () => (
 			<div>
-				<Header as="p" size="small">Conduct</Header>
+				<Header as="p" size="small">
+					Conduct
+				</Header>
 				<p>
-					As a user of Blather, you must put forth an honest attempt to understand different points of view. 
-					This applies to all users regardless of their ideologies. 
-					Personal insults should be avoided and racial slurs will not be tolerated.
+					As a user of Blather, you must put forth an honest attempt to understand
+					different points of view. This applies to all users regardless of their
+					ideologies. Personal insults should be avoided and racial slurs will not be
+					tolerated.
 				</p>
 
-				<Header as="p" size="small">Content</Header>
+				<Header as="p" size="small">
+					Content
+				</Header>
 				<p>
-					Content on Blather comes from Tweets and videos and comments from YouTube. 
-					Once a piece of content has been viewed on Blather it gets saved in our database and becomes viewable to anyone whether or not they are a member. 
-					However, you must be a member to assign a fallacy to a piece of content. 
-					Tweets, videos and comments can be archived with <a href="http://archive.is" target="_blank">archive.is</a> so that if someone deletes their content in an attempt to save face there is still a record of it.
+					Content on Blather comes from Tweets and videos and comments from YouTube. Once
+					a piece of content has been viewed on Blather it gets saved in our database and
+					becomes viewable to anyone whether or not they are a member. However, you must
+					be a member to assign a fallacy to a piece of content. Tweets, videos and
+					comments can be archived with{" "}
+					<a href="http://archive.is" target="_blank">
+						archive.is
+					</a>{" "}
+					so that if someone deletes their content in an attempt to save face there is
+					still a record of it.
 				</p>
 
-				<Header as="p" size="small">Discussions</Header>
+				<Header as="p" size="small">
+					Discussions
+				</Header>
 				<p>
-					Discussions happen in a format that helps facilitate a genuine understanding of what the opposing side has to say instead of just hurling insults and buzz words.
-					Only one respone at a time can be made. 
-					Discussions cannot be edited. This is done to prevent people from moving the goal posts.
-					If someone is genuinely interested in hearing what you have to say and they're aren't trying to catch you in a "gotcha" moment then they should grant you opportunity to clarify your position.
-					Discussions don't always work well and sometimes the evidence presented isn't enough to genuinely convince someone and that is perfectly fine. 
-					But, an honest attempt to understand the opposing side's point of view is a must.
+					Discussions happen in a format that helps facilitate a genuine understanding of
+					what the opposing side has to say instead of just hurling insults and buzz
+					words. Only one respone at a time can be made. Discussions cannot be edited.
+					This is done to prevent people from moving the goal posts. If someone is
+					genuinely interested in hearing what you have to say and they're aren't trying
+					to catch you in a "gotcha" moment then they should grant you opportunity to
+					clarify your position. Discussions don't always work well and sometimes the
+					evidence presented isn't enough to genuinely convince someone and that is
+					perfectly fine. But, an honest attempt to understand the opposing side's point
+					of view is a must.
 				</p>
 
-				<Header as="p" size="small">Fallacies</Header>
+				<Header as="p" size="small">
+					Fallacies
+				</Header>
 				<p>
-					Currently, users may pick one out of <Link to='/fallacies'>54 fallacies</Link> to assign to a piece of content. 
-					The fallacies that you assign are viewable to everyone including people who are not signed up with Blather.
-					Please make sure that you actually understand what the fallacy means before assigning it.
+					Currently, users may pick one out of <Link to="/fallacies">54 fallacies</Link>{" "}
+					to assign to a piece of content. The fallacies that you assign are viewable to
+					everyone including people who are not signed up with Blather. Please make sure
+					that you actually understand what the fallacy means before assigning it.
 				</p>
 			</div>
 		)
