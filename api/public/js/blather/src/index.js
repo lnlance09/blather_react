@@ -22,7 +22,7 @@ import Users from "./pages/users"
 
 ReactDOM.render(
 	<Provider store={store}>
-		<BrowserRouter basename="/blather">
+		<BrowserRouter>
 			<div>
 				<Route path="/" exact component={Fallacies} />
 
