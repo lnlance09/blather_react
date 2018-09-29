@@ -19,7 +19,7 @@ const pageUser = (state = initial(), action) => {
 			}
 
 		case constants.GET_USER_DATA:
-			if(payload.error) {
+			if (payload.error) {
 				return {
 					...state,
 					error: true

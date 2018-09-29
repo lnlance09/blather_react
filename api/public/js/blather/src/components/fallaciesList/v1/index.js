@@ -131,7 +131,9 @@ class FallaciesList extends Component {
 					let img = props.assignedBy ? result.page_profile_pic : result.user_img
 					let meta = (
 						<div>
-							{props.source === 'users' ? `Assigned to ${result.page_name}` : `Assigned by ${result.user_name}`}{" "}
+							{props.source === "users"
+								? `Assigned to ${result.page_name}`
+								: `Assigned by ${result.user_name}`}{" "}
 							<Moment date={adjustTimezone(result.date_created)} fromNow />
 						</div>
 					)

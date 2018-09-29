@@ -23,7 +23,7 @@ class Fallacies extends Component {
 	}
 
 	scrollStep() {
-		if(this.props.match.path === '/fallacies/:id') {
+		if (this.props.match.path === "/fallacies/:id") {
 			if (window.pageYOffset === 0) {
 				clearInterval(this.state.intervalId)
 			}
@@ -90,7 +90,8 @@ class Fallacies extends Component {
 					<Container
 						className="mainContainer"
 						textAlign="left"
-						ref={this.handleContextRef}>
+						ref={this.handleContextRef}
+					>
 						<Header as="h1" dividing>
 							Fallacies
 							<Header.Subheader>Plus a few other things...</Header.Subheader>

@@ -158,7 +158,8 @@ class Authentication extends Component {
 					<div>
 						<Form
 							loading={loadingLogin && !this.props.loginError}
-							onSubmit={this.submitLoginForm}>
+							onSubmit={this.submitLoginForm}
+						>
 							<Form.Field>
 								<Input
 									onChange={this.onChangeEmail}
@@ -185,7 +186,8 @@ class Authentication extends Component {
 					<div>
 						<Form
 							loading={loadingRegistration && !this.props.loginError}
-							onSubmit={this.submitRegistrationForm}>
+							onSubmit={this.submitRegistrationForm}
+						>
 							<Form.Field>
 								<Input
 									onChange={this.onRegChangeEmail}

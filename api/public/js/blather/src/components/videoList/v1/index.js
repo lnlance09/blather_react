@@ -85,7 +85,8 @@ class VideoList extends Component {
 						<Visibility
 							continuous
 							offset={[50, 50]}
-							onBottomVisible={this.loadMoreItems}>
+							onBottomVisible={this.loadMoreItems}
+						>
 							<Item.Group divided>{RenderVideos}</Item.Group>
 							{lazyLoadMore(this.props)}
 						</Visibility>

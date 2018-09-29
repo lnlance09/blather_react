@@ -19,7 +19,7 @@ const tag = (state = initial(), action) => {
 				error: true
 			}
 		case constants.FETCH_TAG_INFO:
-			if(payload.error) {
+			if (payload.error) {
 				return {
 					...state,
 					error: true,

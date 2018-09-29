@@ -27,10 +27,7 @@ class SignInPage extends Component {
 					<DisplayMetaTags page="signin" props={this.props} state={this.state} />
 					<Container>
 						<div className="loginForm">
-							<Grid
-								textAlign="center"
-								verticalAlign="middle"
-							>
+							<Grid textAlign="center" verticalAlign="middle">
 								<Grid.Column>
 									<Authentication />
 								</Grid.Column>

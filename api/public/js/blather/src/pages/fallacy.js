@@ -77,7 +77,8 @@ class Fallacy extends Component {
 					<Menu.Item
 						active={activeItem === "comments"}
 						name="comments"
-						onClick={this.handleItemClick}>
+						onClick={this.handleItemClick}
+					>
 						Comments {""}
 						{props.commentCount > 0 && <Label circular>{props.commentCount}</Label>}
 					</Menu.Item>
@@ -196,11 +197,7 @@ class Fallacy extends Component {
 						</Container>
 					)}
 					{this.props.error && (
-						<Container
-							className="mainContainer"
-							text
-							textAlign="center"
-						>
+						<Container className="mainContainer" text textAlign="center">
 							<Image centered disabled size="medium" src={TrumpImg} />
 							<Header size="medium">This fallacy does not exist!</Header>
 						</Container>

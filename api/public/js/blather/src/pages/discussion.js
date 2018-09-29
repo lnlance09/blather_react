@@ -11,16 +11,7 @@ import {
 } from "pages/actions/discussion"
 import { Provider, connect } from "react-redux"
 import { Link } from "react-router-dom"
-import {
-	Button,
-	Container,
-	Form,
-	Grid,
-	Header,
-	Icon,
-	Image,
-	TextArea
-} from "semantic-ui-react"
+import { Button, Container, Form, Grid, Header, Icon, Image, TextArea } from "semantic-ui-react"
 import Marked from "marked"
 import Moment from "react-moment"
 import Conversation from "components/conversation/v1/"
@@ -296,11 +287,7 @@ class DiscussionPage extends Component {
 						</Container>
 					)}
 					{this.props.error && (
-						<Container
-							className="mainContainer"
-							text
-							textAlign="center"
-						>
+						<Container className="mainContainer" text textAlign="center">
 							<Image centered disabled size="medium" src={TrumpImg} />
 							<Header size="medium">This discussion does not exist!</Header>
 						</Container>

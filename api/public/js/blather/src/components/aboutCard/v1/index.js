@@ -82,7 +82,8 @@ class AboutCard extends Component {
 										color="blue"
 										compact
 										fluid
-										onClick={this.updateDescription}>
+										onClick={this.updateDescription}
+									>
 										Update
 									</Button>
 								</Card.Description>

@@ -5,7 +5,7 @@ import sanitizeHtml from "sanitize-html"
 momentDurationFormatSetup(moment)
 
 export const convertTimeToSeconds = time => {
-	return moment.duration(time).asSeconds()/60
+	return moment.duration(time).asSeconds() / 60
 }
 export const formatDuration = time => {
 	if (time < 10) {

@@ -55,9 +55,8 @@ class CommentsSection extends Component {
 							<Comment.Content>
 								<Comment.Author
 									as="a"
-									onClick={() =>
-										props.history.push(`/users/${comment.username}`)
-									}>
+									onClick={() => props.history.push(`/users/${comment.username}`)}
+								>
 									{comment.name}
 								</Comment.Author>
 								<Comment.Metadata>
@@ -90,13 +89,7 @@ class CommentsSection extends Component {
 					placeholder={placeholder}
 					value={message}
 				/>
-				<Button
-					className="replyBtn"
-					color="blue"
-					compact
-					content="Post"
-					type="submit"
-				/>
+				<Button className="replyBtn" color="blue" compact content="Post" type="submit" />
 				<div className="clearfix" />
 			</Form>
 		)
