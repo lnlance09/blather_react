@@ -4,6 +4,7 @@
             parent:: __construct();
 
             $this->baseUrl = $this->config->base_url();
+            $this->imgUrl = $this->config->img_url();
             $this->load->database();
             $this->db->query("SET time_zone='+0:00'");
         }
@@ -118,7 +119,7 @@
          * @return [type]          [description]
          */
         public function getComments($id, $page = null, $just_count = false) {
-            $select = "f.created_at, f.message, f.user_id, CONCAT('".$this->baseUrl."img/profile_pics/', u.img) AS img, u.name, u.username";
+            $select = "f.created_at, f.message, f.user_id, CONCAT('".$this->imgUrl."profile_pics/', u.img) AS img, u.name, u.username";
             if($just_count) {
                 $select = 'COUNT(*) AS count';
             }
@@ -143,7 +144,7 @@
         }
 
         public function getConversation($id) {
-            $this->db->select("fc.date_created, fc.message, fc.user_id, u.name, CONCAT('".$this->baseUrl."img/profile_pics/', u.img) AS img, u.username");
+            $this->db->select("fc.date_created, fc.message, fc.user_id, u.name, CONCAT('".$this->imgUrl."profile_pics/', u.img) AS img, u.username");
             $this->db->join('users u', 'fc.user_id = u.id');
             $this->db->where('fc.fallacy_id', $id);
             $this->db->order_by('date_created', 'ASC');
@@ -178,7 +179,7 @@
 
                 u.name AS user_name, 
                 u.username AS user_username, 
-                CONCAT('".$this->baseUrl."img/profile_pics/', u.img) AS user_img, 
+                CONCAT('".$this->imgUrl."profile_pics/', u.img) AS user_img, 
                 u.id AS user_id,
 
                 a.code AS archive_code,
@@ -349,7 +350,7 @@
 
                 u.name AS user_name, 
                 u.username AS user_username, 
-                CONCAT('".$this->baseUrl."img/profile_pics/', u.img) AS user_img, 
+                CONCAT('".$this->imgUrl."profile_pics/', u.img) AS user_img, 
                 u.id AS user_id,
 
                 a.code AS archive_code,

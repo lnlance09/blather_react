@@ -3,10 +3,11 @@
 	date_default_timezone_set('UTC');
 
 	class Users extends CI_Controller {
-		public function __construct() {       
+		public function __construct() {
 			parent:: __construct();
 
 			$this->baseUrl = $this->config->base_url();
+			$this->imgUrl = $this->config->img_url();
 			$this->load->model('DiscussionsModel', 'discussions');
 			$this->load->model('FallaciesModel', 'fallacies');
 			$this->load->model('FacebookModel', 'fb');
@@ -110,7 +111,7 @@
 			]);
 			echo json_encode([
 				'error' => false,
-				'img' => $this->baseUrl.'img/profile_pics/'.$data['file_name']
+				'img' => $this->imgUrl.'profile_pics/'.$data['file_name']
 			]);
 		}
 
@@ -187,7 +188,7 @@
 
 		public function getInfo() {
 			$username = $this->input->get('username');
-			$select = "bio, email_verified AS emailVerified, u.id AS id, CONCAT('".$this->baseUrl."img/profile_pics/', u.img) AS img, linked_twitter AS linkedTwitter, linked_youtube AS linkedYoutube, name, username";
+			$select = "bio, email_verified AS emailVerified, u.id AS id, CONCAT('".$this->imgUrl."profile_pics/', u.img) AS img, linked_twitter AS linkedTwitter, linked_youtube AS linkedYoutube, name, username";
 			$info = $this->users->getUserInfo($username, $select);
 
 			if(!$info) {
@@ -265,7 +266,7 @@
 			$user = $login[0];
 			$user['emailVerified'] = $user['emailVerified'] === '1';
 			$user['fbUrl'] = $this->fb->loginUrl();
-			$user['img'] = $user['img'] ? $this->baseUrl.'img/profile_pics/'.$user['img'] : null;
+			$user['img'] = $user['img'] ? $this->imgUrl.'profile_pics/'.$user['img'] : null;
 			$user['linkedFb'] = $user['linkedFb'] === '1';
 			$user['linkedTwitter'] = $user['linkedTwitter'] === '1';
 			$user['linkedYoutube'] = $user['linkedYoutube'] === '1';
