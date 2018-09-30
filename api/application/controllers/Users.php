@@ -422,6 +422,23 @@
 			]);
 		}
 
+		public function update() {
+			$bio = $this->input->post('bio');
+			if(!$this->user) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'You must login to update your account'
+				]);
+				exit;
+			}
+
+			$this->users->updateUser($this->user->id, ['bio' => $bio]);
+			echo json_encode([
+				'bio' => $bio,
+				'error' => false
+			]);
+		}
+
 		public function verifyEmail() {
 			if(!$this->user) {
 				$this->output->set_status_header(401);
