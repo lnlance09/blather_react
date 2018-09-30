@@ -10,7 +10,7 @@
             $this->appSecret = 'liW0soEaVR1bS6moSJQI8SAGzsQfuJNkIj9eIDQoZvjNeMekVT';
             $this->version = '1.0';
             $this->hash = 'HMAC-SHA1';
-            $this->redirectUrl = 'http://localhost:3000/settings/twitter';
+            $this->redirectUrl = $this->config->base_url().'settings/twitter';
 
             // Define the OAuth API endpoints
             $this->accessUrl = 'https://api.twitter.com/oauth/access_token';

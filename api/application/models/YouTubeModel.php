@@ -6,7 +6,7 @@
             $this->apiKey = 'AIzaSyAxGMJJB1_uUQWHBXZG9TCCwjsVTPBIDLE';
             $this->clientId = '208834451570-uhnsvk3tb5cqr6uoipnrl9ks68cmeicp.apps.googleusercontent.com';
             $this->clientSecret = 'La5tIudFHoDWMz62OWzOl8xg';
-            $this->redirectUrl = 'http://localhost:3000/settings/youtube';
+            $this->redirectUrl = $this->config->base_url().'settings/youtube';
 
             // Define the API endpoints
             $this->commentUrl = 'https://www.googleapis.com/youtube/v3/comments';
