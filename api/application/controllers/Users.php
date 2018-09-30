@@ -7,7 +7,7 @@
 			parent:: __construct();
 
 			$this->baseUrl = $this->config->base_url();
-			$this->imgUrl = $this->config->img_url();
+			$this->imgUrl = $this->baseUrl.'api/public/img/';
 			$this->load->model('DiscussionsModel', 'discussions');
 			$this->load->model('FallaciesModel', 'fallacies');
 			$this->load->model('FacebookModel', 'fb');
