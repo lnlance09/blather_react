@@ -749,11 +749,11 @@
       "name":"Strawman",
       "dialogue": [
          {
-            "name": "Blathering Bill",
+            "name": "Rational Rob",
             "message": "The military receives way too much of the budget."
          },
          {
-            "name": "Rational Rob",
+            "name": "Blathering Bill",
             "message": "You just hate America and don't care about protecting it!"
          }
       ]
