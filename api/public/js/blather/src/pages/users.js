@@ -173,6 +173,7 @@ class UserPage extends Component {
 						as={Image}
 						dimmed={active}
 						dimmer={{ active, content, inverted }}
+						onError={i => (i.target.src = ImagePic)}
 						onMouseEnter={this.handleShow}
 						onMouseLeave={this.handleHide}
 						rounded
