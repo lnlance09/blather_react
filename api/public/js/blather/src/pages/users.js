@@ -45,7 +45,7 @@ class UserPage extends Component {
 		const isMyProfile = username === myUsername
 
 		if (!tabs.includes(tab)) {
-			tab = "discussions"
+			tab = "fallacies"
 		}
 
 		this.state = {

@@ -89,7 +89,6 @@ class Fallacy extends Component {
 						blurring
 						className="statusActionSegment"
 						dimmed
-						raised
 					>
 						<Dimmer active inverted>
 							<div>
