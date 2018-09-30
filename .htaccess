@@ -1,5 +1,4 @@
 RewriteEngine On
 Options -MultiViews
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_URI} !\.(gif|jpe?g|png|css|js)$
 RewriteRule ^ index.html [QSA,L]

@@ -110,7 +110,7 @@
 			]);
 			echo json_encode([
 				'error' => false,
-				'img' => $this->baseUrl.'img/profile_pics/'.$data['file_name']
+				'img' => $this->baseUrl.'public/img/profile_pics/'.$data['file_name']
 			]);
 		}
 
