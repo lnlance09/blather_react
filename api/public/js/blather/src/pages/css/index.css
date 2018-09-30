@@ -143,6 +143,9 @@ a {
 .discussionsPage .discussionsContainer {
   padding: 0; }
 
+.discussionsPage .emptyDiscussionContainer {
+  margin-top: 20px; }
+
 /* Fallacies page */
 .fallaciesPage .mainFallacy {
   display: none; }
