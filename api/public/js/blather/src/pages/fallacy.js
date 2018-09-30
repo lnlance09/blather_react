@@ -5,7 +5,19 @@ import { DisplayMetaTags } from "utils/metaFunctions"
 import { fetchCommentCount, fetchFallacy, updateFallacy } from "pages/actions/fallacy"
 import { Provider, connect } from "react-redux"
 import { Link } from "react-router-dom"
-import { Container, Grid, Header, Image, Label, Menu } from "semantic-ui-react"
+import { TwitterShareButton } from "react-share"
+import {
+	Button,
+	Container,
+	Dimmer,
+	Grid,
+	Header,
+	Icon,
+	Image,
+	Label,
+	Menu,
+	Segment
+} from "semantic-ui-react"
 import Comments from "components/comments/v1/"
 import FallacyExample from "components/fallacyExample/v1/"
 import FallacyRef from "components/fallacyRef/v1/"
@@ -66,6 +78,57 @@ class Fallacy extends Component {
 	render() {
 		const { activeItem, authenticated, bearer, id, userId } = this.state
 		const canEdit = this.props.createdBy ? this.props.createdBy.id === userId : false
+		const ContactUser = props => {
+			if (props.user) {
+				const userLink = `/pages/${props.user.type}/${
+					props.user.type === "twitter" ? props.user.username : props.user.id
+				}`
+				return (
+					<Dimmer.Dimmable
+						as={Segment}
+						blurring
+						className="statusActionSegment"
+						dimmed
+						raised
+					>
+						<Dimmer active inverted>
+							<div>
+								<Header size="tiny">
+									Let <Link to={userLink}>{props.user.name}</Link> know that this
+									reasoning doesn't make sense
+								</Header>
+								{props.user.type === "twitter" && (
+									<TwitterShareButton
+										className="twitterButton ui icon button"
+										title={`${props.title}`}
+										url={`${window.location.origin}/fallacies/${
+											props.fallacyId
+										}`}
+									>
+										<Icon name="twitter" /> Tweet @{props.user.username}
+									</TwitterShareButton>
+								)}
+								{props.user.type === "youtube" && (
+									<Button
+										className="youtubeButton"
+										icon
+										onClick={() =>
+											window.open(
+												`https://youtube.com/channel/${props.user.id}`,
+												"_blank"
+											)
+										}
+									>
+										<Icon name="youtube" /> {props.user.name}
+									</Button>
+								)}
+							</div>
+						</Dimmer>
+					</Dimmer.Dimmable>
+				)
+			}
+			return null
+		}
 		const FallacyMenu = props => (
 			<div className="fallacyMainMenu">
 				<Menu pointing secondary>
@@ -189,6 +252,7 @@ class Fallacy extends Component {
 							<Grid>
 								<Grid.Column className="leftSide" width={12}>
 									{ShowContent(this.props)}
+									{ContactUser(this.props)}
 								</Grid.Column>
 								<Grid.Column className="rightSide" width={4}>
 									{ShowTags(this.props)}

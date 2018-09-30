@@ -4,7 +4,6 @@ import { fetchDiscussionConversation, submitDiscussionConversation } from "pages
 import { CopyToClipboard } from "react-copy-to-clipboard"
 import { connect } from "react-redux"
 import { Link } from "react-router-dom"
-import { TwitterShareButton } from "react-share"
 import {
 	Button,
 	Card,
@@ -12,7 +11,6 @@ import {
 	Divider,
 	Dropdown,
 	Form,
-	Header,
 	Icon,
 	Image,
 	Popup,
@@ -188,52 +186,6 @@ class Conversation extends Component {
 				</Dropdown.Menu>
 			</Dropdown>
 		)
-		const ContactUser = props => {
-			const userLink = `/pages/${props.user.type}/${
-				props.user.type === "twitter" ? props.user.username : props.user.id
-			}`
-			return (
-				<Dimmer.Dimmable
-					as={Segment}
-					blurring
-					className="statusActionSegment"
-					dimmed
-					raised
-				>
-					<Dimmer active inverted>
-						<div>
-							<Header size="tiny">
-								Waiting for <Link to={userLink}>{props.user.name}</Link> to offer an
-								explanation...
-							</Header>
-							{props.user.type === "twitter" && (
-								<TwitterShareButton
-									className="twitterButton ui icon button"
-									title={`${props.title}`}
-									url={`${window.location.origin}/fallacies/${props.fallacyId}`}
-								>
-									<Icon name="twitter" /> Tweet @{props.user.username}
-								</TwitterShareButton>
-							)}
-							{props.user.type === "youtube" && (
-								<Button
-									className="youtubeButton"
-									icon
-									onClick={() =>
-										window.open(
-											`https://youtube.com/channel/${props.user.id}`,
-											"_blank"
-										)
-									}
-								>
-									<Icon name="youtube" /> Contact {props.user.name}
-								</Button>
-							)}
-						</div>
-					</Dimmer>
-				</Dimmer.Dimmable>
-			)
-		}
 		const ConvoCard = (convo, i) => {
 			const isLast = i === convoCount - 1
 			return (
@@ -310,9 +262,6 @@ class Conversation extends Component {
 				const respondYoutube = props.user
 					? user.linkedYoutube && props.video && user.youtubeId === props.user.id
 					: false
-				if (props.status === 0 && !respondTwitter && !respondYoutube) {
-					return <div>{ContactUser(props)}</div>
-				}
 				if (props.status === 1 && myTurn && (respondTwitter || respondYoutube)) {
 					return <div>{RespondForm(props, placeholder)}</div>
 				}

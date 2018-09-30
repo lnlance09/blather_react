@@ -143,7 +143,7 @@ class About extends Component {
 					becomes viewable to anyone whether or not they are a member. However, you must
 					be a member to assign a fallacy to a piece of content. Tweets, videos and
 					comments can be archived with{" "}
-					<a href="http://archive.is" target="_blank">
+					<a href="http://archive.is" rel="noopener noreferrer" target="_blank">
 						archive.is
 					</a>{" "}
 					so that if someone deletes their content in an attempt to save face there is

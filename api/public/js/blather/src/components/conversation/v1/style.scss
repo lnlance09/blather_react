@@ -133,29 +133,6 @@
         }
     }
 
-    .statusActionSegment {
-        height: 116px;
-
-        .youtubeButton {
-            background: $youtube !important;
-            color: $white;
-            margin-top: 0 !important;
-
-            &:hover {
-                background: darken($youtube, 5%) !important;
-            }
-        }
-
-        .twitterButton {
-            background: $twitter;
-            color: $white;
-
-            &:hover {
-                background: darken($twitter, 5%);
-            }
-        }
-    }
-
     .findOpponent {
         p {
             text-align: center;

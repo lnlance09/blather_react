@@ -138,7 +138,7 @@ class SocialMediaPage extends Component {
 						>
 							@{props.username}
 						</a>
-					)} {" "}
+					)}{" "}
 					<Icon className={`${network}Icon`} name={network} />
 				</div>
 			)

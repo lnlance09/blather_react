@@ -159,6 +159,19 @@ a {
 /* Fallacy page */
 .fallacyPage .ui.grid {
   margin-top: 0 !important; }
+  .fallacyPage .ui.grid .statusActionSegment {
+    height: 116px; }
+    .fallacyPage .ui.grid .statusActionSegment .youtubeButton {
+      background: #ff0000 !important;
+      color: #ffffff;
+      margin-top: 0 !important; }
+      .fallacyPage .ui.grid .statusActionSegment .youtubeButton:hover {
+        background: #e60000 !important; }
+    .fallacyPage .ui.grid .statusActionSegment .twitterButton {
+      background: #0084b4;
+      color: #ffffff; }
+      .fallacyPage .ui.grid .statusActionSegment .twitterButton:hover {
+        background: #00719b; }
 
 .fallacyPage .fallacyMainMenu {
   margin-top: 10px; }

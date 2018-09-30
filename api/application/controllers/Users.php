@@ -343,10 +343,11 @@
 				exit;
 			}
 
-			if(preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $params['username'])) {
+			if(preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $params['username'])
+			|| strpos($params['username'], " ")) {
 				$this->output->set_status_header(401);
 				echo json_encode([
-					'error' => 'Your username cannot contain special characters'
+					'error' => 'Your username cannot contain special characters or spaces'
 				]);
 				exit;
 			}
