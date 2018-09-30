@@ -25,7 +25,6 @@ define('ROOT_DIR', dirname(__FILE__));
 |
 */
 $config['base_url'] = 'http://localhost:3000/';
-$config['img_url'] = $config['base_url'].'api/public/img/';
 
 /*
 |--------------------------------------------------------------------------
