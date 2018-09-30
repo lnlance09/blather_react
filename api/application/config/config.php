@@ -24,7 +24,7 @@ define('ROOT_DIR', dirname(__FILE__));
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'ec2-18-236-66-36.us-west-2.compute.amazonaws.com';
+$config['base_url'] = 'http://ec2-18-236-66-36.us-west-2.compute.amazonaws.com';
 
 /*
 |--------------------------------------------------------------------------
