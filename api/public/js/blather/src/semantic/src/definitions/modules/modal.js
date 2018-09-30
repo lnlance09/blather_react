@@ -178,11 +178,9 @@
 					},
 					scrollLock: function() {
 						// touch events default to passive, due to changes in chrome to optimize mobile perf
-						$dimmable
-							.get(0)
-							.addEventListener("touchmove", module.event.preventScroll, {
-								passive: false
-							})
+						$dimmable.get(0).addEventListener("touchmove", module.event.preventScroll, {
+							passive: false
+						})
 					}
 				},
 

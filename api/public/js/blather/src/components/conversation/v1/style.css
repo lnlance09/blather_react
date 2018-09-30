@@ -63,19 +63,6 @@
     margin-top: 0; }
     .conversation .convoResponseSection .ui.icon.message.waitMsg .icon {
       color: #273c75; }
-  .conversation .statusActionSegment {
-    height: 116px; }
-    .conversation .statusActionSegment .youtubeButton {
-      background: #ff0000 !important;
-      color: #ffffff;
-      margin-top: 0 !important; }
-      .conversation .statusActionSegment .youtubeButton:hover {
-        background: #e60000 !important; }
-    .conversation .statusActionSegment .twitterButton {
-      background: #0084b4;
-      color: #ffffff; }
-      .conversation .statusActionSegment .twitterButton:hover {
-        background: #00719b; }
   .conversation .findOpponent p {
     text-align: center; }
     .conversation .findOpponent p .icon {

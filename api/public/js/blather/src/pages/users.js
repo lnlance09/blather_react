@@ -241,18 +241,6 @@ class UserPage extends Component {
 									/>
 									<Menu className="profileMenu" pointing secondary>
 										<Menu.Item
-											active={activeItem === "discussions"}
-											name="discussions"
-											onClick={this.handleItemClick}
-										>
-											Discussions{" "}
-											{this.props.user.discussionCount > 0 && (
-												<Label circular>
-													{this.props.user.discussionCount}
-												</Label>
-											)}
-										</Menu.Item>
-										<Menu.Item
 											active={activeItem === "fallacies"}
 											name="fallacies"
 											onClick={this.handleItemClick}
@@ -261,6 +249,18 @@ class UserPage extends Component {
 											{this.props.user.fallacyCount > 0 && (
 												<Label circular>
 													{this.props.user.fallacyCount}
+												</Label>
+											)}
+										</Menu.Item>
+										<Menu.Item
+											active={activeItem === "discussions"}
+											name="discussions"
+											onClick={this.handleItemClick}
+										>
+											Discussions{" "}
+											{this.props.user.discussionCount > 0 && (
+												<Label circular>
+													{this.props.user.discussionCount}
 												</Label>
 											)}
 										</Menu.Item>
