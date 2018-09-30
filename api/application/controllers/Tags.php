@@ -6,6 +6,7 @@
             parent:: __construct();
             
             $this->baseUrl = $this->config->base_url();
+            $this->imgUrl = $this->config->img_url();
             $this->load->model('TagsModel', 'tags');
         }
 
@@ -64,7 +65,7 @@
             ]);
             echo json_encode([
                 'error' => false,
-                'img' => $this->baseUrl.'img/tag_pics/'.$data['file_name']
+                'img' => $this->imgUrl.'tag_pics/'.$data['file_name']
             ]);
         }
 

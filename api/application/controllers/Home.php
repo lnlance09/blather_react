@@ -9,8 +9,6 @@
         }
 
         public function index() {
-            $this->load->view('app', [
-                'baseUrl' => $this->baseUrl
-            ]);
+            
         }
     }

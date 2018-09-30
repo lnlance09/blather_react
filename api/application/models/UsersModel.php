@@ -4,6 +4,7 @@
 			parent:: __construct();
 
 			$this->baseUrl = $this->config->base_url();
+			$this->imgUrl = $this->config->img_url();
 			$this->load->database();
 			$this->load->helper('common_helper');
 			$this->db->query("SET time_zone='+0:00'");
@@ -251,7 +252,7 @@
 			$params = [];
 			$select = "u.id, u.name, username, bio AS about, 
 					CASE
-						WHEN img IS NOT NULL THEN CONCAT('".$this->baseUrl."img/profile_pics/', img)
+						WHEN img IS NOT NULL THEN CONCAT('".$this->imgUrl."profile_pics/', img)
 					END AS profile_pic,
 					fallacy_count, discussion_count";
 			if($just_count) {

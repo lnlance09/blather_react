@@ -4,16 +4,17 @@
             parent:: __construct();
 
             $this->baseUrl = $this->config->base_url();
+            $this->imgUrl = $this->config->img_url();
             $this->load->database();
             $this->load->helper('common_helper');
             $this->db->query("SET time_zone='+0:00'");
         }
 
         public function getHistory($id) {
-            $this->db->select("tv.description, CONCAT('".$this->baseUrl."img/tag_pics/', tv.img) AS tag_img,
+            $this->db->select("tv.description, CONCAT('".$this->imgUrl."tag_pics/', tv.img) AS tag_img,
                 tv.date_updated, tv.updated_by,tv.version,
 
-                u.id AS user_id, u.name AS user_name, CONCAT('".$this->baseUrl."img/profile_pics/', u.img) AS user_img, u.username");
+                u.id AS user_id, u.name AS user_name, CONCAT('".$this->imgUrl."profile_pics/', u.img) AS user_img, u.username");
             $this->db->join('users u', 'tv.updated_by = u.id');
             $this->db->where('tv.tag_id', $id);
             $this->db->order_by('tv.date_updated DESC');
@@ -24,10 +25,10 @@
         public function getTagInfo($id) {
             $this->db->select("t.id AS tag_id, t.value AS tag_name, t.date_created,
 
-                tv.description, CONCAT('".$this->baseUrl."img/tag_pics/', tv.img) AS tag_img,
+                tv.description, CONCAT('".$this->imgUrl."tag_pics/', tv.img) AS tag_img,
                 tv.date_updated, tv.updated_by,
 
-                u.id AS user_id, u.name AS user_name, CONCAT('".$this->baseUrl."img/profile_pics/', u.img) AS user_img, u.username");
+                u.id AS user_id, u.name AS user_name, CONCAT('".$this->imgUrl."profile_pics/', u.img) AS user_img, u.username");
             $this->db->join('users u', 't.created_by = u.id');
             $this->db->join('tag_versions tv', 't.id = tv.tag_id');
             // $this->db->join('users tvu', 'tv.updated_by = tvu.id');

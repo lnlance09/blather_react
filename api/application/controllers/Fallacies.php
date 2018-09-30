@@ -6,6 +6,7 @@
 			parent:: __construct();
 			
 			$this->baseUrl = $this->config->base_url();
+			$this->imgUrl = $this->config->img_url();
 			$this->load->model('FallaciesModel', 'fallacies');
 			$this->load->model('FacebookModel', 'fb');
 			$this->load->model('TagsModel', 'tags');
@@ -416,7 +417,7 @@
 				'conversation' => [
 					[
 						'date_created' => date('Y-m-d H:i:s'),
-						'img' => $this->user->img ? $this->baseUrl.'img/profile_pics/'.$this->user->img : null,
+						'img' => $this->user->img ? $this->imgUrl.'profile_pics/'.$this->user->img : null,
 						'message' => $msg,
 						'name' => $this->user->name,
 						'status' => 1,

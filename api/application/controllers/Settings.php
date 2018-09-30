@@ -6,6 +6,7 @@
 			parent:: __construct();
 			
 			$this->baseUrl = $this->config->base_url();
+			$this->imgUrl = $this->config->img_url();
 			$this->load->helper('common_helper');
 			$this->load->model('UsersModel', 'users');
 		}
