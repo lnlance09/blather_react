@@ -337,12 +337,12 @@ export const updateAbout = ({ bearer, bio }) => dispatch => {
 		function(err, response, body) {
 			if (!body.error) {
 				let localData = parseJwt()
-				localData.bio = bio
+				localData.bio = body.bio
 				const token = setToken(localData)
 
 				dispatch({
 					payload: {
-						bio: bio,
+						bio: body.bio,
 						bearer: token
 					},
 					type: constants.UPDATE_ABOUT
