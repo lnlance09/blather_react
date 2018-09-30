@@ -1,4 +1,4 @@
 RewriteEngine On
 RewriteCond %{REQUEST_URI} !^/index.html$
-RewriteCond %{REQUEST_URI} !\.(gif|jpe?g|png|css|js|svg)$
+RewriteCond %{REQUEST_URI} !\.(gif|jpe?g|png|css|js|svg|ttf|map|woff|woff2|img)$
 RewriteRule ^ index.html [QSA,L]
