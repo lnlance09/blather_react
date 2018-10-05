@@ -194,6 +194,21 @@ a {
         }
     }
 
+    @media only screen and (max-width: 1025px) {
+        .contentContainer {
+            margin: 0 !important;
+            width: 100% !important;
+        }
+
+        .ui.header {
+            font-size: 24px;
+        }
+
+        .discussionHeader {
+            margin-left: -0.5em;
+        }
+    }
+
     .rightSide {
         .discussionTagsHeader {
             font-size: 24px !important;
@@ -214,6 +229,12 @@ a {
             .editButton {
                 display: inline !important;
             }
+        }
+    }
+
+    @media only screen and (max-width: 1025px) {
+        .ui.grid {
+            margin: 0;
         }
     }
 
@@ -240,6 +261,20 @@ a {
         padding: 0;
     }
 
+    @media only screen and (max-width: 1025px) {
+        .discussionsContainer {
+            margin: 0 !important;
+        }
+
+        .ui.header {
+            font-size: 24px;
+        }
+
+        .sub.header {
+            font-size: 14px;
+        }
+    }
+
     .emptyDiscussionContainer {
         margin-top: 20px;
     }
@@ -248,12 +283,15 @@ a {
 
 /* Fallacies page */
 .fallaciesPage {
+    .sub.header {
+        .icon.sidebar {
+            cursor: pointer;
+            float: left;
+        }
+    }
+
     .mainFallacy {
         display: none;
-
-        .editButton {
-            font-size: 14px;
-        }
 
         .segment {
             .comments {
@@ -274,7 +312,7 @@ a {
         margin-top: 0 !important;
 
         .statusActionSegment {
-            height: 116px;
+            text-align: center;
 
             .youtubeButton {
                 background: $youtube !important;
@@ -309,7 +347,28 @@ a {
         margin-top: 40px !important;
     }
 
+    @media only screen and (max-width: 1025px) {
+        .menu.socialMediaPageMenu {
+            margin-top: 0px !important;
+        }
+
+        .titleHeader {
+            .ui.header {
+                font-size: 24px;
+            }
+
+            .sub.header {
+                font-size: 14px;
+            }
+        }
+
+        .image.profilePic {
+            height: 225px;
+        }
+    }
+
     .profileContentContainer {
+        margin: 0 !important;
         min-height: 450px;
         padding: 0 !important;
 
@@ -393,6 +452,8 @@ a {
 /* Settings page */
 .settingsPage {
     .settingsContent {
+        width: 100%;
+
         .segment {
             min-height: 400px;
 
@@ -453,6 +514,7 @@ a {
 
     .tagsWrapper {
         margin-top: 20px;
+        width: 100%;
 
         .menu.tagMenu {
             margin-top: 40px !important;
@@ -464,6 +526,24 @@ a {
             }
         }
     }
+
+    @media only screen and (max-width: 1025px) {
+        .tagsWrapper {
+            margin-top: 0;
+        }
+
+        .titleHeader {
+            width: 100%;
+
+            .ui.header {
+                font-size: 24px;
+            }
+
+            .subHeader {
+                font-size: 14px;
+            }
+        }
+    }
 }
 
 
@@ -471,6 +551,24 @@ a {
 .usersPage {
     .menu.profileMenu {
         margin-top: 40px !important;
+    }
+
+    @media only screen and (max-width: 1025px) {
+        .menu.profileMenu {
+            margin-top: 0px !important;
+        }
+
+        .titleHeader {
+            width: 100%;
+
+            .ui.header {
+                font-size: 24px;
+            }
+
+            .sub.header {
+                font-size: 14px;
+            }
+        }
     }
 
     .profileContentContainer {

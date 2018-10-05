@@ -1,7 +1,7 @@
 import "./css/index.css"
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { Provider } from "react-redux"
-import { Comment, Container, Grid, Header, Menu, Segment } from "semantic-ui-react"
+import { Comment, Container, Grid, Header, Menu, Responsive, Segment } from "semantic-ui-react"
 import BillPic from "images/avatar/small/mark.png"
 import fallacies from "fallacies.json"
 import PageFooter from "components/footer/v1/"
@@ -20,6 +20,12 @@ class Fallacies extends Component {
 			activeItem: parsedName ? parsedName : "ad hominem abusive",
 			intervalId: 0
 		}
+	}
+
+	componentWillReceiveProps(props) {
+		const name = props.match.params.id
+		const parsedName = name ? name.split("_").join(" ") : false
+		this.setState({ activeItem: parsedName ? parsedName : "ad hominem abusive" })
 	}
 
 	scrollStep() {
@@ -44,14 +50,6 @@ class Fallacies extends Component {
 
 	render() {
 		const { activeItem } = this.state
-		const fallaciesSidebar = fallacies.map(fallacy => (
-			<Menu.Item
-				active={activeItem === fallacy.name.toLowerCase()}
-				key={fallacy.id}
-				name={fallacy.name.toLowerCase()}
-				onClick={this.handleItemClick}
-			/>
-		))
 		const fallaciesConversation = dialogue =>
 			dialogue.map((item, i) => {
 				const pic = item.name === "Blathering Bill" ? BillPic : RobPic
@@ -73,7 +71,7 @@ class Fallacies extends Component {
 							<Header as="p" size="small">
 								{fallacy.name}
 							</Header>
-							<p>{fallacy.description} </p>
+							<p>{fallacy.description}</p>
 							<Comment.Group>{fallaciesConversation(fallacy.dialogue)}</Comment.Group>
 						</Segment>
 					</div>
@@ -81,6 +79,14 @@ class Fallacies extends Component {
 			}
 			return null
 		})
+		const fallaciesSidebar = fallacies.map(fallacy => (
+			<Menu.Item
+				active={activeItem === fallacy.name.toLowerCase()}
+				key={fallacy.id}
+				name={fallacy.name.toLowerCase()}
+				onClick={this.handleItemClick}
+			/>
+		))
 
 		return (
 			<Provider store={store}>
@@ -97,16 +103,26 @@ class Fallacies extends Component {
 							<Header.Subheader>Plus a few other things...</Header.Subheader>
 						</Header>
 
-						<Grid>
-							<Grid.Column width={5}>
-								<Menu borderless secondary className="fallaciesMenu" fluid vertical>
-									{fallaciesSidebar}
-								</Menu>
-							</Grid.Column>
-							<Grid.Column className="rightSide" width={11}>
-								{fallaciesMain}
-							</Grid.Column>
-						</Grid>
+						<Responsive maxWidth={1024}>{fallaciesMain}</Responsive>
+
+						<Responsive minWidth={1025}>
+							<Grid>
+								<Grid.Column width={4}>
+									<Menu
+										borderless
+										secondary
+										className="fallaciesMenu"
+										fluid
+										vertical
+									>
+										{fallaciesSidebar}
+									</Menu>
+								</Grid.Column>
+								<Grid.Column className="rightSide" width={12}>
+									{fallaciesMain}
+								</Grid.Column>
+							</Grid>
+						</Responsive>
 					</Container>
 					<PageFooter />
 				</div>

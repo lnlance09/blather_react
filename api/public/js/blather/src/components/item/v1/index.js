@@ -81,10 +81,10 @@ class ResultItem extends Component {
 			if (props.img) {
 				return (
 					<Item.Image
+						centered
 						label={props.label}
 						onError={i => (i.target.src = ImagePic)}
 						rounded
-						size="small"
 						src={props.img}
 					/>
 				)

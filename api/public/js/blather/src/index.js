@@ -1,5 +1,4 @@
 import "./css/App.css"
-// import "semantic-ui-css/semantic.min.css"
 import "semantic/dist/semantic.min.css"
 import { Provider } from "react-redux"
 import { BrowserRouter, Route, Switch } from "react-router-dom"
@@ -20,7 +19,7 @@ import store from "./store"
 import Tags from "./pages/tags"
 import Users from "./pages/users"
 
-ReactDOM.render(
+ReactDOM.hydrate(
 	<Provider store={store}>
 		<BrowserRouter>
 			<div>

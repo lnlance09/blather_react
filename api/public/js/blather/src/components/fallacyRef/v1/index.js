@@ -1,4 +1,5 @@
 import "./style.css"
+import { formatGrammar } from "utils/textFunctions"
 import { connect } from "react-redux"
 import { Comment, Header, Segment } from "semantic-ui-react"
 import BillPic from "images/avatar/small/mark.png"
@@ -45,7 +46,7 @@ class FallacyRef extends Component {
 				{fallacy && (
 					<Segment className="fallacySegment">
 						<Header as="p" size="small">
-							What is a {fallacy.name}?
+							What is {formatGrammar(fallacy.name)} {fallacy.name}?
 						</Header>
 						<p>{fallacy.description}</p>
 						{this.props.showDialogue && (

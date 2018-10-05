@@ -1,7 +1,7 @@
 import "./css/index.css"
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { connect, Provider } from "react-redux"
-import { Accordion, Container, Form, Grid, Icon, Input, Menu } from "semantic-ui-react"
+import { Accordion, Container, Form, Grid, Icon, Input, Menu, Responsive } from "semantic-ui-react"
 import PageFooter from "components/footer/v1/"
 import PageHeader from "components/header/v1/"
 import PropTypes from "prop-types"
@@ -106,6 +106,69 @@ class SearchPage extends Component {
 				<Form.Group grouped>{fallacyItem}</Form.Group>
 			</Form>
 		)
+		const SearchMenu = props => (
+			<Accordion as={Menu} className="searchMenu" borderless fluid vertical>
+				<Menu.Item className="searchItem">
+					<Input
+						icon="search"
+						onChange={this.onChangeSearchValue}
+						onKeyPress={e => {
+							if (e.key === "Enter") {
+								this.submitSearchForm()
+							}
+						}}
+						placeholder="Search..."
+						value={value}
+					/>
+				</Menu.Item>
+				<Menu.Item
+					active={activeItem === "twitter"}
+					name="twitter"
+					onClick={this.handleItemClick}
+				>
+					Profiles
+					<Icon
+						className="twitterIcon"
+						inverted={activeItem === "twitter"}
+						name="twitter"
+					/>
+				</Menu.Item>
+				<Menu.Item
+					active={activeItem === "youtube"}
+					name="youtube"
+					onClick={this.handleItemClick}
+				>
+					Channels
+					<Icon
+						className="youtubeIcon"
+						inverted={activeItem === "youtube"}
+						name="youtube"
+					/>
+				</Menu.Item>
+				<Menu.Item
+					active={activeItem === "users"}
+					name="users"
+					onClick={this.handleItemClick}
+				>
+					Users
+					<Icon
+						className="usersIcon"
+						inverted={activeItem === "users"}
+						name="user circle"
+					/>
+				</Menu.Item>
+				<Menu.Item>
+					<Accordion.Title
+						active={activeIndex === 0}
+						content="Fallacies"
+						index={0}
+						name="fallacies"
+						onClick={this.handleClick}
+					/>
+					<Accordion.Content active={activeIndex === 0} content={fallacyForm} />
+				</Menu.Item>
+			</Accordion>
+		)
 
 		return (
 			<Provider store={store}>
@@ -113,94 +176,42 @@ class SearchPage extends Component {
 					<DisplayMetaTags page="search" props={this.props} state={this.state} />
 					<PageHeader {...this.props} />
 					<Container className="mainContainer" textAlign="left">
-						<Grid>
-							<Grid.Column width={5}>
-								<Accordion
-									as={Menu}
-									className="searchMenu"
-									borderless
-									fluid
-									vertical
-								>
-									<Menu.Item className="searchItem">
-										<Input
-											icon="search"
-											onChange={this.onChangeSearchValue}
-											onKeyPress={e => {
-												if (e.key === "Enter") {
-													this.submitSearchForm()
-												}
-											}}
-											placeholder="Search..."
-											value={value}
-										/>
-									</Menu.Item>
-									<Menu.Item
-										active={activeItem === "twitter"}
-										name="twitter"
-										onClick={this.handleItemClick}
-									>
-										Profiles
-										<Icon
-											className="twitterIcon"
-											inverted={activeItem === "twitter"}
-											name="twitter"
-										/>
-									</Menu.Item>
-									<Menu.Item
-										active={activeItem === "youtube"}
-										name="youtube"
-										onClick={this.handleItemClick}
-									>
-										Channels
-										<Icon
-											className="youtubeIcon"
-											inverted={activeItem === "youtube"}
-											name="youtube"
-										/>
-									</Menu.Item>
-									<Menu.Item
-										active={activeItem === "users"}
-										name="users"
-										onClick={this.handleItemClick}
-									>
-										Users
-										<Icon
-											className="usersIcon"
-											inverted={activeItem === "users"}
-											name="user circle"
-										/>
-									</Menu.Item>
-									<Menu.Item>
-										<Accordion.Title
-											active={activeIndex === 0}
-											content="Fallacies"
-											index={0}
-											name="fallacies"
-											onClick={this.handleClick}
-										/>
-										<Accordion.Content
-											active={activeIndex === 0}
-											content={fallacyForm}
-										/>
-									</Menu.Item>
-								</Accordion>
-							</Grid.Column>
-
-							<Grid.Column className="rightSide" width={11}>
-								<SearchResults
-									authenticated={authenticated}
-									bearer={bearer}
-									fallacies={fallacies.join(",")}
-									history={this.props.history}
-									linkedTwitter={authenticated ? user.linkedTwitter : false}
-									linkedYoutube={authenticated ? user.linkedYoutube : false}
-									page={page}
-									q={value}
-									type={activeItem}
-								/>
-							</Grid.Column>
-						</Grid>
+						<Responsive maxWidth={900}>
+							<Grid>
+								<Grid.Row>{SearchMenu(this.props)}</Grid.Row>
+								<Grid.Row>
+									<SearchResults
+										authenticated={authenticated}
+										bearer={bearer}
+										fallacies={fallacies.join(",")}
+										history={this.props.history}
+										linkedTwitter={authenticated ? user.linkedTwitter : false}
+										linkedYoutube={authenticated ? user.linkedYoutube : false}
+										page={page}
+										q={value}
+										type={activeItem}
+									/>
+								</Grid.Row>
+							</Grid>
+						</Responsive>
+						<Responsive minWidth={901}>
+							<Grid>
+								<Grid.Column width={5}>{SearchMenu(this.props)}</Grid.Column>
+								<Grid.Column className="rightSide" width={11}>
+									<SearchResults
+										authenticated={authenticated}
+										bearer={bearer}
+										fallacies={fallacies.join(",")}
+										history={this.props.history}
+										linkedTwitter={authenticated ? user.linkedTwitter : false}
+										linkedYoutube={authenticated ? user.linkedYoutube : false}
+										page={page}
+										q={value}
+										type={activeItem}
+									/>
+								</Grid.Column>
+							</Grid>
+						</Responsive>
 					</Container>
 					<PageFooter />
 				</div>

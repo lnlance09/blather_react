@@ -14,6 +14,7 @@ import {
 	Image,
 	Label,
 	Menu,
+	Responsive,
 	Segment,
 	Transition
 } from "semantic-ui-react"
@@ -64,14 +65,6 @@ class SocialMediaPage extends Component {
 
 	componentWillMount() {
 		this.setState({ visible: true })
-	}
-
-	componentWillReceiveProps(props) {
-		if (props.id) {
-			this.props.fetchFallacyCount({
-				id: this.props.id
-			})
-		}
 	}
 
 	determineItemsLabel(network) {
@@ -144,6 +137,23 @@ class SocialMediaPage extends Component {
 			)
 			return <TitleHeader subheader={subheader} title={props.name} />
 		}
+		const PageMenu = props => (
+			<Menu className="socialMediaPageMenu" fluid pointing secondary stackable>
+				<Menu.Item
+					active={activeItem === itemsLabel}
+					name={itemsLabel}
+					onClick={this.handleItemClick}
+				/>
+				<Menu.Item
+					active={activeItem === "fallacies"}
+					name="fallacies"
+					onClick={this.handleItemClick}
+				>
+					Fallacies{" "}
+					{props.fallacyCount > 0 && <Label circular>{props.fallacyCount}</Label>}
+				</Menu.Item>
+			</Menu>
+		)
 		const ShowContent = props => {
 			if (props.id) {
 				if (activeItem === "fallacies") {
@@ -196,7 +206,6 @@ class SocialMediaPage extends Component {
 						</Dimmer.Dimmable>
 					)
 				}
-
 				return (
 					<Dimmer.Dimmable as={Segment} dimmed>
 						{LazyLoadDefault}
@@ -221,50 +230,66 @@ class SocialMediaPage extends Component {
 					<PageHeader {...this.props} />
 					{this.props.exists && (
 						<Container className="mainContainer" textAlign="left">
-							<Grid>
-								<Grid.Column width={4}>
-									<Transition
-										animation={animation}
-										duration={duration}
-										visible={visible}
-									>
-										<Image
-											className="profilePic"
-											onError={i => (i.target.src = defaultImg)}
-											rounded
-											src={this.props.img}
-										/>
-									</Transition>
-									<AboutCard
-										description={this.props.about}
-										linkify
-										title="About"
-									/>
-								</Grid.Column>
-								<Grid.Column width={12}>
-									{PageHeaderInfo(this.props)}
-									<Menu className="socialMediaPageMenu" pointing secondary>
-										<Menu.Item
-											active={activeItem === itemsLabel}
-											name={itemsLabel}
-											onClick={this.handleItemClick}
-										/>
-										<Menu.Item
-											active={activeItem === "fallacies"}
-											name="fallacies"
-											onClick={this.handleItemClick}
+							<Responsive maxWidth={1024}>
+								<Grid>
+									<Grid.Row>{PageHeaderInfo(this.props)}</Grid.Row>
+									<Grid.Row>
+										<Transition
+											animation={animation}
+											duration={duration}
+											visible={visible}
 										>
-											Fallacies{" "}
-											{this.props.fallacyCount > 0 && (
-												<Label circular>{this.props.fallacyCount}</Label>
-											)}
-										</Menu.Item>
-									</Menu>
-									<Container className="profileContentContainer">
-										{ShowContent(this.props)}
-									</Container>
-								</Grid.Column>
-							</Grid>
+											<Image
+												className="profilePic"
+												onError={i => (i.target.src = defaultImg)}
+												rounded
+												src={this.props.img}
+											/>
+										</Transition>
+										<AboutCard
+											description={this.props.about}
+											linkify
+											title="About"
+										/>
+										{PageMenu(this.props)}
+										<Container className="profileContentContainer">
+											{ShowContent(this.props)}
+										</Container>
+									</Grid.Row>
+								</Grid>
+							</Responsive>
+
+							<Responsive minWidth={1025}>
+								<Grid>
+									<Grid.Column width={4}>
+										<Transition
+											animation={animation}
+											duration={duration}
+											visible={visible}
+										>
+											<Image
+												centered
+												className="profilePic"
+												onError={i => (i.target.src = defaultImg)}
+												rounded
+												src={this.props.img}
+											/>
+										</Transition>
+										<AboutCard
+											description={this.props.about}
+											linkify
+											title="About"
+										/>
+									</Grid.Column>
+									<Grid.Column width={12}>
+										{PageHeaderInfo(this.props)}
+										{PageMenu(this.props)}
+										<Container className="profileContentContainer">
+											{ShowContent(this.props)}
+										</Container>
+									</Grid.Column>
+								</Grid>
+							</Responsive>
 						</Container>
 					)}
 					{!this.props.exists && (

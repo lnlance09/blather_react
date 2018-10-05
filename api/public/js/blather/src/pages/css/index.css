@@ -118,6 +118,15 @@ a {
     min-height: 80px;
     padding: 0; }
 
+@media only screen and (max-width: 1025px) {
+  .createDiscussionPage .contentContainer {
+    margin: 0 !important;
+    width: 100% !important; }
+  .createDiscussionPage .ui.header {
+    font-size: 24px; }
+  .createDiscussionPage .discussionHeader {
+    margin-left: -0.5em; } }
+
 .createDiscussionPage .rightSide .discussionTagsHeader {
   font-size: 24px !important; }
 
@@ -128,6 +137,10 @@ a {
 
 .discussionPage .header:hover .editButton {
   display: inline !important; }
+
+@media only screen and (max-width: 1025px) {
+  .discussionPage .ui.grid {
+    margin: 0; } }
 
 .discussionPage .evidenceSection .evidenceSegment,
 .discussionPage .evidenceSection .extraSegment {
@@ -143,14 +156,24 @@ a {
 .discussionsPage .discussionsContainer {
   padding: 0; }
 
+@media only screen and (max-width: 1025px) {
+  .discussionsPage .discussionsContainer {
+    margin: 0 !important; }
+  .discussionsPage .ui.header {
+    font-size: 24px; }
+  .discussionsPage .sub.header {
+    font-size: 14px; } }
+
 .discussionsPage .emptyDiscussionContainer {
   margin-top: 20px; }
 
 /* Fallacies page */
+.fallaciesPage .sub.header .icon.sidebar {
+  cursor: pointer;
+  float: left; }
+
 .fallaciesPage .mainFallacy {
   display: none; }
-  .fallaciesPage .mainFallacy .editButton {
-    font-size: 14px; }
   .fallaciesPage .mainFallacy .segment .comments {
     margin-top: 15px !important; }
   .fallaciesPage .mainFallacy.active {
@@ -160,7 +183,7 @@ a {
 .fallacyPage .ui.grid {
   margin-top: 0 !important; }
   .fallacyPage .ui.grid .statusActionSegment {
-    height: 116px; }
+    text-align: center; }
     .fallacyPage .ui.grid .statusActionSegment .youtubeButton {
       background: #ff0000 !important;
       color: #ffffff;
@@ -180,7 +203,18 @@ a {
 .socialMediaPage .menu.socialMediaPageMenu {
   margin-top: 40px !important; }
 
+@media only screen and (max-width: 1025px) {
+  .socialMediaPage .menu.socialMediaPageMenu {
+    margin-top: 0px !important; }
+  .socialMediaPage .titleHeader .ui.header {
+    font-size: 24px; }
+  .socialMediaPage .titleHeader .sub.header {
+    font-size: 14px; }
+  .socialMediaPage .image.profilePic {
+    height: 225px; } }
+
 .socialMediaPage .profileContentContainer {
+  margin: 0 !important;
   min-height: 450px;
   padding: 0 !important; }
   .socialMediaPage .profileContentContainer .dimmer {
@@ -228,13 +262,14 @@ a {
   padding: 0 !important; }
 
 /* Settings page */
-.settingsPage .settingsContent .segment {
-  min-height: 400px; }
-  .settingsPage .settingsContent .segment .contentWrapper {
+.settingsPage .settingsContent {
+  width: 100%; }
+  .settingsPage .settingsContent .segment {
+    min-height: 400px; }
+    .settingsPage .settingsContent .segment .contentWrapper {
+      text-align: center; }
+  .settingsPage .settingsContent .firstParagraph {
     text-align: center; }
-
-.settingsPage .settingsContent .firstParagraph {
-  text-align: center; }
 
 /* Signin page */
 .loginContainer {
@@ -260,15 +295,36 @@ a {
     background: #f5f6fa; }
 
 .tagsPage .tagsWrapper {
-  margin-top: 20px; }
+  margin-top: 20px;
+  width: 100%; }
   .tagsPage .tagsWrapper .menu.tagMenu {
     margin-top: 40px !important; }
     .tagsPage .tagsWrapper .menu.tagMenu:hover .editButton {
       display: inline !important; }
 
+@media only screen and (max-width: 1025px) {
+  .tagsPage .tagsWrapper {
+    margin-top: 0; }
+  .tagsPage .titleHeader {
+    width: 100%; }
+    .tagsPage .titleHeader .ui.header {
+      font-size: 24px; }
+    .tagsPage .titleHeader .subHeader {
+      font-size: 14px; } }
+
 /* Users page */
 .usersPage .menu.profileMenu {
   margin-top: 40px !important; }
+
+@media only screen and (max-width: 1025px) {
+  .usersPage .menu.profileMenu {
+    margin-top: 0px !important; }
+  .usersPage .titleHeader {
+    width: 100%; }
+    .usersPage .titleHeader .ui.header {
+      font-size: 24px; }
+    .usersPage .titleHeader .sub.header {
+      font-size: 14px; } }
 
 .usersPage .profileContentContainer {
   padding: 0 !important; }

@@ -46,7 +46,11 @@ class TweetList extends Component {
 		const { loading } = this.state
 		const EmptyMsg = props => {
 			if (!props.posts.loading && props.posts.count === 0) {
-				return <Message content={this.props.emptyMsgHeader} />
+				return (
+					<Message
+						content={props.posts.blocked ? props.posts.errorMsg : props.emptyMsgHeader}
+					/>
+				)
 			}
 			return null
 		}
@@ -129,6 +133,7 @@ TweetList.propTypes = {
 	fetchPagePosts: PropTypes.func,
 	page: PropTypes.number,
 	posts: PropTypes.shape({
+		blocked: PropTypes.bool,
 		count: PropTypes.number,
 		data: PropTypes.array,
 		error: PropTypes.bool,

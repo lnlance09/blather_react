@@ -23,6 +23,7 @@ import {
 	Input,
 	Menu,
 	Message,
+	Responsive,
 	Segment
 } from "semantic-ui-react"
 import Moment from "react-moment"
@@ -279,6 +280,42 @@ class SettingsPage extends Component {
 				)
 			}
 		}
+		const SettingsMenu = props => (
+			<Menu borderless className="settingsMenu" fluid secondary stackable vertical>
+				<Menu.Item
+					name="basic"
+					key="basic"
+					active={activeItem === "basic"}
+					onClick={this.handleItemClick}
+				/>
+				<Menu.Item
+					name="twitter"
+					key="twitter"
+					active={activeItem === "twitter"}
+					onClick={this.handleItemClick}
+				>
+					Twitter
+					<Icon
+						className="twitterIcon"
+						inverted={activeItem === "twitter"}
+						name="twitter"
+					/>
+				</Menu.Item>
+				<Menu.Item
+					name="youtube"
+					key="youtube"
+					active={activeItem === "youtube"}
+					onClick={this.handleItemClick}
+				>
+					YouTube
+					<Icon
+						className="youtubeIcon"
+						inverted={activeItem === "youtube"}
+						name="youtube"
+					/>
+				</Menu.Item>
+			</Menu>
+		)
 
 		return !this.props.authenticated ? (
 			<Redirect to="/" />
@@ -289,49 +326,26 @@ class SettingsPage extends Component {
 					<PageHeader {...this.props} />
 					<Container className="mainContainer" textAlign="left">
 						<Header as="h1">Settings</Header>
-						<Grid>
-							<Grid.Column width={5}>
-								<Menu borderless secondary className="settingsMenu" fluid vertical>
-									<Menu.Item
-										name="basic"
-										key="basic"
-										active={activeItem === "basic"}
-										onClick={this.handleItemClick}
-									/>
-									<Menu.Item
-										name="twitter"
-										key="twitter"
-										active={activeItem === "twitter"}
-										onClick={this.handleItemClick}
-									>
-										Twitter
-										<Icon
-											className="twitterIcon"
-											inverted={activeItem === "twitter"}
-											name="twitter"
-										/>
-									</Menu.Item>
-									<Menu.Item
-										name="youtube"
-										key="youtube"
-										active={activeItem === "youtube"}
-										onClick={this.handleItemClick}
-									>
-										YouTube
-										<Icon
-											className="youtubeIcon"
-											inverted={activeItem === "youtube"}
-											name="youtube"
-										/>
-									</Menu.Item>
-								</Menu>
-							</Grid.Column>
-							<Grid.Column className="rightSide" width={11}>
-								<div className="settingsContent">
-									<Segment>{activeItemDiv(activeItem)}</Segment>
-								</div>
-							</Grid.Column>
-						</Grid>
+						<Responsive maxWidth={1024}>
+							<Grid>
+								<Grid.Row>{SettingsMenu(this.props)}</Grid.Row>
+								<Grid.Row>
+									<div className="settingsContent">
+										<Segment>{activeItemDiv(activeItem)}</Segment>
+									</div>
+								</Grid.Row>
+							</Grid>
+						</Responsive>
+						<Responsive minWidth={1025}>
+							<Grid>
+								<Grid.Column width={5}>{SettingsMenu(this.props)}</Grid.Column>
+								<Grid.Column className="rightSide" width={11}>
+									<div className="settingsContent">
+										<Segment>{activeItemDiv(activeItem)}</Segment>
+									</div>
+								</Grid.Column>
+							</Grid>
+						</Responsive>
 					</Container>
 					<PageFooter />
 				</div>

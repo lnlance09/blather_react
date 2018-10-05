@@ -15,6 +15,7 @@ import {
 	Icon,
 	List,
 	Segment,
+	Responsive,
 	TextArea,
 	Transition
 } from "semantic-ui-react"
@@ -220,7 +221,11 @@ class CreateDiscussionPage extends Component {
 				</Transition>
 			)
 		}
-		const HeaderTitle = <Header as="h1">Start a Discussion</Header>
+		const HeaderTitle = (
+			<Header as="h1" className="discussionHeader">
+				Start a Discussion
+			</Header>
+		)
 		const Preview = () => {
 			return (
 				<Transition animation="fade" duration={duration} visible={preview}>
@@ -264,6 +269,24 @@ class CreateDiscussionPage extends Component {
 				</Transition>
 			)
 		}
+		const TipsSection = () => (
+			<div>
+				<Header as="h2" className="discussionTagsHeader">
+					Tips
+				</Header>
+				<List relaxed>
+					<List.Item>Try not to employ any logical fallacies</List.Item>
+					<List.Item>Always entertain the possibility that you could be wrong</List.Item>
+					<List.Item>
+						Why be wrong about something for a second longer than you have to?
+					</List.Item>
+					<List.Item>
+						Recognize that your entire sense of identity shouldn't be wrapped up in your
+						beliefs
+					</List.Item>
+				</List>
+			</div>
+		)
 
 		return this.props.hasSubmitted && hasSubmitted ? (
 			<Redirect to={`/discussions/${this.props.id}`} />
@@ -278,34 +301,30 @@ class CreateDiscussionPage extends Component {
 					<PageHeader {...this.props} />
 					<Container className="mainContainer" textAlign="left">
 						{HeaderTitle}
-						<Grid>
-							<Grid.Column className="leftSide" width={12}>
-								<Container className="contentContainer">
-									{DiscussionForm(this.props)}
-									{Preview()}
-								</Container>
-							</Grid.Column>
-
-							<Grid.Column className="rightSide" width={4}>
-								<Header as="h2" className="discussionTagsHeader">
-									Tips
-								</Header>
-								<List relaxed>
-									<List.Item>Try not to employ any logical fallacies</List.Item>
-									<List.Item>
-										Always entertain the possibility that you could be wrong
-									</List.Item>
-									<List.Item>
-										Why be wrong about something for a second longer than you
-										have to?
-									</List.Item>
-									<List.Item>
-										Recognize that your entire sense of identity shouldn't be
-										wrapped up in your beliefs
-									</List.Item>
-								</List>
-							</Grid.Column>
-						</Grid>
+						<Responsive maxWidth={1024}>
+							<Grid>
+								<Grid.Row>
+									<Container className="contentContainer">
+										{DiscussionForm(this.props)}
+										{Preview()}
+									</Container>
+								</Grid.Row>
+								<Grid.Row>{TipsSection()}</Grid.Row>
+							</Grid>
+						</Responsive>
+						<Responsive minWidth={1025}>
+							<Grid>
+								<Grid.Column className="leftSide" width={12}>
+									<Container className="contentContainer">
+										{DiscussionForm(this.props)}
+										{Preview()}
+									</Container>
+								</Grid.Column>
+								<Grid.Column className="rightSide" width={4}>
+									{TipsSection()}
+								</Grid.Column>
+							</Grid>
+						</Responsive>
 					</Container>
 					<PageFooter />
 				</div>
