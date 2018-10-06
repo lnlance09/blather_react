@@ -1,11 +1,19 @@
 @import '../../../css/colors.scss';
 
 .fallacyRef {
-    .header.attached {
-        font-size: 16px !important;
-    }
+    .segment {
+        p:not(.header) {
+            margin-bottom: 12px !important;
+        }
 
-    .fallacySegment {
-        margin-top: 7px !important;
+        .header {
+            margin-bottom: 5px;
+        }
+
+        @media only screen and (max-width: 1025px) {
+            .header {
+                font-size: 18px;
+            }
+        }
     }
 }

@@ -155,6 +155,70 @@ class Tweet extends Component {
 			}
 			return null
 		}
+		const retweetedText = props => {
+			let retweetedText = ""
+			if (props.retweeted_status) {
+				retweetedText = `${props.user.name} Retweeted`
+				return (
+					<div className="retweetedText">
+						<Icon name="retweet" />
+						{retweetedText}
+					</div>
+				)
+			}
+			return false
+		}
+		const retweetedTweet = props => {
+			let profileImage = props.user.profile_image_url_https
+			let name = props.user.name
+			let screenName = props.user.screen_name
+			let createdAt = new Date(props.created_at)
+			if (props.retweeted_status) {
+				profileImage = props.retweeted_status.user.profile_image_url_https
+				name = props.retweeted_status.user.name
+				screenName = props.retweeted_status.user.screen_name
+				createdAt = new Date(props.retweeted_status.created_at)
+			}
+			profileImage = profileImage.replace("_normal", "")
+
+			return (
+				<div>
+					<Image
+						circular
+						className="tweetUserImg"
+						onError={i => (i.target.src = itemPic)}
+						floated="left"
+						src={profileImage}
+					/>
+					<Card.Header className="tweetUserName">{name}</Card.Header>
+					<Card.Meta className="tweetUserScreenName">
+						@{screenName} •
+						<span className="tweetTime">
+							<Moment date={createdAt} fromNow />
+						</span>
+					</Card.Meta>
+				</div>
+			)
+		}
+		const ShowMedia = props => {
+			if(props.extended_entities.media) {
+				return props.extended_entities.media.map((media, i) => {
+					if(media.type === 'photo' || media.type === 'video') {
+						return (
+							<div className="mediaPic" key={media.display_url}>
+								<Image
+									centered
+									rounded
+									onError={i => (i.target.src = itemPic)}
+									size="large"
+									src={media.media_url_https} 
+								/>
+							</div>
+						)
+					}
+				})
+			}
+		}
 		const StatsBar = ({ favoriteCount, retweetCount }) => {
 			return (
 				<div>
@@ -187,50 +251,6 @@ class Tweet extends Component {
 				</div>
 			)
 		}
-		const retweetedText = props => {
-			let retweetedText = ""
-			if (props.retweeted_status) {
-				retweetedText = `${props.user.name} Retweeted`
-				return (
-					<div className="retweetedText">
-						<Icon name="retweet" />
-						{retweetedText}
-					</div>
-				)
-			}
-			return false
-		}
-		const retweetedTweet = props => {
-			let profileImage = props.user.profile_image_url_https
-			let name = props.user.name
-			let screenName = props.user.screen_name
-			let createdAt = new Date(props.created_at)
-			if (props.retweeted_status) {
-				profileImage = props.retweeted_status.user.profile_image_url_https
-				name = props.retweeted_status.user.name
-				screenName = props.retweeted_status.user.screen_name
-				createdAt = new Date(props.retweeted_status.created_at)
-			}
-
-			return (
-				<div>
-					<Image
-						circular
-						className="tweetUserImg"
-						onError={i => (i.target.src = itemPic)}
-						floated="left"
-						src={profileImage}
-					/>
-					<Card.Header className="tweetUserName">{name}</Card.Header>
-					<Card.Meta className="tweetUserScreenName">
-						@{screenName} •
-						<span className="tweetTime">
-							<Moment date={createdAt} fromNow />
-						</span>
-					</Card.Meta>
-				</div>
-			)
-		}
 
 		return (
 			<Provider store={store}>
@@ -259,6 +279,7 @@ class Tweet extends Component {
 								{parseMedia(this.props)}
 							</Card.Description>
 							{quotedTweet(this.props)}
+							{ShowMedia(this.props)}
 						</Card.Content>
 						{this.props.showStats && (
 							<Card.Content extra>

@@ -1,6 +1,3 @@
-.fallacyExample .fallacyMaterial {
-  margin-top: 15px; }
-
 .fallacyExample .header .editButton {
   color: #2196f3;
   cursor: pointer;
@@ -13,3 +10,15 @@
 
 .fallacyExample .header:hover .editButton {
   display: inline !important; }
+
+.fallacyExample .fallacyExplanation {
+  width: 100%; }
+
+@media only screen and (max-width: 1025px) {
+  .fallacyExample .fallacyExplanation .header {
+    font-size: 18px; } }
+
+.fallacyExample .explanation {
+  white-space: pre-line; }
+  .fallacyExample .explanation p {
+    margin: 0; }

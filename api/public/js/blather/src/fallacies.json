@@ -59,7 +59,7 @@
          },
          {
             "name": "Blathering Bill",
-            "message": "No, but just look at the all the other people buying right now. What could possibly go wrong?"
+            "message": "No, but everyone else is buying right now."
          }
       ]
    },
@@ -84,7 +84,7 @@
    },
    {
       "id":"58",
-      "description":"When one assumes that because someone has unavoidably used programs or services that were paid for by someone else they therefore support the person or organization who financed them.",
+      "description":"Person A receives benefits or services courtesy of organization B. Therefore, person A has agreed to the rules set by organization B.",
       "name":"Appeal to Benefit",
       "dialogue": [
          {
@@ -97,7 +97,7 @@
          },
          {
             "name": "Blathering Bill",
-            "message": "If he hates prison so much then why does he keep using all the services there? I think he wants to be there."
+            "message": "If he hates prison so much then why does he keep using all the services there? He probably agreed to be incarcerated."
          }
       ]
    },
@@ -108,23 +108,19 @@
       "dialogue": [
          {
             "name": "Rational Rob",
-            "message": "It's kind of disturbing that Keith might get a third strike for a non-violent drug offense. Essentially, a victimless crime."
+            "message": "It's kind of disturbing that Keith might get a life sentence. That's his third strike and it's for a petty drug charge. Essentially, a victimless crime."
          },
          {
             "name": "Blathering Bill",
-            "message": "Yeah, but Keith lives here and he knows the rules. He agreed to them too."
+            "message": "Yeah, but Keith lives here and he agreed to rules."
          },
          {
             "name": "Rational Rob",
-            "message": "He consented to being locked up if he got caught smoking grass?"
+            "message": "He agreed to spend the rest of his life behind bars if he got caught smoking grass?"
          },
          {
             "name": "Blathering Bill",
-            "message": "He signed a social contract. Not sure when and where though..."
-         },
-         {
-            "name": "Rational Rob",
-            "message": "Oh..."
+            "message": "Yeah, he lives here so he agreed. He signed a social contract."
          }
       ]
    },
@@ -140,6 +136,36 @@
          {
             "name": "Rational Rob",
             "message": "Okay. Okay..."
+         }
+      ]
+   },
+   {
+      "id":"61",
+      "description":"The left-wing version of the Appeal to Soros. The left's favorite boogeymen, the Koch Brothers are easy targets becuase they're wealthy, older white men. Find something wrong in the world and there will be no shortage of conspiracy theory minded people willing and ready to perform the mental gynastic necessary to explain how the Koch Brothers are somehow responsible.",
+      "name":"Appeal to Koch Bros",
+      "dialogue": [
+         {
+            "name": "Rational Rob",
+            "message": "I just read that the Koch Brothers are donating large sums of money to politicans who want to make it easier for immigrants to become American citizens. Good for them."
+         },
+         {
+            "name": "Blathering Bill",
+            "message": "Fuck the Koch Brothers! They just want more immigrants here so that big businesses can exploit them and pay them lower wages."
+         }
+      ]
+   },
+   {
+      "id":"63",
+      "description":"This is a combination of a straw man and an appeal to the law. Person A thinks an item or practice should be legal. Therefore, person A supports or agrees with that item or practice.",
+      "name":"Appeal to Legality",
+      "dialogue": [
+         {
+            "name": "Rational Rob",
+            "message": "As much as I dislike religion, I think people should be free to believe what they want to believe."
+         },
+         {
+            "name": "Blathering Bill",
+            "message": "You're a theocrat!"
          }
       ]
    },
@@ -174,6 +200,21 @@
       ]
    },
    {
+      "id":"62",
+      "description":"The right-wing version of the Appeal to Koch Bros. The right's favorite boogeyman, George Soros is an easy target because he's wealthy and especially because he's Jewish and left-leaning. Anti-semites and ultra right-wing conservatives come out of woodwork to employ this fallacy in what are really just cheap attempts at easing any cognitive dissonance they may have.",
+      "name":"Appeal to Soros",
+      "dialogue": [
+         {
+            "name": "Rational Rob",
+            "message": "The sheer number of people who showed up yesterday to protest police brutality was so refreshing."
+         },
+         {
+            "name": "Blathering Bill",
+            "message": "They were all paid protestors. Just showed up to collect some of those Soros shekels."
+         }
+      ]
+   },
+   {
       "id":"8",
       "description":"This form of argument tries to persaude the listener that an idea must be true because it has been believed or practiced for a long time.",
       "name":"Appeal to Tradition",
@@ -195,7 +236,7 @@
       "dialogue": [
          {
             "name": "Blathering Bill",
-            "message": "Santa Claus is real. I know because he woke me up last Christmas eve and forced me to help him deliver presents in the blistering cold. So, don't even ask me if I have proof! I have all the proof I need."
+            "message": "Santa Claus is real. I know because he woke me up last Christmas Eve and forced me to help him deliver presents in the blistering cold. I developed frost bites and had to have my leg amputated. So, don't even ask me if I have proof! I have all the proof I need."
          },
          {
             "name": "Rational Rob",
@@ -267,7 +308,7 @@
          },
          {
             "name": "Blathering Bill",
-            "message": "I just lost my job again and I can sure use another one. This will boost economy. It'll give lots of people jobs rebuilding."
+            "message": "I just lost my job again and I can sure use another one. I might be able to get a job rebuilding. A lot of people will get work. It'll definitely boost the economy."
          }
       ]
    },
@@ -413,7 +454,7 @@
    },
    {
       "id":"22",
-      "description":"This isn't a fallacy; it's just a very cruel and dishonest tactic. This happens when someone uses a tragedy to advance their narrative or for their own personal gain. The gains can vary and can range from mere attention on social media to money or favors. This happens a lot after school shooting in the United States. Using this fallacy typically indicates a clear lack of empathy on behalf of the person employing it.",
+      "description":"This isn't a fallacy; it's just a very cruel and dishonest tactic. This happens when someone uses a tragedy to advance their narrative or for their own personal gain. The gains can range from mere attention on social media to money or favors. This happens a lot after school shootings in the United States. Using this fallacy typically indicates a clear lack of empathy on behalf of the person employing it.",
       "name":"Exploiting Tragedies",
       "dialogue": [
          {
@@ -486,7 +527,7 @@
          },
          {
             "name": "Rational Rob",
-            "message": "Ha. Are you for real? That's crazy."
+            "message": "Ha. Are you for real?"
          },
          {
             "name": "Blathering Bill",
@@ -505,11 +546,11 @@
          },
          {
             "name": "Rational Rob",
-            "message": "We live in Miami. It doesn't even snow here."
+            "message": "We're in Miami. It doesn't even snow here."
          },
          {
             "name": "Blathering Bill",
-            "message": "My point exactly. It hasn't snowed here in so long that we're long overdue for a snow storm. A blizzard will be coming any day now..."
+            "message": "My point exactly. It hasn't snowed here in so long that we're long overdue for a snow storm. Any day now..."
          }
       ]
    },
@@ -577,16 +618,12 @@
          {
             "name": "Blathering Bill",
             "message": "You still cheat on your wife, Bill?"
-         },
-         {
-            "name": "Rational Rob",
-            "message": "I never did in the first place."
          }
       ]
    },
    {
       "id":"56",
-      "description":"A type of black-or-white fallacy that consists of someone telling their opponent that they're welcome to move somewhere else if they don't agree with the way things are. This tactic almost always involves an appeal to the law because the law is the authority that can used to convince people that their grievances aren't legitimate. This tactic is a personal favorite amongst bootlickers on all ends of the political spectrum but it is most commonly used by those on the right who think that those who want to combat police brutality should just pack up their things and move to Venezeula and those on the left who think that anyone who wants to keep more of their paycheck should just move to Somalia.",
+      "description":"A type of black-or-white fallacy that consists of someone telling their opponent that they're welcome to move somewhere else if they don't agree with the way things are. This tactic almost always involves an appeal to the law because the law is the authority that can used to convince people that their grievances aren't legitimate. This tactic is a personal favorite amongst bootlickers on all ends of the political spectrum but it is most commonly used by those on the right who think that wanting affordable health care means you should just pack up your things and move to Venezeula and those on the left who think that wanting to keep more of your paycheck should just move to Somalia.",
       "name":"Love It or Leave It",
       "dialogue": [
          {
@@ -663,7 +700,7 @@
       "dialogue": [
          {
             "name": "Rational Rob",
-            "message": "If evolution ins't real then how do humans become resistant to antibiotics over time?"
+            "message": "If evolution ins't real then how do humans become resistant to antibiotics?"
          },
          {
             "name": "Blathering Bill",
@@ -761,7 +798,7 @@
       "dialogue": [
          {
             "name": "Rational Rob",
-            "message": "It's wrong to steal from your neighbors. Don't you think you should stopit already?"
+            "message": "It's wrong to steal from your neighbors. Don't you think you should stop it already?"
          },
          {
             "name": "Blathering Bill",
@@ -1023,7 +1060,7 @@
       "dialogue": [
          {
             "name": "Blathering Bill",
-            "message": "Is sure as hell hope that you lose your job soon!"
+            "message": "I hope that you lose your job soon!"
          },
          {
             "name": "Rational Rob",

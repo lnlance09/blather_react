@@ -1,6 +1,8 @@
 @import '../../../css/colors.scss';
 
 .tweet {
+    width: 100%;
+
     &.clickable {
         cursor: pointer;
     }
@@ -28,6 +30,7 @@
     .card {
         .content {
             padding: 7px 14px !important;
+            white-space: pre-line;
 
             &.quotedTweetContent, .quotedTweet {
                 background: $white !important;
@@ -74,7 +77,6 @@
     }
 
     .quotedTweet {
-        border: solid 1px $tweet-border-color !important;
         margin-bottom: 5px !important;
 
         .quotedTweetContent {
@@ -94,6 +96,11 @@
                 font-size: 14px !important;
             }
         }
+    }
+
+    .mediaPic {
+        margin-top: 8px;
+        text-align: center;
     }
 
     .tweetUserImg {
@@ -126,5 +133,35 @@
 
     .mediaVideo {
         margin-top: 10px;
+    }
+
+    @media only screen and (max-width: 1025px) {
+        .tweetUserName {
+            font-size: 16px !important;
+        }
+
+        .tweetUserScreenName {
+            font-size: 13px !important;
+        }
+
+        .tweetUserImg {
+            width: 36px;
+        }
+
+        .card {
+            .content {
+                .description {
+                    font-size: 14px !important;
+                }
+
+                .list {
+                    .item {
+                        .icon {
+                            font-size: 16px;
+                        }
+                    }
+                }
+            }
+        }
     }
 }

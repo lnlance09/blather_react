@@ -71,6 +71,14 @@ a {
   height: 100%;
   width: 100%; }
 
+@media only screen and (max-width: 1025px) {
+  .titleHeader {
+    width: 100%; }
+  .ui.header {
+    font-size: 20px !important; }
+  .sub.header {
+    font-size: 13px !important; } }
+
 /* About page */
 .aboutPage .logoContainer {
   background: #ffffff;
@@ -122,8 +130,6 @@ a {
   .createDiscussionPage .contentContainer {
     margin: 0 !important;
     width: 100% !important; }
-  .createDiscussionPage .ui.header {
-    font-size: 24px; }
   .createDiscussionPage .discussionHeader {
     margin-left: -0.5em; } }
 
@@ -158,11 +164,7 @@ a {
 
 @media only screen and (max-width: 1025px) {
   .discussionsPage .discussionsContainer {
-    margin: 0 !important; }
-  .discussionsPage .ui.header {
-    font-size: 24px; }
-  .discussionsPage .sub.header {
-    font-size: 14px; } }
+    margin: 0 !important; } }
 
 .discussionsPage .emptyDiscussionContainer {
   margin-top: 20px; }
@@ -174,14 +176,29 @@ a {
 
 .fallaciesPage .mainFallacy {
   display: none; }
-  .fallaciesPage .mainFallacy .segment .comments {
-    margin-top: 15px !important; }
+  .fallaciesPage .mainFallacy .segment p:not(.header) {
+    margin-bottom: 12px !important; }
+  .fallaciesPage .mainFallacy .segment .header {
+    margin-bottom: 5px; }
+  @media only screen and (max-width: 1025px) {
+    .fallaciesPage .mainFallacy .segment .header {
+      font-size: 16px !important; }
+    .fallaciesPage .mainFallacy .segment .comment {
+      font-size: 12px; } }
   .fallaciesPage .mainFallacy.active {
     display: block; }
 
 /* Fallacy page */
 .fallacyPage .ui.grid {
   margin-top: 0 !important; }
+  .fallacyPage .ui.grid .leftSide, .fallacyPage .ui.grid .rightSide {
+    padding: 0 14px; }
+  .fallacyPage .ui.grid .materialWrapper {
+    width: 100%; }
+  .fallacyPage .ui.grid .row {
+    padding: 0.5em; }
+    .fallacyPage .ui.grid .row:first-of-type {
+      padding-top: 0; }
   .fallacyPage .ui.grid .statusActionSegment {
     text-align: center; }
     .fallacyPage .ui.grid .statusActionSegment .youtubeButton {
@@ -199,6 +216,17 @@ a {
 .fallacyPage .fallacyMainMenu {
   margin-top: 10px; }
 
+.fallacyPage .commentsContent {
+  width: 100%; }
+
+@media only screen and (max-width: 1025px) {
+  .fallacyPage .ui.header {
+    font-size: 16px; }
+  .fallacyPage .statusActionSegment .header {
+    font-size: 14px !important; }
+  .fallacyPage .statusActionSegment .twitterButton, .fallacyPage .statusActionSegment .youtubeButton {
+    font-size: 12px; } }
+
 /* Pages page */
 .socialMediaPage .menu.socialMediaPageMenu {
   margin-top: 40px !important; }
@@ -206,10 +234,6 @@ a {
 @media only screen and (max-width: 1025px) {
   .socialMediaPage .menu.socialMediaPageMenu {
     margin-top: 0px !important; }
-  .socialMediaPage .titleHeader .ui.header {
-    font-size: 24px; }
-  .socialMediaPage .titleHeader .sub.header {
-    font-size: 14px; }
   .socialMediaPage .image.profilePic {
     height: 225px; } }
 
@@ -304,13 +328,7 @@ a {
 
 @media only screen and (max-width: 1025px) {
   .tagsPage .tagsWrapper {
-    margin-top: 0; }
-  .tagsPage .titleHeader {
-    width: 100%; }
-    .tagsPage .titleHeader .ui.header {
-      font-size: 24px; }
-    .tagsPage .titleHeader .subHeader {
-      font-size: 14px; } }
+    margin-top: 0; } }
 
 /* Users page */
 .usersPage .menu.profileMenu {
@@ -318,13 +336,7 @@ a {
 
 @media only screen and (max-width: 1025px) {
   .usersPage .menu.profileMenu {
-    margin-top: 0px !important; }
-  .usersPage .titleHeader {
-    width: 100%; }
-    .usersPage .titleHeader .ui.header {
-      font-size: 24px; }
-    .usersPage .titleHeader .sub.header {
-      font-size: 14px; } }
+    margin-top: 0px !important; } }
 
 .usersPage .profileContentContainer {
   padding: 0 !important; }

@@ -106,6 +106,20 @@ a {
     width: 100%;
 }
 
+@media only screen and (max-width: 1025px) {
+    .titleHeader {
+        width: 100%;
+    }
+
+    .ui.header {
+        font-size: 20px !important;
+    }
+
+    .sub.header {
+        font-size: 13px !important;
+    }
+}
+
 
 /* About page */
 .aboutPage {
@@ -200,10 +214,6 @@ a {
             width: 100% !important;
         }
 
-        .ui.header {
-            font-size: 24px;
-        }
-
         .discussionHeader {
             margin-left: -0.5em;
         }
@@ -265,14 +275,6 @@ a {
         .discussionsContainer {
             margin: 0 !important;
         }
-
-        .ui.header {
-            font-size: 24px;
-        }
-
-        .sub.header {
-            font-size: 14px;
-        }
     }
 
     .emptyDiscussionContainer {
@@ -294,8 +296,22 @@ a {
         display: none;
 
         .segment {
-            .comments {
-                margin-top: 15px !important;
+            p:not(.header) {
+                margin-bottom: 12px !important;
+            }
+
+            .header {
+                margin-bottom: 5px;
+            }
+
+            @media only screen and (max-width: 1025px) {
+                .header {
+                    font-size: 16px !important;
+                }
+
+                .comment {
+                    font-size: 12px;
+                }
             }
         }
 
@@ -310,6 +326,22 @@ a {
 .fallacyPage {
     .ui.grid {
         margin-top: 0 !important;
+
+        .leftSide, .rightSide {
+            padding: 0 14px;
+        }
+
+        .materialWrapper {
+            width: 100%;
+        }
+
+        .row {
+            padding: 0.5em;
+
+            &:first-of-type {
+                padding-top: 0;
+            }
+        }
 
         .statusActionSegment {
             text-align: center;
@@ -338,6 +370,26 @@ a {
     .fallacyMainMenu {
         margin-top: 10px;
     }
+
+    .commentsContent {
+        width: 100%;
+    }
+
+    @media only screen and (max-width: 1025px) {
+        .ui.header {
+            font-size: 16px;
+        }
+
+        .statusActionSegment {
+            .header {
+                font-size: 14px !important;
+            }
+
+            .twitterButton, .youtubeButton {
+                font-size: 12px;
+            }
+        }
+    }
 }
 
 
@@ -350,16 +402,6 @@ a {
     @media only screen and (max-width: 1025px) {
         .menu.socialMediaPageMenu {
             margin-top: 0px !important;
-        }
-
-        .titleHeader {
-            .ui.header {
-                font-size: 24px;
-            }
-
-            .sub.header {
-                font-size: 14px;
-            }
         }
 
         .image.profilePic {
@@ -531,18 +573,6 @@ a {
         .tagsWrapper {
             margin-top: 0;
         }
-
-        .titleHeader {
-            width: 100%;
-
-            .ui.header {
-                font-size: 24px;
-            }
-
-            .subHeader {
-                font-size: 14px;
-            }
-        }
     }
 }
 
@@ -556,18 +586,6 @@ a {
     @media only screen and (max-width: 1025px) {
         .menu.profileMenu {
             margin-top: 0px !important;
-        }
-
-        .titleHeader {
-            width: 100%;
-
-            .ui.header {
-                font-size: 24px;
-            }
-
-            .sub.header {
-                font-size: 14px;
-            }
         }
     }
 

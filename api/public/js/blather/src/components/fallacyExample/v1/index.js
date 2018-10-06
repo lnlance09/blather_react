@@ -91,7 +91,7 @@ class FallacyExample extends Component {
 			}
 			return null
 		}
-		const Explanation = props => (
+		const Explanation = ({ props }) => (
 			<div className="fallacyExplanation">
 				<Header as="h2" size="medium">
 					{props.fallacyName}
@@ -132,6 +132,7 @@ class FallacyExample extends Component {
 						)}
 						{!editing && (
 							<div
+								className="explanation"
 								dangerouslySetInnerHTML={{
 									__html: sanitizeText(Marked(props.explanation))
 								}}
@@ -285,7 +286,7 @@ class FallacyExample extends Component {
 
 		return (
 			<div className="fallacyExample">
-				{this.props.showExplanation && <div>{Explanation(this.props)}</div>}
+				{this.props.showExplanation && <Explanation props={this.props} />}
 				{Material(this.props)}
 			</div>
 		)

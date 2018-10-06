@@ -173,17 +173,15 @@ class Fallacy extends Component {
 			switch (activeItem) {
 				case "conversation":
 					return (
-						<div>
-							<div className="materialWrapper">
-								<FallacyExample
-									bearer={bearer}
-									canEdit={
-										props.createdBy ? props.createdBy.id === userId : false
-									}
-									history={props.history}
-									id={id}
-								/>
-							</div>
+						<div className="materialWrapper">
+							<FallacyExample
+								bearer={bearer}
+								canEdit={
+									props.createdBy ? props.createdBy.id === userId : false
+								}
+								history={props.history}
+								id={id}
+							/>
 						</div>
 					)
 				case "comments":

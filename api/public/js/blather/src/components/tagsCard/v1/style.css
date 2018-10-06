@@ -1,16 +1,19 @@
-.tagsCard .header {
-  font-weight: 600; }
-  .tagsCard .header .editTagsIcon {
-    color: #2196f3;
-    cursor: pointer;
-    display: none !important;
-    float: right;
-    font-size: 18px;
-    margin-right: 0 !important; }
-    .tagsCard .header .editTagsIcon.editing {
-      color: #e84118; }
-  .tagsCard .header:hover .editTagsIcon {
-    display: inline !important; }
+.tagsCard .header .editTagsIcon {
+  color: #2196f3;
+  cursor: pointer;
+  display: none !important;
+  float: right;
+  font-size: 18px;
+  margin-right: 0 !important; }
+  .tagsCard .header .editTagsIcon.editing {
+    color: #e84118; }
+
+.tagsCard .header:hover .editTagsIcon {
+  display: inline !important; }
+
+@media only screen and (max-width: 1025px) {
+  .tagsCard .header {
+    font-size: 20px !important; } }
 
 .tagsCard .tagsList .item .label {
   background: #487eb0;
