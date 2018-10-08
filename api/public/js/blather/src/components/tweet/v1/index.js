@@ -100,6 +100,7 @@ class Tweet extends Component {
 										className="mediaImg"
 										href={item.expanded_url}
 										rounded={false}
+										size="tiny"
 										src={item.media_url_https}
 										target="_blank"
 									/>
@@ -210,7 +211,7 @@ class Tweet extends Component {
 									centered
 									rounded
 									onError={i => (i.target.src = itemPic)}
-									size="large"
+									size="small"
 									src={media.media_url_https} 
 								/>
 							</div>

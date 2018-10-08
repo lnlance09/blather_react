@@ -102,6 +102,25 @@
       ]
    },
    {
+      "id":"64",
+      "description":"This is a disingenuous tactic that is used by right-wingers to make their views appear more respectable to liberals. On the surface, it can seem believable because Trump and Bernie were both anti-establishment candidates and there was a lot of resentment between Bernie and Hillary supporters. However, Trump is on the right and Bernie is solidly on the left. There probably is a small amount of voters that voted for Trump simply because they hated Hillary so much. But, that was done out of hatred for Hillary; not because they agree with most of Trump's policies.",
+      "name":"Appeal to Bernie",
+      "dialogue": [
+         {
+            "name": "Blathering Bill",
+            "message": "As a Bernie supporting, classical liberal vegan, I believe that climate change is real. Taxes on the rich should be increased. Black lives matter and rape victims should be taken seriously. "
+         },
+         {
+            "name": "Rational Rob",
+            "message": "So...I assume you're voting for Hillary?"
+         },
+         {
+            "name": "Blathering Bill",
+            "message": "Fuck no! Only cucks vote for Hillary. Again, I'm a BERNIE supporting classical LIBERAL VEGAN! That's why I'm voting for Trump!"
+         }
+      ]
+   },
+   {
       "id":"57",
       "description":"When one assumes that because you live in a country or are a citizen of a country that you agree with the rules of that country.",
       "name":"Appeal to Current Location",

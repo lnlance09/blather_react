@@ -3,7 +3,6 @@ import { refreshYouTubeToken } from "components/authentication/v1/actions"
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { fetchFallacyCount, fetchPageData } from "pages/actions/page"
 import { Provider, connect } from "react-redux"
-import { withRouter } from "react-router"
 import {
 	Button,
 	Container,
@@ -32,7 +31,7 @@ import TrumpImg from "images/trump.svg"
 import TweetList from "components/tweetList/v1/"
 import VideoList from "components/videoList/v1/"
 
-class SocialMediaPage extends Component {
+class Page extends Component {
 	constructor(props) {
 		super(props)
 		const id = this.props.match.params.id
@@ -61,6 +60,13 @@ class SocialMediaPage extends Component {
 			id: this.state.id,
 			type: this.state.network
 		})
+	}
+
+	componentWillReceiveProps(props) {
+		const network = props.match.params.network
+		const tab = props.match.params.tab
+		const label = this.determineItemsLabel(network)
+		this.setState({ activeItem: tab === "fallacies" ? tab : label })
 	}
 
 	componentWillMount() {
@@ -305,7 +311,7 @@ class SocialMediaPage extends Component {
 	}
 }
 
-SocialMediaPage.propTypes = {
+Page.propTypes = {
 	about: PropTypes.string,
 	error: PropTypes.bool,
 	errorCode: PropTypes.number,
@@ -334,7 +340,7 @@ SocialMediaPage.propTypes = {
 	username: PropTypes.string
 }
 
-SocialMediaPage.defaultProps = {
+Page.defaultProps = {
 	error: false,
 	exists: true,
 	fallacies: {
@@ -360,13 +366,11 @@ const mapStateToProps = (state, ownProps) => {
 	}
 }
 
-export default withRouter(
-	connect(
-		mapStateToProps,
-		{
-			fetchFallacyCount,
-			fetchPageData,
-			refreshYouTubeToken
-		}
-	)(SocialMediaPage)
-)
+export default connect(
+	mapStateToProps,
+	{
+		fetchFallacyCount,
+		fetchPageData,
+		refreshYouTubeToken
+	}
+)(Page)

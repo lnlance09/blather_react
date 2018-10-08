@@ -3,7 +3,6 @@ import { changeProfilePic, updateAbout } from "components/authentication/v1/acti
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { fetchUserData } from "pages/actions/user"
 import { Provider, connect } from "react-redux"
-import { withRouter } from "react-router"
 import {
 	Button,
 	Container,
@@ -361,13 +360,11 @@ const mapStateToProps = (state, ownProps) => {
 	}
 }
 
-export default withRouter(
-	connect(
-		mapStateToProps,
-		{
-			fetchUserData,
-			changeProfilePic,
-			updateAbout
-		}
-	)(UserPage)
-)
+export default connect(
+	mapStateToProps,
+	{
+		fetchUserData,
+		changeProfilePic,
+		updateAbout
+	}
+)(UserPage)
