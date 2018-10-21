@@ -88,7 +88,6 @@ class AboutCard extends Component {
 									</Button>
 								</Card.Description>
 							)}
-
 							{!editing && <div>{translateLink(description)}</div>}
 						</Card.Description>
 					</Card.Content>

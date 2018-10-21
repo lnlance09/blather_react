@@ -166,6 +166,8 @@ class Page extends Component {
 					return (
 						<FallaciesList
 							assignedTo={props.id}
+							emptyMsgHeader={false}
+							emptyMsgContent={`No fallacies have been assigned to ${props.name}`}
 							history={props.history}
 							source="pages"
 						/>

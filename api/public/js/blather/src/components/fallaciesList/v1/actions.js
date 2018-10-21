@@ -32,3 +32,21 @@ export const getFallacies = ({
 		}
 	)
 }
+
+export const getTargets = ({ id }) => dispatch => {
+	request.get(
+		`${window.location.origin}/api/fallacies/getTargets`,
+		{
+			json: true,
+			qs: {
+				id
+			}
+		},
+		function(err, response, body) {
+			dispatch({
+				type: constants.GET_TARGETS,
+				payload: body
+			})
+		}
+	)
+}

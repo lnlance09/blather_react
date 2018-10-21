@@ -471,8 +471,8 @@ class DiscussionsList extends Component {
 				{this.props.results.length === 0 && (
 					<div className="emptyDiscussionContainer">
 						<Message
-							content="Try modifying your search..."
-							header="No results"
+							content={this.props.emptyMsgContent}
+							header={this.props.emptyMsgHeader}
 							warning={this.props.source === "post"}
 						/>
 					</div>
@@ -484,6 +484,8 @@ class DiscussionsList extends Component {
 
 DiscussionsList.propTypes = {
 	count: PropTypes.number,
+	emptyMsgContent: PropTypes.string,
+	emptyMsgHeader: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
 	fetchDiscussions: PropTypes.func,
 	filter: PropTypes.shape({
 		both: PropTypes.bool,
@@ -507,6 +509,8 @@ DiscussionsList.propTypes = {
 
 DiscussionsList.defaultProps = {
 	fetchDiscussions: fetchDiscussions,
+	emptyMsgContent: "Try searching something else...",
+	emptyMsgHeader: "No discussions",
 	filter: {},
 	includeFilter: false,
 	onUserPage: false,

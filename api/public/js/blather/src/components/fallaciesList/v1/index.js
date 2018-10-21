@@ -1,8 +1,9 @@
 import "./style.css"
-import { getFallacies } from "./actions"
+import { getFallacies, getTargets } from "./actions"
 import { adjustTimezone } from "utils/dateFunctions"
+import { formatPlural } from "utils/textFunctions"
 import { connect, Provider } from "react-redux"
-import { Dropdown, Form, Image, Item, Message, Visibility } from "semantic-ui-react"
+import { Divider, Dropdown, Form, Image, Item, Message, Visibility } from "semantic-ui-react"
 import fallacies from "fallacies.json"
 import ImagePic from "images/image-square.png"
 import Moment from "react-moment"
@@ -25,7 +26,8 @@ class FallaciesList extends Component {
 			objectId: null,
 			options: [],
 			q: "",
-			page: 0
+			page: 0,
+			showTargets: false
 		}
 
 		this.onChangeSearch = this.onChangeSearch.bind(this)
@@ -42,6 +44,9 @@ class FallaciesList extends Component {
 			objectId: this.props.objectId,
 			page: this.props.page
 		})
+		if(this.props.source === 'users') {
+			this.props.getTargets({id: this.props.assignedBy})
+		}
 	}
 
 	fetchFallacies() {
@@ -108,24 +113,47 @@ class FallaciesList extends Component {
 	}
 
 	render() {
-		const { options, value } = this.state
+		const { options, showTargets, value } = this.state
 		const FilterSection = ({ props }) => (
-			<div className="fallaciesFilter">
+			<div className="fallacyFilter">
+				{props.source === 'users' && (
+					<Message
+						className="targetMsg"
+						content={(
+							<div>
+								{props.targets.count} {formatPlural(props.targets.count, 'target')} - {" "}
+								<span
+									className="viewAllTargets"
+									onClick={
+										e => {
+											e.preventDefault()
+											this.setState({showTargets: showTargets === false})
+										}
+									}
+								>
+									{showTargets ? 'View by fallacy' : 'View all targets'}
+								</span>
+							</div>
+						)}
+						header={`See who has been on ${props.name}'s radar`}
+						icon="crosshairs"
+					/>
+				)}
 				<Form onSubmit={this.onSubmitForm}>
-					<Form.Field>
-						<Dropdown
-							fluid
-							onChange={this.onChangeSearch}
-							options={options}
-							placeholder="Filter by fallacy"
-							selection
-							value={value}
-						/>
-					</Form.Field>
+					<Form.Field 
+						control={Dropdown}
+						fluid
+						onChange={this.onChangeSearch}
+						options={options}
+						placeholder="Filter by fallacy"
+						selection
+						value={value}
+					/>
 				</Form>
+				<Divider />
 			</div>
 		)
-		const renderFallacies = props => {
+		const RenderFallacies = props => {
 			return props.results.map((result, i) => {
 				if (result.id) {
 					let img = props.assignedBy ? result.page_profile_pic : result.user_img
@@ -165,6 +193,40 @@ class FallaciesList extends Component {
 				}
 			})
 		}
+		const RenderTargets = props => {
+			return props.targets.results.map((result, i) => {
+				if (result.id) {
+					let meta = (
+						<div>
+							{result.count} {formatPlural(result.count, 'fallacy')}
+						</div>
+					)
+					return (
+						<ResultItem
+							description=""
+							history={props.history}
+							id={`target_${i}`}
+							img={result.profile_pic}
+							key={`target_${i}`}
+							meta={meta}
+							sanitize
+							title={result.name}
+							type="target"
+							url={`/targets/${props.assignedBy}/${result.id}`}
+						/>
+					)
+				} else {
+					return (
+						<Item key={`fallacy_${i}`}>
+							<Item.Image size="small" src={ImagePic} />
+							<Item.Content>
+								<Image fluid src={ParagraphPic} />
+							</Item.Content>
+						</Item>
+					)
+				}
+			})
+		}
 
 		return (
 			<Provider store={store}>
@@ -177,9 +239,15 @@ class FallaciesList extends Component {
 								continuous
 								onBottomVisible={this.loadMore}
 							>
-								<Item.Group className="fallacyItems" divided>
-									{renderFallacies(this.props)}
-								</Item.Group>
+								{showTargets ? (
+									<Item.Group className="targetItems" divided>
+										{RenderTargets(this.props)}
+									</Item.Group>
+								) : (
+									<Item.Group className="fallacyItems" divided>
+										{RenderFallacies(this.props)}
+									</Item.Group>
+								)}
 							</Visibility>
 						</div>
 					)}
@@ -206,11 +274,22 @@ FallaciesList.propTypes = {
 	fallacies: PropTypes.array,
 	fallacyId: PropTypes.number,
 	getFallacies: PropTypes.func,
+	getTargets: PropTypes.func,
+	hasMore: PropTypes.bool,
+	name: PropTypes.string,
 	network: PropTypes.string,
 	objectId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 	page: PropTypes.number,
 	results: PropTypes.array,
-	source: PropTypes.string
+	source: PropTypes.string,
+	targets: PropTypes.shape({
+		count: PropTypes.number,
+		hasMore: PropTypes.bool,
+		loadingMore: PropTypes.bool,
+		page: PropTypes.number,
+		pages: PropTypes.number,
+		results: PropTypes.array
+	})
 }
 
 FallaciesList.defaultProps = {
@@ -218,8 +297,13 @@ FallaciesList.defaultProps = {
 	emptyMsgHeader: "No fallacies",
 	fallacies: fallacies,
 	getFallacies: getFallacies,
+	getTargets: getTargets,
 	page: 0,
-	results: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}]
+	results: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
+	targets: {
+		page: 0,
+		results: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}]
+	}
 }
 
 const mapStateToProps = (state, ownProps) => ({
@@ -229,5 +313,5 @@ const mapStateToProps = (state, ownProps) => ({
 
 export default connect(
 	mapStateToProps,
-	{ getFallacies }
+	{ getFallacies, getTargets }
 )(FallaciesList)

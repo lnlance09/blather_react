@@ -288,6 +288,24 @@
             return $this->db->get('fallacies')->result_array();
         }
 
+        public function getTargets($id) {
+            $this->db->select("fe.page_id AS value, p.name AS key, CONCAT(p.name, ' (', COUNT(*), ')') AS text");
+            $this->db->join('pages p', 'fe.page_id = p.social_media_id');
+            $this->db->where('fe.assigned_by', $id);
+            $this->db->group_by('fe.page_id');
+            $this->db->order_by('COUNT(*)', 'DESC');
+            return $this->db->get('fallacy_entries fe')->result_array();
+        }
+
+        public function getTargetsData($id) {
+            $this->db->select("p.*, COUNT(*) AS count");
+            $this->db->join('pages p', 'fe.page_id = p.social_media_id');
+            $this->db->where('fe.assigned_by', $id);
+            $this->db->group_by('fe.page_id');
+            $this->db->order_by('COUNT(*)', 'DESC');
+            return $this->db->get('fallacy_entries fe')->result_array();
+        }
+
         public function getUniqueFallacies($id, $type = 'user', $network = 'twitter') {
             $this->db->select("f.id AS value, f.name AS key, CONCAT(f.name, ' (', COUNT(*), ')') AS text");
             $this->db->join('fallacies f', 'fe.fallacy_id = f.id');
@@ -297,7 +315,7 @@
             } 
             if($type === 'post') {
                 $this->db->where('fe.media_id', $network === 'twitter' ? (int)$id : $id);
-            } 
+            }
             if($type === 'users') {
                 $this->db->where('fe.assigned_by', $id);
             }

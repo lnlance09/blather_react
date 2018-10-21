@@ -258,7 +258,7 @@ a {
 .postPage .sticky .breadcrumbContainer {
   background: #f5f6fa;
   border-bottom: solid 1px rgba(220, 221, 225, 0.6);
-  margin-top: 60px;
+  margin-top: 72px;
   padding: 8px 30px;
   width: 100%; }
   .postPage .sticky .breadcrumbContainer .breadcrumb {
@@ -340,3 +340,7 @@ a {
 
 .usersPage .profileContentContainer {
   padding: 0 !important; }
+
+.usersPage .profilePic {
+  background: #ffffff;
+  padding: 7px; }

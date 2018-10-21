@@ -160,6 +160,24 @@
 			]);
 		}
 
+		public function getTargets() {
+			$id = (int)$this->input->get('id');
+			$include_data = $this->input->get('include_data');
+
+			if(empty($id)) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'You need to specify a user'
+				]);
+				exit;
+			}
+
+			$targets = $this->fallacies->getTargetsData($id);
+			echo json_encode([
+				'targets' => $targets
+			]);
+		}
+
 		public function insertReference() {
 			$this->fallacies->insertFallacyRefs();
 		}
@@ -336,13 +354,14 @@
 				'q' => trim($this->input->get('q'))
 			];
 			$count = $this->fallacies->search($params, true);
+			$pages = ceil($count/$limit);
 			$results = $this->fallacies->search($params);
 			echo json_encode([
 				'count' => $count,
 				'error' => false,
-				'hasMore' => $page < ceil($count/$limit),
+				'hasMore' => $page+1 < $pages,
 				'page' => (int)$page,
-				'pages' => ceil($count/$limit),
+				'pages' => $pages,
 				'results' => !$results ? [] : $results
 			]);
 		}

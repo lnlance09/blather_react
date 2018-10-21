@@ -314,7 +314,7 @@
    },
    {
       "id":"13",
-      "description":"The belief that destruction is economically befeficial because it will provide jobs to people who will rebuild what was destroyed. This fails to take into consideration all of the ways that the money could have been spent if it were not needed to rebuld what was destroyed.",
+      "description":"The belief that destruction is economically beneficial because it will provide jobs to people who will rebuild what was destroyed. This fails to take into consideration all of the ways that the money could have been spent if it were not needed to rebuld what was destroyed.",
       "name":"Broken Window Fallacy",
       "dialogue": [
          {
@@ -626,6 +626,52 @@
          {
             "name": "Blathering Bill",
             "message": "People from Salt Lake City sure are crazy. I had a roommate in college who was from there and she partied all the time."
+         }
+      ]
+   },
+   {
+      "id":"66",
+      "description":"A game that people play in order to free themselves from the responsibilities of having to practice what they preach. The players of this game will try to pass the burden of reposibility onto the next person in line who is slighltly more capable than them.",
+      "name":"Hot Potato",
+      "dialogue": [
+         {
+            "name": "Blathering Bill",
+            "message": "There shouldn't be any homelessness in America. We're a wealthy country and those who make a lot of money should have to contribute back to society by helping the less fortunate find homes."
+         },
+         {
+            "name": "Rational Rob",
+            "message": "Agreed. Come to think of it, I could use some help right now considering how I lost my job a few months back. Could you maybe contribute a few hundred so I can put it towards a rent?"
+         },
+         {
+            "name": "Blathering Bill",
+            "message": "Um, well... Charles actually just got a raise last week. He makes 10k more than me annually now. Try asking him."
+         },
+         {
+            "name": "Rational Rob",
+            "message": "You still make 100k per year. That's well above the national average. You can't spare anything?"
+         },
+         {
+            "name": "Blathering Bill",
+            "message": "Yeah, but Charles makes even more. Just ask him."
+         }
+      ]
+   },
+   {
+      "id":"65",
+      "description":"An error in reasoning whereby one believes that someone or something are actually what they self-identify as despite all evidence to the contrary. Anyone can choose to identify as whatever they want to but it doesn't necessarily mean that the self-identification is accurate.",
+      "name":"It's in the name!",
+      "dialogue": [
+         {
+            "name": "Blathering Bill",
+            "message": "I sure do hope that Kim Jong Un gets impeached or voted out of power in the next election."
+         },
+         {
+            "name": "Rational Rob",
+            "message": "Elections? North Korea is a dictatorship."
+         },
+         {
+            "name": "Blathering Bill",
+            "message": "Nope. The Democratic People's Republic of Korea is actually a democracy. The word 'democratic' is in the country's name, after all."
          }
       ]
    },

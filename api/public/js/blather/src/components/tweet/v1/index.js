@@ -202,9 +202,9 @@ class Tweet extends Component {
 			)
 		}
 		const ShowMedia = props => {
-			if(props.extended_entities.media) {
+			if (props.extended_entities.media) {
 				return props.extended_entities.media.map((media, i) => {
-					if(media.type === 'photo' || media.type === 'video') {
+					if (media.type === "photo" || media.type === "video") {
 						return (
 							<div className="mediaPic" key={media.display_url}>
 								<Image
@@ -212,7 +212,7 @@ class Tweet extends Component {
 									rounded
 									onError={i => (i.target.src = itemPic)}
 									size="small"
-									src={media.media_url_https} 
+									src={media.media_url_https}
 								/>
 							</div>
 						)

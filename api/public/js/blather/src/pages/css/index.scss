@@ -443,7 +443,7 @@ a {
         .breadcrumbContainer {
             background: $linx-white;
             border-bottom: solid 1px $container-border-color;
-            margin-top: 60px;
+            margin-top: 72px;
             padding: 8px 30px;
             width: 100%;
 
@@ -591,5 +591,10 @@ a {
 
     .profileContentContainer {
         padding: 0 !important;
+    }
+
+    .profilePic {
+        background: $white;
+        padding: 7px;
     }
 }

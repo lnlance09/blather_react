@@ -172,6 +172,7 @@ class UserPage extends Component {
 					<Dimmer.Dimmable
 						as={Image}
 						centered
+						className="profilePic"
 						dimmed={active}
 						dimmer={{ active, content, inverted }}
 						onError={i => (i.target.src = ImagePic)}
@@ -183,7 +184,12 @@ class UserPage extends Component {
 					/>
 				)
 			}
-			return <Image centered onError={i => (i.target.src = ImagePic)} rounded src={pic} />
+			return <Image 
+						centered 
+						className="profilePic"
+						onError={i => (i.target.src = ImagePic)} 
+						rounded src={pic} 
+					/>
 		}
 		const ShowContent = props => {
 			if (props.user.id) {
@@ -191,6 +197,7 @@ class UserPage extends Component {
 					case "discussions":
 						return (
 							<DiscussionsList
+								emptyMsgContent={`${props.user.name} hasn't discussed anything yet.`}
 								filter={{
 									both: true,
 									startedBy: props.user.id
@@ -205,12 +212,17 @@ class UserPage extends Component {
 						return (
 							<FallaciesList
 								assignedBy={props.user.id}
+								emptyMsgContent={`${props.user.name} hasn't assigned any fallacies`}
 								history={props.history}
+								name={props.user.name}
 								source="users"
 							/>
 						)
 					case "archives":
-						return <ArchivesList id={props.user.id} />
+						return <ArchivesList 
+									emptyMsgContent={`${props.user.name} hasn't archived anything yet`}
+									id={props.user.id} 
+								/>
 					default:
 						return null
 				}
