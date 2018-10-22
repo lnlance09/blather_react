@@ -1,4 +1,4 @@
-import "./css/index.css"
+import "pages/css/index.css"
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { Provider } from "react-redux"
 import { Comment, Container, Grid, Header, Menu, Responsive, Segment } from "semantic-ui-react"

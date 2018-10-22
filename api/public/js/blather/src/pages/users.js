@@ -1,4 +1,4 @@
-import "./css/index.css"
+import "pages/css/index.css"
 import { changeProfilePic, updateAbout } from "components/authentication/v1/actions"
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { fetchUserData } from "pages/actions/user"
@@ -172,7 +172,7 @@ class UserPage extends Component {
 					<Dimmer.Dimmable
 						as={Image}
 						centered
-						className="profilePic"
+						className={`profilePic ${!this.props.user.img && !this.props.loading ? 'default' : ''}`}
 						dimmed={active}
 						dimmer={{ active, content, inverted }}
 						onError={i => (i.target.src = ImagePic)}
@@ -185,10 +185,11 @@ class UserPage extends Component {
 				)
 			}
 			return <Image 
-						centered 
-						className="profilePic"
-						onError={i => (i.target.src = ImagePic)} 
-						rounded src={pic} 
+						centered
+						className={`profilePic ${!this.props.user.img && !this.props.loading ? 'default' : ''}`}
+						onError={i => (i.target.src = ImagePic)}
+						rounded
+						src={pic}
 					/>
 		}
 		const ShowContent = props => {

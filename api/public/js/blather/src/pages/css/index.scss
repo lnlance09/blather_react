@@ -594,7 +594,9 @@ a {
     }
 
     .profilePic {
-        background: $white;
-        padding: 7px;
+        &.default {
+            background: $white;
+            padding: 7px;
+        }
     }
 }

@@ -1,4 +1,4 @@
-import "./css/index.css"
+import "pages/css/index.css"
 import "moment-timezone"
 import { adjustTimezone } from "utils/dateFunctions"
 import { DisplayMetaTags } from "utils/metaFunctions"

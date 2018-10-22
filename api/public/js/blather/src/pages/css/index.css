@@ -341,6 +341,6 @@ a {
 .usersPage .profileContentContainer {
   padding: 0 !important; }
 
-.usersPage .profilePic {
+.usersPage .profilePic.default {
   background: #ffffff;
   padding: 7px; }

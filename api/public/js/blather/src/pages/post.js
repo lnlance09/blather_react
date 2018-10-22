@@ -1,4 +1,4 @@
-import "./css/index.css"
+import "pages/css/index.css"
 import { refreshYouTubeToken } from "components/authentication/v1/actions"
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { fetchPostData } from "pages/actions/post"

@@ -1,4 +1,4 @@
-import "./css/index.css"
+import "pages/css/index.css"
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { setTags, submitDiscussion } from "pages/actions/discussion"
 import { Provider, connect } from "react-redux"

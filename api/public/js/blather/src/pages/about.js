@@ -1,4 +1,4 @@
-import "./css/index.css"
+import "pages/css/index.css"
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { sendContactMsg } from "pages/actions/about"
 import { connect, Provider } from "react-redux"
