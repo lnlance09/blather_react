@@ -24,7 +24,7 @@ define('ROOT_DIR', dirname(__FILE__));
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://ec2-52-37-224-6.us-west-2.compute.amazonaws.com/';
+$config['base_url'] = 'https://blather.io/';
 
 /*
 |--------------------------------------------------------------------------
