@@ -188,8 +188,8 @@ class Post extends Component {
 							Fallacies
 						</Header>
 						<FallaciesList
-							emptyMsgHeader={false}
 							emptyMsgContent={`No fallacies have been assigned to this ${type}`}
+							emptyMsgHeader={false}
 							network={network}
 							objectId={props.info.id}
 							source="post"

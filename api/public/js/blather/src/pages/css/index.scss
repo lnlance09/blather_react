@@ -423,7 +423,8 @@ a {
 
 /* Post page */
 .postPage {
-    .mainContainer {
+    .ui.text.container.mainContainer {
+        font-size: 13px;
         padding: 0 !important;
 
         .fallaciesWrapper {
@@ -597,6 +598,23 @@ a {
         &.default {
             background: $white;
             padding: 7px;
+        }
+    }
+}
+
+
+/* Targets page */
+.targetsPage {
+    .ui.text.container {
+        font-size: 13px;
+
+        .targetImg {
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .questionnaire {
+            margin-bottom: 16px;
         }
     }
 }

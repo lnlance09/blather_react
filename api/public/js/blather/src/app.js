@@ -17,7 +17,7 @@ import Settings from "pages/settings"
 import SignIn from "pages/signIn"
 import store from "store"
 import Tags from "pages/tags"
-import Targets from "pages/targets"
+import Target from "pages/target"
 import Users from "pages/users"
 
 class App extends Component {
@@ -83,7 +83,7 @@ class App extends Component {
 						</Switch>
 
 						<Switch>
-							<Route component={Settings}  exact path="/settings" />
+							<Route component={Settings} exact path="/settings" />
 							<Route component={Settings} path="/settings/:tab" />
 						</Switch>
 
@@ -99,7 +99,7 @@ class App extends Component {
 						</Switch>
 
 						<Switch>
-							<Route component={Targets} path="/targets/:userId/:pageId" />
+							<Route component={Target} exact path="/targets/:userId/:pageId" />
 						</Switch>
 
 						<Switch>

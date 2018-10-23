@@ -245,11 +245,12 @@ a {
     background: rgba(255, 255, 255, 0.8) !important; }
 
 /* Post page */
-.postPage .mainContainer {
+.postPage .ui.text.container.mainContainer {
+  font-size: 13px;
   padding: 0 !important; }
-  .postPage .mainContainer .fallaciesWrapper {
+  .postPage .ui.text.container.mainContainer .fallaciesWrapper {
     margin-top: 1.2em; }
-  .postPage .mainContainer .fallacyFormWrapper {
+  .postPage .ui.text.container.mainContainer .fallacyFormWrapper {
     margin-top: 16px; }
 
 .postPage .sticky div {
@@ -344,3 +345,12 @@ a {
 .usersPage .profilePic.default {
   background: #ffffff;
   padding: 7px; }
+
+/* Targets page */
+.targetsPage .ui.text.container {
+  font-size: 13px; }
+  .targetsPage .ui.text.container .targetImg {
+    cursor: pointer;
+    margin-top: 20px; }
+  .targetsPage .ui.text.container .questionnaire {
+    margin-bottom: 16px; }

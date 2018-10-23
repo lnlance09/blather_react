@@ -19,6 +19,7 @@
 				$discussions = $this->discussions->getDiscussions();
 				$fallacies = $this->fallacies->getFallacies();
 				$fallacyTypes = $this->fallacies->getFallacyTypes();
+				$reviews = $this->fallacies->getReviews();
 				$tags = $this->tags->getTags();
 				$tweets = $this->twitter->getAllTweets();
 				$twitterPages = $this->twitter->getAllPages();
@@ -30,6 +31,7 @@
 					'discussions' => $discussions,
 					'fallacies' => $fallacies,
 					'fallacyTypes' => $fallacyTypes,
+					'reviews' => $reviews,
 					'tags' => $tags,
 					'tweets' => $tweets,
 					'twitterPages' => $twitterPages,

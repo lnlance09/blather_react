@@ -11,6 +11,7 @@
 			$this->load->model('FacebookModel', 'fb');
 			$this->load->model('TagsModel', 'tags');
 			$this->load->model('TwitterModel', 'twitter');
+			$this->load->model('UsersModel', 'users');
 			$this->load->model('YouTubeModel', 'youtube');
 		}
 
@@ -157,6 +158,47 @@
 			$convo = $this->fallacies->getConversation($id);
 			echo json_encode([
 				'conversation' => $convo
+			]);
+		}
+
+		public function getReview() {
+			$userId = (int)$this->input->get('userId');
+			$pageId = (int)$this->input->get('pageId');
+			$review = $this->fallacies->getReview($userId, $pageId, null);
+
+			if(empty($review)) {
+				$user = $this->users->userExists($userId);
+				$page = $this->fallacies->pageExists($pageId);
+
+				if($user && $page) {
+					$this->fallacies->createReview([
+						'page_id' => $pageId,
+						'user_id' => $userId
+					]);
+					$review = $this->fallacies->getReview($userId, $pageId, null);
+				} else {
+					$this->output->set_status_header(401);
+					echo json_encode([
+						'error' => 'The user or page does not exist'
+					]);
+					exit;
+				}
+			}
+
+			$params = [
+				'assigned_by' => $userId,
+				'assigned_to' => $review[0]['social_media_id'],
+				'comment_id' => null,
+				'fallacies' => null,
+				'network' => null,
+				'object_id' => null,
+				'page' => null,
+				'q' => null
+			];
+			$count = $this->fallacies->search($params, true);
+			echo json_encode([
+				'fallacyCount' => $count,
+				'review' => $review[0]
 			]);
 		}
 
@@ -449,6 +491,7 @@
 
 		public function uniqueFallacies() {
 			$id = $this->input->get('id');
+			$assigned_by = $this->input->get('assignedBy');
 			$type = $this->input->get('type');
 			$network = $this->input->get('network');
 
@@ -460,7 +503,7 @@
 				exit;
 			}
 
-			$fallacies = $this->fallacies->getUniqueFallacies($id, $type, $network);
+			$fallacies = $this->fallacies->getUniqueFallacies($id, $assigned_by, $type, $network);
 			echo json_encode([
 				'fallacies' => $fallacies
 			]);
@@ -508,6 +551,71 @@
 			echo json_encode([
 				'error' => false,
 				'fallacy' => $fallacy
+			]);
+		}
+
+		public function updateReview() {
+			$id = (int)$this->input->post('id');
+			$summary = $this->input->post('summary');
+			$sincerity = $this->input->post('sincerity');
+			$sincerityExplanation = $this->input->post('sincerityExplanation');
+			$turingTest = $this->input->post('turingTest');
+			$turingTestExplanation = $this->input->post('turingTestExplanation');
+
+			if(!$this->user) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'You are not logged in'
+				]);
+				exit;
+			}
+
+			$review = $this->fallacies->getReview(null, null, $id, true);
+			if(empty($review)) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'This review does not exist'
+				]);
+				exit;
+			}
+
+			if($review[0]['user_id'] != $this->user->id) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'You cannot edit this review'
+				]);
+				exit;
+			}
+
+			$params = [
+				'assigned_by' => $review[0]['user_id'],
+				'assigned_to' => $review[0]['social_media_id'],
+				'comment_id' => null,
+				'fallacies' => null,
+				'network' => null,
+				'object_id' => null,
+				'page' => null,
+				'q' => null
+			];
+			$count = $this->fallacies->search($params, true);
+			if($count < 5) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'You must assign at least 5 fallacies first'
+				]);
+				exit;
+			}
+
+			$data = [
+				'summary' => $summary,
+				'sincerity' => $sincerity,
+				'sincerity_explanation' => $sincerityExplanation,
+				'turing_test' => $turingTest,
+				'turing_test_explanation' => $turingTestExplanation
+			];
+			$this->fallacies->updateReview($id, $data);
+			echo json_encode([
+				'review' => $data
 			]);
 		}
 	}

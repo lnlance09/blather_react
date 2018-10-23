@@ -44,8 +44,8 @@ class FallaciesList extends Component {
 			objectId: this.props.objectId,
 			page: this.props.page
 		})
-		if(this.props.source === 'users') {
-			this.props.getTargets({id: this.props.assignedBy})
+		if (this.props.source === "users") {
+			this.props.getTargets({ id: this.props.assignedBy })
 		}
 	}
 
@@ -53,6 +53,7 @@ class FallaciesList extends Component {
 		let id = ""
 		switch (this.props.source) {
 			case "pages":
+			case "targets":
 				id = this.props.assignedTo
 				break
 			case "post":
@@ -64,7 +65,10 @@ class FallaciesList extends Component {
 			default:
 				id = ""
 		}
-		const qs = `?id=${id}&type=${this.props.source}&network=${this.props.network}`
+		let qs = `?id=${id}&type=${this.props.source}&network=${this.props.network}`
+		if (this.props.source) {
+			qs += `&assignedBy=${this.props.assignedBy}`
+		}
 		return fetch(`${window.location.origin}/api/fallacies/uniqueFallacies${qs}`, {
 			headers: {
 				"Content-Type": "application/json"
@@ -116,31 +120,30 @@ class FallaciesList extends Component {
 		const { options, showTargets, value } = this.state
 		const FilterSection = ({ props }) => (
 			<div className="fallacyFilter">
-				{props.source === 'users' && (
+				{props.source === "users" && (
 					<Message
 						className="targetMsg"
-						content={(
+						content={
 							<div>
-								{props.targets.count} {formatPlural(props.targets.count, 'target')} - {" "}
+								{props.targets.count} {formatPlural(props.targets.count, "target")}{" "}
+								-{" "}
 								<span
 									className="viewAllTargets"
-									onClick={
-										e => {
-											e.preventDefault()
-											this.setState({showTargets: showTargets === false})
-										}
-									}
+									onClick={e => {
+										e.preventDefault()
+										this.setState({ showTargets: showTargets === false })
+									}}
 								>
-									{showTargets ? 'View by fallacy' : 'View all targets'}
+									{showTargets ? "View all fallacies" : "View all targets"}
 								</span>
 							</div>
-						)}
+						}
 						header={`See who has been on ${props.name}'s radar`}
 						icon="crosshairs"
 					/>
 				)}
 				<Form onSubmit={this.onSubmitForm}>
-					<Form.Field 
+					<Form.Field
 						control={Dropdown}
 						fluid
 						onChange={this.onChangeSearch}
@@ -198,7 +201,7 @@ class FallaciesList extends Component {
 				if (result.id) {
 					let meta = (
 						<div>
-							{result.count} {formatPlural(result.count, 'fallacy')}
+							{result.count} {formatPlural(result.count, "fallacy")}
 						</div>
 					)
 					return (

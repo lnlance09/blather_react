@@ -217,6 +217,7 @@ class Tweet extends Component {
 							</div>
 						)
 					}
+					return null
 				})
 			}
 		}

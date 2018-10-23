@@ -172,7 +172,9 @@ class UserPage extends Component {
 					<Dimmer.Dimmable
 						as={Image}
 						centered
-						className={`profilePic ${!this.props.user.img && !this.props.loading ? 'default' : ''}`}
+						className={`profilePic ${
+							!this.props.user.img && !this.props.loading ? "default" : ""
+						}`}
 						dimmed={active}
 						dimmer={{ active, content, inverted }}
 						onError={i => (i.target.src = ImagePic)}
@@ -184,13 +186,17 @@ class UserPage extends Component {
 					/>
 				)
 			}
-			return <Image 
-						centered
-						className={`profilePic ${!this.props.user.img && !this.props.loading ? 'default' : ''}`}
-						onError={i => (i.target.src = ImagePic)}
-						rounded
-						src={pic}
-					/>
+			return (
+				<Image
+					centered
+					className={`profilePic ${
+						!this.props.user.img && !this.props.loading ? "default" : ""
+					}`}
+					onError={i => (i.target.src = ImagePic)}
+					rounded
+					src={pic}
+				/>
+			)
 		}
 		const ShowContent = props => {
 			if (props.user.id) {
@@ -198,7 +204,9 @@ class UserPage extends Component {
 					case "discussions":
 						return (
 							<DiscussionsList
-								emptyMsgContent={`${props.user.name} hasn't discussed anything yet.`}
+								emptyMsgContent={`${
+									props.user.name
+								} hasn't discussed anything yet.`}
 								filter={{
 									both: true,
 									startedBy: props.user.id
@@ -220,10 +228,12 @@ class UserPage extends Component {
 							/>
 						)
 					case "archives":
-						return <ArchivesList 
-									emptyMsgContent={`${props.user.name} hasn't archived anything yet`}
-									id={props.user.id} 
-								/>
+						return (
+							<ArchivesList
+								emptyMsgContent={`${props.user.name} hasn't archived anything yet`}
+								id={props.user.id}
+							/>
+						)
 					default:
 						return null
 				}
@@ -376,8 +386,8 @@ const mapStateToProps = (state, ownProps) => {
 export default connect(
 	mapStateToProps,
 	{
-		fetchUserData,
 		changeProfilePic,
+		fetchUserData,
 		updateAbout
 	}
 )(UserPage)
