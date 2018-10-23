@@ -1,5 +1,6 @@
 .youTubeVideo .youTubeTitle {
   background: transparent;
+  font-size: 20px !important;
   margin-top: 7px; }
   .youTubeVideo .youTubeTitle a {
     color: #2196f3; }

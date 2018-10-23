@@ -1,10 +1,12 @@
 .commentsSection {
   width: 100%; }
-  .commentsSection .comment .avatar img {
-    height: 36px !important;
-    width: 36px !important; }
   .commentsSection .replyBtn {
     float: right;
     margin-right: 0; }
-  .commentsSection .emptyMsg {
-    text-align: center; }
+  .commentsSection .ui.comments {
+    max-width: none; }
+    .commentsSection .ui.comments .comment .avatar img {
+      height: 36px !important;
+      width: 36px !important; }
+    .commentsSection .ui.comments .emptyMsg {
+      text-align: center; }
