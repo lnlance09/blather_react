@@ -3,21 +3,25 @@
 .commentsSection {
     width: 100%;
 
-    .comment {
-        .avatar {
-            img {
-                height: 36px !important;
-                width: 36px !important;
-            }
-        }
-    }
-
     .replyBtn {
         float: right;
         margin-right: 0;
     }
 
-    .emptyMsg {
-        text-align: center;
+    .ui.comments {
+        max-width: none;
+
+        .comment {
+            .avatar {
+                img {
+                    height: 36px !important;
+                    width: 36px !important;
+                }
+            }
+        }
+
+        .emptyMsg {
+            text-align: center;
+        }
     }
 }

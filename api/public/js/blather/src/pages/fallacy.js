@@ -84,7 +84,7 @@ class Fallacy extends Component {
 					props.user.type === "twitter" ? props.user.username : props.user.id
 				}`
 				return (
-					<Segment className="statusActionSegment" fluid>
+					<Segment className="statusActionSegment">
 						<Header size="tiny">
 							Let <Link to={userLink}>{props.user.name}</Link> know that this
 							reasoning doesn't make sense
@@ -180,6 +180,7 @@ class Fallacy extends Component {
 								history={props.history}
 								id={id}
 							/>
+							{ContactUser(props)}
 						</div>
 					)
 				case "comments":
@@ -227,7 +228,7 @@ class Fallacy extends Component {
 				<div className="fallacyPage">
 					<DisplayMetaTags page="fallacy" props={this.props} state={this.state} />
 					<PageHeader {...this.props} />
-					{!this.props.error && (
+					{!this.props.error ? (
 						<Container className="mainContainer" textAlign="left">
 							<Responsive maxWidth={1024}>
 								<Grid>
@@ -235,10 +236,7 @@ class Fallacy extends Component {
 										<FallacyTitle props={this.props} />
 									</Grid.Row>
 									<Grid.Row>{FallacyMenu(this.props)}</Grid.Row>
-									<Grid.Row>
-										{ShowContent(this.props)}
-										{ContactUser(this.props)}
-									</Grid.Row>
+									<Grid.Row>{ShowContent(this.props)}</Grid.Row>
 									<Grid.Row>{ShowTags(this.props)}</Grid.Row>
 								</Grid>
 							</Responsive>
@@ -248,7 +246,6 @@ class Fallacy extends Component {
 								<Grid>
 									<Grid.Column className="leftSide" width={12}>
 										{ShowContent(this.props)}
-										{ContactUser(this.props)}
 									</Grid.Column>
 									<Grid.Column className="rightSide" width={4}>
 										{ShowTags(this.props)}
@@ -256,8 +253,7 @@ class Fallacy extends Component {
 								</Grid>
 							</Responsive>
 						</Container>
-					)}
-					{this.props.error && (
+					) : (
 						<Container className="mainContainer" text textAlign="center">
 							<Image centered disabled size="medium" src={TrumpImg} />
 							<Header size="medium">This fallacy does not exist!</Header>
