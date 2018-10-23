@@ -1,78 +1,81 @@
-.tweet.clickable {
-  cursor: pointer; }
-
-.tweet:first-of-type {
-  margin-top: 0; }
-
-.tweet .archivePopup {
-  border-radius: 0;
-  box-shaow: none;
-  padding: 0.8em; }
-
-.tweet .archiveMsg {
-  margin-bottom: 0 !important; }
-
-.tweet .retweetedText {
-  color: rgba(0, 0, 0, 0.6);
-  font-size: 13px;
-  padding: 6px 10px; }
-
-.tweet .card .content {
-  padding: 7px 14px !important; }
-  .tweet .card .content.quotedTweetContent, .tweet .card .content .quotedTweet {
-    background: #ffffff !important; }
-  .tweet .card .content.extra {
-    border-top: solid 1px rgba(220, 221, 225, 0.6) !important;
-    padding: 1px 14px !important; }
-    .tweet .card .content.extra .list .item .content {
-      padding-left: 7px !important; }
-      .tweet .card .content.extra .list .item .content .header span {
-        color: #2f3640; }
-    .tweet .card .content.extra .list .item .icon.retweet {
-      color: #2196f3; }
-    .tweet .card .content.extra .list .item .icon.like {
-      color: #e84118; }
-    .tweet .card .content.extra .list .item .icon.archive {
-      color: #718093;
-      cursor: pointer; }
-    .tweet .card .content.extra .list .item.archiveListItem .content {
-      padding-right: 0 !important; }
-
-.tweet .quotedTweet {
-  border: solid 1px rgba(0, 0, 0, 0.1) !important;
-  margin-bottom: 5px !important; }
-  .tweet .quotedTweet .quotedTweetContent {
-    padding: 12px; }
-    .tweet .quotedTweet .quotedTweetContent .quotedScreenName {
-      color: rgba(0, 0, 0, 0.7);
-      font-weight: normal;
-      margin-left: 4px; }
-    .tweet .quotedTweet .quotedTweetContent .quotedTextTweet {
-      font-size: 14px; }
-    .tweet .quotedTweet .quotedTweetContent .quotedHeader {
+.tweet {
+  width: 100%; }
+  .tweet.clickable {
+    cursor: pointer; }
+  .tweet:first-of-type {
+    margin-top: 0; }
+  .tweet .archivePopup {
+    border-radius: 0;
+    box-shaow: none;
+    padding: 0.8em; }
+  .tweet .archiveMsg {
+    margin-bottom: 0 !important; }
+  .tweet .retweetedText {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 13px;
+    padding: 6px 10px; }
+  .tweet .card .content {
+    padding: 7px 14px !important;
+    white-space: pre-line; }
+    .tweet .card .content.quotedTweetContent, .tweet .card .content .quotedTweet {
+      background: #ffffff !important; }
+    .tweet .card .content.extra {
+      border-top: solid 1px rgba(220, 221, 225, 0.6) !important;
+      padding: 1px 14px !important; }
+      .tweet .card .content.extra .list .item .content {
+        padding-left: 7px !important; }
+        .tweet .card .content.extra .list .item .content .header span {
+          color: #2f3640; }
+      .tweet .card .content.extra .list .item .icon.retweet {
+        color: #2196f3; }
+      .tweet .card .content.extra .list .item .icon.like {
+        color: #e84118; }
+      .tweet .card .content.extra .list .item .icon.archive {
+        color: #718093;
+        cursor: pointer; }
+      .tweet .card .content.extra .list .item.archiveListItem .content {
+        padding-right: 0 !important; }
+  .tweet .quotedTweet {
+    margin-bottom: 5px !important; }
+    .tweet .quotedTweet .quotedTweetContent {
+      padding: 12px; }
+      .tweet .quotedTweet .quotedTweetContent .quotedScreenName {
+        color: rgba(0, 0, 0, 0.7);
+        font-weight: normal;
+        margin-left: 4px; }
+      .tweet .quotedTweet .quotedTweetContent .quotedTextTweet {
+        font-size: 14px; }
+      .tweet .quotedTweet .quotedTweetContent .quotedHeader {
+        font-size: 14px !important; }
+  .tweet .mediaPic {
+    margin-top: 8px;
+    text-align: center; }
+  .tweet .tweetUserImg {
+    margin-right: 9px !important;
+    width: 48px; }
+  .tweet .tweetUserName {
+    color: #2f3640 !important;
+    font-size: 18px !important; }
+  .tweet .tweetUserScreenName {
+    font-size: 14px !important;
+    margin-top: 0px; }
+  .tweet .tweetUserTweet {
+    color: #2f3640 !important;
+    font-size: 16px !important; }
+  .tweet .tweetTime {
+    margin-left: 4px; }
+  .tweet .mediaImg {
+    margin-top: 10px; }
+  .tweet .mediaVideo {
+    margin-top: 10px; }
+  @media only screen and (max-width: 1025px) {
+    .tweet .tweetUserName {
+      font-size: 16px !important; }
+    .tweet .tweetUserScreenName {
+      font-size: 13px !important; }
+    .tweet .tweetUserImg {
+      width: 36px; }
+    .tweet .card .content .description {
       font-size: 14px !important; }
-
-.tweet .tweetUserImg {
-  margin-right: 9px !important;
-  width: 48px; }
-
-.tweet .tweetUserName {
-  color: #2f3640 !important;
-  font-size: 18px !important; }
-
-.tweet .tweetUserScreenName {
-  font-size: 14px !important;
-  margin-top: 0px; }
-
-.tweet .tweetUserTweet {
-  color: #2f3640 !important;
-  font-size: 16px !important; }
-
-.tweet .tweetTime {
-  margin-left: 4px; }
-
-.tweet .mediaImg {
-  margin-top: 10px; }
-
-.tweet .mediaVideo {
-  margin-top: 10px; }
+    .tweet .card .content .list .item .icon {
+      font-size: 16px; } }

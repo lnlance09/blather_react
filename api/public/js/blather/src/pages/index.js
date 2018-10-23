@@ -1,9 +1,8 @@
-import "./css/index.css"
+import "pages/css/index.css"
 import { refreshYouTubeToken } from "components/authentication/v1/actions"
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { fetchFallacyCount, fetchPageData } from "pages/actions/page"
 import { Provider, connect } from "react-redux"
-import { withRouter } from "react-router"
 import {
 	Button,
 	Container,
@@ -14,6 +13,7 @@ import {
 	Image,
 	Label,
 	Menu,
+	Responsive,
 	Segment,
 	Transition
 } from "semantic-ui-react"
@@ -31,7 +31,7 @@ import TrumpImg from "images/trump.svg"
 import TweetList from "components/tweetList/v1/"
 import VideoList from "components/videoList/v1/"
 
-class SocialMediaPage extends Component {
+class Page extends Component {
 	constructor(props) {
 		super(props)
 		const id = this.props.match.params.id
@@ -62,16 +62,15 @@ class SocialMediaPage extends Component {
 		})
 	}
 
-	componentWillMount() {
-		this.setState({ visible: true })
+	componentWillReceiveProps(props) {
+		const network = props.match.params.network
+		const tab = props.match.params.tab
+		const label = this.determineItemsLabel(network)
+		this.setState({ activeItem: tab === "fallacies" ? tab : label })
 	}
 
-	componentWillReceiveProps(props) {
-		if (props.id) {
-			this.props.fetchFallacyCount({
-				id: this.props.id
-			})
-		}
+	componentWillMount() {
+		this.setState({ visible: true })
 	}
 
 	determineItemsLabel(network) {
@@ -144,12 +143,31 @@ class SocialMediaPage extends Component {
 			)
 			return <TitleHeader subheader={subheader} title={props.name} />
 		}
+		const PageMenu = props => (
+			<Menu className="socialMediaPageMenu" fluid pointing secondary stackable>
+				<Menu.Item
+					active={activeItem === itemsLabel}
+					name={itemsLabel}
+					onClick={this.handleItemClick}
+				/>
+				<Menu.Item
+					active={activeItem === "fallacies"}
+					name="fallacies"
+					onClick={this.handleItemClick}
+				>
+					Fallacies{" "}
+					{props.fallacyCount > 0 && <Label circular>{props.fallacyCount}</Label>}
+				</Menu.Item>
+			</Menu>
+		)
 		const ShowContent = props => {
 			if (props.id) {
 				if (activeItem === "fallacies") {
 					return (
 						<FallaciesList
 							assignedTo={props.id}
+							emptyMsgHeader={false}
+							emptyMsgContent={`No fallacies have been assigned to ${props.name}`}
 							history={props.history}
 							source="pages"
 						/>
@@ -196,7 +214,6 @@ class SocialMediaPage extends Component {
 						</Dimmer.Dimmable>
 					)
 				}
-
 				return (
 					<Dimmer.Dimmable as={Segment} dimmed>
 						{LazyLoadDefault}
@@ -221,50 +238,66 @@ class SocialMediaPage extends Component {
 					<PageHeader {...this.props} />
 					{this.props.exists && (
 						<Container className="mainContainer" textAlign="left">
-							<Grid>
-								<Grid.Column width={4}>
-									<Transition
-										animation={animation}
-										duration={duration}
-										visible={visible}
-									>
-										<Image
-											className="profilePic"
-											onError={i => (i.target.src = defaultImg)}
-											rounded
-											src={this.props.img}
-										/>
-									</Transition>
-									<AboutCard
-										description={this.props.about}
-										linkify
-										title="About"
-									/>
-								</Grid.Column>
-								<Grid.Column width={12}>
-									{PageHeaderInfo(this.props)}
-									<Menu className="socialMediaPageMenu" pointing secondary>
-										<Menu.Item
-											active={activeItem === itemsLabel}
-											name={itemsLabel}
-											onClick={this.handleItemClick}
-										/>
-										<Menu.Item
-											active={activeItem === "fallacies"}
-											name="fallacies"
-											onClick={this.handleItemClick}
+							<Responsive maxWidth={1024}>
+								<Grid>
+									<Grid.Row>{PageHeaderInfo(this.props)}</Grid.Row>
+									<Grid.Row>
+										<Transition
+											animation={animation}
+											duration={duration}
+											visible={visible}
 										>
-											Fallacies{" "}
-											{this.props.fallacyCount > 0 && (
-												<Label circular>{this.props.fallacyCount}</Label>
-											)}
-										</Menu.Item>
-									</Menu>
-									<Container className="profileContentContainer">
-										{ShowContent(this.props)}
-									</Container>
-								</Grid.Column>
-							</Grid>
+											<Image
+												className="profilePic"
+												onError={i => (i.target.src = defaultImg)}
+												rounded
+												src={this.props.img}
+											/>
+										</Transition>
+										<AboutCard
+											description={this.props.about}
+											linkify
+											title="About"
+										/>
+										{PageMenu(this.props)}
+										<Container className="profileContentContainer">
+											{ShowContent(this.props)}
+										</Container>
+									</Grid.Row>
+								</Grid>
+							</Responsive>
+
+							<Responsive minWidth={1025}>
+								<Grid>
+									<Grid.Column width={4}>
+										<Transition
+											animation={animation}
+											duration={duration}
+											visible={visible}
+										>
+											<Image
+												centered
+												className="profilePic"
+												onError={i => (i.target.src = defaultImg)}
+												rounded
+												src={this.props.img}
+											/>
+										</Transition>
+										<AboutCard
+											description={this.props.about}
+											linkify
+											title="About"
+										/>
+									</Grid.Column>
+									<Grid.Column width={12}>
+										{PageHeaderInfo(this.props)}
+										{PageMenu(this.props)}
+										<Container className="profileContentContainer">
+											{ShowContent(this.props)}
+										</Container>
+									</Grid.Column>
+								</Grid>
+							</Responsive>
 						</Container>
 					)}
 					{!this.props.exists && (
@@ -280,7 +313,7 @@ class SocialMediaPage extends Component {
 	}
 }
 
-SocialMediaPage.propTypes = {
+Page.propTypes = {
 	about: PropTypes.string,
 	error: PropTypes.bool,
 	errorCode: PropTypes.number,
@@ -309,7 +342,7 @@ SocialMediaPage.propTypes = {
 	username: PropTypes.string
 }
 
-SocialMediaPage.defaultProps = {
+Page.defaultProps = {
 	error: false,
 	exists: true,
 	fallacies: {
@@ -335,13 +368,11 @@ const mapStateToProps = (state, ownProps) => {
 	}
 }
 
-export default withRouter(
-	connect(
-		mapStateToProps,
-		{
-			fetchFallacyCount,
-			fetchPageData,
-			refreshYouTubeToken
-		}
-	)(SocialMediaPage)
-)
+export default connect(
+	mapStateToProps,
+	{
+		fetchFallacyCount,
+		fetchPageData,
+		refreshYouTubeToken
+	}
+)(Page)

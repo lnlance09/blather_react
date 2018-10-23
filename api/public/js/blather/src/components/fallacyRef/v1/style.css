@@ -1,5 +1,9 @@
-.fallacyRef .header.attached {
-  font-size: 16px !important; }
+.fallacyRef .segment p:not(.header) {
+  margin-bottom: 12px !important; }
 
-.fallacyRef .fallacySegment {
-  margin-top: 7px !important; }
+.fallacyRef .segment .header {
+  margin-bottom: 5px; }
+
+@media only screen and (max-width: 1025px) {
+  .fallacyRef .segment .header {
+    font-size: 18px; } }

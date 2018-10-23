@@ -114,8 +114,8 @@ class ArchivesList extends Component {
 				{this.props.archives.length === 0 && (
 					<div className="emptyArchiveContainer">
 						<Message
-							content="This user has not archived anything yet"
-							header="No results"
+							content={this.props.emptyMsgContent}
+							header={this.props.emptyMsgHeader}
 						/>
 					</div>
 				)}
@@ -135,6 +135,8 @@ ArchivesList.propTypes = {
 
 ArchivesList.defaultProps = {
 	archives: [{}, {}, {}, {}, {}, {}, {}, {}],
+	emptyMsgContent: "This user has not archived anything yet",
+	emptyMsgHeader: "No archives",
 	getArchives: getArchives,
 	page: 0
 }

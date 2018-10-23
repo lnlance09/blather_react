@@ -94,6 +94,7 @@
 						exit;
 					}
 
+					$error = false;
 					$token = $this->user->twitterAccessToken;
 					$secret = $this->user->twitterAccessSecret;
 					$data = [
@@ -105,16 +106,23 @@
 						'tweet_mode' => 'extended'
 					];
 					$posts['data'] = $this->twitter->getStatuses($data, $token, $secret);
+					$posts['blocked'] = false;
 
 					if(!array_key_exists('errors', $posts['data'])) {
 						$count = count($posts['data']);
 						$posts['count'] = $count;
-						$posts['hasMore'] = $count === 18;
-						$x = $count > 0 ? $count-1 : 0;
-						$posts['lastId'] = $posts['data'][$x]['id'];
+						if($count > 0) {
+							$posts['hasMore'] = $count === 18;
+							$x = $count > 0 ? $count-1 : 0;
+							$posts['lastId'] = $posts['data'][$x]['id'];
+						}
 					} else {
+						$error = true;
 						$posts['count'] = 0;
-						$posts['blocked'] = ($posts['data']['errors'][0]['code'] == 136 ? true : false);
+						if($posts['data']['errors'][0]['code'] == 136) {
+							$posts['blocked'] = true;
+							$error = "This user has blocked you";
+						}
 					}
 					break;
 
@@ -128,6 +136,7 @@
 						exit;
 					}
 
+					$error = false;
 					$token = $this->user->youtubeAccessToken;
 					$posts = $this->youtube->getVideos([
 						'channelId' => $id,
@@ -138,6 +147,7 @@
 						'type' => 'video'
 					], $token, $page, true, true);
 					if(!$posts) {
+						$error = true;
 						$posts = [
 							'data' => []
 						];
@@ -146,7 +156,7 @@
 			}
 
 			echo json_encode([
-				'error' => false,
+				'error' => $error,
 				'posts' => $posts,
 				'page' => $page,
 				'token' => $token

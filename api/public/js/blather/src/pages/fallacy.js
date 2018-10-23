@@ -1,21 +1,21 @@
-import "./css/index.css"
+import "pages/css/index.css"
 import { mapIdsToNames } from "utils/arrayFunctions"
 import { adjustTimezone } from "utils/dateFunctions"
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { fetchCommentCount, fetchFallacy, updateFallacy } from "pages/actions/fallacy"
-import { Provider, connect } from "react-redux"
+import { connect, Provider } from "react-redux"
 import { Link } from "react-router-dom"
 import { TwitterShareButton } from "react-share"
 import {
 	Button,
 	Container,
-	Dimmer,
 	Grid,
 	Header,
 	Icon,
 	Image,
 	Label,
 	Menu,
+	Responsive,
 	Segment
 } from "semantic-ui-react"
 import Comments from "components/comments/v1/"
@@ -84,74 +84,60 @@ class Fallacy extends Component {
 					props.user.type === "twitter" ? props.user.username : props.user.id
 				}`
 				return (
-					<Dimmer.Dimmable
-						as={Segment}
-						blurring
-						className="statusActionSegment"
-						dimmed
-						raised
-					>
-						<Dimmer active inverted>
-							<div>
-								<Header size="tiny">
-									Let <Link to={userLink}>{props.user.name}</Link> know that this
-									reasoning doesn't make sense
-								</Header>
-								{props.user.type === "twitter" && (
-									<TwitterShareButton
-										className="twitterButton ui icon button"
-										title={`${props.title}`}
-										url={`${window.location.origin}/fallacies/${
-											props.fallacyId
-										}`}
-									>
-										<Icon name="twitter" /> Tweet @{props.user.username}
-									</TwitterShareButton>
-								)}
-								{props.user.type === "youtube" && (
-									<Button
-										className="youtubeButton"
-										icon
-										onClick={() =>
-											window.open(
-												`https://youtube.com/channel/${props.user.id}`,
-												"_blank"
-											)
-										}
-									>
-										<Icon name="youtube" /> {props.user.name}
-									</Button>
-								)}
-							</div>
-						</Dimmer>
-					</Dimmer.Dimmable>
+					<Segment className="statusActionSegment" fluid>
+						<Header size="tiny">
+							Let <Link to={userLink}>{props.user.name}</Link> know that this
+							reasoning doesn't make sense
+						</Header>
+						{props.user.type === "twitter" && (
+							<TwitterShareButton
+								className="twitterButton ui icon button"
+								title={`${props.title}`}
+								url={`${window.location.origin}/fallacies/${props.fallacyId}`}
+							>
+								<Icon name="twitter" /> Tweet @{props.user.username}
+							</TwitterShareButton>
+						)}
+						{props.user.type === "youtube" && (
+							<Button
+								className="youtubeButton"
+								icon
+								onClick={() =>
+									window.open(
+										`https://youtube.com/channel/${props.user.id}`,
+										"_blank"
+									)
+								}
+							>
+								<Icon name="youtube" /> {props.user.name}
+							</Button>
+						)}
+					</Segment>
 				)
 			}
 			return null
 		}
 		const FallacyMenu = props => (
-			<div className="fallacyMainMenu">
-				<Menu pointing secondary>
-					<Menu.Item
-						active={activeItem === "conversation"}
-						name="conversation"
-						onClick={this.handleItemClick}
-					/>
-					<Menu.Item
-						active={activeItem === "comments"}
-						name="comments"
-						onClick={this.handleItemClick}
-					>
-						Comments {""}
-						{props.commentCount > 0 && <Label circular>{props.commentCount}</Label>}
-					</Menu.Item>
-					<Menu.Item
-						active={activeItem === "reference"}
-						name="reference"
-						onClick={this.handleItemClick}
-					/>
-				</Menu>
-			</div>
+			<Menu className="fallacyMainMenu" fluid pointing secondary stackable>
+				<Menu.Item
+					active={activeItem === "conversation"}
+					name="conversation"
+					onClick={this.handleItemClick}
+				/>
+				<Menu.Item
+					active={activeItem === "comments"}
+					name="comments"
+					onClick={this.handleItemClick}
+				>
+					Comments {""}
+					{props.commentCount > 0 && <Label circular>{props.commentCount}</Label>}
+				</Menu.Item>
+				<Menu.Item
+					active={activeItem === "reference"}
+					name="reference"
+					onClick={this.handleItemClick}
+				/>
+			</Menu>
 		)
 		const FallacyTitle = ({ props }) => {
 			const subheader = (
@@ -187,17 +173,13 @@ class Fallacy extends Component {
 			switch (activeItem) {
 				case "conversation":
 					return (
-						<div>
-							<div className="materialWrapper">
-								<FallacyExample
-									bearer={bearer}
-									canEdit={
-										props.createdBy ? props.createdBy.id === userId : false
-									}
-									history={props.history}
-									id={id}
-								/>
-							</div>
+						<div className="materialWrapper">
+							<FallacyExample
+								bearer={bearer}
+								canEdit={props.createdBy ? props.createdBy.id === userId : false}
+								history={props.history}
+								id={id}
+							/>
 						</div>
 					)
 				case "comments":
@@ -247,17 +229,32 @@ class Fallacy extends Component {
 					<PageHeader {...this.props} />
 					{!this.props.error && (
 						<Container className="mainContainer" textAlign="left">
-							<FallacyTitle props={this.props} />
-							{FallacyMenu(this.props)}
-							<Grid>
-								<Grid.Column className="leftSide" width={12}>
-									{ShowContent(this.props)}
-									{ContactUser(this.props)}
-								</Grid.Column>
-								<Grid.Column className="rightSide" width={4}>
-									{ShowTags(this.props)}
-								</Grid.Column>
-							</Grid>
+							<Responsive maxWidth={1024}>
+								<Grid>
+									<Grid.Row>
+										<FallacyTitle props={this.props} />
+									</Grid.Row>
+									<Grid.Row>{FallacyMenu(this.props)}</Grid.Row>
+									<Grid.Row>
+										{ShowContent(this.props)}
+										{ContactUser(this.props)}
+									</Grid.Row>
+									<Grid.Row>{ShowTags(this.props)}</Grid.Row>
+								</Grid>
+							</Responsive>
+							<Responsive minWidth={1025}>
+								<FallacyTitle props={this.props} />
+								{FallacyMenu(this.props)}
+								<Grid>
+									<Grid.Column className="leftSide" width={12}>
+										{ShowContent(this.props)}
+										{ContactUser(this.props)}
+									</Grid.Column>
+									<Grid.Column className="rightSide" width={4}>
+										{ShowTags(this.props)}
+									</Grid.Column>
+								</Grid>
+							</Responsive>
 						</Container>
 					)}
 					{this.props.error && (

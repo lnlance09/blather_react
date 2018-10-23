@@ -1,7 +1,6 @@
 import React from "react"
 import MetaTags from "react-meta-tags"
-
-export const capitalizeWord = word => word.slice(0, 1).toUpperCase() + word.slice(1)
+import { capitalizeWord } from "./textFunctions"
 
 export const DisplayMetaTags = ({ page, props, state }) => {
 	const description =
@@ -116,6 +115,13 @@ export const DisplayMetaTags = ({ page, props, state }) => {
 				description: `${props.name} tag on Blather`,
 				img,
 				title: props.name
+			}
+			break
+		case "target":
+			metaTags = {
+				description: `${props.user.name}'s criticisms of ${props.page.name}`,
+				img,
+				title: `${props.user.name}'s review of ${props.page.name}`
 			}
 			break
 		case "users":

@@ -17,6 +17,8 @@
       text-decoration: underline; }
   .youTubeVideo .channelCard .content .meta {
     font-size: 12px !important; }
+  .youTubeVideo .channelCard .content .description {
+    white-space: pre-line; }
   .youTubeVideo .channelCard .content.extra {
     line-height: 1.5em;
     margin-top: 5px;
@@ -55,7 +57,8 @@
     max-width: none !important; }
     .youTubeVideo .commentsSection .comments .comment {
       cursor: pointer;
-      margin: 0; }
+      margin: 0;
+      white-space: pre-line; }
       .youTubeVideo .commentsSection .comments .comment .actions a {
         color: #2f3640; }
         .youTubeVideo .commentsSection .comments .comment .actions a .icon {
@@ -67,7 +70,8 @@
 
 .youtubeCommentModal .comments .comment {
   cursor: pointer;
-  margin: 0; }
+  margin: 0;
+  white-space: pre-line; }
   .youtubeCommentModal .comments .comment .actions a {
     color: #2f3640; }
     .youtubeCommentModal .comments .comment .actions a .icon {

@@ -17,5 +17,9 @@
 .titleHeader .header:hover .editHeaderIcon {
   display: inline !important; }
 
+@media only screen and (max-width: 1025px) {
+  .titleHeader .header .editHeaderIcon {
+    line-height: 18px; } }
+
 .titleHeader .emptyTitle {
   height: 55px; }

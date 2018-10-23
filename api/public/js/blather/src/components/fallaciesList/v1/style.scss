@@ -16,4 +16,21 @@
             background: $white;
         }
     }
+
+    .targetMsg {
+        background: $white;
+
+        .icon.crosshairs {
+            color: $red;
+        }
+
+        .viewAllTargets {
+            color: $blue;
+            cursor: pointer;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
 }

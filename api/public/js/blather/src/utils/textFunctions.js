@@ -4,6 +4,7 @@ import momentDurationFormatSetup from "moment-duration-format"
 import sanitizeHtml from "sanitize-html"
 momentDurationFormatSetup(moment)
 
+export const capitalizeWord = word => word.slice(0, 1).toUpperCase() + word.slice(1)
 export const convertTimeToSeconds = time => {
 	return moment.duration(time).asSeconds() / 60
 }
@@ -32,4 +33,8 @@ export const sanitizeText = html => {
 		},
 		allowedIframeHostnames: ["www.youtube.com"]
 	})
+}
+export const formatGrammar = word => {
+	const vowels = ["a", "e", "i", "o", "u"]
+	return vowels.indexOf(word.toLowerCase().substring(0, 1)) === -1 ? "a" : "an"
 }

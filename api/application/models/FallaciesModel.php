@@ -105,6 +105,10 @@
             $this->db->insert('fallacy_comments', $data);
         }
 
+        public function createReview($data) {
+            $this->db->insert('criticisms', $data);
+        }
+
         public function fallacyTypeExists($id) {
             $this->db->select('COUNT(*) AS count');
             $this->db->where('id', $id);
@@ -288,7 +292,39 @@
             return $this->db->get('fallacies')->result_array();
         }
 
-        public function getUniqueFallacies($id, $type = 'user', $network = 'twitter') {
+        public function getReview($user_id, $page_id, $id, $by_id = false) {
+            $this->db->select("p.name AS page_name, p.username, p.social_media_id, p.id AS page_id, p.profile_pic AS page_profile_pic, p.type, u.id AS user_id, u.name AS user_name, c.id, c.summary, c.sincerity, c.sincerity_explanation, c.turing_test, c.turing_test_explanation");
+            $this->db->join('pages p', 'c.page_id = p.id');
+            $this->db->join('users u', 'c.user_id = u.id');
+
+            if($by_id) {
+                $this->db->where('c.id', $id);
+            } else {
+                $this->db->where([
+                    'page_id' => $page_id,
+                    'user_id' => $user_id
+                ]);
+            }
+            return $this->db->get('criticisms c')->result_array();
+        }
+
+        public function getReviews() {
+            $this->db->select("p.name AS page_name, p.id AS page_id, p.profile_pic AS page_profile_pic, u.id AS user_id, u.name AS user_name");
+            $this->db->join('pages p', 'c.page_id = p.id');
+            $this->db->join('users u', 'c.user_id = u.id');
+            return $this->db->get('criticisms c')->result_array();
+        }
+
+        public function getTargetsData($id) {
+            $this->db->select("p.*, COUNT(*) AS count");
+            $this->db->join('pages p', 'fe.page_id = p.social_media_id');
+            $this->db->where('fe.assigned_by', $id);
+            $this->db->group_by('fe.page_id');
+            $this->db->order_by('COUNT(*)', 'DESC');
+            return $this->db->get('fallacy_entries fe')->result_array();
+        }
+
+        public function getUniqueFallacies($id, $assigned_by, $type = 'user', $network = 'twitter') {
             $this->db->select("f.id AS value, f.name AS key, CONCAT(f.name, ' (', COUNT(*), ')') AS text");
             $this->db->join('fallacies f', 'fe.fallacy_id = f.id');
             
@@ -297,9 +333,15 @@
             } 
             if($type === 'post') {
                 $this->db->where('fe.media_id', $network === 'twitter' ? (int)$id : $id);
-            } 
+            }
             if($type === 'users') {
                 $this->db->where('fe.assigned_by', $id);
+            }
+            if($type === 'targets') {
+                $this->db->where([
+                    'fe.page_id' => $id,
+                    'fe.assigned_by' => $assigned_by
+                ]);
             }
 
             $this->db->group_by('f.id');
@@ -327,8 +369,17 @@
             return count($results) === 1 ? $results[0] : false;
         }
 
+        public function pageExists($id) {
+            $this->db->select('COUNT(*) AS count');
+            $this->db->where('id', $id);
+            $query = $this->db->get('pages')->result();
+            if($query[0]->count == 0) {
+                return false;
+            }
+            return true;
+        }
+
         public function search($data, $just_count = false) {
-            
             $select = "f.name AS fallacy_name,
 
                 fe.id AS id,
@@ -446,6 +497,11 @@
             if($tags) {
                 $this->tags->insertTags($id, $tags, 'fallacy', $userId);
             }
+        }
+
+        public function updateReview($id, $data) {
+            $this->db->where('id', $id);
+            $this->db->update('criticisms', $data);
         }
 
         public function updateStatus($id, $status) {

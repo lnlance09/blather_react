@@ -1,9 +1,8 @@
-import "./css/index.css"
+import "pages/css/index.css"
 import { changeProfilePic, updateAbout } from "components/authentication/v1/actions"
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { fetchUserData } from "pages/actions/user"
 import { Provider, connect } from "react-redux"
-import { withRouter } from "react-router"
 import {
 	Button,
 	Container,
@@ -14,6 +13,7 @@ import {
 	Image,
 	Label,
 	Menu,
+	Responsive,
 	Transition
 } from "semantic-ui-react"
 import AboutCard from "components/aboutCard/v1/"
@@ -45,7 +45,7 @@ class UserPage extends Component {
 		const isMyProfile = username === myUsername
 
 		if (!tabs.includes(tab)) {
-			tab = "discussions"
+			tab = "fallacies"
 		}
 
 		this.state = {
@@ -94,7 +94,7 @@ class UserPage extends Component {
 		const isMyProfile = username === this.state.myUsername
 		let tab = newProps.match.params.tab
 		if (!this.state.tabs.includes(tab)) {
-			tab = "discussions"
+			tab = "fallacies"
 		}
 
 		this.setState({
@@ -171,6 +171,10 @@ class UserPage extends Component {
 				return (
 					<Dimmer.Dimmable
 						as={Image}
+						centered
+						className={`profilePic ${
+							!this.props.user.img && !this.props.loading ? "default" : ""
+						}`}
 						dimmed={active}
 						dimmer={{ active, content, inverted }}
 						onError={i => (i.target.src = ImagePic)}
@@ -182,7 +186,17 @@ class UserPage extends Component {
 					/>
 				)
 			}
-			return <Image onError={i => (i.target.src = ImagePic)} rounded src={pic} />
+			return (
+				<Image
+					centered
+					className={`profilePic ${
+						!this.props.user.img && !this.props.loading ? "default" : ""
+					}`}
+					onError={i => (i.target.src = ImagePic)}
+					rounded
+					src={pic}
+				/>
+			)
 		}
 		const ShowContent = props => {
 			if (props.user.id) {
@@ -190,6 +204,9 @@ class UserPage extends Component {
 					case "discussions":
 						return (
 							<DiscussionsList
+								emptyMsgContent={`${
+									props.user.name
+								} hasn't discussed anything yet.`}
 								filter={{
 									both: true,
 									startedBy: props.user.id
@@ -204,17 +221,58 @@ class UserPage extends Component {
 						return (
 							<FallaciesList
 								assignedBy={props.user.id}
+								emptyMsgContent={`${props.user.name} hasn't assigned any fallacies`}
 								history={props.history}
+								name={props.user.name}
 								source="users"
 							/>
 						)
 					case "archives":
-						return <ArchivesList id={props.user.id} />
+						return (
+							<ArchivesList
+								emptyMsgContent={`${props.user.name} hasn't archived anything yet`}
+								id={props.user.id}
+							/>
+						)
 					default:
 						return null
 				}
 			}
 		}
+		const UserMenu = props => (
+			<Menu className="profileMenu" fluid pointing secondary stackable>
+				<Menu.Item
+					active={activeItem === "fallacies"}
+					name="fallacies"
+					onClick={this.handleItemClick}
+				>
+					Fallacies{" "}
+					{props.user.fallacyCount > 0 && (
+						<Label circular>{props.user.fallacyCount}</Label>
+					)}
+				</Menu.Item>
+				<Menu.Item
+					active={activeItem === "discussions"}
+					name="discussions"
+					onClick={this.handleItemClick}
+				>
+					Discussions{" "}
+					{props.user.discussionCount > 0 && (
+						<Label circular>{props.user.discussionCount}</Label>
+					)}
+				</Menu.Item>
+				<Menu.Item
+					active={activeItem === "archives"}
+					name="archives"
+					onClick={this.handleItemClick}
+				>
+					Archives{" "}
+					{props.user.archiveCount > 0 && (
+						<Label circular>{props.user.archiveCount}</Label>
+					)}
+				</Menu.Item>
+			</Menu>
+		)
 
 		return (
 			<Provider store={store}>
@@ -223,65 +281,58 @@ class UserPage extends Component {
 					<PageHeader {...this.props} />
 					{!this.props.error && (
 						<Container className="mainContainer" textAlign="left">
-							<Grid>
-								<Grid.Column width={4}>
-									<Transition
-										animation={animation}
-										duration={duration}
-										visible={visible}
-									>
-										{profilePic(this.props)}
-									</Transition>
-									{aboutCard(this.props)}
-								</Grid.Column>
-								<Grid.Column width={12}>
-									<TitleHeader
-										subheader={`@${this.props.user.username}`}
-										title={this.props.user.name}
-									/>
-									<Menu className="profileMenu" pointing secondary>
-										<Menu.Item
-											active={activeItem === "fallacies"}
-											name="fallacies"
-											onClick={this.handleItemClick}
+							<Responsive maxWidth={1024}>
+								<Grid>
+									<Grid.Row>
+										<div>
+											<TitleHeader
+												subheader={`@${this.props.user.username}`}
+												title={this.props.user.name}
+											/>
+										</div>
+									</Grid.Row>
+									<Grid.Row>
+										<Transition
+											animation={animation}
+											duration={duration}
+											visible={visible}
 										>
-											Fallacies{" "}
-											{this.props.user.fallacyCount > 0 && (
-												<Label circular>
-													{this.props.user.fallacyCount}
-												</Label>
-											)}
-										</Menu.Item>
-										<Menu.Item
-											active={activeItem === "discussions"}
-											name="discussions"
-											onClick={this.handleItemClick}
+											{profilePic(this.props)}
+										</Transition>
+										{aboutCard(this.props)}
+										{UserMenu(this.props)}
+										<Container className="profileContentContainer">
+											{ShowContent(this.props)}
+										</Container>
+									</Grid.Row>
+								</Grid>
+							</Responsive>
+
+							<Responsive minWidth={1025}>
+								<Grid>
+									<Grid.Column width={4}>
+										<Transition
+											animation={animation}
+											duration={duration}
+											visible={visible}
 										>
-											Discussions{" "}
-											{this.props.user.discussionCount > 0 && (
-												<Label circular>
-													{this.props.user.discussionCount}
-												</Label>
-											)}
-										</Menu.Item>
-										<Menu.Item
-											active={activeItem === "archives"}
-											name="archives"
-											onClick={this.handleItemClick}
-										>
-											Archives{" "}
-											{this.props.user.archiveCount > 0 && (
-												<Label circular>
-													{this.props.user.archiveCount}
-												</Label>
-											)}
-										</Menu.Item>
-									</Menu>
-									<Container className="profileContentContainer">
-										{ShowContent(this.props)}
-									</Container>
-								</Grid.Column>
-							</Grid>
+											{profilePic(this.props)}
+										</Transition>
+										{aboutCard(this.props)}
+									</Grid.Column>
+
+									<Grid.Column width={12}>
+										<TitleHeader
+											subheader={`@${this.props.user.username}`}
+											title={this.props.user.name}
+										/>
+										{UserMenu(this.props)}
+										<Container className="profileContentContainer">
+											{ShowContent(this.props)}
+										</Container>
+									</Grid.Column>
+								</Grid>
+							</Responsive>
 						</Container>
 					)}
 					{this.props.error && (
@@ -332,13 +383,11 @@ const mapStateToProps = (state, ownProps) => {
 	}
 }
 
-export default withRouter(
-	connect(
-		mapStateToProps,
-		{
-			fetchUserData,
-			changeProfilePic,
-			updateAbout
-		}
-	)(UserPage)
-)
+export default connect(
+	mapStateToProps,
+	{
+		changeProfilePic,
+		fetchUserData,
+		updateAbout
+	}
+)(UserPage)

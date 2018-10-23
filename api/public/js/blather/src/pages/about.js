@@ -1,4 +1,4 @@
-import "./css/index.css"
+import "pages/css/index.css"
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { sendContactMsg } from "pages/actions/about"
 import { connect, Provider } from "react-redux"
@@ -15,6 +15,7 @@ import {
 	TextArea,
 	Transition
 } from "semantic-ui-react"
+import fallacies from "fallacies.json"
 import Logo from "components/header/v1/images/logo.svg"
 import PageFooter from "components/footer/v1/"
 import PageHeader from "components/header/v1/"
@@ -170,10 +171,11 @@ class About extends Component {
 					Fallacies
 				</Header>
 				<p>
-					Currently, users may pick one out of <Link to="/fallacies">54 fallacies</Link>{" "}
-					to assign to a piece of content. The fallacies that you assign are viewable to
-					everyone including people who are not signed up with Blather. Please make sure
-					that you actually understand what the fallacy means before assigning it.
+					Currently, users may pick one out of{" "}
+					<Link to="/fallacies">{fallacies.length} fallacies</Link> to assign to a piece
+					of content. The fallacies that you assign are viewable to everyone including
+					people who are not signed up with Blather. Please make sure that you actually
+					understand what the fallacy means before assigning it.
 				</p>
 			</div>
 		)

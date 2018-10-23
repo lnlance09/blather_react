@@ -1,5 +1,4 @@
 body {
-  font-family: sans-serif;
   height: 100%;
   margin: 0;
   padding: 0; }
@@ -10,10 +9,10 @@ body {
 
 .mainContainer {
   min-height: 100vh;
-  margin-top: 5.8em;
+  margin-top: 6.5em;
   padding-left: 15px;
   padding-right: 15px; }
   .mainContainer.bc {
-    margin-top: 1.6em; }
+    margin-top: 2.3em; }
   .mainContainer.forText {
-    margin-top: 4.6em; }
+    margin-top: 5.3em; }

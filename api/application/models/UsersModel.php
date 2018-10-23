@@ -157,7 +157,6 @@
 			if(empty($query)) {
 				return false;
 			}
-			
 			return $query[0];
 		}
 
@@ -370,6 +369,16 @@
 		public function updateUser($id, $data) {
 			$this->db->where('id', $id);
 			$this->db->update('users', $data);
+		}
+
+		public function userExists($id) {
+			$this->db->select('COUNT(*) AS count');
+			$this->db->where('id', $id);
+			$query = $this->db->get('users')->result();
+			if($query[0]->count == 0) {
+				return false;
+			}
+			return true;
 		}
 
 		/**

@@ -2,7 +2,17 @@ import "./style.css"
 import { fetchDiscussions } from "./actions"
 import { adjustTimezone } from "utils/dateFunctions"
 import { connect } from "react-redux"
-import { Button, Dropdown, Form, Icon, Image, Item, Message, Visibility } from "semantic-ui-react"
+import {
+	Button,
+	Dropdown,
+	Form,
+	Icon,
+	Image,
+	Item,
+	Message,
+	Responsive,
+	Visibility
+} from "semantic-ui-react"
 import _ from "lodash"
 import ImagePic from "images/image-square.png"
 import Moment from "react-moment"
@@ -193,8 +203,8 @@ class DiscussionsList extends Component {
 		} = this.state
 		const advancedOptions = props => (
 			<div className="advancedOptions">
-				<Form.Group>
-					<Form.Field width={11}>
+				<Responsive maxWidth={1024}>
+					<Form.Field>
 						<Dropdown
 							closeOnChange
 							fluid
@@ -208,10 +218,10 @@ class DiscussionsList extends Component {
 							value={tags}
 						/>
 					</Form.Field>
-					<Form.Field width={4}>
+					<Form.Field>
 						<Button color="blue" content="Search" fluid type="submit" />
 					</Form.Field>
-					<Form.Field width={1}>
+					<Form.Field>
 						<Button
 							className="createDiscussionBtn"
 							color="green"
@@ -221,14 +231,47 @@ class DiscussionsList extends Component {
 						>
 							<Icon name="plus" />
 						</Button>
+						<div className="clearfix" />
 					</Form.Field>
-				</Form.Group>
+				</Responsive>
+				<Responsive minWidth={1025}>
+					<Form.Group>
+						<Form.Field width={11}>
+							<Dropdown
+								closeOnChange
+								fluid
+								multiple
+								onAddItem={this.handleAddition}
+								onChange={this.handleChange}
+								options={tagsOptions}
+								placeholder="Tags"
+								search
+								selection
+								value={tags}
+							/>
+						</Form.Field>
+						<Form.Field width={4}>
+							<Button color="blue" content="Search" fluid type="submit" />
+						</Form.Field>
+						<Form.Field width={1}>
+							<Button
+								className="createDiscussionBtn"
+								color="green"
+								compact
+								icon
+								onClick={() => props.history.push("/discussion/create")}
+							>
+								<Icon name="plus" />
+							</Button>
+						</Form.Field>
+					</Form.Group>
+				</Responsive>
 			</div>
 		)
 		const FilterSection = props => (
 			<div className="discussionsFilter">
-				<Form onSubmit={this.onSubmitForm}>
-					<Form.Group>
+				<Responsive maxWidth={1024}>
+					<Form onSubmit={this.onSubmitForm}>
 						<Form.Input
 							fluid
 							icon="search"
@@ -238,10 +281,8 @@ class DiscussionsList extends Component {
 							value={q}
 							width={props.onUserPage ? 7 : 16}
 						/>
-					</Form.Group>
-					<Form.Group>
 						{!props.onUserPage && (
-							<Form.Field width={7}>
+							<Form.Field>
 								<Dropdown
 									fluid
 									onChange={this.onSelectStartedBy}
@@ -251,7 +292,7 @@ class DiscussionsList extends Component {
 								/>
 							</Form.Field>
 						)}
-						<Form.Field width={props.onUserPage ? 6 : 7}>
+						<Form.Field>
 							<Dropdown
 								fluid
 								onChange={this.onSelectWith}
@@ -260,7 +301,7 @@ class DiscussionsList extends Component {
 								selection
 							/>
 						</Form.Field>
-						<Form.Field width={props.onUserPage ? 3 : 4}>
+						<Form.Field>
 							<Dropdown
 								fluid
 								labeled
@@ -270,9 +311,57 @@ class DiscussionsList extends Component {
 								selection
 							/>
 						</Form.Field>
-					</Form.Group>
-					{advancedOptions(this.props)}
-				</Form>
+						{advancedOptions(this.props)}
+					</Form>
+				</Responsive>
+				<Responsive minWidth={1025}>
+					<Form onSubmit={this.onSubmitForm}>
+						<Form.Group>
+							<Form.Input
+								fluid
+								icon="search"
+								iconPosition="left"
+								onChange={this.onChangeSearchTerm}
+								placeholder="Search discussions..."
+								value={q}
+								width={props.onUserPage ? 7 : 16}
+							/>
+						</Form.Group>
+						<Form.Group>
+							{!props.onUserPage && (
+								<Form.Field width={7}>
+									<Dropdown
+										fluid
+										onChange={this.onSelectStartedBy}
+										options={startedOptions}
+										placeholder="Started by"
+										selection
+									/>
+								</Form.Field>
+							)}
+							<Form.Field width={props.onUserPage ? 6 : 7}>
+								<Dropdown
+									fluid
+									onChange={this.onSelectWith}
+									options={withOptions}
+									placeholder="With"
+									selection
+								/>
+							</Form.Field>
+							<Form.Field width={props.onUserPage ? 3 : 4}>
+								<Dropdown
+									fluid
+									labeled
+									onChange={this.onSelectStatus}
+									options={statusOptions}
+									placeholder="Status"
+									selection
+								/>
+							</Form.Field>
+						</Form.Group>
+						{advancedOptions(this.props)}
+					</Form>
+				</Responsive>
 			</div>
 		)
 		const renderDiscussions = props => {
@@ -382,8 +471,8 @@ class DiscussionsList extends Component {
 				{this.props.results.length === 0 && (
 					<div className="emptyDiscussionContainer">
 						<Message
-							content="Try modifying your search..."
-							header="No results"
+							content={this.props.emptyMsgContent}
+							header={this.props.emptyMsgHeader}
 							warning={this.props.source === "post"}
 						/>
 					</div>
@@ -395,6 +484,8 @@ class DiscussionsList extends Component {
 
 DiscussionsList.propTypes = {
 	count: PropTypes.number,
+	emptyMsgContent: PropTypes.string,
+	emptyMsgHeader: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
 	fetchDiscussions: PropTypes.func,
 	filter: PropTypes.shape({
 		both: PropTypes.bool,
@@ -418,6 +509,8 @@ DiscussionsList.propTypes = {
 
 DiscussionsList.defaultProps = {
 	fetchDiscussions: fetchDiscussions,
+	emptyMsgContent: "Try searching something else...",
+	emptyMsgHeader: "No discussions",
 	filter: {},
 	includeFilter: false,
 	onUserPage: false,

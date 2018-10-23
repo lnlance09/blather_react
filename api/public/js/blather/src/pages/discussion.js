@@ -1,4 +1,4 @@
-import "./css/index.css"
+import "pages/css/index.css"
 import { mapIdsToNames } from "utils/arrayFunctions"
 import { adjustTimezone } from "utils/dateFunctions"
 import { DisplayMetaTags } from "utils/metaFunctions"
@@ -11,7 +11,17 @@ import {
 } from "pages/actions/discussion"
 import { Provider, connect } from "react-redux"
 import { Link } from "react-router-dom"
-import { Button, Container, Form, Grid, Header, Icon, Image, TextArea } from "semantic-ui-react"
+import {
+	Button,
+	Container,
+	Form,
+	Grid,
+	Header,
+	Icon,
+	Image,
+	Responsive,
+	TextArea
+} from "semantic-ui-react"
 import Marked from "marked"
 import Moment from "react-moment"
 import Conversation from "components/conversation/v1/"
@@ -266,24 +276,44 @@ class DiscussionPage extends Component {
 					{!this.props.error && (
 						<Container className="mainContainer" textAlign="left">
 							<HeaderSection props={this.props} />
-							<Grid>
-								<Grid.Column className="leftSide" width={12}>
-									{EvidenceSection(this.props)}
-									<Conversation
-										acceptedBy={this.props.acceptedBy}
-										authenticated={authenticated}
-										bearer={bearer}
-										createdBy={this.props.createdBy}
-										discussionId={id}
-										loading={this.props.convoLoading}
-										source="discussion"
-										status={this.props.status}
-									/>
-								</Grid.Column>
-								<Grid.Column className="rightSide" width={4}>
-									{ShowTags(this.props)}
-								</Grid.Column>
-							</Grid>
+							<Responsive maxWidth={1024}>
+								<Grid>
+									<Grid.Row>
+										{EvidenceSection(this.props)}
+										<Conversation
+											acceptedBy={this.props.acceptedBy}
+											authenticated={authenticated}
+											bearer={bearer}
+											createdBy={this.props.createdBy}
+											discussionId={id}
+											loading={this.props.convoLoading}
+											source="discussion"
+											status={this.props.status}
+										/>
+									</Grid.Row>
+									<Grid.Row>{ShowTags(this.props)}</Grid.Row>
+								</Grid>
+							</Responsive>
+							<Responsive minWidth={1025}>
+								<Grid>
+									<Grid.Column className="leftSide" width={12}>
+										{EvidenceSection(this.props)}
+										<Conversation
+											acceptedBy={this.props.acceptedBy}
+											authenticated={authenticated}
+											bearer={bearer}
+											createdBy={this.props.createdBy}
+											discussionId={id}
+											loading={this.props.convoLoading}
+											source="discussion"
+											status={this.props.status}
+										/>
+									</Grid.Column>
+									<Grid.Column className="rightSide" width={4}>
+										{ShowTags(this.props)}
+									</Grid.Column>
+								</Grid>
+							</Responsive>
 						</Container>
 					)}
 					{this.props.error && (

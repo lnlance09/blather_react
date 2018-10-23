@@ -1,4 +1,4 @@
-import "./css/index.css"
+import "pages/css/index.css"
 import { refreshYouTubeToken } from "components/authentication/v1/actions"
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { fetchPostData } from "pages/actions/post"
@@ -188,8 +188,8 @@ class Post extends Component {
 							Fallacies
 						</Header>
 						<FallaciesList
-							emptyMsgHeader={false}
 							emptyMsgContent={`No fallacies have been assigned to this ${type}`}
+							emptyMsgHeader={false}
 							network={network}
 							objectId={props.info.id}
 							source="post"

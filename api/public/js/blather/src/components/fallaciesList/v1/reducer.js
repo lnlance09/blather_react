@@ -19,6 +19,23 @@ const test = (state = initial(), action) => {
 				results: results
 			}
 
+		case constants.GET_TARGETS:
+			const targets =
+				action.payload.page > 0
+					? [...state.targets.results, ...action.payload.targets]
+					: action.payload.targets
+			return {
+				...state,
+				targets: {
+					count: action.payload.targets.length,
+					hasMore: action.payload.hasMore,
+					loadingMore: false,
+					page: action.payload.page,
+					pages: action.payload.pages,
+					results: targets
+				}
+			}
+
 		default:
 			return state
 	}

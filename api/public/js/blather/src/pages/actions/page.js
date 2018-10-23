@@ -37,6 +37,10 @@ export const fetchPageData = ({ bearer, id, type }) => dispatch => {
 				type: constants.GET_PAGE_DATA,
 				payload: body
 			})
+
+			if (!body.error) {
+				dispatch(fetchFallacyCount({ id: body.data.social_media_id }))
+			}
 		}
 	)
 }

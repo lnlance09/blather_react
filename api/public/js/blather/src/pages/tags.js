@@ -1,4 +1,4 @@
-import "./css/index.css"
+import "pages/css/index.css"
 import { adjustTimezone } from "utils/dateFunctions"
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { sanitizeText } from "utils/textFunctions"
@@ -18,6 +18,7 @@ import {
 	Image,
 	List,
 	Menu,
+	Responsive,
 	Segment,
 	TextArea
 } from "semantic-ui-react"
@@ -216,7 +217,7 @@ class Tags extends Component {
 			return <Image src={pic} />
 		}
 		const TagMenu = props => (
-			<Menu className="tagMenu" pointing secondary>
+			<Menu className="tagMenu" fluid pointing secondary stackable>
 				<Menu.Item
 					name="article"
 					active={activeItem === "article"}
@@ -236,7 +237,7 @@ class Tags extends Component {
 		)
 		const TagTitle = ({ props }) => {
 			const subheader = (
-				<div>
+				<div className="subHeader">
 					{props.createdBy && (
 						<div>
 							<Icon className="tag" name="tag" /> Created{" "}
@@ -272,38 +273,74 @@ class Tags extends Component {
 					<PageHeader {...this.props} />
 					{!this.props.error && (
 						<Container className="mainContainer" textAlign="left">
-							<Grid>
-								<Grid.Column className="leftSide" width={4}>
-									{ProfilePic(this.props)}
-								</Grid.Column>
-								<Grid.Column width={12}>
-									<TagTitle props={this.props} />
-									{this.props.loading && (
-										<Segment loading>
-											<Image fluid src={ParagraphPic} />
-											<Image fluid src={ParagraphPic} />
-											<Image fluid src={ParagraphPic} />
-											<Image fluid src={ParagraphPic} />
-											<Image fluid src={ParagraphPic} />
-										</Segment>
-									)}
-									{!this.props.loading && (
-										<div className="tagsWrapper">
-											{TagMenu(this.props)}
-											{activeItem === "article" && (
-												<div>{ArticleSection(this.props)}</div>
-											)}
-											{activeItem === "history" && (
-												<div>
-													<List divided>
-														{HistorySection(this.props)}
-													</List>
-												</div>
-											)}
-										</div>
-									)}
-								</Grid.Column>
-							</Grid>
+							<Responsive maxWidth={1024}>
+								<Grid>
+									<Grid.Row>
+										<TagTitle props={this.props} />
+										{this.props.loading && (
+											<Segment loading>
+												<Image fluid src={ParagraphPic} />
+												<Image fluid src={ParagraphPic} />
+												<Image fluid src={ParagraphPic} />
+												<Image fluid src={ParagraphPic} />
+												<Image fluid src={ParagraphPic} />
+											</Segment>
+										)}
+									</Grid.Row>
+									<Grid.Row>
+										{ProfilePic(this.props)}
+										{!this.props.loading && (
+											<div className="tagsWrapper">
+												{TagMenu(this.props)}
+												{activeItem === "article" && (
+													<div>{ArticleSection(this.props)}</div>
+												)}
+												{activeItem === "history" && (
+													<div>
+														<List divided>
+															{HistorySection(this.props)}
+														</List>
+													</div>
+												)}
+											</div>
+										)}
+									</Grid.Row>
+								</Grid>
+							</Responsive>
+							<Responsive minWidth={1025}>
+								<Grid>
+									<Grid.Column className="leftSide" width={4}>
+										{ProfilePic(this.props)}
+									</Grid.Column>
+									<Grid.Column width={12}>
+										<TagTitle props={this.props} />
+										{this.props.loading && (
+											<Segment loading>
+												<Image fluid src={ParagraphPic} />
+												<Image fluid src={ParagraphPic} />
+												<Image fluid src={ParagraphPic} />
+												<Image fluid src={ParagraphPic} />
+												<Image fluid src={ParagraphPic} />
+											</Segment>
+										)}
+										{!this.props.loading && (
+											<div className="tagsWrapper">
+												{TagMenu(this.props)}
+												{activeItem === "article" && (
+													<div>{ArticleSection(this.props)}</div>
+												)}
+												{activeItem === "history" && (
+													<div>
+														<List divided>
+															{HistorySection(this.props)}
+														</List>
+													</div>
+												)}
+											</div>
+										)}
+									</Grid.Column>
+								</Grid>
+							</Responsive>
 						</Container>
 					)}
 					{this.props.error && (

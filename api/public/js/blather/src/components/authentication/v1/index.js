@@ -143,7 +143,7 @@ class Authentication extends Component {
 		const infoBox = () => {
 			if (!this.props.verify) {
 				return (
-					<Segment basic>
+					<Segment>
 						{registerText()}{" "}
 						<span className="registerLink" onClick={this.onClick}>
 							{registerButton()}
@@ -234,7 +234,7 @@ class Authentication extends Component {
 				<div>
 					<ReactSVG className="signInLogo" path={Logo} svgClassName="signInLogo" />
 					<Header as="h1">{headerText()}</Header>
-					<Segment raised>
+					<Segment>
 						{mainForm()}
 						{errorMsg(this.props)}
 						{emailVerificationForm(this.props)}

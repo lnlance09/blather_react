@@ -50,7 +50,7 @@ class AboutCard extends Component {
 		}
 		return (
 			<Provider store={store}>
-				<Card className="aboutCard">
+				<Card className="aboutCard" fluid>
 					<Card.Content>
 						<Card.Header>
 							{this.props.title}
@@ -88,7 +88,6 @@ class AboutCard extends Component {
 									</Button>
 								</Card.Description>
 							)}
-
 							{!editing && <div>{translateLink(description)}</div>}
 						</Card.Description>
 					</Card.Content>
