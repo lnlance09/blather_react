@@ -44,7 +44,7 @@
             break;
     }
 
-    $mysqli = new mysqli("127.0.0.1:8889", "root", "root", "blather_react");
+    $mysqli = new mysqli("blather.cni5l9jtlymn.us-west-2.rds.amazonaws.com:3306", "lnlance09", "kVQ63hewQNi0bXg", "blather");
     if($mysqli->connect_errno) {
         printf("Connect failed: %s\n", $mysqli->connect_error);
         exit();
