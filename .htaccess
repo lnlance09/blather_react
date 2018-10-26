@@ -3,4 +3,4 @@ RewriteCond %{REQUEST_URI} !^/index.html$
 RewriteCond %{REQUEST_URI} !\.(gif|jpe?g|png|css|js|svg|ttf|map|woff|woff2|img)$
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^ index.html [QSA,L]
+RewriteRule ^ index.php [QSA,L]
