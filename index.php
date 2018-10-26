@@ -150,17 +150,13 @@
                 break;
 
             case'targets':
-                if(count($paths) >= 3) {
-                    $userId = $exp[1];
-                    $pageId = $exp[2];
-                }
-
+                $pageId = count($paths) >= 3 ? $exp[2] : null;
                 $sql = "SELECT p.name AS page_name, u.name AS user_name, p.profile_pic
                         FROM criticisms c
                         INNER JOIN pages p ON c.page_id = p.id
                         INNER JOIN users u ON c.user_id = u.id
-                        WHERE user_id = '".$mysqli->real_escape_string($userId)."'
-                        AND page_id = '".$mysqli->real_escape_string($pageId)."'";
+                        WHERE user_id = '".$mysqli->real_escape_string((int)$id)."'
+                        AND page_id = '".$mysqli->real_escape_string((int)$pageId)."'";
                 if($result = $mysqli->query($sql)) {
                     while($row = $result->fetch_assoc()) {
                         $title = $row['user_name']."'s review of ".$row['page_name'];
