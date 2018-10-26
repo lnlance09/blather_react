@@ -99,7 +99,7 @@
                     $name = ucwords(str_replace('_', ' ', $id));
                     $sql = "SELECT description, name
                             FROM fallacies
-                            WHERE name = '".$mysqli->real_escape_string($id)."'";
+                            WHERE name = '".$mysqli->real_escape_string($name)."'";
                     if($result = $mysqli->query($sql)) {
                         while($row = $result->fetch_assoc()) {
                             $title = $row['name'];
