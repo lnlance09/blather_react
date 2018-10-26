@@ -141,7 +141,7 @@ class CreateDiscussionPage extends Component {
 		const DiscussionForm = props => {
 			return (
 				<Transition animation="fade" duration={duration} visible={visible}>
-					<Dimmer.Dimmable as={Segment} basic dimmed={authenticated ? false : true}>
+					<Dimmer.Dimmable as={Segment} basic dimmed={!authenticated}>
 						<Form loading={loading && !props.error} onSubmit={this.submitDiscussion}>
 							<Form.Input
 								className="titleInput"
@@ -210,9 +210,10 @@ class CreateDiscussionPage extends Component {
 								</Button>
 							</div>
 						</Form>
-						<Dimmer active={authenticated ? false : true}>
+						<Dimmer active={!authenticated}>
 							<Header as="h2">Sign in to start a discussion</Header>
 							<Button
+								color="blue"
 								content="Sign in"
 								onClick={e => props.history.push("/signin")}
 							/>

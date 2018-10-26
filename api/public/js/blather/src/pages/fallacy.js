@@ -15,8 +15,7 @@ import {
 	Image,
 	Label,
 	Menu,
-	Responsive,
-	Segment
+	Responsive
 } from "semantic-ui-react"
 import Comments from "components/comments/v1/"
 import FallacyExample from "components/fallacyExample/v1/"
@@ -84,7 +83,7 @@ class Fallacy extends Component {
 					props.user.type === "twitter" ? props.user.username : props.user.id
 				}`
 				return (
-					<Segment className="statusActionSegment">
+					<div className="statusActionSegment">
 						<Header size="tiny">
 							Let <Link to={userLink}>{props.user.name}</Link> know that this
 							reasoning doesn't make sense
@@ -92,7 +91,9 @@ class Fallacy extends Component {
 						{props.user.type === "twitter" && (
 							<TwitterShareButton
 								className="twitterButton ui icon button"
-								title={`${props.title}`}
+								title={`@${props.user.username} ${props.title} - ${
+									props.fallacyName
+								} by ${props.user.name}`}
 								url={`${window.location.origin}/fallacies/${props.fallacyId}`}
 							>
 								<Icon name="twitter" /> Tweet @{props.user.username}
@@ -112,7 +113,7 @@ class Fallacy extends Component {
 								<Icon name="youtube" /> {props.user.name}
 							</Button>
 						)}
-					</Segment>
+					</div>
 				)
 			}
 			return null

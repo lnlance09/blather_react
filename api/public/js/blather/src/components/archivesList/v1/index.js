@@ -100,7 +100,7 @@ class ArchivesList extends Component {
 
 		return (
 			<div className="archivesList">
-				{this.props.archives.length > 0 && (
+				{this.props.archives.length > 0 ? (
 					<Visibility
 						className="archiveWrapper"
 						continuous
@@ -110,8 +110,7 @@ class ArchivesList extends Component {
 							{renderArchives(this.props)}
 						</Item.Group>
 					</Visibility>
-				)}
-				{this.props.archives.length === 0 && (
+				) : (
 					<div className="emptyArchiveContainer">
 						<Message
 							content={this.props.emptyMsgContent}

@@ -223,7 +223,6 @@ class SearchResults extends Component {
 						className="emptyMsg"
 						content="Try modifying your search"
 						header="No results..."
-						warning
 					/>
 				</div>
 			)

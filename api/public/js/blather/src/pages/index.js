@@ -236,7 +236,7 @@ class Page extends Component {
 				<div className="socialMediaPage">
 					<DisplayMetaTags page="pages" props={this.props} state={this.state} />
 					<PageHeader {...this.props} />
-					{this.props.exists && (
+					{this.props.exists ? (
 						<Container className="mainContainer" textAlign="left">
 							<Responsive maxWidth={1024}>
 								<Grid>
@@ -299,8 +299,7 @@ class Page extends Component {
 								</Grid>
 							</Responsive>
 						</Container>
-					)}
-					{!this.props.exists && (
+					) : (
 						<Container className="mainContainer" text textAlign="center">
 							<Image centered disabled size="medium" src={TrumpImg} />
 							<Header size="medium">This page does not exist!</Header>

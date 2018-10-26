@@ -90,12 +90,12 @@ class App extends Component {
 						<Route component={SignIn} path="/signin" />
 
 						<Switch>
-							<Route component={Post} path="/tweet/:id" />
+							<Route component={Tags} path="/tag/create" />
+							<Route component={Tags} path="/tags/:id" />
 						</Switch>
 
 						<Switch>
-							<Route component={Tags} path="/tag/create" />
-							<Route component={Tags} path="/tags/:id" />
+							<Route component={Post} path="/tweet/:id" />
 						</Switch>
 
 						<Switch>

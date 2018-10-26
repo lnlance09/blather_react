@@ -234,7 +234,7 @@ class FallaciesList extends Component {
 		return (
 			<Provider store={store}>
 				<div className="fallaciesList">
-					{this.props.results.length > 0 && (
+					{this.props.results.length > 0 ? (
 						<div>
 							<FilterSection props={this.props} />
 							<Visibility
@@ -253,8 +253,7 @@ class FallaciesList extends Component {
 								)}
 							</Visibility>
 						</div>
-					)}
-					{this.props.results.length === 0 && (
+					) : (
 						<div className="emptyFallaciesContainer">
 							<Message
 								content={this.props.emptyMsgContent}

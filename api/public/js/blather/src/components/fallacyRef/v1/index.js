@@ -46,7 +46,7 @@ class FallacyRef extends Component {
 				{fallacy && (
 					<Segment className="fallacySegment">
 						<Header as="p" size="small">
-							What is {formatGrammar(fallacy.name)} {fallacy.name}?
+							What is {formatGrammar(fallacy.name)} <i>{fallacy.name}</i>?
 						</Header>
 						<p>{fallacy.description}</p>
 						{this.props.showDialogue && (

@@ -271,7 +271,7 @@ class Tags extends Component {
 				<div className="tagsPage">
 					<DisplayMetaTags page="tags" props={this.props} state={this.state} />
 					<PageHeader {...this.props} />
-					{!this.props.error && (
+					{!this.props.error ? (
 						<Container className="mainContainer" textAlign="left">
 							<Responsive maxWidth={1024}>
 								<Grid>
@@ -314,7 +314,7 @@ class Tags extends Component {
 									</Grid.Column>
 									<Grid.Column width={12}>
 										<TagTitle props={this.props} />
-										{this.props.loading && (
+										{this.props.loading ? (
 											<Segment loading>
 												<Image fluid src={ParagraphPic} />
 												<Image fluid src={ParagraphPic} />
@@ -322,8 +322,7 @@ class Tags extends Component {
 												<Image fluid src={ParagraphPic} />
 												<Image fluid src={ParagraphPic} />
 											</Segment>
-										)}
-										{!this.props.loading && (
+										) : (
 											<div className="tagsWrapper">
 												{TagMenu(this.props)}
 												{activeItem === "article" && (
@@ -342,8 +341,7 @@ class Tags extends Component {
 								</Grid>
 							</Responsive>
 						</Container>
-					)}
-					{this.props.error && (
+					) : (
 						<Container className="mainContainer" text textAlign="center">
 							<Image centered disabled size="medium" src={TrumpImg} />
 							<Header size="medium">This tag does not exist!</Header>

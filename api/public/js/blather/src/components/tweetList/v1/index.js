@@ -114,12 +114,10 @@ class TweetList extends Component {
 
 		return (
 			<div className="tweetList">
-				{this.props.posts.count > 0 && (
-					<Visibility continuous offset={[50, 50]} onBottomVisible={this.loadMoreItems}>
-						<Item.Group>{RenderTweets}</Item.Group>
-						{lazyLoadMore(this.props)}
-					</Visibility>
-				)}
+				<Visibility continuous offset={[50, 50]} onBottomVisible={this.loadMoreItems}>
+					<Item.Group>{RenderTweets}</Item.Group>
+					{lazyLoadMore(this.props)}
+				</Visibility>
 				{EmptyMsg(this.props)}
 			</div>
 		)

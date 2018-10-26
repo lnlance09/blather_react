@@ -46,7 +46,9 @@ class Post extends Component {
 
 	handleContextRef = contextRef => this.setState({ contextRef })
 
-	handleSubmit = () => this.setState({ submitted: this.state.submitted ? false : true })
+	handleSubmit = () => {
+		this.setState({ submitted: !this.state.submitted })
+	}
 
 	postType(id, commentId, path) {
 		switch (path) {
@@ -180,7 +182,7 @@ class Post extends Component {
 			}
 			return null
 		}
-		const DisplayFallacies = props => {
+		const DisplayFallacies = ({ props }) => {
 			if (props.info) {
 				return (
 					<div className="fallaciesWrapper">
@@ -198,6 +200,7 @@ class Post extends Component {
 					</div>
 				)
 			}
+			return null
 		}
 		const DisplayPost = props => {
 			switch (type) {
@@ -301,12 +304,7 @@ class Post extends Component {
 						</Sticky>
 					)}
 
-					<Container
-						className={containerClassName}
-						ref={this.handleContextRef}
-						text
-						textAlign="left"
-					>
+					<Container className={containerClassName} text textAlign="left">
 						{DisplayPost(this.props)}
 						{!tweetExists && <Message content="This tweet does not exist" error />}
 						{!videoExists && <Message content="This video does not exist" error />}
@@ -323,7 +321,7 @@ class Post extends Component {
 									pageInfo={pageInfo}
 									user={user}
 								/>
-								{DisplayFallacies(this.props)}
+								<DisplayFallacies props={this.props} />
 							</div>
 						)}
 					</Container>

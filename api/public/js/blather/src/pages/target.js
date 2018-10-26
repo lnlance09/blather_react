@@ -228,7 +228,7 @@ class Target extends Component {
 								<Divider />
 								{showMessage && (
 									<Message
-										content={`You must assigned at least 5 fallacies to ${
+										content={`You must assign at least 5 fallacies to ${
 											this.props.page.name
 										} before you can submit a review`}
 										warning

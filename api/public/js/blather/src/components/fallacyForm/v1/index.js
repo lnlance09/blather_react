@@ -60,7 +60,7 @@ class FallacyForm extends Component {
 			title: ""
 		})
 		this.props.clearContradiction()
-		// this.props.handleSubmit()
+		this.props.handleSubmit()
 	}
 
 	onChangeAssignee = () => {
@@ -487,10 +487,9 @@ class FallacyForm extends Component {
 							/>
 						</Form.Field>
 						<ErrorMsg props={this.props} />
-						{this.props.authenticated && (
+						{this.props.authenticated ? (
 							<Button color="blue" content="Assign" fluid type="submit" />
-						)}
-						{!this.props.authenticated && (
+						) : (
 							<Button
 								color="green"
 								content="Sign in to start assigning fallacies"

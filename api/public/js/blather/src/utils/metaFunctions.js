@@ -4,7 +4,7 @@ import { capitalizeWord } from "./textFunctions"
 
 export const DisplayMetaTags = ({ page, props, state }) => {
 	const description =
-		"Blather is an educational tool that allows users to analyze and pinpoint the accuracy of claims made on social media"
+		"Blather is an educational tool that allows users to analyze and pinpoint the accuracy of claims made on social media."
 	const img = ""
 	let metaTags = {}
 	switch (page) {
@@ -146,14 +146,6 @@ export const DisplayMetaTags = ({ page, props, state }) => {
 		<MetaTags>
 			<title>{metaTags.title} - Blather</title>
 			<meta name="description" content={metaTags.description} />
-			<meta property="og:image" content={metaTags.img} />
-			<meta property="og:site_name" content="Blather" />
-			<meta property="og:title" content={metaTags.title} />
-			<meta property="og:type" content="website" />
-			<meta
-				property="og:url"
-				content={`${window.location.origin}${props.location.pathname}`}
-			/>
 		</MetaTags>
 	)
 }
