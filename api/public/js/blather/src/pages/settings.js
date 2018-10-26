@@ -338,8 +338,8 @@ class SettingsPage extends Component {
 						</Responsive>
 						<Responsive minWidth={1025}>
 							<Grid>
-								<Grid.Column width={5}>{SettingsMenu(this.props)}</Grid.Column>
-								<Grid.Column className="rightSide" width={11}>
+								<Grid.Column width={4}>{SettingsMenu(this.props)}</Grid.Column>
+								<Grid.Column className="rightSide" width={12}>
 									<div className="settingsContent">
 										<Segment>{activeItemDiv(activeItem)}</Segment>
 									</div>

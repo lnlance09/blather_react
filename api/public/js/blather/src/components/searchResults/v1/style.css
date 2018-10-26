@@ -4,6 +4,7 @@
   margin-right: 3px; }
 
 .searchResults .emptyMsg {
+  background: #ffffff;
   margin-top: 8px !important;
   text-align: center; }
 

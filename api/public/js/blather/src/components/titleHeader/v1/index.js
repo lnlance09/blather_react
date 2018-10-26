@@ -56,7 +56,7 @@ class TitleHeader extends Component {
 			<div className="titleHeader">
 				{this.props.title && (
 					<Header as="h1" dividing={this.props.dividing}>
-						{editing && (
+						{editing ? (
 							<div>
 								<Input
 									className="titleInput"
@@ -72,9 +72,7 @@ class TitleHeader extends Component {
 								/>
 								{EditIcon(this.props)}
 							</div>
-						)}
-
-						{!editing && (
+						) : (
 							<div>
 								{this.props.title}
 								{EditIcon(this.props)}

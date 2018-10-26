@@ -287,10 +287,9 @@ class YouTubeVideo extends Component {
 								offset={[50, 50]}
 								onBottomVisible={this.loadMore}
 							>
-								{authenticated && (
+								{authenticated ? (
 									<Comment.Group>{DisplayComments(this.props)}</Comment.Group>
-								)}
-								{!authenticated && (
+								) : (
 									<Dimmer.Dimmable
 										as={Segment}
 										className="commentsDimmer"

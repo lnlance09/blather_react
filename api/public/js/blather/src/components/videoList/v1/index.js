@@ -57,7 +57,7 @@ class VideoList extends Component {
 				<ResultItem
 					description={post.description}
 					history={this.props.history}
-					id={`video_${i}`}
+					id={`video_id_${i}`}
 					img={post.img}
 					key={`video_${i}`}
 					meta={dateCreated}
@@ -81,16 +81,10 @@ class VideoList extends Component {
 		return (
 			<Provider store={store}>
 				<div className="videoList">
-					{this.props.posts.count > 0 && (
-						<Visibility
-							continuous
-							offset={[50, 50]}
-							onBottomVisible={this.loadMoreItems}
-						>
-							<Item.Group divided>{RenderVideos}</Item.Group>
-							{lazyLoadMore(this.props)}
-						</Visibility>
-					)}
+					<Visibility continuous offset={[50, 50]} onBottomVisible={this.loadMoreItems}>
+						<Item.Group divided>{RenderVideos}</Item.Group>
+						{lazyLoadMore(this.props)}
+					</Visibility>
 					{EmptyMsg(this.props)}
 				</div>
 			</Provider>

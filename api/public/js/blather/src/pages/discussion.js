@@ -152,7 +152,7 @@ class DiscussionPage extends Component {
 							<EditButton props={props} type="description" />
 						</Header>
 					)}
-					{editingDescription && (
+					{editingDescription ? (
 						<Form onSubmit={this.updateDiscussion}>
 							<Form.Field>
 								<TextArea
@@ -171,8 +171,7 @@ class DiscussionPage extends Component {
 								type="submit"
 							/>
 						</Form>
-					)}
-					{!editingDescription && (
+					) : (
 						<div>
 							{props.description && (
 								<div
@@ -191,7 +190,7 @@ class DiscussionPage extends Component {
 							<EditButton props={props} type="extra" />
 						</Header>
 					)}
-					{editingExtra && (
+					{editingExtra ? (
 						<Form onSubmit={this.updateDiscussion}>
 							<Form.Field>
 								<TextArea
@@ -210,8 +209,7 @@ class DiscussionPage extends Component {
 								type="submit"
 							/>
 						</Form>
-					)}
-					{!editingExtra && (
+					) : (
 						<div>
 							{props.extra && (
 								<div
@@ -273,7 +271,7 @@ class DiscussionPage extends Component {
 				<div className="discussionPage">
 					<DisplayMetaTags page="discussion" props={this.props} state={this.state} />
 					<PageHeader {...this.props} />
-					{!this.props.error && (
+					{!this.props.error ? (
 						<Container className="mainContainer" textAlign="left">
 							<HeaderSection props={this.props} />
 							<Responsive maxWidth={1024}>
@@ -315,8 +313,7 @@ class DiscussionPage extends Component {
 								</Grid>
 							</Responsive>
 						</Container>
-					)}
-					{this.props.error && (
+					) : (
 						<Container className="mainContainer" text textAlign="center">
 							<Image centered disabled size="medium" src={TrumpImg} />
 							<Header size="medium">This discussion does not exist!</Header>

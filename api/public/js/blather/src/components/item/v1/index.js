@@ -26,8 +26,6 @@ class ResultItem extends Component {
 		})
 	}
 
-	componentWillMount() {}
-
 	redirectToUrl = () => {
 		if (this.props.redirect) {
 			this.props.history.push(this.props.url)
@@ -56,7 +54,7 @@ class ResultItem extends Component {
 						{props.extra.map((result, i) => {
 							if (parseInt(result.count, 10) > 0) {
 								return (
-									<List.Item key={`${props.key}_${i}`}>
+									<List.Item id={props.id} key={`item_extra_${i}`}>
 										<b>{formatNumber(result.count)}</b>{" "}
 										{formatPlural(result.count, result.term)}
 									</List.Item>
@@ -124,7 +122,7 @@ class ResultItem extends Component {
 		}
 		const RenderTags = tags =>
 			tags.map((tag, i) => (
-				<Label horizontal key={`${this.props.key}_label_${i}`}>
+				<Label horizontal key={`label_${i}`}>
 					{tag}
 				</Label>
 			))

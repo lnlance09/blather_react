@@ -2,6 +2,7 @@ import "./style.css"
 import { selectAssignee } from "components/fallacyForm/v1/actions"
 import { connect, Provider } from "react-redux"
 import { Form, Header, Icon, Image, Search } from "semantic-ui-react"
+import defaultImg from "images/image-square.png"
 import _ from "lodash"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
@@ -77,18 +78,15 @@ class NavSearch extends Component {
 
 	render() {
 		const { isLoading, results, value } = this.state
-		const resultRenderer = ({
-			description,
-			image,
-			key,
-			social_media_id,
-			title,
-			type,
-			username
-		}) => {
+		const resultRenderer = ({ description, image, social_media_id, title, type, username }) => {
 			return (
-				<div className="searchItem" key={key}>
-					<Image className="dropDownItemPic" rounded={false} src={image} />
+				<div className="searchItem">
+					<Image
+						className="dropDownItemPic"
+						onError={i => (i.target.src = defaultImg)}
+						rounded={false}
+						src={image}
+					/>
 					<Header size="tiny">{title}</Header>
 					<span>
 						<Icon className={`${type}Icon`} name={type} />
@@ -100,7 +98,6 @@ class NavSearch extends Component {
 		resultRenderer.propTypes = {
 			description: PropTypes.string,
 			image: PropTypes.string,
-			key: PropTypes.string,
 			social_media_id: PropTypes.string,
 			title: PropTypes.string,
 			type: PropTypes.string,

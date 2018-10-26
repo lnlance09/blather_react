@@ -91,7 +91,7 @@ class FallacyExample extends Component {
 			}
 			return null
 		}
-		const Explanation = ({ props }) => (
+		const Explanation = props => (
 			<div className="fallacyExplanation">
 				<Header as="h2" size="medium">
 					{props.fallacyName}
@@ -99,7 +99,7 @@ class FallacyExample extends Component {
 				</Header>
 				{props.fallacyId && (
 					<div>
-						{editing && (
+						{editing ? (
 							<Form onSubmit={this.updateFallacy}>
 								<Form.Field>
 									<Dropdown
@@ -129,8 +129,7 @@ class FallacyExample extends Component {
 									type="submit"
 								/>
 							</Form>
-						)}
-						{!editing && (
+						) : (
 							<div
 								className="explanation"
 								dangerouslySetInnerHTML={{
@@ -174,17 +173,13 @@ class FallacyExample extends Component {
 		}
 		const Material = props => (
 			<div className="fallacyMaterial">
-				<Header as="h3" size="medium">
-					Material
-				</Header>
-				{props.user && (
+				{props.user ? (
 					<div>
 						{ParseMaterial(props)}
 						{ShowDateDifference(props)}
 						{this.props.contradiction && <div>{ParseMaterial(props, true)}</div>}
 					</div>
-				)}
-				{!this.props.user && (
+				) : (
 					<Segment className="lazyLoadSegment" loading>
 						<Image fluid src={ParagraphPic} />
 					</Segment>
@@ -226,7 +221,7 @@ class FallacyExample extends Component {
 							retweet_count: material.tweet.retweet_count
 						}}
 						user={material.tweet.user}
-						{...this.props.history}
+						{...props.history}
 					/>
 				)
 			}
@@ -248,7 +243,7 @@ class FallacyExample extends Component {
 							startTime={material.video.startTime}
 							stats={material.video.stats}
 							title={material.video.title}
-							{...this.props.history}
+							{...props.history}
 						/>
 						{FeaturedInVideo(material.video, props)}
 					</div>
@@ -286,7 +281,7 @@ class FallacyExample extends Component {
 
 		return (
 			<div className="fallacyExample">
-				{this.props.showExplanation && <Explanation props={this.props} />}
+				{this.props.showExplanation && <div>{Explanation(this.props)}</div>}
 				{Material(this.props)}
 			</div>
 		)

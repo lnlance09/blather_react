@@ -84,20 +84,20 @@
    },
    {
       "id":"58",
-      "description":"Person A receives benefits or services courtesy of organization B. Therefore, person A has agreed to the rules set by organization B.",
+      "description":"Person A unavoidably receives benefits or services courtesy of organization B. Therefore, person A has agreed to the rules set by organization B.",
       "name":"Appeal to Benefit",
       "dialogue": [
          {
             "name": "Blathering Bill",
-            "message": "Keith called me from jail the other day and he was talking about how much it sucks being locked up. But, you know what? He's always using the weight room and the TV and eating at the cafeteria and speaking with a psychologist. All of that is courtesy of the prison."
+            "message": "Keith called me from jail the other day and he was talking about how much it sucks being locked up. But, you know what? He's always using the weight room and the TV and eating at the cafeteria and speaking with a psychologist... all of that is courtesy of the prison."
          },
          {
             "name": "Rational Rob",
-            "message": "So... what's your point?"
+            "message": "So, what's your point?"
          },
          {
             "name": "Blathering Bill",
-            "message": "If he hates prison so much then why does he keep using all the services there? He probably agreed to be incarcerated."
+            "message": "If he hates prison so much then why does he keep using all the services there? He probably likes it there."
          }
       ]
    },
@@ -445,6 +445,33 @@
       ]
    },
    {
+      "id":"67",
+      "description":"The belief that ending a cruel policy is an insult to all of the people who were previously victimized by it.",
+      "name":"Don't Cut in Line!",
+      "dialogue": [
+         {
+            "name": "Blathering Bill",
+            "message": "What Harriet Tubman did was a real insult to black people."
+         },
+         {
+            "name": "Rational Rob",
+            "message": "How so?"
+         },
+         {
+            "name": "Blathering Bill",
+            "message": "She helped black people illegally escape. It was against the law!"
+         },
+         {
+            "name": "Rational Rob",
+            "message": "Yeah, but"
+         },
+         {
+            "name": "Blathering Bill",
+            "message": "But nothing! What about all the other slaves who invested their precious time waiting to be set free LEGALLY!?"
+         }
+      ]
+   },
+   {
       "id":"21",
       "description":"The power of holding two contradictory beliefs in one's mind simultaneously, and accepting both of them.",
       "name":"Doublethink",
@@ -682,7 +709,7 @@
       "dialogue": [
          {
             "name": "Blathering Bill",
-            "message": "You still cheat on your wife, Bill?"
+            "message": "You still cheat on your wife, Rob?"
          }
       ]
    },
@@ -985,6 +1012,12 @@
             "message": "If you make enough predictions, then sooner or later some of them will probably become true. But, that's because of pure luck; not any uncanny ability to predict the future with accuracy."
          }
       ]
+   },
+   {
+      "id":"68",
+      "description":"Clickbaity headline that is given to content that is supposed to feature hard, objective facts. If the headline of an article or the title of a video begins with these three words there is an almost 100% certainty that it's just gossip, opinions, trivia, and lackluster arguments.",
+      "name":"The Truth About...",
+      "dialogue": []
    },
    {
       "id":"47",

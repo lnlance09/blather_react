@@ -279,7 +279,7 @@ class UserPage extends Component {
 				<div className="usersPage">
 					<DisplayMetaTags page="users" props={this.props} state={this.state} />
 					<PageHeader {...this.props} />
-					{!this.props.error && (
+					{!this.props.error ? (
 						<Container className="mainContainer" textAlign="left">
 							<Responsive maxWidth={1024}>
 								<Grid>
@@ -334,8 +334,7 @@ class UserPage extends Component {
 								</Grid>
 							</Responsive>
 						</Container>
-					)}
-					{this.props.error && (
+					) : (
 						<Container className="mainContainer" text textAlign="center">
 							<Image centered disabled size="medium" src={TrumpImg} />
 							<Header size="medium">This user does not exist!</Header>

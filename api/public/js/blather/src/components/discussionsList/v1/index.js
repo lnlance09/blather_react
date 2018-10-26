@@ -455,7 +455,7 @@ class DiscussionsList extends Component {
 		return (
 			<div className="discussionsList">
 				{this.props.includeFilter && <div>{FilterSection(this.props)}</div>}
-				{this.props.results.length > 0 && (
+				{this.props.results.length > 0 ? (
 					<Visibility
 						className="discussionsWrapper"
 						continuous
@@ -466,9 +466,7 @@ class DiscussionsList extends Component {
 							{lazyLoadSegments(this.props)}
 						</Item.Group>
 					</Visibility>
-				)}
-
-				{this.props.results.length === 0 && (
+				) : (
 					<div className="emptyDiscussionContainer">
 						<Message
 							content={this.props.emptyMsgContent}

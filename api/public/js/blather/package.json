@@ -32,6 +32,7 @@
     "react-dom": "^16.5.2",
     "react-dropzone": "^4.2.13",
     "react-facebook-login": "^4.0.1",
+    "react-ga": "^2.5.3",
     "react-helmet": "^5.2.0",
     "react-lazy-load": "^3.0.13",
     "react-linkify": "^0.2.2",

@@ -1,6 +1,7 @@
 import "pages/css/index.css"
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { Provider } from "react-redux"
+import { Link } from "react-router-dom"
 import { Comment, Container, Grid, Header, Menu, Responsive, Segment } from "semantic-ui-react"
 import BillPic from "images/avatar/small/mark.png"
 import fallacies from "fallacies.json"
@@ -73,6 +74,9 @@ class Fallacies extends Component {
 							</Header>
 							<p>{fallacy.description}</p>
 							<Comment.Group>{fallaciesConversation(fallacy.dialogue)}</Comment.Group>
+							<Link to={`/search/fallacies?fallacies=${fallacy.id}`}>
+								View real examples
+							</Link>
 						</Segment>
 					</div>
 				)
@@ -85,7 +89,9 @@ class Fallacies extends Component {
 				key={fallacy.id}
 				name={fallacy.name.toLowerCase()}
 				onClick={this.handleItemClick}
-			/>
+			>
+				{`${fallacy.name}`}
+			</Menu.Item>
 		))
 
 		return (
