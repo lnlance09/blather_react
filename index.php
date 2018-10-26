@@ -150,7 +150,7 @@
                 break;
 
             case'targets':
-                $pageId = count($paths) >= 3 ? $exp[2] : null;
+                $pageId = count($paths) >= 3 ? $paths[2] : null;
                 $sql = "SELECT p.name AS page_name, u.name AS user_name, p.profile_pic
                         FROM criticisms c
                         INNER JOIN pages p ON c.page_id = p.id
