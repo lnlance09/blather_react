@@ -81,18 +81,32 @@
                 break;
 
             case'fallacies':
-                $sql = "SELECT f.name AS fallacy_name, p.name AS page_name, fe.explanation
-                        FROM fallacy_entries fe
-                        INNER JOIN fallacies f ON fe.fallacy_id = f.id
-                        INNER JOIN pages p ON fe.page_id = p.social_media_id
-                        INNER JOIN users u ON fe.assigned_by = u.id
-                        WHERE id = '".$mysqli->real_escape_string($id)."'";
-                if($result = $mysqli->query($sql)) {
-                    while($row = $result->fetch_assoc()) {
-                        $title = $row['fallacy_name'].' by '.$row['page_name'];
-                        $description = $row['explanation'];
+                if(is_numeric($id)) {
+                    $sql = "SELECT f.name AS fallacy_name, p.name AS page_name, fe.explanation
+                            FROM fallacy_entries fe
+                            INNER JOIN fallacies f ON fe.fallacy_id = f.id
+                            INNER JOIN pages p ON fe.page_id = p.social_media_id
+                            INNER JOIN users u ON fe.assigned_by = u.id
+                            WHERE id = '".$mysqli->real_escape_string($id)."'";
+                    if($result = $mysqli->query($sql)) {
+                        while($row = $result->fetch_assoc()) {
+                            $title = $row['fallacy_name'].' by '.$row['page_name'];
+                            $description = $row['explanation'];
+                        }
+                        $result->close();
                     }
-                    $result->close();
+                } else {
+                    $name = ucwords(str_replace('_', ' ', $id));
+                    $sql = "SELECT description, name
+                            FROM fallacies
+                            WHERE id = '".$mysqli->real_escape_string($id)."'";
+                    if($result = $mysqli->query($sql)) {
+                        while($row = $result->fetch_assoc()) {
+                            $title = $row['name'];
+                            $description = $row['description'];
+                        }
+                        $result->close();
+                    }
                 }
                 break;
 
@@ -209,7 +223,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="theme-color" content="#000000">
-        
+
+        <meta property="og:description" content="<?php echo $description; ?>" />
         <meta property="og:image" content="https://blather.io/<?php echo $img; ?>" />
         <meta property="og:site_name" content="Blather" />
         <meta property="og:title" content="<?php echo $title; ?>" />
