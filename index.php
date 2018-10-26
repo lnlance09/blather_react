@@ -87,7 +87,7 @@
                             INNER JOIN fallacies f ON fe.fallacy_id = f.id
                             INNER JOIN pages p ON fe.page_id = p.social_media_id
                             INNER JOIN users u ON fe.assigned_by = u.id
-                            WHERE id = '".$mysqli->real_escape_string($id)."'";
+                            WHERE fe.id = '".$mysqli->real_escape_string((int)$id)."'";
                     if($result = $mysqli->query($sql)) {
                         while($row = $result->fetch_assoc()) {
                             $title = $row['fallacy_name'].' by '.$row['page_name'];
@@ -111,6 +111,7 @@
                 break;
 
             case'pages':
+                $id = $paths[2];
                 $sql = "SELECT about, name, profile_pic
                         FROM pages
                         WHERE id = '".$mysqli->real_escape_string($id)."'
