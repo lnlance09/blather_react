@@ -217,6 +217,8 @@
 
         $mysqli->close();
     }
+
+    list($width, $height) = getimagesize($img);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -225,14 +227,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="theme-color" content="#000000">
 
-        <meta property="og:description" content="<?php echo $description; ?>" />
+        <meta property="og:description" content="<?php echo htmlspecialchars($description); ?>" />
         <meta property="og:image" content="https://blather.io/<?php echo $img; ?>" />
+        <meta property="og:image:height" content="<?php echo $height; ?>">
+        <meta property="og:image:width" content="<?php echo $width; ?>">
         <meta property="og:site_name" content="Blather" />
-        <meta property="og:title" content="<?php echo $title; ?>" />
+        <meta property="og:title" content="<?php echo htmlspecialchars($title); ?>" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://blather.io<?php echo $uri; ?>" />
 
-        <meta name="description" content="<?php echo $description; ?>" />
+        <meta name="description" content="<?php echo htmlspecialchars($description); ?>" />
 
         <link rel="stylesheet" type="text/css" href="static/css/main.806cf679.css">
         <link rel="manifest" href="manifest.json">
