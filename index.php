@@ -82,7 +82,7 @@
 
             case'fallacies':
                 if(is_numeric($id)) {
-                    $sql = "SELECT f.name AS fallacy_name, p.name AS page_name, fe.explanation
+                    $sql = "SELECT f.name AS fallacy_name, p.name AS page_name, fe.explanation, p.profile_pic
                             FROM fallacy_entries fe
                             INNER JOIN fallacies f ON fe.fallacy_id = f.id
                             INNER JOIN pages p ON fe.page_id = p.social_media_id
@@ -92,6 +92,7 @@
                         while($row = $result->fetch_assoc()) {
                             $title = $row['fallacy_name'].' by '.$row['page_name'];
                             $description = $row['explanation'];
+                            $img = $row['profile_pic'];
                         }
                         $result->close();
                     }
@@ -227,16 +228,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="theme-color" content="#000000">
 
-        <meta property="og:description" content="<?php echo htmlspecialchars($description); ?>" />
+        <meta property="og:description" content="<?php echo htmlentities($description); ?>" />
         <meta property="og:image" content="<?php echo $img; ?>" />
         <meta property="og:image:height" content="<?php echo $height; ?>">
         <meta property="og:image:width" content="<?php echo $width; ?>">
         <meta property="og:site_name" content="Blather" />
-        <meta property="og:title" content="<?php echo htmlspecialchars($title); ?>" />
+        <meta property="og:title" content="<?php echo htmlentities($title); ?>" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://blather.io<?php echo $uri; ?>" />
 
-        <meta name="description" content="<?php echo htmlspecialchars($description); ?>" />
+        <meta name="description" content="<?php echo htmlentities($description); ?>" />
 
         <link rel="stylesheet" type="text/css" href="/static/css/main.7387fe68.css">
         <link rel="manifest" href="manifest.json">
