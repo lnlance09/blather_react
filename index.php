@@ -6,7 +6,7 @@
     $set = false;
     $title = "Fallacies";
     $description = "Blather is an educational tool that allows users to analyze and pinpoint the accuracy of claims made on social media.";
-    $img = "brain.png";
+    $img = "https://blather.io/brain.png";
 
     switch($uri) {
         case"/about":
@@ -142,7 +142,7 @@
                     while($row = $result->fetch_assoc()) {
                         $title = $row['value'];
                         $description = $row['description'];
-                        $img = $row['img'];
+                        $img = 'https://blather.io/api/public/img/tag_pics/'.$row['img'];
                     }
                     $result->close();
                 }
@@ -193,7 +193,7 @@
                     while($row = $result->fetch_assoc()) {
                         $title = $row['name'];
                         $description = $row['bio'];
-                        $img = $row['img'];
+                        $img = 'https://blather.io/api/public/img/profile_pics/'.$row['img'];
                     }
                     $result->close();
                 }
@@ -228,7 +228,7 @@
         <meta name="theme-color" content="#000000">
 
         <meta property="og:description" content="<?php echo htmlspecialchars($description); ?>" />
-        <meta property="og:image" content="https://blather.io/<?php echo $img; ?>" />
+        <meta property="og:image" content="<?php echo $img; ?>" />
         <meta property="og:image:height" content="<?php echo $height; ?>">
         <meta property="og:image:width" content="<?php echo $width; ?>">
         <meta property="og:site_name" content="Blather" />
