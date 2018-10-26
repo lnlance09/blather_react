@@ -223,7 +223,7 @@
 
         <meta name="description" content="<?php echo $description; ?>" />
 
-        <link rel="stylesheet" type="text/css" href="/static/css/main.806cf679.css">
+        <link rel="stylesheet" type="text/css" href="/static/css/main.7387fe68.css">
         <link rel="manifest" href="manifest.json">
         <link rel="shortcut icon" href="favicon.ico">
         
@@ -235,5 +235,5 @@
         </noscript>
         <div id="root"></div>
     </body>
-    <script src="/static/js/main.00e23e60.js"></script>
+    <script src="/static/js/main.e0398274.js"></script>
 </html>
