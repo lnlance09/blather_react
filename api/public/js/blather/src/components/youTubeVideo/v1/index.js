@@ -173,7 +173,7 @@ class YouTubeVideo extends Component {
 				return (
 					<Transition animation={animation} duration={duration} visible={archiveVisible}>
 						<Message className="archiveMsg" positive>
-							<Icon name="checkmark" /> You archived this{" "}
+							<Icon name="checkmark" /> Archived{" "}
 							<a href={`http://archive.is/${props.archive.code}`}>video</a>{" "}
 							<Moment date={archiveDate} fromNow />
 						</Message>

@@ -238,7 +238,7 @@ class Fallacy extends Component {
 									</Grid.Row>
 									<Grid.Row>{FallacyMenu(this.props)}</Grid.Row>
 									<Grid.Row>{ShowContent(this.props)}</Grid.Row>
-									{activeItem === 'conversation' && (
+									{activeItem === "conversation" && (
 										<Grid.Row>{ShowTags(this.props)}</Grid.Row>
 									)}
 								</Grid>

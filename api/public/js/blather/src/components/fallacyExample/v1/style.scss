@@ -22,12 +22,21 @@
         }
     }
 
+    .fallacyMaterial {
+        margin-top: 15px;
+    }
+
     .fallacyExplanation {
         width: 100%;
     }
 
-    .fallacyMaterial {
-        margin-top: 15px;
+    .explanationField {
+        margin-bottom: 4px !important;
+    }
+
+    .commonMarkLink {
+        font-size: 12px;
+        margin: 0.5em 0.3em !important;
     }
 
     @media only screen and (max-width: 1025px) {

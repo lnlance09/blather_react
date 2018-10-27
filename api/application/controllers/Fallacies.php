@@ -27,7 +27,26 @@
 			}
 
 			$this->fallacies->updateViewCount($id);
+
+			$archive = false;
+			$contradiction_archive = false;
+			if($this->user) {
+				$archive = $this->users->getArchivedLinks([
+					'object_id' => $fallacy['media_id'],
+					'user_id' => $this->user->id
+				]);
+
+				if($fallacy['contradiction_page_id']) {
+					$contradiction_archive = $this->users->getArchivedLinks([
+						'object_id' => $fallacy['contradiction_media_id'],
+						'user_id' => $this->user->id
+					]);
+				}
+			}
+
 			echo json_encode([
+				'archive' => $archive,
+				'contradiction_archive' => $contradiction_archive,
 				'error' => $fallacy['id'] === null,
 				'fallacy' => $fallacy
 			]);
@@ -358,7 +377,7 @@
 				]);
 			}
 
-			$fallacy = $this->fallacies->getFallacy($id, true);
+			$fallacy = $this->fallacies->getFallacy($id);
 			if(!$fallacy) {
 				$this->output->set_status_header(401);
 				echo json_encode([
@@ -429,7 +448,7 @@
 				exit;
 			}
 
-			$fallacy = $this->fallacies->getFallacy($id, true);
+			$fallacy = $this->fallacies->getFallacy($id);
 			if(!$fallacy) {
 				$this->output->set_status_header(401);
 				echo json_encode([
@@ -526,7 +545,7 @@
 				exit;
 			}
 
-			$fallacy = $this->fallacies->getFallacy($id, true);
+			$fallacy = $this->fallacies->getFallacy($id);
 			if(!$fallacy) {
 				$this->output->set_status_header(404);
 				echo json_encode([

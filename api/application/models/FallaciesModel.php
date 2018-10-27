@@ -169,6 +169,7 @@
                 fe.end_time,
                 fe.explanation,
                 fe.fallacy_id,
+                fe.media_id,
                 fe.network,
                 fe.start_time,
                 fe.status,
@@ -184,11 +185,7 @@
                 u.name AS user_name, 
                 u.username AS user_username, 
                 CONCAT('".$this->imgUrl."profile_pics/', u.img) AS user_img, 
-                u.id AS user_id,
-
-                a.code AS archive_code,
-                a.object_id AS archive_object_id,
-                a.date_created AS archive_date_created,
+                u.id AS user_id, 
 
                 GROUP_CONCAT(DISTINCT t.id SEPARATOR ', ') tag_ids, 
                 GROUP_CONCAT(DISTINCT t.value SEPARATOR ', ') AS tag_names,
@@ -257,7 +254,6 @@
                 $this->db->join('fallacies f', 'fe.fallacy_id = f.id');
                 $this->db->join('pages p', 'fe.page_id = p.social_media_id');
                 $this->db->join('users u', 'fe.assigned_by = u.id');
-                $this->db->join('archived_links a', 'a.object_id = fe.media_id AND a.user_id = fe.assigned_by', 'left');
 
                 $this->db->join('fallacy_tags ft', 'fe.id = ft.fallacy_id', 'left');
                 $this->db->join('tags t', 'ft.tag_id = t.id', 'left');

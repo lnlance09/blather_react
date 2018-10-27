@@ -7,7 +7,7 @@ import {
 	setContradictionEndTime
 } from "./actions"
 import { refreshYouTubeToken } from "components/authentication/v1/actions"
-import { convertTimeToSeconds, formatDuration } from "utils/textFunctions"
+import { convertTimeToSeconds } from "utils/textFunctions"
 import { connect, Provider } from "react-redux"
 import { Button, Dropdown, Form, Icon, Input, Message, Modal, TextArea } from "semantic-ui-react"
 import { fallacyDropdownOptions } from "utils/fallacyFunctions"
@@ -24,6 +24,7 @@ class FallacyForm extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
+			beginTime: "0:00",
 			changed: false,
 			endTime: "",
 			explanation: "",
@@ -36,6 +37,7 @@ class FallacyForm extends Component {
 		}
 
 		this.changeContradictionEndTime = this.changeContradictionEndTime.bind(this)
+		this.changeStartTime = this.changeStartTime.bind(this)
 		this.closeModal = this.closeModal.bind(this)
 		this.handleDismiss = this.handleDismiss.bind(this)
 		this.onChangeAssignee = this.onChangeAssignee.bind(this)
@@ -51,6 +53,8 @@ class FallacyForm extends Component {
 	changeContradictionEndTime = (e, { value }) => {
 		this.props.setContradictionEndTime({ value: convertTimeToSeconds(value) })
 	}
+
+	changeStartTime = (e, { value }) => this.setState({ beginTime: value })
 
 	closeModal = () => {
 		this.setState({
@@ -114,6 +118,7 @@ class FallacyForm extends Component {
 		if (
 			contradiction.network === "youtube" &&
 			this.props.network === "youtube" &&
+			page.type === "youtube" &&
 			contradiction.pageId !== page.id
 		) {
 			return false
@@ -138,7 +143,9 @@ class FallacyForm extends Component {
 			network: this.props.network,
 			objectId: this.props.objectId,
 			pageId: page.id,
-			startTime: this.props.info.currentTime,
+			startTime: this.state.beginTime
+				? convertTimeToSeconds(this.state.beginTime)
+				: this.props.info.currentTime,
 			title: this.state.title
 		})
 	}
@@ -151,7 +158,7 @@ class FallacyForm extends Component {
 	}
 
 	render() {
-		const { endTime, explanation, id, open, title, url } = this.state
+		const { beginTime, endTime, explanation, id, open, title, url } = this.state
 		const currentState = store.getState()
 		const contradiction = this.props.fallacy.contradiction
 		const contradictionError = contradiction ? contradiction.error : false
@@ -184,6 +191,7 @@ class FallacyForm extends Component {
 			if (
 				contradiction.network === "youtube" &&
 				this.props.network === "youtube" &&
+				page.type === "youtube" &&
 				contradiction.pageId !== page.id
 			) {
 				contradictionValid = false
@@ -345,9 +353,6 @@ class FallacyForm extends Component {
 					? contradiction.network === "youtube" && !contradiction.commentId
 					: props.network === "youtube" && !props.commentId
 			) {
-				const time = contradiction
-					? props.fallacy.contradiction.data.currentTime
-					: props.info.currentTime
 				return (
 					<Form.Group widths="equal">
 						<Form.Field>
@@ -355,8 +360,9 @@ class FallacyForm extends Component {
 							<Input
 								className={contradiction ? "contradictionStartTime" : "startTime"}
 								disabled={props.authenticated ? false : true}
+								onChange={this.changeStartTime}
 								placeholder="Start time"
-								value={formatDuration(time)}
+								value={beginTime}
 							/>
 						</Form.Field>
 						<Form.Field>
@@ -478,7 +484,10 @@ class FallacyForm extends Component {
 								value={title}
 							/>
 						</Form.Field>
-						<Form.Field disabled={this.props.authenticated ? false : true}>
+						<Form.Field
+							className="explanationField"
+							disabled={this.props.authenticated ? false : true}
+						>
 							<TextArea
 								onChange={this.onChangeExplanation}
 								placeholder="Explain how this is a fallacy"
@@ -486,6 +495,15 @@ class FallacyForm extends Component {
 								value={explanation}
 							/>
 						</Form.Field>
+						<p className="commonMarkLink">
+							<a
+								href="https://spec.commonmark.org/0.28/"
+								rel="noopener noreferrer"
+								target="_blank"
+							>
+								view commonmark specs
+							</a>
+						</p>
 						<ErrorMsg props={this.props} />
 						{this.props.authenticated ? (
 							<Button color="blue" content="Assign" fluid type="submit" />

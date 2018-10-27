@@ -13,6 +13,8 @@ const fallacy = (state = initial(), action) => {
 				}
 			}
 
+			const archive = payload.archive
+			const contradiction_archive = payload.contradiction_archive
 			const fallacy = payload.fallacy
 			let contradiction = null
 			let tweet = null
@@ -21,11 +23,10 @@ const fallacy = (state = initial(), action) => {
 			if (fallacy.network === "twitter") {
 				tweet = JSON.parse(fallacy.tweet_json)
 				tweet.archive = null
-				if (fallacy.archive_code) {
+				if (archive) {
 					tweet.archive = {
-						code: fallacy.archive_code,
-						date_created: fallacy.archive_date_created,
-						object_id: fallacy.archive_object_id
+						code: archive.code,
+						date_created: archive.date_created
 					}
 				}
 			}
@@ -71,8 +72,10 @@ const fallacy = (state = initial(), action) => {
 			}
 
 			if (payload.fallacy.contradiction_network === "twitter") {
+				let contradiction_tweet = JSON.parse(fallacy.contradiction_tweet_json)
+				contradiction_tweet.archive = contradiction_archive
 				contradiction = {
-					tweet: JSON.parse(fallacy.contradiction_tweet_json)
+					tweet: contradiction_tweet
 				}
 			}
 
