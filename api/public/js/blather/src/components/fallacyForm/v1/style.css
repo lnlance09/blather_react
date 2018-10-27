@@ -10,6 +10,13 @@
   .fallacyForm .contradictionWrapper.active {
     padding: 10px; }
 
+.fallacyForm .explanationField {
+  margin-bottom: 4px !important; }
+
+.fallacyForm .commonMarkLink {
+  font-size: 12px;
+  margin: 0.5em 0.3em !important; }
+
 .successModal a {
   cursor: pointer; }
 

@@ -285,6 +285,17 @@ class CreateDiscussionPage extends Component {
 						Recognize that your entire sense of identity shouldn't be wrapped up in your
 						beliefs
 					</List.Item>
+					<List.Item>
+						View{" "}
+						<a
+							href="https://spec.commonmark.org/0.28/"
+							rel="noopener noreferrer"
+							target="_blank"
+						>
+							commonmark specs
+						</a>{" "}
+						for formattings options
+					</List.Item>
 				</List>
 			</div>
 		)

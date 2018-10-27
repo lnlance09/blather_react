@@ -17,6 +17,7 @@ import {
 	Segment,
 	TextArea
 } from "semantic-ui-react"
+import ImagePic from "images/image-square.png"
 import Marked from "marked"
 import ParagraphPic from "images/short-paragraph.png"
 import PropTypes from "prop-types"
@@ -112,7 +113,7 @@ class FallacyExample extends Component {
 										selection
 									/>
 								</Form.Field>
-								<Form.Field>
+								<Form.Field className="explanationField">
 									<TextArea
 										onChange={this.onChangeExplanation}
 										placeholder="Why is this a fallacy?"
@@ -120,6 +121,15 @@ class FallacyExample extends Component {
 										value={explanation}
 									/>
 								</Form.Field>
+								<p className="commonMarkLink">
+									<a
+										href="https://spec.commonmark.org/0.28/"
+										rel="noopener noreferrer"
+										target="_blank"
+									>
+										view commonmark specs
+									</a>
+								</p>
 								<Button
 									className="updateBtn"
 									color="blue"
@@ -154,7 +164,11 @@ class FallacyExample extends Component {
 				return (
 					<List>
 						<List.Item>
-							<Image avatar src={props.user.img} />
+							<Image
+								avatar
+								onError={i => (i.target.src = ImagePic)}
+								src={props.user.img}
+							/>
 							<List.Content>
 								<List.Header as="a" onClick={() => props.history.push(link)}>
 									{props.user.name}
@@ -196,7 +210,6 @@ class FallacyExample extends Component {
 					<Tweet
 						archive={material.tweet.archive}
 						bearer={props.bearer}
-						canArchive
 						created_at={material.tweet.created_at}
 						extended_entities={material.tweet.extended_entities}
 						full_text={material.tweet.full_text}

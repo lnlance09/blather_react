@@ -105,10 +105,10 @@ class UserPage extends Component {
 			username
 		})
 
-		if(isMyProfile) {
+		if (isMyProfile) {
 			const currentState = store.getState()
 			const user = currentState.user
-			this.setState({about: user.data.bio})
+			this.setState({ about: user.data.bio })
 		}
 	}
 

@@ -75,7 +75,7 @@ class Fallacies extends Component {
 							<p>{fallacy.description}</p>
 							<Comment.Group>{fallaciesConversation(fallacy.dialogue)}</Comment.Group>
 							<Link to={`/search/fallacies?fallacies=${fallacy.id}`}>
-								View real examples
+								view real examples
 							</Link>
 						</Segment>
 					</div>
