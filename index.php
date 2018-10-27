@@ -235,7 +235,7 @@
 
         <meta name="description" content="<?php echo htmlentities($description); ?>" />
 
-        <link rel="stylesheet" type="text/css" href="/static/css/main.94c788d0.css">
+        <link rel="stylesheet" type="text/css" href="/static/css/main.a51df247.css">
         <link rel="manifest" href="manifest.json">
         <link rel="shortcut icon" href="favicon.ico">
         <meta name="google-site-verification" content="bTDbvvxwQikYB9zsfufDiaqgVHMRi4DZ0311nJpngi8" />
