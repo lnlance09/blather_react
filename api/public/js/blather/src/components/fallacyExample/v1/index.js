@@ -115,6 +115,7 @@ class FallacyExample extends Component {
 								</Form.Field>
 								<Form.Field className="explanationField">
 									<TextArea
+										autoHeight
 										onChange={this.onChangeExplanation}
 										placeholder="Why is this a fallacy?"
 										rows={10}

@@ -156,6 +156,7 @@ class DiscussionPage extends Component {
 						<Form onSubmit={this.updateDiscussion}>
 							<Form.Field>
 								<TextArea
+									autoHeight
 									onChange={this.updateDescription}
 									placeholder="What is your evidence? Try to use reputable sources."
 									rows={15}
@@ -194,6 +195,7 @@ class DiscussionPage extends Component {
 						<Form onSubmit={this.updateDiscussion}>
 							<Form.Field>
 								<TextArea
+									autoHeight
 									onChange={this.updateExtra}
 									placeholder="What is your evidence? Try to use reputable sources."
 									rows={15}
