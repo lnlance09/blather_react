@@ -293,7 +293,9 @@ a {
 .searchPage .searchContentContainer {
   min-height: 300px;
   margin: 0 !important;
-  padding: 0 !important;
+  padding: 0 !important; }
+
+.searchPage .searchResults {
   width: 100%; }
 
 /* Settings page */
