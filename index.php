@@ -235,7 +235,7 @@
 
         <meta name="description" content="<?php echo htmlentities($description); ?>" />
 
-        <link rel="stylesheet" type="text/css" href="/static/css/main.a51df247.css">
+        <link rel="stylesheet" type="text/css" href="/static/css/main.c9c700e7.css">
         <link rel="manifest" href="manifest.json">
         <link rel="shortcut icon" href="favicon.ico">
         <meta name="google-site-verification" content="bTDbvvxwQikYB9zsfufDiaqgVHMRi4DZ0311nJpngi8" />
@@ -247,5 +247,5 @@
         </noscript>
         <div id="root"></div>
     </body>
-    <script src="/static/js/main.954d4a05.js"></script>
+    <script src="/static/js/main.2c9e7329.js"></script>
 </html>
