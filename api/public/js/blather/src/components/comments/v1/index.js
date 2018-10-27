@@ -85,6 +85,7 @@ class CommentsSection extends Component {
 		const ReplyForm = props => (
 			<Form onSubmit={this.onSubmitForm}>
 				<Form.TextArea
+					autoHeight
 					onChange={this.onChangeMessage}
 					placeholder={placeholder}
 					value={message}

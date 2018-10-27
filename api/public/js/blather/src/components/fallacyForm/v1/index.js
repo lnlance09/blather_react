@@ -489,6 +489,7 @@ class FallacyForm extends Component {
 							disabled={this.props.authenticated ? false : true}
 						>
 							<TextArea
+								autoHeight
 								onChange={this.onChangeExplanation}
 								placeholder="Explain how this is a fallacy"
 								rows={8}
