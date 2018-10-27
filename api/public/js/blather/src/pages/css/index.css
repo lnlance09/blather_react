@@ -292,7 +292,9 @@ a {
 
 .searchPage .searchContentContainer {
   min-height: 300px;
-  padding: 0 !important; }
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100%; }
 
 /* Settings page */
 .settingsPage .settingsContent {
@@ -339,21 +341,6 @@ a {
   .tagsPage .tagsWrapper {
     margin-top: 0; } }
 
-/* Users page */
-.usersPage .menu.profileMenu {
-  margin-top: 40px !important; }
-
-@media only screen and (max-width: 1025px) {
-  .usersPage .menu.profileMenu {
-    margin-top: 0px !important; } }
-
-.usersPage .profileContentContainer {
-  padding: 0 !important; }
-
-.usersPage .profilePic.default {
-  background: #ffffff;
-  padding: 7px; }
-
 /* Targets page */
 .targetsPage .ui.text.container {
   font-size: 13px; }
@@ -362,3 +349,20 @@ a {
     margin-top: 20px; }
   .targetsPage .ui.text.container .questionnaire {
     margin-bottom: 16px; }
+
+/* Users page */
+.usersPage .menu.profileMenu {
+  margin-top: 40px !important; }
+
+@media only screen and (max-width: 1025px) {
+  .usersPage .menu.profileMenu {
+    margin-top: 0px !important; }
+  .usersPage .userContentRow {
+    padding-top: 0 !important; } }
+
+.usersPage .profileContentContainer {
+  padding: 0 !important; }
+
+.usersPage .profilePic.default {
+  background: #ffffff;
+  padding: 7px; }

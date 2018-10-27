@@ -101,8 +101,8 @@ class Fallacies extends Component {
 					<PageHeader {...this.props} />
 					<Container
 						className="mainContainer"
-						textAlign="left"
 						ref={this.handleContextRef}
+						textAlign="left"
 					>
 						<Header as="h1" dividing>
 							Fallacies

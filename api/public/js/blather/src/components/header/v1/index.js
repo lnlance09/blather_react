@@ -40,7 +40,9 @@ class Header extends Component {
 				key={fallacy.id}
 				name={fallacy.name.toLowerCase()}
 				onClick={this.handleItemClick}
-			/>
+			>
+				{`${fallacy.name}`}
+			</Menu.Item>
 		))
 		const loginButton = props => {
 			if (props.authenticated) {
