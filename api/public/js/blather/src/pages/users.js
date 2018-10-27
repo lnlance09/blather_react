@@ -74,6 +74,7 @@ class UserPage extends Component {
 
 		this.onDrop = this.onDrop.bind(this)
 		this.onChangeAbout = this.onChangeAbout.bind(this)
+		this.reloadAbout = this.reloadAbout.bind(this)
 	}
 
 	onChangeAbout = (e, { value }) => this.setState({ about: value })
@@ -103,6 +104,12 @@ class UserPage extends Component {
 			tab,
 			username
 		})
+
+		if(isMyProfile) {
+			const currentState = store.getState()
+			const user = currentState.user
+			this.setState({about: user.data.bio})
+		}
 	}
 
 	handleItemClick = (e, { name }) => {
@@ -122,6 +129,8 @@ class UserPage extends Component {
 			})
 		}
 	}
+
+	reloadAbout = () => this.setState({ reaload: !this.state.reload })
 
 	updateAbout = () => {
 		this.setState({ editing: false })
@@ -147,11 +156,13 @@ class UserPage extends Component {
 		if (isMyProfile) {
 			pic = !this.props.data.img && !this.props.loading ? defaultImg : this.props.data.img
 		}
-		const aboutCard = props => (
+
+		const AboutSection = props => (
 			<AboutCard
 				bearer={bearer}
 				canEdit={isMyProfile}
-				description={about}
+				description={isMyProfile ? about : props.user.bio}
+				handleReload={this.reloadAbout}
 				title="About"
 				type="user"
 			/>
@@ -291,7 +302,7 @@ class UserPage extends Component {
 											/>
 										</div>
 									</Grid.Row>
-									<Grid.Row>
+									<Grid.Row className="userContentRow">
 										<Transition
 											animation={animation}
 											duration={duration}
@@ -299,7 +310,7 @@ class UserPage extends Component {
 										>
 											{profilePic(this.props)}
 										</Transition>
-										{aboutCard(this.props)}
+										{AboutSection(this.props)}
 										{UserMenu(this.props)}
 										<Container className="profileContentContainer">
 											{ShowContent(this.props)}
@@ -318,7 +329,7 @@ class UserPage extends Component {
 										>
 											{profilePic(this.props)}
 										</Transition>
-										{aboutCard(this.props)}
+										{AboutSection(this.props)}
 									</Grid.Column>
 
 									<Grid.Column width={12}>

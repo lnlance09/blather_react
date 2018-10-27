@@ -40,8 +40,6 @@ class AboutCard extends Component {
 
 	render() {
 		const { editing, value } = this.state
-		const description =
-			this.props.type === "page" ? this.props.description : this.props.data.bio
 		const translateLink = text => {
 			if (this.props.linkify) {
 				return <Linkify properties={{ target: "_blank" }}>{text}</Linkify>
@@ -88,7 +86,7 @@ class AboutCard extends Component {
 									</Button>
 								</Card.Description>
 							)}
-							{!editing && <div>{translateLink(description)}</div>}
+							{!editing && <div>{translateLink(this.props.description)}</div>}
 						</Card.Description>
 					</Card.Content>
 				</Card>

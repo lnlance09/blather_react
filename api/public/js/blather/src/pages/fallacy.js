@@ -94,7 +94,7 @@ class Fallacy extends Component {
 								title={`@${props.user.username} ${props.title} - ${
 									props.fallacyName
 								} by ${props.user.name}`}
-								url={`${window.location.origin}/fallacies/${props.fallacyId}`}
+								url={`${window.location.origin}/fallacies/${id}`}
 							>
 								<Icon name="twitter" /> Tweet @{props.user.username}
 							</TwitterShareButton>
@@ -238,7 +238,9 @@ class Fallacy extends Component {
 									</Grid.Row>
 									<Grid.Row>{FallacyMenu(this.props)}</Grid.Row>
 									<Grid.Row>{ShowContent(this.props)}</Grid.Row>
-									<Grid.Row>{ShowTags(this.props)}</Grid.Row>
+									{activeItem === 'conversation' && (
+										<Grid.Row>{ShowTags(this.props)}</Grid.Row>
+									)}
 								</Grid>
 							</Responsive>
 							<Responsive minWidth={1025}>
