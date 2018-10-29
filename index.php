@@ -247,5 +247,5 @@
         </noscript>
         <div id="root"></div>
     </body>
-    <script src="/static/js/main.d62e7552.js"></script>
+    <script src="/static/js/main.71d7fe28.js"></script>
 </html>
