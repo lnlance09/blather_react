@@ -2,7 +2,7 @@ import "./style.css"
 import { logout } from "components/authentication/v1/actions"
 import { Provider, connect } from "react-redux"
 import { Link } from "react-router-dom"
-import { Container, Dropdown, Icon, Menu, Responsive, Sidebar } from "semantic-ui-react"
+import { Button, Container, Dropdown, Icon, Menu, Responsive, Sidebar } from "semantic-ui-react"
 import fallacies from "fallacies.json"
 import Logo from "./images/logo.svg"
 import NavSearch from "components/search/v1/"
@@ -44,7 +44,7 @@ class Header extends Component {
 				{`${fallacy.name}`}
 			</Menu.Item>
 		))
-		const loginButton = props => {
+		const LoginButton = props => {
 			if (props.authenticated) {
 				return (
 					<Dropdown
@@ -68,13 +68,13 @@ class Header extends Component {
 				)
 			} else {
 				return (
-					<Menu.Item
-						className="signInLink"
-						direction="right"
-						onClick={() => this.props.history.push("/signin")}
-						position="right"
-					>
-						Sign In
+					<Menu.Item className="signInLink" direction="right" position="right">
+						<Button
+							color="green"
+							compact
+							content="Sign In"
+							onClick={() => this.props.history.push("/signin")}
+						/>
 					</Menu.Item>
 				)
 			}
@@ -134,7 +134,7 @@ class Header extends Component {
 								<Menu.Item className="discussionsLink">
 									<Link to="/discussions">Discussions</Link>
 								</Menu.Item>
-								{loginButton(this.props)}
+								{LoginButton(this.props)}
 							</Responsive>
 						</Container>
 					</Menu>
