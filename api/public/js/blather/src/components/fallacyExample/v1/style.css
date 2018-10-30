@@ -31,4 +31,5 @@
 .fallacyExample .explanation {
   white-space: pre-line; }
   .fallacyExample .explanation p {
+    font-size: 14px;
     margin: 0; }
