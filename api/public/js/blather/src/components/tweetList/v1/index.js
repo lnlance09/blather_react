@@ -77,7 +77,6 @@ class TweetList extends Component {
 							retweeted_status={
 								post.retweeted_status === undefined ? false : post.retweeted_status
 							}
-							showStats={false}
 							stats={{
 								favorite_count: post.favorite_count,
 								retweet_count: post.retweet_count
