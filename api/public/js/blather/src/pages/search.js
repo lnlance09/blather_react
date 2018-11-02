@@ -76,7 +76,15 @@ class SearchPage extends Component {
 			value
 		})
 		if (value !== undefined) {
-			this.props.history.push(`/search/${this.state.activeItem}?q=${value}`)
+			const item = this.state.activeItem
+			let fallaciesString = ""
+			if (item === "fallacies") {
+				fallaciesString =
+					this.state.fallacies.length > 0
+						? `&fallacies=${this.state.fallacies.join(",")}`
+						: null
+			}
+			this.props.history.push(`/search/${item}?q=${value}${fallaciesString}`)
 		}
 	}
 
@@ -112,11 +120,6 @@ class SearchPage extends Component {
 					<Input
 						icon="search"
 						onChange={this.onChangeSearchValue}
-						onKeyPress={e => {
-							if (e.key === "Enter") {
-								this.submitSearchForm()
-							}
-						}}
 						placeholder="Search..."
 						value={value}
 					/>

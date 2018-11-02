@@ -33,19 +33,26 @@ import TrumpImg from "images/trump.svg"
 class Fallacy extends Component {
 	constructor(props) {
 		super(props)
+		const tabs = ["conversation", "comments", "reference"]
 		const id = parseInt(this.props.match.params.id, 10)
+		let tab = this.props.match.params.tab
 		const currentState = store.getState()
 		const authenticated = currentState.user.authenticated
 		const bearer = currentState.user.bearer
 		const userId = parseInt(currentState.user.data.id, 10)
 
+		if (!tabs.includes(tab)) {
+			tab = "conversation"
+		}
+
 		this.state = {
-			activeItem: "conversation",
+			activeItem: tab,
 			authenticated,
 			bearer,
 			editing: false,
 			id,
 			show: false,
+			tabs,
 			userId,
 			value: ""
 		}
@@ -59,9 +66,21 @@ class Fallacy extends Component {
 		})
 	}
 
+	componentWillReceiveProps(newProps) {
+		let tab = newProps.match.params.tab
+		if (!this.state.tabs.includes(tab)) {
+			tab = "conversation"
+		}
+
+		this.setState({ activeItem: tab })
+	}
+
 	handleHide = () => this.setState({ active: false })
 
-	handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+	handleItemClick = (e, { name }) => {
+		this.setState({ activeItem: name })
+		this.props.history.push(`/fallacies/${this.state.id}/${name}`)
+	}
 
 	handleShow = () => this.setState({ active: true })
 

@@ -153,7 +153,14 @@
 			$auth = $this->user ? $this->user->linkedTwitter : false;
 			$token = $auth ? $this->user->twitterAccessToken : null;
 			$secret = $auth ? $this->user->twitterAccessSecret : null;
-			$tweet = $this->twitter->getTweetExtended($id, $auth, $token, $secret);
+
+			// See if the tweet exists in the DB first since it may have been deleted
+			$tweet = $this->twitter->getTweetExtended($id, false, $token, $secret);
+
+			// Get tweet data from API
+			if($tweet['error'] && $auth) {
+				$tweet = $this->twitter->getTweetExtended($id, true, $token, $secret);
+			}
 
 			$archive = false;
 			if($this->user) {

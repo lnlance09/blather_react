@@ -136,7 +136,7 @@ class Authentication extends Component {
 		}
 		const headerText = () => {
 			if (!this.props.verify) {
-				return login ? "Sign in to Blather" : "Create an account"
+				return login ? "Sign in" : "Create an account"
 			}
 			return "Please verify your email"
 		}
