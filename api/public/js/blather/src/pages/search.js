@@ -47,7 +47,8 @@ class SearchPage extends Component {
 			activeItem: name,
 			page: 0
 		})
-		this.props.history.push(`/search/${name}?q=${this.state.value}`)
+		const value = this.state.value === undefined || this.state.value === null ? '' : this.state.value 
+		this.props.history.push(`/search/${name}?q=${value}`)
 	}
 
 	handleRadioClick = (e, { value }) => {
@@ -65,8 +66,9 @@ class SearchPage extends Component {
 		})
 
 		const fallaciesString = fallacies.join(",")
+		const val = this.state.value === undefined || this.state.value === null ? '' : this.state.value 
 		this.props.history.push(
-			`/search/fallacies?q=${this.state.value}&fallacies=${fallaciesString}`
+			`/search/fallacies?q=${val}&fallacies=${fallaciesString}`
 		)
 	}
 
@@ -82,7 +84,7 @@ class SearchPage extends Component {
 				fallaciesString =
 					this.state.fallacies.length > 0
 						? `&fallacies=${this.state.fallacies.join(",")}`
-						: null
+						: ''
 			}
 			this.props.history.push(`/search/${item}?q=${value}${fallaciesString}`)
 		}
