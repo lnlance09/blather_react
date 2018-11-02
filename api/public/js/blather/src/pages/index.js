@@ -241,7 +241,7 @@ class Page extends Component {
 							<Responsive maxWidth={1024}>
 								<Grid>
 									<Grid.Row>{PageHeaderInfo(this.props)}</Grid.Row>
-									<Grid.Row>
+									<Grid.Row className="pageContentRow">
 										<Transition
 											animation={animation}
 											duration={duration}

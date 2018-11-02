@@ -72,7 +72,7 @@ class Tweet extends Component {
 			return false
 		}
 		const archiveInfo = props => {
-			if (props.archive) {
+			if (props.archive && props.canArchive) {
 				const archiveDate = adjustTimezone(props.archive.date_created)
 				return (
 					<Transition animation={animation} duration={duration} visible={visible}>
@@ -275,8 +275,11 @@ class Tweet extends Component {
 									}}
 								>
 									{this.props.retweeted_status
-										? this.props.retweeted_status.full_text
-										: this.props.full_text}
+										? this.props.retweeted_status.full_text.replace(
+												/&amp;/g,
+												"&"
+										  )
+										: this.props.full_text.replace(/&amp;/g, "&")}
 								</Linkify>
 								{parseMedia(this.props)}
 							</Card.Description>

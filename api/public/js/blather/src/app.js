@@ -63,6 +63,17 @@ class App extends Component {
 									return <Fallacies {...props} />
 								}}
 							/>
+							<Route
+								exact
+								path="/fallacies/:id/:tab"
+								render={props => {
+									const id = props.match.params.id
+									if (Number.isInteger(parseInt(id, 10))) {
+										return <Fallacy {...props} />
+									}
+									return <Fallacies {...props} />
+								}}
+							/>
 						</Switch>
 
 						<Switch>
