@@ -1,6 +1,6 @@
 {
-  "short_name": "Blather",
-  "name": "Call out logical fallacies",
+  "short_name": "React App",
+  "name": "Create React App Sample",
   "icons": [
     {
       "src": "favicon.ico",
@@ -8,8 +8,8 @@
       "type": "image/x-icon"
     }
   ],
-  "start_url": "./index.php",
+  "start_url": "./index.html",
   "display": "standalone",
-  "theme_color": "#2196f3",
-  "background_color": "#1b1c1d"
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
 }
