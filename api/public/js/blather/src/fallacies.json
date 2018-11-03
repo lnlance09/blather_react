@@ -851,12 +851,12 @@
    },
    {
       "id":"39",
-      "description":"A type of non-sequitir whereby one asserts that if a group of people doesn't have a certain amount of a certain kind of person, that discrimination and\/or bigotry is the culprit.",
+      "description":"A type of non-sequitir whereby one asserts that if a certain group of people are statistically over/under represented in something, that discrimination and\/or bigotry is the culprit.",
       "name":"Quota Fallacy",
       "dialogue": [
          {
             "name": "Blathering Bill",
-            "message": "It's super messed up that more than 80% of the people who are convicted of insider trading are white. The SEC is racist against white people."
+            "message": "It's super messed up that more than 80% of the people who are convicted of insider trading are white men. The SEC is racist against white men."
          },
          {
             "name": "Rational Rob",
