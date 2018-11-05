@@ -108,6 +108,7 @@ class NavSearch extends Component {
 			<Search
 				className="navSearch"
 				defaultValue={value}
+				disabled={props.disabled}
 				loading={isLoading}
 				minCharacters={4}
 				onResultSelect={this.onClick}
@@ -135,6 +136,7 @@ class NavSearch extends Component {
 
 NavSearch.propTypes = {
 	defaultValue: PropTypes.string,
+	disabled: PropTypes.bool,
 	onChangeAssignee: PropTypes.func,
 	placeholder: PropTypes.string,
 	selectAssignee: PropTypes.func,
@@ -143,6 +145,7 @@ NavSearch.propTypes = {
 }
 
 NavSearch.defaultProps = {
+	disabled: false,
 	placeholder: "Search pages",
 	source: "header",
 	width: "360px"

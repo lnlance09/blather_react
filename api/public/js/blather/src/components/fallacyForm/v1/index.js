@@ -341,6 +341,7 @@ class FallacyForm extends Component {
 		const SelectAssignee = props => (
 			<SearchForm
 				defaultValue={props.info.channel ? props.info.channel.title : null}
+				disabled={props.authenticated ? false : true}
 				onChangeAssignee={this.onChangeAssignee}
 				placeholder="Who in this video should the fallacy be assigned to?"
 				source="fallacyForm"
@@ -355,21 +356,19 @@ class FallacyForm extends Component {
 			) {
 				return (
 					<Form.Group widths="equal">
-						<Form.Field>
+						<Form.Field disabled={props.authenticated ? false : true}>
 							<label>Video will start at</label>
 							<Input
 								className={contradiction ? "contradictionStartTime" : "startTime"}
-								disabled={props.authenticated ? false : true}
 								onChange={this.changeStartTime}
 								placeholder="Start time"
 								value={beginTime}
 							/>
 						</Form.Field>
-						<Form.Field>
+						<Form.Field disabled={props.authenticated ? false : true}>
 							<label>End at</label>
 							<Input
 								className={contradiction ? "contradictionEndTime" : "endTime"}
-								disabled={props.authenticated ? false : true}
 								onChange={this.onChangeEndTime}
 								placeholder="End time"
 								value={endTime}
@@ -511,7 +510,7 @@ class FallacyForm extends Component {
 						) : (
 							<Button
 								color="green"
-								content="Sign in to start assigning fallacies"
+								content="Sign in"
 								fluid
 								onClick={() => this.props.history.push("/signin")}
 							/>

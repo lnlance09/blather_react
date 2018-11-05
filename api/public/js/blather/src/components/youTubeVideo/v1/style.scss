@@ -91,6 +91,20 @@
     .commentsSection {
         margin-top: 10px;
 
+        .dimmed.dimmable {
+            padding: 10px;
+
+            .dimmer {
+                background: $dimmer-background !important;
+            }
+
+            .content {
+                .header {
+                    color: $black;
+                }
+            }
+        }
+
         .comments {
             max-width: none !important;
 
