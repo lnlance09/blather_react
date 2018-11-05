@@ -54,6 +54,12 @@
 
 .youTubeVideo .commentsSection {
   margin-top: 10px; }
+  .youTubeVideo .commentsSection .dimmed.dimmable {
+    padding: 10px; }
+    .youTubeVideo .commentsSection .dimmed.dimmable .dimmer {
+      background: rgba(255, 255, 255, 0.8) !important; }
+    .youTubeVideo .commentsSection .dimmed.dimmable .content .header {
+      color: #1b1c1d; }
   .youTubeVideo .commentsSection .comments {
     max-width: none !important; }
     .youTubeVideo .commentsSection .comments .comment {
