@@ -2,6 +2,7 @@
     $uri = $_SERVER['REQUEST_URI'];
     $paths = explode('/', $uri);
     array_splice($paths, 0, 1);
+    $schema = [];
 
     $set = false;
     $title = "Fallacies";
@@ -82,7 +83,7 @@
 
             case'fallacies':
                 if(is_numeric($id)) {
-                    $sql = "SELECT f.name AS fallacy_name, p.name AS page_name, fe.explanation, p.profile_pic
+                    $sql = "SELECT f.name AS fallacy_name, p.name AS page_name, p.profile_pic, p.type AS page_type, p.social_media_id, fe.date_created, p.username, fe.title, fe.explanation, fe.media_id, u.name AS user_name, u.id AS user_id, u.img AS user_profile_pic
                             FROM fallacy_entries fe
                             INNER JOIN fallacies f ON fe.fallacy_id = f.id
                             INNER JOIN pages p ON fe.page_id = p.social_media_id
@@ -90,11 +91,51 @@
                             WHERE fe.id = '".$mysqli->real_escape_string((int)$id)."'";
                     if($result = $mysqli->query($sql)) {
                         while($row = $result->fetch_assoc()) {
-                            $title = $row['fallacy_name'].' by '.$row['page_name'];
+                            $userId = $row['user_id'];
+                            $mediaId = $row['media_id'];
+                            $network = $row['network'];
+                            $userName = $row['user_name'];
+                            $pageName = $row['page_name'];
+                            $pageType = $row['page_type'];
+                            $pageId = $row['social_media_id'];
+                            $username = $row['username'];
+                            $fallacyTitle = $row['title'];
+                            $createdAt = $row['date_created'];
+                            $title = $row['fallacy_name'].' by '.$pageName;
                             $description = $row['explanation'];
                             $img = $row['profile_pic'];
+                            $pic = $row['user_profile_pic'];
                         }
                         $result->close();
+
+                        $pageUrl = $pageType === "twitter" ? "https://twitter.com/".$username : "https://www.youtube.com/channel/".$pageId;
+                        $postUrl = $network === "twitter" ? "https://twitter.com/".$username."/status/".$mediaId : "https://www.youtube.com/watch?v=".$mediaId;
+                        $schema = [
+                            "@context" => "http://schema.org",
+                            "@type" => "SocialMediaPosting",
+                            "@id" => $postUrl,
+                            "author" => [
+                                "@type" => "Person",
+                                "image" => $img,
+                                "name" => $pageName,
+                                "url" => $pageUrl
+                            ],
+                            "datePublished" => $createdAt,
+                            "headline" => $description,
+                            "image" => $img,
+                            "review" => [
+                                "@type" => "Review",
+                                "author" => [
+                                    "@type" => "Person",
+                                    "image" => "https://blather.io/api/public/img/profile_pics/".$pic,
+                                    "name" => $userName,
+                                    "url" => "https://blather.io/users/".$userId
+                                ],
+                                "datePublished" => $createdAt,
+                                "name" => $fallacyTitle,
+                                "reviewBody" =>  $description
+                            ]
+                        ];
                     }
                 } else {
                     $name = ucwords(str_replace('_', ' ', $id));
@@ -111,6 +152,7 @@
                 }
                 break;
 
+            // TODO profilePage
             case'pages':
                 $id = $paths[2];
                 $sql = "SELECT about, name, profile_pic
@@ -134,6 +176,7 @@
                 }
                 break;
 
+            // TODO article
             case'tags':
                 $sql = "SELECT t.value, tv.description, tv.img
                         FROM tags
@@ -149,6 +192,7 @@
                 }
                 break;
 
+            // TODO 
             case'targets':
                 $pageId = count($paths) >= 3 ? $paths[2] : null;
                 $sql = "SELECT p.name AS page_name, u.name AS user_name, p.profile_pic
@@ -167,20 +211,49 @@
                 break;
 
             case'tweet':
-                $sql = "SELECT t.full_text, p.name, p.profile_pic
+                $sql = "SELECT t.created_at, t.full_text, p.name, p.username, p.profile_pic
                         FROM twitter_posts t
                         INNER JOIN pages p ON t.page_id = p.social_media_id
                         WHERE tweet_id = '".$mysqli->real_escape_string($id)."'";
                 if($result = $mysqli->query($sql)) {
                     while($row = $result->fetch_assoc()) {
+                        $createdAt = $row['created_at'];
+                        $username = $row['username'];
                         $title = 'Tweet by '.$row['name'];
                         $description = $row['full_text'];
                         $img = $row['profile_pic'];
                     }
                     $result->close();
+
+                    $schema = [
+                        "@context" => "http://schema.org",
+                        "@type" => "SocialMediaPosting",
+                        "@id" => "https://blather.io/tweet/".$id,
+                        "datePublished" => $createdAt,
+                        "author" => [
+                            "@type" => "Person",
+                            "image" => $img,
+                            "name" => $name,
+                            "url" => "https://blather.io/pages/twitter/".$username
+                        ],
+                        "headline" => $description,
+                        "image" => $img,
+                        "sharedContent" => [
+                            "@type" => "WebPage",
+                            "headline" => $title,
+                            "url" => "https://twitter.com/".$username."/status/".$id,
+                            "author" => [
+                                "@type" => "Person",
+                                "image" => $img,
+                                "name" => $name,
+                                "url" => "https://twitter.com/".$username
+                            ]
+                        ]
+                    ];
                 }
                 break;
 
+            // TODO profilePage
             case'users':
                 $sql = "SELECT bio, img, name
                         FROM users
@@ -197,17 +270,49 @@
                 break;
 
             case'video':
-                $sql = "SELECT y.title, y.description, y.img, p.name
+                $sql = "SELECT y.title, y.description, y.img, y.video_id, y.date_created, p.name, p.social_media_id, p.profile_pic
                         FROM youtube_videos y
                         INNER JOIN pages p ON y.channel_id = p.social_media_id
                         WHERE video_id = '".$mysqli->real_escape_string($id)."'";
                 if($result = $mysqli->query($sql)) {
                     while($row = $result->fetch_assoc()) {
+                        $pageId = $row['social_media_id'];
+                        $createdAt = $row['date_created'];
+                        $videoId = $row['video_id'];
+                        $name = $row['name'];
                         $title = $row['title'];
                         $description = $row['description'];
                         $img = $row['img'];
+                        $profile_pic = $row['profile_pic'];
                     }
                     $result->close();
+
+                    $schema = [
+                        "@context" => "http://schema.org",
+                        "@type" => "SocialMediaPosting",
+                        "@id" => "https://blather.io/video/".$videoId,
+                        "datePublished" => $createdAt,
+                        "author" => [
+                            "@type" => "Person",
+                            "image" => $profile_pic,
+                            "name" => $name,
+                            "url" => "https://blather.io/pages/youtube/".$pageId
+                        ],
+                        "headline" => $title,
+                        "image" => $img,
+                        "sharedContent" => [
+                            "@type" => "WebPage",
+                            "headline" => $title,
+                            "image" => $img,
+                            "url" => "https://www.youtube.com/watch?v=".$videoId,
+                            "author" => [
+                                "@type" => "Person",
+                                "image" => $profile_pic,
+                                "name" => $name,
+                                "url" => "https://www.youtube.com/channel/".$pageId
+                            ]
+                        ]
+                    ];
                 }
                 break;
         }
@@ -248,4 +353,13 @@
         <div id="root"></div>
     </body>
     <script src="/static/js/main.4f3a6833.js"></script>
+<?php
+    if($schema) {
+?>
+    <script type="application/ld+json">
+        <?php echo json_encode($schema); ?>
+    </script>
+<?php
+    }
+?>
 </html>
