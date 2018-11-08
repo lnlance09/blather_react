@@ -213,6 +213,7 @@ class FallacyExample extends Component {
 						bearer={props.bearer}
 						created_at={material.tweet.created_at}
 						extended_entities={material.tweet.extended_entities}
+						externalLink
 						full_text={material.tweet.full_text}
 						id={material.tweet.id_str}
 						is_quote_status={material.tweet.is_quote_status}

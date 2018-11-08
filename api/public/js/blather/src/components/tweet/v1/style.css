@@ -24,6 +24,7 @@
       background: #FFFFFF !important; }
     .tweet .card .content.extra {
       border-top: solid 1px rgba(220, 221, 225, 0.6) !important;
+      cursor: default;
       padding: 1px 14px !important; }
       .tweet .card .content.extra .list .item {
         display: inline-block; }
@@ -33,12 +34,15 @@
           .tweet .card .content.extra .list .item .content .header span {
             color: #1B1C1D; }
         .tweet .card .content.extra .list .item .icon {
+          cursor: default;
           display: inline-block; }
         .tweet .card .content.extra .list .item .icon.archive {
           color: #9E9E9E;
           cursor: pointer; }
         .tweet .card .content.extra .list .item .icon.like {
           color: #F50057; }
+          .tweet .card .content.extra .list .item .icon.like:hover {
+            color: #F50057 !important; }
         .tweet .card .content.extra .list .item .icon.retweet {
           color: #2979FF; }
         .tweet .card .content.extra .list .item .icon.twitter {
