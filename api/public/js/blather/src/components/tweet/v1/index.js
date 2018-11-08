@@ -42,36 +42,33 @@ class Tweet extends Component {
 
 	render() {
 		const { animation, duration, visible } = this.state
-		let className = "tweet"
-		className += this.props.redirect ? " clickable" : ""
-		const archiveIcon = props => {
+		let className = `tweet ${this.props.redirect ? " clickable" : ""}`
+		const ArchiveIcon = props => {
 			if (props.canArchive && !props.archive) {
 				return (
-					<List floated="right" horizontal>
-						<List.Item className="archiveListItem">
-							<Popup
-								className="archivePopup"
-								content="Archive"
-								position="bottom left"
-								trigger={
-									<List.Content>
-										<List.Header>
-											<Icon
-												name="archive"
-												onClick={this.onClickArchive}
-												size="large"
-											/>
-										</List.Header>
-									</List.Content>
-								}
-							/>
-						</List.Item>
-					</List>
+					<List.Item className="archiveListItem">
+						<Popup
+							className="archivePopup"
+							content="Archive"
+							position="bottom left"
+							trigger={
+								<List.Content>
+									<List.Header>
+										<Icon
+											name="archive"
+											onClick={this.onClickArchive}
+											size="large"
+										/>
+									</List.Header>
+								</List.Content>
+							}
+						/>
+					</List.Item>
 				)
 			}
 			return false
 		}
-		const archiveInfo = props => {
+		const ArchiveInfo = props => {
 			if (props.archive && props.canArchive) {
 				const archiveDate = adjustTimezone(props.archive.date_created)
 				return (
@@ -87,7 +84,7 @@ class Tweet extends Component {
 				)
 			}
 		}
-		const parseMedia = props => {
+		const ParseMedia = props => {
 			if (props.extended_entities) {
 				props.extended_entities.media.map((item, i) => {
 					switch (item.type) {
@@ -100,7 +97,7 @@ class Tweet extends Component {
 										className="mediaImg"
 										href={item.expanded_url}
 										rounded={false}
-										size="tiny"
+										size={props.imageSize}
 										src={item.media_url_https}
 										target="_blank"
 									/>
@@ -112,6 +109,7 @@ class Tweet extends Component {
 									<Embed
 										className="mediaVideo"
 										placeholder={item.media_url_https}
+										size={props.imageSize}
 										url={item.video_info.variants[0].url}
 									/>
 								</div>
@@ -123,7 +121,7 @@ class Tweet extends Component {
 			}
 			return false
 		}
-		const quotedTweet = props => {
+		const QuotedTweet = props => {
 			if (props.is_quote_status) {
 				let quotedName = props.quoted_status.user.name
 				let quotedScreenName = props.quoted_status.user.screen_name
@@ -156,7 +154,7 @@ class Tweet extends Component {
 			}
 			return null
 		}
-		const retweetedText = props => {
+		const RetweetedText = props => {
 			let retweetedText = ""
 			if (props.retweeted_status) {
 				retweetedText = `${props.user.name} Retweeted`
@@ -169,7 +167,7 @@ class Tweet extends Component {
 			}
 			return false
 		}
-		const retweetedTweet = props => {
+		const RetweetedTweet = props => {
 			let profileImage = props.user.profile_image_url_https
 			let name = props.user.name
 			let screenName = props.user.screen_name
@@ -206,12 +204,12 @@ class Tweet extends Component {
 				return props.extended_entities.media.map((media, i) => {
 					if (media.type === "photo" || media.type === "video") {
 						return (
-							<div className="mediaPic" key={media.display_url}>
+							<div className="mediaPic" key={`${media.display_url}_${i}`}>
 								<Image
 									centered
 									rounded
 									onError={i => (i.target.src = itemPic)}
-									size="small"
+									size={props.imageSize}
 									src={media.media_url_https}
 								/>
 							</div>
@@ -223,34 +221,32 @@ class Tweet extends Component {
 		}
 		const StatsBar = ({ favoriteCount, retweetCount }) => {
 			return (
-				<div>
-					<List floated="left" horizontal>
-						<List.Item>
-							<Icon color="blue" name="retweet" size="large" />
-							<List.Content>
-								<List.Header>
-									<NumberFormat
-										displayType={"text"}
-										thousandSeparator={true}
-										value={retweetCount}
-									/>
-								</List.Header>
-							</List.Content>
-						</List.Item>
-						<List.Item>
-							<Icon name="like" size="large" />
-							<List.Content>
-								<List.Header>
-									<NumberFormat
-										displayType={"text"}
-										thousandSeparator={true}
-										value={favoriteCount}
-									/>
-								</List.Header>
-							</List.Content>
-						</List.Item>
-					</List>
-				</div>
+				<List floated="left" horizontal>
+					<List.Item>
+						<Icon color="blue" name="retweet" size="large" />
+						<List.Content>
+							<List.Header>
+								<NumberFormat
+									displayType={"text"}
+									thousandSeparator={true}
+									value={retweetCount}
+								/>
+							</List.Header>
+						</List.Content>
+					</List.Item>
+					<List.Item>
+						<Icon name="like" size="large" />
+						<List.Content>
+							<List.Header>
+								<NumberFormat
+									displayType={"text"}
+									thousandSeparator={true}
+									value={favoriteCount}
+								/>
+							</List.Header>
+						</List.Content>
+					</List.Item>
+				</List>
 			)
 		}
 
@@ -265,9 +261,9 @@ class Tweet extends Component {
 					}}
 				>
 					<Card fluid>
-						{retweetedText(this.props)}
+						{RetweetedText(this.props)}
 						<Card.Content>
-							{retweetedTweet(this.props)}
+							{RetweetedTweet(this.props)}
 							<Card.Description className="tweetUserTweet">
 								<Linkify
 									properties={{
@@ -281,9 +277,9 @@ class Tweet extends Component {
 										  )
 										: this.props.full_text.replace(/&amp;/g, "&")}
 								</Linkify>
-								{parseMedia(this.props)}
+								{ParseMedia(this.props)}
 							</Card.Description>
-							{quotedTweet(this.props)}
+							{QuotedTweet(this.props)}
 							{ShowMedia(this.props)}
 						</Card.Content>
 						{this.props.showStats && (
@@ -300,11 +296,29 @@ class Tweet extends Component {
 											: this.props.stats.retweet_count
 									}
 								/>
-								{archiveIcon(this.props)}
+								<List floated="right" horizontal>
+									{this.props.externalLink && (
+										<List.Item className="externalLinkListItem">
+											<Icon
+												name="twitter"
+												onClick={() =>
+													window.open(
+														`https://twitter.com/${
+															this.props.user.screen_name
+														}/status/${this.props.id}`,
+														"_blank"
+													)
+												}
+												size="large"
+											/>
+										</List.Item>
+									)}
+									{ArchiveIcon(this.props)}
+								</List>
 							</Card.Content>
 						)}
 					</Card>
-					{archiveInfo(this.props)}
+					{ArchiveInfo(this.props)}
 				</div>
 			</Provider>
 		)
@@ -328,9 +342,11 @@ Tweet.propTypes = {
 	extended_entities: PropTypes.shape({
 		media: PropTypes.array
 	}),
+	externalLink: PropTypes.bool,
 	fetchData: PropTypes.func,
 	full_text: PropTypes.string,
 	id: PropTypes.string,
+	imageSize: PropTypes.string,
 	is_quote_status: PropTypes.bool,
 	key: PropTypes.string,
 	quoted_status: PropTypes.shape({
@@ -396,6 +412,8 @@ Tweet.defaultProps = {
 	extended_entities: {
 		media: []
 	},
+	externalLink: false,
+	imageSize: "tiny",
 	quoted_status: {
 		user: {}
 	},

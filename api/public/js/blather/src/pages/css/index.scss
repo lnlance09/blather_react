@@ -7,7 +7,7 @@
 
 .search.selection.dropdown {
     .ui.label {
-        background: $seabrook;
+        background: $lightBlue;
         border: none !important;
         box-shadow: none !important;
         color: $white;
@@ -20,7 +20,7 @@
         font-weight: normal !important;
 
         &.active {
-            background: $protoss-pylos !important;
+            background: $lightBlue !important;
             color: $white;
             font-weight: bold !important;
 
@@ -36,8 +36,8 @@
         height: 50px;
 
         .label {
-            background: $linx-white;
-            color: $electromagnetic;
+            background: $offWhite;
+            color: $black;
         }
     }
 }
@@ -94,7 +94,7 @@ a {
 }
 
 .editButton {
-    color: $vanadyl-blue;
+    color: $blue;
     cursor: pointer;
     display: none !important;
     float: right;
@@ -102,7 +102,7 @@ a {
     margin-right: 0 !important;
 
     &.close {
-        color: $harley-davidson-orange;
+        color: $lightRed;
     }
 }
 
@@ -461,8 +461,8 @@ a {
         }
 
         .breadcrumbContainer {
-            background: $linx-white;
-            border-bottom: solid 1px $container-border-color;
+            background: $white;
+            border-bottom: solid 1px $lightGrey;
             margin-top: 72px;
             padding: 8px 30px;
             width: 100%;
@@ -574,7 +574,7 @@ a {
             cursor: pointer;
 
             &.selected {
-                background: $linx-white;
+                background: $white;
             }
         }
     }

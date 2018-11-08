@@ -1,43 +1,37 @@
-$protoss-pylos: rgba(0, 168, 255,1.0);
-$vanadyl-blue: rgba(0, 151, 230,1.0);
-
-$periwinkle: rgba(156, 136, 255,1.0);
-$matt-purple: rgba(140, 122, 230,1.0);
-
-$rise-n-shine: rgba(251, 197, 49,1.0);
-$nanohanacha-gold: rgba(225, 177, 44,1.0);
-
-$download-progress: rgba(76, 209, 55,1.0);
-$skirret-green: rgba(68, 189, 50,1.0);
-$skirret-green-light: rgba(68, 189, 50,0.3);
-
-$seabrook: rgba(72, 126, 176,1.0);
-$naval: rgba(64, 115, 158,1.0);
-
-$nasturcian-flower: rgba(232, 65, 24,1.0);
-$harley-davidson-orange: rgba(232, 65, 24,1.0);
-$harley-davidson-orange-light: rgba(232, 65, 24,0.3);
-
-$linx-white: rgba(245, 246, 250,1.0);
-$hint-of-pensive: rgba(220, 221, 225,1.0);
-
-$blueberry-soda: rgba(127, 143, 166,1.0);
-$chain-gang-grey: rgba(113, 128, 147,1.0);
-
-$mazarine-blue: rgba(39, 60, 117,1.0);
-$pico-void: rgba(25, 42, 86,1.0);
-
-$blue-nights: rgba(53, 59, 72,1.0);
-$electromagnetic: rgba(47, 54, 64,1.0);
-
 $facebook: #3b5998;
 $twitter: #0084b4;
 $youtube: #ff0000;
-$white: #ffffff;
-$blue: #2196f3;
-$black: #1b1c1d;
-$red: #f44336;
-$green: #4Caf50;
+
+/*---  Basic Colors  ---*/
+$black            : #1B1C1D;
+$blue             : #2196F3;
+$green            : #4CAF50;
+$grey             : #9E9E9E;
+$orange           : #FF9800;
+$pink             : #E91E63;
+$purple           : #9C27B0;
+$red              : #F44336;
+$teal             : #1de9b6;
+$yellow           : #FFEB3B;
+
+/*---  Light Colors  ---*/
+$lightBlack       : #333333;
+$lightBlue        : #2979FF;
+$lightGreen       : #00E676;
+$lightOrange      : #FF9100;
+$lightPink        : #F50057;
+$lightPurple      : #D500F9;
+$lightRed         : #FF1744;
+$lightTeal        : #1DE9B6;
+$lightYellow      : #FFEA00;
+
+/*---   Neutrals  ---*/
+$fullBlack        : #000000;
+$darkGrey         : #AAAAAA;
+$lightGrey        : #DCDDDE;
+$offWhite         : #FAFAFA;
+$darkWhite        : #F0F0F0;
+$white            : #FFFFFF;
 
 $menu-border-bottom-color: rgba(34,36,38,.15);
 

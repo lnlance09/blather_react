@@ -8,7 +8,7 @@
         margin-top: 3px !important;
 
         .label {
-            background: $naval !important;
+            background: $lightBlue !important;
             color: $white;
         }
     }
@@ -34,7 +34,7 @@
         }
 
         .label {
-            background: $seabrook !important;
+            background: $lightBlue !important;
             color: $white;
             font-weight: normal;
         }
@@ -43,11 +43,11 @@
     .image {
         .label {
             &.check {
-                border-color: $skirret-green;
+                border-color: $green;
             }
 
             &.close {
-                border-color: $harley-davidson-orange;
+                border-color: $lightRed;
             }
 
             .icon {

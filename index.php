@@ -377,6 +377,13 @@
     <script type="application/ld+json">
         <?php echo json_encode($schema); ?>
     </script>
+
+    <script>
+        var sc_project=11316702; 
+        var sc_invisible=1; 
+        var sc_security="b7d7f089"; 
+    </script>
+    <script src="https://www.statcounter.com/counter/counter.js" async></script>
 <?php
     }
 ?>

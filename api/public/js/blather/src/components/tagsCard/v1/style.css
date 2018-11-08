@@ -1,12 +1,15 @@
+/*---  Basic Colors  ---*/
+/*---  Light Colors  ---*/
+/*---   Neutrals  ---*/
 .tagsCard .header .editTagsIcon {
-  color: #2196f3;
+  color: #2196F3;
   cursor: pointer;
   display: none !important;
   float: right;
   font-size: 18px;
   margin-right: 0 !important; }
   .tagsCard .header .editTagsIcon.editing {
-    color: #e84118; }
+    color: #FF1744; }
 
 .tagsCard .header:hover .editTagsIcon {
   display: inline !important; }
@@ -16,14 +19,14 @@
     font-size: 20px !important; } }
 
 .tagsCard .tagsList .item .label {
-  background: #487eb0;
-  color: #ffffff;
+  background: #2979FF;
+  color: #FFFFFF;
   cursor: pointer; }
   .tagsCard .tagsList .item .label:hover {
-    background: #41719e; }
+    background: #1069ff; }
 
 .tagsCard .tagsList .item .icon {
-  color: #e84118 !important;
+  color: #FF1744 !important;
   display: none; }
 
 .tagsCard .tagsList .item:hover .icon {
