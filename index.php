@@ -340,7 +340,7 @@
 
         <meta name="description" content="<?php echo htmlentities($description); ?>" />
 
-        <link rel="stylesheet" type="text/css" href="/static/css/main.7e0984a9.css">
+        <link rel="stylesheet" type="text/css" href="/static/css/main.0ff5830d.css">
         <link rel="manifest" href="manifest.json">
         <link rel="shortcut icon" href="favicon.ico">
         <meta name="google-site-verification" content="bTDbvvxwQikYB9zsfufDiaqgVHMRi4DZ0311nJpngi8" />
@@ -370,7 +370,7 @@
         </noscript>
         <div id="root"></div>
     </body>
-    <script src="/static/js/main.889974b5.js"></script>
+    <script src="/static/js/main.3ea8fa9c.js"></script>
 <?php
     if($schema) {
 ?>
