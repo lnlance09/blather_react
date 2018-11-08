@@ -1,12 +1,15 @@
+/*---  Basic Colors  ---*/
+/*---  Light Colors  ---*/
+/*---   Neutrals  ---*/
 .fallacyExample .header .editButton {
-  color: #2196f3;
+  color: #2196F3;
   cursor: pointer;
   display: none !important;
   float: right;
   font-size: 18px;
   margin-right: 0 !important; }
   .fallacyExample .header .editButton.editing {
-    color: #e84118; }
+    color: #FF1744; }
 
 .fallacyExample .header:hover .editButton {
   display: inline !important; }

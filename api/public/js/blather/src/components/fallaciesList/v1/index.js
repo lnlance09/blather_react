@@ -165,7 +165,8 @@ class FallaciesList extends Component {
 							{`${result.fallacy_name} - `}
 							{props.source === "users"
 								? `Assigned to ${result.page_name}`
-								: `Assigned by ${result.user_name}`}{" "}
+								: `Assigned by ${result.user_name}`}
+							{" - "}
 							<Moment date={adjustTimezone(result.date_created)} fromNow />
 						</div>
 					)

@@ -11,7 +11,7 @@
             margin-right: 0 !important;
 
             &.editing {
-                color: $harley-davidson-orange;
+                color: $lightRed;
             }
         }
 
@@ -31,17 +31,17 @@
     .tagsList {
         .item {
             .label {
-                background: $seabrook;
+                background: $lightBlue;
                 color: $white;
                 cursor: pointer;
 
                 &:hover {
-                    background: darken($seabrook, 5%);
+                    background: darken($lightBlue, 5%);
                 }
             }
 
             .icon {
-                color: $harley-davidson-orange !important;
+                color: $lightRed !important;
                 display: none;
             }
 

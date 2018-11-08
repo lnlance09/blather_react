@@ -14,15 +14,15 @@
     }
 
     .ui.inverted.list .item a:not(.ui) {
-        color: $linx-white !important;
+        color: $white !important;
 
         &:hover {
-            color: darken($linx-white, 5%) !important;
+            color: darken($white, 5%) !important;
         }
     }
 
     p {
-        color: $linx-white !important;
+        color: $white !important;
         font-size: 12px;
     }
 }

@@ -1,6 +1,9 @@
+/*---  Basic Colors  ---*/
+/*---  Light Colors  ---*/
+/*---   Neutrals  ---*/
 .archivesList .archiveWrapper {
   margin-top: 14px; }
 
 .archivesList .emptyArchiveContainer .message {
-  background: #ffffff;
+  background: #FFFFFF;
   text-align: center; }

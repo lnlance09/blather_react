@@ -13,7 +13,7 @@
 
     .archivePopup {
         border-radius: 0;
-        box-shaow: none;
+        box-shadow: none;
         padding: 0.8em;
     }
 
@@ -22,7 +22,7 @@
     }
 
     .retweetedText {
-        color: $subheader-grey;
+        color: $lightBlack;
         font-size: 13px;
         padding: 6px 10px;
     }
@@ -42,26 +42,38 @@
 
                 .list {
                     .item {
+                        display: inline-block;
+
                         .content {
-                            padding-left: 7px !important;
+                            display: inline-block;
+                            padding: 7px !important;
 
                             .header {
                                 span {
-                                    color: $electromagnetic;
+                                    color: $black;
                                 }
                             }
                         }
 
-                        .icon.retweet {
-                            color: $blue;
-                        }
-
-                        .icon.like {
-                            color: $harley-davidson-orange;
+                        .icon {
+                            display: inline-block;
                         }
 
                         .icon.archive {
-                            color: $chain-gang-grey;
+                            color: $grey;
+                            cursor: pointer;
+                        }
+
+                        .icon.like {
+                            color: $lightPink;
+                        }
+
+                        .icon.retweet {
+                            color: $lightBlue;
+                        }
+
+                        .icon.twitter {
+                            color: $twitter;
                             cursor: pointer;
                         }
 
@@ -100,7 +112,6 @@
 
     .mediaPic {
         margin-top: 8px;
-        text-align: center;
     }
 
     .tweetUserImg {
@@ -109,7 +120,7 @@
     }
 
     .tweetUserName {
-        color: $electromagnetic !important;
+        color: $black !important;
         font-size: 18px !important;
     }
 
@@ -119,7 +130,7 @@
     }
 
     .tweetUserTweet {
-        color: $electromagnetic !important;
+        color: $black !important;
         font-size: 16px !important;
     }
 

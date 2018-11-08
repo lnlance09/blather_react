@@ -1,5 +1,8 @@
+/*---  Basic Colors  ---*/
+/*---  Light Colors  ---*/
+/*---   Neutrals  ---*/
 .pageHeader .menu.globalHeader {
-  background: #1b1c1d !important;
+  background: #1B1C1D !important;
   height: 72px;
   z-index: 1001 !important; }
   .pageHeader .menu.globalHeader .headerContainer .responsive {
@@ -10,7 +13,7 @@
     .pageHeader .menu.globalHeader .headerContainer .headerMenuItem .headerLogo {
       cursor: pointer;
       display: inline;
-      fill: #2196f3;
+      fill: #2196F3;
       height: 36px;
       line-height: 4;
       margin-right: 12px;
@@ -21,9 +24,9 @@
   .pageHeader .menu.globalHeader .headerContainer .sidebarItem .icon {
     cursor: pointer; }
     .pageHeader .menu.globalHeader .headerContainer .sidebarItem .icon:hover {
-      color: #2196f3; }
+      color: #2196F3; }
   .pageHeader .menu.globalHeader .headerContainer .fallaciesLink, .pageHeader .menu.globalHeader .headerContainer .discussionsLink, .pageHeader .menu.globalHeader .headerContainer .signInLink {
-    color: #f5f6fa;
+    color: #FFFFFF;
     font-size: 15px !important;
     font-weight: 500 !important;
     padding-left: 10px !important;

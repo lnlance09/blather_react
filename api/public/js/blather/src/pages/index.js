@@ -14,8 +14,7 @@ import {
 	Label,
 	Menu,
 	Responsive,
-	Segment,
-	Transition
+	Segment
 } from "semantic-ui-react"
 import AboutCard from "components/aboutCard/v1/"
 import defaultImg from "images/image-square.png"
@@ -44,15 +43,12 @@ class Page extends Component {
 
 		this.state = {
 			activeItem: tab === "fallacies" ? tab : label,
-			animation: "horizontal flip",
 			authenticated,
 			bearer,
-			duration: 500,
 			id,
 			itemsLabel: label,
 			network,
-			page: 0,
-			visible: false
+			page: 0
 		}
 
 		this.props.fetchPageData({
@@ -67,10 +63,6 @@ class Page extends Component {
 		const tab = props.match.params.tab
 		const label = this.determineItemsLabel(network)
 		this.setState({ activeItem: tab === "fallacies" ? tab : label })
-	}
-
-	componentWillMount() {
-		this.setState({ visible: true })
 	}
 
 	determineItemsLabel(network) {
@@ -90,17 +82,7 @@ class Page extends Component {
 	}
 
 	render() {
-		const {
-			activeItem,
-			animation,
-			authenticated,
-			bearer,
-			duration,
-			id,
-			itemsLabel,
-			network,
-			visible
-		} = this.state
+		const { activeItem, authenticated, bearer, id, itemsLabel, network } = this.state
 		if (this.props.error && this.props.errorCode !== 404 && network === "youtube") {
 			this.props.refreshYouTubeToken({
 				bearer
@@ -242,18 +224,12 @@ class Page extends Component {
 								<Grid>
 									<Grid.Row>{PageHeaderInfo(this.props)}</Grid.Row>
 									<Grid.Row className="pageContentRow">
-										<Transition
-											animation={animation}
-											duration={duration}
-											visible={visible}
-										>
-											<Image
-												className="profilePic"
-												onError={i => (i.target.src = defaultImg)}
-												rounded
-												src={this.props.img}
-											/>
-										</Transition>
+										<Image
+											className="profilePic"
+											onError={i => (i.target.src = defaultImg)}
+											rounded
+											src={this.props.img}
+										/>
 										<AboutCard
 											description={this.props.about}
 											linkify
@@ -270,19 +246,13 @@ class Page extends Component {
 							<Responsive minWidth={1025}>
 								<Grid>
 									<Grid.Column width={4}>
-										<Transition
-											animation={animation}
-											duration={duration}
-											visible={visible}
-										>
-											<Image
-												centered
-												className="profilePic"
-												onError={i => (i.target.src = defaultImg)}
-												rounded
-												src={this.props.img}
-											/>
-										</Transition>
+										<Image
+											centered
+											className="profilePic"
+											onError={i => (i.target.src = defaultImg)}
+											rounded
+											src={this.props.img}
+										/>
 										<AboutCard
 											description={this.props.about}
 											linkify

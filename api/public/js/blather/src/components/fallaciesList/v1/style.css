@@ -1,3 +1,6 @@
+/*---  Basic Colors  ---*/
+/*---  Light Colors  ---*/
+/*---   Neutrals  ---*/
 .fallaciesList .fallaciesWrapper {
   margin-top: 14px; }
 
@@ -6,14 +9,14 @@
   .fallaciesList .emptyFallaciesContainer .header {
     font-size: 20px; }
   .fallaciesList .emptyFallaciesContainer .message {
-    background: #ffffff; }
+    background: #FFFFFF; }
 
 .fallaciesList .targetMsg {
-  background: #ffffff; }
+  background: #FFFFFF; }
   .fallaciesList .targetMsg .icon.crosshairs {
-    color: #f44336; }
+    color: #F44336; }
   .fallaciesList .targetMsg .viewAllTargets {
-    color: #2196f3;
+    color: #2196F3;
     cursor: pointer; }
     .fallaciesList .targetMsg .viewAllTargets:hover {
       text-decoration: underline; }

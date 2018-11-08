@@ -13,8 +13,7 @@ import {
 	Image,
 	Label,
 	Menu,
-	Responsive,
-	Transition
+	Responsive
 } from "semantic-ui-react"
 import AboutCard from "components/aboutCard/v1/"
 import defaultImg from "images/trump.svg"
@@ -52,10 +51,8 @@ class UserPage extends Component {
 			activeItem: tab,
 			about: user.data.bio ? user.data.bio : "",
 			active: false,
-			animation: "zoom",
 			authenticated,
 			bearer,
-			duration: 750,
 			editing: false,
 			files: [],
 			inverted: true,
@@ -63,8 +60,7 @@ class UserPage extends Component {
 			myUsername,
 			tab,
 			tabs,
-			username,
-			visible: false
+			username
 		}
 
 		this.props.fetchUserData({
@@ -78,10 +74,6 @@ class UserPage extends Component {
 	}
 
 	onChangeAbout = (e, { value }) => this.setState({ about: value })
-
-	componentDidMount() {
-		this.setState({ visible: true })
-	}
 
 	componentWillReceiveProps(newProps) {
 		const username = newProps.match.params.username
@@ -141,17 +133,7 @@ class UserPage extends Component {
 	}
 
 	render() {
-		const {
-			about,
-			active,
-			activeItem,
-			animation,
-			bearer,
-			duration,
-			inverted,
-			isMyProfile,
-			visible
-		} = this.state
+		const { about, active, activeItem, bearer, inverted, isMyProfile } = this.state
 		let pic = !this.props.user.img && !this.props.loading ? defaultImg : this.props.user.img
 		if (isMyProfile) {
 			pic = !this.props.data.img && !this.props.loading ? defaultImg : this.props.data.img
@@ -177,7 +159,7 @@ class UserPage extends Component {
 				</Dropzone>
 			</div>
 		)
-		const profilePic = props => {
+		const ProfilePic = props => {
 			if (isMyProfile) {
 				return (
 					<Dimmer.Dimmable
@@ -303,13 +285,7 @@ class UserPage extends Component {
 										</div>
 									</Grid.Row>
 									<Grid.Row className="userContentRow">
-										<Transition
-											animation={animation}
-											duration={duration}
-											visible={visible}
-										>
-											{profilePic(this.props)}
-										</Transition>
+										{ProfilePic(this.props)}
 										{AboutSection(this.props)}
 										{UserMenu(this.props)}
 										<Container className="profileContentContainer">
@@ -322,13 +298,7 @@ class UserPage extends Component {
 							<Responsive minWidth={1025}>
 								<Grid>
 									<Grid.Column width={4}>
-										<Transition
-											animation={animation}
-											duration={duration}
-											visible={visible}
-										>
-											{profilePic(this.props)}
-										</Transition>
+										{ProfilePic(this.props)}
 										{AboutSection(this.props)}
 									</Grid.Column>
 

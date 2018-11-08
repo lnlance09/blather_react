@@ -1,3 +1,6 @@
+/*---  Basic Colors  ---*/
+/*---  Light Colors  ---*/
+/*---   Neutrals  ---*/
 .discussionsList .discussionsWrapper {
   margin-top: 14px; }
 
@@ -24,4 +27,4 @@
   .discussionsList .emptyDiscussionContainer .header {
     font-size: 20px; }
   .discussionsList .emptyDiscussionContainer .message {
-    background: #ffffff; }
+    background: #FFFFFF; }

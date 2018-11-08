@@ -214,8 +214,10 @@ class Post extends Component {
 									canArchive
 									created_at={props.info.created_at}
 									extended_entities={props.info.extended_entities}
+									externalLink
 									full_text={props.info.full_text}
 									id={props.info.id_str}
+									imageSize="medium"
 									is_quote_status={props.info.is_quote_status}
 									quoted_status={
 										props.info.quoted_status === undefined &&

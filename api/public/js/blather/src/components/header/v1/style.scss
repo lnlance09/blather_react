@@ -42,14 +42,14 @@
             }
 
             .fallaciesLink, .discussionsLink, .signInLink {
-                color: $linx-white;
+                color: $white;
                 font-size: 15px !important;
                 font-weight: 500 !important;
                 padding-left: 10px !important;
                 padding-right: 10px !important;
 
                 &:hover {
-                    color: lighten($linx-white, 5%);
+                    color: lighten($white, 5%);
                     background: rgba(0,0,0,0) !important;
                 }
             }
