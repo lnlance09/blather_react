@@ -252,17 +252,16 @@ class Tweet extends Component {
 
 		return (
 			<Provider store={store}>
-				<div
-					className={className}
-					onClick={() => {
-						if (this.props.redirect) {
-							this.props.push(`/tweet/${this.props.id}`)
-						}
-					}}
-				>
+				<div className={className}>
 					<Card fluid>
 						{RetweetedText(this.props)}
-						<Card.Content>
+						<Card.Content 
+							onClick={() => {
+								if (this.props.redirect) {
+									this.props.push(`/tweet/${this.props.id}`)
+								}
+							}}
+						>
 							{RetweetedTweet(this.props)}
 							<Card.Description className="tweetUserTweet">
 								<Linkify
@@ -299,17 +298,28 @@ class Tweet extends Component {
 								<List floated="right" horizontal>
 									{this.props.externalLink && (
 										<List.Item className="externalLinkListItem">
-											<Icon
-												name="twitter"
-												onClick={() =>
-													window.open(
-														`https://twitter.com/${
-															this.props.user.screen_name
-														}/status/${this.props.id}`,
-														"_blank"
-													)
+											<Popup
+												className="twitterExternalPopup"
+												content="View on Twitter"
+												position="bottom left"
+												trigger={
+													<List.Content>
+														<List.Header>
+															<Icon
+																name="twitter"
+																onClick={() =>
+																	window.open(
+																		`https://twitter.com/${
+																			this.props.user.screen_name
+																		}/status/${this.props.id}`,
+																		"_blank"
+																	)
+																}
+																size="large"
+															/>
+														</List.Header>
+													</List.Content>
 												}
-												size="large"
 											/>
 										</List.Item>
 									)}
