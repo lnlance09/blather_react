@@ -192,7 +192,7 @@ class SettingsPage extends Component {
 								content="Your password has been successfully changed"
 								success
 							/>
-							<Button color="blue" fluid type="submit">
+							<Button color="blue" type="submit">
 								Submit
 							</Button>
 						</Form>

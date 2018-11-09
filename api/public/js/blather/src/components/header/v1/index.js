@@ -70,7 +70,7 @@ class Header extends Component {
 				return (
 					<Menu.Item className="signInLink" direction="right" position="right">
 						<Button
-							color="green"
+							color="teal"
 							compact
 							content="Sign In"
 							onClick={() => this.props.history.push("/signin")}

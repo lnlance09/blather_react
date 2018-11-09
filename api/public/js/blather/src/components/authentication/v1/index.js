@@ -3,10 +3,8 @@ import { submitLoginForm, submitRegistrationForm, switchTab, verifyEmail } from 
 import { Provider, connect } from "react-redux"
 import { Redirect } from "react-router-dom"
 import { Button, Form, Header, Input, Message, Segment } from "semantic-ui-react"
-import Logo from "components/header/v1/images/logo.svg"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
-import ReactSVG from "react-svg"
 import store from "store"
 
 class Authentication extends Component {
@@ -136,7 +134,7 @@ class Authentication extends Component {
 		}
 		const headerText = () => {
 			if (!this.props.verify) {
-				return login ? "Sign in" : "Create an account"
+				return login ? "Sign in to Blather" : "Create an account"
 			}
 			return "Please verify your email"
 		}
@@ -175,7 +173,7 @@ class Authentication extends Component {
 									value={password}
 								/>
 							</Form.Field>
-							<Button color="blue" content="Login" fluid type="submit" />
+							<Button color="teal" content="Login" fluid type="submit" />
 						</Form>
 					</div>
 				)
@@ -218,7 +216,7 @@ class Authentication extends Component {
 									type="password"
 								/>
 							</Form.Field>
-							<Button color="blue" content="Create an account" fluid type="submit" />
+							<Button color="teal" content="Create an account" fluid type="submit" />
 						</Form>
 					</div>
 				)
@@ -232,7 +230,6 @@ class Authentication extends Component {
 		) : (
 			<Provider store={store}>
 				<div>
-					<ReactSVG className="signInLogo" path={Logo} svgClassName="signInLogo" />
 					<Header as="h1">{headerText()}</Header>
 					<Segment>
 						{mainForm()}

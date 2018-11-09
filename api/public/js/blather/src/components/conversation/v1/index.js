@@ -342,6 +342,7 @@ class Conversation extends Component {
 		const RespondForm = (props, placeholder = null) => (
 			<Form error={props.error} onSubmit={this.submitForm}>
 				<TextArea
+					autoHeight
 					className={`convoTextArea ${value}`}
 					onChange={this.onChangeMessage}
 					placeholder={placeholder}

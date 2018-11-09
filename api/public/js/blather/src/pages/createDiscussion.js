@@ -7,12 +7,10 @@ import {
 	Button,
 	Container,
 	Dimmer,
-	Divider,
 	Dropdown,
 	Form,
 	Grid,
 	Header,
-	Icon,
 	List,
 	Segment,
 	Responsive,
@@ -154,6 +152,7 @@ class CreateDiscussionPage extends Component {
 								value={title}
 							/>
 							<Form.Field
+								autoHeight
 								className="evidenceEditor"
 								control={TextArea}
 								error={props.errorType === 103}
@@ -164,6 +163,7 @@ class CreateDiscussionPage extends Component {
 								value={description}
 							/>
 							<Form.Field
+								autoHeight
 								className="provenWrongTextArea"
 								control={TextArea}
 								error={props.errorType === 104}
@@ -188,26 +188,16 @@ class CreateDiscussionPage extends Component {
 							/>
 							<div className="btnWrapper">
 								{hasUpdated && (
-									<div>
-										<Button
-											animated="vertical"
-											as="a"
-											color="green"
-											content="Preview"
-											fluid
-											onClick={this.togglePreview}
-										>
-											<Button.Content visible>Preview</Button.Content>
-											<Button.Content hidden>
-												<Icon name="eye" />
-											</Button.Content>
+									<Button.Group fluid>
+										<Button secondary onClick={this.togglePreview}>
+											Preview
 										</Button>
-										<Divider horizontal>Or</Divider>
-									</div>
+										<Button.Or />
+										<Button primary type="submit">
+											Submit
+										</Button>
+									</Button.Group>
 								)}
-								<Button color="blue" fluid type="submit">
-									<Button.Content visible>Start the dicussion</Button.Content>
-								</Button>
 							</div>
 						</Form>
 						<Dimmer active={!authenticated}>
@@ -255,17 +245,12 @@ class CreateDiscussionPage extends Component {
 							/>
 						</div>
 						<Button
-							animated
 							className="exitPreviewButton"
 							color="red"
-							fluid
+							compact
+							icon="close"
 							onClick={this.togglePreview}
-						>
-							<Button.Content hidden>Exit preview</Button.Content>
-							<Button.Content visible>
-								<Icon name="close" />
-							</Button.Content>
-						</Button>
+						/>
 					</Segment>
 				</Transition>
 			)

@@ -255,7 +255,7 @@ class Tweet extends Component {
 				<div className={className}>
 					<Card fluid>
 						{RetweetedText(this.props)}
-						<Card.Content 
+						<Card.Content
 							onClick={() => {
 								if (this.props.redirect) {
 									this.props.push(`/tweet/${this.props.id}`)
@@ -310,7 +310,8 @@ class Tweet extends Component {
 																onClick={() =>
 																	window.open(
 																		`https://twitter.com/${
-																			this.props.user.screen_name
+																			this.props.user
+																				.screen_name
 																		}/status/${this.props.id}`,
 																		"_blank"
 																	)

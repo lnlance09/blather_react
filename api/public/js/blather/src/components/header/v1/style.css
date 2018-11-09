@@ -2,7 +2,7 @@
 /*---  Light Colors  ---*/
 /*---   Neutrals  ---*/
 .pageHeader .menu.globalHeader {
-  background: #1B1C1D !important;
+  background: #333333 !important;
   height: 72px;
   z-index: 1001 !important; }
   .pageHeader .menu.globalHeader .headerContainer .responsive {
@@ -20,23 +20,21 @@
       vertical-align: middle;
       width: 36px; }
       .pageHeader .menu.globalHeader .headerContainer .headerMenuItem .headerLogo:hover {
-        fill: #39a1f4; }
+        fill: #2979FF; }
   .pageHeader .menu.globalHeader .headerContainer .sidebarItem .icon {
     cursor: pointer; }
     .pageHeader .menu.globalHeader .headerContainer .sidebarItem .icon:hover {
       color: #2196F3; }
   .pageHeader .menu.globalHeader .headerContainer .fallaciesLink, .pageHeader .menu.globalHeader .headerContainer .discussionsLink, .pageHeader .menu.globalHeader .headerContainer .signInLink {
-    color: #FFFFFF;
+    color: #FAFAFA;
     font-size: 15px !important;
     font-weight: 500 !important;
     padding-left: 10px !important;
     padding-right: 10px !important; }
     .pageHeader .menu.globalHeader .headerContainer .fallaciesLink:hover, .pageHeader .menu.globalHeader .headerContainer .discussionsLink:hover, .pageHeader .menu.globalHeader .headerContainer .signInLink:hover {
-      color: white;
-      background: rgba(0, 0, 0, 0) !important; }
+      color: #FFFFFF; }
   .pageHeader .menu.globalHeader .headerContainer .dropDownMenu {
-    font-size: 15px;
-    font-weight: 500 !important; }
+    font-size: 15px; }
     .pageHeader .menu.globalHeader .headerContainer .dropDownMenu .menu.visible {
       z-index: 1001; }
       .pageHeader .menu.globalHeader .headerContainer .dropDownMenu .menu.visible .item a {

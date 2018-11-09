@@ -219,12 +219,11 @@ class DiscussionsList extends Component {
 						/>
 					</Form.Field>
 					<Form.Field>
-						<Button color="blue" content="Search" fluid type="submit" />
+						<Button primary content="Search" fluid type="submit" />
 					</Form.Field>
 					<Form.Field>
 						<Button
 							className="createDiscussionBtn"
-							color="green"
 							compact
 							icon
 							onClick={() => props.history.push("/discussion/create")}
@@ -251,15 +250,15 @@ class DiscussionsList extends Component {
 							/>
 						</Form.Field>
 						<Form.Field width={4}>
-							<Button color="blue" content="Search" fluid type="submit" />
+							<Button content="Search" fluid primary type="submit" />
 						</Form.Field>
 						<Form.Field width={1}>
 							<Button
 								className="createDiscussionBtn"
-								color="green"
 								compact
 								icon
 								onClick={() => props.history.push("/discussion/create")}
+								secondary
 							>
 								<Icon name="plus" />
 							</Button>
