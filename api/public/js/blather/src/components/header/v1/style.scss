@@ -2,7 +2,7 @@
 
 .pageHeader {
     .menu.globalHeader {
-        background: $black !important;
+        background: $lightBlack !important;
         height: 72px;
         z-index: 1001 !important;
 
@@ -26,7 +26,7 @@
                     width: 36px;
 
                     &:hover {
-                        fill: lighten($blue, 5%);
+                        fill: $lightBlue;
                     }
                 }
             }
@@ -42,21 +42,19 @@
             }
 
             .fallaciesLink, .discussionsLink, .signInLink {
-                color: $white;
+                color: $offWhite;
                 font-size: 15px !important;
                 font-weight: 500 !important;
                 padding-left: 10px !important;
                 padding-right: 10px !important;
 
                 &:hover {
-                    color: lighten($white, 5%);
-                    background: rgba(0,0,0,0) !important;
+                    color: $white;
                 }
             }
 
             .dropDownMenu {
                 font-size: 15px;
-                font-weight: 500 !important;
                 
                 .menu.visible {
                     z-index: 1001;

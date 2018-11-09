@@ -1,7 +1,7 @@
 @import '../../../css/colors.scss';
 
 .ui.bottom.attached.segment.footerSegment {
-    background: $black !important;
+    background: $lightBlack !important;
     border: none !important;
     box-shadow: none !important;
     margin-top: 5.5em !important;
@@ -14,10 +14,10 @@
     }
 
     .ui.inverted.list .item a:not(.ui) {
-        color: $white !important;
+        color: $offWhite !important;
 
         &:hover {
-            color: darken($white, 5%) !important;
+            color: $white;
         }
     }
 

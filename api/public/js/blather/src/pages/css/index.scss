@@ -191,10 +191,10 @@ a {
                 .titleInput input, textarea {
                     padding: 8px;
                 }
+            }
 
-                .extraWrapper {
-                    margin-top: 15px;
-                }
+            .extraWrapper {
+                margin-top: 15px;
             }
 
             &.dimmed.dimmable {
@@ -219,6 +219,10 @@ a {
                 min-height: 80px;
                 padding: 0;
             }
+        }
+
+        .exitPreviewButton {
+            float: right;
         }
     }
 
@@ -526,6 +530,12 @@ a {
 
             .contentWrapper {
                 text-align: center;
+            }
+
+            .changePasswordBox {
+                .button {
+                    float: right;
+                }
             }
         }
 

@@ -2,7 +2,7 @@
 /*---  Light Colors  ---*/
 /*---   Neutrals  ---*/
 .ui.bottom.attached.segment.footerSegment {
-  background: #1B1C1D !important;
+  background: #333333 !important;
   border: none !important;
   box-shadow: none !important;
   margin-top: 5.5em !important;
@@ -12,9 +12,9 @@
     padding-left: 30px;
     padding-right: 30px; }
   .ui.bottom.attached.segment.footerSegment .ui.inverted.list .item a:not(.ui) {
-    color: #FFFFFF !important; }
+    color: #FAFAFA !important; }
     .ui.bottom.attached.segment.footerSegment .ui.inverted.list .item a:not(.ui):hover {
-      color: #f2f2f2 !important; }
+      color: #FFFFFF; }
   .ui.bottom.attached.segment.footerSegment p {
     color: #FFFFFF !important;
     font-size: 12px; }
