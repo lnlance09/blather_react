@@ -105,6 +105,21 @@ const fallacyForm = (state = initial(), action) => {
 				}
 			}
 
+		case constants.SET_CONTRADICTION_HIGHLIGHT:
+			return {
+				...state,
+				fallacy: {
+					...state.fallacy,
+					contradiction: {
+						...state.fallacy.contradiction,
+						data: {
+							...state.fallacy.contradiction.data,
+						},
+						highlightedText: action.text.text
+					}
+				}
+			}
+
 		case constants.SET_CONTRADICTION_VIDEO_TIME:
 			return {
 				...state,

@@ -1,13 +1,10 @@
-/*---  Basic Colors  ---*/
-/*---  Light Colors  ---*/
-/*---   Neutrals  ---*/
 .searchResults .resultsCount .ui.statistic {
   display: inline-block;
   float: right;
   margin-right: 3px; }
 
 .searchResults .emptyMsg {
-  background: #FFFFFF;
+  background: #fff;
   margin-top: 8px !important;
   text-align: center; }
 

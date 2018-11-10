@@ -122,6 +122,13 @@ class FallacyExample extends Component {
 										value={explanation}
 									/>
 								</Form.Field>
+								<Button
+									className="updateBtn"
+									color="blue"
+									content="Update"
+									fluid
+									type="submit"
+								/>
 								<p className="commonMarkLink">
 									<a
 										href="https://spec.commonmark.org/0.28/"
@@ -130,15 +137,8 @@ class FallacyExample extends Component {
 									>
 										view commonmark specs
 									</a>
+									<div className="clearfix"></div>
 								</p>
-								<Button
-									className="updateBtn"
-									color="blue"
-									compact
-									content="Update"
-									fluid
-									type="submit"
-								/>
 							</Form>
 						) : (
 							<div
@@ -215,6 +215,8 @@ class FallacyExample extends Component {
 						extended_entities={material.tweet.extended_entities}
 						externalLink
 						full_text={material.tweet.full_text}
+						highlight
+						highlightedText={material.highlightedText.trim()}
 						id={material.tweet.id_str}
 						is_quote_status={material.tweet.is_quote_status}
 						quoted_status={

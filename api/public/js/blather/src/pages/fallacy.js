@@ -310,6 +310,7 @@ Fallacy.propTypes = {
 	fallacyName: PropTypes.string,
 	fetchCommentCount: PropTypes.func,
 	fetchFallacy: PropTypes.func,
+	highlightedText: PropTypes.string,
 	id: PropTypes.number,
 	status: PropTypes.number,
 	tag_ids: PropTypes.string,

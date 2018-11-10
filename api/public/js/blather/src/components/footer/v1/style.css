@@ -1,6 +1,3 @@
-/*---  Basic Colors  ---*/
-/*---  Light Colors  ---*/
-/*---   Neutrals  ---*/
 .ui.bottom.attached.segment.footerSegment {
   background: #333333 !important;
   border: none !important;
@@ -12,9 +9,9 @@
     padding-left: 30px;
     padding-right: 30px; }
   .ui.bottom.attached.segment.footerSegment .ui.inverted.list .item a:not(.ui) {
-    color: #FAFAFA !important; }
+    color: #fafafa !important; }
     .ui.bottom.attached.segment.footerSegment .ui.inverted.list .item a:not(.ui):hover {
-      color: #FFFFFF; }
+      color: #fff; }
   .ui.bottom.attached.segment.footerSegment p {
-    color: #FFFFFF !important;
+    color: #fff !important;
     font-size: 12px; }

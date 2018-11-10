@@ -30,6 +30,7 @@ class Post extends Component {
 			authenticated,
 			bearer,
 			commentId,
+			highlightedText: "",
 			id,
 			network,
 			submitted: false,
@@ -41,10 +42,21 @@ class Post extends Component {
 			url
 		})
 
+		this.handleHoverOn = this.handleHoverOn.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
 	}
 
 	handleContextRef = contextRef => this.setState({ contextRef })
+
+	handleHoverOn = e => {
+		let text = ''
+		if (window.getSelection) {
+			text = window.getSelection().toString();
+		} else if (document.selection) {
+			text = document.selection.createRange().text;
+		}
+		this.setState({ highlightedText: text })
+	}
 
 	handleSubmit = () => {
 		this.setState({ submitted: !this.state.submitted })
@@ -76,7 +88,7 @@ class Post extends Component {
 	}
 
 	render() {
-		const { authenticated, bearer, commentId, contextRef, id, network, type } = this.state
+		const { authenticated, bearer, commentId, contextRef, highlightedText, id, network, type } = this.state
 		if (this.props.error && this.props.errorCode !== 404 && network === "youtube") {
 			this.props.refreshYouTubeToken({
 				bearer
@@ -215,7 +227,10 @@ class Post extends Component {
 									created_at={props.info.created_at}
 									extended_entities={props.info.extended_entities}
 									externalLink
+									highlight={highlightedText !== ""}
+									highlightedText={highlightedText}
 									full_text={props.info.full_text}
+									handleHoverOn={this.handleHoverOn}
 									id={props.info.id_str}
 									imageSize="medium"
 									is_quote_status={props.info.is_quote_status}
@@ -317,6 +332,7 @@ class Post extends Component {
 									bearer={bearer}
 									commentId={commentId}
 									handleSubmit={this.handleSubmit}
+									highlightedText={highlightedText}
 									history={this.props.history}
 									network={network}
 									objectId={id}

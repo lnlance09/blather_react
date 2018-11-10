@@ -58,6 +58,7 @@
 			$endTime = $this->input->post('endTime');
 			$explanation = $this->input->post('explanation');
 			$fallacyId = $this->input->post('fallacyId');
+			$highlightedText = $this->input->post('highlightedText');
 			$network = $this->input->post('network');
 			$pageId = $this->input->post('pageId');
 			$objectId = $this->input->post('objectId');
@@ -122,6 +123,7 @@
 				$endTime,
 				$explanation,
 				$fallacyId,
+				$highlightedText,
 				$objectId,
 				$network,
 				$pageId,

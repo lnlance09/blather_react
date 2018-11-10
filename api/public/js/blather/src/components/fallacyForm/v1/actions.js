@@ -8,6 +8,7 @@ export const assignFallacy = ({
 	endTime,
 	explanation,
 	fallacyId,
+	highlightedText, 
 	network,
 	objectId,
 	pageId,
@@ -23,6 +24,7 @@ export const assignFallacy = ({
 				endTime,
 				explanation,
 				fallacyId,
+				highlightedText,
 				network,
 				pageId,
 				objectId,
@@ -90,6 +92,13 @@ export const setContradictionEndTime = value => dispatch => {
 		payload: {
 			value
 		}
+	})
+}
+
+export const setContradictionHighlight = text => dispatch => {
+	dispatch({
+		type: constants.SET_CONTRADICTION_HIGHLIGHT,
+		text
 	})
 }
 

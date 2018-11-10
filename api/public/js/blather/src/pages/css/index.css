@@ -1,48 +1,45 @@
-/*---  Basic Colors  ---*/
-/*---  Light Colors  ---*/
-/*---   Neutrals  ---*/
 .rightSide {
   margin-left: 0;
   padding-left: 0 !important; }
 
 .search.selection.dropdown .ui.label {
-  background: #2979FF;
+  background: #2979ff;
   border: none !important;
   box-shadow: none !important;
-  color: #FFFFFF;
+  color: #fff;
   padding: 6px 12px; }
 
 .ui.vertical.menu .item {
   font-weight: normal !important; }
   .ui.vertical.menu .item.active {
-    background: #2979FF !important;
-    color: #FFFFFF;
+    background: #2979ff !important;
+    color: #fff;
     font-weight: bold !important; }
     .ui.vertical.menu .item.active:hover {
-      color: #FFFFFF; }
+      color: #fff; }
 
 .ui.secondary.pointing.menu .item {
   height: 50px; }
   .ui.secondary.pointing.menu .item .label {
-    background: #FAFAFA;
-    color: #1B1C1D; }
+    background: #fafafa;
+    color: #1b1c1d; }
 
 .search.selection.active.dropdown {
   border-color: #96c8da !important; }
 
 .externalUrl {
-  color: #2196F3;
+  color: #2196f3;
   cursor: pointer; }
   .externalUrl:hover {
     color: #39a1f4; }
 
 a {
-  color: #2196F3; }
+  color: #2196f3; }
 
 .Linkify {
-  color: #1B1C1D !important; }
+  color: #1b1c1d !important; }
   .Linkify a {
-    color: #2196F3 !important; }
+    color: #2196f3 !important; }
 
 .clearfix {
   clear: both; }
@@ -63,14 +60,14 @@ a {
   z-index: 1002 !important; }
 
 .editButton {
-  color: #2196F3;
+  color: #2196f3;
   cursor: pointer;
   display: none !important;
   float: right;
   font-size: 18px;
   margin-right: 0 !important; }
   .editButton.close {
-    color: #FF1744; }
+    color: #ff1744; }
 
 .dropzone {
   border: none;
@@ -87,7 +84,7 @@ a {
 
 /* About page */
 .aboutPage .logoContainer {
-  background: #FFFFFF;
+  background: #fff;
   padding: 16px 0; }
   .aboutPage .logoContainer .header.aboutHeader {
     line-height: 1; }
@@ -96,7 +93,7 @@ a {
     .aboutPage .logoContainer .header.aboutHeader .blatherLogo {
       margin-bottom: 8px; }
       .aboutPage .logoContainer .header.aboutHeader .blatherLogo .blatherLogoSvg {
-        fill: #2196F3;
+        fill: #2196f3;
         height: 84px;
         line-height: 96px;
         vertical-align: middle;
@@ -216,13 +213,13 @@ a {
     text-align: center; }
     .fallacyPage .ui.grid .statusActionSegment .youtubeButton {
       background: #ff0000 !important;
-      color: #FFFFFF;
+      color: #fff;
       margin-top: 0 !important; }
       .fallacyPage .ui.grid .statusActionSegment .youtubeButton:hover {
         background: #e60000 !important; }
     .fallacyPage .ui.grid .statusActionSegment .twitterButton {
       background: #0084b4;
-      color: #FFFFFF; }
+      color: #fff; }
       .fallacyPage .ui.grid .statusActionSegment .twitterButton:hover {
         background: #00719b; }
 
@@ -272,8 +269,8 @@ a {
   z-index: 1000; }
 
 .postPage .sticky .breadcrumbContainer {
-  background: #FFFFFF;
-  border-bottom: solid 1px #DCDDDE;
+  background: #fff;
+  border-bottom: solid 1px #dcddde;
   margin-top: 72px;
   padding: 8px 30px;
   width: 100%; }
@@ -338,7 +335,7 @@ a {
 .tagsPage .list .item {
   cursor: pointer; }
   .tagsPage .list .item.selected {
-    background: #FFFFFF; }
+    background: #fff; }
 
 .tagsPage .tagsWrapper {
   margin-top: 20px;
@@ -375,5 +372,5 @@ a {
   padding: 0 !important; }
 
 .usersPage .profilePic.default {
-  background: #FFFFFF;
+  background: #fff;
   padding: 7px; }

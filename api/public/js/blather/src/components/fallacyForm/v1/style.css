@@ -1,6 +1,3 @@
-/*---  Basic Colors  ---*/
-/*---  Light Colors  ---*/
-/*---   Neutrals  ---*/
 .fallacyForm .startTime, .fallacyForm .field.contradictionStartTime {
   padding-left: 0 !important;
   padding-right: 0 !important; }
@@ -13,12 +10,14 @@
   .fallacyForm .contradictionWrapper.active {
     padding: 10px; }
 
-.fallacyForm .explanationField {
-  margin-bottom: 4px !important; }
-
 .fallacyForm .commonMarkLink {
-  font-size: 12px;
   margin: 0.5em 0.3em !important; }
+  .fallacyForm .commonMarkLink a {
+    color: #333333;
+    float: right;
+    font-size: 12px; }
+    .fallacyForm .commonMarkLink a:hover {
+      text-decoration: underline; }
 
 .successModal a {
   cursor: pointer; }

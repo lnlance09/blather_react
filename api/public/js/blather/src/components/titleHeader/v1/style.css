@@ -1,14 +1,11 @@
-/*---  Basic Colors  ---*/
-/*---  Light Colors  ---*/
-/*---   Neutrals  ---*/
 .titleHeader .header .editHeaderIcon {
-  color: #2196F3;
+  color: #2196f3;
   cursor: pointer;
   display: none !important;
   float: right;
   line-height: 47px; }
   .titleHeader .header .editHeaderIcon.close {
-    color: #FF1744; }
+    color: #ff1744; }
 
 .titleHeader .header .titleInput {
   width: 94% !important; }

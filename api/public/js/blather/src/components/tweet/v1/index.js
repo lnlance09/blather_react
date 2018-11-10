@@ -2,6 +2,7 @@ import "./style.css"
 import { createArchive } from "pages/actions/post"
 import { adjustTimezone } from "utils/dateFunctions"
 import { linkMentions, linkHashtags } from "utils/linkifyAdditions"
+import Highlighter from "react-highlight-words";
 import { Provider, connect } from "react-redux"
 import { Card, Embed, Icon, Image, List, Message, Popup, Transition } from "semantic-ui-react"
 import itemPic from "images/square-image.png"
@@ -18,6 +19,7 @@ class Tweet extends Component {
 		this.state = {
 			animation: "fade",
 			duration: 700,
+			highlight: '',
 			visible: false
 		}
 		linkMentions("twitter")
@@ -42,7 +44,7 @@ class Tweet extends Component {
 
 	render() {
 		const { animation, duration, visible } = this.state
-		let className = `tweet ${this.props.redirect ? " clickable" : ""}`
+		const className = `tweet ${this.props.redirect ? " clickable" : ""}`
 		const ArchiveIcon = props => {
 			if (props.canArchive && !props.archive) {
 				return (
@@ -249,6 +251,7 @@ class Tweet extends Component {
 				</List>
 			)
 		}
+		const tweetText = this.props.retweeted_status ? this.props.retweeted_status.full_text.replace(/&amp;/g, "&") : this.props.full_text.replace(/&amp;/g, "&")
 
 		return (
 			<Provider store={store}>
@@ -263,19 +266,27 @@ class Tweet extends Component {
 							}}
 						>
 							{RetweetedTweet(this.props)}
-							<Card.Description className="tweetUserTweet">
-								<Linkify
-									properties={{
-										target: "_blank"
-									}}
-								>
-									{this.props.retweeted_status
-										? this.props.retweeted_status.full_text.replace(
-												/&amp;/g,
-												"&"
-										  )
-										: this.props.full_text.replace(/&amp;/g, "&")}
-								</Linkify>
+							<Card.Description 
+								className="tweetUserTweet"
+								onMouseUp={this.props.handleHoverOn}
+							>
+								{this.props.highlight ? (
+									<Highlighter
+										autoEscape={true}
+										highlightClassName="tweetHighlightedText"
+										searchWords={[this.props.highlightedText]}
+										textToHighlight={tweetText}
+									/>
+								) : (
+									<Linkify
+										properties={{
+											target: "_blank"
+										}}
+										sanitize
+									>
+										{tweetText}
+									</Linkify>
+								)}
 								{ParseMedia(this.props)}
 							</Card.Description>
 							{QuotedTweet(this.props)}
@@ -356,6 +367,9 @@ Tweet.propTypes = {
 	externalLink: PropTypes.bool,
 	fetchData: PropTypes.func,
 	full_text: PropTypes.string,
+	handleHoverOn: PropTypes.func,
+	highlight: PropTypes.bool,
+	highlightedText: PropTypes.string,
 	id: PropTypes.string,
 	imageSize: PropTypes.string,
 	is_quote_status: PropTypes.bool,
@@ -424,6 +438,7 @@ Tweet.defaultProps = {
 		media: []
 	},
 	externalLink: false,
+	highlight: false,
 	imageSize: "tiny",
 	quoted_status: {
 		user: {}

@@ -81,16 +81,15 @@
                         .icon.twitter {
                             color: $twitter;
                             cursor: pointer;
+                            margin-right: 0;
                         }
 
                         &.archiveListItem {
+                            margin-left: 0 !important;
+
                             .content {
                                 padding-right: 0 !important;
                             }
-                        }
-
-                        .externalLinkListItem {
-
                         }
                     }
                 }
