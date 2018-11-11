@@ -4,7 +4,8 @@ import {
 	clearContradiction,
 	parseContradiction,
 	selectAssignee,
-	setContradictionEndTime
+	setContradictionEndTime,
+	setContradictionHighlight
 } from "./actions"
 import { refreshYouTubeToken } from "components/authentication/v1/actions"
 import { convertTimeToSeconds } from "utils/textFunctions"
@@ -28,6 +29,7 @@ class FallacyForm extends Component {
 			changed: false,
 			endTime: "",
 			explanation: "",
+			highlightedText: "",
 			id: 1,
 			loading: false,
 			open: false,
@@ -40,6 +42,7 @@ class FallacyForm extends Component {
 		this.changeStartTime = this.changeStartTime.bind(this)
 		this.closeModal = this.closeModal.bind(this)
 		this.handleDismiss = this.handleDismiss.bind(this)
+		this.handleHoverOn = this.handleHoverOn.bind(this)
 		this.onChangeAssignee = this.onChangeAssignee.bind(this)
 		this.onChangeContradiction = this.onChangeContradiction.bind(this)
 		this.onChangeEndTime = this.onChangeEndTime.bind(this)
@@ -65,6 +68,17 @@ class FallacyForm extends Component {
 		})
 		this.props.clearContradiction()
 		this.props.handleSubmit()
+	}
+
+	handleHoverOn = e => {
+		let text = ""
+		if (window.getSelection) {
+			text = window.getSelection().toString()
+		} else if (document.selection) {
+			text = document.selection.createRange().text
+		}
+		this.setState({ highlightedText: text })
+		this.props.setContradictionHighlight({ text })
 	}
 
 	onChangeAssignee = () => {
@@ -140,6 +154,7 @@ class FallacyForm extends Component {
 			endTime: convertTimeToSeconds(this.state.endTime),
 			explanation: this.state.explanation,
 			fallacyId: this.state.id,
+			highlightedText: this.props.highlightedText,
 			network: this.props.network,
 			objectId: this.props.objectId,
 			pageId: page.id,
@@ -158,7 +173,16 @@ class FallacyForm extends Component {
 	}
 
 	render() {
-		const { beginTime, endTime, explanation, id, open, title, url } = this.state
+		const {
+			beginTime,
+			endTime,
+			explanation,
+			highlightedText,
+			id,
+			open,
+			title,
+			url
+		} = this.state
 		const currentState = store.getState()
 		const contradiction = this.props.fallacy.contradiction
 		const contradictionError = contradiction ? contradiction.error : false
@@ -272,6 +296,9 @@ class FallacyForm extends Component {
 							created_at={tweet.created_at}
 							extended_entities={tweet.extended_entities}
 							full_text={tweet.full_text}
+							handleHoverOn={this.handleHoverOn}
+							highlight={highlightedText !== ""}
+							highlightedText={highlightedText}
 							id={tweet.id_str}
 							is_quote_status={tweet.is_quote_status}
 							quoted_status={
@@ -495,15 +522,6 @@ class FallacyForm extends Component {
 								value={explanation}
 							/>
 						</Form.Field>
-						<p className="commonMarkLink">
-							<a
-								href="https://spec.commonmark.org/0.28/"
-								rel="noopener noreferrer"
-								target="_blank"
-							>
-								view commonmark specs
-							</a>
-						</p>
 						<ErrorMsg props={this.props} />
 						{this.props.authenticated ? (
 							<Button color="blue" content="Assign" fluid type="submit" />
@@ -515,6 +533,16 @@ class FallacyForm extends Component {
 								onClick={() => this.props.history.push("/signin")}
 							/>
 						)}
+						<p className="commonMarkLink">
+							<a
+								href="https://spec.commonmark.org/0.28/"
+								rel="noopener noreferrer"
+								target="_blank"
+							>
+								view commonmark specs
+							</a>
+							<div class="clearfix" />
+						</p>
 					</Form>
 					<div>{SuccessModal(this.props)}</div>
 				</div>
@@ -557,6 +585,7 @@ FallacyForm.propTypes = {
 		title: PropTypes.string
 	}),
 	handleSubmit: PropTypes.func,
+	highlightedText: PropTypes.string,
 	network: PropTypes.string,
 	objectId: PropTypes.string,
 	pageInfo: PropTypes.shape({
@@ -567,6 +596,7 @@ FallacyForm.propTypes = {
 	}),
 	parseContradiction: PropTypes.func,
 	setContradictionEndTime: PropTypes.func,
+	setContradictionHighlight: PropTypes.func,
 	user: PropTypes.object,
 	username: PropTypes.string
 }
@@ -580,7 +610,8 @@ FallacyForm.defaultProps = {
 	fallacy: {
 		contradiction: {}
 	},
-	setContradictionEndTime: setContradictionEndTime
+	setContradictionEndTime: setContradictionEndTime,
+	setContradictionHighlight: setContradictionHighlight
 }
 
 const mapStateToProps = (state, ownProps) => ({
@@ -597,6 +628,7 @@ export default connect(
 		parseContradiction,
 		refreshYouTubeToken,
 		selectAssignee,
-		setContradictionEndTime
+		setContradictionEndTime,
+		setContradictionHighlight
 	}
 )(FallacyForm)

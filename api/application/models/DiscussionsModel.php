@@ -10,6 +10,13 @@
             $this->db->query("SET time_zone='+0:00'");
         }
 
+        public function acceptConvo($id, $acceptance) {
+            $this->db->where('id', $id);
+            $this->db->update('discussions', [
+                'acceptance' => $acceptance
+            ]);
+        }
+
         public function createDiscussion($title, $description, $extra, $userId, $tags = null) {
             $insert = $this->db->insert('discussions', [
                 'created_by' => $userId,
@@ -45,7 +52,7 @@
         }
 
         public function getDiscussion($id, $just_count = false, $include_user = false, $include_tags = false) {
-            $select = "d.id AS discussion_id, title, d.description, extra, status, d.created_by AS discussion_created_by, d.accepted_by AS accepted_by, d.date_created AS discussion_created_at";
+            $select = "d.id AS discussion_id, acceptance, title, d.description, extra, status, d.created_by AS discussion_created_by, d.accepted_by AS accepted_by, d.date_created AS discussion_created_at";
 
             if($include_tags) {
                 $select .= ", GROUP_CONCAT(DISTINCT t.id SEPARATOR ', ') tag_ids, GROUP_CONCAT(DISTINCT t.value SEPARATOR ', ') AS tag_names";
@@ -54,7 +61,7 @@
             if($include_user) {
                 $select .= ", cu.name AS created_by_name, cu.username AS created_by_username, CONCAT('".$this->imgUrl."profile_pics/', cu.img) AS created_by_profile_pic,
 
-                    au.name AS accepted_by_name, au.username AS accepted_by_username, CONCAT('http://localhost:3000/img/profile_pics/', au.img) AS accepted_by_profile_pic";
+                    au.name AS accepted_by_name, au.username AS accepted_by_username, CONCAT('".$this->imgUrl."profile_pics/', au.img) AS accepted_by_profile_pic";
             }
 
             if($just_count) {

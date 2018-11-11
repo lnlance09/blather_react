@@ -1,7 +1,11 @@
 @import '../../../css/colors.scss';
 
 .conversation {
-    margin-top: 15px;
+    margin-top: 40px;
+
+    .interpretationHeader {
+        font-size: 16px;
+    }
 
     .form {
         .actionSegment {
@@ -56,6 +60,11 @@
                     background: darken($green, 5%) !important;
                 }
             }
+        }
+
+        .acceptBtn {
+            float: right;
+            margin-right: 0;
         }
 
         .extraText {
@@ -127,8 +136,10 @@
         margin-top: 0;
 
         .ui.icon.message.waitMsg {
+            background: $white;
+
             .icon {
-                color: $blue;
+                color: $black;
             }
         }
     }
@@ -152,15 +163,16 @@
         }
     }
 
-    .card {
-        .content {
-            .ui.mini.image {
-                // height: 35px;
-                width: 35px;
+    .convoSegment {
+        .header {
+            font-size: 16px !important;
+
+            .sub.header {
+                font-size: 12px !important;
             }
 
-            .header {
-                font-size: 15px !important;
+            .ui.image {
+                height: 35px;
             }
         }
     }

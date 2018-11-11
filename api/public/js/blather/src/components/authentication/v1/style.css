@@ -1,9 +1,6 @@
-/*---  Basic Colors  ---*/
-/*---  Light Colors  ---*/
-/*---   Neutrals  ---*/
 .signInLogo {
   display: inline;
-  fill: #2196F3;
+  fill: #2196f3;
   height: 48px;
   width: 48px; }
 
@@ -11,7 +8,7 @@
   margin-bottom: 14px; }
 
 .registerLink {
-  color: #2196F3;
+  color: #2196f3;
   cursor: pointer; }
   .registerLink:hover {
     text-decoration: underline; }

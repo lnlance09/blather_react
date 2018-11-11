@@ -155,7 +155,7 @@ class Tags extends Component {
 								value={description}
 							/>
 						</Form.Field>
-						<Button color="blue" compact content="Update" fluid type="submit" />
+						<Button color="blue" content="Update" fluid type="submit" />
 					</Form>
 				)
 			}

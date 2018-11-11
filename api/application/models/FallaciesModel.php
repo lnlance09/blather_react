@@ -25,6 +25,7 @@
             $decode = @json_decode($contradiction, true);
             $commentId = array_key_exists('commentId', $decode) ? $decode['commentId'] : null;
             $endTime = array_key_exists('endTime', $decode) ? $decode['endTime'] : null;
+            $highlightedText = array_key_exists('highlightedText', $decode) ? $decode['highlightedText'] : null;
             $mediaId = $decode['mediaId'];
             $network = $decode['network'];
             $pageId = $decode['pageId'];
@@ -36,6 +37,7 @@
                 $this->db->update('contradictions', [
                     'comment_id' => $commentId,
                     'end_time' => $endTime,
+                    'highlighted_text' => $highlightedText,
                     'media_id' => $mediaId,
                     'network' => $network,
                     'page_id' => $pageId,
@@ -46,6 +48,7 @@
                     'comment_id' => $commentId,
                     'end_time' => $endTime,
                     'fallacy_entry_id' => $id,
+                    'highlighted_text' => $highlightedText,
                     'media_id' => $mediaId,
                     'network' => $network,
                     'page_id' => $pageId,
@@ -60,6 +63,7 @@
             $endTime,
             $explanation, 
             $fallacy_id, 
+            $highlightedText,
             $media_id, 
             $network, 
             $page_id, 
@@ -74,6 +78,7 @@
                 'end_time' => $endTime,
                 'explanation' => strip_tags($explanation),
                 'fallacy_id' => $fallacy_id,
+                'highlighted_text' => $highlightedText,
                 'media_id' => $media_id,
                 'network' => $network,
                 'page_id' => $page_id,
@@ -169,6 +174,7 @@
                 fe.end_time,
                 fe.explanation,
                 fe.fallacy_id,
+                fe.highlighted_text,
                 fe.media_id,
                 fe.network,
                 fe.start_time,
@@ -215,6 +221,7 @@
 
                 c.comment_id AS contradiction_comment_id, 
                 c.end_time AS contradiction_end_time, 
+                c.highlighted_text AS contradiction_highlighted_text,
                 c.media_id AS contradiction_media_id, 
                 c.network AS contradiction_network, 
                 c.page_id AS contradiction_page_id, 

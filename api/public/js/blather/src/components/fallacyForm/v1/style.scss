@@ -18,13 +18,18 @@
         }
     }
 
-    .explanationField {
-        margin-bottom: 4px !important;
-    }
-
     .commonMarkLink {
-        font-size: 12px;
         margin: 0.5em 0.3em !important;
+
+        a {
+            color: $lightBlack;
+            float: right;
+            font-size: 12px;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
     }
 }
 

@@ -1,14 +1,11 @@
-/*---  Basic Colors  ---*/
-/*---  Light Colors  ---*/
-/*---   Neutrals  ---*/
 .resultItem {
-  background: #FFFFFF;
+  background: #fff;
   cursor: pointer; }
   .resultItem .meta {
     margin-top: 3px !important; }
     .resultItem .meta .label {
-      background: #2979FF !important;
-      color: #FFFFFF; }
+      background: #2979ff !important;
+      color: #fff; }
   .resultItem .content .description {
     white-space: pre-line; }
   .resultItem .extra .extraList {
@@ -19,13 +16,13 @@
       .resultItem .extra .extraList .item:nth-of-type(2) {
         margin-left: 8px !important; }
   .resultItem .extra .label {
-    background: #2979FF !important;
-    color: #FFFFFF;
+    background: #2979ff !important;
+    color: #fff;
     font-weight: normal; }
   .resultItem .image .label.check {
-    border-color: #4CAF50; }
+    border-color: #4caf50; }
   .resultItem .image .label.close {
-    border-color: #FF1744; }
+    border-color: #ff1744; }
   .resultItem .image .label .icon {
-    color: #FFFFFF;
+    color: #fff;
     opacity: 0.8; }

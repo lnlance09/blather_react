@@ -5,6 +5,18 @@ const initial = () => ({})
 const discussion = (state = initial(), action) => {
 	const payload = action.payload
 	switch (action.type) {
+		case constants.ACCEPT_DISCUSSION:
+			return {
+				...state,
+				acceptance: payload.acceptance,
+				acceptedBy: {
+					id: payload.accepted_by.id,
+					img: payload.accepted_by.profile_pic,
+					name: payload.accepted_by.name,
+					username: payload.accepted_by.username
+				},
+				status: payload.status
+			}
 		case constants.GET_DISCUSSION:
 			if (payload.error) {
 				return {
@@ -14,6 +26,7 @@ const discussion = (state = initial(), action) => {
 			}
 			return {
 				...state,
+				acceptance: payload.discussion.acceptance,
 				acceptedBy: {
 					id: payload.discussion.accepted_by
 						? parseInt(payload.discussion.accepted_by, 10)
@@ -89,6 +102,7 @@ const discussion = (state = initial(), action) => {
 				hasSubmitted: true,
 				id: parseInt(payload.discussion.discussion_id, 10),
 				lastUpdated: payload.discussion.last_updated,
+				status: 0,
 				tagIds: payload.discussion.tag_ids,
 				tagNames: payload.discussion.tag_names,
 				title: payload.discussion.title
