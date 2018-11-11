@@ -1,6 +1,28 @@
 import * as constants from "../constants"
 import request from "request"
 
+export const acceptDiscussionConvo = ({ acceptance, bearer, id }) => dispatch => {
+	request.post(
+		`${window.location.origin}/api/discussions/accept`,
+		{
+			form: {
+				acceptance,
+				id
+			},
+			headers: {
+				Authorization: bearer
+			},
+			json: true
+		},
+		function(err, response, body) {
+			dispatch({
+				type: constants.ACCEPT_DISCUSSION,
+				payload: body
+			})
+		}
+	)
+}
+
 export const fetchDiscussion = ({ bearer, id }) => dispatch => {
 	request.get(
 		`${window.location.origin}/api/discussions`,

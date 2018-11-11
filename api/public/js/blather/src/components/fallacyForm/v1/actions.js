@@ -8,7 +8,7 @@ export const assignFallacy = ({
 	endTime,
 	explanation,
 	fallacyId,
-	highlightedText, 
+	highlightedText,
 	network,
 	objectId,
 	pageId,

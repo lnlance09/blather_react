@@ -1,71 +1,75 @@
-/*---  Basic Colors  ---*/
-/*---  Light Colors  ---*/
-/*---   Neutrals  ---*/
 .conversation {
-  margin-top: 15px; }
+  margin-top: 40px; }
+  .conversation .interpretationHeader {
+    font-size: 16px; }
   .conversation .form .actionSegment {
     line-height: 30.5px;
     margin-top: 15px; }
     .conversation .form .actionSegment .actionOptions {
       display: inline-block; }
   .conversation .form .menu .item .icon.paper.plane {
-    color: #2196F3 !important; }
+    color: #2196f3 !important; }
   .conversation .form .menu .item .icon.close {
-    color: #F44336 !important; }
+    color: #f44336 !important; }
   .conversation .form .menu .item .icon.check {
-    color: #4CAF50 !important; }
+    color: #4caf50 !important; }
   .conversation .form .convoRespondBtn {
-    color: #FFFFFF;
+    color: #fff;
     float: right;
     margin-right: 0; }
     .conversation .form .convoRespondBtn.respond {
-      background: #2196F3 !important; }
+      background: #2196f3 !important; }
       .conversation .form .convoRespondBtn.respond:hover {
         background: #0d8aee !important; }
     .conversation .form .convoRespondBtn.close {
-      background: #F44336 !important; }
+      background: #f44336 !important; }
       .conversation .form .convoRespondBtn.close:hover {
         background: #f32c1e !important; }
     .conversation .form .convoRespondBtn.convince {
-      background: #4CAF50 !important; }
+      background: #4caf50 !important; }
       .conversation .form .convoRespondBtn.convince:hover {
         background: #449d48 !important; }
+  .conversation .form .acceptBtn {
+    float: right;
+    margin-right: 0; }
   .conversation .form .extraText {
     font-weight: bold; }
     .conversation .form .extraText.respond {
-      color: #2196F3 !important; }
+      color: #2196f3 !important; }
     .conversation .form .extraText.close {
-      color: #F44336 !important; }
+      color: #f44336 !important; }
     .conversation .form .extraText.convince {
-      color: #4CAF50 !important; }
+      color: #4caf50 !important; }
   .conversation .form .ui.error.message.convoErrorMsg {
     margin-bottom: 0; }
   .conversation .form .convoTextArea.close:focus {
-    border: solid 1px #F44336; }
+    border: solid 1px #f44336; }
     .conversation .form .convoTextArea.close:focus::-webkit-input-placeholder {
-      color: #F44336; }
+      color: #f44336; }
     .conversation .form .convoTextArea.close:focus::-moz-placeholder {
-      color: #F44336; }
+      color: #f44336; }
     .conversation .form .convoTextArea.close:focus:-ms-input-placeholder {
-      color: #F44336; }
+      color: #f44336; }
     .conversation .form .convoTextArea.close:focus:-moz-placeholder {
-      color: #F44336; }
+      color: #f44336; }
   .conversation .form .convoTextArea.convince:focus {
-    border: solid 1px #4CAF50; }
+    border: solid 1px #4caf50; }
     .conversation .form .convoTextArea.convince:focus::-webkit-input-placeholder {
-      color: #4CAF50; }
+      color: #4caf50; }
     .conversation .form .convoTextArea.convince:focus::-moz-placeholder {
-      color: #4CAF50; }
+      color: #4caf50; }
     .conversation .form .convoTextArea.convince:focus:-ms-input-placeholder {
-      color: #4CAF50; }
+      color: #4caf50; }
     .conversation .form .convoTextArea.convince:focus:-moz-placeholder {
-      color: #4CAF50; }
+      color: #4caf50; }
   .conversation .convoContainer {
     margin-bottom: 18px; }
   .conversation .convoResponseSection {
     margin-top: 0; }
-    .conversation .convoResponseSection .ui.icon.message.waitMsg .icon {
-      color: #2196F3; }
+    .conversation .convoResponseSection .ui.icon.message.waitMsg {
+      background: #fff; }
+      .conversation .convoResponseSection .ui.icon.message.waitMsg .icon {
+        color: #1b1c1d; }
   .conversation .findOpponent p {
     text-align: center; }
     .conversation .findOpponent p .icon {
@@ -74,7 +78,9 @@
   @media only screen and (max-width: 1025px) {
     .conversation .findOpponent p {
       font-size: 13px; } }
-  .conversation .card .content .ui.mini.image {
-    width: 35px; }
-  .conversation .card .content .header {
-    font-size: 15px !important; }
+  .conversation .convoSegment .header {
+    font-size: 16px !important; }
+    .conversation .convoSegment .header .sub.header {
+      font-size: 12px !important; }
+    .conversation .convoSegment .header .ui.image {
+      height: 35px; }

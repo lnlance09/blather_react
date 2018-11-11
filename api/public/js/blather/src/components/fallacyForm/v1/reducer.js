@@ -113,7 +113,7 @@ const fallacyForm = (state = initial(), action) => {
 					contradiction: {
 						...state.fallacy.contradiction,
 						data: {
-							...state.fallacy.contradiction.data,
+							...state.fallacy.contradiction.data
 						},
 						highlightedText: action.text.text
 					}

@@ -39,7 +39,7 @@
         .tweet .card .content.extra .list .item .icon.like {
           color: #f50057; }
           .tweet .card .content.extra .list .item .icon.like:hover {
-            color: #f50057 !important; }
+            opacity: 0.75; }
         .tweet .card .content.extra .list .item .icon.retweet {
           color: #2979ff; }
         .tweet .card .content.extra .list .item .icon.twitter {

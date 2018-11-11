@@ -1,16 +1,21 @@
 import "./style.css"
 import { fetchFallacyConversation, submitFallacyConversation } from "pages/actions/fallacy"
-import { fetchDiscussionConversation, submitDiscussionConversation } from "pages/actions/discussion"
+import {
+	acceptDiscussionConvo,
+	fetchDiscussionConversation,
+	submitDiscussionConversation
+} from "pages/actions/discussion"
 import { CopyToClipboard } from "react-copy-to-clipboard"
 import { connect } from "react-redux"
 import { Link } from "react-router-dom"
 import {
 	Button,
-	Card,
+	Container,
 	Dimmer,
 	Divider,
 	Dropdown,
 	Form,
+	Header,
 	Icon,
 	Image,
 	Popup,
@@ -34,6 +39,7 @@ class Conversation extends Component {
 		const currentState = store.getState()
 		const user = currentState.user
 		this.state = {
+			acceptance: "",
 			copied: false,
 			disabled: false,
 			extraText: "",
@@ -73,11 +79,24 @@ class Conversation extends Component {
 			xhtml: false
 		})
 
+		this.acceptConvo = this.acceptConvo.bind(this)
+		this.onChangeAcceptance = this.onChangeAcceptance.bind(this)
 		this.onChangeMessage = this.onChangeMessage.bind(this)
 		this.selectOption = this.selectOption.bind(this)
 		this.submitForm = this.submitForm.bind(this)
 	}
 
+	acceptConvo() {
+		if (this.state.acceptance) {
+			this.props.acceptDiscussionConvo({
+				acceptance: this.state.acceptance,
+				bearer: this.props.bearer,
+				id: this.props.discussionId
+			})
+		}
+	}
+
+	onChangeAcceptance = (e, { value }) => this.setState({ acceptance: value })
 	onChangeMessage = (e, { value }) => this.setState({ disabled: value === "", message: value })
 
 	selectOption = (e, { icon, status, text, value }) => {
@@ -114,34 +133,36 @@ class Conversation extends Component {
 	}
 
 	submitForm() {
-		this.setState({ message: "" })
-		if (this.props.source === "fallacy") {
-			this.props.submitFallacyConversation({
-				bearer: this.props.bearer,
-				id: this.props.fallacyId,
-				msg: this.state.message,
-				status: this.state.status
-			})
-		}
-		if (this.props.source === "discussion") {
-			this.props.submitDiscussionConversation({
-				bearer: this.props.bearer,
-				id: this.props.discussionId,
-				msg: this.state.message,
-				status: this.state.status
-			})
+		if (this.state.message !== "") {
+			if (this.props.source === "fallacy") {
+				this.props.submitFallacyConversation({
+					bearer: this.props.bearer,
+					id: this.props.fallacyId,
+					msg: this.state.message,
+					status: this.state.status
+				})
+			}
+			if (this.props.source === "discussion") {
+				this.props.submitDiscussionConversation({
+					bearer: this.props.bearer,
+					id: this.props.discussionId,
+					msg: this.state.message,
+					status: this.state.status
+				})
+			}
+			this.setState({ message: "" })
 		}
 	}
 
 	render() {
 		const {
+			acceptance,
 			copied,
 			disabled,
 			extraText,
 			icon,
 			message,
 			placeholder,
-			status,
 			text,
 			user,
 			value
@@ -156,7 +177,36 @@ class Conversation extends Component {
 					? parseInt(lastExchange.user_id, 10) !== userId
 					: false
 		}
-
+		const AcceptForm = props => (
+			<Form error={props.error} onSubmit={this.acceptConvo}>
+				<Form.Field
+					autoHeight
+					control={TextArea}
+					label={`Before you can participate in this discussion, you must provide the most charitable explanation of ${
+						props.createdBy.name
+					}'s argument first.`}
+					onChange={this.onChangeAcceptance}
+					placeholder={`What is the ${props.createdBy.name}'s argument?`}
+					rows={6}
+					value={acceptance}
+				/>
+				{props.error && (
+					<Message className="convoErrorMsg" content={props.errorMsg} error />
+				)}
+				<div className="actionSegment">
+					<Button
+						className="acceptBtn"
+						color="green"
+						disabled={disabled}
+						icon
+						labelPosition="left"
+					>
+						<Icon name="check" />
+						{`I understand ${props.createdBy.name}'s argument`}
+					</Button>
+				</div>
+			</Form>
+		)
 		const ChooseAction = props => (
 			<Dropdown icon={false} inline labeled text={text}>
 				<Dropdown.Menu>
@@ -189,7 +239,8 @@ class Conversation extends Component {
 		const ConvoCard = (convo, i) => {
 			const isLast = i === convoCount - 1
 			return (
-				<Card
+				<Segment
+					className="convoSegment"
 					color={
 						isLast && this.props.status === 2
 							? "red"
@@ -199,60 +250,32 @@ class Conversation extends Component {
 					}
 					fluid
 				>
-					<Card.Content>
+					<Header as="p" className="convoHeader">
 						<Image
+							circular
 							floated="left"
-							size="mini"
 							onError={i => (i.target.src = ImagePic)}
+							size="small"
 							src={convo.img ? convo.img : defaultImg}
 						/>
-						<Card.Header>
-							<Link to={`/users/${convo.username}`}>{convo.name}</Link>
-						</Card.Header>
-						<Card.Meta>
+						<Link to={`/users/${convo.username}`}>{convo.name}</Link>
+						<Header.Subheader>
 							<Moment
 								date={adjustTimezone(convo.date_created)}
 								fromNow
 								interval={60000}
 							/>
-						</Card.Meta>
-						<Card.Description
+						</Header.Subheader>
+					</Header>
+					<Container>
+						<p
 							dangerouslySetInnerHTML={{
 								__html: Marked(convo.message)
 							}}
 						/>
-					</Card.Content>
-				</Card>
+					</Container>
+				</Segment>
 			)
-		}
-		const RenderPosts = props => {
-			if (convoCount > 0 && !props.loading) {
-				let convos = []
-				for (let i = 0; i < convoCount; i += 2) {
-					let round = i === 0 ? 1 : i / 2 + 1
-					convos.push(
-						<div key={`convo${i}`}>
-							<Divider horizontal>Round {round}</Divider>
-							<div>
-								{ConvoCard(props.conversation[i], i)}
-								{i + 1 <= parseInt(convoCount - 1, 10)
-									? ConvoCard(props.conversation[i + 1], i + 1)
-									: null}
-							</div>
-						</div>
-					)
-				}
-				return convos
-			}
-			if (props.loading) {
-				return [{}, {}, {}, {}, {}].map((item, i) => (
-					<Dimmer.Dimmable as={Segment} dimmed key={`lazyLoad_${i}`}>
-						<Dimmer active inverted />
-						<Image fluid src={ParagraphPic} />
-					</Dimmer.Dimmable>
-				))
-			}
-			return null
 		}
 		const InitialStatus = props => {
 			if (props.source === "fallacy" && props.authenticated) {
@@ -270,16 +293,7 @@ class Conversation extends Component {
 			if (props.source === "discussion" && props.authenticated) {
 				if (props.status === 0) {
 					if (props.createdBy.id !== userId) {
-						return (
-							<div>
-								{RespondForm(
-									props,
-									`Might you have what it takes to change ${
-										props.createdBy.name
-									}'s mind?`
-								)}
-							</div>
-						)
+						return <div>{AcceptForm(props)}</div>
 					}
 
 					if (props.createdBy.id === userId) {
@@ -316,20 +330,12 @@ class Conversation extends Component {
 							? props.createdBy.name
 							: props.acceptedBy.name
 					if (myTurn) {
-						return (
-							<div>
-								{RespondForm(
-									props,
-									status === 1 ? `It's your move, ${name}.` : placeholder
-								)}
-							</div>
-						)
+						return <div>{RespondForm(props, `It's your move, ${user.name}.`)}</div>
 					} else {
 						return (
 							<Message
 								className="waitMsg"
-								content={`Conversations work best when each side listens to what the other has to say. 
-                                    Digest what ${name} has to say analyze it piece by piece.`}
+								content={`Take this conversation one point at a time and see how ${name} responds before saying anything else.`}
 								header="Wait your turn"
 								icon="chess"
 							/>
@@ -339,11 +345,41 @@ class Conversation extends Component {
 			}
 			return null
 		}
+		const RenderPosts = props => {
+			if (convoCount > 0 && !props.loading) {
+				let convos = []
+				for (let i = 0; i < convoCount; i += 2) {
+					let round = i === 0 ? 1 : i / 2 + 1
+					convos.push(
+						<div key={`convo${i}`}>
+							<Divider horizontal>Round {round}</Divider>
+							<div>
+								{ConvoCard(props.conversation[i], i)}
+								{i + 1 <= parseInt(convoCount - 1, 10)
+									? ConvoCard(props.conversation[i + 1], i + 1)
+									: null}
+							</div>
+						</div>
+					)
+				}
+				return convos
+			}
+			if (props.loading) {
+				return [{}, {}, {}, {}, {}].map((item, i) => (
+					<Dimmer.Dimmable as={Segment} dimmed key={`lazyLoad_${i}`}>
+						<Dimmer active inverted />
+						<Image fluid src={ParagraphPic} />
+					</Dimmer.Dimmable>
+				))
+			}
+			return null
+		}
 		const RespondForm = (props, placeholder = null) => (
 			<Form error={props.error} onSubmit={this.submitForm}>
-				<TextArea
+				<Form.Field
 					autoHeight
 					className={`convoTextArea ${value}`}
+					control={TextArea}
 					onChange={this.onChangeMessage}
 					placeholder={placeholder}
 					rows={6}
@@ -370,6 +406,19 @@ class Conversation extends Component {
 
 		return (
 			<div className="conversation">
+				{this.props.status > 0 && (
+					<div>
+						<Header as="h4" className="interpretationHeader">
+							Steel Man
+							<Header.Subheader>
+								This is {this.props.acceptedBy.name}
+								's most charitable understanding of your argument
+							</Header.Subheader>
+						</Header>
+						<Container>{this.props.acceptance}</Container>
+						<Divider horizontal />
+					</div>
+				)}
 				<div className="convoContainer">{RenderPosts(this.props)}</div>
 				<div className="convoResponseSection">
 					{this.props.createdBy && <div>{InitialStatus(this.props)}</div>}
@@ -380,6 +429,8 @@ class Conversation extends Component {
 }
 
 Conversation.propTypes = {
+	acceptance: PropTypes.string,
+	acceptDiscussionConvo: PropTypes.func,
 	acceptedBy: PropTypes.shape({
 		id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 		img: PropTypes.string,
@@ -407,6 +458,8 @@ Conversation.propTypes = {
 }
 
 Conversation.defaultProps = {
+	acceptance: "",
+	acceptDiscussionConvo: acceptDiscussionConvo,
 	conversation: [],
 	error: false,
 	fetchDiscussionConversation: fetchDiscussionConversation,
@@ -435,6 +488,7 @@ const mapStateToProps = (state, ownProps) => {
 export default connect(
 	mapStateToProps,
 	{
+		acceptDiscussionConvo,
 		fetchDiscussionConversation,
 		fetchFallacyConversation,
 		submitDiscussionConversation,

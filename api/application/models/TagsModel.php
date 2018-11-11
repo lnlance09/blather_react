@@ -31,7 +31,6 @@
                 u.id AS user_id, u.name AS user_name, CONCAT('".$this->imgUrl."profile_pics/', u.img) AS user_img, u.username");
             $this->db->join('users u', 't.created_by = u.id');
             $this->db->join('tag_versions tv', 't.id = tv.tag_id');
-            // $this->db->join('users tvu', 'tv.updated_by = tvu.id');
             $this->db->where('t.id', $id);
             $this->db->where("tv.version = (SELECT MAX(version) FROM tag_versions WHERE tag_id = ".$id.")");
             $result = $this->db->get('tags t')->result_array();
@@ -115,7 +114,6 @@
                 $data['version'] = $query[0]->version+1;
             }
 
-            $this->db->where('id', $id);
             $this->db->insert('tag_versions', $data);
         }
     }

@@ -137,7 +137,7 @@ class FallacyExample extends Component {
 									>
 										view commonmark specs
 									</a>
-									<div className="clearfix"></div>
+									<div className="clearfix" />
 								</p>
 							</Form>
 						) : (

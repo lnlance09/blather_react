@@ -14,6 +14,7 @@ import { Link } from "react-router-dom"
 import {
 	Button,
 	Container,
+	Divider,
 	Form,
 	Grid,
 	Header,
@@ -166,7 +167,6 @@ class DiscussionPage extends Component {
 							<Button
 								className="updateDiscussionBtn"
 								color="blue"
-								compact
 								content="Update"
 								fluid
 								type="submit"
@@ -280,7 +280,9 @@ class DiscussionPage extends Component {
 								<Grid>
 									<Grid.Row>
 										{EvidenceSection(this.props)}
+										<Divider horizontal />
 										<Conversation
+											acceptance={this.props.acceptance}
 											acceptedBy={this.props.acceptedBy}
 											authenticated={authenticated}
 											bearer={bearer}
@@ -298,7 +300,9 @@ class DiscussionPage extends Component {
 								<Grid>
 									<Grid.Column className="leftSide" width={12}>
 										{EvidenceSection(this.props)}
+										<Divider horizontal />
 										<Conversation
+											acceptance={this.props.acceptance}
 											acceptedBy={this.props.acceptedBy}
 											authenticated={authenticated}
 											bearer={bearer}
@@ -329,6 +333,7 @@ class DiscussionPage extends Component {
 }
 
 DiscussionPage.propTypes = {
+	acceptance: PropTypes.string,
 	acceptedBy: PropTypes.shape({
 		id: PropTypes.number,
 		img: PropTypes.string,

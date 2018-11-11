@@ -49,11 +49,11 @@ class Post extends Component {
 	handleContextRef = contextRef => this.setState({ contextRef })
 
 	handleHoverOn = e => {
-		let text = ''
+		let text = ""
 		if (window.getSelection) {
-			text = window.getSelection().toString();
+			text = window.getSelection().toString()
 		} else if (document.selection) {
-			text = document.selection.createRange().text;
+			text = document.selection.createRange().text
 		}
 		this.setState({ highlightedText: text })
 	}
@@ -88,7 +88,16 @@ class Post extends Component {
 	}
 
 	render() {
-		const { authenticated, bearer, commentId, contextRef, highlightedText, id, network, type } = this.state
+		const {
+			authenticated,
+			bearer,
+			commentId,
+			contextRef,
+			highlightedText,
+			id,
+			network,
+			type
+		} = this.state
 		if (this.props.error && this.props.errorCode !== 404 && network === "youtube") {
 			this.props.refreshYouTubeToken({
 				bearer

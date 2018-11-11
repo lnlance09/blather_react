@@ -71,11 +71,11 @@ class FallacyForm extends Component {
 	}
 
 	handleHoverOn = e => {
-		let text = ''
+		let text = ""
 		if (window.getSelection) {
-			text = window.getSelection().toString();
+			text = window.getSelection().toString()
 		} else if (document.selection) {
-			text = document.selection.createRange().text;
+			text = document.selection.createRange().text
 		}
 		this.setState({ highlightedText: text })
 		this.props.setContradictionHighlight({ text })
@@ -173,7 +173,16 @@ class FallacyForm extends Component {
 	}
 
 	render() {
-		const { beginTime, endTime, explanation, highlightedText, id, open, title, url } = this.state
+		const {
+			beginTime,
+			endTime,
+			explanation,
+			highlightedText,
+			id,
+			open,
+			title,
+			url
+		} = this.state
 		const currentState = store.getState()
 		const contradiction = this.props.fallacy.contradiction
 		const contradictionError = contradiction ? contradiction.error : false
@@ -532,7 +541,7 @@ class FallacyForm extends Component {
 							>
 								view commonmark specs
 							</a>
-							<div class="clearfix"></div>
+							<div class="clearfix" />
 						</p>
 					</Form>
 					<div>{SuccessModal(this.props)}</div>

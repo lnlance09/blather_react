@@ -29,6 +29,61 @@
 			]);
 		}
 
+		public function accept() {
+			if(!$this->user) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'Sign in to update this discussion'
+				]);
+			}
+
+			$id = $this->input->post('id');
+			$acceptance = $this->input->post('acceptance');
+
+			$exists = $this->discussions->getDiscussion($id);
+			if(empty($exists)) {
+					echo json_encode([
+					'error' => true,
+					'errorMsg' => 'This discussion does not exist',
+					'errorType' => 101
+				]);
+				exit;
+			}
+
+			if($exists['status'] > 0) {
+				echo json_encode([
+					'error' => true,
+					'errorMsg' => 'This conversation is already in progress',
+					'errorType' => 106
+				]);
+				exit;
+			}
+			
+			if(empty($acceptance)) {
+				$this->output->set_status_header(400);
+				echo json_encode([
+					'error' => true,
+					'errorMsg' => "You must explain your opponent's argument",
+					'errorType' => 102
+				]);
+				exit;
+			}
+
+			$this->discussions->acceptConvo($id, $acceptance);
+			$this->discussions->updateStatus($id, 1, $this->user->id);
+			echo json_encode([
+				'acceptance' => $acceptance,
+				'accepted_by' => [
+					'id' => (int)$this->user->id,
+					'img' => $this->imgUrl."profile_pics/".$this->user->img,
+					'name' => $this->user->name,
+					'username' => $this->user->username
+				],
+				'error' => false,
+				'status' => 1
+			]);
+		}
+
 		public function create() {
 			$title = $this->input->post('title');
 			$description = $this->input->post('description');
