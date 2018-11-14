@@ -61,20 +61,21 @@
       background: rgba(255, 255, 255, 0.8) !important; }
     .youTubeVideo .commentsSection .dimmed.dimmable .content .header {
       color: #1b1c1d; }
-  .youTubeVideo .commentsSection .comments {
-    max-width: none !important; }
-    .youTubeVideo .commentsSection .comments .comment {
-      cursor: pointer;
-      margin: 0;
-      white-space: pre-line; }
-      .youTubeVideo .commentsSection .comments .comment .actions a {
-        color: #1b1c1d; }
-        .youTubeVideo .commentsSection .comments .comment .actions a .icon {
-          color: #2196f3; }
-        .youTubeVideo .commentsSection .comments .comment .actions a.youtubeLink:hover {
-          text-decoration: underline; }
-      .youTubeVideo .commentsSection .comments .comment .actions .likeComment {
-        cursor: default !important; }
+
+.youTubeVideo .comments {
+  max-width: none !important; }
+  .youTubeVideo .comments .comment {
+    cursor: pointer;
+    margin: 0;
+    white-space: pre-line; }
+    .youTubeVideo .comments .comment .actions a {
+      color: #1b1c1d; }
+      .youTubeVideo .comments .comment .actions a .icon {
+        color: #2196f3; }
+      .youTubeVideo .comments .comment .actions a.youtubeLink:hover {
+        text-decoration: underline; }
+    .youTubeVideo .comments .comment .actions .likeComment {
+      cursor: default !important; }
 
 .youtubeCommentModal .comments .comment {
   cursor: pointer;

@@ -541,7 +541,7 @@ class FallacyForm extends Component {
 							>
 								view commonmark specs
 							</a>
-							<div class="clearfix" />
+							<span className="clearfix" />
 						</p>
 					</Form>
 					<div>{SuccessModal(this.props)}</div>

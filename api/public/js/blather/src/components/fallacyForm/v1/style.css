@@ -18,6 +18,8 @@
     font-size: 12px; }
     .fallacyForm .commonMarkLink a:hover {
       text-decoration: underline; }
+  .fallacyForm .commonMarkLink .clearfix {
+    display: block; }
 
 .successModal a {
   cursor: pointer; }

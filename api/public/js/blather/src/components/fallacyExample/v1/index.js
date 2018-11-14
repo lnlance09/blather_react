@@ -216,7 +216,9 @@ class FallacyExample extends Component {
 						externalLink
 						full_text={material.tweet.full_text}
 						highlight={material.highlightedText !== null}
-						highlightedText={material.highlightedText ? material.highlightedText.trim() : ""}
+						highlightedText={
+							material.highlightedText ? material.highlightedText.trim() : ""
+						}
 						id={material.tweet.id_str}
 						is_quote_status={material.tweet.is_quote_status}
 						quoted_status={

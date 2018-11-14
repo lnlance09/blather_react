@@ -59,8 +59,18 @@ class Page extends Component {
 	}
 
 	componentWillReceiveProps(props) {
+		const id = props.match.params.id
 		const network = props.match.params.network
 		const tab = props.match.params.tab
+
+		if (this.state.id !== id) {
+			this.props.fetchPageData({
+				bearer: this.state.bearer,
+				id: id,
+				type: network
+			})
+		}
+
 		const label = this.determineItemsLabel(network)
 		this.setState({ activeItem: tab === "fallacies" ? tab : label })
 	}

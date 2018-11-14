@@ -33,7 +33,7 @@ import TrumpImg from "images/trump.svg"
 class Fallacy extends Component {
 	constructor(props) {
 		super(props)
-		const tabs = ["conversation", "comments", "reference"]
+		const tabs = ["material", "comments", "reference"]
 		const id = parseInt(this.props.match.params.id, 10)
 		let tab = this.props.match.params.tab
 		const currentState = store.getState()
@@ -42,7 +42,7 @@ class Fallacy extends Component {
 		const userId = parseInt(currentState.user.data.id, 10)
 
 		if (!tabs.includes(tab)) {
-			tab = "conversation"
+			tab = "material"
 		}
 
 		this.state = {
@@ -69,9 +69,8 @@ class Fallacy extends Component {
 	componentWillReceiveProps(newProps) {
 		let tab = newProps.match.params.tab
 		if (!this.state.tabs.includes(tab)) {
-			tab = "conversation"
+			tab = "material"
 		}
-
 		this.setState({ activeItem: tab })
 	}
 
@@ -140,8 +139,8 @@ class Fallacy extends Component {
 		const FallacyMenu = props => (
 			<Menu className="fallacyMainMenu" fluid pointing secondary stackable>
 				<Menu.Item
-					active={activeItem === "conversation"}
-					name="conversation"
+					active={activeItem === "material"}
+					name="material"
 					onClick={this.handleItemClick}
 				/>
 				<Menu.Item
@@ -191,7 +190,7 @@ class Fallacy extends Component {
 		}
 		const ShowContent = props => {
 			switch (activeItem) {
-				case "conversation":
+				case "material":
 					return (
 						<div className="materialWrapper">
 							<FallacyExample
@@ -257,7 +256,7 @@ class Fallacy extends Component {
 									</Grid.Row>
 									<Grid.Row>{FallacyMenu(this.props)}</Grid.Row>
 									<Grid.Row>{ShowContent(this.props)}</Grid.Row>
-									{activeItem === "conversation" && (
+									{activeItem === "material" && (
 										<Grid.Row>{ShowTags(this.props)}</Grid.Row>
 									)}
 								</Grid>
