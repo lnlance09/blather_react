@@ -36,23 +36,23 @@
                 $this->db->where('id', $id);
                 $this->db->update('contradictions', [
                     'comment_id' => $commentId,
-                    'end_time' => $endTime,
+                    'end_time' => is_numeric($endTime) ? $endTime : null,
                     'highlighted_text' => $highlightedText,
                     'media_id' => $mediaId,
                     'network' => $network,
                     'page_id' => $pageId,
-                    'start_time' => $startTime
+                    'start_time' => is_numeric($startTime) ? $startTime : null
                 ]);
             } else {
                 $this->db->insert('contradictions', [
                     'comment_id' => $commentId,
-                    'end_time' => $endTime,
+                    'end_time' => is_numeric($endTime) ? $endTime : null,
                     'fallacy_entry_id' => $id,
                     'highlighted_text' => $highlightedText,
                     'media_id' => $mediaId,
                     'network' => $network,
                     'page_id' => $pageId,
-                    'start_time' => $startTime
+                    'start_time' => is_numeric($startTime) ? $startTime : null
                 ]);
             }
         }
@@ -75,14 +75,14 @@
                 'assigned_by' => $assigned_by,
                 'comment_id' => $comment_id,
                 'date_created' => date('Y-m-d H:i:s'),
-                'end_time' => $endTime,
+                'end_time' => is_numeric($endTime) ? $endTime : null,
                 'explanation' => strip_tags($explanation),
                 'fallacy_id' => $fallacy_id,
                 'highlighted_text' => $highlightedText,
                 'media_id' => $media_id,
                 'network' => $network,
                 'page_id' => $page_id,
-                'start_time' => $startTime,
+                'start_time' => is_numeric($startTime) ? $startTime : null,
                 'title' => $title
             ]);
             $id = $this->db->insert_id();

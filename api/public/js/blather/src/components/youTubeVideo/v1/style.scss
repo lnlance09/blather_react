@@ -105,33 +105,33 @@
                 }
             }
         }
+    }
 
-        .comments {
-            max-width: none !important;
+    .comments {
+        max-width: none !important;
 
-            .comment {
-                cursor: pointer;
-                margin: 0;
-                white-space: pre-line;
+        .comment {
+            cursor: pointer;
+            margin: 0;
+            white-space: pre-line;
 
-                .actions {
-                    a {
-                        color: $black;
+            .actions {
+                a {
+                    color: $black;
 
-                        .icon {
-                            color: $blue;
-                        }
-
-                        &.youtubeLink {
-                            &:hover {
-                                text-decoration: underline;
-                            }
-                        }
+                    .icon {
+                        color: $blue;
                     }
 
-                    .likeComment {
-                        cursor: default !important;
+                    &.youtubeLink {
+                        &:hover {
+                            text-decoration: underline;
+                        }
                     }
+                }
+
+                .likeComment {
+                    cursor: default !important;
                 }
             }
         }

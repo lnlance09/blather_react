@@ -7,6 +7,10 @@ momentDurationFormatSetup(moment)
 export const capitalizeWord = word => word.slice(0, 1).toUpperCase() + word.slice(1)
 
 export const convertTimeToSeconds = time => {
+	const times = time.split(":")
+	if (times.length > 2) {
+		return moment.duration(times[1] + ":" + times[2]).asSeconds() / 60 + times[0] * 60 * 60
+	}
 	return moment.duration(time).asSeconds() / 60
 }
 
