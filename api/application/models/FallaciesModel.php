@@ -452,7 +452,7 @@
             }
 
             if($data['assigned_to']) {
-                $this->db->where('p.social_media_id', $data['assigned_to']);
+                $this->db->where('p.social_media_id', is_numeric($data['assigned_to']) ? (int)$data['assigned_to'] : $data['assigned_to']);
             }
 
             if($data['object_id']) {

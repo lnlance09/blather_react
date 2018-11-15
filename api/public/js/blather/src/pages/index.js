@@ -63,7 +63,7 @@ class Page extends Component {
 		const id = props.match.params.id
 		const network = props.match.params.network
 		const tab = props.match.params.tab
-		if (this.props.id !== id) {
+		if (this.state.id !== id) {
 			this.props.fetchPageData({
 				bearer: this.state.bearer,
 				id: id,
