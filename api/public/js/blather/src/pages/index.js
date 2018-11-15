@@ -48,7 +48,8 @@ class Page extends Component {
 			id,
 			itemsLabel: label,
 			network,
-			page: 0
+			page: 0,
+			updated: false
 		}
 
 		this.props.fetchPageData({
@@ -62,7 +63,6 @@ class Page extends Component {
 		const id = props.match.params.id
 		const network = props.match.params.network
 		const tab = props.match.params.tab
-
 		if (this.state.id !== id) {
 			this.props.fetchPageData({
 				bearer: this.state.bearer,
@@ -72,7 +72,10 @@ class Page extends Component {
 		}
 
 		const label = this.determineItemsLabel(network)
-		this.setState({ activeItem: tab === "fallacies" ? tab : label })
+		this.setState({
+			activeItem: tab === "fallacies" ? tab : label,
+			updated: !this.state.updated
+		})
 	}
 
 	determineItemsLabel(network) {

@@ -261,7 +261,6 @@ class DiscussionPage extends Component {
 					canEdit={isMine}
 					history={props.history}
 					id={props.id}
-					loading={tags ? false : true}
 					tags={tags ? tags : []}
 					type="discussion"
 				/>

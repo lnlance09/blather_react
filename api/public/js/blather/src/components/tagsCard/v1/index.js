@@ -143,9 +143,6 @@ class TagsCard extends Component {
 			</List.Item>
 		))
 		const ShowTags = props => {
-			if (props.loading) {
-				return
-			}
 			if (props.tags.length > 0) {
 				return (
 					<List className="tagsList" relaxed>
@@ -181,7 +178,6 @@ TagsCard.propTypes = {
 	bearer: PropTypes.string,
 	canEdit: PropTypes.bool,
 	id: PropTypes.number,
-	loading: PropTypes.bool,
 	removeDiscussionTag: PropTypes.func,
 	removeFallacyTag: PropTypes.func,
 	tags: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]),
@@ -192,7 +188,6 @@ TagsCard.propTypes = {
 
 TagsCard.defaultProps = {
 	canEdit: false,
-	loading: true,
 	type: "fallacy",
 	removeDiscussionTag: removeDiscussionTag,
 	removeFallacyTag: removeFallacyTag,

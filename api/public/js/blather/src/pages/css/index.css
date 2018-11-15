@@ -222,6 +222,8 @@ a {
       color: #fff; }
       .fallacyPage .ui.grid .statusActionSegment .twitterButton:hover {
         background: #00719b; }
+  .fallacyPage .ui.grid .callToSignUp {
+    margin-top: 28px; }
 
 .fallacyPage .fallacyMainMenu {
   margin-top: 10px; }

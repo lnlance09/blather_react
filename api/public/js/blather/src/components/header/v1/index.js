@@ -70,7 +70,7 @@ class Header extends Component {
 				return (
 					<Menu.Item className="signInLink" direction="right" position="right">
 						<Button
-							color="teal"
+							color="green"
 							compact
 							content="Sign In"
 							onClick={() => this.props.history.push("/signin")}
@@ -149,7 +149,7 @@ class Header extends Component {
 					>
 						{!this.props.authenticated ? (
 							<Menu.Item onClick={() => this.props.history.push("/signin")}>
-								Sign In
+								<Button content="Sign In" fluid primary />
 							</Menu.Item>
 						) : (
 							<Menu.Item onClick={this.onLogout}>Sign Out</Menu.Item>
