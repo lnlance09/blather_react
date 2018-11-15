@@ -173,7 +173,7 @@ class Authentication extends Component {
 									value={password}
 								/>
 							</Form.Field>
-							<Button color="teal" content="Login" fluid type="submit" />
+							<Button content="Login" fluid primary type="submit" />
 						</Form>
 					</div>
 				)

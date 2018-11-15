@@ -15,7 +15,8 @@ import {
 	Image,
 	Label,
 	Menu,
-	Responsive
+	Responsive,
+	Segment
 } from "semantic-ui-react"
 import Comments from "components/comments/v1/"
 import FallacyExample from "components/fallacyExample/v1/"
@@ -95,6 +96,24 @@ class Fallacy extends Component {
 	render() {
 		const { activeItem, authenticated, bearer, id, userId } = this.state
 		const canEdit = this.props.createdBy ? this.props.createdBy.id === userId : false
+		const CallToSignUp = props => {
+			if (!authenticated) {
+				return (
+					<Segment className="callToSignUp" textAlign="center">
+						<Header as="p">
+							Help stop the spread of bad ideas
+							<Header.Subheader>start calling out bullshit now</Header.Subheader>
+						</Header>
+						<Button
+							content="Sign Up"
+							onClick={() => this.props.history.push("/signin")}
+							positive
+						/>
+					</Segment>
+				)
+			}
+			return null
+		}
 		const ContactUser = props => {
 			if (props.user) {
 				const userLink = `/pages/${props.user.type}/${
@@ -235,7 +254,6 @@ class Fallacy extends Component {
 					canEdit={canEdit}
 					history={props.history}
 					id={id}
-					loading={tags ? false : true}
 					tags={tags ? tags : []}
 					type="fallacy"
 				/>
@@ -256,6 +274,7 @@ class Fallacy extends Component {
 									</Grid.Row>
 									<Grid.Row>{FallacyMenu(this.props)}</Grid.Row>
 									<Grid.Row>{ShowContent(this.props)}</Grid.Row>
+									<Grid.Row>{CallToSignUp(this.props)}</Grid.Row>
 									{activeItem === "material" && (
 										<Grid.Row>{ShowTags(this.props)}</Grid.Row>
 									)}
@@ -267,6 +286,7 @@ class Fallacy extends Component {
 								<Grid>
 									<Grid.Column className="leftSide" width={12}>
 										{ShowContent(this.props)}
+										{CallToSignUp(this.props)}
 									</Grid.Column>
 									<Grid.Column className="rightSide" width={4}>
 										{ShowTags(this.props)}
