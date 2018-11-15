@@ -69,11 +69,18 @@ class Page extends Component {
 				id: id,
 				type: network
 			})
+
+			this.setState({
+				id,
+				network,
+				page: 0
+			})
 		}
 
 		const label = this.determineItemsLabel(network)
 		this.setState({
 			activeItem: tab === "fallacies" ? tab : label,
+			itemsLabel: label,
 			updated: !this.state.updated
 		})
 	}
