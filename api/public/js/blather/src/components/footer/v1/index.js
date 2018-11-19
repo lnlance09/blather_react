@@ -1,5 +1,6 @@
 import "./style.css"
 import { Link } from "react-router-dom"
+import { Follow } from "react-twitter-widgets"
 import { Container, List, Segment } from "semantic-ui-react"
 import React, { Component } from "react"
 
@@ -22,6 +23,7 @@ class Footer extends Component {
 						</List.Item>
 					</List>
 					<p>© 2018 Blather</p>
+					<Follow className="twitterFollowButton" username="blatherio" />
 				</Container>
 			</Segment>
 		)

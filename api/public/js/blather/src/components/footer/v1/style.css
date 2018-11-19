@@ -14,4 +14,10 @@
       color: #fff; }
   .ui.bottom.attached.segment.footerSegment p {
     color: #fff !important;
-    font-size: 12px; }
+    font-size: 12px;
+    margin-bottom: 7px; }
+  .ui.bottom.attached.segment.footerSegment .socialFooterContainer {
+    background: #fff;
+    width: 100%; }
+    .ui.bottom.attached.segment.footerSegment .socialFooterContainer .twitterFollowButton {
+      margin: 5px 0; }

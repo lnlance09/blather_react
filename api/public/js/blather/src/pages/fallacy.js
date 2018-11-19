@@ -5,7 +5,16 @@ import { DisplayMetaTags } from "utils/metaFunctions"
 import { fetchCommentCount, fetchFallacy, updateFallacy } from "pages/actions/fallacy"
 import { connect, Provider } from "react-redux"
 import { Link } from "react-router-dom"
-import { TwitterShareButton } from "react-share"
+import {
+	FacebookIcon,
+	FacebookShareButton,
+	RedditIcon,
+	RedditShareButton,
+	TumblrIcon,
+	TumblrShareButton,
+	TwitterIcon,
+	TwitterShareButton
+} from "react-share"
 import {
 	Button,
 	Container,
@@ -14,6 +23,7 @@ import {
 	Icon,
 	Image,
 	Label,
+	List,
 	Menu,
 	Responsive,
 	Segment
@@ -207,6 +217,30 @@ class Fallacy extends Component {
 				/>
 			)
 		}
+		const ShareButtons = props => (
+			<List className="shareList" horizontal>
+				<List.Item>
+					<FacebookShareButton url={`${window.location.origin}/fallacies/${id}`}>
+						<FacebookIcon round size="35" />
+					</FacebookShareButton>
+				</List.Item>
+				<List.Item>
+					<TwitterShareButton url={`${window.location.origin}/fallacies/${id}`}>
+						<TwitterIcon round size="35" />
+					</TwitterShareButton>
+				</List.Item>
+				<List.Item>
+					<RedditShareButton url={`${window.location.origin}/fallacies/${id}`}>
+						<RedditIcon round size="35" />
+					</RedditShareButton>
+				</List.Item>
+				<List.Item>
+					<TumblrShareButton url={`${window.location.origin}/fallacies/${id}`}>
+						<TumblrIcon round size="35" />
+					</TumblrShareButton>
+				</List.Item>
+			</List>
+		)
 		const ShowContent = props => {
 			switch (activeItem) {
 				case "material":
@@ -274,6 +308,7 @@ class Fallacy extends Component {
 									</Grid.Row>
 									<Grid.Row>{FallacyMenu(this.props)}</Grid.Row>
 									<Grid.Row>{ShowContent(this.props)}</Grid.Row>
+									<Grid.Row>{ShareButtons(this.props)}</Grid.Row>
 									<Grid.Row>{CallToSignUp(this.props)}</Grid.Row>
 									{activeItem === "material" && (
 										<Grid.Row>{ShowTags(this.props)}</Grid.Row>
@@ -286,6 +321,7 @@ class Fallacy extends Component {
 								<Grid>
 									<Grid.Column className="leftSide" width={12}>
 										{ShowContent(this.props)}
+										{ShareButtons(this.props)}
 										{CallToSignUp(this.props)}
 									</Grid.Column>
 									<Grid.Column className="rightSide" width={4}>

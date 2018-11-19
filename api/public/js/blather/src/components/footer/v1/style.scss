@@ -24,5 +24,15 @@
     p {
         color: $white !important;
         font-size: 12px;
+        margin-bottom: 7px;
+    }
+
+    .socialFooterContainer {
+        background: $white;
+        width: 100%;
+
+        .twitterFollowButton {
+            margin: 5px 0;
+        }
     }
 }
