@@ -231,6 +231,11 @@ a {
 .fallacyPage .commentsContent {
   width: 100%; }
 
+.fallacyPage .shareList {
+  margin-top: 15px; }
+  .fallacyPage .shareList .item {
+    cursor: pointer; }
+
 @media only screen and (max-width: 1025px) {
   .fallacyPage .ui.header {
     font-size: 16px; }
