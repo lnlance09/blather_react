@@ -340,9 +340,9 @@
 
         <meta name="description" content="<?php echo htmlentities($description); ?>" />
 
-        <link rel="stylesheet" type="text/css" href="/static/css/main.a56f26ec.css">
+        <link rel="stylesheet" type="text/css" href="/static/css/main.f7fc84f0.css">
         <link rel="manifest" href="manifest.json">
-        <link rel="shortcut icon" href="favicon.ico">
+        <link rel="shortcut icon" href="/favicon.ico">
         <meta name="google-site-verification" content="bTDbvvxwQikYB9zsfufDiaqgVHMRi4DZ0311nJpngi8" />
         <title><?php echo $title; ?> - Blather</title>
 
@@ -370,7 +370,7 @@
         </noscript>
         <div id="root"></div>
     </body>
-    <script src="/static/js/main.0047b2a0.js"></script>
+    <script src="/static/js/main.c48387e9.js"></script>
 <?php
     if($schema) {
 ?>
