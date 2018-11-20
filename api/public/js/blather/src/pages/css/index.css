@@ -209,7 +209,7 @@ a {
     .fallacyPage .ui.grid .row:first-of-type {
       padding-top: 0; }
   .fallacyPage .ui.grid .statusActionSegment {
-    margin-top: 30px;
+    margin-top: 15px;
     text-align: center; }
     .fallacyPage .ui.grid .statusActionSegment .youtubeButton {
       background: #ff0000 !important;
@@ -223,7 +223,7 @@ a {
       .fallacyPage .ui.grid .statusActionSegment .twitterButton:hover {
         background: #00719b; }
   .fallacyPage .ui.grid .callToSignUp {
-    margin-top: 14px; }
+    margin-top: 10px; }
 
 .fallacyPage .fallacyMainMenu {
   margin-top: 10px; }
@@ -231,9 +231,9 @@ a {
 .fallacyPage .commentsContent {
   width: 100%; }
 
-.fallacyPage .shareList {
+.fallacyPage .shareContainer {
   margin-top: 15px; }
-  .fallacyPage .shareList .item {
+  .fallacyPage .shareContainer .shareList .item {
     cursor: pointer; }
 
 @media only screen and (max-width: 1025px) {
