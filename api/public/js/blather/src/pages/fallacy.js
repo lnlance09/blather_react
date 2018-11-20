@@ -110,7 +110,7 @@ class Fallacy extends Component {
 			if (!authenticated) {
 				return (
 					<Segment className="callToSignUp" textAlign="center">
-						<Header as="p">
+						<Header>
 							Help stop the spread of bad ideas
 							<Header.Subheader>start calling out bullshit now</Header.Subheader>
 						</Header>
@@ -222,22 +222,22 @@ class Fallacy extends Component {
 				<List className="shareList" horizontal>
 					<List.Item>
 						<FacebookShareButton url={`${window.location.origin}/fallacies/${id}`}>
-							<FacebookIcon round size="35" />
+							<FacebookIcon round size={35} />
 						</FacebookShareButton>
 					</List.Item>
 					<List.Item>
 						<TwitterShareButton url={`${window.location.origin}/fallacies/${id}`}>
-							<TwitterIcon round size="35" />
+							<TwitterIcon round size={35} />
 						</TwitterShareButton>
 					</List.Item>
 					<List.Item>
 						<RedditShareButton url={`${window.location.origin}/fallacies/${id}`}>
-							<RedditIcon round size="35" />
+							<RedditIcon round size={35} />
 						</RedditShareButton>
 					</List.Item>
 					<List.Item>
 						<TumblrShareButton url={`${window.location.origin}/fallacies/${id}`}>
-							<TumblrIcon round size="35" />
+							<TumblrIcon round size={35} />
 						</TumblrShareButton>
 					</List.Item>
 				</List>
