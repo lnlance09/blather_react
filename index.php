@@ -101,7 +101,7 @@
                             $username = $row['username'];
                             $fallacyTitle = $row['title'];
                             $createdAt = $row['date_created'];
-                            $title = $row['fallacy_name'].' by '.$pageName;
+                            $title = $row['fallacy_name'].' Fallacy by '.$pageName;
                             $description = $row['explanation'];
                             $img = $row['profile_pic'];
                             $pic = $row['user_profile_pic'];
