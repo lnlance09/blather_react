@@ -218,28 +218,30 @@ class Fallacy extends Component {
 			)
 		}
 		const ShareButtons = props => (
-			<List className="shareList" horizontal>
-				<List.Item>
-					<FacebookShareButton url={`${window.location.origin}/fallacies/${id}`}>
-						<FacebookIcon round size="35" />
-					</FacebookShareButton>
-				</List.Item>
-				<List.Item>
-					<TwitterShareButton url={`${window.location.origin}/fallacies/${id}`}>
-						<TwitterIcon round size="35" />
-					</TwitterShareButton>
-				</List.Item>
-				<List.Item>
-					<RedditShareButton url={`${window.location.origin}/fallacies/${id}`}>
-						<RedditIcon round size="35" />
-					</RedditShareButton>
-				</List.Item>
-				<List.Item>
-					<TumblrShareButton url={`${window.location.origin}/fallacies/${id}`}>
-						<TumblrIcon round size="35" />
-					</TumblrShareButton>
-				</List.Item>
-			</List>
+			<Container className="shareContainer" textAlign="center">
+				<List className="shareList" horizontal>
+					<List.Item>
+						<FacebookShareButton url={`${window.location.origin}/fallacies/${id}`}>
+							<FacebookIcon round size="35" />
+						</FacebookShareButton>
+					</List.Item>
+					<List.Item>
+						<TwitterShareButton url={`${window.location.origin}/fallacies/${id}`}>
+							<TwitterIcon round size="35" />
+						</TwitterShareButton>
+					</List.Item>
+					<List.Item>
+						<RedditShareButton url={`${window.location.origin}/fallacies/${id}`}>
+							<RedditIcon round size="35" />
+						</RedditShareButton>
+					</List.Item>
+					<List.Item>
+						<TumblrShareButton url={`${window.location.origin}/fallacies/${id}`}>
+							<TumblrIcon round size="35" />
+						</TumblrShareButton>
+					</List.Item>
+				</List>
+			</Container>
 		)
 		const ShowContent = props => {
 			switch (activeItem) {
@@ -252,7 +254,9 @@ class Fallacy extends Component {
 								history={props.history}
 								id={id}
 							/>
+							{CallToSignUp(props)}
 							{ContactUser(props)}
+							{ShareButtons(props)}
 						</div>
 					)
 				case "comments":
@@ -308,8 +312,6 @@ class Fallacy extends Component {
 									</Grid.Row>
 									<Grid.Row>{FallacyMenu(this.props)}</Grid.Row>
 									<Grid.Row>{ShowContent(this.props)}</Grid.Row>
-									<Grid.Row>{ShareButtons(this.props)}</Grid.Row>
-									<Grid.Row>{CallToSignUp(this.props)}</Grid.Row>
 									{activeItem === "material" && (
 										<Grid.Row>{ShowTags(this.props)}</Grid.Row>
 									)}
@@ -321,8 +323,6 @@ class Fallacy extends Component {
 								<Grid>
 									<Grid.Column className="leftSide" width={12}>
 										{ShowContent(this.props)}
-										{ShareButtons(this.props)}
-										{CallToSignUp(this.props)}
 									</Grid.Column>
 									<Grid.Column className="rightSide" width={4}>
 										{ShowTags(this.props)}
