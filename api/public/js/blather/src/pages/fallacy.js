@@ -111,8 +111,7 @@ class Fallacy extends Component {
 				return (
 					<Segment className="callToSignUp" textAlign="center">
 						<Header>
-							Help stop the spread of bad ideas
-							<Header.Subheader>start calling out bullshit now</Header.Subheader>
+							Call out bullshit
 						</Header>
 						<Button
 							content="Sign Up"
