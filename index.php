@@ -6,7 +6,7 @@
 
     $set = false;
     $title = "Fallacies";
-    $description = "Blather is an educational tool that allows users to analyze and pinpoint the accuracy of claims made on social media.";
+    $description = "Blather is an educational tool that allows users to analyze and pinpoint the accuracy of claims made on social media. Keep track of logical fallacies and call out bullshit reasoning.";
     $img = "https://blather.io/brain.png";
 
     switch($uri) {
@@ -162,7 +162,7 @@
                 if($result = $mysqli->query($sql)) {
                     while($row = $result->fetch_assoc()) {
                         $title = $row['name'];
-                        $description = $row['about'];
+                        $description = $row['name']."'s record of logical fallacies. Keep track of all the bullshit that ".$row['name']." has spewed and hold him/her accountable";
                         $img = $row['profile_pic'];
                     }
                     $result->close();
