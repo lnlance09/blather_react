@@ -812,6 +812,21 @@
       ]
    },
    {
+      "id":"69",
+      "description":"A conclusion or statement that does not logically follow from the previous argument or statement.",
+      "name":"Non Sequitur",
+      "dialogue": [
+         {
+            "name": "Blathering Bill",
+            "message": "Brush your teeth every morning. Help fight injustice."
+         },
+         {
+            "name": "Rational Rob",
+            "message": "What?"
+         }
+      ]
+   },
+   {
       "id":"37",
       "description":"If the premise of the argument is falsified with a counter example, rather than changing the conclusion, the arguer changes the definition of a major premise to make both the premise and the conclusion true. Typically, the arguer makes a sweeping generalization about a an entire group. This is usually done by implying that the group is bound and defined by the arbitrary quality. If an exception to this generalization is pointed out, the arguer dismisses the exception as not truly belonging to the group in the first place.",
       "name":"No True Scotsman",
@@ -986,7 +1001,11 @@
          },
          {
             "name": "Blathering Bill",
-            "message": "You just hate America and don't care about protecting it!"
+            "message": "So you want America to be invaded by a foriegn country and citizens like us to be kept as hostages?"
+         },
+         {
+            "name": "Rational Rob",
+            "message": "Did I say that?"
          }
       ]
    },
