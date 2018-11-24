@@ -282,6 +282,9 @@ Target.defaultProps = {
 	fetchReview: fetchReview,
 	hasSubmitted: false,
 	page: {},
+	sincerityExplanation: "",
+	summary: "",
+	turingTestExplanation: "",
 	user: {}
 }
 

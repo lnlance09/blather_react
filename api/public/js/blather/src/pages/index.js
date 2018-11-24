@@ -66,7 +66,7 @@ class Page extends Component {
 		if (this.state.id !== id) {
 			this.props.fetchPageData({
 				bearer: this.state.bearer,
-				id: id,
+				id,
 				type: network
 			})
 
@@ -168,9 +168,10 @@ class Page extends Component {
 					return (
 						<FallaciesList
 							assignedTo={props.id}
-							emptyMsgHeader={false}
 							emptyMsgContent={`No fallacies have been assigned to ${props.name}`}
+							emptyMsgHeader={false}
 							history={props.history}
+							page={0}
 							source="pages"
 						/>
 					)
@@ -262,7 +263,6 @@ class Page extends Component {
 									</Grid.Row>
 								</Grid>
 							</Responsive>
-
 							<Responsive minWidth={1025}>
 								<Grid>
 									<Grid.Column width={4}>

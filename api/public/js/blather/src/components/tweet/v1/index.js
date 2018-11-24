@@ -209,8 +209,8 @@ class Tweet extends Component {
 							<div className="mediaPic" key={`${media.display_url}_${i}`}>
 								<Image
 									centered
-									rounded
 									onError={i => (i.target.src = itemPic)}
+									rounded
 									size={props.imageSize}
 									src={media.media_url_https}
 								/>

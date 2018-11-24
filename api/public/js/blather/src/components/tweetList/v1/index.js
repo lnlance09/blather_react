@@ -27,6 +27,16 @@ class TweetList extends Component {
 		})
 	}
 
+	componentWillReceiveProps(props) {
+		if (this.props.username !== props.username) {
+			this.props.fetchPagePosts({
+				bearer: props.bearer,
+				id: props.username,
+				type: "twitter"
+			})
+		}
+	}
+
 	loadMoreItems = () => {
 		if (this.props.posts.hasMore) {
 			const lastId = this.props.posts.lastId
@@ -64,6 +74,7 @@ class TweetList extends Component {
 							extended_entities={post.extended_entities}
 							full_text={post.full_text}
 							id={post.id_str}
+							imageSize="medium"
 							key={`tweet_key_${i}`}
 							is_quote_status={post.is_quote_status}
 							quoted_status={
