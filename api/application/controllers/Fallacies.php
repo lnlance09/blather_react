@@ -265,7 +265,11 @@
 					$auth = $this->user ? $this->user->linkedTwitter : false;
 					$token = $auth ? $this->user->twitterAccessToken : null;
 					$secret = $auth ? $this->user->twitterAccessSecret : null;
-					$object = $this->twitter->getTweetExtended($parse['object_id'], $auth, $token, $secret);
+					$object = $this->twitter->getTweetExtended($parse['object_id'], false, $token, $secret);
+
+					if($object['error']) {
+						$object = $this->twitter->getTweetExtended($parse['object_id'], $auth, $token, $secret);
+					}
 
 					if($object['error']) {
 						$this->output->set_status_header($object['code']);
