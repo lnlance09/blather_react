@@ -110,9 +110,7 @@ class Fallacy extends Component {
 			if (!authenticated) {
 				return (
 					<Segment className="callToSignUp" textAlign="center">
-						<Header>
-							Call out bullshit
-						</Header>
+						<Header>Call out bullshit</Header>
 						<Button
 							content="Sign Up"
 							onClick={() => this.props.history.push("/signin")}

@@ -77,7 +77,7 @@ class UserPage extends Component {
 
 	componentWillReceiveProps(newProps) {
 		const username = newProps.match.params.username
-		if (this.props.user.username !== username) {
+		if (this.state.username !== username) {
 			this.props.fetchUserData({
 				bearer: this.state.bearer,
 				username: username

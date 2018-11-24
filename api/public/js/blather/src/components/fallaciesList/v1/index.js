@@ -42,10 +42,33 @@ class FallaciesList extends Component {
 			fallacies: this.state.fallaces,
 			network: this.props.network,
 			objectId: this.props.objectId,
-			page: this.props.page
+			page: 0
 		})
 		if (this.props.source === "users") {
 			this.props.getTargets({ id: this.props.assignedBy })
+		}
+	}
+
+	componentWillReceiveProps(props) {
+		if (
+			this.props.assignedBy !== props.assignedBy ||
+			this.props.assignedTo !== props.assignedTo ||
+			this.props.commentId !== props.commentId ||
+			this.props.objectId !== props.objectId
+		) {
+			this.fetchFallacies()
+			this.props.getFallacies({
+				assignedBy: props.assignedBy,
+				assignedTo: props.assignedTo,
+				commentId: props.commentId,
+				fallacies: this.state.fallaces,
+				network: props.network,
+				objectId: props.objectId,
+				page: props.page
+			})
+			if (props.source === "users") {
+				this.props.getTargets({ id: props.assignedBy })
+			}
 		}
 	}
 

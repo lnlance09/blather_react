@@ -220,6 +220,7 @@ class FallacyExample extends Component {
 							material.highlightedText ? material.highlightedText.trim() : ""
 						}
 						id={material.tweet.id_str}
+						imageSize="medium"
 						is_quote_status={material.tweet.is_quote_status}
 						quoted_status={
 							material.tweet.quoted_status === undefined &&

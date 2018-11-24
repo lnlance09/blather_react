@@ -54,10 +54,16 @@ const target = (state = initial(), action) => {
 					username: payload.review.username
 				},
 				sincerity: parseInt(payload.review.sincerity, 10) === 1,
-				sincerityExplanation: payload.review.sincerity_explanation,
-				summary: payload.review.summary,
+				sincerityExplanation:
+					payload.review.sincerity_explanation === null
+						? ""
+						: payload.review.sincerity_explanation,
+				summary: payload.review.summary === null ? "" : payload.review.summary,
 				turingTest: parseInt(payload.review.turing_test, 10) === 1,
-				turingTestExplanation: payload.review.turing_test_explanation,
+				turingTestExplanation:
+					payload.review.turing_test_explanation === null
+						? ""
+						: payload.review.turing_test_explanation,
 				user: {
 					id: payload.review.user_id,
 					name: payload.review.user_name
