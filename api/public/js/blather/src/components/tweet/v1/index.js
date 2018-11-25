@@ -9,6 +9,7 @@ import itemPic from "images/square-image.png"
 import Linkify from "react-linkify"
 import Moment from "react-moment"
 import NumberFormat from "react-number-format"
+import Parser from "html-react-parser"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import store from "store"
@@ -251,9 +252,11 @@ class Tweet extends Component {
 				</List>
 			)
 		}
-		const tweetText = this.props.retweeted_status
-			? this.props.retweeted_status.full_text.replace(/&amp;/g, "&")
-			: this.props.full_text.replace(/&amp;/g, "&")
+		const tweetText = Parser(
+			this.props.retweeted_status
+				? this.props.retweeted_status.full_text
+				: this.props.full_text
+		)
 
 		return (
 			<Provider store={store}>

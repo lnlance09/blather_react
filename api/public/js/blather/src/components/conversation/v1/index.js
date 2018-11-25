@@ -245,8 +245,8 @@ class Conversation extends Component {
 						isLast && this.props.status === 2
 							? "red"
 							: isLast && this.props.status === 3
-								? "green"
-								: null
+							? "green"
+							: null
 					}
 					fluid
 				>
