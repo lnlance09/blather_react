@@ -5,6 +5,7 @@ import { connect } from "react-redux"
 import { Icon, Image, Item, Message, Visibility } from "semantic-ui-react"
 import ImagePic from "images/image-square.png"
 import Moment from "react-moment"
+import Parser from "html-react-parser"
 import ParagraphPic from "images/short-paragraph.png"
 import PropTypes from "prop-types"
 import ResultItem from "components/item/v1/"
@@ -54,7 +55,11 @@ class ArchivesList extends Component {
 					)
 					return (
 						<ResultItem
-							description={info.description}
+							description={
+								info.description === null
+									? info.description
+									: Parser(info.description)
+							}
 							history={props.history}
 							id={`archive_${i}`}
 							img={info.img}
