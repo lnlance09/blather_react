@@ -370,7 +370,7 @@
         </noscript>
         <div id="root"></div>
     </body>
-    <script src="/static/js/main.51b0b0a9.js"></script>
+    <script src="/static/js/main.9fe2a21b.js"></script>
 <?php
     if($schema) {
 ?>
