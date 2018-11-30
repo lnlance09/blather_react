@@ -79,6 +79,16 @@ class Fallacy extends Component {
 	}
 
 	componentWillReceiveProps(newProps) {
+		const newId = parseInt(newProps.match.params.id, 10)
+		if(newId !== this.state.id) {
+			this.props.fetchCommentCount({ id: newId })
+			this.props.fetchFallacy({
+				bearer: this.state.bearer,
+				id: newId
+			})
+			this.setState({ id: newId })
+		}
+
 		let tab = newProps.match.params.tab
 		if (!this.state.tabs.includes(tab)) {
 			tab = "material"
