@@ -173,19 +173,21 @@ class FallaciesList extends Component {
 					/>
 				)}
 				{showFilter && (
-					<Form onSubmit={this.onSubmitForm}>
-						<Form.Field
-							control={Dropdown}
-							fluid
-							onChange={this.onChangeSearch}
-							options={options}
-							placeholder="Filter by fallacy"
-							selection
-							value={value}
-						/>
-					</Form>
+					<div>
+						<Form onSubmit={this.onSubmitForm}>
+							<Form.Field
+								control={Dropdown}
+								fluid
+								onChange={this.onChangeSearch}
+								options={options}
+								placeholder="Filter by fallacy"
+								selection
+								value={value}
+							/>
+						</Form>
+						<Divider />
+					</div>
 				)}
-				<Divider />
 			</div>
 		)
 		const RenderFallacies = props => {
