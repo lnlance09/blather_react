@@ -6,6 +6,7 @@ export const getFallacies = ({
 	assignedTo,
 	commentId,
 	fallacies,
+	fallacyId,
 	network,
 	objectId,
 	page
@@ -19,6 +20,7 @@ export const getFallacies = ({
 				assignedTo,
 				commentId,
 				fallacies,
+				fallacyId,
 				network,
 				objectId,
 				page

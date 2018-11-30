@@ -30,6 +30,7 @@ import {
 } from "semantic-ui-react"
 import Comments from "components/comments/v1/"
 import FallacyExample from "components/fallacyExample/v1/"
+import FallaciesList from "components/fallaciesList/v1/"
 import FallacyRef from "components/fallacyRef/v1/"
 import Moment from "react-moment"
 import PageFooter from "components/footer/v1/"
@@ -44,7 +45,7 @@ import TrumpImg from "images/trump.svg"
 class Fallacy extends Component {
 	constructor(props) {
 		super(props)
-		const tabs = ["material", "comments", "reference"]
+		const tabs = ["material", "comments", "similar", "reference"]
 		const id = parseInt(this.props.match.params.id, 10)
 		let tab = this.props.match.params.tab
 		const currentState = store.getState()
@@ -178,6 +179,11 @@ class Fallacy extends Component {
 					{props.commentCount > 0 && <Label circular>{props.commentCount}</Label>}
 				</Menu.Item>
 				<Menu.Item
+					active={activeItem === "similar"}
+					name="similar"
+					onClick={this.handleItemClick}
+				/>
+				<Menu.Item
 					active={activeItem === "reference"}
 					name="reference"
 					onClick={this.handleItemClick}
@@ -267,6 +273,18 @@ class Fallacy extends Component {
 							/>
 						</div>
 					)
+				case "similar":
+					if (props.fallacyId) {
+						return (
+							<FallaciesList
+								emptyMsgContent="There are no similar fallacies"
+								fallacyId={props.fallacyId}
+								history={props.history}
+								source="fallacy"
+							/>
+						)
+					}
+					return null
 				case "reference":
 					return (
 						<div className="fallacyContent">

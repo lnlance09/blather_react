@@ -462,6 +462,12 @@
                 ]);
             }
 
+            if($data['fallacy_id']) {
+                $this->db->where([
+                    'fe.fallacy_id' => $data['fallacy_id']
+                ]);
+            }
+
             if(!$just_count) {
                 $limit = 10;
                 $start = $data['page']*$limit;

@@ -27,6 +27,7 @@ class FallaciesList extends Component {
 			options: [],
 			q: "",
 			page: 0,
+			showFilter: this.props.source !== "fallacy",
 			showTargets: false
 		}
 
@@ -34,12 +35,15 @@ class FallaciesList extends Component {
 	}
 
 	componentDidMount() {
-		this.fetchFallacies()
+		if (this.state.showFilter) {
+			this.fetchFallacies()
+		}
 		this.props.getFallacies({
 			assignedBy: this.props.assignedBy,
 			assignedTo: this.props.assignedTo,
 			commentId: this.props.commentId,
 			fallacies: this.state.fallaces,
+			fallacyId: this.props.fallacyId,
 			network: this.props.network,
 			objectId: this.props.objectId,
 			page: 0
@@ -62,6 +66,7 @@ class FallaciesList extends Component {
 				assignedTo: props.assignedTo,
 				commentId: props.commentId,
 				fallacies: this.state.fallaces,
+				fallacyId: props.fallacyId,
 				network: props.network,
 				objectId: props.objectId,
 				page: props.page
@@ -119,6 +124,7 @@ class FallaciesList extends Component {
 				assignedTo: this.props.assignedTo,
 				commentId: this.props.commentId,
 				fallacies: this.state.fallacies,
+				fallacyId: this.props.fallacyId,
 				network: this.props.network,
 				objectId: this.props.objectId,
 				page: newPage
@@ -133,6 +139,7 @@ class FallaciesList extends Component {
 			assignedTo: this.props.assignedTo,
 			commentId: this.props.commentId,
 			fallacies: value,
+			fallacyId: this.props.fallacyId,
 			network: this.props.network,
 			objectId: this.props.objectId,
 			page: 0
@@ -140,7 +147,7 @@ class FallaciesList extends Component {
 	}
 
 	render() {
-		const { options, showTargets, value } = this.state
+		const { options, showFilter, showTargets, value } = this.state
 		const FilterSection = ({ props }) => (
 			<div className="fallacyFilter">
 				{props.source === "users" && (
@@ -165,17 +172,19 @@ class FallaciesList extends Component {
 						icon="crosshairs"
 					/>
 				)}
-				<Form onSubmit={this.onSubmitForm}>
-					<Form.Field
-						control={Dropdown}
-						fluid
-						onChange={this.onChangeSearch}
-						options={options}
-						placeholder="Filter by fallacy"
-						selection
-						value={value}
-					/>
-				</Form>
+				{showFilter && (
+					<Form onSubmit={this.onSubmitForm}>
+						<Form.Field
+							control={Dropdown}
+							fluid
+							onChange={this.onChangeSearch}
+							options={options}
+							placeholder="Filter by fallacy"
+							selection
+							value={value}
+						/>
+					</Form>
+				)}
 				<Divider />
 			</div>
 		)
