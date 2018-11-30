@@ -668,4 +668,10 @@ a {
             padding: 7px;
         }
     }
+
+    @media only screen and (max-width: 1025px) {
+        .profilePic {
+            height: 200px;
+        }
+    }
 }
