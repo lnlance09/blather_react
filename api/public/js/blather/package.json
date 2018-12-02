@@ -72,7 +72,7 @@
     "watch-semantic": "cd src/semantic && yarn run build-semantic && gulp watch",
     "build-css": "node-sass-chokidar src/ -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
-    "prettify": "prettier --print-width 100 --tab-width 4 --use-tabs true --no-semi true --trailing-comma none --jsx-bracket-same-line false --parser flow --write 'src/**/*.js'",
+    "prettify": "prettier --print-width 100 --tab-width 4 --use-tabs true --no-semi true --trailing-comma none --jsx-bracket-same-line false --parser flow --write 'src/!(semantic)/**/*.js'",
     "start": "react-scripts start",
     "start-server": "node server/bootstrap.js",
     "build": "react-scripts build",
