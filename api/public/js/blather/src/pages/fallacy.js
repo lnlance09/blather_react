@@ -80,7 +80,7 @@ class Fallacy extends Component {
 
 	componentWillReceiveProps(newProps) {
 		const newId = parseInt(newProps.match.params.id, 10)
-		if(newId !== this.state.id) {
+		if (newId !== this.state.id) {
 			this.props.fetchCommentCount({ id: newId })
 			this.props.fetchFallacy({
 				bearer: this.state.bearer,

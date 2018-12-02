@@ -157,8 +157,8 @@ class FallaciesList extends Component {
 							className="targetMsg"
 							content={
 								<div>
-									{props.targets.count} {formatPlural(props.targets.count, "target")}{" "}
-									-{" "}
+									{props.targets.count}{" "}
+									{formatPlural(props.targets.count, "target")} -{" "}
 									<span
 										className="viewAllTargets"
 										onClick={e => {
