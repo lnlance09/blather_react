@@ -148,48 +148,51 @@ class FallaciesList extends Component {
 
 	render() {
 		const { options, showFilter, showTargets, value } = this.state
-		const FilterSection = ({ props }) => (
-			<div className="fallacyFilter">
-				{props.source === "users" && (
-					<Message
-						className="targetMsg"
-						content={
-							<div>
-								{props.targets.count} {formatPlural(props.targets.count, "target")}{" "}
-								-{" "}
-								<span
-									className="viewAllTargets"
-									onClick={e => {
-										e.preventDefault()
-										this.setState({ showTargets: showTargets === false })
-									}}
-								>
-									{showTargets ? "View all fallacies" : "View all targets"}
-								</span>
-							</div>
-						}
-						header={`See who has been on ${props.name}'s radar`}
-						icon="crosshairs"
-					/>
-				)}
-				{showFilter && (
-					<div>
-						<Form onSubmit={this.onSubmitForm}>
-							<Form.Field
-								control={Dropdown}
-								fluid
-								onChange={this.onChangeSearch}
-								options={options}
-								placeholder="Filter by fallacy"
-								selection
-								value={value}
-							/>
-						</Form>
-						<Divider />
-					</div>
-				)}
-			</div>
-		)
+		const FilterSection = ({ props }) => {
+			const filterVisible = showFilter && !showTargets
+			return (
+				<div className="fallacyFilter">
+					{props.source === "users" && (
+						<Message
+							className="targetMsg"
+							content={
+								<div>
+									{props.targets.count} {formatPlural(props.targets.count, "target")}{" "}
+									-{" "}
+									<span
+										className="viewAllTargets"
+										onClick={e => {
+											e.preventDefault()
+											this.setState({ showTargets: showTargets === false })
+										}}
+									>
+										{showTargets ? "View all fallacies" : "View all targets"}
+									</span>
+								</div>
+							}
+							header={`See who has been on ${props.name}'s radar`}
+							icon="crosshairs"
+						/>
+					)}
+					{filterVisible && (
+						<div>
+							<Form onSubmit={this.onSubmitForm}>
+								<Form.Field
+									control={Dropdown}
+									fluid
+									onChange={this.onChangeSearch}
+									options={options}
+									placeholder="Filter by fallacy"
+									selection
+									value={value}
+								/>
+							</Form>
+							<Divider />
+						</div>
+					)}
+				</div>
+			)
+		}
 		const RenderFallacies = props => {
 			return props.results.map((result, i) => {
 				if (result.id) {
