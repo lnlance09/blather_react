@@ -2,7 +2,7 @@ import "./style.css"
 import { getArchives } from "pages/actions/user"
 import { adjustTimezone } from "utils/dateFunctions"
 import { connect } from "react-redux"
-import { Icon, Image, Item, Message, Visibility } from "semantic-ui-react"
+import { Dropdown, Form, Icon, Image, Item, Message, Visibility } from "semantic-ui-react"
 import ImagePic from "images/image-square.png"
 import Moment from "react-moment"
 import Parser from "html-react-parser"
@@ -17,15 +17,34 @@ class ArchivesList extends Component {
 		this.state = {
 			id: null,
 			loadingMore: false,
+			options: [],
 			page: 0
 		}
 	}
 
 	componentDidMount() {
+		this.getArchivedUsers()
 		this.props.getArchives({
 			id: this.props.id,
 			page: this.props.page
 		})
+	}
+
+	getArchivedUsers() {
+		let qs = `?id=${this.props.id}&unique=1&page=0`
+		return fetch(`${window.location.origin}/api/users/getArchivedLinks${qs}`, {
+			headers: {
+				"Content-Type": "application/json"
+			}
+		})
+			.then(response => {
+				if (response.ok) {
+					response.json().then(data => {
+						this.setState({ options: data.links })
+					})
+				}
+			})
+			.catch(err => console.log(err))
 	}
 
 	loadMore = () => {
@@ -33,16 +52,28 @@ class ArchivesList extends Component {
 			const newPage = parseInt(this.state.page + 1, 10)
 			this.setState({
 				loadingMore: true,
-				page: newPage
+				page: newPage,
+				pageId: this.state.value
 			})
 			this.props.getArchives({
 				id: this.props.id,
-				page: newPage
+				page: newPage,
+				pageId: this.state.value
 			})
 		}
 	}
 
+	onChangeSearch = (e, { value }) => {
+		this.setState({ archives: value, page: 0, value })
+		this.props.getArchives({
+			id: this.props.id,
+			page: 0,
+			pageId: value
+		})
+	}
+
 	render() {
+		const { options, value } = this.state
 		const renderArchives = props => {
 			return props.archives.map((archive, i) => {
 				if (archive.code) {
@@ -66,7 +97,7 @@ class ArchivesList extends Component {
 							key={`archive_${i}`}
 							meta={meta}
 							redirect={false}
-							sanitize
+							sanitize={false}
 							title={info.title}
 							type="archive"
 							url={`http://archive.is/${archive.code}`}
@@ -111,6 +142,17 @@ class ArchivesList extends Component {
 						continuous
 						onBottomVisible={this.loadMore}
 					>
+						<Form>
+							<Form.Field
+								control={Dropdown}
+								fluid
+								onChange={this.onChangeSearch}
+								options={options}
+								placeholder="Filter by page or channel"
+								selection
+								value={value}
+							/>
+						</Form>
 						<Item.Group className="fallacyItems" divided>
 							{renderArchives(this.props)}
 						</Item.Group>

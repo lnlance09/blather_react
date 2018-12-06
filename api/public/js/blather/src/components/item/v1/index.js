@@ -1,7 +1,6 @@
 import "./style.css"
 import { formatNumber, formatPlural } from "utils/textFunctions"
 import { Image, Item, Label, List } from "semantic-ui-react"
-import Marked from "marked"
 import ImagePic from "images/image-square.png"
 import ParagraphPic from "images/short-paragraph.png"
 import PropTypes from "prop-types"
@@ -12,18 +11,6 @@ import TextTruncate from "react-text-truncate"
 class ResultItem extends Component {
 	constructor(props) {
 		super(props)
-		Marked.setOptions({
-			renderer: new Marked.Renderer(),
-			highlight: function(code) {
-				// return require('highlight.js').highlightAuto(code).value;
-			},
-			pedantic: false,
-			breaks: false,
-			sanitize: false,
-			smartLists: true,
-			smartypants: false,
-			xhtml: false
-		})
 	}
 
 	redirectToUrl = () => {
@@ -90,6 +77,7 @@ class ResultItem extends Component {
 			return null
 		}
 		const ItemContent = props => {
+			const validDescription = props.description !== null && props.description !== undefined
 			if (props.type === "lazyLoad") {
 				return (
 					<Item.Content>
@@ -103,17 +91,17 @@ class ResultItem extends Component {
 					<Item.Header>{props.title}</Item.Header>
 					{props.meta && <Item.Meta>{props.meta}</Item.Meta>}
 					<Item.Description>
-						<TextTruncate
-							line={3}
-							truncateText="..."
-							text={
-								props.sanitize &&
-								props.description !== null &&
-								props.description !== undefined
-									? this.sanitizeHtml(Marked(props.description))
-									: null
-							}
-						/>
+						{validDescription && (
+							<TextTruncate
+								line={3}
+								truncateText="..."
+								text={
+									props.sanitize
+										? this.sanitizeHtml(props.description)
+										: props.description
+								}
+							/>
+						)}
 					</Item.Description>
 					{props.extra && <Item.Extra>{ItemExtra(this.props)}</Item.Extra>}
 					{props.tags && <Item.Extra>{RenderTags(this.props.tags)}</Item.Extra>}
