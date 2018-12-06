@@ -19,14 +19,15 @@ export const fetchUserData = ({ bearer, username }) => dispatch => {
 	)
 }
 
-export const getArchives = ({ id, page }) => dispatch => {
+export const getArchives = ({ id, page, pageId }) => dispatch => {
 	request.get(
 		`${window.location.origin}/api/users/getArchivedLinks`,
 		{
 			json: true,
 			qs: {
 				id,
-				page
+				page,
+				pageId
 			}
 		},
 		function(err, response, body) {

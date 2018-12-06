@@ -72,7 +72,7 @@
 		 * @param  [array] $data [An array containing data for the WHERE clause]
 		 * @return [array]       [Results returned from the query]
 		 */
-		public function getArchivedLinks($data, $page = 0, $just_count = false) {
+		public function getArchivedLinks($data, $unique = false, $page = 0, $just_count = false) {
 			$post = array_key_exists('object_id', $data);
 			$select = 'a.code, a.date_created, a.link, a.network';
 			if($just_count) {
@@ -89,9 +89,13 @@
 				pytv.profile_pic AS youtube_video_profile_pic, 
 				pytc.profile_pic AS youtube_comment_profile_pic';
 			}
+
+			if($unique) {
+				$select = "pt.id AS value, pt.name AS key, CONCAT(pt.name, ' (', COUNT(*), ')') AS text";
+			}
 			
 			$this->db->select($select);
-			if(!$just_count && !$post) {
+			if(!$post) {
 				$this->db->join('twitter_posts t', "a.object_id = t.tweet_id AND network = 'twitter'", 'left');
 				$this->db->join('youtube_videos ytv', "a.object_id = ytv.video_id AND network = 'youtube'", 'left');
 				$this->db->join('youtube_comments ytc', "a.object_id = ytc.comment_id AND network = 'youtube'", 'left');
@@ -102,11 +106,16 @@
 
 			$this->db->where($data);
 			
-			if(!$just_count && !$post) {
+			if(!$just_count && !$post && !$unique) {
 				$this->db->order_by('date_created', 'DESC');
 				$perPage = 10;
 				$start = $perPage*$page;
 				$this->db->limit($perPage, $start);
+			}
+
+			if($unique) {
+				$this->db->group_by('pt.id');
+				$this->db->order_by('COUNT(*)', 'DESC');
 			}
 
 			$results = $this->db->get('archived_links a')->result_array();

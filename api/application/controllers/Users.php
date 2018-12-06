@@ -165,10 +165,20 @@
 		public function getArchivedLinks() {
 			$id = $this->input->get('id');
 			$page = $this->input->get('page');
+			$pageId = $this->input->get('pageId');
+			$unique = (int)$this->input->get('unique');
 
 			$where = ['user_id' => $id];
-			$count = $this->users->getArchivedLinks($where, 0, true);
-			$links = $this->users->getArchivedLinks($where, $page);
+			if($pageId) {
+				$where['pt.id'] = $pageId;
+			}
+
+			$count = 0;
+			if(!$unique) {
+				$count = $this->users->getArchivedLinks($where, $unique, 0, true);
+			}
+
+			$links = $this->users->getArchivedLinks($where, $unique, $page);
 
 			$perPage = 10;
 			$pages = ceil($count/$perPage);
@@ -227,7 +237,7 @@
 			
 			$info['archive_count'] = $this->users->getArchivedLinks([
 				'user_id' => $info['id']
-			], 0, true);
+			], false, 0, true);
 
 			echo json_encode([
 				'error' => false,

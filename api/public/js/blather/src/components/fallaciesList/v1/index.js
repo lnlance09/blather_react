@@ -176,7 +176,7 @@ class FallaciesList extends Component {
 					)}
 					{filterVisible && (
 						<div>
-							<Form onSubmit={this.onSubmitForm}>
+							<Form>
 								<Form.Field
 									control={Dropdown}
 									fluid
