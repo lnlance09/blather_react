@@ -1,7 +1,7 @@
 import "pages/css/index.css"
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { Provider } from "react-redux"
-import { Container, Grid, Image } from "semantic-ui-react"
+import { Container, Grid } from "semantic-ui-react"
 import Authentication from "components/authentication/v1/"
 import Logo from "components/header/v1/images/logo.svg"
 import React, { Component } from "react"

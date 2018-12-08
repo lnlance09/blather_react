@@ -9,10 +9,6 @@ import sanitizeHtml from "sanitize-html"
 import TextTruncate from "react-text-truncate"
 
 class ResultItem extends Component {
-	constructor(props) {
-		super(props)
-	}
-
 	redirectToUrl = () => {
 		if (this.props.redirect) {
 			this.props.history.push(this.props.url)
