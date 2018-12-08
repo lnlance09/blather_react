@@ -1,9 +1,11 @@
 import "pages/css/index.css"
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { Provider } from "react-redux"
-import { Container, Grid } from "semantic-ui-react"
+import { Container, Grid, Image } from "semantic-ui-react"
 import Authentication from "components/authentication/v1/"
+import Logo from "components/header/v1/images/logo.svg"
 import React, { Component } from "react"
+import ReactSVG from "react-svg"
 import store from "store"
 
 class SignInPage extends Component {
@@ -25,7 +27,18 @@ class SignInPage extends Component {
 			<Provider store={store}>
 				<div className="loginContainer">
 					<DisplayMetaTags page="signin" props={this.props} state={this.state} />
-					<Container>
+					<Container className="signInPageHeader" textAlign="center">
+						<ReactSVG
+							className="mainLogo"
+							evalScripts="always"
+							onClick={() => {
+								this.props.history.push("/")
+							}}
+							path={Logo}
+							svgClassName="svgMainLogo"
+						/>
+					</Container>
+					<Container textAlign="center">
 						<div className="loginForm">
 							<Grid textAlign="center" verticalAlign="middle">
 								<Grid.Column>

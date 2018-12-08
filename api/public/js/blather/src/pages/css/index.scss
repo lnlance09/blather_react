@@ -563,10 +563,31 @@ a {
 /* Signin page */
 .loginContainer {
     height: 100vh;
-    padding-top: 60px;
+
+    .signInPageHeader {
+        background: $white;
+        border-bottom: solid 1px $lightGrey;
+        padding: 10px;
+        width: 100%;
+
+        .svgMainLogo, .mainLogo {
+            cursor: pointer;
+            display: inline;
+            fill: $blue;
+            height: 36px;
+            line-height: 4;
+            vertical-align: middle;
+            width: 36px;
+
+            &:hover {
+                fill: $lightBlue;
+            }
+        }
+    }
 
     .loginForm {
         height: 100%;
+        padding-top: 30px;
 
         .header {
             margin-top: 0;

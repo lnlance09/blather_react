@@ -6,8 +6,8 @@
             parent::__construct();
 
             // Define the API settings
-            $this->appId = 'V0ZVQShd4VYHGmNdhUlte8RkY';
-            $this->appSecret = 'liW0soEaVR1bS6moSJQI8SAGzsQfuJNkIj9eIDQoZvjNeMekVT';
+            $this->appId = '5S2buTVsPQb13zCvJfVmnYWm8';
+            $this->appSecret = 'Jr5Lb3oHB8akqCYJnOLnArofpcKxjpdF9Bynu979O3tyuUb09n';
             $this->version = '1.0';
             $this->hash = 'HMAC-SHA1';
             $this->redirectUrl = 'http://localhost:3000/settings/twitter';
