@@ -134,7 +134,7 @@ class Authentication extends Component {
 		}
 		const headerText = () => {
 			if (!this.props.verify) {
-				return login ? "Sign in to Blather" : "Create an account"
+				return login ? "Sign In" : "Create an account"
 			}
 			return "Please verify your email"
 		}
@@ -153,72 +153,68 @@ class Authentication extends Component {
 		const mainForm = () => {
 			if (login && !this.props.verify) {
 				return (
-					<div>
-						<Form
-							loading={loadingLogin && !this.props.loginError}
-							onSubmit={this.submitLoginForm}
-						>
-							<Form.Field>
-								<Input
-									onChange={this.onChangeEmail}
-									placeholder="Email or username"
-									value={email}
-								/>
-							</Form.Field>
-							<Form.Field>
-								<Input
-									onChange={this.onChangePassword}
-									placeholder="Password"
-									type="password"
-									value={password}
-								/>
-							</Form.Field>
-							<Button content="Login" fluid primary type="submit" />
-						</Form>
-					</div>
+					<Form
+						loading={loadingLogin && !this.props.loginError}
+						onSubmit={this.submitLoginForm}
+					>
+						<Form.Field>
+							<Input
+								onChange={this.onChangeEmail}
+								placeholder="Email or username"
+								value={email}
+							/>
+						</Form.Field>
+						<Form.Field>
+							<Input
+								onChange={this.onChangePassword}
+								placeholder="Password"
+								type="password"
+								value={password}
+							/>
+						</Form.Field>
+						<Button content="Login" fluid primary type="submit" />
+					</Form>
 				)
 			}
 
 			if (!login && !this.props.verify) {
 				return (
-					<div>
-						<Form
-							loading={loadingRegistration && !this.props.loginError}
-							onSubmit={this.submitRegistrationForm}
-						>
-							<Form.Field>
-								<Input
-									onChange={this.onRegChangeEmail}
-									placeholder="Email"
-									value={regEmail}
-								/>
-							</Form.Field>
-							<Form.Field>
-								<Input
-									autoComplete="off"
-									onChange={this.onRegChangeName}
-									placeholder="Full name"
-									value={name}
-								/>
-							</Form.Field>
-							<Form.Field>
-								<Input
-									onChange={this.onRegChangeUsername}
-									placeholder="Username"
-									value={username}
-								/>
-							</Form.Field>
-							<Form.Field>
-								<Input
-									onChange={this.onRegChangePassword}
-									value={regPassword}
-									placeholder="Password"
-									type="password"
-								/>
-							</Form.Field>
-							<Button color="green" content="Create an account" fluid type="submit" />
-						</Form>
-					</div>
+					<Form
+						loading={loadingRegistration && !this.props.loginError}
+						onSubmit={this.submitRegistrationForm}
+					>
+						<Form.Field>
+							<Input
+								onChange={this.onRegChangeEmail}
+								placeholder="Email"
+								value={regEmail}
+							/>
+						</Form.Field>
+						<Form.Field>
+							<Input
+								autoComplete="off"
+								onChange={this.onRegChangeName}
+								placeholder="Full name"
+								value={name}
+							/>
+						</Form.Field>
+						<Form.Field>
+							<Input
+								onChange={this.onRegChangeUsername}
+								placeholder="Username"
+								value={username}
+							/>
+						</Form.Field>
+						<Form.Field>
+							<Input
+								onChange={this.onRegChangePassword}
+								value={regPassword}
+								placeholder="Password"
+								type="password"
+							/>
+						</Form.Field>
+						<Button color="green" content="Create an account" fluid type="submit" />
+					</Form>
 				)
 			}
 		}

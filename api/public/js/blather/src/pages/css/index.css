@@ -323,10 +323,25 @@ a {
 
 /* Signin page */
 .loginContainer {
-  height: 100vh;
-  padding-top: 60px; }
+  height: 100vh; }
+  .loginContainer .signInPageHeader {
+    background: #fff;
+    border-bottom: solid 1px #dcddde;
+    padding: 10px;
+    width: 100%; }
+    .loginContainer .signInPageHeader .svgMainLogo, .loginContainer .signInPageHeader .mainLogo {
+      cursor: pointer;
+      display: inline;
+      fill: #2196f3;
+      height: 36px;
+      line-height: 4;
+      vertical-align: middle;
+      width: 36px; }
+      .loginContainer .signInPageHeader .svgMainLogo:hover, .loginContainer .signInPageHeader .mainLogo:hover {
+        fill: #2979ff; }
   .loginContainer .loginForm {
-    height: 100%; }
+    height: 100%;
+    padding-top: 30px; }
     .loginContainer .loginForm .header {
       margin-top: 0; }
     .loginContainer .loginForm .grid .column {

@@ -201,7 +201,6 @@ class SettingsPage extends Component {
 			}
 
 			if (activeItem === "twitter") {
-				const twitterDate = adjustTimezone(this.props.data.twitterDate)
 				const list = [
 					"Basic info. This includes your name, username, and profile picture.",
 					"Your tweets. Other users will be able to point out fallacious reasoning. This also allows you to assign fallacies to tweets."
@@ -213,7 +212,11 @@ class SettingsPage extends Component {
 							<div>
 								<p className="firstParagraph">
 									You linked your Twitter account{" "}
-									<Moment date={twitterDate} fromNow interval={60000} />
+									<Moment
+										date={adjustTimezone(this.props.data.twitterDate)}
+										fromNow
+										interval={60000}
+									/>
 								</p>
 								<div className="contentWrapper">
 									<Button
@@ -241,7 +244,6 @@ class SettingsPage extends Component {
 			}
 
 			if (activeItem === "youtube") {
-				const youtubeDate = adjustTimezone(this.props.data.youtubeDate)
 				const list = [
 					"Basic info. This includes your name, username, and profile picture.",
 					"Linking your account will allow you to assign fallacies to videos and comments and YouTube."
@@ -253,7 +255,11 @@ class SettingsPage extends Component {
 							<div>
 								<p className="firstParagraph">
 									You linked your YouTube account{" "}
-									<Moment date={youtubeDate} fromNow interval={60000} />
+									<Moment
+										date={adjustTimezone(this.props.data.youtubeDate)}
+										fromNow
+										interval={60000}
+									/>
 								</p>
 								<div className="contentWrapper">
 									<Button
