@@ -7,7 +7,7 @@
     $set = false;
     $title = "Fallacies";
     $description = "Blather is an educational tool that allows users to analyze and pinpoint the accuracy of claims made on social media. Keep track of logical fallacies and call out bullshit reasoning.";
-    $img = "https://blather.io/brain.png";
+    $img = "https://blather.io/brain.jpg";
 
     switch($uri) {
         case"/about":
