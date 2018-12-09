@@ -51,6 +51,13 @@ export const DisplayMetaTags = ({ page, props, state }) => {
 				title: props.title
 			}
 			break
+		case "feed":
+			metaTags = {
+				description: "",
+				img,
+				title: "Home"
+			}
+			break
 		case "pages":
 			if (props.error) {
 				metaTags = {

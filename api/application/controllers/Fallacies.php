@@ -246,6 +246,13 @@
 			$this->fallacies->insertFallacyRefs();
 		}
 
+		public function mostFallacious() {
+			$results = $this->fallacies->getMostFallacious();
+			echo json_encode([
+				'results' => $results
+			]);
+		}
+
 		public function parseUrl() {
 			$url = $this->input->post('url');
 			$parse = false;

@@ -24,6 +24,11 @@ export const formatDuration = time => {
 	return moment.duration(parseInt(time, 10), "seconds").format("m:ss")
 }
 
+export const formatGrammar = word => {
+	const vowels = ["a", "e", "i", "o", "u"]
+	return vowels.indexOf(word.toLowerCase().substring(0, 1)) === -1 ? "a" : "an"
+}
+
 export const formatNumber = (count, format = "0a") => numeral(count).format("0a")
 
 export const formatPlural = (count, term) => {
@@ -42,9 +47,4 @@ export const sanitizeText = html => {
 		},
 		allowedIframeHostnames: ["www.youtube.com"]
 	})
-}
-
-export const formatGrammar = word => {
-	const vowels = ["a", "e", "i", "o", "u"]
-	return vowels.indexOf(word.toLowerCase().substring(0, 1)) === -1 ? "a" : "an"
 }

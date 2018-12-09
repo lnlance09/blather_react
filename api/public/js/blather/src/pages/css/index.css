@@ -341,7 +341,7 @@ a {
         fill: #2979ff; }
   .loginContainer .loginForm {
     height: 100%;
-    padding-top: 30px; }
+    padding-top: 10px; }
     .loginContainer .loginForm .header {
       margin-top: 0; }
     .loginContainer .loginForm .grid .column {
