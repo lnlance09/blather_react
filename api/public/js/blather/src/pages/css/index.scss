@@ -431,6 +431,11 @@ a {
         .grid {
             margin-left: 0 !important;
             margin-right: 0 !important;
+
+            .feedRow {
+                overflow-x: hidden;
+                word-break: break-word;
+            }
         }
     }
 }
