@@ -10,6 +10,7 @@ import Discussion from "pages/discussion"
 import Discussions from "pages/discussions"
 import Fallacy from "pages/fallacy"
 import Fallacies from "pages/fallacies"
+import NewsFeed from "pages/newsFeed"
 import Page from "pages/"
 import Post from "pages/post"
 import SearchPage from "pages/search"
@@ -26,7 +27,7 @@ class App extends Component {
 			<div className="app">
 				<Provider store={store}>
 					<Router history={history}>
-						<Route component={Fallacies} exact path="/" />
+						<Route component={NewsFeed} exact path="/" />
 
 						<Switch>
 							<Route

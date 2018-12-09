@@ -5,6 +5,8 @@ import discussions from "components/discussionsList/v1/reducer"
 import fallacy from "pages/reducers/fallacy"
 import fallacyForm from "components/fallacyForm/v1/reducer"
 import fallacies from "components/fallaciesList/v1/reducer"
+import feed from "components/feed/v1/reducer"
+import newsFeed from "pages/reducers/feed"
 import page from "pages/reducers/page"
 import post from "pages/reducers/post"
 import searchResults from "components/searchResults/v1/reducer"
@@ -20,6 +22,8 @@ export default combineReducers({
 	fallacies,
 	fallacy,
 	fallacyForm,
+	feed,
+	newsFeed,
 	page,
 	pageUser,
 	post,

@@ -372,6 +372,15 @@
             return count($results) === 1 ? $results[0] : false;
         }
 
+        public function getMostFallacious() {
+            $this->db->select('f.network, f.page_id, p.name, p.profile_pic, p.username, COUNT(*) AS count');
+            $this->db->join('pages p', 'f.page_id = p.social_media_id');
+            $this->db->group_by('p.id');
+            $this->db->order_by('count', 'DESC');
+            $this->db->limit(10);
+            return $this->db->get('fallacy_entries f')->result_array();
+        }
+
         public function pageExists($id) {
             $this->db->select('COUNT(*) AS count');
             $this->db->where('id', $id);
