@@ -73,7 +73,7 @@ class NewsFeed extends Component {
 							<Grid>
 								<Grid.Row>{TopCard(this.props)}</Grid.Row>
 								<Grid.Row>
-									<FeedComponent />
+									<FeedComponent size="small" />
 								</Grid.Row>
 							</Grid>
 						</Responsive>

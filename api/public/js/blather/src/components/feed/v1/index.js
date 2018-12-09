@@ -108,7 +108,7 @@ class FeedComponent extends Component {
 		return (
 			<div className="feed">
 				<Visibility className="feedWrapper" continuous onBottomVisible={this.loadMore}>
-					<Feed size="large">{RenderFeed(this.props)}</Feed>
+					<Feed size={this.props.size}>{RenderFeed(this.props)}</Feed>
 				</Visibility>
 			</div>
 		)
@@ -119,13 +119,15 @@ FeedComponent.propTypes = {
 	getFeed: PropTypes.func,
 	hasMore: PropTypes.bool,
 	page: PropTypes.number,
-	results: PropTypes.array
+	results: PropTypes.array,
+	size: PropTypes.string
 }
 
 FeedComponent.defaultProps = {
 	getFeed: getFeed,
 	page: 0,
-	results: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}]
+	results: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
+	size: "large"
 }
 
 const mapStateToProps = (state, ownProps) => ({
