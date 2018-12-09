@@ -50,7 +50,7 @@ class NewsFeed extends Component {
 			})
 
 		const TopCard = props => (
-			<Card>
+			<Card fluid>
 				<Card.Content>
 					<Card.Header>Most Fallacious</Card.Header>
 				</Card.Content>
