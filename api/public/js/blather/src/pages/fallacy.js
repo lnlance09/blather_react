@@ -267,7 +267,6 @@ class Fallacy extends Component {
 								history={props.history}
 								id={id}
 							/>
-							{CallToSignUp(props)}
 							{ContactUser(props)}
 							{ShareButtons(props)}
 						</div>
