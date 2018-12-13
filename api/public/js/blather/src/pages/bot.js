@@ -28,10 +28,10 @@ class Bot extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			grammar: false,
+			grammar: true,
 			id: 0,
 			text:
-				"You're just a beta male cuck. Did you run out of soy, you libtard snowflake?"
+				"Your just a beta male cuck. did u run out of soy you Libtard snowflake?"
 		}
 	}
 
@@ -40,7 +40,7 @@ class Bot extends Component {
 		switch (id) {
 			case 1:
 				text = grammar
-					? "Ur just a beta male cuck. did u run out of soy you Libtard snowflake?"
+					? "Your just a beta male cuck. did u run out of soy you Libtard snowflake?"
 					: "You're just a beta male cuck. Did you run out of soy, you libtard snowflake?"
 				break
 			case 2:
@@ -77,7 +77,9 @@ class Bot extends Component {
 					: "Immigrants shouldn't get one dime in welfare benefits until there are zero homless vets in America!"
 				break
 			case 9:
-				text = ""
+				text = grammar
+					? "Im not a White Supremacist. I already must of admitted many times that Asians get better grades in school then Whites"
+					: "I'm not a white supremacist. I already must have admitted many times that Asians get better grades in school than whites"
 				break
 			case 10:
 				text = grammar
@@ -101,7 +103,7 @@ class Bot extends Component {
 				break
 			case 15:
 				text = grammar
-					? "The supreme court decision about the Gay Wedding cake must have libs really triggered. Private Companies have the right to refuse service. If you dont like a companies policy then take ur business somehwere else. Its that simple. Thats the beautiful of the free market."
+					? "The supreme court decision about the Gay Wedding cake must have libs really triggered. Private Companies have the right to refuse service. If you dont like a companies policy then take your business somehwere else. Its that simple. Thats the beautiful of the free market."
 					: "The Supreme Court decision about the gay wedding cake must have libs really triggered. Private companies have the right to refuse service. If you don't like a company's policy then take your business somehwere else. It's that simple. That's the beauty of the free market."
 				break
 			case 16:
@@ -194,9 +196,21 @@ class Bot extends Component {
 					: "Hillary Clinton is racist Nazi scum. Why do you think she had such a close relationship with former KKK member Robert Byrd?"
 				break
 
+			case 35:
+				text = grammar
+					? "Obama let Millions of illegals flood over our Borders. He didnt care about Border security or rule of Law Typical for a Marxist Muslim like him."
+					: "Obama let millions of illegals flood over our borders. He didn't care about border security or rule of law. Typical for a marxist muslim like him."
+				break
+			case 36:
+				text = grammar
+					? "Leftists keep talking about how Trump is Deporting lots of people and Breaking up families yet Obama deported more Illegals than any other President"
+					: "Leftists keep talking about how Trump is deporting lots of people and breaking up families yet Obama deported more illegals than any other president."
+				break
+
 			default:
-				text =
-					"I'm just your average Trump supporter. I get all of my news from 4chan and YouTubers. I regurgitate half-baked platitudes with the utmost confidence. I bet you can't tell if I'm a bot or not."
+				text = grammar
+					? "Your just a beta male cuck. did u run out of soy you Libtard snowflake?"
+					: "You're just a beta male cuck. Did you run out of soy, you libtard snowflake?"
 		}
 		return text
 	}
@@ -267,7 +281,7 @@ class Bot extends Component {
 						<Tweet />
 						<div className="singleButtons">
 							<Button color="olive" compact id={1} onClick={this.handleItemClick}>
-								hurl insult
+								insult
 							</Button>
 							<Button color="olive" compact id={2} onClick={this.handleItemClick}>
 								love it or leave it
@@ -289,6 +303,9 @@ class Bot extends Component {
 							</Button>
 							<Button color="olive" compact id={8} onClick={this.handleItemClick}>
 								homeless vets
+							</Button>
+							<Button color="olive" compact id={9} onClick={this.handleItemClick}>
+								asians get better grades
 							</Button>
 							<Button color="olive" compact id={10} onClick={this.handleItemClick}>
 								banned for speaking the TRUTH
@@ -393,7 +410,16 @@ class Bot extends Component {
 									</Button>
 									<Button.Or />
 									<Button color="red" id={34} onClick={this.handleItemClick}>
-										Hillary and Obama are nazis
+										Hillary is a nazi
+									</Button>
+								</Button.Group>
+								<Button.Group fluid>
+									<Button color="blue" id={35} onClick={this.handleItemClick}>
+										Obama was an open borders marxist
+									</Button>
+									<Button.Or />
+									<Button color="red" id={36} onClick={this.handleItemClick}>
+										Obama deported more than any other president
 									</Button>
 								</Button.Group>
 							</div>
@@ -662,6 +688,30 @@ class Bot extends Component {
 											onClick={this.handleItemClick}
 										>
 											Hillary and Obama are nazis
+										</Button>
+									</Grid.Column>
+								</Grid.Row>
+								<Grid.Row>
+									<Grid.Column width={8}>
+										<Button
+											color="blue"
+											compact
+											fluid
+											id={35}
+											onClick={this.handleItemClick}
+										>
+											Obama was an open borders marxist
+										</Button>
+									</Grid.Column>
+									<Grid.Column width={8}>
+										<Button
+											color="red"
+											compact
+											fluid
+											id={36}
+											onClick={this.handleItemClick}
+										>
+											Obama deported more than any other president
 										</Button>
 									</Grid.Column>
 								</Grid.Row>
