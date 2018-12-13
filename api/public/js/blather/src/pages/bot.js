@@ -31,7 +31,7 @@ class Bot extends Component {
 			grammar: false,
 			id: 0,
 			text:
-				"I'm just your average Trump supporter. I get all of my news from 4chan and YouTubers. I regurgitate half-baked platitudes with the utmost confidence. I bet you can't tell if I'm a bot or not."
+				"You're just a beta male cuck. Did you run out of soy, you libtard snowflake?"
 		}
 	}
 
