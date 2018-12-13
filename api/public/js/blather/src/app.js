@@ -5,6 +5,7 @@ import { Provider } from "react-redux"
 import { Route, Router, Switch } from "react-router-dom"
 import history from "history.js"
 import About from "pages/about"
+import Bot from "pages/bot"
 import CreateDiscussion from "pages/createDiscussion"
 import Discussion from "pages/discussion"
 import Discussions from "pages/discussions"
@@ -28,6 +29,8 @@ class App extends Component {
 				<Provider store={store}>
 					<Router history={history}>
 						<Route component={NewsFeed} exact path="/" />
+
+						<Route component={Bot} path="/bot" />
 
 						<Switch>
 							<Route

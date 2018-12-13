@@ -23,6 +23,12 @@
             $set = true;
             break;
 
+        case"/bot";
+            $title = "Free Speech Warrior Bot";
+            $description = "Free Speech Warriors in a nutshell. 90% of the arguments that you'll ever hear from them online. Turn on shitty grammar mode to be a real FSW.";
+            $set = true;
+            break;
+
         case"/discussion/create":
             $title = "Create a discussion";
             $description = "Start a discussion where everyone plays by the same set of rules and intellectually dishonest debate tactics are called out. Change your mind if the evidence is compelling.";

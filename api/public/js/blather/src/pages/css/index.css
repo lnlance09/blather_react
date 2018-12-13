@@ -107,6 +107,31 @@ a {
 .aboutPage .contactForm button {
   float: right; }
 
+.botPage .singleButtons {
+  margin-top: 18px; }
+
+.botPage .tweetContainer {
+  margin-top: 20px;
+  padding: 0 40px; }
+  .botPage .tweetContainer .card .content {
+    font-size: 16px;
+    min-height: 150px; }
+  .botPage .tweetContainer .button {
+    margin-bottom: 7px; }
+
+.botPage .pickOneContainer {
+  margin-top: 5px; }
+  .botPage .pickOneContainer .buttons .button {
+    width: 50%; }
+
+.botPage .ui.grid {
+  margin-top: 5px; }
+  .botPage .ui.grid .row {
+    padding: 4px 0; }
+    .botPage .ui.grid .row .column .button {
+      height: 100%;
+      margin-bottom: 0; }
+
 /* Create discussion page */
 .createDiscussionPage .contentContainer {
   padding: 0 !important; }
