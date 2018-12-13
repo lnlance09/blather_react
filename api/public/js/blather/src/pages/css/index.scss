@@ -170,6 +170,54 @@ a {
 }
 
 
+.botPage {
+    .singleButtons {
+        margin-top: 18px;
+    }
+
+    .tweetContainer {
+        margin-top: 20px;
+        padding: 0 40px;
+
+        .card {
+            .content {
+                font-size: 16px;
+                min-height: 150px;
+            }
+        }
+
+        .button {
+            margin-bottom: 7px;
+        }
+    }
+
+    .pickOneContainer {
+        margin-top: 5px;
+
+        .buttons {
+            .button {
+                width: 50%;
+            }
+        }
+    }
+
+    .ui.grid {
+        margin-top: 5px;
+
+        .row {
+            padding: 4px 0;
+
+            .column {
+                .button {
+                    height: 100%;
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+}
+
+
 /* Create discussion page */
 .createDiscussionPage {
     .contentContainer {

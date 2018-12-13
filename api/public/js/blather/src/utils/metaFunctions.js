@@ -15,6 +15,14 @@ export const DisplayMetaTags = ({ page, props, state }) => {
 				title: capitalizeWord(state.activeItem)
 			}
 			break
+		case "bot":
+			metaTags = {
+				description:
+					"Free Speech Warriors in a nutshell. 90% of the arguments that you'll ever hear from them online. Turn on shitty grammar mode to be a real FSW.",
+				img,
+				title: "Free Speech Warrior Bot"
+			}
+			break
 		case "createDiscussion":
 			metaTags = {
 				description:
