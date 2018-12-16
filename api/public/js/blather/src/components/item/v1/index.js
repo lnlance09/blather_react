@@ -63,6 +63,11 @@ class ResultItem extends Component {
 				return (
 					<Item.Image
 						centered
+						className={
+							props.type === "fallacy" || props.type === "fallacies"
+								? "fallacyItemImg"
+								: null
+						}
 						label={props.label}
 						onError={i => (i.target.src = ImagePic)}
 						rounded
@@ -90,12 +95,12 @@ class ResultItem extends Component {
 						{validDescription && (
 							<TextTruncate
 								line={3}
-								truncateText="..."
 								text={
 									props.sanitize
 										? this.sanitizeHtml(props.description)
 										: props.description
 								}
+								truncateText="..."
 							/>
 						)}
 					</Item.Description>

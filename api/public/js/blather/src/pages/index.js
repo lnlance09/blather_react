@@ -222,11 +222,15 @@ class Page extends Component {
 						{LazyLoadDefault}
 						<DimmerMsg
 							btn={
-								<Button color="blue" onClick={() => props.history.push("/signin")}>
+								<Button
+									color="blue"
+									onClick={() => props.history.push("/signin")}
+									size="large"
+								>
 									Sign in
 								</Button>
 							}
-							msg={`Sign in to start calling ${props.name} out`}
+							msg={`Call ${props.name} out`}
 							props={props}
 						/>
 					</Dimmer.Dimmable>
