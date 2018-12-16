@@ -26,3 +26,6 @@
   .resultItem .image .label .icon {
     color: #fff;
     opacity: 0.8; }
+  @media only screen and (max-width: 1025px) {
+    .resultItem .image.fallacyItemImg {
+      display: none !important; } }

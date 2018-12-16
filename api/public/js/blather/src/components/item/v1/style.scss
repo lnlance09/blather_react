@@ -56,4 +56,10 @@
             }
         }
     }
+
+    @media only screen and (max-width: 1025px) {
+        .image.fallacyItemImg {
+            display: none !important;
+        }
+    }
 }

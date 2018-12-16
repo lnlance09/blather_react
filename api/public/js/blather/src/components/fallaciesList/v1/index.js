@@ -202,11 +202,9 @@ class FallaciesList extends Component {
 							: result.user_img
 					let meta = (
 						<div>
-							{`${result.fallacy_name} - `}
 							{props.source === "users"
 								? `Assigned to ${result.page_name}`
-								: `Assigned by ${result.user_name}`}
-							{" - "}
+								: `Assigned by ${result.user_name}`}{" "}
 							<Moment date={adjustTimezone(result.date_created)} fromNow />
 						</div>
 					)
@@ -219,7 +217,7 @@ class FallaciesList extends Component {
 							key={`fallacy_${i}`}
 							meta={meta}
 							sanitize
-							tags={result.tags ? result.tags.split(",") : null}
+							tags={[result.fallacy_name]}
 							title={result.title}
 							type="fallacy"
 							url={`/fallacies/${result.id}`}

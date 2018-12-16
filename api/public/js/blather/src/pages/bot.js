@@ -30,8 +30,7 @@ class Bot extends Component {
 		this.state = {
 			grammar: true,
 			id: 0,
-			text:
-				"Your just a beta male cuck. did u run out of soy you Libtard snowflake?"
+			text: "Your just a beta male cuck. did u run out of soy you Libtard snowflake?"
 		}
 	}
 
