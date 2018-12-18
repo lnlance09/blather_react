@@ -105,13 +105,17 @@ class ResultItem extends Component {
 						)}
 					</Item.Description>
 					{props.extra && <Item.Extra>{ItemExtra(this.props)}</Item.Extra>}
-					{props.tags && <Item.Extra>{RenderTags(this.props.tags)}</Item.Extra>}
+					{props.tags && (
+						<Item.Extra>
+							<Label.Group color="white">{RenderTags(this.props.tags)}</Label.Group>
+						</Item.Extra>
+					)}
 				</Item.Content>
 			)
 		}
 		const RenderTags = tags =>
 			tags.map((tag, i) => (
-				<Label horizontal key={`label_${i}`}>
+				<Label basic key={`label_${i}`}>
 					{tag}
 				</Label>
 			))
