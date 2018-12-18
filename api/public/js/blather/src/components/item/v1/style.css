@@ -15,10 +15,6 @@
       margin-bottom: 0 !important; }
       .resultItem .extra .extraList .item:nth-of-type(2) {
         margin-left: 8px !important; }
-  .resultItem .extra .label {
-    background: #2979ff !important;
-    color: #fff;
-    font-weight: normal; }
   .resultItem .image .label.check {
     border-color: #4caf50; }
   .resultItem .image .label.close {
