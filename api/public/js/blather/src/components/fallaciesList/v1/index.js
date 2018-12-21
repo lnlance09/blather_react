@@ -197,6 +197,10 @@ class FallaciesList extends Component {
 		const RenderFallacies = props => {
 			return props.results.map((result, i) => {
 				if (result.id) {
+					let img =
+						props.assignedBy || props.source === "fallacy"
+							? result.page_profile_pic
+							: result.user_img
 					let meta = (
 						<div>
 							{props.source === "users"
@@ -210,6 +214,7 @@ class FallaciesList extends Component {
 							description={result.explanation}
 							history={props.history}
 							id={`fallacy_${i}`}
+							img={img}
 							key={`fallacy_${i}`}
 							meta={meta}
 							sanitize
