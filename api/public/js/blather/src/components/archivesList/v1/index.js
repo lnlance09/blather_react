@@ -149,6 +149,7 @@ class ArchivesList extends Component {
 								onChange={this.onChangeSearch}
 								options={options}
 								placeholder="Filter by page or channel"
+								search
 								selection
 								value={value}
 							/>

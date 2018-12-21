@@ -183,6 +183,7 @@ class FallaciesList extends Component {
 									onChange={this.onChangeSearch}
 									options={options}
 									placeholder="Filter by fallacy"
+									search
 									selection
 									value={value}
 								/>
