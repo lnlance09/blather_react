@@ -347,8 +347,8 @@
         <meta name="description" content="<?php echo htmlentities($description); ?>" />
 
         <link rel="stylesheet" type="text/css" href="/static/css/main.d7fb3744.css">
-        <link rel="manifest" href="manifest.json">
-        <link rel="shortcut icon" href="/favicon.ico">
+        <link rel="manifest" href="/manifest.json">
+        <link rel="shortcut icon" href="/favicon.ico?v=1">
         <meta name="google-site-verification" content="bTDbvvxwQikYB9zsfufDiaqgVHMRi4DZ0311nJpngi8" />
         <title><?php echo $title; ?> - Blather</title>
 
