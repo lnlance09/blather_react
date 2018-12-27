@@ -171,6 +171,7 @@ class Page extends Component {
 							emptyMsgContent={`No fallacies have been assigned to ${props.name}`}
 							emptyMsgHeader={false}
 							history={props.history}
+							network={network}
 							page={0}
 							source="pages"
 						/>
