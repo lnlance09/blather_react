@@ -94,7 +94,7 @@ class FallaciesList extends Component {
 				id = ""
 		}
 		let qs = `?id=${id}&type=${this.props.source}&network=${this.props.network}`
-		if (this.props.source) {
+		if (this.props.source && this.props.assignedBy) {
 			qs += `&assignedBy=${this.props.assignedBy}`
 		}
 		return fetch(`${window.location.origin}/api/fallacies/uniqueFallacies${qs}`, {

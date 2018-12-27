@@ -5,7 +5,7 @@ import { linkMentions, linkHashtags } from "utils/linkifyAdditions"
 import Highlighter from "react-highlight-words"
 import { Provider, connect } from "react-redux"
 import { Card, Embed, Icon, Image, List, Message, Popup, Transition } from "semantic-ui-react"
-import itemPic from "images/square-image.png"
+import ItemPic from "images/square-image.png"
 import Linkify from "react-linkify"
 import Moment from "react-moment"
 import NumberFormat from "react-number-format"
@@ -188,7 +188,7 @@ class Tweet extends Component {
 					<Image
 						circular
 						className="tweetUserImg"
-						onError={i => (i.target.src = itemPic)}
+						onError={i => (i.target.src = ItemPic)}
 						floated="left"
 						src={profileImage}
 					/>
@@ -210,7 +210,7 @@ class Tweet extends Component {
 							<div className="mediaPic" key={`${media.display_url}_${i}`}>
 								<Image
 									centered
-									onError={i => (i.target.src = itemPic)}
+									onError={i => (i.target.src = ItemPic)}
 									rounded
 									size={props.imageSize}
 									src={media.media_url_https}

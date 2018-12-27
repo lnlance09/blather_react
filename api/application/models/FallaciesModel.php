@@ -332,7 +332,7 @@
             $this->db->join('fallacies f', 'fe.fallacy_id = f.id');
             
             if($type === 'pages') {
-                $this->db->where('fe.page_id', $id);
+                $this->db->where('fe.page_id', $network === 'twitter' ? (int)$id : $id);
             } 
             if($type === 'post') {
                 $this->db->where('fe.media_id', $network === 'twitter' ? (int)$id : $id);
