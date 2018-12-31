@@ -207,8 +207,8 @@ class Bot extends Component {
 				break
 			case 37:
 				text = grammar
-					? "Haha the left can't meme [insert your own NPC meme unironically]"
-					: "haha the Left cant Meme [insert your own NPC meme unironically]"
+					? "haha the Left cant Meme [insert your own NPC meme unironically]"
+					: "Haha the left can't meme [insert your own NPC meme unironically]"
 				break
 
 			default:
