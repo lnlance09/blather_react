@@ -30,7 +30,7 @@ class Bot extends Component {
 		this.state = {
 			grammar: true,
 			id: 0,
-			text: "Your just a beta male cuck. did u run out of soy you Libtard snowflake?"
+			text: "Your just a beta male cuck. did u run to your Safe Space you Libtard snowflake?"
 		}
 	}
 
@@ -39,8 +39,8 @@ class Bot extends Component {
 		switch (id) {
 			case 1:
 				text = grammar
-					? "Your just a beta male cuck. did u run out of soy you Libtard snowflake?"
-					: "You're just a beta male cuck. Did you run out of soy, you libtard snowflake?"
+					? "Your just a beta male cuck. did u run to your Safe Space you Libtard snowflake?"
+					: "You're just a beta male cuck. Did you run to your safe space, you libtard snowflake?"
 				break
 			case 2:
 				text = grammar
@@ -205,6 +205,11 @@ class Bot extends Component {
 					? "Leftists keep talking about how Trump is Deporting lots of people and Breaking up families yet Obama deported more Illegals than any other President"
 					: "Leftists keep talking about how Trump is deporting lots of people and breaking up families yet Obama deported more illegals than any other president."
 				break
+			case 37:
+				text = grammar
+					? "Haha the left can't meme [insert your own NPC meme unironically]"
+					: "haha the Left cant Meme [insert your own NPC meme unironically]"
+				break
 
 			default:
 				text = grammar
@@ -308,6 +313,9 @@ class Bot extends Component {
 							</Button>
 							<Button color="olive" compact id={10} onClick={this.handleItemClick}>
 								banned for speaking the TRUTH
+							</Button>
+							<Button color="olive" compact id={37} onClick={this.handleItemClick}>
+								the left can't meme
 							</Button>
 						</div>
 
