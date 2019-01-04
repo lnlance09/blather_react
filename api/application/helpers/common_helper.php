@@ -12,10 +12,10 @@
 
 	function createArchive($url) {
 		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, 'http://archive.is/submit/');
+		curl_setopt($ch, CURLOPT_URL, 'http://archive.vn/submit/');
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_HEADER, true);
-		curl_setopt($ch, CURLOPT_REFERER, 'http://archive.is/');
+		curl_setopt($ch, CURLOPT_REFERER, 'http://archive.vn/');
 		curl_setopt($ch, CURLOPT_POST, true);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
 			'url' => $url
@@ -23,13 +23,12 @@
 		curl_setopt($ch, CURLOPT_HTTPHEADER, [
 			'Accept-Encoding: gzip, deflate',
 			'Content-Type: application/x-www-form-urlencoded',
-			'Host: archive.is',
+			'Host: archive.vn',
 			'Origin: http://archive.is',
 			'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36'
 		]);
 		$data = curl_exec($ch);
 		$code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-		// print_r($data);
 		curl_close($ch);
 
 		$location = false;
