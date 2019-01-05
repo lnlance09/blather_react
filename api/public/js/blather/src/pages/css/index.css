@@ -418,6 +418,10 @@ a {
     margin-top: 20px; }
   .targetsPage .ui.text.container .answers, .targetsPage .ui.text.container .questionnaire {
     margin-bottom: 16px; }
+  .targetsPage .ui.text.container .questionnaire {
+    white-space: pre-line; }
+  .targetsPage .ui.text.container .answers .answerField {
+    font-size: 14px; }
 
 /* Users page */
 .usersPage .menu.profileMenu {

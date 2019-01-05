@@ -14,6 +14,7 @@ import { Link } from "react-router-dom"
 import { Button, Container, Divider, Form, Header, Icon, Image, Message } from "semantic-ui-react"
 import FallaciesList from "components/fallaciesList/v1/"
 import ImagePic from "images/image-square.png"
+import Marked from "marked"
 import PageFooter from "components/footer/v1/"
 import PageHeader from "components/header/v1/"
 import PropTypes from "prop-types"
@@ -42,6 +43,19 @@ class Target extends Component {
 		this.props.fetchReview({
 			pageId,
 			userId
+		})
+
+		Marked.setOptions({
+			renderer: new Marked.Renderer(),
+			highlight: function(code) {
+				// return require('highlight.js').highlightAuto(code).value;
+			},
+			pedantic: false,
+			breaks: false,
+			sanitize: false,
+			smartLists: true,
+			smartypants: false,
+			xhtml: false
 		})
 
 		this.changeSincerityExplanation = this.changeSincerityExplanation.bind(this)
@@ -204,21 +218,27 @@ class Target extends Component {
 						/>
 					)}
 				</Header>
-				<div>
-					{props.summary
-						? props.summary
-						: `${props.user.name} has not provided a summary yet`}
-				</div>
+				<div
+					className="answerField"
+					dangerouslySetInnerHTML={{
+						__html: props.summary
+							? Marked(props.summary)
+							: `${props.user.name} has not provided a summary yet`
+					}}
+				/>
 
 				<Header as="h2" size="small">
 					Does {props.page.name} sincerely believe most of what he/she talks about?
 					<Header.Subheader>{props.sincerity ? "Yes" : "No"}</Header.Subheader>
 				</Header>
-				<div>
-					{props.sincerityExplanation
-						? props.sincerityExplanation
-						: `${props.user.name} has not answered yet`}
-				</div>
+				<div
+					className="answerField"
+					dangerouslySetInnerHTML={{
+						__html: props.sincerityExplanation
+							? Marked(props.sincerityExplanation)
+							: `${props.user.name} has not answered yet`
+					}}
+				/>
 
 				<Header as="h2" size="small">
 					Can {props.page.name} pass an{" "}
@@ -231,11 +251,14 @@ class Target extends Component {
 					</a>
 					?<Header.Subheader>{props.turingTest ? "Yes" : "No"}</Header.Subheader>
 				</Header>
-				<div>
-					{props.turingTestExplanation
-						? props.turingTestExplanation
-						: `${props.user.name} has not answered yet`}
-				</div>
+				<div
+					className="answerField"
+					dangerouslySetInnerHTML={{
+						__html: props.turingTestExplanation
+							? Marked(props.turingTestExplanation)
+							: `${props.user.name} has not answered yet`
+					}}
+				/>
 			</div>
 		)
 

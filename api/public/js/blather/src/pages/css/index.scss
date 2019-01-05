@@ -732,6 +732,16 @@ a {
         .answers, .questionnaire {
             margin-bottom: 16px;
         }
+
+        .questionnaire {
+            white-space: pre-line;
+        }
+
+        .answers {
+            .answerField {
+                font-size: 14px;
+            }
+        }
     }
 }
 
