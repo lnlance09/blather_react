@@ -407,10 +407,16 @@ a {
 /* Targets page */
 .targetsPage .ui.text.container {
   font-size: 13px; }
+  .targetsPage .ui.text.container .summaryHeader .icon {
+    color: #2196f3;
+    cursor: pointer;
+    float: right;
+    font-size: 19.5px;
+    line-height: 19.5px; }
   .targetsPage .ui.text.container .targetImg {
     cursor: pointer;
     margin-top: 20px; }
-  .targetsPage .ui.text.container .questionnaire {
+  .targetsPage .ui.text.container .answers, .targetsPage .ui.text.container .questionnaire {
     margin-bottom: 16px; }
 
 /* Users page */

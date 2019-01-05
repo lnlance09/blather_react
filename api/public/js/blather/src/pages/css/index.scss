@@ -714,12 +714,22 @@ a {
     .ui.text.container {
         font-size: 13px;
 
+        .summaryHeader {
+            .icon {
+                color: $blue;
+                cursor: pointer;
+                float: right;
+                font-size: 19.5px;
+                line-height: 19.5px;
+            }
+        }
+
         .targetImg {
             cursor: pointer;
             margin-top: 20px;
         }
 
-        .questionnaire {
+        .answers, .questionnaire {
             margin-bottom: 16px;
         }
     }
