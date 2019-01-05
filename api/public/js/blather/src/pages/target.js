@@ -11,7 +11,7 @@ import {
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { connect, Provider } from "react-redux"
 import { Link } from "react-router-dom"
-import { Button, Container, Divider, Form, Header, Image, Message } from "semantic-ui-react"
+import { Button, Container, Divider, Form, Header, Icon, Image, Message } from "semantic-ui-react"
 import FallaciesList from "components/fallaciesList/v1/"
 import ImagePic from "images/image-square.png"
 import PageFooter from "components/footer/v1/"
@@ -32,6 +32,7 @@ class Target extends Component {
 
 		this.state = {
 			bearer,
+			editing: false,
 			loading: false,
 			myId,
 			pageId,
@@ -62,7 +63,7 @@ class Target extends Component {
 	handleTuringChange = (e, { value }) => this.props.changeTuring({ value })
 
 	submitForm = () => {
-		this.setState({ loading: true })
+		this.setState({ editing: false, loading: true })
 		this.props.saveReview({
 			bearer: this.state.bearer,
 			id: this.props.id,
@@ -75,10 +76,10 @@ class Target extends Component {
 	}
 
 	render() {
-		const { loading, myId, userId } = this.state
+		const { editing, loading, myId, userId } = this.state
 		const readonly = userId !== myId
-		const showButton = !readonly && this.props.fallacyCount > 5
 		const showMessage = userId === myId && this.props.fallacyCount < 5
+
 		const DisplayFallacies = props => (
 			<div className="fallaciesWrapper">
 				<Header dividing size="small">
@@ -141,7 +142,6 @@ class Target extends Component {
 					rows={5}
 					value={props.sincerityExplanation}
 				/>
-
 				<Form.Field disabled={props.fallacyCount < 5}>
 					<label>
 						Can {props.page.name} pass an{" "}
@@ -150,8 +150,9 @@ class Target extends Component {
 							target="_blank"
 							rel="noopener noreferrer"
 						>
-							Ideological Turing Test?
+							Ideological Turing Test
 						</a>
+						?
 					</label>
 				</Form.Field>
 				<Form.Group inline>
@@ -182,16 +183,60 @@ class Target extends Component {
 					rows={5}
 					value={props.turingTestExplanation}
 				/>
-				{showButton && (
-					<Button
-						color="blue"
-						content="Update"
-						fluid
-						loading={loading && !props.hasSubmitted}
-						type="submit"
-					/>
-				)}
+				<Button
+					color="blue"
+					content="Update"
+					fluid
+					loading={loading && !props.hasSubmitted}
+					type="submit"
+				/>
 			</Form>
+		)
+		const ShowAnswers = props => (
+			<div className="answers">
+				<Header as="h2" className="summaryHeader" size="small">
+					Summary
+					{userId === myId && (
+						<Icon
+							name="pencil"
+							onClick={() => this.setState({ editing: true })}
+							size="tiny"
+						/>
+					)}
+				</Header>
+				<div>
+					{props.summary
+						? props.summary
+						: `${props.user.name} has not provided a summary yet`}
+				</div>
+
+				<Header as="h2" size="small">
+					Does {props.page.name} sincerely believe most of what he/she talks about?
+					<Header.Subheader>{props.sincerity ? "Yes" : "No"}</Header.Subheader>
+				</Header>
+				<div>
+					{props.sincerityExplanation
+						? props.sincerityExplanation
+						: `${props.user.name} has not answered yet`}
+				</div>
+
+				<Header as="h2" size="small">
+					Can {props.page.name} pass an{" "}
+					<a
+						href="https://www.econlib.org/archives/2011/06/the_ideological.html"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						Ideological Turing Test
+					</a>
+					?<Header.Subheader>{props.turingTest ? "Yes" : "No"}</Header.Subheader>
+				</Header>
+				<div>
+					{props.turingTestExplanation
+						? props.turingTestExplanation
+						: `${props.user.name} has not answered yet`}
+				</div>
+			</div>
 		)
 
 		return (
@@ -234,7 +279,14 @@ class Target extends Component {
 										warning
 									/>
 								)}
-								{Questionnaire(this.props)}
+								{editing ? (
+									<div>{Questionnaire(this.props)}</div>
+								) : (
+									<div>
+										{ShowAnswers(this.props)}
+										<Divider />
+									</div>
+								)}
 								{this.props.page.id && <div>{DisplayFallacies(this.props)}</div>}
 							</div>
 						)}
