@@ -151,7 +151,8 @@ class Target extends Component {
 							rel="noopener noreferrer"
 						>
 							Ideological Turing Test
-						</a>?
+						</a>
+						?
 					</label>
 				</Form.Field>
 				<Form.Group inline>
@@ -196,11 +197,17 @@ class Target extends Component {
 				<Header as="h2" className="summaryHeader" size="small">
 					Summary
 					{userId === myId && (
-						<Icon name="pencil" onClick={() => this.setState({ editing: true })} size="tiny" />
+						<Icon
+							name="pencil"
+							onClick={() => this.setState({ editing: true })}
+							size="tiny"
+						/>
 					)}
 				</Header>
 				<div>
-					{props.summary ? props.summary : `${props.user.name} has not provided a summary yet`}
+					{props.summary
+						? props.summary
+						: `${props.user.name} has not provided a summary yet`}
 				</div>
 
 				<Header as="h2" size="small">
@@ -208,7 +215,9 @@ class Target extends Component {
 					<Header.Subheader>{props.sincerity ? "Yes" : "No"}</Header.Subheader>
 				</Header>
 				<div>
-					{props.sincerityExplanation ? props.sincerityExplanation : `${props.user.name} has not answered yet`}
+					{props.sincerityExplanation
+						? props.sincerityExplanation
+						: `${props.user.name} has not answered yet`}
 				</div>
 
 				<Header as="h2" size="small">
@@ -219,11 +228,13 @@ class Target extends Component {
 						rel="noopener noreferrer"
 					>
 						Ideological Turing Test
-					</a>?
-					<Header.Subheader>{props.turingTest ? "Yes" : "No"}</Header.Subheader>
+					</a>
+					?<Header.Subheader>{props.turingTest ? "Yes" : "No"}</Header.Subheader>
 				</Header>
 				<div>
-					{props.turingTestExplanation ? props.turingTestExplanation : `${props.user.name} has not answered yet`}
+					{props.turingTestExplanation
+						? props.turingTestExplanation
+						: `${props.user.name} has not answered yet`}
 				</div>
 			</div>
 		)
@@ -269,9 +280,7 @@ class Target extends Component {
 									/>
 								)}
 								{editing ? (
-									<div>
-										{Questionnaire(this.props)}
-									</div>
+									<div>{Questionnaire(this.props)}</div>
 								) : (
 									<div>
 										{ShowAnswers(this.props)}
