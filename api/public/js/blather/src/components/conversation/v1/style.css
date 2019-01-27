@@ -1,3 +1,6 @@
+/*---  Colors  ---*/
+/*---  Light Colors  ---*/
+/*---   Neutrals  ---*/
 .conversation {
   margin-top: 40px; }
   .conversation .interpretationHeader {
@@ -8,68 +11,68 @@
     .conversation .form .actionSegment .actionOptions {
       display: inline-block; }
   .conversation .form .menu .item .icon.paper.plane {
-    color: #2196f3 !important; }
+    color: #2185D0 !important; }
   .conversation .form .menu .item .icon.close {
-    color: #f44336 !important; }
+    color: #DB2828 !important; }
   .conversation .form .menu .item .icon.check {
-    color: #4caf50 !important; }
+    color: #21BA45 !important; }
   .conversation .form .convoRespondBtn {
-    color: #fff;
+    color: #FFFFFF;
     float: right;
     margin-right: 0; }
     .conversation .form .convoRespondBtn.respond {
-      background: #2196f3 !important; }
+      background: #2185D0 !important; }
       .conversation .form .convoRespondBtn.respond:hover {
-        background: #0d8aee !important; }
+        background: #1e77ba !important; }
     .conversation .form .convoRespondBtn.close {
-      background: #f44336 !important; }
+      background: #DB2828 !important; }
       .conversation .form .convoRespondBtn.close:hover {
-        background: #f32c1e !important; }
+        background: #c82121 !important; }
     .conversation .form .convoRespondBtn.convince {
-      background: #4caf50 !important; }
+      background: #21BA45 !important; }
       .conversation .form .convoRespondBtn.convince:hover {
-        background: #449d48 !important; }
+        background: #1da43d !important; }
   .conversation .form .acceptBtn {
     float: right;
     margin-right: 0; }
   .conversation .form .extraText {
     font-weight: bold; }
     .conversation .form .extraText.respond {
-      color: #2196f3 !important; }
+      color: #2185D0 !important; }
     .conversation .form .extraText.close {
-      color: #f44336 !important; }
+      color: #DB2828 !important; }
     .conversation .form .extraText.convince {
-      color: #4caf50 !important; }
+      color: #21BA45 !important; }
   .conversation .form .ui.error.message.convoErrorMsg {
     margin-bottom: 0; }
   .conversation .form .convoTextArea.close:focus {
-    border: solid 1px #f44336; }
+    border: solid 1px #DB2828; }
     .conversation .form .convoTextArea.close:focus::-webkit-input-placeholder {
-      color: #f44336; }
+      color: #DB2828; }
     .conversation .form .convoTextArea.close:focus::-moz-placeholder {
-      color: #f44336; }
+      color: #DB2828; }
     .conversation .form .convoTextArea.close:focus:-ms-input-placeholder {
-      color: #f44336; }
+      color: #DB2828; }
     .conversation .form .convoTextArea.close:focus:-moz-placeholder {
-      color: #f44336; }
+      color: #DB2828; }
   .conversation .form .convoTextArea.convince:focus {
-    border: solid 1px #4caf50; }
+    border: solid 1px #21BA45; }
     .conversation .form .convoTextArea.convince:focus::-webkit-input-placeholder {
-      color: #4caf50; }
+      color: #21BA45; }
     .conversation .form .convoTextArea.convince:focus::-moz-placeholder {
-      color: #4caf50; }
+      color: #21BA45; }
     .conversation .form .convoTextArea.convince:focus:-ms-input-placeholder {
-      color: #4caf50; }
+      color: #21BA45; }
     .conversation .form .convoTextArea.convince:focus:-moz-placeholder {
-      color: #4caf50; }
+      color: #21BA45; }
   .conversation .convoContainer {
     margin-bottom: 18px; }
   .conversation .convoResponseSection {
     margin-top: 0; }
     .conversation .convoResponseSection .ui.icon.message.waitMsg {
-      background: #fff; }
+      background: #FFFFFF; }
       .conversation .convoResponseSection .ui.icon.message.waitMsg .icon {
-        color: #1b1c1d; }
+        color: #1B1C1D; }
   .conversation .findOpponent p {
     text-align: center; }
     .conversation .findOpponent p .icon {

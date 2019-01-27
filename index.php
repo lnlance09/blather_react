@@ -346,9 +346,10 @@
 
         <meta name="description" content="<?php echo htmlentities($description); ?>" />
 
-        <link rel="stylesheet" type="text/css" href="/static/css/main.805241f3.css">
-        <link rel="manifest" href="/manifest.json">
-        <link rel="shortcut icon" href="/favicon.ico?v=1">
+        <link rel="stylesheet" type="text/css" href="static/css/main.21dde373.css">
+        <link rel="manifest" href="manifest.json">
+        <link rel="shortcut icon" href="favicon.ico?v=1">
+
         <meta name="google-site-verification" content="bTDbvvxwQikYB9zsfufDiaqgVHMRi4DZ0311nJpngi8" />
         <title><?php echo $title; ?> - Blather</title>
 
@@ -376,7 +377,7 @@
         </noscript>
         <div id="root"></div>
     </body>
-    <script src="/static/js/main.4c37bd4e.js"></script>
+    <script src="static/js/main.c3e74a8e.js"></script>
 <?php
     if($schema) {
 ?>

@@ -1,5 +1,8 @@
+/*---  Colors  ---*/
+/*---  Light Colors  ---*/
+/*---   Neutrals  ---*/
 .pageHeader .menu.globalHeader {
-  background: #333333 !important;
+  background: #1B1C1D !important;
   height: 72px;
   z-index: 1001 !important; }
   .pageHeader .menu.globalHeader .headerContainer .responsive {
@@ -10,26 +13,26 @@
     .pageHeader .menu.globalHeader .headerContainer .headerMenuItem .headerLogo {
       cursor: pointer;
       display: inline;
-      fill: #2196f3;
+      fill: #2185D0;
       height: 36px;
       line-height: 4;
       margin-right: 12px;
       vertical-align: middle;
       width: 36px; }
       .pageHeader .menu.globalHeader .headerContainer .headerMenuItem .headerLogo:hover {
-        fill: #2979ff; }
+        fill: #54C8FF; }
   .pageHeader .menu.globalHeader .headerContainer .sidebarItem .icon {
     cursor: pointer; }
     .pageHeader .menu.globalHeader .headerContainer .sidebarItem .icon:hover {
-      color: #2196f3; }
+      color: #2185D0; }
   .pageHeader .menu.globalHeader .headerContainer .fallaciesLink, .pageHeader .menu.globalHeader .headerContainer .discussionsLink, .pageHeader .menu.globalHeader .headerContainer .signInLink {
-    color: #fafafa;
+    color: #F9FAFB;
     font-size: 15px !important;
     font-weight: 500 !important;
     padding-left: 10px !important;
     padding-right: 10px !important; }
     .pageHeader .menu.globalHeader .headerContainer .fallaciesLink:hover, .pageHeader .menu.globalHeader .headerContainer .discussionsLink:hover, .pageHeader .menu.globalHeader .headerContainer .signInLink:hover {
-      color: #fff; }
+      color: #FFFFFF; }
   .pageHeader .menu.globalHeader .headerContainer .dropDownMenu {
     font-size: 15px; }
     .pageHeader .menu.globalHeader .headerContainer .dropDownMenu .menu.visible {

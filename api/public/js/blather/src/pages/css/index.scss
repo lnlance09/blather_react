@@ -417,6 +417,7 @@ a {
                 background: $youtube !important;
                 color: $white;
                 margin-top: 0 !important;
+                text-shadow: none;
 
                 &:hover {
                     background: darken($youtube, 5%) !important;
@@ -426,6 +427,7 @@ a {
             .twitterButton {
                 background: $twitter;
                 color: $white;
+                text-shadow: none;
 
                 &:hover {
                     background: darken($twitter, 5%);
@@ -486,6 +488,12 @@ a {
             }
         }
     }
+
+    .mostFallacious {
+        .feedEvent .meta {
+            margin-top: 0 !important;
+        }
+    }
 }
 
 
@@ -516,6 +524,12 @@ a {
 
         .dimmer {
             background: $dimmer-background !important;
+        }
+
+        .signInPlaceholder {
+            border: none;
+            
+            padding: 0;
         }
     }
 }

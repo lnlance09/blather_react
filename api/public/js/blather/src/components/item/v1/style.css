@@ -1,11 +1,14 @@
+/*---  Colors  ---*/
+/*---  Light Colors  ---*/
+/*---   Neutrals  ---*/
 .resultItem {
-  background: #fff;
+  background: #FFFFFF;
   cursor: pointer; }
   .resultItem .meta {
     margin-top: 3px !important; }
     .resultItem .meta .label {
-      background: #2979ff !important;
-      color: #fff; }
+      background: #54C8FF !important;
+      color: #FFFFFF; }
   .resultItem .content .description {
     white-space: pre-line; }
   .resultItem .extra .extraList {
@@ -16,11 +19,11 @@
       .resultItem .extra .extraList .item:nth-of-type(2) {
         margin-left: 8px !important; }
   .resultItem .image .label.check {
-    border-color: #4caf50; }
+    border-color: #21BA45; }
   .resultItem .image .label.close {
-    border-color: #ff1744; }
+    border-color: #FF695E; }
   .resultItem .image .label .icon {
-    color: #fff;
+    color: #FFFFFF;
     opacity: 0.8; }
   @media only screen and (max-width: 1025px) {
     .resultItem .image.fallacyItemImg {

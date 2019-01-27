@@ -1,3 +1,6 @@
+/*---  Colors  ---*/
+/*---  Light Colors  ---*/
+/*---   Neutrals  ---*/
 .fallacyForm .startTime, .fallacyForm .field.contradictionStartTime {
   padding-left: 0 !important;
   padding-right: 0 !important; }
@@ -13,7 +16,7 @@
 .fallacyForm .commonMarkLink {
   margin: 0.5em 0.3em 0 !important; }
   .fallacyForm .commonMarkLink a {
-    color: #333333;
+    color: #545454;
     float: right;
     font-size: 12px; }
     .fallacyForm .commonMarkLink a:hover {

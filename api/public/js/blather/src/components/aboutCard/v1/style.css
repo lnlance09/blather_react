@@ -1,20 +1,23 @@
+/*---  Colors  ---*/
+/*---  Light Colors  ---*/
+/*---   Neutrals  ---*/
 .aboutCard {
   margin-top: 15px !important; }
   .aboutCard .editAboutIcon {
     cursor: pointer;
     float: right; }
   .aboutCard .editAboutIcon {
-    color: #2196f3 !important;
+    color: #2185D0 !important;
     cursor: pointer;
     display: none;
     float: right; }
     .aboutCard .editAboutIcon.close {
-      color: #ff1744 !important; }
+      color: #FF695E !important; }
   .aboutCard:hover .editAboutIcon {
     display: inline; }
   .aboutCard .description {
     word-wrap: break-word; }
   .aboutCard textarea {
-    border: solid 1px #fff !important;
+    border: solid 1px #FFFFFF !important;
     margin-bottom: 8px;
     width: 100%; }
