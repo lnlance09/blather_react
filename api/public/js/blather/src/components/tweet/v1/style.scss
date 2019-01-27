@@ -28,6 +28,9 @@
     }
 
     .card {
+        border: solid 1px $lightGrey !important;
+        box-shadow: none !important;
+
         .content {
             padding: 7px 14px !important;
             white-space: pre-line;

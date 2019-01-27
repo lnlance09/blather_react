@@ -14,6 +14,7 @@
 *******************************/
 
 .ui.modal {
+  position: absolute;
   display: none;
   z-index: 1001;
   text-align: left;
@@ -26,7 +27,7 @@
   -webkit-box-flex: 0;
       -ms-flex: 0 0 auto;
           flex: 0 0 auto;
-  border-radius: 0.28571429rem;
+  border-radius: 0.2307em;
   -webkit-user-select: text;
      -moz-user-select: text;
       -ms-user-select: text;
@@ -35,12 +36,12 @@
 }
 .ui.modal > :first-child:not(.icon),
 .ui.modal > .icon:first-child + * {
-  border-top-left-radius: 0.28571429rem;
-  border-top-right-radius: 0.28571429rem;
+  border-top-left-radius: 0.2307em;
+  border-top-right-radius: 0.2307em;
 }
 .ui.modal > :last-child {
-  border-bottom-left-radius: 0.28571429rem;
-  border-bottom-right-radius: 0.28571429rem;
+  border-bottom-left-radius: 0.2307em;
+  border-bottom-right-radius: 0.2307em;
 }
 
 
@@ -76,17 +77,17 @@
 
 .ui.modal > .header {
   display: block;
-  font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  font-family: 'Arial', 'Helvetica Neue', Arial, Helvetica, sans-serif;
   background: #FFFFFF;
   margin: 0em;
   padding: 1.25rem 1.5rem;
   -webkit-box-shadow: none;
           box-shadow: none;
   color: rgba(0, 0, 0, 0.85);
-  border-bottom: 1px solid rgba(34, 36, 38, 0.15);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.13);
 }
 .ui.modal > .header:not(.ui) {
-  font-size: 1.42857143rem;
+  font-size: 1.46153846rem;
   line-height: 1.28571429em;
   font-weight: bold;
 }
@@ -171,7 +172,7 @@
 .ui.modal > .actions {
   background: #F9FAFB;
   padding: 1rem 1rem;
-  border-top: 1px solid rgba(34, 36, 38, 0.15);
+  border-top: 1px solid rgba(0, 0, 0, 0.13);
   text-align: right;
 }
 .ui.modal .actions > .button {
@@ -184,25 +185,25 @@
 
 
 /* Modal Width */
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 1048px) {
   .ui.modal {
     width: 95%;
     margin: 0em 0em 0em 0em;
   }
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 1049px) {
   .ui.modal {
     width: 88%;
     margin: 0em 0em 0em 0em;
   }
 }
-@media only screen and (min-width: 992px) {
+@media only screen and (min-width: 1049px) {
   .ui.modal {
     width: 850px;
     margin: 0em 0em 0em 0em;
   }
 }
-@media only screen and (min-width: 1200px) {
+@media only screen and (min-width: 1049px) {
   .ui.modal {
     width: 900px;
     margin: 0em 0em 0em 0em;
@@ -216,7 +217,7 @@
 }
 
 /* Tablet and Mobile */
-@media only screen and (max-width: 991px) {
+@media only screen and (max-width: 1048px) {
   .ui.modal > .header {
     padding-right: 2.25rem;
   }
@@ -228,7 +229,7 @@
 }
 
 /* Mobile */
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 1048px) {
   .ui.modal > .header {
     padding: 0.75rem 1rem !important;
     padding-right: 2.25rem !important;
@@ -320,8 +321,21 @@
   color: rgba(0, 0, 0, 0.85);
 }
 
+/* Resort to margin positioning if legacy */
+.ui.legacy.modal,
+.ui.legacy.page.dimmer > .ui.modal {
+  top: 50%;
+  left: 50%;
+}
+.ui.legacy.page.dimmer > .ui.scrolling.modal,
+.ui.page.dimmer > .ui.scrolling.legacy.modal,
+.ui.top.aligned.legacy.page.dimmer > .ui.modal,
+.ui.top.aligned.dimmer > .ui.legacy.modal {
+  top: auto;
+}
+
 /* Tablet and Mobile */
-@media only screen and (max-width: 991px) {
+@media only screen and (max-width: 1048px) {
   .ui.basic.modal > .close {
     color: #FFFFFF;
   }
@@ -356,6 +370,21 @@
 .modals.dimmer[class*="top aligned"] .modal {
   margin: 5vh auto;
 }
+@media only screen and (max-width: 1048px) {
+  .modals.dimmer[class*="top aligned"] .modal {
+    margin: 1rem auto;
+  }
+}
+
+/* Legacy Top Aligned */
+.legacy.modals.dimmer[class*="top aligned"] {
+  padding-top: 5vh;
+}
+@media only screen and (max-width: 1048px) {
+  .legacy.modals.dimmer[class*="top aligned"] {
+    padding-top: 1rem;
+  }
+}
 
 /*--------------
     Scrolling
@@ -379,7 +408,7 @@
   position: fixed;
 }
 .modals.dimmer .ui.scrolling.modal {
-  margin: 1rem auto !important;
+  margin: 1rem auto;
 }
 
 /* Undetached Scrolling */
@@ -398,7 +427,7 @@
 
 /* Scrolling Content */
 .ui.modal .scrolling.content {
-  max-height: calc(70vh);
+  max-height: calc(80vh - 10em);
   overflow: auto;
 }
 
@@ -437,25 +466,25 @@
 }
 
 /* Mini Modal Width */
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 1048px) {
   .ui.mini.modal {
     width: 95%;
     margin: 0em 0em 0em 0em;
   }
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 1049px) {
   .ui.mini.modal {
     width: 35.2%;
     margin: 0em 0em 0em 0em;
   }
 }
-@media only screen and (min-width: 992px) {
+@media only screen and (min-width: 1049px) {
   .ui.mini.modal {
     width: 340px;
     margin: 0em 0em 0em 0em;
   }
 }
-@media only screen and (min-width: 1200px) {
+@media only screen and (min-width: 1049px) {
   .ui.mini.modal {
     width: 360px;
     margin: 0em 0em 0em 0em;
@@ -474,25 +503,25 @@
 }
 
 /* Tiny Modal Width */
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 1048px) {
   .ui.tiny.modal {
     width: 95%;
     margin: 0em 0em 0em 0em;
   }
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 1049px) {
   .ui.tiny.modal {
     width: 52.8%;
     margin: 0em 0em 0em 0em;
   }
 }
-@media only screen and (min-width: 992px) {
+@media only screen and (min-width: 1049px) {
   .ui.tiny.modal {
     width: 510px;
     margin: 0em 0em 0em 0em;
   }
 }
-@media only screen and (min-width: 1200px) {
+@media only screen and (min-width: 1049px) {
   .ui.tiny.modal {
     width: 540px;
     margin: 0em 0em 0em 0em;
@@ -511,25 +540,25 @@
 }
 
 /* Small Modal Width */
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 1048px) {
   .ui.small.modal {
     width: 95%;
     margin: 0em 0em 0em 0em;
   }
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 1049px) {
   .ui.small.modal {
     width: 70.4%;
     margin: 0em 0em 0em 0em;
   }
 }
-@media only screen and (min-width: 992px) {
+@media only screen and (min-width: 1049px) {
   .ui.small.modal {
     width: 680px;
     margin: 0em 0em 0em 0em;
   }
 }
-@media only screen and (min-width: 1200px) {
+@media only screen and (min-width: 1049px) {
   .ui.small.modal {
     width: 720px;
     margin: 0em 0em 0em 0em;
@@ -546,25 +575,25 @@
 .ui.large.modal > .header {
   font-size: 1.6em;
 }
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 1048px) {
   .ui.large.modal {
     width: 95%;
     margin: 0em 0em 0em 0em;
   }
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 1049px) {
   .ui.large.modal {
     width: 88%;
     margin: 0em 0em 0em 0em;
   }
 }
-@media only screen and (min-width: 992px) {
+@media only screen and (min-width: 1049px) {
   .ui.large.modal {
     width: 1020px;
     margin: 0em 0em 0em 0em;
   }
 }
-@media only screen and (min-width: 1200px) {
+@media only screen and (min-width: 1049px) {
   .ui.large.modal {
     width: 1080px;
     margin: 0em 0em 0em 0em;
@@ -576,12 +605,6 @@
     margin: 0em 0em 0em 0em;
   }
 }
-
-
-/*******************************
-         Theme Overrides
-*******************************/
-
 
 
 /*******************************

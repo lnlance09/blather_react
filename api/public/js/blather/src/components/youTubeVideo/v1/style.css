@@ -1,16 +1,19 @@
+/*---  Colors  ---*/
+/*---  Light Colors  ---*/
+/*---   Neutrals  ---*/
 .youTubeVideo .youTubeTitle {
   background: transparent;
   font-size: 20px !important;
   margin-top: 7px; }
   .youTubeVideo .youTubeTitle a {
-    color: #1b1c1d; }
+    color: #1B1C1D; }
 
 .youTubeVideo .channelCard {
   margin-bottom: 14px !important; }
   .youTubeVideo .channelCard.hasComment {
     margin-bottom: 0 !important; }
   .youTubeVideo .channelCard .content .header {
-    color: #2196f3;
+    color: #2185D0;
     cursor: pointer;
     font-size: 16px !important;
     font-weight: 400 !important; }
@@ -25,16 +28,16 @@
     margin-top: 5px;
     padding-top: 10px !important; }
     .youTubeVideo .channelCard .content.extra .icon.archive {
-      color: #2979ff;
+      color: #54C8FF;
       cursor: pointer;
       float: right;
       vertical-align: middle; }
     .youTubeVideo .channelCard .content.extra .archiveMsg {
       margin-bottom: 0 !important; }
       .youTubeVideo .channelCard .content.extra .archiveMsg a {
-        color: #2196f3; }
+        color: #2185D0; }
         .youTubeVideo .channelCard .content.extra .archiveMsg a:hover {
-          color: #0d8aee; }
+          color: #1e77ba; }
 
 .youTubeVideo .videoPlayer {
   width: 100% !important; }
@@ -60,7 +63,7 @@
     .youTubeVideo .commentsSection .dimmed.dimmable .dimmer {
       background: rgba(255, 255, 255, 0.8) !important; }
     .youTubeVideo .commentsSection .dimmed.dimmable .content .header {
-      color: #1b1c1d; }
+      color: #1B1C1D; }
 
 .youTubeVideo .comments {
   max-width: none !important; }
@@ -69,9 +72,9 @@
     margin: 0;
     white-space: pre-line; }
     .youTubeVideo .comments .comment .actions a {
-      color: #1b1c1d; }
+      color: #1B1C1D; }
       .youTubeVideo .comments .comment .actions a .icon {
-        color: #2196f3; }
+        color: #2185D0; }
       .youTubeVideo .comments .comment .actions a.youtubeLink:hover {
         text-decoration: underline; }
     .youTubeVideo .comments .comment .actions .likeComment {
@@ -82,9 +85,9 @@
   margin: 0;
   white-space: pre-line; }
   .youtubeCommentModal .comments .comment .actions a {
-    color: #1b1c1d; }
+    color: #1B1C1D; }
     .youtubeCommentModal .comments .comment .actions a .icon {
-      color: #2196f3; }
+      color: #2185D0; }
     .youtubeCommentModal .comments .comment .actions a.youtubeLink:hover {
       text-decoration: underline; }
   .youtubeCommentModal .comments .comment .actions .likeComment {

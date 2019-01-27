@@ -1,45 +1,48 @@
+/*---  Colors  ---*/
+/*---  Light Colors  ---*/
+/*---   Neutrals  ---*/
 .rightSide {
   margin-left: 0;
   padding-left: 0 !important; }
 
 .search.selection.dropdown .ui.label {
-  background: #2979ff;
+  background: #54C8FF;
   border: none !important;
   box-shadow: none !important;
-  color: #fff;
+  color: #FFFFFF;
   padding: 6px 12px; }
 
 .ui.vertical.menu .item {
   font-weight: normal !important; }
   .ui.vertical.menu .item.active {
-    background: #2979ff !important;
-    color: #fff;
+    background: #54C8FF !important;
+    color: #FFFFFF;
     font-weight: bold !important; }
     .ui.vertical.menu .item.active:hover {
-      color: #fff; }
+      color: #FFFFFF; }
 
 .ui.secondary.pointing.menu .item {
   height: 50px; }
   .ui.secondary.pointing.menu .item .label {
-    background: #fafafa;
-    color: #1b1c1d; }
+    background: #F9FAFB;
+    color: #1B1C1D; }
 
 .search.selection.active.dropdown {
   border-color: #96c8da !important; }
 
 .externalUrl {
-  color: #2196f3;
+  color: #2185D0;
   cursor: pointer; }
   .externalUrl:hover {
-    color: #39a1f4; }
+    color: #2d92de; }
 
 a {
-  color: #2196f3; }
+  color: #2185D0; }
 
 .Linkify {
-  color: #1b1c1d !important; }
+  color: #1B1C1D !important; }
   .Linkify a {
-    color: #2196f3 !important; }
+    color: #2185D0 !important; }
 
 .clearfix {
   clear: both; }
@@ -60,14 +63,14 @@ a {
   z-index: 1002 !important; }
 
 .editButton {
-  color: #2196f3;
+  color: #2185D0;
   cursor: pointer;
   display: none !important;
   float: right;
   font-size: 18px;
   margin-right: 0 !important; }
   .editButton.close {
-    color: #ff1744; }
+    color: #FF695E; }
 
 .dropzone {
   border: none;
@@ -84,7 +87,7 @@ a {
 
 /* About page */
 .aboutPage .logoContainer {
-  background: #fff;
+  background: #FFFFFF;
   padding: 16px 0; }
   .aboutPage .logoContainer .header.aboutHeader {
     line-height: 1; }
@@ -93,7 +96,7 @@ a {
     .aboutPage .logoContainer .header.aboutHeader .blatherLogo {
       margin-bottom: 8px; }
       .aboutPage .logoContainer .header.aboutHeader .blatherLogo .blatherLogoSvg {
-        fill: #2196f3;
+        fill: #2185D0;
         height: 84px;
         line-height: 96px;
         vertical-align: middle;
@@ -238,13 +241,15 @@ a {
     text-align: center; }
     .fallacyPage .ui.grid .statusActionSegment .youtubeButton {
       background: #ff0000 !important;
-      color: #fff;
-      margin-top: 0 !important; }
+      color: #FFFFFF;
+      margin-top: 0 !important;
+      text-shadow: none; }
       .fallacyPage .ui.grid .statusActionSegment .youtubeButton:hover {
         background: #e60000 !important; }
     .fallacyPage .ui.grid .statusActionSegment .twitterButton {
       background: #0084b4;
-      color: #fff; }
+      color: #FFFFFF;
+      text-shadow: none; }
       .fallacyPage .ui.grid .statusActionSegment .twitterButton:hover {
         background: #00719b; }
   .fallacyPage .ui.grid .callToSignUp {
@@ -277,6 +282,9 @@ a {
       overflow-x: hidden;
       word-break: break-word; } }
 
+.feedPage .mostFallacious .feedEvent .meta {
+  margin-top: 0 !important; }
+
 /* Pages page */
 .socialMediaPage .menu.socialMediaPageMenu {
   margin-top: 40px !important; }
@@ -295,6 +303,9 @@ a {
   padding: 0 !important; }
   .socialMediaPage .profileContentContainer .dimmer {
     background: rgba(255, 255, 255, 0.8) !important; }
+  .socialMediaPage .profileContentContainer .signInPlaceholder {
+    border: none;
+    padding: 0; }
 
 /* Post page */
 .postPage .ui.text.container.mainContainer {
@@ -309,8 +320,8 @@ a {
   z-index: 1000; }
 
 .postPage .sticky .breadcrumbContainer {
-  background: #fff;
-  border-bottom: solid 1px #dcddde;
+  background: #FFFFFF;
+  border-bottom: solid 1px #DCDDDE;
   margin-top: 72px;
   padding: 8px 30px;
   width: 100%; }
@@ -358,20 +369,20 @@ a {
 .loginContainer {
   height: 100vh; }
   .loginContainer .signInPageHeader {
-    background: #fff;
-    border-bottom: solid 1px #dcddde;
+    background: #FFFFFF;
+    border-bottom: solid 1px #DCDDDE;
     padding: 10px;
     width: 100%; }
     .loginContainer .signInPageHeader .svgMainLogo, .loginContainer .signInPageHeader .mainLogo {
       cursor: pointer;
       display: inline;
-      fill: #2196f3;
+      fill: #2185D0;
       height: 36px;
       line-height: 4;
       vertical-align: middle;
       width: 36px; }
       .loginContainer .signInPageHeader .svgMainLogo:hover, .loginContainer .signInPageHeader .mainLogo:hover {
-        fill: #2979ff; }
+        fill: #54C8FF; }
   .loginContainer .loginForm {
     height: 100%;
     padding-top: 10px; }
@@ -390,7 +401,7 @@ a {
 .tagsPage .list .item {
   cursor: pointer; }
   .tagsPage .list .item.selected {
-    background: #fff; }
+    background: #FFFFFF; }
 
 .tagsPage .tagsWrapper {
   margin-top: 20px;
@@ -408,7 +419,7 @@ a {
 .targetsPage .ui.text.container {
   font-size: 13px; }
   .targetsPage .ui.text.container .summaryHeader .icon {
-    color: #2196f3;
+    color: #2185D0;
     cursor: pointer;
     float: right;
     font-size: 19.5px;
@@ -437,7 +448,7 @@ a {
   padding: 0 !important; }
 
 .usersPage .profilePic.default {
-  background: #fff;
+  background: #FFFFFF;
   padding: 7px; }
 
 @media only screen and (max-width: 1025px) {

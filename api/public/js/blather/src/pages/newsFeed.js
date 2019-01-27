@@ -24,7 +24,7 @@ class NewsFeed extends Component {
 		const RenderMostFallacious = props =>
 			props.results.map((result, i) => {
 				return (
-					<Feed.Event key={`mostFallacious_${i}`}>
+					<Feed.Event className="feedEvent" key={`mostFallacious_${i}`}>
 						<Feed.Label
 							image={result.profile_pic}
 							onError={i => (i.target.src = ImagePic)}
@@ -42,7 +42,17 @@ class NewsFeed extends Component {
 								</Link>
 							</Feed.Summary>
 							<Feed.Meta>
-								<Feed.Like>{result.count} fallacies</Feed.Like>
+								<Feed.Like>
+									<Link
+										to={`/pages/${result.network}/${
+											result.network === "twitter"
+												? result.username
+												: result.page_id
+										}`}
+									>
+										{result.count} fallacies
+									</Link>
+								</Feed.Like>
 							</Feed.Meta>
 						</Feed.Content>
 					</Feed.Event>
@@ -55,7 +65,7 @@ class NewsFeed extends Component {
 					<Card.Header>Most Fallacious</Card.Header>
 				</Card.Content>
 				<Card.Content>
-					<Feed>{RenderMostFallacious(props)}</Feed>
+					<Feed className="mostFallacious">{RenderMostFallacious(props)}</Feed>
 				</Card.Content>
 			</Card>
 		)

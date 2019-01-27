@@ -1,5 +1,8 @@
+/*---  Colors  ---*/
+/*---  Light Colors  ---*/
+/*---   Neutrals  ---*/
 .ui.bottom.attached.segment.footerSegment {
-  background: #333333 !important;
+  background: #1B1C1D !important;
   border: none !important;
   box-shadow: none !important;
   margin-top: 5.5em !important;
@@ -9,15 +12,15 @@
     padding-left: 30px;
     padding-right: 30px; }
   .ui.bottom.attached.segment.footerSegment .ui.inverted.list .item a:not(.ui) {
-    color: #fafafa !important; }
+    color: #F9FAFB !important; }
     .ui.bottom.attached.segment.footerSegment .ui.inverted.list .item a:not(.ui):hover {
-      color: #fff; }
+      color: #FFFFFF; }
   .ui.bottom.attached.segment.footerSegment p {
-    color: #fff !important;
+    color: #FFFFFF !important;
     font-size: 12px;
     margin-bottom: 7px; }
   .ui.bottom.attached.segment.footerSegment .socialFooterContainer {
-    background: #fff;
+    background: #FFFFFF;
     width: 100%; }
     .ui.bottom.attached.segment.footerSegment .socialFooterContainer .twitterFollowButton {
       margin: 5px 0; }

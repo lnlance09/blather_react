@@ -1,12 +1,15 @@
+/*---  Colors  ---*/
+/*---  Light Colors  ---*/
+/*---   Neutrals  ---*/
 .fallacyExample .header .editButton {
-  color: #2196f3;
+  color: #2185D0;
   cursor: pointer;
   display: none !important;
   float: right;
   font-size: 18px;
   margin-right: 0 !important; }
   .fallacyExample .header .editButton.editing {
-    color: #ff1744; }
+    color: #FF695E; }
 
 .fallacyExample .header:hover .editButton {
   display: inline !important; }
@@ -20,7 +23,7 @@
 .fallacyExample .commonMarkLink {
   margin: 0.5em 0.3em 0 !important; }
   .fallacyExample .commonMarkLink a {
-    color: #333333;
+    color: #545454;
     float: right;
     font-size: 12px; }
     .fallacyExample .commonMarkLink a:hover {

@@ -31,9 +31,9 @@
 /* Default Styling */
 .ui.accordion .title:not(.ui) {
   padding: 0.5em 0em;
-  font-family: 'Roboto', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  font-family: 'Arial', 'Helvetica Neue', Arial, Helvetica, sans-serif;
   font-size: 1em;
-  color: #212121;
+  color: rgba(0, 0, 0, 0.87);
 }
 
 /* Content */
@@ -60,7 +60,7 @@
   opacity: 1;
   width: 1.25em;
   height: 1em;
-  margin: 0em 0.5em 0em 0em;
+  margin: 0em 0.25rem 0em 0rem;
   padding: 0em;
   font-size: 1em;
   -webkit-transition: opacity 0.1s ease, -webkit-transform 0.1s ease;
@@ -84,7 +84,7 @@
 }
 .ui.accordion.menu .item .title > .dropdown.icon {
   float: right;
-  margin: 0.165em 0em 0em 1em;
+  margin: 0.21425em 0em 0em 1em;
   -webkit-transform: rotate(180deg);
           transform: rotate(180deg);
 }
@@ -92,7 +92,7 @@
 /* Header */
 .ui.accordion .ui.header .dropdown.icon {
   font-size: 1em;
-  margin: 0em 0.5em 0em 0em;
+  margin: 0em 0.25rem 0em 0rem;
 }
 
 
@@ -125,18 +125,18 @@
 }
 .ui.styled.accordion,
 .ui.styled.accordion .accordion {
-  border-radius: 4px;
+  border-radius: 0.2307em;
   background: #FFFFFF;
-  -webkit-box-shadow: 0px 1px 2px 0 rgba(34, 36, 38, 0.15), 0px 0px 0px 1px rgba(34, 36, 38, 0.15);
-          box-shadow: 0px 1px 2px 0 rgba(34, 36, 38, 0.15), 0px 0px 0px 1px rgba(34, 36, 38, 0.15);
+  -webkit-box-shadow: 0px 1px 2px 0 rgba(0, 0, 0, 0.13), 0px 0px 0px 1px rgba(0, 0, 0, 0.13);
+          box-shadow: 0px 1px 2px 0 rgba(0, 0, 0, 0.13), 0px 0px 0px 1px rgba(0, 0, 0, 0.13);
 }
 .ui.styled.accordion .title,
 .ui.styled.accordion .accordion .title {
   margin: 0em;
-  padding: 1.25em;
+  padding: 0.75em 1em;
   color: rgba(0, 0, 0, 0.4);
   font-weight: bold;
-  border-top: 1px solid rgba(34, 36, 38, 0.15);
+  border-top: 1px solid rgba(0, 0, 0, 0.13);
   -webkit-transition: background 0.1s ease, color 0.1s ease;
   transition: background 0.1s ease, color 0.1s ease;
 }
@@ -149,11 +149,11 @@
 .ui.styled.accordion .content,
 .ui.styled.accordion .accordion .content {
   margin: 0em;
-  padding: 1.5em 3.25em;
+  padding: 0.5em 1em 1.5em;
 }
 .ui.styled.accordion .accordion .content {
   padding: 0em;
-  padding: 1.5em 3.25em;
+  padding: 0.5em 1em 1.5em;
 }
 
 /* Hover */
@@ -162,24 +162,22 @@
 .ui.styled.accordion .accordion .title:hover,
 .ui.styled.accordion .accordion .active.title {
   background: transparent;
-  color: #212121;
+  color: rgba(0, 0, 0, 0.87);
 }
 .ui.styled.accordion .accordion .title:hover,
 .ui.styled.accordion .accordion .active.title {
   background: transparent;
-  color: #212121;
+  color: rgba(0, 0, 0, 0.87);
 }
 
 /* Active */
 .ui.styled.accordion .active.title {
-  background: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 0, 0, 0.05)));
-  background: -webkit-linear-gradient(transparent, rgba(0, 0, 0, 0.05));
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.05));
-  color: #2196F3;
+  background: transparent;
+  color: rgba(0, 0, 0, 0.95);
 }
 .ui.styled.accordion .accordion .active.title {
   background: transparent;
-  color: #2196F3;
+  color: rgba(0, 0, 0, 0.95);
 }
 
 
@@ -218,15 +216,6 @@
 
 .ui.inverted.accordion .title:not(.ui) {
   color: rgba(255, 255, 255, 0.9);
-}
-
-
-/*******************************
-           Overrides
-*******************************/
-
-.ui.styled.accordion .accordion .active.title {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 
