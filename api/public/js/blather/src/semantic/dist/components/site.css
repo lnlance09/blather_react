@@ -127,10 +127,6 @@ a:hover {
   background-color: #009FDA;
   color: #FFFFFF;
 }
-::-moz-selection {
-  background-color: #009FDA;
-  color: #FFFFFF;
-}
 ::selection {
   background-color: #009FDA;
   color: #FFFFFF;
@@ -139,11 +135,6 @@ a:hover {
 /* Form */
 textarea::-webkit-selection,
 input::-webkit-selection {
-  background-color: rgba(100, 100, 100, 0.4);
-  color: #212121;
-}
-textarea::-moz-selection,
-input::-moz-selection {
   background-color: rgba(100, 100, 100, 0.4);
   color: #212121;
 }

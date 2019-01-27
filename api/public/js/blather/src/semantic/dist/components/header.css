@@ -15,7 +15,6 @@
 
 
 /* Standard */
-@import url(https://fonts.googleapis.com/css?family=Roboto);
 .ui.header {
   border: none;
   margin: calc(2rem -  0.165em ) 0em 1rem;
@@ -720,6 +719,12 @@ a.ui.inverted.grey.header:hover {
            Overrides
 *******************************/
 
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Roboto'), local('Roboto-Regular'), url(https://fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Mu4mxP.ttf) format('truetype');
+}
 h1.ui.header,
 .ui.huge.header {
   font-weight: normal;
