@@ -3,12 +3,11 @@ import { refreshYouTubeToken } from "components/authentication/v1/actions"
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { fetchPostData } from "pages/actions/post"
 import { Provider, connect } from "react-redux"
-import { Breadcrumb, Container, Header, Image, Message, Segment, Sticky } from "semantic-ui-react"
+import { Breadcrumb, Container, Header, Image, Message, Placeholder, Segment, Sticky } from "semantic-ui-react"
 import FallacyForm from "components/fallacyForm/v1/"
 import FallaciesList from "components/fallaciesList/v1/"
 import PageFooter from "components/footer/v1/"
 import PageHeader from "components/header/v1/"
-import ParagraphPic from "images/short-paragraph.png"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import store from "store"
@@ -266,11 +265,18 @@ class Post extends Component {
 						)
 					} else {
 						return (
-							<div>
-								<Segment className="lazyLoadSegment">
-									<Image fluid src={ParagraphPic} />
-								</Segment>
-							</div>
+							<Segment raised>
+								<Placeholder fluid>
+									<Placeholder.Header image>
+										<Placeholder.Line />
+										<Placeholder.Line />
+									</Placeholder.Header>
+									<Placeholder.Paragraph>
+										<Placeholder.Line length='medium' />
+										<Placeholder.Line length='short' />
+									</Placeholder.Paragraph>
+								</Placeholder>
+							</Segment>
 						)
 					}
 				case "video":
@@ -330,7 +336,7 @@ class Post extends Component {
 						</Sticky>
 					)}
 
-					<Container className={containerClassName} text textAlign="left">
+					<Container className={containerClassName} text>
 						{DisplayPost(this.props)}
 						{!tweetExists && <Message content="This tweet does not exist" error />}
 						{!videoExists && <Message content="This video does not exist" error />}

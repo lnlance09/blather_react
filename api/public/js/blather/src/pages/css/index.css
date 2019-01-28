@@ -315,6 +315,8 @@ a {
     margin-top: 1.2em; }
   .postPage .ui.text.container.mainContainer .fallacyFormWrapper {
     margin-top: 16px; }
+  .postPage .ui.text.container.mainContainer .placeholderContainer {
+    text-align: center; }
 
 .postPage .sticky div {
   z-index: 1000; }

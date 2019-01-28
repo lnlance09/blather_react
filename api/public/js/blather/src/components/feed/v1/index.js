@@ -4,11 +4,10 @@ import { adjustTimezone } from "utils/dateFunctions"
 import { formatGrammar } from "utils/textFunctions"
 import { connect } from "react-redux"
 import { Link } from "react-router-dom"
-import { Feed, Image, Item, Visibility } from "semantic-ui-react"
+import { Feed, Placeholder, Segment, Visibility } from "semantic-ui-react"
 import ImagePic from "images/image-square.png"
 import Marked from "marked"
 import Moment from "react-moment"
-import ParagraphPic from "images/short-paragraph.png"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 
@@ -72,10 +71,7 @@ class FeedComponent extends Component {
 									<Link to={`/fallacies/${result.id}`}>
 										{result.fallacy_name}
 									</Link>{" "}
-									fallacy by{" "}
-									<Link to={`/users/${result.user_username}`}>
-										{result.user_name}
-									</Link>
+									fallacy.
 									<Feed.Date>
 										<Moment
 											date={adjustTimezone(result.date_created)}
@@ -95,11 +91,19 @@ class FeedComponent extends Component {
 					)
 				} else {
 					return (
-						<Item className="itemFeed" key={`feed_${i}`}>
-							<Item.Content>
-								<Image fluid src={ParagraphPic} />
-							</Item.Content>
-						</Item>
+						<Segment>
+							<Placeholder fluid>
+								<Placeholder.Header image>
+									<Placeholder.Line />
+									<Placeholder.Line />
+								</Placeholder.Header>
+								<Placeholder.Paragraph>
+									<Placeholder.Line length='medium' />
+									<Placeholder.Line length='short' />
+									<Placeholder.Line length='medium' />
+								</Placeholder.Paragraph>
+							</Placeholder>
+						</Segment>
 					)
 				}
 			})

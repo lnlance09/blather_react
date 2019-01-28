@@ -25,8 +25,7 @@ import {
 	Label,
 	List,
 	Menu,
-	Responsive,
-	Segment
+	Responsive
 } from "semantic-ui-react"
 import Comments from "components/comments/v1/"
 import FallacyExample from "components/fallacyExample/v1/"
@@ -117,21 +116,6 @@ class Fallacy extends Component {
 	render() {
 		const { activeItem, authenticated, bearer, id, userId } = this.state
 		const canEdit = this.props.createdBy ? this.props.createdBy.id === userId : false
-		const CallToSignUp = props => {
-			if (!authenticated) {
-				return (
-					<Segment className="callToSignUp" textAlign="center">
-						<Header>Call out bullshit</Header>
-						<Button
-							content="Sign Up"
-							onClick={() => this.props.history.push("/signin")}
-							positive
-						/>
-					</Segment>
-				)
-			}
-			return null
-		}
 		const ContactUser = props => {
 			if (props.user) {
 				const userLink = `/pages/${props.user.type}/${

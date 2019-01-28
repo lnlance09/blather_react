@@ -150,14 +150,16 @@ class UserPage extends Component {
 			/>
 		)
 		const content = (
-			<div>
-				<Dropzone className="dropdown" onDrop={this.onDrop}>
-					<Header as="h2">Change your pic</Header>
-					<Button className="changePicBtn" color="blue" icon>
-						<Icon name="image" />
-					</Button>
-				</Dropzone>
-			</div>
+			<Dropzone className="dropdown" onDrop={this.onDrop}>
+				{() => (
+					<div>
+						<Header as="h2">Change your pic</Header>
+						<Button className="changePicBtn" color="blue" icon>
+							<Icon name="image" />
+						</Button>
+					</div>
+				)}
+			</Dropzone>
 		)
 		const ProfilePic = props => {
 			if (isMyProfile) {

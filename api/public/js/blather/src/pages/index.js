@@ -111,14 +111,12 @@ class Page extends Component {
 				window.location.reload()
 			}, 200)
 		}
-		const DimmerMsg = ({ btn, msg, props }) => {
-			return (
-				<Dimmer active>
-					<Header as="h2">{msg}</Header>
-					{btn}
-				</Dimmer>
-			)
-		}
+		const DimmerMsg = ({ btn, msg, props }) => (
+			<Dimmer active>
+				<Header as="h2">{msg}</Header>
+				{btn}
+			</Dimmer>
+		)
 		const LazyLoadDefault = [{}, {}, {}, {}, {}].map((post, i) => {
 			let marginTop = i === 0 ? 0 : 15
 			return (
@@ -135,6 +133,7 @@ class Page extends Component {
 					{props.username && (
 						<a
 							className="externalUrl"
+							href={props.externalUrl}
 							onClick={() => window.open(props.externalUrl, "_blank")}
 						>
 							@{props.username}

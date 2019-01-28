@@ -78,7 +78,7 @@ class Tweet extends Component {
 					<Transition animation={animation} duration={duration} visible={visible}>
 						<Message className="archiveMsg" positive>
 							<Icon name="checkmark" /> Archived{" "}
-							<a href={`http://archive.is/${props.archive.code}`} target="_blank">
+							<a href={`http://archive.is/${props.archive.code}`} rel="noopener noreferrer" target="_blank">
 								tweet
 							</a>{" "}
 							<Moment date={archiveDate} fromNow />
