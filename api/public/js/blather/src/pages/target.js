@@ -96,7 +96,7 @@ class Target extends Component {
 
 		const DisplayFallacies = props => (
 			<div className="fallaciesWrapper">
-				<Header dividing size="small">
+				<Header dividing size="medium">
 					Fallacies
 				</Header>
 				<FallaciesList

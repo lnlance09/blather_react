@@ -7,16 +7,14 @@ import {
 	Dropdown,
 	Form,
 	Icon,
-	Image,
 	Item,
 	Message,
 	Responsive,
 	Visibility
 } from "semantic-ui-react"
 import _ from "lodash"
-import ImagePic from "images/image-square.png"
+import LazyLoad from "components/lazyLoad/v1/"
 import Moment from "react-moment"
-import ParagraphPic from "images/short-paragraph.png"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import ResultItem from "components/item/v1/"
@@ -426,28 +424,14 @@ class DiscussionsList extends Component {
 						/>
 					)
 				} else {
-					return (
-						<Item key={`discussion_${i}`}>
-							<Item.Image size="small" src={ImagePic} />
-							<Item.Content>
-								<Image fluid src={ParagraphPic} />
-							</Item.Content>
-						</Item>
-					)
+					return <LazyLoad key={`discussion_${i}`} />
 				}
 			})
 		}
 		const lazyLoadSegments = props => {
 			if (loadingMore && props.page < parseInt(props.pages - 1, 10)) {
 				const faker = [{}, {}, {}, {}, {}]
-				return faker.map((result, i) => (
-					<Item key={`discussion_${i}`}>
-						<Item.Image size="small" src={ImagePic} />
-						<Item.Content>
-							<Image fluid src={ParagraphPic} />
-						</Item.Content>
-					</Item>
-				))
+				return faker.map((result, i) => <LazyLoad key={`discussion_${i}`} />)
 			}
 		}
 

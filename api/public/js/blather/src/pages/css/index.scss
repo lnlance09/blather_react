@@ -159,10 +159,6 @@ a {
     }
 
     .contactForm {
-        p {
-            margin-bottom: 5px !important;
-        }
-
         button {
             float: right;
         }
@@ -547,6 +543,10 @@ a {
 
         .fallacyFormWrapper {
             margin-top: 16px;
+        }
+
+        .placeholderContainer {
+            text-align: center;
         }
     }
 

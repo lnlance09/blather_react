@@ -8,7 +8,7 @@ import FallacyForm from "components/fallacyForm/v1/"
 import FallaciesList from "components/fallaciesList/v1/"
 import PageFooter from "components/footer/v1/"
 import PageHeader from "components/header/v1/"
-import ParagraphPic from "images/short-paragraph.png"
+import LazyLoad from "components/lazyLoad/v1/"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import store from "store"
@@ -207,7 +207,7 @@ class Post extends Component {
 			if (props.info) {
 				return (
 					<div className="fallaciesWrapper">
-						<Header dividing size="small">
+						<Header dividing size="medium">
 							Fallacies
 						</Header>
 						<FallaciesList
@@ -265,13 +265,7 @@ class Post extends Component {
 							</div>
 						)
 					} else {
-						return (
-							<div>
-								<Segment className="lazyLoadSegment">
-									<Image fluid src={ParagraphPic} />
-								</Segment>
-							</div>
-						)
+						return <LazyLoad />
 					}
 				case "video":
 					if (props.info) {
@@ -330,7 +324,7 @@ class Post extends Component {
 						</Sticky>
 					)}
 
-					<Container className={containerClassName} text textAlign="left">
+					<Container className={containerClassName} text>
 						{DisplayPost(this.props)}
 						{!tweetExists && <Message content="This tweet does not exist" error />}
 						{!videoExists && <Message content="This video does not exist" error />}

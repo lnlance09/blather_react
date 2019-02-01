@@ -19,9 +19,9 @@ import {
 import AboutCard from "components/aboutCard/v1/"
 import defaultImg from "images/image-square.png"
 import FallaciesList from "components/fallaciesList/v1/"
+import LazyLoad from "components/lazyLoad/v1/"
 import PageFooter from "components/footer/v1/"
 import PageHeader from "components/header/v1/"
-import ParagraphPic from "images/short-paragraph.png"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import store from "../store"
@@ -111,23 +111,15 @@ class Page extends Component {
 				window.location.reload()
 			}, 200)
 		}
-		const DimmerMsg = ({ btn, msg, props }) => {
-			return (
-				<Dimmer active>
-					<Header as="h2">{msg}</Header>
-					{btn}
-				</Dimmer>
-			)
-		}
+		const DimmerMsg = ({ btn, msg, props }) => (
+			<Dimmer active>
+				<Header as="h2">{msg}</Header>
+				{btn}
+			</Dimmer>
+		)
 		const LazyLoadDefault = [{}, {}, {}, {}, {}].map((post, i) => {
 			let marginTop = i === 0 ? 0 : 15
-			return (
-				<div key={`lazy_load_${i}`} style={{ marginTop: `${marginTop}px` }}>
-					<Segment className="lazyLoadSegment">
-						<Image fluid src={ParagraphPic} />
-					</Segment>
-				</div>
-			)
+			return <LazyLoad key={`lazy_load_${i}`} style={{ marginTop: `${marginTop}px` }} />
 		})
 		const PageHeaderInfo = props => {
 			const subheader = (
@@ -135,6 +127,7 @@ class Page extends Component {
 					{props.username && (
 						<a
 							className="externalUrl"
+							href={props.externalUrl}
 							onClick={() => window.open(props.externalUrl, "_blank")}
 						>
 							@{props.username}
@@ -146,7 +139,7 @@ class Page extends Component {
 			return <TitleHeader subheader={subheader} title={props.name} />
 		}
 		const PageMenu = props => (
-			<Menu className="socialMediaPageMenu" fluid pointing secondary stackable>
+			<Menu className="socialMediaPageMenu" fluid stackable tabular>
 				<Menu.Item
 					active={activeItem === itemsLabel}
 					name={itemsLabel}
@@ -158,7 +151,11 @@ class Page extends Component {
 					onClick={this.handleItemClick}
 				>
 					Fallacies{" "}
-					{props.fallacyCount > 0 && <Label circular>{props.fallacyCount}</Label>}
+					{props.fallacyCount > 0 && (
+						<Label color="blue" circular>
+							{props.fallacyCount}
+						</Label>
+					)}
 				</Menu.Item>
 			</Menu>
 		)

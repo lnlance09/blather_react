@@ -150,14 +150,16 @@ class UserPage extends Component {
 			/>
 		)
 		const content = (
-			<div>
-				<Dropzone className="dropdown" onDrop={this.onDrop}>
-					<Header as="h2">Change your pic</Header>
-					<Button className="changePicBtn" color="blue" icon>
-						<Icon name="image" />
-					</Button>
-				</Dropzone>
-			</div>
+			<Dropzone className="dropdown" onDrop={this.onDrop}>
+				{() => (
+					<div>
+						<Header as="h2">Change your pic</Header>
+						<Button className="changePicBtn" color="blue" icon>
+							<Icon name="image" />
+						</Button>
+					</div>
+				)}
+			</Dropzone>
 		)
 		const ProfilePic = props => {
 			if (isMyProfile) {
@@ -233,7 +235,7 @@ class UserPage extends Component {
 			}
 		}
 		const UserMenu = props => (
-			<Menu className="profileMenu" fluid pointing secondary stackable>
+			<Menu className="profileMenu" fluid stackable tabular>
 				<Menu.Item
 					active={activeItem === "fallacies"}
 					name="fallacies"
@@ -241,7 +243,9 @@ class UserPage extends Component {
 				>
 					Fallacies{" "}
 					{props.user.fallacyCount > 0 && (
-						<Label circular>{props.user.fallacyCount}</Label>
+						<Label color="blue" circular>
+							{props.user.fallacyCount}
+						</Label>
 					)}
 				</Menu.Item>
 				<Menu.Item
@@ -251,7 +255,9 @@ class UserPage extends Component {
 				>
 					Discussions{" "}
 					{props.user.discussionCount > 0 && (
-						<Label circular>{props.user.discussionCount}</Label>
+						<Label color="blue" circular>
+							{props.user.discussionCount}
+						</Label>
 					)}
 				</Menu.Item>
 				<Menu.Item
@@ -261,7 +267,9 @@ class UserPage extends Component {
 				>
 					Archives{" "}
 					{props.user.archiveCount > 0 && (
-						<Label circular>{props.user.archiveCount}</Label>
+						<Label color="blue" circular>
+							{props.user.archiveCount}
+						</Label>
 					)}
 				</Menu.Item>
 			</Menu>

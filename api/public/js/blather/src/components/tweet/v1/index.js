@@ -4,7 +4,17 @@ import { adjustTimezone } from "utils/dateFunctions"
 import { linkMentions, linkHashtags } from "utils/linkifyAdditions"
 import Highlighter from "react-highlight-words"
 import { Provider, connect } from "react-redux"
-import { Card, Embed, Icon, Image, List, Message, Popup, Transition } from "semantic-ui-react"
+import {
+	Card,
+	Embed,
+	Icon,
+	Image,
+	Label,
+	List,
+	Message,
+	Popup,
+	Transition
+} from "semantic-ui-react"
 import ItemPic from "images/square-image.png"
 import Linkify from "react-linkify"
 import Moment from "react-moment"
@@ -78,7 +88,11 @@ class Tweet extends Component {
 					<Transition animation={animation} duration={duration} visible={visible}>
 						<Message className="archiveMsg" positive>
 							<Icon name="checkmark" /> Archived{" "}
-							<a href={`http://archive.is/${props.archive.code}`} target="_blank">
+							<a
+								href={`http://archive.is/${props.archive.code}`}
+								rel="noopener noreferrer"
+								target="_blank"
+							>
 								tweet
 							</a>{" "}
 							<Moment date={archiveDate} fromNow />
@@ -226,28 +240,24 @@ class Tweet extends Component {
 			return (
 				<List floated="left" horizontal>
 					<List.Item>
-						<Icon color="blue" name="retweet" size="large" />
-						<List.Content>
-							<List.Header>
-								<NumberFormat
-									displayType={"text"}
-									thousandSeparator={true}
-									value={retweetCount}
-								/>
-							</List.Header>
-						</List.Content>
+						<Label basic>
+							<Icon color="blue" name="retweet" size="large" />{" "}
+							<NumberFormat
+								displayType={"text"}
+								thousandSeparator={true}
+								value={retweetCount}
+							/>
+						</Label>
 					</List.Item>
-					<List.Item>
-						<Icon name="like" size="large" />
-						<List.Content>
-							<List.Header>
-								<NumberFormat
-									displayType={"text"}
-									thousandSeparator={true}
-									value={favoriteCount}
-								/>
-							</List.Header>
-						</List.Content>
+					<List.Item className="favoriteItem">
+						<Label basic>
+							<Icon name="like" size="large" />{" "}
+							<NumberFormat
+								displayType={"text"}
+								thousandSeparator={true}
+								value={favoriteCount}
+							/>
+						</Label>
 					</List.Item>
 				</List>
 			)

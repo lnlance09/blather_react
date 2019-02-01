@@ -99,7 +99,7 @@ class Header extends Component {
 										onClick={() => {
 											this.props.history.push("/")
 										}}
-										path={Logo}
+										src={Logo}
 										svgClassName="svgHeaderLogo"
 									/>
 								</Menu.Item>
@@ -123,7 +123,7 @@ class Header extends Component {
 										onClick={() => {
 											this.props.history.push("/")
 										}}
-										path={Logo}
+										src={Logo}
 										svgClassName="svgHeaderLogo"
 									/>
 									<NavSearch history={this.props.history} />

@@ -425,6 +425,7 @@ class FallacyForm extends Component {
 						<Modal.Content>
 							<p>
 								<a
+									href={`/pages/${page.type}/${assigneeLink}`}
 									onClick={() => {
 										this.props.clearContradiction()
 										this.props.history.push(

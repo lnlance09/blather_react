@@ -1,8 +1,8 @@
 import "./style.css"
 import { formatNumber, formatPlural } from "utils/textFunctions"
-import { Image, Item, Label, List } from "semantic-ui-react"
+import { Item, Label, List } from "semantic-ui-react"
 import ImagePic from "images/image-square.png"
-import ParagraphPic from "images/short-paragraph.png"
+import LazyLoad from "components/lazyLoad/v1/"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import sanitizeHtml from "sanitize-html"
@@ -80,11 +80,7 @@ class ResultItem extends Component {
 		const ItemContent = props => {
 			const validDescription = props.description !== null && props.description !== undefined
 			if (props.type === "lazyLoad") {
-				return (
-					<Item.Content>
-						<Image fluid src={ParagraphPic} />
-					</Item.Content>
-				)
+				return <LazyLoad />
 			}
 
 			return (
@@ -107,7 +103,7 @@ class ResultItem extends Component {
 					{props.extra && <Item.Extra>{ItemExtra(this.props)}</Item.Extra>}
 					{props.tags && (
 						<Item.Extra>
-							<Label.Group color="white">{RenderTags(this.props.tags)}</Label.Group>
+							<Label.Group>{RenderTags(this.props.tags)}</Label.Group>
 						</Item.Extra>
 					)}
 				</Item.Content>

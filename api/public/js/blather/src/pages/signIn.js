@@ -34,7 +34,7 @@ class SignInPage extends Component {
 							onClick={() => {
 								this.props.history.push("/")
 							}}
-							path={Logo}
+							src={Logo}
 							svgClassName="svgMainLogo"
 						/>
 					</Container>
