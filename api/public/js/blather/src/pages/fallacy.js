@@ -158,7 +158,7 @@ class Fallacy extends Component {
 			return null
 		}
 		const FallacyMenu = props => (
-			<Menu className="fallacyMainMenu" fluid pointing secondary stackable>
+			<Menu className="fallacyMainMenu" fluid stackable tabular>
 				<Menu.Item
 					active={activeItem === "material"}
 					name="material"
@@ -170,7 +170,7 @@ class Fallacy extends Component {
 					onClick={this.handleItemClick}
 				>
 					Comments {""}
-					{props.commentCount > 0 && <Label circular>{props.commentCount}</Label>}
+					{props.commentCount > 0 && <Label circular color="blue">{props.commentCount}</Label>}
 				</Menu.Item>
 				<Menu.Item
 					active={activeItem === "similar"}
