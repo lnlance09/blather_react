@@ -60,8 +60,8 @@ class FeedComponent extends Component {
 							<Feed.Content>
 								<Feed.Summary>
 									<Link
-										to={`/pages/${result.network}/${
-											result.network === "twitter"
+										to={`/pages/${result.page_type}/${
+											result.page_type === "twitter"
 												? result.page_username
 												: result.page_id
 										}`}
