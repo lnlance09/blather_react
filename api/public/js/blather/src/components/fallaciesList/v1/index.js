@@ -3,11 +3,10 @@ import { getFallacies, getTargets } from "./actions"
 import { adjustTimezone } from "utils/dateFunctions"
 import { formatPlural } from "utils/textFunctions"
 import { connect, Provider } from "react-redux"
-import { Divider, Dropdown, Form, Image, Item, Message, Visibility } from "semantic-ui-react"
+import { Divider, Dropdown, Form, Item, Message, Visibility } from "semantic-ui-react"
 import fallacies from "fallacies.json"
-import ImagePic from "images/image-square.png"
+import LazyLoad from "components/lazyLoad/v1/"
 import Moment from "react-moment"
-import ParagraphPic from "images/short-paragraph.png"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import ResultItem from "components/item/v1/"
@@ -225,14 +224,7 @@ class FallaciesList extends Component {
 						/>
 					)
 				} else {
-					return (
-						<Item key={`fallacy_${i}`}>
-							<Item.Image size="small" src={ImagePic} />
-							<Item.Content>
-								<Image fluid src={ParagraphPic} />
-							</Item.Content>
-						</Item>
-					)
+					return <LazyLoad key={`fallacy_${i}`} />
 				}
 			})
 		}
@@ -259,14 +251,7 @@ class FallaciesList extends Component {
 						/>
 					)
 				} else {
-					return (
-						<Item key={`fallacy_${i}`}>
-							<Item.Image size="small" src={ImagePic} />
-							<Item.Content>
-								<Image fluid src={ParagraphPic} />
-							</Item.Content>
-						</Item>
-					)
+					return <LazyLoad key={`target_${i}`} />
 				}
 			})
 		}

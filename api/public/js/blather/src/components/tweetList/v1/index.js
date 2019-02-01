@@ -1,9 +1,9 @@
 import "./style.css"
 import { fetchPagePosts } from "pages/actions/page"
 import { connect } from "react-redux"
-import { Image, Item, Message, Segment, Visibility } from "semantic-ui-react"
+import { Item, Message, Visibility } from "semantic-ui-react"
 import _ from "lodash"
-import ParagraphPic from "images/short-paragraph.png"
+import LazyLoad from "components/lazyLoad/v1/"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import Tweet from "components/tweet/v1/"
@@ -103,22 +103,12 @@ class TweetList extends Component {
 					</div>
 				)
 			} else {
-				return (
-					<div key={`lazy_load_${i}`} style={{ marginTop: `${marginTop}px` }}>
-						<Segment className="lazyLoadSegment">
-							<Image fluid src={ParagraphPic} />
-						</Segment>
-					</div>
-				)
+				return <LazyLoad key={`tweet_${i}`} style={{ marginTop: `${marginTop}px` }} />
 			}
 		})
 		const lazyLoadMore = props => {
 			if (loading && props.posts.hasMore) {
-				return (
-					<Segment className="lazyLoadSegment">
-						<Image fluid src={ParagraphPic} />
-					</Segment>
-				)
+				return <LazyLoad />
 			}
 		}
 

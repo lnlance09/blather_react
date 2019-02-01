@@ -4,21 +4,11 @@ import { refreshYouTubeToken } from "components/authentication/v1/actions"
 import { formatNumber, formatPlural } from "utils/textFunctions"
 import { connect, Provider } from "react-redux"
 import { Link } from "react-router-dom"
-import {
-	Container,
-	Icon,
-	Image,
-	Item,
-	Message,
-	Segment,
-	Statistic,
-	Visibility
-} from "semantic-ui-react"
+import { Container, Icon, Item, Message, Statistic, Visibility } from "semantic-ui-react"
 import _ from "lodash"
-import ImagePic from "images/image-square.png"
 import itemPic from "images/image-square.png"
+import LazyLoad from "components/lazyLoad/v1/"
 import Moment from "react-moment"
-import ParagraphPic from "images/short-paragraph.png"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import ResultItem from "components/item/v1/"
@@ -157,11 +147,7 @@ class SearchResults extends Component {
 		}
 		const lazyLoadMore = props => {
 			if (props.hasMore && loadingMore) {
-				return (
-					<Segment className="lazyLoadSegment">
-						<Image fluid src={ParagraphPic} />
-					</Segment>
-				)
+				return <LazyLoad />
 			}
 			return null
 		}
@@ -194,14 +180,7 @@ class SearchResults extends Component {
 
 			return null
 		}
-		const lazyLoad = this.props.data.map((result, i) => (
-			<Item key={`lazyLoad${i}`}>
-				<Item.Image size="small" src={ImagePic} />
-				<Item.Content>
-					<Image fluid src={ParagraphPic} />
-				</Item.Content>
-			</Item>
-		))
+		const lazyLoad = this.props.data.map((result, i) => <LazyLoad key={`search_result_${i}`} />)
 		const resultsHeader = count => (
 			<Statistic size="tiny">
 				<Statistic.Value>{formatNumber(count)}</Statistic.Value>

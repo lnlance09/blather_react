@@ -3,11 +3,12 @@ import { refreshYouTubeToken } from "components/authentication/v1/actions"
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { fetchPostData } from "pages/actions/post"
 import { Provider, connect } from "react-redux"
-import { Breadcrumb, Container, Header, Image, Message, Placeholder, Segment, Sticky } from "semantic-ui-react"
+import { Breadcrumb, Container, Header, Image, Message, Segment, Sticky } from "semantic-ui-react"
 import FallacyForm from "components/fallacyForm/v1/"
 import FallaciesList from "components/fallaciesList/v1/"
 import PageFooter from "components/footer/v1/"
 import PageHeader from "components/header/v1/"
+import LazyLoad from "components/lazyLoad/v1/"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import store from "store"
@@ -206,7 +207,7 @@ class Post extends Component {
 			if (props.info) {
 				return (
 					<div className="fallaciesWrapper">
-						<Header dividing size="small">
+						<Header dividing size="medium">
 							Fallacies
 						</Header>
 						<FallaciesList
@@ -264,20 +265,7 @@ class Post extends Component {
 							</div>
 						)
 					} else {
-						return (
-							<Segment raised>
-								<Placeholder fluid>
-									<Placeholder.Header image>
-										<Placeholder.Line />
-										<Placeholder.Line />
-									</Placeholder.Header>
-									<Placeholder.Paragraph>
-										<Placeholder.Line length='medium' />
-										<Placeholder.Line length='short' />
-									</Placeholder.Paragraph>
-								</Placeholder>
-							</Segment>
-						)
+						return <LazyLoad />
 					}
 				case "video":
 					if (props.info) {

@@ -42,16 +42,18 @@ class NewsFeed extends Component {
 								</Link>
 							</Feed.Summary>
 							<Feed.Meta>
-								<Feed.Like>
-									<Link
-										to={`/pages/${result.network}/${
-											result.network === "twitter"
-												? result.username
-												: result.page_id
-										}`}
-									>
-										{result.count} fallacies
-									</Link>
+								<Feed.Like
+									onClick={() =>
+										this.props.history.push(
+											`/pages/${result.network}/${
+												result.network === "twitter"
+													? result.username
+													: result.page_id
+											}`
+										)
+									}
+								>
+									{result.count} fallacies
 								</Feed.Like>
 							</Feed.Meta>
 						</Feed.Content>

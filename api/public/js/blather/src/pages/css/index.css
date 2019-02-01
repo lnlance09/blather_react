@@ -104,9 +104,6 @@ a {
     .aboutPage .logoContainer .header.aboutHeader span {
       line-height: 96px; }
 
-.aboutPage .contactForm p {
-  margin-bottom: 5px !important; }
-
 .aboutPage .contactForm button {
   float: right; }
 

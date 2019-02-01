@@ -28,9 +28,6 @@
     }
 
     .card {
-        border: solid 1px $lightGrey !important;
-        box-shadow: none !important;
-
         .content {
             padding: 7px 14px !important;
             white-space: pre-line;
@@ -42,26 +39,24 @@
             &.extra {
                 border-top: solid 1px $container-border-color !important;
                 cursor: default;
-                padding: 1px 14px !important;
+                padding: 1px 3px !important;
 
                 .list {
                     .item {
                         display: inline-block;
 
-                        .content {
-                            display: inline-block;
-                            padding: 7px !important;
+                        &.favoriteItem {
+                            margin-left: 0;
+                        }
 
-                            .header {
-                                span {
-                                    color: $black;
-                                }
-                            }
+                        .label {
+                            border: none;
                         }
 
                         .icon {
                             cursor: default;
                             display: inline-block;
+                            margin-right: 5px;
                         }
 
                         .icon.archive {

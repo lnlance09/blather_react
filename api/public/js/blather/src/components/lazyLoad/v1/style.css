@@ -1,0 +1,5 @@
+.placeholderSegment * {
+  box-sizing: border-box; }
+
+.placeholderSegment .placeholderHeader {
+  width: 100px; }

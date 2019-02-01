@@ -203,7 +203,7 @@ class About extends Component {
 								<ReactSVG
 									className="blatherLogo"
 									evalScripts="always"
-									path={Logo}
+									src={Logo}
 									svgClassName="blatherLogoSvg"
 								/>
 								Blather

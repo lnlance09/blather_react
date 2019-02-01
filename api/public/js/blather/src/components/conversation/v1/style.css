@@ -69,10 +69,8 @@
     margin-bottom: 18px; }
   .conversation .convoResponseSection {
     margin-top: 0; }
-    .conversation .convoResponseSection .ui.icon.message.waitMsg {
-      background: #FFFFFF; }
-      .conversation .convoResponseSection .ui.icon.message.waitMsg .icon {
-        color: #1B1C1D; }
+    .conversation .convoResponseSection .ui.icon.message.waitMsg .icon {
+      color: #1B1C1D; }
   .conversation .findOpponent p {
     text-align: center; }
     .conversation .findOpponent p .icon {

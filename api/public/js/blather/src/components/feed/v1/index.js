@@ -4,8 +4,9 @@ import { adjustTimezone } from "utils/dateFunctions"
 import { formatGrammar } from "utils/textFunctions"
 import { connect } from "react-redux"
 import { Link } from "react-router-dom"
-import { Feed, Placeholder, Segment, Visibility } from "semantic-ui-react"
+import { Feed, Visibility } from "semantic-ui-react"
 import ImagePic from "images/image-square.png"
+import LazyLoad from "components/lazyLoad/v1/"
 import Marked from "marked"
 import Moment from "react-moment"
 import PropTypes from "prop-types"
@@ -90,21 +91,7 @@ class FeedComponent extends Component {
 						</Feed.Event>
 					)
 				} else {
-					return (
-						<Segment>
-							<Placeholder fluid>
-								<Placeholder.Header image>
-									<Placeholder.Line />
-									<Placeholder.Line />
-								</Placeholder.Header>
-								<Placeholder.Paragraph>
-									<Placeholder.Line length='medium' />
-									<Placeholder.Line length='short' />
-									<Placeholder.Line length='medium' />
-								</Placeholder.Paragraph>
-							</Placeholder>
-						</Segment>
-					)
+					return <LazyLoad key={`feed_${i}`} />
 				}
 			})
 		}

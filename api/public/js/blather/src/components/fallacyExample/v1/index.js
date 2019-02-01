@@ -14,12 +14,11 @@ import {
 	Icon,
 	Image,
 	List,
-	Segment,
 	TextArea
 } from "semantic-ui-react"
 import ImagePic from "images/image-square.png"
+import LazyLoad from "components/lazyLoad/v1/"
 import Marked from "marked"
-import ParagraphPic from "images/short-paragraph.png"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import Tweet from "components/tweet/v1/"
@@ -98,7 +97,7 @@ class FallacyExample extends Component {
 					{props.fallacyName}
 					<EditButton props={props} />
 				</Header>
-				{props.fallacyId && (
+				{this.props.explanation ? (
 					<div>
 						{editing ? (
 							<Form onSubmit={this.updateFallacy}>
@@ -149,11 +148,8 @@ class FallacyExample extends Component {
 							/>
 						)}
 					</div>
-				)}
-				{!props.explanation && (
-					<Segment className="lazyLoadSegment" loading>
-						<Image fluid src={ParagraphPic} />
-					</Segment>
+				) : (
+					<LazyLoad header={false} segment={false} />
 				)}
 			</div>
 		)
@@ -195,9 +191,7 @@ class FallacyExample extends Component {
 						{this.props.contradiction && <div>{ParseMaterial(props, true)}</div>}
 					</div>
 				) : (
-					<Segment className="lazyLoadSegment" loading>
-						<Image fluid src={ParagraphPic} />
-					</Segment>
+					<LazyLoad />
 				)}
 			</div>
 		)

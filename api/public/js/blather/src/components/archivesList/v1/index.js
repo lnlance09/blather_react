@@ -2,11 +2,10 @@ import "./style.css"
 import { getArchives } from "pages/actions/user"
 import { adjustTimezone } from "utils/dateFunctions"
 import { connect } from "react-redux"
-import { Dropdown, Form, Icon, Image, Item, Message, Visibility } from "semantic-ui-react"
-import ImagePic from "images/image-square.png"
+import { Dropdown, Form, Icon, Item, Message, Visibility } from "semantic-ui-react"
+import LazyLoad from "components/lazyLoad/v1/"
 import Moment from "react-moment"
 import Parser from "html-react-parser"
-import ParagraphPic from "images/short-paragraph.png"
 import PropTypes from "prop-types"
 import ResultItem from "components/item/v1/"
 import React, { Component } from "react"
@@ -104,14 +103,7 @@ class ArchivesList extends Component {
 						/>
 					)
 				} else {
-					return (
-						<Item key={`fallacy_${i}`}>
-							<Item.Image size="small" src={ImagePic} />
-							<Item.Content>
-								<Image fluid src={ParagraphPic} />
-							</Item.Content>
-						</Item>
-					)
+					return <LazyLoad key={`archive_${i}`} />
 				}
 			})
 		}

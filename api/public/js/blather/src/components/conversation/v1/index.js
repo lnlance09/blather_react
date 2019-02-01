@@ -11,7 +11,6 @@ import { Link } from "react-router-dom"
 import {
 	Button,
 	Container,
-	Dimmer,
 	Divider,
 	Dropdown,
 	Form,
@@ -28,7 +27,7 @@ import Marked from "marked"
 import Moment from "react-moment"
 import defaultImg from "images/trump.svg"
 import ImagePic from "images/image-square.png"
-import ParagraphPic from "images/short-paragraph.png"
+import LazyLoad from "components/lazyLoad/v1/"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import store from "store"
@@ -366,10 +365,7 @@ class Conversation extends Component {
 			}
 			if (props.loading) {
 				return [{}, {}, {}, {}, {}].map((item, i) => (
-					<Dimmer.Dimmable as={Segment} dimmed key={`lazyLoad_${i}`}>
-						<Dimmer active inverted />
-						<Image fluid src={ParagraphPic} />
-					</Dimmer.Dimmable>
+					<LazyLoad header={false} segment={false} />
 				))
 			}
 			return null

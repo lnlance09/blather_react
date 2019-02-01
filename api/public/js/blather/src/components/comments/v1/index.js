@@ -2,10 +2,10 @@ import "./style.css"
 import { fetchComments, postComment } from "pages/actions/fallacy"
 import { adjustTimezone } from "utils/dateFunctions"
 import { connect } from "react-redux"
-import { Button, Comment, Form, Image, Segment } from "semantic-ui-react"
+import { Button, Comment, Form } from "semantic-ui-react"
 import Moment from "react-moment"
 import defaultImg from "images/trump.svg"
-import ParagraphPic from "images/short-paragraph.png"
+import LazyLoad from "components/lazyLoad/v1/"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 
@@ -76,9 +76,7 @@ class CommentsSection extends Component {
 			}
 
 			return [{}, {}, {}, {}, {}, {}, {}].map((comment, i) => (
-				<Segment key={`lazyLoadComment_${i}`} className="lazyLoadSegment">
-					<Image fluid src={ParagraphPic} />
-				</Segment>
+				<LazyLoad key={`lazyLoadComment_${i}`} />
 			))
 		}
 

@@ -44,7 +44,7 @@ class FallacyRef extends Component {
 		return (
 			<div className="fallacyRef">
 				{fallacy && (
-					<Segment className="fallacySegment">
+					<Segment className="fallacySegment" compact>
 						<Header as="p" size="small">
 							What is {formatGrammar(fallacy.name)} <i>{fallacy.name}</i>?
 						</Header>
