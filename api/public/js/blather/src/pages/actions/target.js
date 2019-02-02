@@ -64,15 +64,30 @@ export const saveReview = ({
 	turingTest,
 	turingTestExplanation
 }) => dispatch => {
+	let sincerityAnswer = sincerity
+	if (sincerity) {
+		sincerityAnswer = 1
+	}
+	if (sincerity === false) {
+		sincerityAnswer = "0"
+	}
+
+	let turingTestAnswer = turingTest
+	if (turingTest) {
+		turingTestAnswer = 1
+	}
+	if (turingTest === false) {
+		turingTestAnswer = "0"
+	}
 	request.post(
 		`${window.location.origin}/api/fallacies/updateReview`,
 		{
 			form: {
 				id,
-				sincerity: sincerity ? 1 : 0,
+				sincerity: sincerityAnswer,
 				sincerityExplanation,
 				summary,
-				turingTest: turingTest ? 1 : 0,
+				turingTest: turingTestAnswer,
 				turingTestExplanation
 			},
 			headers: {

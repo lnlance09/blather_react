@@ -151,8 +151,9 @@ class UserPage extends Component {
 		)
 		const content = (
 			<Dropzone className="dropdown" onDrop={this.onDrop}>
-				{() => (
-					<div>
+				{({ getRootProps, getInputProps }) => (
+					<div {...getRootProps()}>
+						<input {...getInputProps()} />
 						<Header as="h2">Change your pic</Header>
 						<Button className="changePicBtn" color="blue" icon>
 							<Icon name="image" />

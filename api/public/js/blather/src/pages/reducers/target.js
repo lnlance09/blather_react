@@ -39,11 +39,31 @@ const target = (state = initial(), action) => {
 			}
 
 			let link = `/pages/${payload.review.type}/`
-			link += payload.review.type === "twitter" ? payload.review.username : payload.review.id
+			link +=
+				payload.review.type === "twitter"
+					? payload.review.username
+					: payload.review.social_media_id
+			let sincerity = null
+			if (parseInt(payload.review.sincerity, 10) === 1) {
+				sincerity = true
+			}
+			if (parseInt(payload.review.sincerity, 10) === 0) {
+				sincerity = false
+			}
+
+			let turingTest = null
+			if (parseInt(payload.review.turing_test, 10) === 1) {
+				turingTest = true
+			}
+			if (parseInt(payload.review.turing_test, 10) === 0) {
+				turingTest = false
+			}
+
 			return {
 				...state,
 				error: false,
 				fallacyCount: payload.fallacyCount,
+				hasLoaded: true,
 				id: parseInt(payload.review.id, 10),
 				page: {
 					id: payload.review.social_media_id,
@@ -53,13 +73,13 @@ const target = (state = initial(), action) => {
 					pic: payload.review.page_profile_pic,
 					username: payload.review.username
 				},
-				sincerity: parseInt(payload.review.sincerity, 10) === 1,
+				sincerity: sincerity,
 				sincerityExplanation:
 					payload.review.sincerity_explanation === null
 						? ""
 						: payload.review.sincerity_explanation,
 				summary: payload.review.summary === null ? "" : payload.review.summary,
-				turingTest: parseInt(payload.review.turing_test, 10) === 1,
+				turingTest: turingTest,
 				turingTestExplanation:
 					payload.review.turing_test_explanation === null
 						? ""
@@ -70,16 +90,32 @@ const target = (state = initial(), action) => {
 				}
 			}
 		case constants.SAVE_REVIEW:
+			let sincerityAnswer = null
+			if (payload.review.sincerity === "1") {
+				sincerityAnswer = true
+			}
+			if (payload.review.sincerity === "0") {
+				sincerityAnswer = false
+			}
+
+			let turingTestAnswer = null
+			if (payload.review.turing_test === "1") {
+				turingTestAnswer = true
+			}
+			if (payload.review.turing_test === "0") {
+				turingTestAnswer = false
+			}
+
 			return {
 				...state,
 				hasSubmitted: true,
 				page: {
 					...state.page
 				},
-				sincerity: parseInt(payload.review.sincerity, 10) === 1,
+				sincerity: sincerityAnswer,
 				sincerityExplanation: payload.review.sincerity_explanation,
 				summary: payload.review.summary,
-				turingTest: parseInt(payload.review.turing_test, 10) === 1,
+				turingTest: turingTestAnswer,
 				turingTestExplanation: payload.review.turing_test_explanation,
 				user: {
 					...state.user

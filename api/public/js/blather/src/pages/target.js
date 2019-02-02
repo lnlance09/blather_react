@@ -11,9 +11,10 @@ import {
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { connect, Provider } from "react-redux"
 import { Link } from "react-router-dom"
-import { Button, Container, Divider, Form, Header, Icon, Image, Message } from "semantic-ui-react"
+import { Button, Container, Form, Header, Icon, Image, Message } from "semantic-ui-react"
 import FallaciesList from "components/fallaciesList/v1/"
 import ImagePic from "images/image-square.png"
+import LazyLoad from "components/lazyLoad/v1/"
 import Marked from "marked"
 import PageFooter from "components/footer/v1/"
 import PageHeader from "components/header/v1/"
@@ -207,58 +208,74 @@ class Target extends Component {
 			</Form>
 		)
 		const ShowAnswers = props => (
-			<div className="answers">
-				<Header as="h2" className="summaryHeader" size="small">
-					Summary
-					{userId === myId && (
-						<Icon
-							name="pencil"
-							onClick={() => this.setState({ editing: true })}
-							size="tiny"
+			<div>
+				{props.hasLoaded ? (
+					<div className="answers">
+						<Header as="h2" className="summaryHeader" size="small">
+							Summary
+							{userId === myId && (
+								<Icon
+									name="pencil"
+									onClick={() => this.setState({ editing: true })}
+									size="tiny"
+								/>
+							)}
+						</Header>
+						<div
+							className="answerField"
+							dangerouslySetInnerHTML={{
+								__html: props.summary
+									? Marked(props.summary)
+									: `${props.user.name} has not provided a summary yet`
+							}}
 						/>
-					)}
-				</Header>
-				<div
-					className="answerField"
-					dangerouslySetInnerHTML={{
-						__html: props.summary
-							? Marked(props.summary)
-							: `${props.user.name} has not provided a summary yet`
-					}}
-				/>
 
-				<Header as="h2" size="small">
-					Does {props.page.name} sincerely believe most of what he/she talks about?
-					<Header.Subheader>{props.sincerity ? "Yes" : "No"}</Header.Subheader>
-				</Header>
-				<div
-					className="answerField"
-					dangerouslySetInnerHTML={{
-						__html: props.sincerityExplanation
-							? Marked(props.sincerityExplanation)
-							: `${props.user.name} has not answered yet`
-					}}
-				/>
+						<Header as="h2" size="small">
+							Does {props.page.name} sincerely believe most of what he/she talks
+							about?
+							{props.sincerity !== null && (
+								<Header.Subheader>
+									{props.sincerity ? "Yes" : "No"}
+								</Header.Subheader>
+							)}
+						</Header>
+						<div
+							className="answerField"
+							dangerouslySetInnerHTML={{
+								__html: props.sincerityExplanation
+									? Marked(props.sincerityExplanation)
+									: `${props.user.name} has not answered yet`
+							}}
+						/>
 
-				<Header as="h2" size="small">
-					Can {props.page.name} pass an{" "}
-					<a
-						href="https://www.econlib.org/archives/2011/06/the_ideological.html"
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						Ideological Turing Test
-					</a>
-					?<Header.Subheader>{props.turingTest ? "Yes" : "No"}</Header.Subheader>
-				</Header>
-				<div
-					className="answerField"
-					dangerouslySetInnerHTML={{
-						__html: props.turingTestExplanation
-							? Marked(props.turingTestExplanation)
-							: `${props.user.name} has not answered yet`
-					}}
-				/>
+						<Header as="h2" size="small">
+							Can {props.page.name} pass an{" "}
+							<a
+								href="https://www.econlib.org/archives/2011/06/the_ideological.html"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								Ideological Turing Test
+							</a>
+							?
+							{props.turingTest !== null && (
+								<Header.Subheader>
+									{props.turingTest ? "Yes" : "No"}
+								</Header.Subheader>
+							)}
+						</Header>
+						<div
+							className="answerField"
+							dangerouslySetInnerHTML={{
+								__html: props.turingTestExplanation
+									? Marked(props.turingTestExplanation)
+									: `${props.user.name} has not answered yet`
+							}}
+						/>
+					</div>
+				) : (
+					<LazyLoad header={false} />
+				)}
 			</div>
 		)
 
@@ -293,7 +310,6 @@ class Target extends Component {
 										</Link>
 									</Header.Subheader>
 								</Header>
-								<Divider />
 								{showMessage && (
 									<Message
 										content={`You must assign at least 5 fallacies to ${
@@ -305,10 +321,7 @@ class Target extends Component {
 								{editing ? (
 									<div>{Questionnaire(this.props)}</div>
 								) : (
-									<div>
-										{ShowAnswers(this.props)}
-										<Divider />
-									</div>
+									<div>{ShowAnswers(this.props)}</div>
 								)}
 								{this.props.page.id && <div>{DisplayFallacies(this.props)}</div>}
 							</div>
@@ -327,6 +340,7 @@ Target.propTypes = {
 	changeSummary: PropTypes.func,
 	changeTuringExplanation: PropTypes.func,
 	error: PropTypes.bool,
+	hasLoaded: PropTypes.bool,
 	hasSubmitted: PropTypes.bool,
 	fallacyCount: PropTypes.number,
 	fetchReview: PropTypes.func,
@@ -355,10 +369,13 @@ Target.defaultProps = {
 	changeSummary: changeSummary,
 	changeTuringExplanation: changeTuringExplanation,
 	fetchReview: fetchReview,
+	hasLoaded: false,
 	hasSubmitted: false,
 	page: {},
+	sincerity: null,
 	sincerityExplanation: "",
 	summary: "",
+	turingTest: null,
 	turingTestExplanation: "",
 	user: {}
 }
