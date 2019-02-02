@@ -170,7 +170,11 @@ class Fallacy extends Component {
 					onClick={this.handleItemClick}
 				>
 					Comments {""}
-					{props.commentCount > 0 && <Label circular color="blue">{props.commentCount}</Label>}
+					{props.commentCount > 0 && (
+						<Label circular color="blue">
+							{props.commentCount}
+						</Label>
+					)}
 				</Menu.Item>
 				<Menu.Item
 					active={activeItem === "similar"}

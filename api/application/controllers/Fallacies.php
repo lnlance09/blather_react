@@ -596,7 +596,7 @@
 			$turingTest = $this->input->post('turingTest');
 			$turingTestExplanation = $this->input->post('turingTestExplanation');
 
-			if(!$this->user) {
+			if (!$this->user) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You are not logged in'
@@ -605,7 +605,7 @@
 			}
 
 			$review = $this->fallacies->getReview(null, null, $id, true);
-			if(empty($review)) {
+			if (empty($review)) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'This review does not exist'
@@ -613,7 +613,7 @@
 				exit;
 			}
 
-			if($review[0]['user_id'] != $this->user->id) {
+			if ($review[0]['user_id'] != $this->user->id) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You cannot edit this review'
@@ -633,12 +633,20 @@
 				'q' => null
 			];
 			$count = $this->fallacies->search($params, true);
-			if($count < 5) {
+			if ($count < 5) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You must assign at least 5 fallacies first'
 				]);
 				exit;
+			}
+
+			if (empty($sincerity) && $sincerity != '0') {
+				$sincerity = null;
+			}
+
+			if (empty($turingTest) && $turingTest != '0') {
+				$turingTest = null;
 			}
 
 			$data = [

@@ -432,6 +432,8 @@ a {
     white-space: pre-line; }
   .targetsPage .ui.text.container .answers .answerField {
     font-size: 14px; }
+  .targetsPage .ui.text.container .answers .header.sub {
+    margin-top: 5px; }
 
 /* Users page */
 .usersPage .menu.profileMenu {
