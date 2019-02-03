@@ -14,8 +14,10 @@ import {
 	Icon,
 	Image,
 	List,
+	Popup,
 	TextArea
 } from "semantic-ui-react"
+import html2canvas from "html2canvas"
 import ImagePic from "images/image-square.png"
 import LazyLoad from "components/lazyLoad/v1/"
 import Marked from "marked"
@@ -33,10 +35,30 @@ class FallacyExample extends Component {
 			loading: false
 		}
 
+		this.captureScreenshot = this.captureScreenshot.bind(this)
 		this.onChangeExplanation = this.onChangeExplanation.bind(this)
 		this.onChangeFallacy = this.onChangeFallacy.bind(this)
 		this.onClickEdit = this.onClickEdit.bind(this)
 		this.updateFallacy = this.updateFallacy.bind(this)
+	}
+
+	captureScreenshot = () => {
+		const { createdAt, fallacyName, user } = this.props
+		const filename = `${fallacyName}-by-${user.name}-${createdAt}`
+		const width = document.getElementById("fallacyExample").offsetWidth
+		html2canvas(document.getElementById("fallacyExample"), {
+			allowTaint: true,
+			width: width
+		}).then(canvas => {
+			let link = document.createElement("a")
+			link.download =
+				filename
+					.toLowerCase()
+					.split(" ")
+					.join("-") + ".png"
+			link.href = canvas.toDataURL("image/png")
+			link.click()
+		})
 	}
 
 	onChangeExplanation = (e, { value }) => {
@@ -136,7 +158,7 @@ class FallacyExample extends Component {
 									>
 										view commonmark specs
 									</a>
-									<div className="clearfix" />
+									<span className="clearfix" />
 								</p>
 							</Form>
 						) : (
@@ -183,7 +205,7 @@ class FallacyExample extends Component {
 			}
 		}
 		const Material = props => (
-			<div className="fallacyMaterial">
+			<div className="fallacyMaterial" id="fallacyMaterial">
 				{props.user ? (
 					<div>
 						{ParseMaterial(props)}
@@ -216,6 +238,7 @@ class FallacyExample extends Component {
 						id={material.tweet.id_str}
 						imageSize="medium"
 						is_quote_status={material.tweet.is_quote_status}
+						profileImg={material.user.img}
 						quoted_status={
 							material.tweet.quoted_status === undefined &&
 							material.tweet.is_quote_status
@@ -234,6 +257,7 @@ class FallacyExample extends Component {
 							favorite_count: material.tweet.favorite_count,
 							retweet_count: material.tweet.retweet_count
 						}}
+						useLocalProfilePic
 						user={material.tweet.user}
 						{...props.history}
 					/>
@@ -295,8 +319,30 @@ class FallacyExample extends Component {
 
 		return (
 			<div className="fallacyExample">
-				{this.props.showExplanation && <div>{Explanation(this.props)}</div>}
-				{Material(this.props)}
+				<div id="fallacyExample">
+					{this.props.showExplanation && <div>{Explanation(this.props)}</div>}
+					{Material(this.props)}
+				</div>
+				{this.props.tweet &&
+				((this.props.contradiction ? this.props.contradiction.tweet : false) ||
+					!this.props.contradiction) ? (
+					<Popup
+						content="Screenshot this fallacy"
+						position="bottom right"
+						trigger={
+							<div>
+								<Icon
+									className="screenshot"
+									color="blue"
+									name="photo"
+									onClick={this.captureScreenshot}
+									size="big"
+								/>
+								<div className="clearfix" />
+							</div>
+						}
+					/>
+				) : null}
 			</div>
 		)
 	}

@@ -243,6 +243,7 @@ class Post extends Component {
 									id={props.info.id_str}
 									imageSize="medium"
 									is_quote_status={props.info.is_quote_status}
+									profileImg={props.profileImg}
 									quoted_status={
 										props.info.quoted_status === undefined &&
 										props.info.is_quote_status
@@ -260,6 +261,7 @@ class Post extends Component {
 										favorite_count: props.info.favorite_count,
 										retweet_count: props.info.retweet_count
 									}}
+									useLocalProfilePic
 									user={props.info.user}
 								/>
 							</div>
@@ -364,6 +366,7 @@ Post.propTypes = {
 	]),
 	info: PropTypes.object,
 	fallacyCount: PropTypes.number,
+	profileImg: PropTypes.string,
 	refreshYouTubeToken: PropTypes.func,
 	type: PropTypes.string
 }

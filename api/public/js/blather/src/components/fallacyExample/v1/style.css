@@ -18,7 +18,11 @@
   margin-top: 15px; }
 
 .fallacyExample .fallacyExplanation {
+  padding: 5px;
   width: 100%; }
+
+.fallacyExample span.clearfix {
+  display: block; }
 
 .fallacyExample .commonMarkLink {
   margin: 0.5em 0.3em 0 !important; }
@@ -38,3 +42,8 @@
   .fallacyExample .explanation p {
     font-size: 14px;
     margin: 0; }
+
+.fallacyExample .screenshot {
+  cursor: pointer;
+  float: right;
+  margin-top: 8px; }
