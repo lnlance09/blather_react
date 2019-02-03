@@ -128,7 +128,6 @@ class Tweet extends Component {
 		}
 		const ParseMedia = ({ props }) => {
 			if (props.extended_entities.media) {
-				console.log(props.extended_entities)
 				return props.extended_entities.media.map((item, i) => {
 					if (item.type === "photo" || item.type === "video") {
 						return (

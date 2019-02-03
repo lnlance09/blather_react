@@ -20,6 +20,7 @@ import {
 import html2canvas from "html2canvas"
 import ImagePic from "images/image-square.png"
 import LazyLoad from "components/lazyLoad/v1/"
+import LogoPic from "images/brain.jpg"
 import Marked from "marked"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
@@ -50,6 +51,12 @@ class FallacyExample extends Component {
 			allowTaint: true,
 			width: width
 		}).then(canvas => {
+			const ctx = canvas.getContext("2d")
+			const logoImg = document.getElementById("hiddenLogoImg")
+			ctx.drawImage(logoImg, 1200, 12, 40, 40)
+			ctx.font = "30px Arial"
+			ctx.fillText(`blather.io/fallacies/${this.props.id}`, 1250, 50)
+
 			let link = document.createElement("a")
 			link.download =
 				filename
@@ -322,6 +329,7 @@ class FallacyExample extends Component {
 				<div id="fallacyExample">
 					{this.props.showExplanation && <div>{Explanation(this.props)}</div>}
 					{Material(this.props)}
+					<img id="hiddenLogoImg" src={LogoPic}/>
 				</div>
 				{this.props.tweet &&
 				((this.props.contradiction ? this.props.contradiction.tweet : false) ||
