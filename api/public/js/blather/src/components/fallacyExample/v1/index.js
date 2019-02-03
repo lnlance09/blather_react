@@ -329,7 +329,7 @@ class FallacyExample extends Component {
 				<div id="fallacyExample">
 					{this.props.showExplanation && <div>{Explanation(this.props)}</div>}
 					{Material(this.props)}
-					<img id="hiddenLogoImg" src={LogoPic}/>
+					<img alt="logo" id="hiddenLogoImg" src={LogoPic}/>
 				</div>
 				{this.props.tweet &&
 				((this.props.contradiction ? this.props.contradiction.tweet : false) ||
