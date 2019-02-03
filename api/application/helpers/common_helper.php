@@ -218,3 +218,13 @@
 
 		return false;
 	}
+
+	function savePic($pic, $dir) {
+		$img = @file_get_contents($pic);
+		$name = basename($pic);
+		$path = $dir.$name;
+		if (!file_exists($path)) {
+			file_put_contents($path, $img);
+		}
+		return $name;
+	}

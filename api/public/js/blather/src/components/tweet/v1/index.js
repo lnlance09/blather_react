@@ -4,17 +4,7 @@ import { adjustTimezone } from "utils/dateFunctions"
 import { linkMentions, linkHashtags } from "utils/linkifyAdditions"
 import Highlighter from "react-highlight-words"
 import { Provider, connect } from "react-redux"
-import {
-	Card,
-	Embed,
-	Icon,
-	Image,
-	Label,
-	List,
-	Message,
-	Popup,
-	Transition
-} from "semantic-ui-react"
+import { Card, Icon, Image, Label, List, Message, Popup, Transition } from "semantic-ui-react"
 import ItemPic from "images/square-image.png"
 import Linkify from "react-linkify"
 import Moment from "react-moment"
@@ -101,42 +91,64 @@ class Tweet extends Component {
 				)
 			}
 		}
-		const ParseMedia = props => {
-			if (props.extended_entities) {
-				props.extended_entities.media.map((item, i) => {
-					switch (item.type) {
-						case "photo":
-							return (
-								<div key={`embed_${i}`}>
-									<Image
-										as="a"
-										bordered
-										className="mediaImg"
-										href={item.expanded_url}
-										rounded={false}
-										size={props.imageSize}
-										src={item.media_url_https}
-										target="_blank"
-									/>
-								</div>
-							)
-						case "video":
-							return (
-								<div key={`embed_${i}`}>
-									<Embed
-										className="mediaVideo"
-										placeholder={item.media_url_https}
-										size={props.imageSize}
-										url={item.video_info.variants[0].url}
-									/>
-								</div>
-							)
-						default:
-							return false
+		const CardHeader = props => {
+			let profileImg = props.useLocalProfilePic
+				? props.profileImg
+				: props.user.profile_image_url_https
+			let name = props.user.name
+			let screenName = props.user.screen_name
+			let createdAt = new Date(props.created_at)
+			if (props.retweeted_status) {
+				createdAt = new Date(props.retweeted_status.created_at)
+				name = props.retweeted_status.user.name
+				profileImg = props.useLocalProfilePic
+					? props.profileImg
+					: props.retweeted_status.user.profile_image_url_https
+				screenName = props.retweeted_status.user.screen_name
+			}
+
+			return (
+				<div>
+					<Image
+						circular
+						className="tweetUserImg"
+						onError={i => (i.target.src = ItemPic)}
+						floated="left"
+						src={profileImg}
+					/>
+					<Card.Header className="tweetUserName">{name}</Card.Header>
+					<Card.Meta className="tweetUserScreenName">
+						@{screenName} •
+						<span className="tweetTime">
+							<Moment date={createdAt} fromNow />
+						</span>
+					</Card.Meta>
+				</div>
+			)
+		}
+		const ParseMedia = ({ props }) => {
+			if (props.extended_entities.media) {
+				console.log(props.extended_entities)
+				return props.extended_entities.media.map((item, i) => {
+					if (item.type === "photo" || item.type === "video") {
+						return (
+							<div className="mediaPic" key={`embed_${i}`}>
+								<Image
+									as="a"
+									bordered
+									className="mediaImg"
+									href={item.expanded_url}
+									rounded={false}
+									size={props.imageSize}
+									src={item.media_url_https}
+									target="_blank"
+								/>
+							</div>
+						)
 					}
+					return null
 				})
 			}
-			return false
 		}
 		const QuotedTweet = props => {
 			if (props.is_quote_status) {
@@ -184,58 +196,6 @@ class Tweet extends Component {
 			}
 			return false
 		}
-		const RetweetedTweet = props => {
-			let profileImage = props.user.profile_image_url_https
-			let name = props.user.name
-			let screenName = props.user.screen_name
-			let createdAt = new Date(props.created_at)
-			if (props.retweeted_status) {
-				profileImage = props.retweeted_status.user.profile_image_url_https
-				name = props.retweeted_status.user.name
-				screenName = props.retweeted_status.user.screen_name
-				createdAt = new Date(props.retweeted_status.created_at)
-			}
-			profileImage = profileImage.replace("_normal", "")
-
-			return (
-				<div>
-					<Image
-						circular
-						className="tweetUserImg"
-						onError={i => (i.target.src = ItemPic)}
-						floated="left"
-						src={profileImage}
-					/>
-					<Card.Header className="tweetUserName">{name}</Card.Header>
-					<Card.Meta className="tweetUserScreenName">
-						@{screenName} •
-						<span className="tweetTime">
-							<Moment date={createdAt} fromNow />
-						</span>
-					</Card.Meta>
-				</div>
-			)
-		}
-		const ShowMedia = props => {
-			if (props.extended_entities.media) {
-				return props.extended_entities.media.map((media, i) => {
-					if (media.type === "photo" || media.type === "video") {
-						return (
-							<div className="mediaPic" key={`${media.display_url}_${i}`}>
-								<Image
-									centered
-									onError={i => (i.target.src = ItemPic)}
-									rounded
-									size={props.imageSize}
-									src={media.media_url_https}
-								/>
-							</div>
-						)
-					}
-					return null
-				})
-			}
-		}
 		const StatsBar = ({ favoriteCount, retweetCount }) => {
 			return (
 				<List floated="left" horizontal>
@@ -280,7 +240,7 @@ class Tweet extends Component {
 								}
 							}}
 						>
-							{RetweetedTweet(this.props)}
+							{CardHeader(this.props)}
 							<Card.Description
 								className="tweetUserTweet"
 								onMouseUp={this.props.handleHoverOn}
@@ -302,10 +262,9 @@ class Tweet extends Component {
 										{tweetText}
 									</Linkify>
 								)}
-								{ParseMedia(this.props)}
+								<ParseMedia props={this.props} />
 							</Card.Description>
 							{QuotedTweet(this.props)}
-							{ShowMedia(this.props)}
 						</Card.Content>
 						{this.props.showStats && (
 							<Card.Content extra>
@@ -389,6 +348,7 @@ Tweet.propTypes = {
 	imageSize: PropTypes.string,
 	is_quote_status: PropTypes.bool,
 	key: PropTypes.string,
+	profileImg: PropTypes.string,
 	quoted_status: PropTypes.shape({
 		created_at: PropTypes.string,
 		full_text: PropTypes.string,
@@ -436,6 +396,7 @@ Tweet.propTypes = {
 		favorite_count: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 		retweet_count: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 	}),
+	useLocalProfilePic: PropTypes.bool,
 	user: PropTypes.shape({
 		description: PropTypes.string,
 		id: PropTypes.number,
@@ -464,6 +425,7 @@ Tweet.defaultProps = {
 	},
 	showStats: true,
 	stats: {},
+	useLocalProfilePic: false,
 	user: {}
 }
 

@@ -7,6 +7,7 @@
 			
 			$this->baseUrl = $this->config->base_url();
 			$this->imgUrl = $this->baseUrl.'api/public/img/';
+			$this->load->helper('common_helper');
 			$this->load->model('FallaciesModel', 'fallacies');
 			$this->load->model('FacebookModel', 'fb');
 			$this->load->model('TagsModel', 'tags');
@@ -41,6 +42,46 @@
 						'object_id' => $fallacy['contradiction_media_id'],
 						'user_id' => $this->user->id
 					]);
+				}
+			}
+
+			if ($fallacy['tweet_json'] !== null) {
+				$tweet = @json_decode($fallacy['tweet_json'], true);
+				$page_pic = $fallacy['page_profile_pic'];
+				if (array_key_exists('retweeted_status', $tweet)) {
+					$page_pic = $tweet['retweeted_status']['user']['profile_image_url_https'];
+				}
+				$page_profile_pic = str_replace('_normal', '', $page_pic);
+				$img = savePic($page_profile_pic, 'public/img/pages/');
+				$fallacy['page_profile_pic'] = $this->imgUrl.'pages/'.$img;
+
+				if (array_key_exists('extended_entities', $tweet)) {
+					for ($i=0;$i<count($tweet['extended_entities']['media']);$i++) {
+						$pic = $tweet['extended_entities']['media'][$i]['media_url_https'];
+						$img = savePic($pic, 'public/img/tweets/');
+						$tweet['extended_entities']['media'][$i]['media_url_https'] = $this->imgUrl.'tweets/'.$img;
+					}
+					$fallacy['tweet_json'] = json_encode($tweet, true);
+				}
+
+				if ($fallacy['contradiction_tweet_json'] !== null) {
+					$tweet = json_decode($fallacy['contradiction_tweet_json'], true);
+					$page_pic = $fallacy['contradiction_page_profile_pic'];
+					if (array_key_exists('retweeted_status', $tweet)) {
+						$page_pic = $tweet['retweeted_status']['user']['profile_image_url_https'];
+					}
+					$page_profile_pic = str_replace('_normal', '', $page_pic);
+					$img = savePic($page_profile_pic, 'public/img/pages/');
+					$fallacy['contradiction_page_profile_pic'] = $this->imgUrl.'pages/'.$img;
+
+					if (array_key_exists('extended_entities', $tweet)) {
+						for ($i=0;$i<count($tweet['extended_entities']['media']);$i++) {
+							$pic = $tweet['extended_entities']['media'][$i]['media_url_https'];
+							$img = savePic($pic, 'public/img/tweets/');
+							$tweet['extended_entities']['media'][$i]['media_url_https'] = $this->imgUrl.'tweets/'.$img;
+						}
+					}
+					$fallacy['contradiction_tweet_json'] = json_encode($tweet, true);
 				}
 			}
 

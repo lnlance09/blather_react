@@ -27,7 +27,12 @@
     }
 
     .fallacyExplanation {
+        padding: 5px;
         width: 100%;
+    }
+
+    span.clearfix {
+        display: block;
     }
 
     .commonMarkLink {
@@ -59,5 +64,11 @@
             font-size: 14px;
             margin: 0;
         }
+    }
+
+    .screenshot {
+        cursor: pointer;
+        float: right;
+        margin-top: 8px;
     }
 }
