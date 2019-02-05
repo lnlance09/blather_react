@@ -20,7 +20,7 @@ import {
 import html2canvas from "html2canvas"
 import ImagePic from "images/image-square.png"
 import LazyLoad from "components/lazyLoad/v1/"
-import LogoPic from "images/brain.jpg"
+import LogoPic from "images/brain-logo.png"
 import Marked from "marked"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
@@ -53,17 +53,12 @@ class FallacyExample extends Component {
 			width: width
 		}).then(canvas => {
 			const ctx = canvas.getContext("2d")
+			ctx.globalAlpha = 1
 			const logoImg = document.getElementById("hiddenLogoImg")
-			ctx.drawImage(logoImg, endPixel-472, 0, 60, 60)
-			ctx.strokeStyle = "#767676"
-			ctx.beginPath()
-			ctx.moveTo(endPixel-472, 0)
-			ctx.lineTo(endPixel-472, 60)
-			ctx.lineTo(endPixel, 60)
-			ctx.stroke()
+			ctx.drawImage(logoImg, endPixel-80, 0, 65, 65)
 			ctx.font = "24px Arial"
-			ctx.fillStyle = "#1B1C1D";
-			ctx.fillText(`blather.io/fallacies/${this.props.id}`, endPixel-400, 42)
+			ctx.fillStyle = "#000000";
+			ctx.fillText(`blather.io/fallacies/${this.props.id}`, endPixel-360, 45)
 
 			let link = document.createElement("a")
 			link.download =
