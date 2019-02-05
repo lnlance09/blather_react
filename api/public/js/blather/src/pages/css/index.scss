@@ -490,6 +490,10 @@ a {
             margin-top: 0 !important;
         }
     }
+
+    .feed {
+        width: 100%;
+    }
 }
 
 
@@ -517,6 +521,7 @@ a {
         margin: 0 !important;
         min-height: 450px;
         padding: 0 !important;
+        width: 100% !important;
 
         .dimmer {
             background: $dimmer-background !important;

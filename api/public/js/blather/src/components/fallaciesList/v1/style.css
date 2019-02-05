@@ -1,20 +1,20 @@
 /*---  Colors  ---*/
 /*---  Light Colors  ---*/
 /*---   Neutrals  ---*/
-.fallaciesList .fallaciesWrapper {
-  margin-top: 14px; }
-
-.fallaciesList .emptyFallaciesContainer {
-  text-align: center; }
-  .fallaciesList .emptyFallaciesContainer .header {
-    font-size: 20px; }
-
-.fallaciesList .targetMsg {
-  background: #FFFFFF; }
-  .fallaciesList .targetMsg .icon.crosshairs {
-    color: #DB2828; }
-  .fallaciesList .targetMsg .viewAllTargets {
-    color: #2185D0;
-    cursor: pointer; }
-    .fallaciesList .targetMsg .viewAllTargets:hover {
-      text-decoration: underline; }
+.fallaciesList {
+  width: 100%; }
+  .fallaciesList .fallaciesWrapper {
+    margin-top: 14px; }
+  .fallaciesList .emptyFallaciesContainer {
+    text-align: center; }
+    .fallaciesList .emptyFallaciesContainer .header {
+      font-size: 20px; }
+  .fallaciesList .targetMsg {
+    background: #FFFFFF; }
+    .fallaciesList .targetMsg .icon.crosshairs {
+      color: #DB2828; }
+    .fallaciesList .targetMsg .viewAllTargets {
+      color: #2185D0;
+      cursor: pointer; }
+      .fallaciesList .targetMsg .viewAllTargets:hover {
+        text-decoration: underline; }
