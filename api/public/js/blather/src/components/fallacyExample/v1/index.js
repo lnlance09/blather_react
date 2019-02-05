@@ -47,15 +47,23 @@ class FallacyExample extends Component {
 		const { createdAt, fallacyName, user } = this.props
 		const filename = `${fallacyName}-by-${user.name}-${createdAt}`
 		const width = document.getElementById("fallacyExample").offsetWidth
+		const endPixel = width*2
 		html2canvas(document.getElementById("fallacyExample"), {
 			allowTaint: true,
 			width: width
 		}).then(canvas => {
 			const ctx = canvas.getContext("2d")
 			const logoImg = document.getElementById("hiddenLogoImg")
-			ctx.drawImage(logoImg, 1200, 12, 40, 40)
-			ctx.font = "30px Arial"
-			ctx.fillText(`blather.io/fallacies/${this.props.id}`, 1250, 50)
+			ctx.drawImage(logoImg, endPixel-472, 0, 60, 60)
+			ctx.strokeStyle = "#767676"
+			ctx.beginPath()
+			ctx.moveTo(endPixel-472, 0)
+			ctx.lineTo(endPixel-472, 60)
+			ctx.lineTo(endPixel, 60)
+			ctx.stroke()
+			ctx.font = "24px Arial"
+			ctx.fillStyle = "#1B1C1D";
+			ctx.fillText(`blather.io/fallacies/${this.props.id}`, endPixel-400, 42)
 
 			let link = document.createElement("a")
 			link.download =
