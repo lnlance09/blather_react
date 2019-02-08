@@ -39,13 +39,13 @@ const page = (state = initial(), action) => {
 				network: payload.data.type,
 				sincerity: {
 					count: reviewCount,
-					yes: (sincerityVotes / reviewCount) * 100,
-					no: ((reviewCount - sincerityVotes) / reviewCount) * 100
+					yes: sincerityVotes ? (sincerityVotes / reviewCount) * 100 : 0,
+					no: sincerityVotes ? ((reviewCount - sincerityVotes) / reviewCount) * 100 : 0
 				},
 				turingTest: {
 					count: reviewCount,
-					yes: (turingTestVotes / reviewCount) * 100,
-					no: ((reviewCount - turingTestVotes) / reviewCount) * 100
+					yes: turingTestVotes ? (turingTestVotes / reviewCount) * 100 : 0,
+					no: turingTestVotes ? ((reviewCount - turingTestVotes) / reviewCount) * 100 : 0
 				},
 				username: payload.data.username
 			}
