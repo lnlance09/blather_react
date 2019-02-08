@@ -12,12 +12,16 @@ class Breakdown extends Component {
 		}
 	}
 
-	componentDidMount(props) {
-		this.fetchFallacies()
+	componentDidMount() {
+		this.fetchFallacies(this.props)
 	}
 
-	fetchFallacies() {
-		const qs = `?id=${this.props.id}&type=pages&network=${this.props.network}`
+	componentWillReceiveProps(props) {
+		this.fetchFallacies(props)
+	}
+
+	fetchFallacies(props) {
+		const qs = `?id=${props.id}&type=pages&network=${props.network}`
 		return fetch(`${window.location.origin}/api/fallacies/uniqueFallacies${qs}`, {
 			headers: {
 				"Content-Type": "application/json"
@@ -41,7 +45,7 @@ class Breakdown extends Component {
 				if (result.key) {
 					const percent = parseInt((result.count / this.props.count) * 100, 10)
 					return (
-						<div key={`breakdownResult${i}`}>
+						<div className="fallacyPercentage" key={`breakdownResult${i}`}>
 							<Header size="small">
 								<Link
 									to={`/fallacies/${result.key
@@ -86,13 +90,13 @@ class Breakdown extends Component {
 		return (
 			<div className="breakdown">
 				<Segment>
-					<Header>
-						Quality of {this.props.name}'s arguments
+					<Header size="small">
+						Quality of arguments
 						<Header.Subheader>Most egregious offenses</Header.Subheader>
 					</Header>
 					<Segment className="percentages">{RenderFallacies()}</Segment>
 
-					<Header className="statHeader">
+					<Header className="statHeader" size="small">
 						Can pass an{" "}
 						<a
 							href="https://www.econlib.org/archives/2011/06/the_ideological.html"
@@ -109,7 +113,7 @@ class Breakdown extends Component {
 					</Header>
 					{Stats(turingTest)}
 
-					<Header className="statHeader">
+					<Header className="statHeader" size="small">
 						Believes most of what they talk about?
 						<Header.Subheader>
 							{sincerity.count} {sincerity.count === 1 ? "person" : "people"} answered
