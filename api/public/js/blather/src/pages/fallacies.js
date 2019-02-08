@@ -69,7 +69,7 @@ class Fallacies extends Component {
 				return (
 					<div className="mainFallacy active" key={fallacy.id}>
 						<Segment>
-							<Header as="p" size="small">
+							<Header as="p" size="medium">
 								{fallacy.name}
 							</Header>
 							<p>{fallacy.description}</p>
