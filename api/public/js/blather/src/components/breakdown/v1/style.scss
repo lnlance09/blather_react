@@ -1,0 +1,30 @@
+.breakdown {
+    .ui.header.small {
+        margin-bottom: 6px !important;
+    }
+
+    .percentages {
+        .progress {
+            margin-bottom: 12px;
+        }
+    }
+
+    .statHeader {
+        margin: 12px auto;
+    }
+
+    .stats {
+        margin: 0 !important;
+        padding: 0;
+
+        .statistic {
+            margin-bottom: 0 !important;
+
+            &.bold {
+                .value {
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+}

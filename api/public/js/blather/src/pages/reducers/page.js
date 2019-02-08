@@ -14,6 +14,15 @@ const page = (state = initial(), action) => {
 					exists: false
 				}
 			}
+			const reviewCount = parseInt(payload.review.count, 10)
+			const sincerityVotes =
+				payload.review.sincerity_votes === null
+					? 0
+					: parseInt(payload.review.sincerity_votes, 10)
+			const turingTestVotes =
+				payload.review.turing_test_votes === null
+					? 0
+					: parseInt(payload.review.turing_test_votes, 10)
 			return {
 				...state,
 				about: payload.data.about,
@@ -28,6 +37,16 @@ const page = (state = initial(), action) => {
 				img: payload.data.profile_pic,
 				name: payload.data.name,
 				network: payload.data.type,
+				sincerity: {
+					count: reviewCount,
+					yes: (sincerityVotes / reviewCount) * 100,
+					no: ((reviewCount - sincerityVotes) / reviewCount) * 100
+				},
+				turingTest: {
+					count: reviewCount,
+					yes: (turingTestVotes / reviewCount) * 100,
+					no: ((reviewCount - turingTestVotes) / reviewCount) * 100
+				},
 				username: payload.data.username
 			}
 

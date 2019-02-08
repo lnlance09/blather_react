@@ -40,6 +40,12 @@
 					break;
 			}
 
+			$review = null;
+			if (!$page['error']) {
+				$review = $this->fallacies->getReviewStats($page['data']['social_media_id']);
+			}
+
+			$page['review'] = $review;
 			echo json_encode($page);
 		}
 

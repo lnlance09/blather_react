@@ -47,7 +47,7 @@ class FallacyExample extends Component {
 		const { createdAt, fallacyName, user } = this.props
 		const filename = `${fallacyName}-by-${user.name}-${createdAt}`
 		const width = document.getElementById("fallacyExample").offsetWidth
-		const endPixel = width*2
+		const endPixel = width * 2
 		html2canvas(document.getElementById("fallacyExample"), {
 			allowTaint: true,
 			width: width
@@ -55,10 +55,10 @@ class FallacyExample extends Component {
 			const ctx = canvas.getContext("2d")
 			ctx.globalAlpha = 1
 			const logoImg = document.getElementById("hiddenLogoImg")
-			ctx.drawImage(logoImg, endPixel-80, 0, 65, 65)
+			ctx.drawImage(logoImg, endPixel - 80, 0, 65, 65)
 			ctx.font = "24px Arial"
-			ctx.fillStyle = "#000000";
-			ctx.fillText(`blather.io/fallacies/${this.props.id}`, endPixel-360, 45)
+			ctx.fillStyle = "#000000"
+			ctx.fillText(`blather.io/fallacies/${this.props.id}`, endPixel - 360, 45)
 
 			let link = document.createElement("a")
 			link.download =
@@ -332,7 +332,7 @@ class FallacyExample extends Component {
 				<div id="fallacyExample">
 					{this.props.showExplanation && <div>{Explanation(this.props)}</div>}
 					{Material(this.props)}
-					<img alt="logo" id="hiddenLogoImg" src={LogoPic}/>
+					<img alt="logo" id="hiddenLogoImg" src={LogoPic} />
 				</div>
 				{this.props.tweet &&
 				((this.props.contradiction ? this.props.contradiction.tweet : false) ||

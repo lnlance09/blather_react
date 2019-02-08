@@ -295,18 +295,25 @@
             return $this->db->get('fallacies')->result_array();
         }
 
-        public function getReview($user_id, $page_id, $id, $by_id = false) {
+        public function getReview($user_id, $page_id, $id = null, $by_id = false) {
             $this->db->select("p.name AS page_name, p.username, p.social_media_id, p.id AS page_id, p.profile_pic AS page_profile_pic, p.type, u.id AS user_id, u.name AS user_name, c.id, c.summary, c.sincerity, c.sincerity_explanation, c.turing_test, c.turing_test_explanation");
             $this->db->join('pages p', 'c.page_id = p.id');
             $this->db->join('users u', 'c.user_id = u.id');
 
-            if($by_id) {
+            if ($by_id) {
                 $this->db->where('c.id', $id);
             } else {
-                $this->db->where([
-                    'page_id' => $page_id,
-                    'user_id' => $user_id
-                ]);
+                $where = [];
+                if ($user_id) {
+                    $where['user_id'] = $user_id;
+                }
+                if ($page_id) {
+                    $where['page_id'] = $page_id;
+                }
+
+                if (!empty($where)) {
+                    $this->db->where($where);
+                }
             }
             return $this->db->get('criticisms c')->result_array();
         }
@@ -316,6 +323,15 @@
             $this->db->join('pages p', 'c.page_id = p.id');
             $this->db->join('users u', 'c.user_id = u.id');
             return $this->db->get('criticisms c')->result_array();
+        }
+
+        public function getReviewStats($page_id) {
+            $this->db->select("COUNT(*) AS count, SUM(sincerity) AS sincerity_votes, SUM(turing_test) AS turing_test_votes");
+            $this->db->join('pages p', 'c.page_id = p.id');
+            $this->db->where([
+                'p.social_media_id' => $page_id
+            ]);
+            return $this->db->get('criticisms c')->row();
         }
 
         public function getTargetsData($id) {
@@ -328,7 +344,7 @@
         }
 
         public function getUniqueFallacies($id, $assigned_by, $type = 'user', $network = 'twitter') {
-            $this->db->select("f.id AS value, f.name AS key, CONCAT(f.name, ' (', COUNT(*), ')') AS text");
+            $this->db->select("f.id AS value, f.name AS key, CONCAT(f.name, ' (', COUNT(*), ')') AS text, COUNT(*) AS count");
             $this->db->join('fallacies f', 'fe.fallacy_id = f.id');
             
             if($type === 'pages') {
