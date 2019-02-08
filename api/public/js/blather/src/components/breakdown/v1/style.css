@@ -7,6 +7,12 @@
 .breakdown .statHeader {
   margin: 12px auto; }
 
+@media only screen and (max-width: 1025px) {
+  .breakdown .ui.header.small {
+    font-size: 15px !important; }
+  .breakdown .fallacyPercentage .ui.header.small {
+    font-size: 14px !important; } }
+
 .breakdown .stats {
   margin: 0 !important;
   padding: 0; }
