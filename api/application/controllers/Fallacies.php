@@ -237,7 +237,7 @@
 						'page_id' => $pageId,
 						'user_id' => $userId
 					]);
-					$review = $this->fallacies->getReview($userId, $pageId, null);
+					$review = $this->fallacies->getReview($userId, $pageId);
 				} else {
 					$this->output->set_status_header(401);
 					echo json_encode([

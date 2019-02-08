@@ -248,7 +248,7 @@ class Tweet extends Component {
 									<Highlighter
 										autoEscape={true}
 										highlightClassName="tweetHighlightedText"
-										highlightStyle={{ 'display': 'inline-block' }}
+										highlightStyle={{ display: "inline-block" }}
 										searchWords={[this.props.highlightedText]}
 										textToHighlight={tweetText}
 									/>

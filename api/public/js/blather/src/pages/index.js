@@ -17,6 +17,7 @@ import {
 	Segment
 } from "semantic-ui-react"
 import AboutCard from "components/aboutCard/v1/"
+import Breakdown from "components/breakdown/v1/"
 import defaultImg from "images/image-square.png"
 import FallaciesList from "components/fallaciesList/v1/"
 import LazyLoad from "components/lazyLoad/v1/"
@@ -35,14 +36,18 @@ class Page extends Component {
 		super(props)
 		const id = this.props.match.params.id
 		const network = this.props.match.params.network
-		const tab = this.props.match.params.tab
+		let tab = this.props.match.params.tab
 		const label = this.determineItemsLabel(network)
 		const currentState = store.getState()
 		const authenticated = currentState.user.authenticated
 		const bearer = currentState.user.bearer
 
+		if (tab === undefined) {
+			tab = "breakdown"
+		}
+
 		this.state = {
-			activeItem: tab === "fallacies" ? tab : label,
+			activeItem: tab === "fallacies" || tab === "breakdown" ? tab : label,
 			authenticated,
 			bearer,
 			id,
@@ -62,7 +67,11 @@ class Page extends Component {
 	componentWillReceiveProps(props) {
 		const id = props.match.params.id
 		const network = props.match.params.network
-		const tab = props.match.params.tab
+		let tab = props.match.params.tab
+		if (tab === undefined) {
+			tab = "breakdown"
+		}
+
 		if (this.state.id !== id) {
 			this.props.fetchPageData({
 				bearer: this.state.bearer,
@@ -79,7 +88,7 @@ class Page extends Component {
 
 		const label = this.determineItemsLabel(network)
 		this.setState({
-			activeItem: tab === "fallacies" ? tab : label,
+			activeItem: tab === "fallacies" || tab === "breakdown" ? tab : label,
 			itemsLabel: label,
 			updated: !this.state.updated
 		})
@@ -141,6 +150,11 @@ class Page extends Component {
 		const PageMenu = props => (
 			<Menu className="socialMediaPageMenu" fluid stackable tabular>
 				<Menu.Item
+					active={activeItem === "breakdown"}
+					name="breakdown"
+					onClick={this.handleItemClick}
+				/>
+				<Menu.Item
 					active={activeItem === itemsLabel}
 					name={itemsLabel}
 					onClick={this.handleItemClick}
@@ -161,6 +175,19 @@ class Page extends Component {
 		)
 		const ShowContent = props => {
 			if (props.id) {
+				if (activeItem === "breakdown") {
+					return (
+						<Breakdown
+							count={props.fallacyCount}
+							id={props.id}
+							name={props.name}
+							network={network}
+							sincerity={props.sincerity}
+							turingTest={props.turingTest}
+						/>
+					)
+				}
+
 				if (activeItem === "fallacies") {
 					return (
 						<FallaciesList
@@ -329,6 +356,8 @@ Page.propTypes = {
 			loading: true
 		})
 	]),
+	sincerityTest: PropTypes.object,
+	turingTest: PropTypes.object,
 	refreshYouTubeToken: PropTypes.func,
 	username: PropTypes.string
 }
@@ -348,7 +377,9 @@ Page.defaultProps = {
 		error: false,
 		data: [{}, {}, {}, {}, {}]
 	},
-	refreshYouTubeToken: refreshYouTubeToken
+	refreshYouTubeToken: refreshYouTubeToken,
+	sincerityTest: {},
+	turingTest: {}
 }
 
 const mapStateToProps = (state, ownProps) => {
