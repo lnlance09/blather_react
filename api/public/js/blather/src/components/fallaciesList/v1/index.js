@@ -28,7 +28,7 @@ class FallaciesList extends Component {
 			page: 0,
 			showFilter: this.props.source !== "fallacy",
 			showTargets: false,
-			value: this.props.fallacyId ? this.props.fallacyId : ""
+			value: "Filter"
 		}
 
 		this.onChangeSearch = this.onChangeSearch.bind(this)
@@ -42,7 +42,7 @@ class FallaciesList extends Component {
 			assignedBy: this.props.assignedBy,
 			assignedTo: this.props.assignedTo,
 			commentId: this.props.commentId,
-			fallacies: this.state.fallaces,
+			fallacies: this.state.fallacies,
 			fallacyId: this.props.fallacyId,
 			network: this.props.network,
 			objectId: this.props.objectId,
@@ -65,7 +65,7 @@ class FallaciesList extends Component {
 				assignedBy: props.assignedBy,
 				assignedTo: props.assignedTo,
 				commentId: props.commentId,
-				fallacies: this.state.fallaces,
+				fallacies: this.state.fallacies,
 				fallacyId: props.fallacyId,
 				network: props.network,
 				objectId: props.objectId,
@@ -105,7 +105,7 @@ class FallaciesList extends Component {
 			.then(response => {
 				if (response.ok) {
 					response.json().then(data => {
-						this.setState({ options: data.fallacies })
+						this.setState({ options: data.fallacies, value: data.fallacies[0].text })
 					})
 				}
 			})
@@ -132,7 +132,7 @@ class FallaciesList extends Component {
 		}
 	}
 
-	onChangeSearch = (e, { value }) => {
+	onChangeSearch = (e, { text, value }) => {
 		this.setState({ fallacies: value, page: 0, value })
 		this.props.getFallacies({
 			assignedBy: this.props.assignedBy,
@@ -144,6 +144,9 @@ class FallaciesList extends Component {
 			objectId: this.props.objectId,
 			page: 0
 		})
+		if (this.props.changeUrl) {
+			this.props.setFallacyId(value)
+		}
 	}
 
 	render() {
@@ -180,10 +183,11 @@ class FallaciesList extends Component {
 								<Form.Field
 									control={Dropdown}
 									fluid
+									lazyLoad
 									onChange={this.onChangeSearch}
 									options={options}
 									placeholder="Filter by fallacy"
-									search
+									scrolling
 									selection
 									value={value}
 								/>
@@ -297,6 +301,7 @@ class FallaciesList extends Component {
 FallaciesList.propTypes = {
 	assignedBy: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 	assignedTo: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+	changeUrl: PropTypes.bool,
 	commentId: PropTypes.string,
 	emptyMsgContent: PropTypes.string,
 	emptyMsgHeader: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
@@ -310,6 +315,7 @@ FallaciesList.propTypes = {
 	objectId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 	page: PropTypes.number,
 	results: PropTypes.array,
+	setFallacyId: PropTypes.func,
 	showPics: PropTypes.bool,
 	source: PropTypes.string,
 	targets: PropTypes.shape({
@@ -323,6 +329,7 @@ FallaciesList.propTypes = {
 }
 
 FallaciesList.defaultProps = {
+	changeUrl: false,
 	emptyMsgContent: "Try searching something else...",
 	emptyMsgHeader: "No fallacies",
 	fallacies: fallacies,

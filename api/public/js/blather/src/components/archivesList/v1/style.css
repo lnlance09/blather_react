@@ -1,8 +1,10 @@
 /*---  Colors  ---*/
 /*---  Light Colors  ---*/
 /*---   Neutrals  ---*/
-.archivesList .archiveWrapper {
-  margin-top: 14px; }
-
-.archivesList .emptyArchiveContainer .message {
-  text-align: center; }
+.archivesList {
+  width: 100%; }
+  .archivesList .archiveWrapper {
+    margin-top: 14px;
+    width: 100%; }
+  .archivesList .emptyArchiveContainer .message {
+    text-align: center; }

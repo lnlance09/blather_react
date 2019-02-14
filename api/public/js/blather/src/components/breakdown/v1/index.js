@@ -52,11 +52,11 @@ class Breakdown extends Component {
 						>
 							<Header size="small">
 								{result.key}{" "}
-								<Label color="red" size="mini">
+								<Label basic color="red" size="mini">
 									{result.count}
 								</Label>
 							</Header>
-							<Progress color="teal" percent={percent} progress size="medium" />
+							<Progress color="blue" percent={percent} progress size="medium" />
 						</div>
 					)
 				}
