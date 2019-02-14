@@ -28,7 +28,7 @@ class FallaciesList extends Component {
 			page: 0,
 			showFilter: this.props.source !== "fallacy",
 			showTargets: false,
-			value: "Filter"
+			value: this.props.fallacies ? this.props.fallacies : "Filter"
 		}
 
 		this.onChangeSearch = this.onChangeSearch.bind(this)
@@ -105,7 +105,7 @@ class FallaciesList extends Component {
 			.then(response => {
 				if (response.ok) {
 					response.json().then(data => {
-						this.setState({ options: data.fallacies, value: data.fallacies[0].text })
+						this.setState({ options: data.fallacies })
 					})
 				}
 			})
@@ -305,7 +305,7 @@ FallaciesList.propTypes = {
 	commentId: PropTypes.string,
 	emptyMsgContent: PropTypes.string,
 	emptyMsgHeader: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-	fallacies: PropTypes.array,
+	fallacies: PropTypes.string,
 	fallacyId: PropTypes.string,
 	getFallacies: PropTypes.func,
 	getTargets: PropTypes.func,
@@ -332,9 +332,9 @@ FallaciesList.defaultProps = {
 	changeUrl: false,
 	emptyMsgContent: "Try searching something else...",
 	emptyMsgHeader: "No fallacies",
-	fallacies: fallacies,
-	getFallacies: getFallacies,
-	getTargets: getTargets,
+	fallacies: "",
+	getFallacies,
+	getTargets,
 	page: 0,
 	results: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
 	showPics: true,
