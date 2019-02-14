@@ -26,6 +26,7 @@ const page = (state = initial(), action) => {
 			return {
 				...state,
 				about: payload.data.about,
+				dbId: parseInt(payload.data.id, 10),
 				error: false,
 				errorCode: 0,
 				exists: true,

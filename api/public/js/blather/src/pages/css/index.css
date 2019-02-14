@@ -21,11 +21,9 @@
     .ui.vertical.menu .item.active:hover {
       color: #FFFFFF; }
 
-.ui.secondary.pointing.menu .item {
-  height: 50px; }
-  .ui.secondary.pointing.menu .item .label {
-    background: #F9FAFB;
-    color: #1B1C1D; }
+.ui.secondary.pointing.menu .item .label {
+  background: #F9FAFB;
+  color: #1B1C1D; }
 
 .search.selection.active.dropdown {
   border-color: #96c8da !important; }

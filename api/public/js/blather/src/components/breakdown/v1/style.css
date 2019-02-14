@@ -1,14 +1,26 @@
+/*---  Colors  ---*/
+/*---  Light Colors  ---*/
+/*---   Neutrals  ---*/
 .breakdown .ui.header.small {
-  margin-bottom: 6px !important; }
+  margin-bottom: 7px !important; }
 
-.breakdown .percentages .progress {
-  margin-bottom: 12px; }
+.breakdown .percentages {
+  margin: 2px 0;
+  padding: 1px 0; }
+  .breakdown .percentages .fallacyPercentage {
+    cursor: pointer; }
+    .breakdown .percentages .fallacyPercentage:hover {
+      background: #F9FAFB; }
+    .breakdown .percentages .fallacyPercentage .progress {
+      margin-bottom: 12px; }
 
 .breakdown .statHeader {
   margin: 12px auto; }
+  .breakdown .statHeader.first {
+    margin-top: 0 !important; }
 
 @media only screen and (max-width: 1025px) {
-  .breakdown .ui.header.small {
+  .breakdown .ui.header.medium {
     font-size: 15px !important; }
   .breakdown .fallacyPercentage .ui.header.small {
     font-size: 14px !important; } }

@@ -389,12 +389,18 @@
         }
 
         public function getMostFallacious() {
-            $this->db->select('f.network, f.page_id, p.name, p.profile_pic, p.username, COUNT(*) AS count');
+            $this->db->select('p.type, f.page_id, p.name, p.profile_pic, p.username, COUNT(*) AS count');
             $this->db->join('pages p', 'f.page_id = p.social_media_id');
             $this->db->group_by('p.id');
             $this->db->order_by('count', 'DESC');
             $this->db->limit(10);
             return $this->db->get('fallacy_entries f')->result_array();
+        }
+
+        public function getPageByDbId($id) {
+            $this->db->select('name, profile_pic');
+            $this->db->where('id', $id);
+            return $this->db->get('pages')->row();
         }
 
         public function pageExists($id) {

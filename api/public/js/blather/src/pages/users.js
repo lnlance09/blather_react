@@ -36,6 +36,7 @@ class UserPage extends Component {
 		const tabs = ["discussions", "fallacies", "archives"]
 		let tab = props.match.params.tab
 		const username = props.match.params.username
+		const id = props.match.params.id
 		const currentState = store.getState()
 		const user = currentState.user
 		const authenticated = user.authenticated
@@ -55,6 +56,7 @@ class UserPage extends Component {
 			bearer,
 			editing: false,
 			files: [],
+			id,
 			inverted: true,
 			isMyProfile,
 			myUsername,
@@ -133,7 +135,7 @@ class UserPage extends Component {
 	}
 
 	render() {
-		const { about, active, activeItem, bearer, inverted, isMyProfile } = this.state
+		const { about, active, activeItem, bearer, id, inverted, isMyProfile } = this.state
 		let pic = !this.props.user.img && !this.props.loading ? defaultImg : this.props.user.img
 		if (isMyProfile) {
 			pic = !this.props.data.img && !this.props.loading ? defaultImg : this.props.data.img
@@ -218,6 +220,7 @@ class UserPage extends Component {
 							<FallaciesList
 								assignedBy={props.user.id}
 								emptyMsgContent={`${props.user.name} hasn't assigned any fallacies`}
+								fallacyId={id}
 								history={props.history}
 								name={props.user.name}
 								source="users"
@@ -236,7 +239,7 @@ class UserPage extends Component {
 			}
 		}
 		const UserMenu = props => (
-			<Menu className="profileMenu" fluid stackable tabular>
+			<Menu className="profileMenu" fluid pointing secondary stackable>
 				<Menu.Item
 					active={activeItem === "fallacies"}
 					name="fallacies"
@@ -244,9 +247,7 @@ class UserPage extends Component {
 				>
 					Fallacies{" "}
 					{props.user.fallacyCount > 0 && (
-						<Label color="blue" circular>
-							{props.user.fallacyCount}
-						</Label>
+						<Label color="blue">{props.user.fallacyCount}</Label>
 					)}
 				</Menu.Item>
 				<Menu.Item
@@ -256,9 +257,7 @@ class UserPage extends Component {
 				>
 					Discussions{" "}
 					{props.user.discussionCount > 0 && (
-						<Label color="blue" circular>
-							{props.user.discussionCount}
-						</Label>
+						<Label color="blue">{props.user.discussionCount}</Label>
 					)}
 				</Menu.Item>
 				<Menu.Item
@@ -268,9 +267,7 @@ class UserPage extends Component {
 				>
 					Archives{" "}
 					{props.user.archiveCount > 0 && (
-						<Label color="blue" circular>
-							{props.user.archiveCount}
-						</Label>
+						<Label color="blue">{props.user.archiveCount}</Label>
 					)}
 				</Menu.Item>
 			</Menu>

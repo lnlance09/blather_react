@@ -484,6 +484,11 @@
                 $this->db->update('pages', $page);
             }
 
+            $this->db->select('id');
+            $this->db->where('social_media_id', $page['social_media_id']);
+            $row = $this->db->get('pages')->row();
+            $page['id'] = $row->id;
+
             $page['about'] = defaultPageAbout($page['about'], $page['name']);
             return $page;
         }

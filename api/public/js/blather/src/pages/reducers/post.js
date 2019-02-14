@@ -39,9 +39,16 @@ const post = (state = initial(), action) => {
 			}
 
 		case constants.GET_POST_DATA:
-			let profileImg = payload.data.user.profile_image_url_https
-			if (payload.data.retweeted_status) {
-				profileImg = payload.data.retweeted_status.user.profile_image_url_https
+			let profileImg = ""
+			if (payload.type === "tweet") {
+				profileImg = payload.data.user.profile_image_url_https
+				if (payload.data.retweeted_status) {
+					profileImg = payload.data.retweeted_status.user.profile_image_url_https
+				}
+			}
+
+			if (payload.type === "video") {
+				profileImg = payload.data.channel.img
 			}
 
 			return {

@@ -87,6 +87,10 @@ class App extends Component {
 								render={props => <Page {...props} />}
 							/>
 							<Route
+								path="/pages/:network/:id/:tab/:fallacyId"
+								render={props => <Page {...props} />}
+							/>
+							<Route
 								path="/pages/:network/:id/:tab"
 								render={props => <Page {...props} />}
 							/>
@@ -115,6 +119,7 @@ class App extends Component {
 
 						<Switch>
 							<Route component={Target} exact path="/targets/:userId/:pageId" />
+							<Route component={Target} exact path="/targets/create/:pageId" />
 						</Switch>
 
 						<Switch>

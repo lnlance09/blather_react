@@ -27,7 +27,8 @@ class FallaciesList extends Component {
 			q: "",
 			page: 0,
 			showFilter: this.props.source !== "fallacy",
-			showTargets: false
+			showTargets: false,
+			value: this.props.fallacyId ? this.props.fallacyId : ""
 		}
 
 		this.onChangeSearch = this.onChangeSearch.bind(this)
@@ -204,7 +205,8 @@ class FallaciesList extends Component {
 						<div>
 							{props.source === "users"
 								? `Assigned to ${result.page_name}`
-								: `Assigned by ${result.user_name}`}{" "}
+								: `Assigned by ${result.user_name}`}
+							{" - "}
 							<Moment date={adjustTimezone(result.date_created)} fromNow />
 						</div>
 					)
@@ -213,7 +215,7 @@ class FallaciesList extends Component {
 							description={result.explanation}
 							history={props.history}
 							id={`fallacy_${i}`}
-							img={img}
+							img={props.showPics ? img : null}
 							key={`fallacy_${i}`}
 							meta={meta}
 							sanitize
@@ -241,7 +243,7 @@ class FallaciesList extends Component {
 							description=""
 							history={props.history}
 							id={`target_${i}`}
-							img={result.profile_pic}
+							img={props.showPics ? result.profile_pic : null}
 							key={`target_${i}`}
 							meta={meta}
 							sanitize
@@ -299,7 +301,7 @@ FallaciesList.propTypes = {
 	emptyMsgContent: PropTypes.string,
 	emptyMsgHeader: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
 	fallacies: PropTypes.array,
-	fallacyId: PropTypes.number,
+	fallacyId: PropTypes.string,
 	getFallacies: PropTypes.func,
 	getTargets: PropTypes.func,
 	hasMore: PropTypes.bool,
@@ -308,6 +310,7 @@ FallaciesList.propTypes = {
 	objectId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 	page: PropTypes.number,
 	results: PropTypes.array,
+	showPics: PropTypes.bool,
 	source: PropTypes.string,
 	targets: PropTypes.shape({
 		count: PropTypes.number,
@@ -327,6 +330,7 @@ FallaciesList.defaultProps = {
 	getTargets: getTargets,
 	page: 0,
 	results: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
+	showPics: true,
 	targets: {
 		page: 0,
 		results: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}]

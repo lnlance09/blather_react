@@ -1,5 +1,6 @@
-.placeholderSegment * {
-  box-sizing: border-box; }
-
-.placeholderSegment .placeholderHeader {
-  width: 100px; }
+.placeholderSegment {
+  width: 100%; }
+  .placeholderSegment * {
+    box-sizing: border-box; }
+  .placeholderSegment .placeholderHeader {
+    width: 100px; }

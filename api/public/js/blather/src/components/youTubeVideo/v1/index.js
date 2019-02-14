@@ -34,8 +34,8 @@ import {
 import _ from "lodash"
 import FallacyForm from "components/fallacyForm/v1/"
 import ImagePic from "images/image-square.png"
+import LazyLoad from "components/lazyLoad/v1/"
 import Moment from "react-moment"
-import ParagraphPic from "images/short-paragraph.png"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import ReactPlayer from "react-player"
@@ -214,7 +214,7 @@ class YouTubeVideo extends Component {
 					</Card>
 				)
 			}
-			return <Image fluid src={ParagraphPic} />
+			return <LazyLoad />
 		}
 		const CommentModal = (i, props, r = null, replyId = null) => {
 			if (props.comments.count > 0 && i !== null) {
@@ -297,7 +297,7 @@ class YouTubeVideo extends Component {
 										dimmed
 									>
 										<Segment className="lazyLoadSegment">
-											<Image fluid src={ParagraphPic} />
+											<LazyLoad />
 										</Segment>
 										<Dimmer active inverted>
 											<Header as="h2">Sign in to see comments</Header>
@@ -344,9 +344,7 @@ class YouTubeVideo extends Component {
 			}
 
 			return [{}, {}, {}, {}, {}, {}, {}].map((comment, i) => (
-				<Segment key={`lazyLoadComment_${i}`} className="lazyLoadSegment">
-					<Image fluid src={ParagraphPic} />
-				</Segment>
+				<LazyLoad key={`lazyLoadComment_${i}`} />
 			))
 		}
 		const DisplayReplies = ({ i, replies }) => {
@@ -658,7 +656,7 @@ YouTubeVideo.propTypes = {
 YouTubeVideo.defaultProps = {
 	canArchive: false,
 	channel: {},
-	clearContradiction: clearContradiction,
+	clearContradiction,
 	comments: {
 		code: 0,
 		count: 0,
@@ -668,11 +666,11 @@ YouTubeVideo.defaultProps = {
 		page: 0
 	},
 	contradiction: false,
-	createArchive: createArchive,
-	insertComment: insertComment,
-	setContradictionVideoTime: setContradictionVideoTime,
-	setCurrentVideoTime: setCurrentVideoTime,
-	setDuration: setDuration,
+	createArchive,
+	insertComment,
+	setContradictionVideoTime,
+	setCurrentVideoTime,
+	setDuration,
 	showChannel: true,
 	showComment: false,
 	showComments: false,
@@ -680,7 +678,7 @@ YouTubeVideo.defaultProps = {
 	showTimes: false,
 	showVideo: true,
 	statists: {},
-	unsetComment: unsetComment
+	unsetComment
 }
 
 const mapStateToProps = (state, ownProps) => ({
