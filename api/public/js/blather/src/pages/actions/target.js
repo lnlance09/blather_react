@@ -36,6 +36,24 @@ export const changeTuringExplanation = ({ value }) => dispatch => {
 	})
 }
 
+export const fetchPage = id => dispatch => {
+	request.get(
+		`${window.location.origin}/api/pages/getPageByDbId`,
+		{
+			json: true,
+			qs: {
+				id
+			}
+		},
+		function(err, response, body) {
+			dispatch({
+				type: constants.FETCH_PAGE,
+				payload: body
+			})
+		}
+	)
+}
+
 export const fetchReview = ({ pageId, userId }) => dispatch => {
 	request.get(
 		`${window.location.origin}/api/fallacies/getReview`,

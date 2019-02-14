@@ -71,8 +71,7 @@ class FeedComponent extends Component {
 									has been charged with {formatGrammar(result.fallacy_name)}{" "}
 									<Link to={`/fallacies/${result.id}`}>
 										{result.fallacy_name}
-									</Link>{" "}
-									fallacy.
+									</Link>
 									<Feed.Date>
 										<Moment
 											date={adjustTimezone(result.date_created)}

@@ -36,11 +36,13 @@ class Page extends Component {
 		super(props)
 		const id = this.props.match.params.id
 		const network = this.props.match.params.network
+		const fallacyId = this.props.match.params.fallacyId
 		let tab = this.props.match.params.tab
 		const label = this.determineItemsLabel(network)
 		const currentState = store.getState()
 		const authenticated = currentState.user.authenticated
 		const bearer = currentState.user.bearer
+		const userId = currentState.user.data.id
 
 		if (tab === undefined) {
 			tab = "breakdown"
@@ -50,11 +52,13 @@ class Page extends Component {
 			activeItem: tab === "fallacies" || tab === "breakdown" ? tab : label,
 			authenticated,
 			bearer,
+			fallacyId,
 			id,
 			itemsLabel: label,
 			network,
 			page: 0,
-			updated: false
+			updated: false,
+			userId
 		}
 
 		this.props.fetchPageData({
@@ -62,6 +66,8 @@ class Page extends Component {
 			id: this.state.id,
 			type: this.state.network
 		})
+
+		this.setFallacyId = this.setFallacyId.bind(this)
 	}
 
 	componentWillReceiveProps(props) {
@@ -110,8 +116,22 @@ class Page extends Component {
 		this.props.history.push(`/pages/${this.state.network}/${this.state.id}/${name}`)
 	}
 
+	setFallacyId = id => {
+		this.setState({ activeItem: "fallacies", fallacyId: id })
+		this.props.history.push(`/pages/${this.state.network}/${this.state.id}/fallacies/${id}`)
+	}
+
 	render() {
-		const { activeItem, authenticated, bearer, id, itemsLabel, network } = this.state
+		const {
+			activeItem,
+			authenticated,
+			bearer,
+			fallacyId,
+			id,
+			itemsLabel,
+			network,
+			userId
+		} = this.state
 		if (this.props.error && this.props.errorCode !== 404 && network === "youtube") {
 			this.props.refreshYouTubeToken({
 				bearer
@@ -148,7 +168,7 @@ class Page extends Component {
 			return <TitleHeader subheader={subheader} title={props.name} />
 		}
 		const PageMenu = props => (
-			<Menu className="socialMediaPageMenu" fluid stackable tabular>
+			<Menu className="socialMediaPageMenu" fluid pointing secondary stackable>
 				<Menu.Item
 					active={activeItem === "breakdown"}
 					name="breakdown"
@@ -166,7 +186,7 @@ class Page extends Component {
 				>
 					Fallacies{" "}
 					{props.fallacyCount > 0 && (
-						<Label color="blue" circular>
+						<Label color="red" size="small">
 							{props.fallacyCount}
 						</Label>
 					)}
@@ -178,12 +198,17 @@ class Page extends Component {
 				if (activeItem === "breakdown") {
 					return (
 						<Breakdown
+							authenticated={authenticated}
 							count={props.fallacyCount}
+							dbId={props.dbId}
 							id={props.id}
 							name={props.name}
 							network={network}
+							setFallacyId={this.setFallacyId}
 							sincerity={props.sincerity}
 							turingTest={props.turingTest}
+							userId={parseInt(userId, 10)}
+							username={props.username}
 						/>
 					)
 				}
@@ -194,9 +219,11 @@ class Page extends Component {
 							assignedTo={props.id}
 							emptyMsgContent={`No fallacies have been assigned to ${props.name}`}
 							emptyMsgHeader={false}
+							fallacyId={fallacyId}
 							history={props.history}
 							network={network}
 							page={0}
+							showPics={false}
 							source="pages"
 						/>
 					)
@@ -333,6 +360,7 @@ class Page extends Component {
 
 Page.propTypes = {
 	about: PropTypes.string,
+	dbId: PropTypes.number,
 	error: PropTypes.bool,
 	errorCode: PropTypes.number,
 	exists: PropTypes.bool,

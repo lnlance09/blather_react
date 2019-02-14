@@ -1,5 +1,5 @@
 import "./style.css"
-import { Header, Icon, Progress, Segment, Statistic } from "semantic-ui-react"
+import { Header, Icon, Label, Message, Progress, Segment } from "semantic-ui-react"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import { Link } from "react-router-dom"
@@ -39,64 +39,52 @@ class Breakdown extends Component {
 
 	render() {
 		const { options } = this.state
-		const { sincerity, turingTest } = this.props
+		const { authenticated, dbId, setFallacyId, sincerity, turingTest, userId } = this.props
 		const RenderFallacies = () => {
 			return options.map((result, i) => {
 				if (result.key) {
 					const percent = parseInt((result.count / this.props.count) * 100, 10)
 					return (
-						<div className="fallacyPercentage" key={`breakdownResult${i}`}>
+						<div
+							className="fallacyPercentage"
+							key={`breakdownResult${i}`}
+							onClick={() => setFallacyId(result.value)}
+						>
 							<Header size="small">
-								<Link
-									to={`/fallacies/${result.key
-										.toLowerCase()
-										.split(" ")
-										.join("_")}`}
-								>
-									{result.key}
-								</Link>{" "}
-								({result.count})
+								{result.key}{" "}
+								<Label color="red" size="mini">
+									{result.count}
+								</Label>
 							</Header>
-							<Progress color="purple" percent={percent} progress size="small" />
+							<Progress color="teal" percent={percent} progress size="medium" />
 						</div>
 					)
 				}
 				return null
 			})
 		}
-		const Stats = props => (
-			<Segment basic className="stats">
-				<Statistic
-					className={`${props.yes > props.no ? "bold" : null}`}
-					color="green"
-					size="mini"
-				>
-					<Statistic.Value>
-						<Icon name="check" /> {props.yes}%
-					</Statistic.Value>
-				</Statistic>
-				<Statistic
-					className={`${props.no > props.yes ? "bold" : null}`}
-					color="red"
-					size="mini"
-				>
-					<Statistic.Value>
-						<Icon name="close" /> {props.no}%
-					</Statistic.Value>
-				</Statistic>
-			</Segment>
-		)
+		const Stats = props =>
+			props.count === 0 ? (
+				"Nobody answered"
+			) : (
+				<span>
+					{`${props.yes}`} yes {", "}
+					{`${props.no}`} no
+				</span>
+			)
 
 		return (
 			<div className="breakdown">
 				<Segment>
-					<Header size="small">
-						Quality of arguments
-						<Header.Subheader>Most egregious offenses</Header.Subheader>
-					</Header>
-					<Segment className="percentages">{RenderFallacies()}</Segment>
+					{options.length > 0 ? (
+						<Segment basic className="percentages">
+							{RenderFallacies()}
+						</Segment>
+					) : (
+						<Message content="No fallacies have been assigned" />
+					)}
 
-					<Header className="statHeader" size="small">
+					<Header className="statHeader first" size="medium">
 						Can pass an{" "}
 						<a
 							href="https://www.econlib.org/archives/2011/06/the_ideological.html"
@@ -105,21 +93,20 @@ class Breakdown extends Component {
 						>
 							Ideological Turing Test
 						</a>
-						?
-						<Header.Subheader>
-							{turingTest.count} {turingTest.count === 1 ? "person" : "people"}{" "}
-							answered
-						</Header.Subheader>
+						?<Header.Subheader>{Stats(turingTest)}</Header.Subheader>
 					</Header>
-					{Stats(turingTest)}
 
-					<Header className="statHeader" size="small">
+					<Header className="statHeader" size="medium">
 						Believes most of what they talk about?
-						<Header.Subheader>
-							{sincerity.count} {sincerity.count === 1 ? "person" : "people"} answered
-						</Header.Subheader>
+						<Header.Subheader>{Stats(sincerity)}</Header.Subheader>
 					</Header>
-					{Stats(sincerity)}
+
+					<p>
+						<Icon color="yellow" name="star" />{" "}
+						<Link to={`/targets/${authenticated ? userId : "create"}/${dbId}`}>
+							Create a review
+						</Link>
+					</p>
 				</Segment>
 			</div>
 		)
@@ -127,12 +114,17 @@ class Breakdown extends Component {
 }
 
 Breakdown.propTypes = {
+	authenticated: PropTypes.bool,
 	count: PropTypes.number,
+	dbId: PropTypes.number,
 	id: PropTypes.number,
 	name: PropTypes.string,
 	network: PropTypes.string,
+	setFallacyId: PropTypes.func,
 	sincerity: PropTypes.object,
-	turingTest: PropTypes.object
+	turingTest: PropTypes.object,
+	userId: PropTypes.number,
+	username: PropTypes.string
 }
 
 Breakdown.defaultProps = {

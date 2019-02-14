@@ -16,7 +16,7 @@
 			$id = $this->input->get('id');
 			$type = $this->input->get('type');
 
-			$networks = ['facebook', 'twitter', 'youtube'];
+			$networks = ['twitter', 'youtube'];
 			if(!$id || !in_array($type, $networks)) {
 				$this->output->set_status_header(400);
 				echo json_encode([
@@ -55,6 +55,15 @@
 			echo json_encode([
 				'count' => (int)$count,
 				'error' => false
+			]);
+		}
+
+		public function getPageByDbId() {
+			$id = $this->input->get('id');
+			$page = $this->fallacies->getPageByDbId($id);
+			echo json_encode([
+				'error' => empty($page),
+				'page' => $page
 			]);
 		}
 

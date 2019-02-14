@@ -32,10 +32,8 @@ class NewsFeed extends Component {
 						<Feed.Content>
 							<Feed.Summary>
 								<Link
-									to={`/pages/${result.network}/${
-										result.network === "twitter"
-											? result.username
-											: result.page_id
+									to={`/pages/${result.type}/${
+										result.type === "twitter" ? result.username : result.page_id
 									}`}
 								>
 									{result.name}
@@ -45,8 +43,8 @@ class NewsFeed extends Component {
 								<Feed.Like
 									onClick={() =>
 										this.props.history.push(
-											`/pages/${result.network}/${
-												result.network === "twitter"
+											`/pages/${result.type}/${
+												result.type === "twitter"
 													? result.username
 													: result.page_id
 											}`

@@ -1,18 +1,19 @@
 /*---  Colors  ---*/
 /*---  Light Colors  ---*/
 /*---   Neutrals  ---*/
-.fallacyExample .header .editButton {
-  color: #2185D0;
-  cursor: pointer;
-  display: none !important;
-  float: right;
-  font-size: 18px;
-  margin-right: 0 !important; }
-  .fallacyExample .header .editButton.editing {
-    color: #FF695E; }
-
-.fallacyExample .header:hover .editButton {
-  display: inline !important; }
+.fallacyExample .header {
+  height: 25px; }
+  .fallacyExample .header .editButton {
+    color: #2185D0;
+    cursor: pointer;
+    display: none !important;
+    float: none;
+    font-size: 18px;
+    margin-left: 2px; }
+    .fallacyExample .header .editButton.editing {
+      color: #FF695E; }
+  .fallacyExample .header:hover .editButton {
+    display: inline !important; }
 
 .fallacyExample .fallacyMaterial {
   margin-top: 15px; }
@@ -43,10 +44,8 @@
     font-size: 14px;
     margin: 0; }
 
-.fallacyExample .screenshot {
-  cursor: pointer;
-  float: right;
-  margin: 8px 13px 0; }
+.fallacyExample .screenshot .icon {
+  cursor: pointer !important; }
 
 .fallacyExample #hiddenLogoImg {
   display: none; }

@@ -5,6 +5,7 @@ import {
 	changeSummary,
 	changeTuring,
 	changeTuringExplanation,
+	fetchPage,
 	fetchReview,
 	saveReview
 } from "./actions/target"
@@ -27,6 +28,7 @@ class Target extends Component {
 	constructor(props) {
 		super(props)
 		const userId = this.props.match.params.userId
+		const exists = !isNaN(parseInt(userId, 10))
 		const pageId = this.props.match.params.pageId
 		const currentState = store.getState()
 		const bearer = currentState.user.bearer
@@ -35,16 +37,21 @@ class Target extends Component {
 		this.state = {
 			bearer,
 			editing: false,
+			exists,
 			loading: false,
 			myId,
 			pageId,
 			userId
 		}
 
-		this.props.fetchReview({
-			pageId,
-			userId
-		})
+		if (exists) {
+			this.props.fetchReview({
+				pageId,
+				userId
+			})
+		} else {
+			this.props.fetchPage(pageId)
+		}
 
 		Marked.setOptions({
 			renderer: new Marked.Renderer(),
@@ -68,15 +75,10 @@ class Target extends Component {
 	}
 
 	changeSincerityExplanation = (e, { value }) => this.props.changeSincerityExplanation({ value })
-
 	changeSummary = (e, { value }) => this.props.changeSummary({ value })
-
 	changeTuringExplanation = (e, { value }) => this.props.changeTuringExplanation({ value })
-
 	handleSincerityChange = (e, { value }) => this.props.changeSincerity({ value })
-
 	handleTuringChange = (e, { value }) => this.props.changeTuring({ value })
-
 	submitForm = () => {
 		this.setState({ editing: false, loading: true })
 		this.props.saveReview({
@@ -91,10 +93,10 @@ class Target extends Component {
 	}
 
 	render() {
-		const { editing, loading, myId, userId } = this.state
+		const { editing, exists, loading, myId, userId } = this.state
+		const { error, page, user } = this.props
 		const readonly = userId !== myId
-		const showMessage = userId === myId && this.props.fallacyCount < 5
-
+		const showMessage = (userId === myId && this.props.fallacyCount < 5) || !exists
 		const DisplayFallacies = props => (
 			<div className="fallaciesWrapper">
 				<Header dividing size="medium">
@@ -109,6 +111,7 @@ class Target extends Component {
 					emptyMsgHeader={false}
 					history={props.history}
 					network={props.page.network}
+					showPics={false}
 					source="targets"
 				/>
 			</div>
@@ -126,7 +129,7 @@ class Target extends Component {
 				/>
 				<Form.Field disabled={props.fallacyCount < 5}>
 					<label>
-						Does {props.page.name} sincerely believe most of what he/she talks about?
+						Does {props.page.name} sincerely believe most of what they talks about?
 					</label>
 				</Form.Field>
 				<Form.Group inline>
@@ -221,32 +224,42 @@ class Target extends Component {
 								/>
 							)}
 						</Header>
-						<div
-							className="answerField"
-							dangerouslySetInnerHTML={{
-								__html: props.summary
-									? Marked(props.summary)
-									: `${props.user.name} has not provided a summary yet`
-							}}
-						/>
+						{exists ? (
+							<div
+								className="answerField"
+								dangerouslySetInnerHTML={{
+									__html: props.summary
+										? Marked(props.summary)
+										: `${props.user.name} has not provided a summary yet`
+								}}
+							/>
+						) : (
+							<div>
+								<LazyLoad header={false} segment={false} />
+								<LazyLoad header={false} segment={false} />
+							</div>
+						)}
 
 						<Header as="h2" size="small">
-							Does {props.page.name} sincerely believe most of what he/she talks
-							about?
+							Does {props.page.name} sincerely believe most of what they talks about?
 							{props.sincerity !== null && (
 								<Header.Subheader>
 									{props.sincerity ? "Yes" : "No"}
 								</Header.Subheader>
 							)}
 						</Header>
-						<div
-							className="answerField"
-							dangerouslySetInnerHTML={{
-								__html: props.sincerityExplanation
-									? Marked(props.sincerityExplanation)
-									: `${props.user.name} has not answered yet`
-							}}
-						/>
+						{exists ? (
+							<div
+								className="answerField"
+								dangerouslySetInnerHTML={{
+									__html: props.sincerityExplanation
+										? Marked(props.sincerityExplanation)
+										: `${props.user.name} has not answered yet`
+								}}
+							/>
+						) : (
+							<LazyLoad header={false} segment={false} />
+						)}
 
 						<Header as="h2" size="small">
 							Can {props.page.name} pass an{" "}
@@ -264,14 +277,18 @@ class Target extends Component {
 								</Header.Subheader>
 							)}
 						</Header>
-						<div
-							className="answerField"
-							dangerouslySetInnerHTML={{
-								__html: props.turingTestExplanation
-									? Marked(props.turingTestExplanation)
-									: `${props.user.name} has not answered yet`
-							}}
-						/>
+						{exists ? (
+							<div
+								className="answerField"
+								dangerouslySetInnerHTML={{
+									__html: props.turingTestExplanation
+										? Marked(props.turingTestExplanation)
+										: `${props.user.name} has not answered yet`
+								}}
+							/>
+						) : (
+							<LazyLoad header={false} segment={false} />
+						)}
 					</div>
 				) : (
 					<LazyLoad header={false} />
@@ -285,7 +302,7 @@ class Target extends Component {
 					<DisplayMetaTags page="target" props={this.props} state={this.state} />
 					<PageHeader {...this.props} />
 					<Container className="mainContainer" text textAlign="left">
-						{this.props.error ? (
+						{error ? (
 							<Container className="mainContainer" text textAlign="center">
 								<Image centered disabled size="medium" src={TrumpImg} />
 								<Header size="medium">This target does not exist</Header>
@@ -296,18 +313,15 @@ class Target extends Component {
 									centered
 									circular
 									className="targetImg"
-									onClick={() => this.props.history.push(this.props.page.link)}
+									onClick={() => this.props.history.push(page.link)}
 									onError={i => (i.target.src = ImagePic)}
 									size="small"
-									src={this.props.page.pic}
+									src={page.pic}
 								/>
 								<Header as="h1" size="medium" textAlign="center">
-									{this.props.page.name}
+									{page.name}
 									<Header.Subheader>
-										Review by{" "}
-										<Link to={`/users/${this.props.user.id}`}>
-											{this.props.user.name}
-										</Link>
+										Review by <Link to={`/users/${user.id}`}>{user.name}</Link>
 									</Header.Subheader>
 								</Header>
 								{showMessage && (
@@ -323,7 +337,7 @@ class Target extends Component {
 								) : (
 									<div>{ShowAnswers(this.props)}</div>
 								)}
-								{this.props.page.id && <div>{DisplayFallacies(this.props)}</div>}
+								{page.id && <div>{DisplayFallacies(this.props)}</div>}
 							</div>
 						)}
 					</Container>
@@ -343,6 +357,7 @@ Target.propTypes = {
 	hasLoaded: PropTypes.bool,
 	hasSubmitted: PropTypes.bool,
 	fallacyCount: PropTypes.number,
+	fetchPage: PropTypes.func,
 	fetchReview: PropTypes.func,
 	id: PropTypes.number,
 	page: PropTypes.shape({
@@ -364,13 +379,14 @@ Target.propTypes = {
 }
 
 Target.defaultProps = {
-	changeSincerity: changeSincerity,
-	changeSincerityExplanation: changeSincerityExplanation,
-	changeSummary: changeSummary,
-	changeTuringExplanation: changeTuringExplanation,
-	fetchReview: fetchReview,
+	changeSincerity,
+	changeSincerityExplanation,
+	changeSummary,
+	changeTuringExplanation,
+	fetchReview,
 	hasLoaded: false,
 	hasSubmitted: false,
+	fetchPage,
 	page: {},
 	sincerity: null,
 	sincerityExplanation: "",
@@ -396,6 +412,7 @@ export default connect(
 		changeSummary,
 		changeTuring,
 		changeTuringExplanation,
+		fetchPage,
 		fetchReview,
 		saveReview
 	}

@@ -30,6 +30,22 @@ const target = (state = initial(), action) => {
 				...state,
 				turingTestExplanation: payload
 			}
+		case constants.FETCH_PAGE:
+			return {
+				...state,
+				error: false,
+				fallacyCount: 0,
+				hasLoaded: true,
+				id: 0,
+				page: {
+					name: payload.page.name,
+					pic: payload.page.profile_pic
+				},
+				user: {
+					id: "0",
+					name: "You"
+				}
+			}
 		case constants.FETCH_REVIEW:
 			if (payload.error) {
 				return {

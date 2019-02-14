@@ -14,13 +14,11 @@ import {
 	Icon,
 	Image,
 	List,
-	Popup,
 	TextArea
 } from "semantic-ui-react"
 import html2canvas from "html2canvas"
 import ImagePic from "images/image-square.png"
 import LazyLoad from "components/lazyLoad/v1/"
-import LogoPic from "images/brain-logo.png"
 import Marked from "marked"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
@@ -54,8 +52,6 @@ class FallacyExample extends Component {
 		}).then(canvas => {
 			const ctx = canvas.getContext("2d")
 			ctx.globalAlpha = 1
-			const logoImg = document.getElementById("hiddenLogoImg")
-			ctx.drawImage(logoImg, endPixel - 80, 0, 65, 65)
 			ctx.font = "24px Arial"
 			ctx.fillStyle = "#000000"
 			ctx.fillText(`blather.io/fallacies/${this.props.id}`, endPixel - 360, 45)
@@ -126,8 +122,7 @@ class FallacyExample extends Component {
 		const Explanation = props => (
 			<div className="fallacyExplanation">
 				<Header as="h2" size="medium">
-					{props.fallacyName}
-					<EditButton props={props} />
+					{props.fallacyName} <EditButton props={props} />
 				</Header>
 				{this.props.explanation ? (
 					<div>
@@ -330,30 +325,19 @@ class FallacyExample extends Component {
 		return (
 			<div className="fallacyExample">
 				<div id="fallacyExample">
+					{this.props.tweet &&
+					((this.props.contradiction ? this.props.contradiction.tweet : false) ||
+						!this.props.contradiction) ? (
+						<Image
+							className="screenshot"
+							fluid
+							label={{ as: "a", color: "blue", corner: "right", icon: "save" }}
+							onClick={this.captureScreenshot}
+						/>
+					) : null}
 					{this.props.showExplanation && <div>{Explanation(this.props)}</div>}
 					{Material(this.props)}
-					<img alt="logo" id="hiddenLogoImg" src={LogoPic} />
 				</div>
-				{this.props.tweet &&
-				((this.props.contradiction ? this.props.contradiction.tweet : false) ||
-					!this.props.contradiction) ? (
-					<Popup
-						content="Screenshot this fallacy"
-						position="bottom right"
-						trigger={
-							<div>
-								<Icon
-									className="screenshot"
-									color="blue"
-									name="photo"
-									onClick={this.captureScreenshot}
-									size="big"
-								/>
-								<div className="clearfix" />
-							</div>
-						}
-					/>
-				) : null}
 			</div>
 		)
 	}
