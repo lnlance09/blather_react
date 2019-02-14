@@ -1,8 +1,11 @@
 @import '../../../css/colors.scss';
 
 .archivesList {
+    width: 100%;
+
     .archiveWrapper {
         margin-top: 14px;
+        width: 100%;
     }
 
     .emptyArchiveContainer {

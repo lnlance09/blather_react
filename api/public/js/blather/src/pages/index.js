@@ -217,12 +217,14 @@ class Page extends Component {
 					return (
 						<FallaciesList
 							assignedTo={props.id}
+							changeUrl
 							emptyMsgContent={`No fallacies have been assigned to ${props.name}`}
 							emptyMsgHeader={false}
-							fallacyId={fallacyId}
+							fallacies={fallacyId}
 							history={props.history}
 							network={network}
 							page={0}
+							setFallacyId={this.setFallacyId}
 							showPics={false}
 							source="pages"
 						/>
