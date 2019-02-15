@@ -1,18 +1,18 @@
 /*---  Colors  ---*/
 /*---  Light Colors  ---*/
 /*---   Neutrals  ---*/
-.fallacyExample .header {
+.fallacyExample .fallacyHeader {
   height: 40px; }
-  .fallacyExample .header .editButton {
+  .fallacyExample .fallacyHeader .editButton {
     color: #2185D0;
     cursor: pointer;
     display: none !important;
     float: none;
     font-size: 18px;
     margin-left: 2px; }
-    .fallacyExample .header .editButton.editing {
+    .fallacyExample .fallacyHeader .editButton.editing {
       color: #FF695E; }
-  .fallacyExample .header:hover .editButton {
+  .fallacyExample .fallacyHeader:hover .editButton {
     display: inline !important; }
 
 .fallacyExample .fallacyMaterial {
