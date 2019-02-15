@@ -109,7 +109,7 @@
 			if ($this->user) {
 				$userId = $this->user->id;
 			} else {
-				$userId = 93;
+				$userId = 6;
 			}
 
 			if (!$this->fallacies->fallacyTypeExists($fallacyId)) {
