@@ -368,7 +368,6 @@ class FallacyForm extends Component {
 		const SelectAssignee = props => (
 			<SearchForm
 				defaultValue={props.info.channel ? props.info.channel.title : null}
-				disabled={props.authenticated ? false : true}
 				onChangeAssignee={this.onChangeAssignee}
 				placeholder="Who in this video should the fallacy be assigned to?"
 				source="fallacyForm"
@@ -383,7 +382,7 @@ class FallacyForm extends Component {
 			) {
 				return (
 					<Form.Group widths="equal">
-						<Form.Field disabled={props.authenticated ? false : true}>
+						<Form.Field>
 							<label>Video will start at</label>
 							<Input
 								className={contradiction ? "contradictionStartTime" : "startTime"}
@@ -392,7 +391,7 @@ class FallacyForm extends Component {
 								value={beginTime}
 							/>
 						</Form.Field>
-						<Form.Field disabled={props.authenticated ? false : true}>
+						<Form.Field>
 							<label>End at</label>
 							<Input
 								className={contradiction ? "contradictionEndTime" : "endTime"}
@@ -489,7 +488,7 @@ class FallacyForm extends Component {
 								<div className="selectAssignee">{SelectAssignee(this.props)}</div>
 							</div>
 						)}
-						<Form.Field disabled={this.props.authenticated ? false : true}>
+						<Form.Field>
 							<Dropdown
 								className="fallacyDropdown"
 								defaultValue={"1"}
@@ -502,7 +501,7 @@ class FallacyForm extends Component {
 							/>
 						</Form.Field>
 						{ContradictionInput(this.props)}
-						<Form.Field disabled={this.props.authenticated ? false : true}>
+						<Form.Field>
 							<Input
 								className="titleField"
 								fluid
@@ -513,7 +512,6 @@ class FallacyForm extends Component {
 						</Form.Field>
 						<Form.Field
 							className="explanationField"
-							disabled={this.props.authenticated ? false : true}
 						>
 							<TextArea
 								autoHeight
@@ -527,12 +525,16 @@ class FallacyForm extends Component {
 						{this.props.authenticated ? (
 							<Button color="blue" content="Assign" fluid type="submit" />
 						) : (
-							<Button
-								color="green"
-								content="Sign in"
-								fluid
-								onClick={() => this.props.history.push("/signin")}
-							/>
+							<Button.Group fluid>
+								<Button content="Assign anonymously" icon="spy" secondary type="submit" />
+								<Button.Or />
+								<Button
+									content="Sign up"
+									icon="sign in"
+									primary
+									onClick={() => this.props.history.push("/signin")}
+								/>
+							</Button.Group>
 						)}
 						<p className="commonMarkLink">
 							<a

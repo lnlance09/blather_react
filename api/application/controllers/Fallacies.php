@@ -106,17 +106,13 @@
 			$startTime = $this->input->post('startTime');
 			$title = $this->input->post('title');
 
-			if(!$this->user) {
-				$this->output->set_status_header(401);
-				echo json_encode([
-					'code' => 101,
-					'error' => 'You must login' 
-				]);
-				exit;
+			if ($this->user) {
+				$userId = $this->user->id;
+			} else {
+				$userId = 93;
 			}
 
-			$userId = $this->user->id;
-			if(!$this->fallacies->fallacyTypeExists($fallacyId)) {
+			if (!$this->fallacies->fallacyTypeExists($fallacyId)) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'code' => 102,
@@ -125,7 +121,7 @@
 				exit;
 			}
 
-			if(empty($title)) {
+			if (empty($title)) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'code' => 103,
@@ -134,7 +130,7 @@
 				exit;
 			}
 
-			if(empty($explanation)) {
+			if (empty($explanation)) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'code' => 104,
@@ -143,19 +139,21 @@
 				exit;
 			}
 
-			switch($network) {
-				case'twitter':
-					$token = $this->user->linkedTwitter ? $this->user->twitterAccessToken : null;
-					$secret = $this->user->linkedTwitter ? $this->user->twitterAccessSecret : null;
-					$tweet = $this->twitter->getTweetExtended($objectId, true, $token, $secret);
-					if($tweet['error']) {
-						$this->output->set_status_header($tweet['code']);
-						echo json_encode($tweet);
-						exit;
-					}
+			if ($this->user) {
+				switch ($network) {
+					case'twitter':
+						$token = $this->user->linkedTwitter ? $this->user->twitterAccessToken : null;
+						$secret = $this->user->linkedTwitter ? $this->user->twitterAccessSecret : null;
+						$tweet = $this->twitter->getTweetExtended($objectId, true, $token, $secret);
+						if ($tweet['error']) {
+							$this->output->set_status_header($tweet['code']);
+							echo json_encode($tweet);
+							exit;
+						}
 
-					$pageId = $tweet['data']['user']['id'];
-					break;
+						$pageId = $tweet['data']['user']['id'];
+						break;
+				}
 			}
 
 			$id = $this->fallacies->assignFallacy(
@@ -175,7 +173,7 @@
 			echo json_encode([
 				'error' => false,
 				'fallacy' => [
-					'assigned_by' => $this->user->id,
+					'assigned_by' => $userId,
 					'contradiction' => @json_decode($contradiction),
 					'explanation' => strip_tags($explanation),
 					'fallacy_id' => $fallacyId,
