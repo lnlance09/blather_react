@@ -108,8 +108,8 @@ class Target extends Component {
 					emptyMsgContent={`${props.user.name} hasn't assigned any fallacies to ${
 						props.page.name
 					}`}
-					emptyMsgHeader={false}
 					history={props.history}
+					icon="sticky note"
 					network={props.page.network}
 					showPics={false}
 					source="targets"

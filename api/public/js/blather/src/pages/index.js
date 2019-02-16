@@ -219,9 +219,9 @@ class Page extends Component {
 							assignedTo={props.id}
 							changeUrl
 							emptyMsgContent={`No fallacies have been assigned to ${props.name}`}
-							emptyMsgHeader={false}
 							fallacies={fallacyId}
 							history={props.history}
+							icon="sticky note"
 							network={network}
 							page={0}
 							setFallacyId={this.setFallacyId}

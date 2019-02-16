@@ -6,10 +6,11 @@ import {
 	Button,
 	Dropdown,
 	Form,
+	Header,
 	Icon,
 	Item,
-	Message,
 	Responsive,
+	Segment,
 	Visibility
 } from "semantic-ui-react"
 import _ from "lodash"
@@ -451,11 +452,12 @@ class DiscussionsList extends Component {
 					</Visibility>
 				) : (
 					<div className="emptyDiscussionContainer">
-						<Message
-							content={this.props.emptyMsgContent}
-							header={this.props.emptyMsgHeader}
-							warning={this.props.source === "post"}
-						/>
+						<Segment placeholder>
+							<Header icon>
+								<Icon color="blue" name="comments" />
+								{this.props.emptyMsgContent}
+							</Header>
+						</Segment>
 					</div>
 				)}
 			</div>

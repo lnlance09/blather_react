@@ -18,6 +18,18 @@
         }
     }
 
+    .segment {
+        border-bottom-left-radius: 3px !important;
+        border-bottom-right-radius: 3px !important;
+        margin-left: 0 !important;
+
+        .buttons {
+            button {
+                width: 50%;
+            }
+        }
+    }
+
     .commonMarkLink {
         margin: 0.5em 0.3em 0 !important;
 

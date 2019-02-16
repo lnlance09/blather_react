@@ -2,7 +2,7 @@ import "./style.css"
 import { getArchives } from "pages/actions/user"
 import { adjustTimezone } from "utils/dateFunctions"
 import { connect } from "react-redux"
-import { Dropdown, Form, Icon, Item, Message, Visibility } from "semantic-ui-react"
+import { Dropdown, Form, Header, Icon, Item, Segment, Visibility } from "semantic-ui-react"
 import LazyLoad from "components/lazyLoad/v1/"
 import Moment from "react-moment"
 import Parser from "html-react-parser"
@@ -152,10 +152,12 @@ class ArchivesList extends Component {
 					</Visibility>
 				) : (
 					<div className="emptyArchiveContainer">
-						<Message
-							content={this.props.emptyMsgContent}
-							header={this.props.emptyMsgHeader}
-						/>
+						<Segment placeholder>
+							<Header icon>
+								<Icon color="red" name="save" />
+								{this.props.emptyMsgContent}
+							</Header>
+						</Segment>
 					</div>
 				)}
 			</div>

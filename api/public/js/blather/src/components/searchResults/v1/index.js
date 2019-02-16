@@ -197,13 +197,13 @@ class SearchResults extends Component {
 			}
 
 			return (
-				<div>
-					<Message
-						className="emptyMsg"
-						content="Try modifying your search"
-						header="No results..."
-					/>
-				</div>
+				<Message
+					className="emptyMsg"
+					content="Try modifying your search"
+					header="No results..."
+					icon="search"
+					warning
+				/>
 			)
 		}
 		const searchResults = this.props.data.map((result, i) => {

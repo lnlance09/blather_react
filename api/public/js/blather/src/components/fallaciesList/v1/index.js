@@ -3,7 +3,17 @@ import { getFallacies, getTargets } from "./actions"
 import { adjustTimezone } from "utils/dateFunctions"
 import { formatPlural } from "utils/textFunctions"
 import { connect, Provider } from "react-redux"
-import { Divider, Dropdown, Form, Item, Message, Visibility } from "semantic-ui-react"
+import {
+	Divider,
+	Dropdown,
+	Form,
+	Header,
+	Icon,
+	Item,
+	Message,
+	Segment,
+	Visibility
+} from "semantic-ui-react"
 import LazyLoad from "components/lazyLoad/v1/"
 import Moment from "react-moment"
 import PropTypes from "prop-types"
@@ -122,7 +132,7 @@ class FallaciesList extends Component {
 				assignedBy: this.props.assignedBy,
 				assignedTo: this.props.assignedTo,
 				commentId: this.props.commentId,
-				fallacies: this.state.fallacies,
+				fallacies: this.props.fallacies,
 				fallacyId: this.props.fallacyId,
 				network: this.props.network,
 				objectId: this.props.objectId,
@@ -285,10 +295,15 @@ class FallaciesList extends Component {
 						</div>
 					) : (
 						<div className="emptyFallaciesContainer">
-							<Message
-								content={this.props.emptyMsgContent}
-								header={this.props.emptyMsgHeader}
-							/>
+							<Segment placeholder>
+								<Header icon>
+									<Icon
+										className={`${this.props.icon}Icon`}
+										name={this.props.icon}
+									/>
+									{this.props.emptyMsgContent}
+								</Header>
+							</Segment>
 						</div>
 					)}
 				</div>
@@ -303,12 +318,12 @@ FallaciesList.propTypes = {
 	changeUrl: PropTypes.bool,
 	commentId: PropTypes.string,
 	emptyMsgContent: PropTypes.string,
-	emptyMsgHeader: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
 	fallacies: PropTypes.string,
 	fallacyId: PropTypes.string,
 	getFallacies: PropTypes.func,
 	getTargets: PropTypes.func,
 	hasMore: PropTypes.bool,
+	icon: PropTypes.string,
 	name: PropTypes.string,
 	network: PropTypes.string,
 	objectId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -330,10 +345,10 @@ FallaciesList.propTypes = {
 FallaciesList.defaultProps = {
 	changeUrl: false,
 	emptyMsgContent: "Try searching something else...",
-	emptyMsgHeader: "No fallacies",
 	fallacies: "",
 	getFallacies,
 	getTargets,
+	icon: "tweet",
 	page: 0,
 	results: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
 	showPics: true,

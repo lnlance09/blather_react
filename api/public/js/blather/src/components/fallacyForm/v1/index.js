@@ -473,6 +473,7 @@ class FallacyForm extends Component {
 						className="headerMsg"
 						content="Assign a fallacy"
 						header="Does this logic make sense?"
+						size="large"
 					/>
 					<Form
 						className="attached fluid segment"
@@ -510,9 +511,7 @@ class FallacyForm extends Component {
 								value={title}
 							/>
 						</Form.Field>
-						<Form.Field
-							className="explanationField"
-						>
+						<Form.Field className="explanationField">
 							<TextArea
 								autoHeight
 								onChange={this.onChangeExplanation}
@@ -523,10 +522,15 @@ class FallacyForm extends Component {
 						</Form.Field>
 						<ErrorMsg props={this.props} />
 						{this.props.authenticated ? (
-							<Button color="blue" content="Assign" fluid type="submit" />
+							<Button color="blue" compact content="Assign" fluid type="submit" />
 						) : (
 							<Button.Group fluid>
-								<Button content="Assign anonymously" icon="spy" secondary type="submit" />
+								<Button
+									content="Assign anonymously"
+									icon="spy"
+									secondary
+									type="submit"
+								/>
 								<Button.Or />
 								<Button
 									content="Sign up"

@@ -58,6 +58,7 @@ class Tweet extends Component {
 								<List.Content>
 									<List.Header>
 										<Icon
+											color="red"
 											name="archive"
 											onClick={this.onClickArchive}
 											size="large"
@@ -114,7 +115,7 @@ class Tweet extends Component {
 						className="tweetUserImg"
 						onError={i => (i.target.src = ItemPic)}
 						floated="left"
-						src={profileImg}
+						src={profileImg.replace("_normal", "")}
 					/>
 					<Card.Header className="tweetUserName">{name}</Card.Header>
 					<Card.Meta className="tweetUserScreenName">
