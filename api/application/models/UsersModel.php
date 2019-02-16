@@ -129,6 +129,12 @@
 			return $results;
 		}
 
+		public function getDefaultTwitterTokens() {
+			$this->db->select('twitter_access_token, twitter_access_secret');
+			$this->db->where('twitter_id', '1230606690');
+			return $this->db->get('twitter_users')->row();
+		}
+
 		/**
 		 * Query the DB to see if a user exists in the `users` table with the given ID/password combo
 		 * @param  [int] $id       [The ID of the user]

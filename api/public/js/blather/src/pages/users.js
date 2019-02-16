@@ -222,6 +222,7 @@ class UserPage extends Component {
 								emptyMsgContent={`${props.user.name} hasn't assigned any fallacies`}
 								fallacyId={id}
 								history={props.history}
+								icon="sticky note"
 								name={props.user.name}
 								source="users"
 							/>

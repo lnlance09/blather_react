@@ -29,7 +29,6 @@
 
     .card {
         .content {
-            padding: 7px 14px !important;
             white-space: pre-line;
 
             &.quotedTweetContent, .quotedTweet {
@@ -59,11 +58,6 @@
                             margin-right: 5px;
                         }
 
-                        .icon.archive {
-                            color: $grey;
-                            cursor: pointer;
-                        }
-
                         .icon.like {
                             color: $lightPink;
 
@@ -82,12 +76,18 @@
                             margin-right: 0;
                         }
 
-                        &.archiveListItem {
-                            margin-left: 0 !important;
+                        .icon.archive {
+                            cursor: pointer;
+                        }
 
+                        &.archiveListItem {
                             .content {
                                 padding-right: 0 !important;
                             }
+                        }
+
+                        .content {
+                            padding: 7px;
                         }
                     }
                 }
@@ -99,8 +99,6 @@
         margin-bottom: 5px !important;
 
         .quotedTweetContent {
-            padding: 12px;
-
             .quotedScreenName {
                 color: rgba(0,0,0,.7);
                 font-weight: normal;

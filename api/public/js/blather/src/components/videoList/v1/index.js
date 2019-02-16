@@ -1,7 +1,7 @@
 import "./style.css"
 import { fetchPagePosts } from "pages/actions/page"
 import { Provider, connect } from "react-redux"
-import { Item, Message, Visibility } from "semantic-ui-react"
+import { Header, Icon, Item, Segment, Visibility } from "semantic-ui-react"
 import _ from "lodash"
 import LazyLoad from "components/lazyLoad/v1/"
 import PropTypes from "prop-types"
@@ -47,7 +47,14 @@ class VideoList extends Component {
 		const { loading } = this.state
 		const EmptyMsg = props => {
 			if (!props.posts.loading && props.posts.count === 0) {
-				return <Message content={this.props.emptyMsgHeader} />
+				return (
+					<Segment placeholder>
+						<Header icon>
+							<Icon className="youtubeIcon" name="youtube" />
+							{this.props.emptyMsgContent}
+						</Header>
+					</Segment>
+				)
 			}
 			return null
 		}

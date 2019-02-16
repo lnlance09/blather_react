@@ -207,12 +207,12 @@ class Post extends Component {
 			if (props.info) {
 				return (
 					<div className="fallaciesWrapper">
-						<Header dividing size="medium">
+						<Header dividing size="large">
 							Fallacies
 						</Header>
 						<FallaciesList
 							emptyMsgContent={`No fallacies have been assigned to this ${type}`}
-							emptyMsgHeader={false}
+							icon={network}
 							network={network}
 							objectId={props.info.id}
 							source="post"

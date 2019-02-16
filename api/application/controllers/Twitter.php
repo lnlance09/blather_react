@@ -142,7 +142,7 @@
 
 		public function tweet() {
 			$id = $this->input->get('id');
-			if(!$id) {
+			if (!$id) {
 				$this->output->set_status_header(404);
 				echo json_encode([
 					'error' => 'This tweet does not exist'
@@ -158,12 +158,12 @@
 			$tweet = $this->twitter->getTweetExtended($id, false, $token, $secret);
 
 			// Get tweet data from API
-			if($tweet['error'] && $auth) {
+			if ($tweet['error'] && $auth) {
 				$tweet = $this->twitter->getTweetExtended($id, true, $token, $secret);
 			}
 
 			$archive = false;
-			if($this->user) {
+			if ($this->user) {
 				$archive = $this->users->getArchivedLinks([
 					'object_id' => $id,
 					'user_id' => $this->user->id

@@ -267,7 +267,7 @@
 			$id = (int)$this->input->get('id');
 			$include_data = $this->input->get('include_data');
 
-			if(empty($id)) {
+			if (empty($id)) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You need to specify a user'
@@ -295,11 +295,11 @@
 		public function parseUrl() {
 			$url = $this->input->post('url');
 			$parse = false;
-			if(filter_var($url, FILTER_VALIDATE_URL)) {
+			if (filter_var($url, FILTER_VALIDATE_URL)) {
 				$parse = parseUrl(rawurldecode($url));
 			}
 
-			if(!$parse) {
+			if (!$parse) {
 				$this->output->set_status_header(400);
 				echo json_encode([
 					'error' => 'Please link to a Tweet or a comment or a video on YouTube'
@@ -307,18 +307,25 @@
 				exit;
 			}
 
-			switch($parse['network']) {
+			switch ($parse['network']) {
 				case'twitter':
 					$auth = $this->user ? $this->user->linkedTwitter : false;
-					$token = $auth ? $this->user->twitterAccessToken : null;
-					$secret = $auth ? $this->user->twitterAccessSecret : null;
-					$object = $this->twitter->getTweetExtended($parse['object_id'], false, $token, $secret);
-
-					if($object['error']) {
-						$object = $this->twitter->getTweetExtended($parse['object_id'], $auth, $token, $secret);
+					if (!$auth) {
+						$tokens = $this->users->getDefaultTwitterTokens();
+						$token = $tokens->twitter_access_token;
+						$secret = $tokens->twitter_access_secret;
+					} else {
+						$token = $this->user->twitterAccessToken;
+						$secret = $this->user->twitterAccessSecret;
 					}
 
-					if($object['error']) {
+					$object = $this->twitter->getTweetExtended($parse['object_id'], false, $token, $secret);
+
+					if ($object['error']) {
+						$object = $this->twitter->getTweetExtended($parse['object_id'], true, $token, $secret);
+					}
+
+					if ($object['error']) {
 						$this->output->set_status_header($object['code']);
 						echo json_encode($object);
 						exit;
@@ -344,7 +351,7 @@
 					$commentId = $parse['comment_id'];
 					$videoId = $parse['object_id'];
 
-					if($commentId) {
+					if ($commentId) {
 						$type = 'comment';
 						$object = $this->youtube->getCommentExtended($commentId, $videoId, $auth, $token);
 					} else {
@@ -352,7 +359,7 @@
 						$object = $this->youtube->getVideoExtended($videoId, $auth, $token);
 					}
 					
-					if($object['error']) {
+					if ($object['error']) {
 						$this->output->set_status_header($object['code']);
 						echo json_encode($object);
 						exit;

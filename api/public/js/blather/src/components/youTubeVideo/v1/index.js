@@ -267,7 +267,7 @@ class YouTubeVideo extends Component {
 			if (props.showComments) {
 				return (
 					<div className="commentsSection">
-						<Header dividing size="small">
+						<Header dividing size="medium">
 							Comments
 							<Radio
 								className="toggleComments"
@@ -278,7 +278,8 @@ class YouTubeVideo extends Component {
 										visible: visible ? false : true
 									})
 								}
-								toggle
+								size="tiny"
+								slider
 							/>
 						</Header>
 						<Transition animation={animation} duration={duration} visible={visible}>
