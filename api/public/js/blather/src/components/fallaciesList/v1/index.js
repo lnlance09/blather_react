@@ -46,7 +46,7 @@ class FallaciesList extends Component {
 
 	componentDidMount() {
 		if (this.state.showFilter) {
-			this.fetchFallacies()
+			this.fetchFallacies(this.props)
 		}
 		this.props.getFallacies({
 			assignedBy: this.props.assignedBy,
@@ -70,7 +70,7 @@ class FallaciesList extends Component {
 			this.props.commentId !== props.commentId ||
 			this.props.objectId !== props.objectId
 		) {
-			this.fetchFallacies()
+			this.fetchFallacies(props)
 			this.props.getFallacies({
 				assignedBy: props.assignedBy,
 				assignedTo: props.assignedTo,
@@ -87,25 +87,25 @@ class FallaciesList extends Component {
 		}
 	}
 
-	fetchFallacies() {
+	fetchFallacies(props) {
 		let id = ""
-		switch (this.props.source) {
+		switch (props.source) {
 			case "pages":
 			case "targets":
-				id = this.props.assignedTo
+				id = props.assignedTo
 				break
 			case "post":
-				id = this.props.objectId
+				id = props.objectId
 				break
 			case "users":
-				id = this.props.assignedBy
+				id = props.assignedBy
 				break
 			default:
 				id = ""
 		}
-		let qs = `?id=${id}&type=${this.props.source}&network=${this.props.network}`
-		if (this.props.source && this.props.assignedBy) {
-			qs += `&assignedBy=${this.props.assignedBy}`
+		let qs = `?id=${id}&type=${props.source}&network=${props.network}`
+		if (props.source && props.assignedBy) {
+			qs += `&assignedBy=${props.assignedBy}`
 		}
 		return fetch(`${window.location.origin}/api/fallacies/uniqueFallacies${qs}`, {
 			headers: {
@@ -204,6 +204,7 @@ class FallaciesList extends Component {
 							</Form>
 							<Divider />
 							<FallacyRef id={parseInt(value, 10)} stacked />
+							<Divider />
 						</div>
 					)}
 				</div>
