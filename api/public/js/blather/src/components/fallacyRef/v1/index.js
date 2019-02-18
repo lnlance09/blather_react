@@ -45,9 +45,11 @@ class FallacyRef extends Component {
 			<div className="fallacyRef">
 				{fallacy && (
 					<Segment className="fallacySegment">
-						<Header as="p" size="medium">
-							What is {formatGrammar(fallacy.name)} <i>{fallacy.name}</i>?
-						</Header>
+						{this.props.includeHeader && (
+							<Header as="p" size="medium">
+								What is {formatGrammar(fallacy.name)} <i>{fallacy.name}</i>?
+							</Header>
+						)}
 						<p>{fallacy.description}</p>
 						{this.props.showDialogue && (
 							<Comment.Group>{fallacyConversation(fallacy.dialogue)}</Comment.Group>
@@ -61,10 +63,12 @@ class FallacyRef extends Component {
 
 FallacyRef.propTypes = {
 	id: PropTypes.number,
+	includeHeader: PropTypes.bool,
 	showDialogue: PropTypes.bool
 }
 
 FallacyRef.defaultProps = {
+	includeHeader: true,
 	showDialogue: true
 }
 

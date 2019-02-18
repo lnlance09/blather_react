@@ -14,6 +14,7 @@ import {
 	Segment,
 	Visibility
 } from "semantic-ui-react"
+import FallacyRef from "components/fallacyRef/v1/"
 import LazyLoad from "components/lazyLoad/v1/"
 import Moment from "react-moment"
 import PropTypes from "prop-types"
@@ -202,6 +203,7 @@ class FallaciesList extends Component {
 								/>
 							</Form>
 							<Divider />
+							<FallacyRef id={parseInt(value, 10)} includeHeader={false} />
 						</div>
 					)}
 				</div>
