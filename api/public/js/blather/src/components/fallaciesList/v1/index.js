@@ -203,7 +203,7 @@ class FallaciesList extends Component {
 								/>
 							</Form>
 							<Divider />
-							<FallacyRef id={parseInt(value, 10)} includeHeader={false} />
+							<FallacyRef id={parseInt(value, 10)} stacked />
 						</div>
 					)}
 				</div>

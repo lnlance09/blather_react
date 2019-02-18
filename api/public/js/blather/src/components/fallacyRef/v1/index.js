@@ -44,7 +44,7 @@ class FallacyRef extends Component {
 		return (
 			<div className="fallacyRef">
 				{fallacy && (
-					<Segment className="fallacySegment">
+					<Segment className="fallacySegment" stacked={this.props.stacked}>
 						{this.props.includeHeader && (
 							<Header as="p" size="medium">
 								What is {formatGrammar(fallacy.name)} <i>{fallacy.name}</i>?
@@ -64,12 +64,14 @@ class FallacyRef extends Component {
 FallacyRef.propTypes = {
 	id: PropTypes.number,
 	includeHeader: PropTypes.bool,
+	stacked: PropTypes.bool,
 	showDialogue: PropTypes.bool
 }
 
 FallacyRef.defaultProps = {
 	includeHeader: true,
-	showDialogue: true
+	showDialogue: true,
+	stacked: false
 }
 
 const mapStateToProps = (state, ownProps) => ({
