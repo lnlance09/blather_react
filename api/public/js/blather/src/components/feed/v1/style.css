@@ -1,5 +1,8 @@
 .feed .label img {
   cursor: pointer; }
 
+.feed .content .extra.text {
+  max-width: none !important; }
+
 .feed .content .extra p {
   cursor: pointer; }

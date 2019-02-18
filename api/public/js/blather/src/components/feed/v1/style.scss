@@ -5,7 +5,13 @@
         }
     }
 
-    .content .extra p {
-        cursor: pointer;
+    .content .extra {
+        &.text {
+            max-width: none !important;
+        }
+
+        p {
+            cursor: pointer;
+        }
     }
 }
