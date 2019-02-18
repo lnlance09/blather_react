@@ -10,14 +10,18 @@
     for($i=0;$i<count($new_css_files);$i++) {
         $content = file_get_contents($js_dir.'css/'.$new_css_files[$i]);
         file_put_contents('static/css/'.$new_css_files[$i], $content);
-        exec("rm static/css/".$css_files[$i]);
+        if ($css_files[$i] !== $new_css_files[$i]) {
+            exec("rm static/css/".$css_files[$i]);
+        }
         $file = str_replace($css_files[$i], $new_css_files[$i], $file);
     }
 
     for($i=0;$i<count($new_js_files);$i++) {
         $content = file_get_contents($js_dir.'js/'.$new_js_files[$i]);
         file_put_contents('static/js/'.$new_js_files[$i], $content);
-        exec("rm static/js/".$js_files[$i]);
+        if ($js_files[$i] !== $new_js_files[$i]) {
+            exec("rm static/js/".$js_files[$i]);
+        }
         $file = str_replace($js_files[$i], $new_js_files[$i], $file);
     }
 
