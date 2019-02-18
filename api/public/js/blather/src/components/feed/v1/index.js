@@ -51,10 +51,8 @@ class FeedComponent extends Component {
 		const RenderFeed = props => {
 			return props.results.map((result, i) => {
 				const userLink = `/pages/${result.page_type}/${
-											result.page_type === "twitter"
-												? result.page_username
-												: result.page_id
-										}`
+					result.page_type === "twitter" ? result.page_username : result.page_id
+				}`
 				if (result.id) {
 					return (
 						<Feed.Event key={`feed_${i}`}>
@@ -65,10 +63,8 @@ class FeedComponent extends Component {
 							/>
 							<Feed.Content>
 								<Feed.Summary>
-									<Link to={userLink}>
-										{result.page_name}
-									</Link>{" "}
-									has been charged with {formatGrammar(result.fallacy_name)}{" "}
+									<Link to={userLink}>{result.page_name}</Link> has been charged
+									with {formatGrammar(result.fallacy_name)}{" "}
 									<Link to={`/fallacies/${result.id}`}>
 										{result.fallacy_name}
 									</Link>
@@ -79,7 +75,10 @@ class FeedComponent extends Component {
 										/>
 									</Feed.Date>
 								</Feed.Summary>
-								<Feed.Extra onClick={() => props.history.push(`/fallacies/${result.id}`)} text>
+								<Feed.Extra
+									onClick={() => props.history.push(`/fallacies/${result.id}`)}
+									text
+								>
 									<div
 										dangerouslySetInnerHTML={{
 											__html: Marked(result.explanation)
