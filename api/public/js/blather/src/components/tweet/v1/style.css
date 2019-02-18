@@ -19,8 +19,6 @@
     padding: 6px 10px; }
   .tweet .card .content {
     white-space: pre-line; }
-    .tweet .card .content.quotedTweetContent, .tweet .card .content .quotedTweet {
-      background: #FFFFFF !important; }
     .tweet .card .content.extra {
       border-top: solid 1px rgba(220, 221, 225, 0.6) !important;
       cursor: default;
@@ -54,7 +52,6 @@
   .tweet .quotedTweet {
     margin-bottom: 5px !important; }
     .tweet .quotedTweet .quotedTweetContent .quotedScreenName {
-      color: rgba(0, 0, 0, 0.7);
       font-weight: normal;
       margin-left: 4px; }
     .tweet .quotedTweet .quotedTweetContent .quotedTextTweet {
@@ -67,14 +64,12 @@
     margin-right: 9px !important;
     width: 48px; }
   .tweet .tweetUserName {
-    color: #1B1C1D !important;
     font-size: 18px !important;
     height: auto !important; }
   .tweet .tweetUserScreenName {
     font-size: 14px !important;
     margin-top: 0px; }
   .tweet .tweetUserTweet {
-    color: #1B1C1D !important;
     font-size: 16px !important; }
   .tweet .tweetTime {
     margin-left: 4px; }

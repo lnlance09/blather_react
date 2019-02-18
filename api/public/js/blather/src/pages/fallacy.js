@@ -165,22 +165,29 @@ class Fallacy extends Component {
 					onClick={this.handleItemClick}
 				/>
 				<Menu.Item
+					active={activeItem === "similar"}
+					name="similar"
+					onClick={this.handleItemClick}
+				>
+					Similar {""}
+					{props.similarCount > 0 && (
+						<Label color="blue" size="small">
+							{props.similarCount}
+						</Label>
+					)}
+				</Menu.Item>
+				<Menu.Item
 					active={activeItem === "comments"}
 					name="comments"
 					onClick={this.handleItemClick}
 				>
 					Comments {""}
 					{props.commentCount > 0 && (
-						<Label circular color="blue">
+						<Label color="blue" size="small">
 							{props.commentCount}
 						</Label>
 					)}
 				</Menu.Item>
-				<Menu.Item
-					active={activeItem === "similar"}
-					name="similar"
-					onClick={this.handleItemClick}
-				/>
 				<Menu.Item
 					active={activeItem === "reference"}
 					name="reference"
@@ -374,6 +381,7 @@ Fallacy.propTypes = {
 	error: PropTypes.bool,
 	explanation: PropTypes.string,
 	fallacies: PropTypes.array,
+	fallacyCount: PropTypes.number,
 	fallacyId: PropTypes.number,
 	fallacyName: PropTypes.string,
 	fetchCommentCount: PropTypes.func,
@@ -399,6 +407,7 @@ Fallacy.propTypes = {
 Fallacy.defaultProps = {
 	convoLoading: true,
 	error: false,
+	fallacyCount: 0,
 	fetchCommentCount: fetchCommentCount,
 	fetchFallacy: fetchFallacy
 }

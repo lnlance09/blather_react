@@ -13,6 +13,12 @@
       background: #F9FAFB; }
     .breakdown .percentages .fallacyPercentage .progress {
       margin-bottom: 12px; }
+      .breakdown .percentages .fallacyPercentage .progress .bar {
+        background: #0084b4 !important; }
+        .breakdown .percentages .fallacyPercentage .progress .bar .progress {
+          color: #FFFFFF; }
+    .breakdown .percentages .fallacyPercentage .label {
+      background: #FF695E !important; }
 
 .breakdown .statHeader {
   margin: 12px auto; }
@@ -28,7 +34,3 @@
 .breakdown .stats {
   margin: 0 !important;
   padding: 0; }
-  .breakdown .stats .statistic {
-    margin-bottom: 0 !important; }
-    .breakdown .stats .statistic.bold .value {
-      font-weight: bold; }

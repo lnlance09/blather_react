@@ -85,11 +85,30 @@
 				}
 			}
 
+			$error = $fallacy['id'] === null;
+			$similar_count = 0;
+
+			if (!$error) {
+				$params = [
+					'assigned_by' => null,
+					'assigned_to' => null,
+					'comment_id' => null,
+					'fallacies' => null,
+					'fallacy_id' => $fallacy['fallacy_id'],
+					'network' => null,
+					'object_id' => null,
+					'page' => null,
+					'q' => null
+				];
+				$similar_count = $this->fallacies->search($params, true);
+			}
+
 			echo json_encode([
 				'archive' => $archive,
 				'contradiction_archive' => $contradiction_archive,
-				'error' => $fallacy['id'] === null,
-				'fallacy' => $fallacy
+				'error' => $error,
+				'fallacy' => $fallacy,
+				'similarCount' => $similar_count
 			]);
 		}
 
