@@ -1,5 +1,11 @@
 .feed {
-    .itemFeed {
-        margin-bottom: 12px;
+    .label {
+        img {
+            cursor: pointer;
+        }
+    }
+
+    .content .extra p {
+        cursor: pointer;
     }
 }

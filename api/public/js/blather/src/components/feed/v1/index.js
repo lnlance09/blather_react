@@ -50,22 +50,22 @@ class FeedComponent extends Component {
 	render() {
 		const RenderFeed = props => {
 			return props.results.map((result, i) => {
+				const userLink = `/pages/${result.page_type}/${
+											result.page_type === "twitter"
+												? result.page_username
+												: result.page_id
+										}`
 				if (result.id) {
 					return (
 						<Feed.Event key={`feed_${i}`}>
 							<Feed.Label
 								image={result.page_profile_pic}
+								onClick={() => props.history.push(userLink)}
 								onError={i => (i.target.src = ImagePic)}
 							/>
 							<Feed.Content>
 								<Feed.Summary>
-									<Link
-										to={`/pages/${result.page_type}/${
-											result.page_type === "twitter"
-												? result.page_username
-												: result.page_id
-										}`}
-									>
+									<Link to={userLink}>
 										{result.page_name}
 									</Link>{" "}
 									has been charged with {formatGrammar(result.fallacy_name)}{" "}
@@ -79,7 +79,7 @@ class FeedComponent extends Component {
 										/>
 									</Feed.Date>
 								</Feed.Summary>
-								<Feed.Extra text>
+								<Feed.Extra onClick={() => props.history.push(`/fallacies/${result.id}`)} text>
 									<div
 										dangerouslySetInnerHTML={{
 											__html: Marked(result.explanation)
@@ -96,11 +96,9 @@ class FeedComponent extends Component {
 		}
 
 		return (
-			<div className="feed">
-				<Visibility className="feedWrapper" continuous onBottomVisible={this.loadMore}>
-					<Feed size={this.props.size}>{RenderFeed(this.props)}</Feed>
-				</Visibility>
-			</div>
+			<Visibility className="feedWrapper" continuous onBottomVisible={this.loadMore}>
+				<Feed size={this.props.size}>{RenderFeed(this.props)}</Feed>
+			</Visibility>
 		)
 	}
 }
