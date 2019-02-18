@@ -91,7 +91,7 @@ class NewsFeed extends Component {
 						<Responsive minWidth={1025}>
 							<Grid>
 								<Grid.Column width={12}>
-									<FeedComponent />
+									<FeedComponent history={this.props.history} />
 								</Grid.Column>
 								<Grid.Column width={4}>{TopCard(this.props)}</Grid.Column>
 							</Grid>
