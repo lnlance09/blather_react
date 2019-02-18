@@ -263,7 +263,6 @@ class Fallacy extends Component {
 								id={id}
 							/>
 							{ContactUser(props)}
-							{ShareButtons(props)}
 						</div>
 					)
 				case "comments":
