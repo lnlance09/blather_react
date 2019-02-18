@@ -18,6 +18,18 @@
 
             .progress {
                 margin-bottom: 12px;
+
+                .bar {
+                    background: $twitter !important;
+
+                    .progress {
+                        color: $white;
+                    }
+                }
+            }
+
+            .label {
+                background: $lightRed !important;
             }
         }
     }
@@ -45,15 +57,5 @@
     .stats {
         margin: 0 !important;
         padding: 0;
-
-        .statistic {
-            margin-bottom: 0 !important;
-
-            &.bold {
-                .value {
-                    font-weight: bold;
-                }
-            }
-        }
     }
 }

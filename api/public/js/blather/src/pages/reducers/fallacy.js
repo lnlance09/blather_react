@@ -16,6 +16,7 @@ const fallacy = (state = initial(), action) => {
 			const archive = payload.archive
 			const contradiction_archive = payload.contradiction_archive
 			const fallacy = payload.fallacy
+			const similarCount = payload.similarCount
 			let contradiction = null
 			let tweet = null
 			let video = null
@@ -144,6 +145,7 @@ const fallacy = (state = initial(), action) => {
 				highlightedText: fallacy.highlighted_text,
 				status: parseInt(fallacy.status, 10),
 				title: fallacy.title,
+				similarCount,
 				startTime: fallacy.start_time,
 				tag_ids: fallacy.tag_ids,
 				tag_names: fallacy.tag_names,

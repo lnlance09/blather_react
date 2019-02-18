@@ -56,7 +56,7 @@ class Breakdown extends Component {
 									{result.count}
 								</Label>
 							</Header>
-							<Progress color="blue" percent={percent} progress size="medium" />
+							<Progress percent={percent} progress size="medium" />
 						</div>
 					)
 				}

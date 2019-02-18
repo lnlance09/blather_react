@@ -2,7 +2,7 @@ import "./style.css"
 import { fetchComments, postComment } from "pages/actions/fallacy"
 import { adjustTimezone } from "utils/dateFunctions"
 import { connect } from "react-redux"
-import { Button, Comment, Form } from "semantic-ui-react"
+import { Button, Comment, Form, Header, Icon, Segment } from "semantic-ui-react"
 import Moment from "react-moment"
 import defaultImg from "images/trump.svg"
 import LazyLoad from "components/lazyLoad/v1/"
@@ -72,7 +72,14 @@ class CommentsSection extends Component {
 			}
 
 			if (props.comments.count === 0) {
-				return <p className="emptyMsg">No comments yet...</p>
+				return (
+					<Segment placeholder>
+						<Header icon>
+							<Icon color="yellow" name="comment" />
+							No comments yet
+						</Header>
+					</Segment>
+				)
 			}
 
 			return [{}, {}, {}, {}, {}, {}, {}].map((comment, i) => (

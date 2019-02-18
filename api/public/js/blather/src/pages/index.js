@@ -168,7 +168,7 @@ class Page extends Component {
 			return <TitleHeader subheader={subheader} title={props.name} />
 		}
 		const PageMenu = props => (
-			<Menu className="socialMediaPageMenu" fluid pointing secondary stackable>
+			<Menu className="socialMediaPageMenu" fluid stackable tabular>
 				<Menu.Item
 					active={activeItem === "breakdown"}
 					name="breakdown"
