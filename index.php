@@ -346,7 +346,7 @@
 
         <meta name="description" content="<?php echo htmlentities($description); ?>" />
 
-        <link rel="stylesheet" type="text/css" href="/static/css/main.85179155.chunk.css">
+        <link rel="stylesheet" type="text/css" href="/static/css/main.4aea91b5.chunk.css">
         <link rel="manifest" href="manifest.json">
         <link rel="shortcut icon" href="/favicon.ico?v=1">
 
@@ -377,8 +377,8 @@
         </noscript>
         <div id="root"></div>
     </body>
-    <script src="/static/js/1.78fa6cbb.chunk.js"></script>
-    <script src="/static/js/main.c7f6cc39.chunk.js"></script>
+    <script src="/static/js/1.ba3e1f38.chunk.js"></script>
+    <script src="/static/js/main.fb96ffac.chunk.js"></script>
     <script src="/static/js/runtime~main.229c360f.js"></script>
 <?php
     if($schema) {
