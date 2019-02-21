@@ -31,7 +31,7 @@ import PropTypes from "prop-types"
 import React, { Component } from "react"
 import store from "store"
 import TitleHeader from "components/titleHeader/v1/"
-import TrumpImg from "images/trump.svg"
+import TrumpImg from "images/trump-white.png"
 
 class Tags extends Component {
 	constructor(props) {
@@ -343,7 +343,7 @@ class Tags extends Component {
 						</Container>
 					) : (
 						<Container className="mainContainer" text textAlign="center">
-							<Image centered disabled size="medium" src={TrumpImg} />
+							<Image centered className="trumpImg404" size="medium" src={TrumpImg} />
 							<Header size="medium">This tag does not exist!</Header>
 						</Container>
 					)}

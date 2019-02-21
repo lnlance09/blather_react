@@ -24,4 +24,14 @@ body {
     &.forText {
         margin-top: 5.3em;
     }
+
+    .trumpImg404 {
+        background-color: $red !important;
+        border: solid 5px $blue;
+        padding: 20px 20px 0 20px;
+    }
+
+    .trumpImg404 + .header.medium {
+        margin-top: 7px !important;
+    }
 }

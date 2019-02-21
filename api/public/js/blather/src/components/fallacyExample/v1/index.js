@@ -13,7 +13,9 @@ import {
 	Header,
 	Icon,
 	Image,
+	Label,
 	List,
+	Segment,
 	TextArea
 } from "semantic-ui-react"
 import html2canvas from "html2canvas"
@@ -46,6 +48,9 @@ class FallacyExample extends Component {
 		const filename = `${fallacyName}-by-${user.name}-${createdAt}`
 		const width = document.getElementById("fallacyExample").offsetWidth
 		const endPixel = width * 2
+		const element = document.getElementById("linkifyTweet")
+		element.classList.add("downloading")
+
 		html2canvas(document.getElementById("fallacyExample"), {
 			allowTaint: true,
 			width: width
@@ -53,8 +58,8 @@ class FallacyExample extends Component {
 			const ctx = canvas.getContext("2d")
 			ctx.globalAlpha = 1
 			ctx.font = "24px Arial"
-			ctx.fillStyle = "#000000"
-			ctx.fillText(`blather.io/fallacies/${this.props.id}`, endPixel - 360, 45)
+			ctx.fillStyle = "#07f"
+			ctx.fillText(`blather.io/fallacies/${this.props.id}`, endPixel - 320, 45)
 
 			let link = document.createElement("a")
 			link.download =
@@ -64,6 +69,7 @@ class FallacyExample extends Component {
 					.join("-") + ".png"
 			link.href = canvas.toDataURL("image/png")
 			link.click()
+			element.classList.remove("downloading")
 		})
 	}
 
@@ -119,67 +125,73 @@ class FallacyExample extends Component {
 			}
 			return null
 		}
-		const Explanation = props => (
-			<div className="fallacyExplanation">
-				<Header as="h2" className="fallacyHeader" size="medium">
-					{props.fallacyName} <EditButton props={props} />
-				</Header>
-				{this.props.explanation ? (
-					<div>
-						{editing ? (
-							<Form onSubmit={this.updateFallacy}>
-								<Form.Field>
-									<Dropdown
-										className="fallacyDropdown"
-										defaultValue={`${props.fallacyId}`}
-										onChange={this.onChangeFallacy}
-										options={fallacyDropdownOptions}
-										placeholder="Select a fallacy"
-										search
-										selection
-									/>
-								</Form.Field>
-								<Form.Field className="explanationField">
-									<TextArea
-										autoHeight
-										onChange={this.onChangeExplanation}
-										placeholder="Why is this a fallacy?"
-										rows={10}
-										value={explanation}
-									/>
-								</Form.Field>
-								<Button
-									className="updateBtn"
-									color="blue"
-									content="Update"
-									fluid
-									type="submit"
-								/>
-								<p className="commonMarkLink">
-									<a
-										href="https://spec.commonmark.org/0.28/"
-										rel="noopener noreferrer"
-										target="_blank"
-									>
-										view commonmark specs
-									</a>
-									<span className="clearfix" />
-								</p>
-							</Form>
+		const Explanation = props => {
+			if (props.showExplanation) {
+				return (
+					<Segment basic className="fallacyExplanation">
+						<Header as="h2" className="fallacyHeader" size="medium">
+							{props.fallacyName} <EditButton props={props} />
+						</Header>
+						{props.explanation ? (
+							<div>
+								{editing ? (
+									<Form onSubmit={this.updateFallacy}>
+										<Form.Field>
+											<Dropdown
+												className="fallacyDropdown"
+												defaultValue={`${props.fallacyId}`}
+												onChange={this.onChangeFallacy}
+												options={fallacyDropdownOptions}
+												placeholder="Select a fallacy"
+												search
+												selection
+											/>
+										</Form.Field>
+										<Form.Field className="explanationField">
+											<TextArea
+												autoHeight
+												onChange={this.onChangeExplanation}
+												placeholder="Why is this a fallacy?"
+												rows={10}
+												value={explanation}
+											/>
+										</Form.Field>
+										<Button
+											className="updateBtn"
+											color="blue"
+											compact
+											content="Update"
+											fluid
+											type="submit"
+										/>
+										<p className="commonMarkLink">
+											<a
+												href="https://spec.commonmark.org/0.28/"
+												rel="noopener noreferrer"
+												target="_blank"
+											>
+												view commonmark specs
+											</a>
+											<span className="clearfix" />
+										</p>
+									</Form>
+								) : (
+									<div
+										className="explanation"
+										dangerouslySetInnerHTML={{
+											__html: sanitizeText(Marked(props.explanation))
+										}}
+									></div>
+								)}
+							</div>
 						) : (
-							<div
-								className="explanation"
-								dangerouslySetInnerHTML={{
-									__html: sanitizeText(Marked(props.explanation))
-								}}
-							/>
+							<LazyLoad header={false} segment={false} />
 						)}
-					</div>
-				) : (
-					<LazyLoad header={false} segment={false} />
-				)}
-			</div>
-		)
+					</Segment>
+				)
+			}
+			return null
+		}
 		const FeaturedInVideo = (video, props) => {
 			if (video.channel.id !== props.user.id && !video.comment) {
 				const link = `/pages/${props.user.type}/${
@@ -215,7 +227,7 @@ class FallacyExample extends Component {
 					<div>
 						{ParseMaterial(props)}
 						{ShowDateDifference(props)}
-						{this.props.contradiction && <div>{ParseMaterial(props, true)}</div>}
+						{props.contradiction && <div>{ParseMaterial(props, true)}</div>}
 					</div>
 				) : (
 					<LazyLoad />
@@ -294,6 +306,24 @@ class FallacyExample extends Component {
 			}
 			return null
 		}
+		const Ribbon = props => {
+			if (
+				props.tweet &&
+				((props.contradiction ? props.contradiction.tweet : false) || !props.contradiction)
+			) {
+				return (
+					<Label
+						className="screenshot"
+						color="orange"
+						corner="left"
+						onClick={this.captureScreenshot}
+					>
+						<Icon name="sticky note" />
+					</Label>
+				)
+			}
+			return null
+		}
 		const ShowDateDifference = props => {
 			if (props.contradiction) {
 				let dateOne = ""
@@ -323,22 +353,11 @@ class FallacyExample extends Component {
 		}
 
 		return (
-			<div className="fallacyExample">
-				<div id="fallacyExample">
-					{this.props.tweet &&
-					((this.props.contradiction ? this.props.contradiction.tweet : false) ||
-						!this.props.contradiction) ? (
-						<Image
-							className="screenshot"
-							fluid
-							label={{ as: "a", color: "blue", corner: "right", icon: "save" }}
-							onClick={this.captureScreenshot}
-						/>
-					) : null}
-					{this.props.showExplanation && <div>{Explanation(this.props)}</div>}
-					{Material(this.props)}
-				</div>
-			</div>
+			<Segment className="fallacyExample" id="fallacyExample" stacked>
+				{Ribbon(this.props)}
+				{Explanation(this.props)}
+				{Material(this.props)}
+			</Segment>
 		)
 	}
 }

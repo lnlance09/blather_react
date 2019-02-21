@@ -1,8 +1,3 @@
-// Social colors
-$facebook: #3b5998;
-$twitter: #0084b4;
-$youtube: #ff0000;
-
 /*---  Colors  ---*/
 $red              : #DB2828;
 $orange           : #F2711C;
@@ -40,22 +35,13 @@ $darkWhite        : #F3F4F5;
 $midWhite         : #DCDDDE;
 $white            : #FFFFFF;
 
-$menu-border-bottom-color: rgba(34,36,38,.15);
-
-$container-content-background: rgba(245, 246, 250,0.3);
-$container-border-color: rgba(220, 221, 225,.6);
-$container-darker-border-color: rgba(220, 221, 225,.8);
-
+/*---   Misc  ---*/
+$higlighterYellow: #ffff00;
 $dimmer-background: rgba(255, 255, 255,0.8);
 $dimmer-border: rgba(245, 246, 250,0.5);
 
-$button-border: rgba(34,36,38,.15);
-$subheader-grey: rgba(0,0,0,.6);
-$tweet-border-color: rgba(0,0,0,.10);
-$info-msg-border: rgba(169,213,222,0.4);
-$error-msg-border: rgba(224,180,180,0.4);
-$regular-msg-border: rgba(34,36,38,0.1);
-$positive-green-border: rgba(163,194,147,0.4);
-$warning-yellow-border: rgba(201,186,155,0.4);
-$card-box-shadow: rgba(212, 212, 213, 0.4);
-$dropdown-border-color: rgba(34, 36, 38, 0.15);
+/*---   Social colors  ---*/
+$facebook: #3b5998;
+$twitter: #0084b4;
+$youtube: #ff0000;
+

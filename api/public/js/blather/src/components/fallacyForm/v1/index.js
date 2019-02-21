@@ -81,9 +81,7 @@ class FallacyForm extends Component {
 		this.props.setContradictionHighlight({ text })
 	}
 
-	onChangeAssignee = () => {
-		this.setState({ changed: true })
-	}
+	onChangeAssignee = () => this.setState({ changed: true })
 
 	onChangeContradiction = e => {
 		if (e.keyCode === 8) {

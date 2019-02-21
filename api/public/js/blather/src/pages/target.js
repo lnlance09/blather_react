@@ -22,7 +22,7 @@ import PageHeader from "components/header/v1/"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import store from "store"
-import TrumpImg from "images/trump.svg"
+import TrumpImg from "images/trump-white.png"
 
 class Target extends Component {
 	constructor(props) {
@@ -304,7 +304,12 @@ class Target extends Component {
 					<Container className="mainContainer" text textAlign="left">
 						{error ? (
 							<Container className="mainContainer" text textAlign="center">
-								<Image centered disabled size="medium" src={TrumpImg} />
+								<Image
+									centered
+									className="trumpImg404"
+									size="medium"
+									src={TrumpImg}
+								/>
 								<Header size="medium">This target does not exist</Header>
 							</Container>
 						) : (
