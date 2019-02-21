@@ -1,25 +1,27 @@
 /*---  Colors  ---*/
 /*---  Light Colors  ---*/
 /*---   Neutrals  ---*/
-.fallacyExample .fallacyHeader {
-  height: 40px; }
-  .fallacyExample .fallacyHeader .editButton {
-    color: #2185D0;
-    cursor: pointer;
-    display: none !important;
-    float: none;
-    font-size: 18px;
-    margin-left: 2px; }
-    .fallacyExample .fallacyHeader .editButton.editing {
-      color: #FF695E; }
-  .fallacyExample .fallacyHeader:hover .editButton {
-    display: inline !important; }
+/*---   Misc  ---*/
+/*---   Social colors  ---*/
+.fallacyExample .fallacyHeader .editButton {
+  color: #2185D0;
+  cursor: pointer;
+  display: none !important;
+  float: right;
+  font-size: 18px;
+  margin-left: 2px; }
+  .fallacyExample .fallacyHeader .editButton.editing {
+    color: #FF695E; }
+
+.fallacyExample .fallacyHeader:hover .editButton {
+  display: inline !important; }
 
 .fallacyExample .fallacyMaterial {
   margin-top: 15px; }
 
 .fallacyExample .fallacyExplanation {
-  padding: 5px;
+  margin: 0;
+  padding: 14px;
   width: 100%; }
 
 .fallacyExample span.clearfix {
@@ -41,11 +43,11 @@
 .fallacyExample .explanation {
   white-space: pre-line; }
   .fallacyExample .explanation p {
-    font-size: 14px;
+    font-size: 15px;
     margin: 0; }
 
 .fallacyExample .screenshot .icon {
   cursor: pointer !important; }
 
-.fallacyExample #hiddenLogoImg {
-  display: none; }
+.fallacyExample .screenshot .label {
+  background: #2185D0; }

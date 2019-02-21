@@ -322,7 +322,7 @@ FallaciesList.propTypes = {
 	commentId: PropTypes.string,
 	emptyMsgContent: PropTypes.string,
 	fallacies: PropTypes.string,
-	fallacyId: PropTypes.string,
+	fallacyId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 	getFallacies: PropTypes.func,
 	getTargets: PropTypes.func,
 	hasMore: PropTypes.bool,

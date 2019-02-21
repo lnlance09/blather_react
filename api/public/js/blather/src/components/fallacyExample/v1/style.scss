@@ -2,13 +2,11 @@
 
 .fallacyExample {
     .fallacyHeader {
-        height: 40px;
-
         .editButton {
             color: $blue;
             cursor: pointer;
             display: none !important;
-            float: none;
+            float: right;
             font-size: 18px;
             margin-left: 2px;
 
@@ -29,7 +27,8 @@
     }
 
     .fallacyExplanation {
-        padding: 5px;
+        margin: 0;
+        padding: 14px;
         width: 100%;
     }
 
@@ -63,7 +62,7 @@
         white-space: pre-line;
 
         p {
-            font-size: 14px;
+            font-size: 15px;
             margin: 0;
         }
     }
@@ -72,9 +71,9 @@
         .icon {
             cursor: pointer !important;
         }
-    }
 
-    #hiddenLogoImg {
-        display: none;
+        .label {
+            background: $blue;
+        }
     }
 }

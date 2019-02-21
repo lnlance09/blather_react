@@ -1,6 +1,8 @@
 /*---  Colors  ---*/
 /*---  Light Colors  ---*/
 /*---   Neutrals  ---*/
+/*---   Misc  ---*/
+/*---   Social colors  ---*/
 body {
   height: 100%;
   margin: 0;
@@ -19,3 +21,9 @@ body {
     margin-top: 2.3em; }
   .mainContainer.forText {
     margin-top: 5.3em; }
+  .mainContainer .trumpImg404 {
+    background-color: #DB2828 !important;
+    border: solid 5px #2185D0;
+    padding: 20px 20px 0 20px; }
+  .mainContainer .trumpImg404 + .header.medium {
+    margin-top: 7px !important; }

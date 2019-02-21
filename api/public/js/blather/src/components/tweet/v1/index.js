@@ -1,8 +1,7 @@
 import "./style.css"
 import { createArchive } from "pages/actions/post"
 import { adjustTimezone } from "utils/dateFunctions"
-import { linkMentions, linkHashtags } from "utils/linkifyAdditions"
-import Highlighter from "react-highlight-words"
+import { linkHashtags, linkMentions } from "utils/linkifyAdditions"
 import { Provider, connect } from "react-redux"
 import { Card, Icon, Image, Label, List, Message, Popup, Transition } from "semantic-ui-react"
 import ItemPic from "images/square-image.png"
@@ -41,6 +40,21 @@ class Tweet extends Component {
 			bearer: this.props.bearer,
 			url: `https://twitter.com/${this.props.user.screen_name}/status/${this.props.id}`
 		})
+	}
+
+	getHighlightedText = (text, higlight) => {
+		const parts = text.split(new RegExp(`(${higlight})`, "gi"))
+		return (
+			<span>
+				{parts.map(part =>
+					part.toLowerCase() === higlight.toLowerCase() ? (
+						<b key={`highlighted${part}`}>{part}</b>
+					) : (
+						part
+					)
+				)}
+			</span>
+		)
 	}
 
 	render() {
@@ -227,6 +241,18 @@ class Tweet extends Component {
 				? this.props.retweeted_status.full_text
 				: this.props.full_text
 		)
+		const LinkifiedTweet = (
+			<Linkify
+				properties={{
+					target: "_blank"
+				}}
+				sanitize
+			>
+				{this.props.highlight
+					? this.getHighlightedText(tweetText, this.props.highlightedText)
+					: tweetText}
+			</Linkify>
+		)
 
 		return (
 			<Provider store={store}>
@@ -242,27 +268,10 @@ class Tweet extends Component {
 						>
 							{CardHeader(this.props)}
 							<Card.Description
-								className="tweetUserTweet"
+								id="linkifyTweet"
 								onMouseUp={this.props.handleHoverOn}
 							>
-								{this.props.highlight ? (
-									<Highlighter
-										autoEscape={true}
-										highlightClassName="tweetHighlightedText"
-										highlightStyle={{ display: "inline-block" }}
-										searchWords={[this.props.highlightedText]}
-										textToHighlight={tweetText}
-									/>
-								) : (
-									<Linkify
-										properties={{
-											target: "_blank"
-										}}
-										sanitize
-									>
-										{tweetText}
-									</Linkify>
-								)}
+								{LinkifiedTweet}
 								<ParseMedia props={this.props} />
 							</Card.Description>
 							{QuotedTweet(this.props)}

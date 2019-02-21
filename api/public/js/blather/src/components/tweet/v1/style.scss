@@ -31,8 +31,27 @@
         .content {
             white-space: pre-line;
 
+            .description {
+                font-size: 16px !important;
+
+                span {
+                    color: $black;
+
+                    b {
+                        background: $higlighterYellow;
+                    }
+                }
+
+                &.downloading {
+                    span {
+                        b {
+                            display: inline-block;
+                        }
+                    }
+                }
+            }
+
             &.extra {
-                border-top: solid 1px $container-border-color !important;
                 cursor: default;
                 padding: 1px 3px !important;
 
@@ -127,10 +146,6 @@
     .tweetUserScreenName {
         font-size: 14px !important;
         margin-top: 0px;
-    }
-
-    .tweetUserTweet {
-        font-size: 16px !important;
     }
 
     .tweetTime {
