@@ -5,8 +5,6 @@
 /*---   Social colors  ---*/
 .fallaciesList {
   width: 100%; }
-  .fallaciesList .fallaciesWrapper {
-    margin-top: 14px; }
   .fallaciesList .emptyFallaciesContainer {
     text-align: center; }
     .fallaciesList .emptyFallaciesContainer .header {

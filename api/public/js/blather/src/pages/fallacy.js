@@ -25,7 +25,8 @@ import {
 	Label,
 	List,
 	Menu,
-	Responsive
+	Responsive,
+	Segment
 } from "semantic-ui-react"
 import Comments from "components/comments/v1/"
 import FallacyExample from "components/fallacyExample/v1/"
@@ -267,25 +268,27 @@ class Fallacy extends Component {
 					)
 				case "comments":
 					return (
-						<div className="commentsContent">
+						<Segment className="commentsContent" stacked>
 							<Comments
 								authenticated={authenticated}
 								bearer={bearer}
 								history={this.props.history}
 								id={id}
 							/>
-						</div>
+						</Segment>
 					)
 				case "similar":
 					if (props.fallacyId) {
 						return (
-							<FallaciesList
-								emptyMsgContent="There are no similar fallacies"
-								fallacyId={props.fallacyId}
-								history={props.history}
-								icon="sticky note"
-								source="fallacy"
-							/>
+							<Segment stacked>
+								<FallaciesList
+									emptyMsgContent="There are no similar fallacies"
+									fallacyId={props.fallacyId}
+									history={props.history}
+									icon="sticky note"
+									source="fallacy"
+								/>
+							</Segment>
 						)
 					}
 					return null
