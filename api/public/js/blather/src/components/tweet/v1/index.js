@@ -268,7 +268,7 @@ class Tweet extends Component {
 						>
 							{CardHeader(this.props)}
 							<Card.Description
-								id="linkifyTweet"
+								className="linkifyTweet"
 								onMouseUp={this.props.handleHoverOn}
 							>
 								{LinkifiedTweet}
