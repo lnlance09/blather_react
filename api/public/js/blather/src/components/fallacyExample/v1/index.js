@@ -48,8 +48,10 @@ class FallacyExample extends Component {
 		const filename = `${fallacyName}-by-${user.name}-${createdAt}`
 		const width = document.getElementById("fallacyExample").offsetWidth
 		const endPixel = width * 2
-		const element = document.getElementById("linkifyTweet")
-		element.classList.add("downloading")
+		const elements = document.getElementsByClassName("linkifyTweet")
+		for (let i = 0; i < elements.length; i++) {
+			elements[i].classList.add("downloading")
+		}
 
 		html2canvas(document.getElementById("fallacyExample"), {
 			allowTaint: true,
@@ -69,7 +71,9 @@ class FallacyExample extends Component {
 					.join("-") + ".png"
 			link.href = canvas.toDataURL("image/png")
 			link.click()
-			element.classList.remove("downloading")
+			for (let i = 0; i < elements.length; i++) {
+				elements[i].classList.remove("downloading")
+			}
 		})
 	}
 
