@@ -747,7 +747,11 @@ a {
 
         .targetImg {
             cursor: pointer;
-            margin-top: 20px;
+            margin-top: 95px;
+
+            + .header.medium {
+                margin-top: 8px;
+            }
         }
 
         .answers, .questionnaire {

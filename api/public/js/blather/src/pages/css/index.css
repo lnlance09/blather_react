@@ -432,7 +432,9 @@ a {
     line-height: 19.5px; }
   .targetsPage .ui.text.container .targetImg {
     cursor: pointer;
-    margin-top: 20px; }
+    margin-top: 95px; }
+    .targetsPage .ui.text.container .targetImg + .header.medium {
+      margin-top: 8px; }
   .targetsPage .ui.text.container .answers, .targetsPage .ui.text.container .questionnaire {
     margin-bottom: 16px; }
   .targetsPage .ui.text.container .questionnaire {

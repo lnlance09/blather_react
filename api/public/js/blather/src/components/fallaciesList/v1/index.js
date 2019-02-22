@@ -38,7 +38,7 @@ class FallaciesList extends Component {
 			page: 0,
 			showFilter: this.props.source !== "fallacy",
 			showTargets: false,
-			value: this.props.fallacies ? this.props.fallacies : "Filter"
+			value: this.props.fallacies ? this.props.fallacies : ""
 		}
 
 		this.onChangeSearch = this.onChangeSearch.bind(this)
@@ -133,7 +133,8 @@ class FallaciesList extends Component {
 				assignedBy: this.props.assignedBy,
 				assignedTo: this.props.assignedTo,
 				commentId: this.props.commentId,
-				fallacies: this.props.fallacies,
+				fallacies:
+					this.props.fallacies === "" ? this.state.fallacies : this.props.fallacies,
 				fallacyId: this.props.fallacyId,
 				network: this.props.network,
 				objectId: this.props.objectId,
@@ -199,7 +200,11 @@ class FallaciesList extends Component {
 									placeholder="Filter by fallacy"
 									scrolling
 									selection
-									value={value}
+									value={
+										value === "" && options.length > 0
+											? options[0].value
+											: value
+									}
 								/>
 							</Form>
 							<Divider />

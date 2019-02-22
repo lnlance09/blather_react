@@ -43,7 +43,7 @@ class Tweet extends Component {
 	}
 
 	getHighlightedText = (text, higlight) => {
-		const parts = text.split(new RegExp(`(${higlight.replace(/[()]/g,'')})`, "gi"))
+		const parts = text.split(new RegExp(`(${higlight.replace(/[()]/g, "")})`, "gi"))
 		return (
 			<span>
 				{parts.map(part =>

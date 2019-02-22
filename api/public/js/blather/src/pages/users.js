@@ -13,7 +13,8 @@ import {
 	Image,
 	Label,
 	Menu,
-	Responsive
+	Responsive,
+	Segment
 } from "semantic-ui-react"
 import AboutCard from "components/aboutCard/v1/"
 import defaultImg from "images/trump.svg"
@@ -296,7 +297,7 @@ class UserPage extends Component {
 										{AboutSection(this.props)}
 										{UserMenu(this.props)}
 										<Container className="profileContentContainer">
-											{ShowContent(this.props)}
+											<Segment stacked>{ShowContent(this.props)}</Segment>
 										</Container>
 									</Grid.Row>
 								</Grid>
@@ -316,7 +317,7 @@ class UserPage extends Component {
 										/>
 										{UserMenu(this.props)}
 										<Container className="profileContentContainer">
-											{ShowContent(this.props)}
+											<Segment stacked>{ShowContent(this.props)}</Segment>
 										</Container>
 									</Grid.Column>
 								</Grid>

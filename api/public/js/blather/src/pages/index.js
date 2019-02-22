@@ -215,36 +215,38 @@ class Page extends Component {
 
 				if (activeItem === "fallacies") {
 					return (
-						<FallaciesList
-							assignedTo={props.id}
-							changeUrl
-							emptyMsgContent={`No fallacies have been assigned to ${props.name}`}
-							fallacies={fallacyId}
-							history={props.history}
-							icon="sticky note"
-							network={network}
-							page={0}
-							setFallacyId={this.setFallacyId}
-							showPics={false}
-							source="pages"
-						/>
+						<Segment stacked>
+							<FallaciesList
+								assignedTo={props.id}
+								changeUrl
+								emptyMsgContent={`No fallacies have been assigned to ${props.name}`}
+								fallacies={fallacyId}
+								history={props.history}
+								icon="sticky note"
+								network={network}
+								page={0}
+								setFallacyId={this.setFallacyId}
+								showPics={false}
+								source="pages"
+							/>
+						</Segment>
 					)
 				}
 
 				if (authenticated) {
 					if (activeItem === "tweets" && props.data.linkedTwitter) {
 						return (
-							<div>
+							<Segment stacked>
 								<TweetList bearer={bearer} history={props.history} username={id} />
-							</div>
+							</Segment>
 						)
 					}
 
 					if (activeItem === "videos" && props.data.linkedYoutube) {
 						return (
-							<div>
+							<Segment stacked>
 								<VideoList bearer={bearer} channelId={id} history={props.history} />
-							</div>
+							</Segment>
 						)
 					}
 

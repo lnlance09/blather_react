@@ -185,7 +185,7 @@ class FallacyExample extends Component {
 										dangerouslySetInnerHTML={{
 											__html: sanitizeText(Marked(props.explanation))
 										}}
-									></div>
+									/>
 								)}
 							</div>
 						) : (
