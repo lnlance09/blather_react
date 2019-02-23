@@ -80,7 +80,7 @@
 			}
 
 			if(!$just_count && !$post) {
-				$select .= ', t.full_text, ytv.title, ytc.message, 
+				$select .= ', t.full_text, t.tweet_id, ytv.title, ytc.message, ytv.video_id, ytc.comment_id, 
 				pt.name AS twitter_page_name, 
 				pytv.name AS youtube_video_page_name, 
 				pytc.name AS youtube_comment_page_name,

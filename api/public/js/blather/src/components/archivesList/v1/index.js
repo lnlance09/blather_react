@@ -73,7 +73,7 @@ class ArchivesList extends Component {
 
 	render() {
 		const { options, value } = this.state
-		const renderArchives = props => {
+		const RenderArchives = props => {
 			return props.archives.map((archive, i) => {
 				if (archive.code) {
 					let info = parseArchiveInfo(archive)
@@ -82,6 +82,28 @@ class ArchivesList extends Component {
 							<Icon className={`${archive.network}Icon`} name={archive.network} />{" "}
 							<Moment date={adjustTimezone(archive.date_created)} fromNow />
 						</div>
+					)
+					let menu = (
+						<Dropdown className="archiveItemMenu" icon="ellipsis horizontal">
+							<Dropdown.Menu>
+								<Dropdown.Item
+									icon={archive.network}
+									onClick={() => window.open(archive.link, "_blank").focus()}
+									text={`View ${
+										archive.network === "twitter" ? "tweet" : "video"
+									}`}
+								/>
+								<Dropdown.Item
+									icon="sticky note"
+									onClick={() =>
+										window
+											.open(`http://archive.is/${archive.code}`, "_blank")
+											.focus()
+									}
+									text="View archive"
+								/>
+							</Dropdown.Menu>
+						</Dropdown>
 					)
 					return (
 						<ResultItem
@@ -94,12 +116,16 @@ class ArchivesList extends Component {
 							id={`archive_${i}`}
 							img={info.img}
 							key={`archive_${i}`}
+							menu={menu}
 							meta={meta}
-							redirect={false}
 							sanitize={false}
 							title={info.title}
 							type="archive"
-							url={`http://archive.is/${archive.code}`}
+							url={
+								archive.network === "twitter"
+									? `/tweet/${archive.tweet_id}`
+									: `/video/${archive.video_id}`
+							}
 						/>
 					)
 				} else {
@@ -147,7 +173,7 @@ class ArchivesList extends Component {
 							/>
 						</Form>
 						<Item.Group className="fallacyItems" divided>
-							{renderArchives(this.props)}
+							{RenderArchives(this.props)}
 						</Item.Group>
 					</Visibility>
 				) : (
