@@ -800,9 +800,12 @@ a {
     }
 
     .profileContentContainer {
-        min-height: 450px;
         padding: 0 !important;
         width: 100% !important;
+
+        .profileContentSegment {
+            min-height: 450px;
+        }
     }
 
     .profilePic {

@@ -460,9 +460,10 @@ a {
     padding-top: 0 !important; } }
 
 .usersPage .profileContentContainer {
-  min-height: 450px;
   padding: 0 !important;
   width: 100% !important; }
+  .usersPage .profileContentContainer .profileContentSegment {
+    min-height: 450px; }
 
 .usersPage .profilePic.default {
   background: #FFFFFF;
