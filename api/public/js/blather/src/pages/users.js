@@ -298,7 +298,7 @@ class UserPage extends Component {
 										{AboutSection(this.props)}
 										{UserMenu(this.props)}
 										<Container className="profileContentContainer">
-											<Segment stacked>{ShowContent(this.props)}</Segment>
+											<Segment className="profileContentSegment" stacked>{ShowContent(this.props)}</Segment>
 										</Container>
 									</Grid.Row>
 								</Grid>
@@ -318,7 +318,7 @@ class UserPage extends Component {
 										/>
 										{UserMenu(this.props)}
 										<Container className="profileContentContainer">
-											<Segment stacked>{ShowContent(this.props)}</Segment>
+											<Segment className="profileContentSegment" stacked>{ShowContent(this.props)}</Segment>
 										</Container>
 									</Grid.Column>
 								</Grid>
