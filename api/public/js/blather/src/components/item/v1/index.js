@@ -85,7 +85,10 @@ class ResultItem extends Component {
 
 			return (
 				<Item.Content>
-					<Item.Header>{props.title}</Item.Header>
+					<Item.Header>
+						{props.title}
+						{props.menu ? props.menu : null}
+					</Item.Header>
 					{props.meta && <Item.Meta>{props.meta}</Item.Meta>}
 					<Item.Description>
 						{validDescription && (
@@ -100,10 +103,10 @@ class ResultItem extends Component {
 							/>
 						)}
 					</Item.Description>
-					{props.extra && <Item.Extra>{ItemExtra(this.props)}</Item.Extra>}
+					{props.extra && <Item.Extra>{ItemExtra(props)}</Item.Extra>}
 					{props.tags && (
 						<Item.Extra>
-							<Label.Group>{RenderTags(this.props.tags)}</Label.Group>
+							<Label.Group>{RenderTags(props.tags)}</Label.Group>
 						</Item.Extra>
 					)}
 				</Item.Content>
@@ -132,6 +135,7 @@ ResultItem.propTypes = {
 	id: PropTypes.string,
 	key: PropTypes.string,
 	label: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
+	menu: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
 	meta: PropTypes.oneOfType([PropTypes.bool, PropTypes.object, PropTypes.string]),
 	redirect: PropTypes.bool,
 	sanitize: PropTypes.bool,
@@ -142,6 +146,7 @@ ResultItem.propTypes = {
 }
 
 ResultItem.defaultProps = {
+	menu: false,
 	redirect: true
 }
 

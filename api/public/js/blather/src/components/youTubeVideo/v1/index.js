@@ -162,7 +162,12 @@ class YouTubeVideo extends Component {
 				return (
 					<div>
 						Archive this video
-						<Icon name="archive" onClick={this.onClickArchive} size="large" />
+						<Icon
+							color="yellow"
+							name="sticky note"
+							onClick={this.onClickArchive}
+							size="large"
+						/>
 					</div>
 				)
 			}

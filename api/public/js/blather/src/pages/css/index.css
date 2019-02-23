@@ -266,6 +266,9 @@ a {
   .fallacyPage .shareContainer .shareList .item {
     cursor: pointer; }
 
+.fallacyPage .similarFallaciesSegment {
+  width: 100%; }
+
 @media only screen and (max-width: 1025px) {
   .fallacyPage .ui.header {
     font-size: 16px; }
@@ -285,8 +288,10 @@ a {
 .feedPage .mostFallacious .feedEvent .meta {
   margin-top: 0 !important; }
 
-.feedPage .feed {
+.feedPage .feedWrapper {
   width: 100%; }
+  .feedPage .feedWrapper .feed {
+    width: 100%; }
 
 /* Pages page */
 .socialMediaPage .menu.socialMediaPageMenu {
@@ -455,6 +460,7 @@ a {
     padding-top: 0 !important; } }
 
 .usersPage .profileContentContainer {
+  min-height: 450px;
   padding: 0 !important;
   width: 100% !important; }
 

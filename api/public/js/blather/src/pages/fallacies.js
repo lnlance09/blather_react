@@ -68,7 +68,7 @@ class Fallacies extends Component {
 			if (fallacy.name.toLowerCase() === activeItem) {
 				return (
 					<div className="mainFallacy active" key={fallacy.id}>
-						<Segment>
+						<Segment stacked>
 							<Header as="p" size="medium">
 								{fallacy.name}
 							</Header>

@@ -232,6 +232,7 @@ class UserPage extends Component {
 						return (
 							<ArchivesList
 								emptyMsgContent={`${props.user.name} hasn't archived anything yet`}
+								history={props.history}
 								id={props.user.id}
 							/>
 						)

@@ -16,7 +16,6 @@ class NewsFeed extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {}
-
 		this.props.mostFallacious()
 	}
 
@@ -76,9 +75,6 @@ class NewsFeed extends Component {
 					<DisplayMetaTags page="feed" props={this.props} state={this.state} />
 					<PageHeader {...this.props} />
 					<Container className="mainContainer">
-						<Header as="h1" dividing>
-							Activity
-						</Header>
 						<Responsive maxWidth={1024}>
 							<Grid>
 								<Grid.Row>{TopCard(this.props)}</Grid.Row>
@@ -89,6 +85,9 @@ class NewsFeed extends Component {
 						</Responsive>
 
 						<Responsive minWidth={1025}>
+							<Header as="h1" dividing>
+								Activity
+							</Header>
 							<Grid>
 								<Grid.Column width={12}>
 									<FeedComponent history={this.props.history} />

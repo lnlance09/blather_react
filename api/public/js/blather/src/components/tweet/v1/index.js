@@ -72,8 +72,8 @@ class Tweet extends Component {
 								<List.Content>
 									<List.Header>
 										<Icon
-											color="red"
-											name="archive"
+											color="yellow"
+											name="sticky note"
 											onClick={this.onClickArchive}
 											size="large"
 										/>

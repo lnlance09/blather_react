@@ -456,6 +456,10 @@ a {
         }
     }
 
+    .similarFallaciesSegment {
+        width: 100%;
+    }
+
     @media only screen and (max-width: 1025px) {
         .ui.header {
             font-size: 16px;
@@ -493,8 +497,12 @@ a {
         }
     }
 
-    .feed {
+    .feedWrapper {
         width: 100%;
+
+        .feed {
+            width: 100%;
+        }
     }
 }
 
@@ -792,6 +800,7 @@ a {
     }
 
     .profileContentContainer {
+        min-height: 450px;
         padding: 0 !important;
         width: 100% !important;
     }

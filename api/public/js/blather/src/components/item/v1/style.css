@@ -11,8 +11,23 @@
     .resultItem .meta .label {
       background: #54C8FF !important;
       color: #FFFFFF; }
+  .resultItem .content .header {
+    width: 100%; }
+    .resultItem .content .header .archiveItemMenu {
+      float: right; }
+      .resultItem .content .header .archiveItemMenu .icon.ellipsis.horizontal {
+        color: #DCDDDE; }
+      .resultItem .content .header .archiveItemMenu .icon.twitter {
+        color: #0084b4; }
+      .resultItem .content .header .archiveItemMenu .icon.youtube {
+        color: #ff0000; }
+      .resultItem .content .header .archiveItemMenu .icon.sticky.note {
+        color: #FBBD08; }
   .resultItem .content .description {
     white-space: pre-line; }
+  @media only screen and (max-width: 1025px) {
+    .resultItem .content {
+      padding: 0 !important; } }
   .resultItem .extra .extraList {
     margin-bottom: 0;
     margin-top: 0; }

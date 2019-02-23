@@ -291,9 +291,12 @@ class FallaciesList extends Component {
 								onBottomVisible={this.loadMore}
 							>
 								{showTargets ? (
-									<Item.Group className="targetItems" divided>
-										{RenderTargets(this.props)}
-									</Item.Group>
+									<div>
+										<Divider />
+										<Item.Group className="targetItems" divided>
+											{RenderTargets(this.props)}
+										</Item.Group>
+									</div>
 								) : (
 									<Item.Group className="fallacyItems" divided>
 										{RenderFallacies(this.props)}

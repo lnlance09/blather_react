@@ -280,7 +280,7 @@ class Fallacy extends Component {
 				case "similar":
 					if (props.fallacyId) {
 						return (
-							<Segment stacked>
+							<Segment className="similarFallaciesSegment" stacked>
 								<FallaciesList
 									emptyMsgContent="There are no similar fallacies"
 									fallacyId={props.fallacyId}
@@ -295,7 +295,7 @@ class Fallacy extends Component {
 				case "reference":
 					return (
 						<div className="fallacyContent">
-							<FallacyRef id={props.fallacyId} />
+							<FallacyRef id={props.fallacyId} stacked />
 						</div>
 					)
 				default:

@@ -29,8 +29,7 @@
     line-height: 1.5em;
     margin-top: 5px;
     padding-top: 10px !important; }
-    .youTubeVideo .channelCard .content.extra .icon.archive {
-      color: #54C8FF;
+    .youTubeVideo .channelCard .content.extra .icon.sticky.note {
       cursor: pointer;
       float: right;
       vertical-align: middle; }

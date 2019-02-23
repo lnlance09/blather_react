@@ -14,8 +14,38 @@
     }
 
     .content {
+        .header {
+            width: 100%;
+
+            .archiveItemMenu {
+                float: right;
+
+                .icon.ellipsis.horizontal {
+                    color: $lightGrey;
+                }
+
+                .icon.twitter {
+                    color: $twitter;
+                }
+
+                .icon.youtube {
+                    color: $youtube;
+                }
+
+                .icon.sticky.note {
+                    color: $yellow;
+                }
+            }
+        }
+
         .description {
             white-space: pre-line;
+        }
+    }
+
+    @media only screen and (max-width: 1025px) {
+        .content {
+            padding: 0 !important;
         }
     }
 
