@@ -460,6 +460,7 @@ a {
     padding-top: 0 !important; } }
 
 .usersPage .profileContentContainer {
+  margin: 0 !important;
   padding: 0 !important;
   width: 100% !important; }
   .usersPage .profileContentContainer .profileContentSegment {

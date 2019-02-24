@@ -15,7 +15,7 @@
     width: 100%; }
     .resultItem .content .header .archiveItemMenu {
       float: right; }
-      .resultItem .content .header .archiveItemMenu .icon.ellipsis.horizontal {
+      .resultItem .content .header .archiveItemMenu .icon.ellipsis.vertical {
         color: #DCDDDE; }
       .resultItem .content .header .archiveItemMenu .icon.twitter {
         color: #0084b4; }

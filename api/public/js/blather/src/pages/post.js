@@ -210,14 +210,16 @@ class Post extends Component {
 						<Header dividing size="large">
 							Fallacies
 						</Header>
-						<FallaciesList
-							emptyMsgContent={`No fallacies have been assigned to this ${type}`}
-							icon={network}
-							network={network}
-							objectId={props.info.id}
-							source="post"
-							{...props}
-						/>
+						<Segment stacked>
+							<FallaciesList
+								emptyMsgContent={`No fallacies have been assigned to this ${type}`}
+								icon={network}
+								network={network}
+								objectId={props.info.id}
+								source="post"
+								{...props}
+							/>
+						</Segment>
 					</div>
 				)
 			}
@@ -342,6 +344,7 @@ class Post extends Component {
 									network={network}
 									objectId={id}
 									pageInfo={pageInfo}
+									sendNotification={this.props.sendNotification}
 									user={user}
 								/>
 								<DisplayFallacies props={this.props} />
@@ -368,6 +371,7 @@ Post.propTypes = {
 	fallacyCount: PropTypes.number,
 	profileImg: PropTypes.string,
 	refreshYouTubeToken: PropTypes.func,
+	sendNotification: PropTypes.func,
 	type: PropTypes.string
 }
 

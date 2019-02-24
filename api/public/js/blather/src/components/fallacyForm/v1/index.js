@@ -56,9 +56,7 @@ class FallacyForm extends Component {
 	changeContradictionEndTime = (e, { value }) => {
 		this.props.setContradictionEndTime({ value: convertTimeToSeconds(value) })
 	}
-
 	changeStartTime = (e, { value }) => this.setState({ beginTime: value })
-
 	closeModal = () => {
 		this.setState({
 			explanation: "",
@@ -69,7 +67,6 @@ class FallacyForm extends Component {
 		this.props.clearContradiction()
 		this.props.handleSubmit()
 	}
-
 	handleHoverOn = e => {
 		let text = ""
 		if (window.getSelection) {
@@ -80,21 +77,17 @@ class FallacyForm extends Component {
 		this.setState({ highlightedText: text })
 		this.props.setContradictionHighlight({ text })
 	}
-
 	onChangeAssignee = () => this.setState({ changed: true })
-
 	onChangeContradiction = e => {
 		if (e.keyCode === 8) {
 			this.setState({ url: "" })
 			this.props.clearContradiction()
 		}
 	}
-
 	onChangeEndTime = (e, { value }) => this.setState({ endTime: value })
 	onChangeExplanation = (e, { value }) => this.setState({ explanation: value })
 	onChangeFallacy = (e, { value }) => this.setState({ id: value })
 	onChangeTitle = (e, { value }) => this.setState({ title: value })
-
 	onPaste = e => {
 		const value = e.clipboardData.getData("Text")
 		this.setState({ url: value })
@@ -103,7 +96,6 @@ class FallacyForm extends Component {
 			url: value
 		})
 	}
-
 	onSubmitForm(e) {
 		// Make sure that a fallacy assigned to a tweet with a contradiction as a tweet is from the same twitter profile
 		const state = store.getState()
@@ -161,6 +153,12 @@ class FallacyForm extends Component {
 				: this.props.info.currentTime,
 			title: this.state.title
 		})
+		const title = `${page.name} has been assigned a fallacy`
+		this.props.sendNotification(
+			title,
+			this.state.explanation,
+			`https://blather.io/fallacies/150`
+		)
 	}
 
 	handleDismiss = () => {
@@ -410,7 +408,6 @@ class FallacyForm extends Component {
 					<Modal
 						centered={false}
 						className="successModal"
-						dimmer="blurring"
 						inverted="true"
 						onClose={this.closeModal}
 						open={open}
@@ -600,6 +597,7 @@ FallacyForm.propTypes = {
 		username: PropTypes.string
 	}),
 	parseContradiction: PropTypes.func,
+	sendNotification: PropTypes.func,
 	setContradictionEndTime: PropTypes.func,
 	setContradictionHighlight: PropTypes.func,
 	user: PropTypes.object,

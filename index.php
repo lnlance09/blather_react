@@ -7,7 +7,7 @@
     $set = false;
     $title = "Home";
     $description = "Blather is an educational tool that allows users to analyze and pinpoint the accuracy of claims made on social media. Keep track of logical fallacies and call out bullshit reasoning.";
-    $img = "https://blather.io/brain.jpg";
+    $img = "https://blather.io/images/icons/icon-100x100.png";
 
     switch($uri) {
         case"/about":
@@ -347,8 +347,8 @@
         <meta name="description" content="<?php echo htmlentities($description); ?>" />
 
         <link rel="stylesheet" type="text/css" href="static/css/main.21dde373.css">
-        <link rel="manifest" href="manifest.json">
-        <link rel="shortcut icon" href="/favicon.ico?v=1">
+        <link rel="manifest" href="/manifest.json">
+        <link rel="shortcut icon" href="/favicon.ico?v=3">
         <meta name="google-site-verification" content="bTDbvvxwQikYB9zsfufDiaqgVHMRi4DZ0311nJpngi8" />
         <title><?php echo $title; ?> - Blather</title>
 
