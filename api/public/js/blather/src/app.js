@@ -50,7 +50,6 @@ class App extends Component {
 	}
 
 	handleNotificationOnClick(e, tag) {
-		console.log(e, 'Notification clicked tag:' + tag)
 		window.location.href = e.currentTarget.data.url
 	}
 
