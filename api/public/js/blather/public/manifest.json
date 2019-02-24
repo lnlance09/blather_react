@@ -18,7 +18,7 @@
 		"sizes": "1200x1200",
 		"type": "image/png"
 	}],
-	"start_url": "/index.php",
+	"start_url": "",
 	"display": "standalone",
 	"background_color": "#1B1C1D",
 	"theme_color": "#2185D0"
