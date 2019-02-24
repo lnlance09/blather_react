@@ -55,11 +55,11 @@ class App extends Component {
 	}
 
 	handleNotificationOnError(e, tag) {
-		console.log(e, 'Notification error tag:' + tag)
+
 	}
 
 	handleNotificationOnClose(e, tag) {
-		console.log(e, 'Notification closed tag:' + tag)
+
 	}
 
 	handleNotificationOnShow(e, tag) {

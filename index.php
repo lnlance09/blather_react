@@ -8,6 +8,7 @@
     $title = "Home";
     $description = "Blather is an educational tool that allows users to analyze and pinpoint the accuracy of claims made on social media. Keep track of logical fallacies and call out bullshit reasoning.";
     $img = "https://blather.io/images/icons/icon-100x100.png";
+    $appleIcon = "https://blather.io/images/icons/icon-128x128.png";
 
     switch($uri) {
         case"/about":
@@ -349,6 +350,7 @@
         <link rel="stylesheet" type="text/css" href="static/css/main.21dde373.css">
         <link rel="manifest" href="/manifest.json">
         <link rel="shortcut icon" href="/favicon.ico?v=3">
+        <link rel="apple-touch-icon" sizes="128x128" href="icon.png">
         <meta name="google-site-verification" content="bTDbvvxwQikYB9zsfufDiaqgVHMRi4DZ0311nJpngi8" />
         <title><?php echo $title; ?> - Blather</title>
 
