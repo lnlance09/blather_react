@@ -364,9 +364,7 @@ class Conversation extends Component {
 				return convos
 			}
 			if (props.loading) {
-				return [{}, {}, {}, {}, {}].map((item, i) => (
-					<LazyLoad header={false} segment={false} />
-				))
+				return [{}, {}, {}, {}, {}].map((item, i) => <LazyLoad header={false} />)
 			}
 			return null
 		}

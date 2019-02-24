@@ -109,7 +109,6 @@ class DiscussionsList extends Component {
 	componentWillReceiveProps() {
 		this.setState({ loadingMore: false })
 	}
-
 	fetchTags() {
 		return fetch(`${window.location.origin}/api/tags/getTags`, {
 			headers: {
@@ -125,7 +124,6 @@ class DiscussionsList extends Component {
 			})
 			.catch(err => console.log(err))
 	}
-
 	fetchUsers() {
 		return fetch(`${window.location.origin}/api/discussions/getUsers?both=true`, {
 			headers: {
@@ -144,14 +142,11 @@ class DiscussionsList extends Component {
 			})
 			.catch(err => console.log(err))
 	}
-
 	handleAddition = (e, { value }) =>
 		this.setState({
 			tagsOptions: [{ text: value, value }, ...this.state.tagsOptions]
 		})
-
 	handleChange = (e, { value }) => this.setState({ tags: value })
-
 	loadMore = () => {
 		if (this.state.page < this.props.pages - 1) {
 			const newPage = parseInt(this.state.page + 1, 10)
@@ -169,15 +164,10 @@ class DiscussionsList extends Component {
 			})
 		}
 	}
-
 	onChangeSearchTerm = (e, { value }) => this.setState({ q: value })
-
 	onSelectStartedBy = (e, { value }) => this.setState({ startedBy: value })
-
 	onSelectStatus = (e, { value }) => this.setState({ status: value })
-
 	onSelectWith = (e, { value }) => this.setState({ with: value })
-
 	onSubmitForm() {
 		this.setState({ page: 0 })
 		this.props.fetchDiscussions({
@@ -218,7 +208,7 @@ class DiscussionsList extends Component {
 						/>
 					</Form.Field>
 					<Form.Field>
-						<Button primary content="Search" fluid type="submit" />
+						<Button content="Search" fluid primary type="submit" />
 					</Form.Field>
 					<Form.Field>
 						<Button
@@ -390,7 +380,14 @@ class DiscussionsList extends Component {
 
 					const meta = (
 						<div>
-							{sub} <Moment date={adjustTimezone(result.discussion_date)} fromNow />
+							<p>
+								<Icon name="arrow right" />
+								{sub}
+							</p>
+							<p>
+								<Icon name="clock outline" />
+								<Moment date={adjustTimezone(result.discussion_date)} fromNow />
+							</p>
 						</div>
 					)
 					let label = false

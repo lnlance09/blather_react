@@ -79,8 +79,10 @@ class ArchivesList extends Component {
 					let info = parseArchiveInfo(archive)
 					let meta = (
 						<div>
-							<Icon className={`${archive.network}Icon`} name={archive.network} />{" "}
-							<Moment date={adjustTimezone(archive.date_created)} fromNow />
+							<p>
+								<Icon name="clock outline" />{" "}
+								<Moment date={adjustTimezone(archive.date_created)} fromNow />
+							</p>
 						</div>
 					)
 					let menu = (

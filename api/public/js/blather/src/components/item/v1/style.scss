@@ -11,6 +11,24 @@
             background: $lightBlue !important;
             color: $white;
         }
+
+        p {
+            font-size: 13px;
+            line-height: 13px;
+
+            .icon {
+                font-size: 13px !important;
+
+                &.arrow {
+                    color: $green;
+                    margin-right: .3em !important;
+                }
+
+                &.clock {
+                    color: $grey;
+                }
+            }
+        }
     }
 
     .content {
