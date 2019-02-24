@@ -224,11 +224,24 @@ class FallaciesList extends Component {
 							: result.user_img
 					let meta = (
 						<div>
-							{props.source === "users"
-								? `Assigned to ${result.page_name}`
-								: `Assigned by ${result.user_name}`}
-							{" - "}
-							<Moment date={adjustTimezone(result.date_created)} fromNow />
+							<p>
+								<Icon
+									name={props.source === "users" ? "arrow right" : "arrow left"}
+								/>{" "}
+								{props.source === "users" ? (
+									<span>
+										Assigned to <b>{result.page_name}</b>
+									</span>
+								) : (
+									<span>
+										Assigned by <b>{result.user_name}</b>
+									</span>
+								)}
+							</p>
+							<p>
+								<Icon name="clock outline" />
+								<Moment date={adjustTimezone(result.date_created)} fromNow />
+							</p>
 						</div>
 					)
 					return (

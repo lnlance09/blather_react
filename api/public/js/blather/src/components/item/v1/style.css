@@ -11,6 +11,16 @@
     .resultItem .meta .label {
       background: #54C8FF !important;
       color: #FFFFFF; }
+    .resultItem .meta p {
+      font-size: 13px;
+      line-height: 13px; }
+      .resultItem .meta p .icon {
+        font-size: 13px !important; }
+        .resultItem .meta p .icon.arrow {
+          color: #21BA45;
+          margin-right: .3em !important; }
+        .resultItem .meta p .icon.clock {
+          color: #767676; }
   .resultItem .content .header {
     width: 100%; }
     .resultItem .content .header .archiveItemMenu {
