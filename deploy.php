@@ -30,7 +30,7 @@
     for($i=0;$i<count($new_media_files);$i++) {
         $content = file_get_contents($js_dir.'media/'.$new_media_files[$i]);
         file_put_contents('static/media/'.$new_media_files[$i], $content);
-        if ($media_files[$i] !== $new_media_files[$i]) {
+        if ($media_files[$i] !== $new_media_files[$i] && !empty($media_files[$i])) {
             exec("rm static/media/".$media_files[$i]);
         }
         $file = str_replace($media_files[$i], $new_media_files[$i], $file);
