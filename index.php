@@ -346,7 +346,7 @@
         <meta property="og:url" content="https://blather.io<?php echo $uri; ?>" />
         <meta name="description" content="<?php echo htmlentities($description); ?>" />
 
-        <link rel="stylesheet" type="text/css" href="/static/css/main.879ad190.chunk.css">
+        <link rel="stylesheet" type="text/css" href="/static/css/main.9ad1ba86.chunk.css">
         <link rel="manifest" href="/manifest.json">
         <link rel="shortcut icon" href="/favicon.ico?v=3">
         <link rel="apple-touch-icon" sizes="128x128" href="/favicon.ico?v=3">
@@ -378,7 +378,7 @@
         <div id="root"></div>
     </body>
     <script src="/static/js/1.bde46723.chunk.js"></script>
-    <script src="/static/js/main.0167dfff.chunk.js"></script>
+    <script src="/static/js/main.b1941d6c.chunk.js"></script>
     <script src="/static/js/runtime~main.229c360f.js"></script>
 <?php
     if($schema) {
