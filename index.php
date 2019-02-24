@@ -345,7 +345,7 @@
         <meta property="og:url" content="https://blather.io<?php echo $uri; ?>" />
         <meta name="description" content="<?php echo htmlentities($description); ?>" />
 
-        <link rel="stylesheet" type="text/css" href="/static/css/main.2d65afa6.chunk.css">
+        <link rel="stylesheet" type="text/css" href="/static/css/main.879ad190.chunk.css">
         <link rel="manifest" href="/manifest.json">
         <link rel="shortcut icon" href="/favicon.ico?v=2">
 
@@ -376,8 +376,8 @@
         </noscript>
         <div id="root"></div>
     </body>
-    <script src="/static/js/1.ba3e1f38.chunk.js"></script>
-    <script src="/static/js/main.f274a45a.chunk.js"></script>
+    <script src="/static/js/1.bde46723.chunk.js"></script>
+    <script src="/static/js/main.34bf689a.chunk.js"></script>
     <script src="/static/js/runtime~main.229c360f.js"></script>
 <?php
     if($schema) {
