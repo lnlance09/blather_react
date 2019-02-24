@@ -1,6 +1,9 @@
 import "css/app.css"
 import "semantic/dist/semantic.min.css"
 import React, { Component } from "react"
+import SoundFile from "./sound.mp3"
+import SoundFileAlt from "./sound.ogg"
+import Logo from "./images/icons/icon-100x100.png"
 import { Provider } from "react-redux"
 import { Route, Router, Switch } from "react-router-dom"
 import history from "history.js"
@@ -21,9 +24,79 @@ import store from "store"
 import Tags from "pages/tags"
 import Target from "pages/target"
 import Users from "pages/users"
+import Notification from "./Notification"
 
 class App extends Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			ignore: true,
+			title: ""
+		}
+
+		// this.sendNotification = this.sendNotification.bind(this)
+	}
+
+	handlePermissionGranted() {
+		this.setState({ ignore: false })
+	}
+
+	handlePermissionDenied() {
+		this.setState({ ignore: true })
+	}
+
+	handleNotSupported() {
+		this.setState({ ignore: true })
+	}
+
+	handleNotificationOnClick(e, tag) {
+		console.log(e, 'Notification clicked tag:' + tag)
+		window.location.href = e.currentTarget.data.url
+	}
+
+	handleNotificationOnError(e, tag) {
+		console.log(e, 'Notification error tag:' + tag)
+	}
+
+	handleNotificationOnClose(e, tag) {
+		console.log(e, 'Notification closed tag:' + tag)
+	}
+
+	handleNotificationOnShow(e, tag) {
+		// this.playSound()
+	}
+
+	playSound(filename) {
+		// document.getElementById("sound").play()
+	}
+
+	sendNotification(title, body, url) {
+		if (this.state.ignore) {
+			return
+		}
+
+		const now = Date.now()
+		const tag = now
+		const options = {
+			body,
+			data: {
+				url
+			},
+			dir: "ltr",
+			icon: Logo,
+			lang: "en",
+			sound: "./sound.mp3",
+			tag
+		}
+		this.setState({
+			options,
+			title,
+			url
+		})
+	}
+
 	render() {
+		const { ignore, options, title } = this.state
 		return (
 			<div className="app">
 				<Provider store={store}>
@@ -114,7 +187,10 @@ class App extends Component {
 						</Switch>
 
 						<Switch>
-							<Route component={Post} path="/tweet/:id" />
+							<Route
+								path="/tweet/:id"
+								render={props => <Post sendNotification={(title, body, url) => this.sendNotification(title, body, url)} {...props} />}
+							/>
 						</Switch>
 
 						<Switch>
@@ -144,6 +220,24 @@ class App extends Component {
 						</Switch>
 					</Router>
 				</Provider>
+				<Notification
+					ignore={ignore && title !== ""}
+					notSupported={this.handleNotSupported.bind(this)}
+					onPermissionGranted={this.handlePermissionGranted.bind(this)}
+					onPermissionDenied={this.handlePermissionDenied.bind(this)}
+					onShow={this.handleNotificationOnShow.bind(this)}
+					onClick={this.handleNotificationOnClick.bind(this)}
+					onClose={this.handleNotificationOnClose.bind(this)}
+					onError={this.handleNotificationOnError.bind(this)}
+					timeout={5000}
+					title={title}
+					options={options}
+				/>
+				<audio id="sound" preload="auto">
+					<source src={SoundFile} type="audio/mpeg" />
+					<source src={SoundFileAlt} type="audio/ogg" />
+					<embed autostart="false" hidden loop={false} src={SoundFile} />
+				</audio>
 			</div>
 		)
 	}

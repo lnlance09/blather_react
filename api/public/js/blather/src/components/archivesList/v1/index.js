@@ -84,7 +84,11 @@ class ArchivesList extends Component {
 						</div>
 					)
 					let menu = (
-						<Dropdown className="archiveItemMenu" icon="ellipsis horizontal">
+						<Dropdown
+							className="archiveItemMenu"
+							direction="left"
+							icon="ellipsis vertical"
+						>
 							<Dropdown.Menu>
 								<Dropdown.Item
 									icon={archive.network}
