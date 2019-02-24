@@ -177,8 +177,8 @@ class YouTubeVideo extends Component {
 				const archiveDate = adjustTimezone(props.archive.date_created)
 				return (
 					<Transition animation={animation} duration={duration} visible={archiveVisible}>
-						<Message className="archiveMsg" positive>
-							<Icon name="checkmark" /> Archived{" "}
+						<Message className="archiveMsg">
+							<Icon color="green" name="checkmark" /> Archived this{" "}
 							<a href={`http://archive.is/${props.archive.code}`}>video</a>{" "}
 							<Moment date={archiveDate} fromNow />
 						</Message>
