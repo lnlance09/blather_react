@@ -135,14 +135,17 @@ class Tags extends Component {
 		} = this.state
 		const pic = !this.props.img && !this.props.loading ? defaultImg : this.props.img
 		const content = (
-			<div>
-				<Dropzone className="dropzone" onDrop={this.onDrop}>
-					<Header as="h2">Change pic</Header>
-					<Button color="blue" icon>
-						<Icon name="image" />
-					</Button>
-				</Dropzone>
-			</div>
+			<Dropzone className="dropzone" onDrop={this.onDrop}>
+				{({ getRootProps, getInputProps }) => (
+					<div {...getRootProps()}>
+						<input {...getInputProps()} />
+						<Header as="h2">Change pic</Header>
+						<Button color="blue" icon>
+							<Icon name="image" />
+						</Button>
+					</div>
+				)}
+			</Dropzone>
 		)
 		const ArticleSection = props => {
 			if (editing) {
@@ -217,7 +220,7 @@ class Tags extends Component {
 			return <Image src={pic} />
 		}
 		const TagMenu = props => (
-			<Menu className="tagMenu" fluid pointing secondary stackable>
+			<Menu className="tagMenu" fluid stackable tabular>
 				<Menu.Item
 					name="article"
 					active={activeItem === "article"}

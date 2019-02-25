@@ -706,16 +706,6 @@ a {
         }
     }
 
-    .list {
-        .item {
-            cursor: pointer;
-
-            &.selected {
-                background: $white;
-            }
-        }
-    }
-
     .tagsWrapper {
         margin-top: 20px;
         width: 100%;
@@ -726,6 +716,20 @@ a {
             &:hover {
                 .editButton {
                     display: inline !important;
+                }
+            }
+
+            .editButton {
+                font-size: 16px !important;
+            }
+
+            .list {
+                .item {
+                    cursor: pointer;
+
+                    &.selected {
+                        background: $white;
+                    }
                 }
             }
         }
