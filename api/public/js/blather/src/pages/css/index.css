@@ -409,11 +409,6 @@ a {
 .tagsPage .segment img {
   margin-bottom: 1.2em; }
 
-.tagsPage .list .item {
-  cursor: pointer; }
-  .tagsPage .list .item.selected {
-    background: #FFFFFF; }
-
 .tagsPage .tagsWrapper {
   margin-top: 20px;
   width: 100%; }
@@ -421,6 +416,12 @@ a {
     margin-top: 40px !important; }
     .tagsPage .tagsWrapper .menu.tagMenu:hover .editButton {
       display: inline !important; }
+    .tagsPage .tagsWrapper .menu.tagMenu .editButton {
+      font-size: 16px !important; }
+    .tagsPage .tagsWrapper .menu.tagMenu .list .item {
+      cursor: pointer; }
+      .tagsPage .tagsWrapper .menu.tagMenu .list .item.selected {
+        background: #FFFFFF; }
 
 @media only screen and (max-width: 1025px) {
   .tagsPage .tagsWrapper {
