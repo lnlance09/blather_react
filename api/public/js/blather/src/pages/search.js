@@ -29,17 +29,22 @@ class SearchPage extends Component {
 			fallacies: query.fallacies ? query.fallacies.split(",") : [],
 			types,
 			user: currentState.user.data,
-			value: query.q
+			value: query.q ? query.q.trim() : ""
 		}
 
 		this.onChangeSearchValue = this.onChangeSearchValue.bind(this)
 	}
 
+	componentWillReceiveProps(props) {
+		const query = qs.parse(props.location.search)
+		this.setState({ value: query.q ? query.q.trim() : "" })
+	}
+
 	handleClick = (e, titleProps) => {
 		const { index } = titleProps
 		const { activeIndex } = this.state
-		const newIndex = activeIndex === index ? -1 : index
-		this.setState({ activeIndex: newIndex })
+		const newIndex = activeIndex === index ? 0 : index
+		this.setState({ activeIndex: newIndex, activeItem: "fallacies" })
 	}
 
 	handleItemClick = (e, { name }) => {
@@ -107,7 +112,7 @@ class SearchPage extends Component {
 				key={`fallacy_${i}`}
 				label={item.name}
 				name="fallacies"
-				onClick={this.handleRadioClick}
+				onChange={this.handleRadioClick}
 				value={item.id}
 			/>
 		))
@@ -170,7 +175,9 @@ class SearchPage extends Component {
 						name="fallacies"
 						onClick={this.handleClick}
 					/>
-					<Accordion.Content active={activeIndex === 0} content={fallacyForm} />
+					{activeItem === "fallacies" && (
+						<Accordion.Content active={activeIndex === 0} content={fallacyForm} />
+					)}
 				</Menu.Item>
 			</Accordion>
 		)
