@@ -6,9 +6,10 @@
 
     $set = false;
     $title = "Home";
-    $description = "Blather is an educational tool that allows users to analyze and pinpoint the accuracy of claims made on social media. Keep track of logical fallacies and call out bullshit reasoning.";
+    $description = "Blather is a webstie that lets user assign fallacies and analyze the logic and reasoning of claims made on social media. It is meant to combat partisanship.";
     $img = "https://blather.io/images/icons/icon-100x100.png";
     $appleIcon = "https://blather.io/images/icons/icon-128x128.png";
+    $author = false;
 
     switch($uri) {
         case"/about":
@@ -117,6 +118,7 @@
 
                         $pageUrl = $pageType === "twitter" ? "https://twitter.com/".$username : "https://www.youtube.com/channel/".$pageId;
                         $postUrl = $network === "twitter" ? "https://twitter.com/".$username."/status/".$mediaId : "https://www.youtube.com/watch?v=".$mediaId;
+                        $author = $userName;
                         $schema = [
                             "@context" => "http://schema.org",
                             "@type" => "SocialMediaPosting",
@@ -226,12 +228,14 @@
                     while($row = $result->fetch_assoc()) {
                         $createdAt = $row['created_at'];
                         $username = $row['username'];
-                        $title = 'Tweet by '.$row['name'];
+                        $name = $row['name'];
+                        $title = 'Tweet by '.$name;
                         $description = $row['full_text'];
                         $img = $row['profile_pic'];
                     }
                     $result->close();
 
+                    $author = $name;
                     $schema = [
                         "@context" => "http://schema.org",
                         "@type" => "SocialMediaPosting",
@@ -336,16 +340,24 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="theme-color" content="#000000">
 
-        <meta property="og:description" content="<?php echo htmlentities($description); ?>" />
-        <meta property="og:image" content="<?php echo $img; ?>" />
+        <meta property="og:description" content="<?php echo htmlentities($description); ?>">
+        <meta property="og:image" content="<?php echo $img; ?>">
         <meta property="og:image:height" content="<?php echo $height; ?>">
         <meta property="og:image:width" content="<?php echo $width; ?>">
         <meta property="og:site_name" content="Blather" />
-        <meta property="og:title" content="<?php echo htmlentities($title); ?>" />
+        <meta property="og:title" content="<?php echo htmlentities($title); ?>">
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://blather.io<?php echo $uri; ?>" />
+        <meta property="og:url" content="https://blather.io<?php echo $uri; ?>">
 
-        <meta name="description" content="<?php echo htmlentities($description); ?>" />
+        <meta name="description" content="<?php echo htmlentities($description); ?>">
+        <meta name="keywords" content="Political partisanship,fake news,logical fallacies,trolls,talking points">
+<?php
+    if ($author) {
+?>
+        <meta name="author" content="<?php echo $author; ?>">
+<?php
+    }
+?>
 
         <link rel="stylesheet" type="text/css" href="static/css/main.21dde373.css">
         <link rel="manifest" href="/manifest.json">
