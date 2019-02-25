@@ -6,11 +6,12 @@
 
     $set = false;
     $title = "Home";
-    $description = "Blather is an educational tool that allows users to analyze and pinpoint the accuracy of claims made on social media. Keep track of logical fallacies and call out bullshit reasoning.";
+    $description = "Blather is a webstie that lets user assign fallacies and analyze the logic and reasoning of claims made on social media. It is meant to combat partisanship.";
     $img = "https://blather.io/images/icons/icon-100x100.png";
     $appleIcon = "https://blather.io/images/icons/icon-128x128.png";
+    $author = false;
 
-    switch($uri) {
+    switch ($uri) {
         case"/about":
             $title = "About";
             $set = true;
@@ -66,7 +67,7 @@
             break;
     }
 
-    if(!$set) {
+    if (!$set) {
         $mysqli = new mysqli("blather.cni5l9jtlymn.us-west-2.rds.amazonaws.com:3306", "lnlance09", "kVQ63hewQNi0bXg", "blather");
         if($mysqli->connect_errno) {
             printf("Connect failed: %s\n", $mysqli->connect_error);
@@ -89,7 +90,7 @@
                 break;
 
             case'fallacies':
-                if(is_numeric($id)) {
+                if (is_numeric($id)) {
                     $sql = "SELECT f.name AS fallacy_name, p.name AS page_name, p.profile_pic, p.type AS page_type, p.social_media_id, fe.date_created, p.username, fe.title, fe.explanation, fe.media_id, u.name AS user_name, u.id AS user_id, u.img AS user_profile_pic
                             FROM fallacy_entries fe
                             INNER JOIN fallacies f ON fe.fallacy_id = f.id
@@ -117,6 +118,7 @@
 
                         $pageUrl = $pageType === "twitter" ? "https://twitter.com/".$username : "https://www.youtube.com/channel/".$pageId;
                         $postUrl = $network === "twitter" ? "https://twitter.com/".$username."/status/".$mediaId : "https://www.youtube.com/watch?v=".$mediaId;
+                        $author = $userName;
                         $schema = [
                             "@context" => "http://schema.org",
                             "@type" => "SocialMediaPosting",
@@ -149,7 +151,7 @@
                     $sql = "SELECT description, name
                             FROM fallacies
                             WHERE name = '".$mysqli->real_escape_string($name)."'";
-                    if($result = $mysqli->query($sql)) {
+                    if ($result = $mysqli->query($sql)) {
                         while($row = $result->fetch_assoc()) {
                             $title = $row['name'];
                             $description = $row['description'];
@@ -166,7 +168,7 @@
                         FROM pages
                         WHERE id = '".$mysqli->real_escape_string($id)."'
                         OR username = '".$mysqli->real_escape_string($id)."'";
-                if($result = $mysqli->query($sql)) {
+                if ($result = $mysqli->query($sql)) {
                     while($row = $result->fetch_assoc()) {
                         $title = $row['name'];
                         $description = $row['name']."'s record of logical fallacies. Keep track of all the bullshit that ".$row['name']." has spewed and hold him/her accountable";
@@ -178,7 +180,7 @@
 
             case'search':
                 $title = 'Search results';
-                if(!empty($_GET['q'])) {
+                if (!empty($_GET['q'])) {
                     $title .= ' for '.trim($_GET['q']);
                 }
                 break;
@@ -189,7 +191,7 @@
                         FROM tags
                         INNER JOIN tag_versions tv ON t.id = tv.tag_id
                         WHERE id = '".$mysqli->real_escape_string($id)."'";
-                if($result = $mysqli->query($sql)) {
+                if ($result = $mysqli->query($sql)) {
                     while($row = $result->fetch_assoc()) {
                         $title = $row['value'];
                         $description = $row['description'];
@@ -208,7 +210,7 @@
                         INNER JOIN users u ON c.user_id = u.id
                         WHERE user_id = '".$mysqli->real_escape_string((int)$id)."'
                         AND page_id = '".$mysqli->real_escape_string((int)$pageId)."'";
-                if($result = $mysqli->query($sql)) {
+                if ($result = $mysqli->query($sql)) {
                     while($row = $result->fetch_assoc()) {
                         $title = $row['user_name']."'s review of ".$row['page_name'];
                         $img = $row['profile_pic'];
@@ -222,16 +224,18 @@
                         FROM twitter_posts t
                         INNER JOIN pages p ON t.page_id = p.social_media_id
                         WHERE tweet_id = '".$mysqli->real_escape_string($id)."'";
-                if($result = $mysqli->query($sql)) {
+                if ($result = $mysqli->query($sql)) {
                     while($row = $result->fetch_assoc()) {
                         $createdAt = $row['created_at'];
                         $username = $row['username'];
-                        $title = 'Tweet by '.$row['name'];
+                        $name = $row['name'];
+                        $title = 'Tweet by '.$name;
                         $description = $row['full_text'];
                         $img = $row['profile_pic'];
                     }
                     $result->close();
 
+                    $author = $name;
                     $schema = [
                         "@context" => "http://schema.org",
                         "@type" => "SocialMediaPosting",
@@ -266,7 +270,7 @@
                         FROM users
                         WHERE id = '".$mysqli->real_escape_string($id)."' 
                         OR username = '".$mysqli->real_escape_string($id)."'";
-                if($result = $mysqli->query($sql)) {
+                if ($result = $mysqli->query($sql)) {
                     while($row = $result->fetch_assoc()) {
                         $title = $row['name'];
                         $description = $row['bio'];
@@ -281,7 +285,7 @@
                         FROM youtube_videos y
                         INNER JOIN pages p ON y.channel_id = p.social_media_id
                         WHERE video_id = '".$mysqli->real_escape_string($id)."'";
-                if($result = $mysqli->query($sql)) {
+                if ($result = $mysqli->query($sql)) {
                     while($row = $result->fetch_assoc()) {
                         $pageId = $row['social_media_id'];
                         $createdAt = $row['date_created'];
@@ -336,15 +340,24 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="theme-color" content="#000000">
 
-        <meta property="og:description" content="<?php echo htmlentities($description); ?>" />
-        <meta property="og:image" content="<?php echo $img; ?>" />
+        <meta property="og:description" content="<?php echo htmlentities($description); ?>">
+        <meta property="og:image" content="<?php echo $img; ?>">
         <meta property="og:image:height" content="<?php echo $height; ?>">
         <meta property="og:image:width" content="<?php echo $width; ?>">
         <meta property="og:site_name" content="Blather" />
-        <meta property="og:title" content="<?php echo htmlentities($title); ?>" />
+        <meta property="og:title" content="<?php echo htmlentities($title); ?>">
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://blather.io<?php echo $uri; ?>" />
-        <meta name="description" content="<?php echo htmlentities($description); ?>" />
+        <meta property="og:url" content="https://blather.io<?php echo $uri; ?>">
+
+        <meta name="description" content="<?php echo htmlentities($description); ?>">
+        <meta name="keywords" content="Political partisanship,fake news,logical fallacies,trolls,talking points">
+<?php
+    if ($author) {
+?>
+        <meta name="author" content="<?php echo $author; ?>">
+<?php
+    }
+?>
 
         <link rel="stylesheet" type="text/css" href="/static/css/main.d4bd768d.chunk.css">
         <link rel="manifest" href="/manifest.json">
@@ -381,7 +394,7 @@
     <script src="/static/js/main.60f458c5.chunk.js"></script>
     <script src="/static/js/runtime~main.229c360f.js"></script>
 <?php
-    if($schema) {
+    if ($schema) {
 ?>
     <script type="application/ld+json">
         <?php echo json_encode($schema); ?>
