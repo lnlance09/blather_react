@@ -31,13 +31,7 @@
     .tagsList {
         .item {
             .label {
-                background: $lightBlue;
-                color: $white;
                 cursor: pointer;
-
-                &:hover {
-                    background: darken($lightBlue, 5%);
-                }
             }
 
             .icon {

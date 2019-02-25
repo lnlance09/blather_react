@@ -24,6 +24,7 @@ import {
 } from "semantic-ui-react"
 import Marked from "marked"
 import defaultImg from "images/trump.svg"
+import LazyLoad from "components/lazyLoad/v1/"
 import PageFooter from "components/footer/v1/"
 import PageHeader from "components/header/v1/"
 import ParagraphPic from "images/short-paragraph.png"
@@ -158,7 +159,7 @@ class Tags extends Component {
 								value={description}
 							/>
 						</Form.Field>
-						<Button color="blue" content="Update" fluid type="submit" />
+						<Button color="blue" compact content="Update" fluid type="submit" />
 					</Form>
 				)
 			}
@@ -281,13 +282,10 @@ class Tags extends Component {
 									<Grid.Row>
 										<TagTitle props={this.props} />
 										{this.props.loading && (
-											<Segment loading>
-												<Image fluid src={ParagraphPic} />
-												<Image fluid src={ParagraphPic} />
-												<Image fluid src={ParagraphPic} />
-												<Image fluid src={ParagraphPic} />
-												<Image fluid src={ParagraphPic} />
-											</Segment>
+											<div>
+												<LazyLoad header={false} />
+												<LazyLoad header={false} />
+											</div>
 										)}
 									</Grid.Row>
 									<Grid.Row>
@@ -318,26 +316,23 @@ class Tags extends Component {
 									<Grid.Column width={12}>
 										<TagTitle props={this.props} />
 										{this.props.loading ? (
-											<Segment loading>
-												<Image fluid src={ParagraphPic} />
-												<Image fluid src={ParagraphPic} />
-												<Image fluid src={ParagraphPic} />
-												<Image fluid src={ParagraphPic} />
-												<Image fluid src={ParagraphPic} />
-											</Segment>
+											<div>
+												<LazyLoad header={false} />
+												<LazyLoad header={false} />
+											</div>
 										) : (
 											<div className="tagsWrapper">
 												{TagMenu(this.props)}
-												{activeItem === "article" && (
-													<div>{ArticleSection(this.props)}</div>
-												)}
-												{activeItem === "history" && (
-													<div>
+												<Segment stacked>
+													{activeItem === "article" && (
+														<div>{ArticleSection(this.props)}</div>
+													)}
+													{activeItem === "history" && (
 														<List divided>
 															{HistorySection(this.props)}
 														</List>
-													</div>
-												)}
+													)}
+												</Segment>
 											</div>
 										)}
 									</Grid.Column>

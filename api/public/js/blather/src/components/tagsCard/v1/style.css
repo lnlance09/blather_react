@@ -21,11 +21,7 @@
     font-size: 20px !important; } }
 
 .tagsCard .tagsList .item .label {
-  background: #54C8FF;
-  color: #FFFFFF;
   cursor: pointer; }
-  .tagsCard .tagsList .item .label:hover {
-    background: #3bc0ff; }
 
 .tagsCard .tagsList .item .icon {
   color: #FF695E !important;
