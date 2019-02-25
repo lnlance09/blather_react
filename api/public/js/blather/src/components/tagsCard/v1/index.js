@@ -117,9 +117,9 @@ class TagsCard extends Component {
 						/>
 						<Button
 							className="tagModalBtn"
-							color="blue"
 							content="Update"
 							onClick={this.updateTags}
+							primary
 						/>
 						<div className="clearfix" />
 					</Modal.Description>
@@ -129,6 +129,7 @@ class TagsCard extends Component {
 		const RenderTags = this.props.tags.map(tag => (
 			<List.Item key={`tag_${tag.name}`}>
 				<Label
+					color="green"
 					horizontal
 					id={tag.id}
 					onClick={() => this.props.history.push(`/tags/${tag.id.trim()}`)}
