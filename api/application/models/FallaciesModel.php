@@ -454,7 +454,6 @@
             $this->db->join('pages p', 'fe.page_id = p.social_media_id');
             $this->db->join('users u', 'fe.assigned_by = u.id');
             $this->db->join('archived_links a', 'a.object_id = fe.media_id AND a.user_id = fe.assigned_by', 'left');
-
             $this->db->join('fallacy_tags ft', 'fe.id = ft.fallacy_id', 'left');
             $this->db->join('tags t', 'ft.tag_id = t.id', 'left');
 
@@ -471,10 +470,10 @@
             }
 
             if($data['q']) {
-                $this->db->where("title LIKE '%".$data['q']."%' OR explanation LIKE '%".$data['q']."%' ");
+                $this->db->where("(title LIKE '%".$data['q']."%' OR explanation LIKE '%".$data['q']."%')");
             }
 
-            if($data['fallacies']) {
+            if(!empty($data['fallacies'])) {
                 $this->db->where_in('fe.fallacy_id', $data['fallacies']);
             }
 

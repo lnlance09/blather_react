@@ -101,7 +101,7 @@
                     break;
 
                 case'fallacies':
-                    $fallacies = $fallacies ? explode(',', $fallacies) : null;
+                    $fallacies = $fallacies ? array_map('intval', explode(',', $fallacies)) : null;
                     $params = [
                         'assigned_by' => null,
                         'assigned_to' => null,

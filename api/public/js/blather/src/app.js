@@ -169,8 +169,8 @@ class App extends Component {
 						</Switch>
 
 						<Switch>
-							<Route component={SearchPage} exact path="/search" />
-							<Route component={SearchPage} path="/search/:type" />
+							<Route exact path="/search" render={props => <SearchPage {...props} />} />
+							<Route path="/search/:type" render={props => <SearchPage {...props} />} />
 						</Switch>
 
 						<Switch>
