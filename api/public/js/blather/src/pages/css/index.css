@@ -403,29 +403,30 @@ a {
       max-width: 450px; }
 
 /* Tags page */
-.tagsPage .segment.basic {
-  padding: 0; }
-
-.tagsPage .segment img {
-  margin-bottom: 1.2em; }
-
 .tagsPage .tagsWrapper {
-  margin-top: 20px;
   width: 100%; }
   .tagsPage .tagsWrapper .menu.tagMenu {
-    margin-top: 40px !important; }
-    .tagsPage .tagsWrapper .menu.tagMenu:hover .editButton {
-      display: inline !important; }
-    .tagsPage .tagsWrapper .menu.tagMenu .editButton {
-      font-size: 16px !important; }
+    margin-top: 16px !important; }
     .tagsPage .tagsWrapper .menu.tagMenu .list .item {
       cursor: pointer; }
       .tagsPage .tagsWrapper .menu.tagMenu .list .item.selected {
         background: #FFFFFF; }
+  .tagsPage .tagsWrapper .segment.stacked {
+    overflow: hidden; }
+    .tagsPage .tagsWrapper .segment.stacked:hover .editButton {
+      display: inline !important; }
+    .tagsPage .tagsWrapper .segment.stacked .editButtonWrapper {
+      height: 25px; }
+      .tagsPage .tagsWrapper .segment.stacked .editButtonWrapper .editButton {
+        display: inline !important;
+        font-size: 16px !important;
+        margin-bottom: 10px; }
+    .tagsPage .tagsWrapper .segment.stacked img {
+      max-width: 400px; }
 
 @media only screen and (max-width: 1025px) {
-  .tagsPage .tagsWrapper {
-    margin-top: 0; } }
+  .tagsPage .tagsWrapper .segment.stacked img {
+    width: 300px; } }
 
 /* Targets page */
 .targetsPage .ui.text.container {

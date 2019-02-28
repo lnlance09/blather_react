@@ -316,13 +316,8 @@ class FallacyExample extends Component {
 				((props.contradiction ? props.contradiction.tweet : false) || !props.contradiction)
 			) {
 				return (
-					<Label
-						className="screenshot"
-						color="orange"
-						corner="left"
-						onClick={this.captureScreenshot}
-					>
-						<Icon name="sticky note" />
+					<Label className="screenshot" corner="left" onClick={this.captureScreenshot}>
+						<Icon color="green" name="download" />
 					</Label>
 				)
 			}
