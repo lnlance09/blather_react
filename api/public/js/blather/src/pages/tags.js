@@ -4,30 +4,24 @@ import { DisplayMetaTags } from "utils/metaFunctions"
 import { sanitizeText } from "utils/textFunctions"
 import { changePic, fetchHistory, fetchTagInfo, updateDescription, updateTag } from "./actions/tag"
 import Moment from "react-moment"
-import Dropzone from "react-dropzone"
 import { connect, Provider } from "react-redux"
 import { Link } from "react-router-dom"
 import {
 	Button,
 	Container,
-	Dimmer,
 	Form,
-	Grid,
 	Header,
 	Icon,
 	Image,
 	List,
 	Menu,
-	Responsive,
 	Segment,
 	TextArea
 } from "semantic-ui-react"
 import Marked from "marked"
-import defaultImg from "images/trump.svg"
 import LazyLoad from "components/lazyLoad/v1/"
 import PageFooter from "components/footer/v1/"
 import PageHeader from "components/header/v1/"
-import ParagraphPic from "images/short-paragraph.png"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import store from "store"
@@ -43,7 +37,6 @@ class Tags extends Component {
 		const bearer = currentState.user.bearer
 		const userId = parseInt(currentState.user.data.id, 10)
 		this.state = {
-			active: false,
 			activeItem: "article",
 			authenticated,
 			bearer,
@@ -51,7 +44,6 @@ class Tags extends Component {
 			editing: false,
 			id,
 			files: [],
-			inverted: true,
 			userId
 		}
 
@@ -69,22 +61,18 @@ class Tags extends Component {
 		})
 
 		this.props.fetchTagInfo({ id })
-
 		this.onChangeDescription = this.onChangeDescription.bind(this)
 		this.onClickEdit = this.onClickEdit.bind(this)
-		this.onDrop = this.onDrop.bind(this)
 		this.setVersion = this.setVersion.bind(this)
 		this.updateTag = this.updateTag.bind(this)
 	}
 
-	handleHide = () => this.setState({ active: false })
 	handleItemClick = (e, { name }) => {
 		this.setState({ activeItem: name })
 		if (name === "history") {
 			this.props.fetchHistory({ id: this.props.id })
 		}
 	}
-	handleShow = () => this.setState({ active: true })
 	onChangeDescription = (e, { value }) => this.setState({ description: value })
 	onClickEdit = () => {
 		this.setState({
@@ -92,18 +80,6 @@ class Tags extends Component {
 			editing: this.state.editing === false
 		})
 	}
-
-	onDrop(files) {
-		this.setState({ files })
-		if (files.length > 0) {
-			this.props.changePic({
-				bearer: this.state.bearer,
-				file: files[0],
-				id: this.state.id
-			})
-		}
-	}
-
 	setVersion = edit => {
 		this.setState({
 			activeItem: "article",
@@ -112,7 +88,6 @@ class Tags extends Component {
 		})
 		this.props.updateDescription({ description: edit.description })
 	}
-
 	updateTag = () => {
 		this.setState({ editing: false })
 		this.props.updateTag({
@@ -123,31 +98,7 @@ class Tags extends Component {
 	}
 
 	render() {
-		const {
-			active,
-			activeItem,
-			authenticated,
-			bearer,
-			description,
-			editing,
-			id,
-			inverted,
-			version
-		} = this.state
-		const pic = !this.props.img && !this.props.loading ? defaultImg : this.props.img
-		const content = (
-			<Dropzone className="dropzone" onDrop={this.onDrop}>
-				{({ getRootProps, getInputProps }) => (
-					<div {...getRootProps()}>
-						<input {...getInputProps()} />
-						<Header as="h2">Change pic</Header>
-						<Button color="blue" icon>
-							<Icon name="image" />
-						</Button>
-					</div>
-				)}
-			</Dropzone>
-		)
+		const { activeItem, authenticated, bearer, description, editing, id, version } = this.state
 		const ArticleSection = props => {
 			if (editing) {
 				return (
@@ -175,11 +126,13 @@ class Tags extends Component {
 			if (!props.loading) {
 				if (authenticated) {
 					return (
-						<Icon
-							className={`editButton ${editing ? "editing" : ""}`}
-							name={editing ? "close" : "pencil"}
-							onClick={this.onClickEdit}
-						/>
+						<div className="editButtonWrapper">
+							<Icon
+								className={`editButton ${editing ? "editing" : ""}`}
+								name={editing ? "close" : "pencil"}
+								onClick={this.onClickEdit}
+							/>
+						</div>
 					)
 				}
 			}
@@ -204,22 +157,6 @@ class Tags extends Component {
 				)
 			})
 		}
-		const ProfilePic = props => {
-			if (authenticated) {
-				return (
-					<Dimmer.Dimmable
-						as={Image}
-						dimmed={active}
-						dimmer={{ active, content, inverted }}
-						onMouseEnter={this.handleShow}
-						onMouseLeave={this.handleHide}
-						size="medium"
-						src={pic}
-					/>
-				)
-			}
-			return <Image src={pic} />
-		}
 		const TagMenu = props => (
 			<Menu className="tagMenu" fluid stackable tabular>
 				<Menu.Item
@@ -232,11 +169,6 @@ class Tags extends Component {
 					active={activeItem === "history"}
 					onClick={this.handleItemClick}
 				/>
-				<Menu.Menu position="right">
-					<Menu.Item>
-						<EditButton props={this.props} />
-					</Menu.Item>
-				</Menu.Menu>
 			</Menu>
 		)
 		const TagTitle = ({ props }) => {
@@ -277,67 +209,28 @@ class Tags extends Component {
 					<PageHeader {...this.props} />
 					{!this.props.error ? (
 						<Container className="mainContainer" textAlign="left">
-							<Responsive maxWidth={1024}>
-								<Grid>
-									<Grid.Row>
-										<TagTitle props={this.props} />
-										{this.props.loading && (
+							<TagTitle props={this.props} />
+							{this.props.loading ? (
+								<div>
+									<LazyLoad header={false} />
+									<LazyLoad header={false} />
+								</div>
+							) : (
+								<div className="tagsWrapper">
+									{TagMenu(this.props)}
+									<Segment stacked>
+										{activeItem === "article" && (
 											<div>
-												<LazyLoad header={false} />
-												<LazyLoad header={false} />
+												<EditButton props={this.props} />
+												{ArticleSection(this.props)}
 											</div>
 										)}
-									</Grid.Row>
-									<Grid.Row>
-										{ProfilePic(this.props)}
-										{!this.props.loading && (
-											<div className="tagsWrapper">
-												{TagMenu(this.props)}
-												{activeItem === "article" && (
-													<div>{ArticleSection(this.props)}</div>
-												)}
-												{activeItem === "history" && (
-													<div>
-														<List divided>
-															{HistorySection(this.props)}
-														</List>
-													</div>
-												)}
-											</div>
+										{activeItem === "history" && (
+											<List divided>{HistorySection(this.props)}</List>
 										)}
-									</Grid.Row>
-								</Grid>
-							</Responsive>
-							<Responsive minWidth={1025}>
-								<Grid>
-									<Grid.Column className="leftSide" width={4}>
-										{ProfilePic(this.props)}
-									</Grid.Column>
-									<Grid.Column width={12}>
-										<TagTitle props={this.props} />
-										{this.props.loading ? (
-											<div>
-												<LazyLoad header={false} />
-												<LazyLoad header={false} />
-											</div>
-										) : (
-											<div className="tagsWrapper">
-												{TagMenu(this.props)}
-												<Segment stacked>
-													{activeItem === "article" && (
-														<div>{ArticleSection(this.props)}</div>
-													)}
-													{activeItem === "history" && (
-														<List divided>
-															{HistorySection(this.props)}
-														</List>
-													)}
-												</Segment>
-											</div>
-										)}
-									</Grid.Column>
-								</Grid>
-							</Responsive>
+									</Segment>
+								</div>
+							)}
 						</Container>
 					) : (
 						<Container className="mainContainer" text textAlign="center">

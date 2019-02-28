@@ -36,7 +36,10 @@ const tag = (state = initial(), action) => {
 					username: payload.tag.username
 				},
 				dateCreated: payload.tag.date_created,
-				description: payload.tag.description === null ? "" : payload.tag.description,
+				description:
+					payload.tag.description === null
+						? "There is no article for this tag yet..."
+						: payload.tag.description,
 				id: parseInt(payload.tag.tag_id, 10),
 				img: payload.tag.tag_img,
 				loading: false,

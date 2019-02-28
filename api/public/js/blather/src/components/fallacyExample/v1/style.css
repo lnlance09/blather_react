@@ -3,51 +3,42 @@
 /*---   Neutrals  ---*/
 /*---   Misc  ---*/
 /*---   Social colors  ---*/
-.fallacyExample .fallacyHeader .editButton {
-  color: #2185D0;
-  cursor: pointer;
-  display: none !important;
-  float: right;
-  font-size: 18px;
-  margin-left: 2px; }
-  .fallacyExample .fallacyHeader .editButton.editing {
-    color: #FF695E; }
-
-.fallacyExample .fallacyHeader:hover .editButton {
-  display: inline !important; }
-
-.fallacyExample .fallacyMaterial {
-  margin-top: 15px; }
-
-.fallacyExample .fallacyExplanation {
-  margin: 0;
-  padding: 14px;
-  width: 100%; }
-
-.fallacyExample span.clearfix {
-  display: block; }
-
-.fallacyExample .commonMarkLink {
-  margin: 0.5em 0.3em 0 !important; }
-  .fallacyExample .commonMarkLink a {
-    color: #545454;
+.fallacyExample {
+  overflow: hidden; }
+  .fallacyExample .fallacyHeader .editButton {
+    color: #2185D0;
+    cursor: pointer;
+    display: none !important;
     float: right;
-    font-size: 12px; }
-    .fallacyExample .commonMarkLink a:hover {
-      text-decoration: underline; }
-
-@media only screen and (max-width: 1025px) {
-  .fallacyExample .fallacyExplanation .header {
-    font-size: 18px; } }
-
-.fallacyExample .explanation {
-  white-space: pre-line; }
-  .fallacyExample .explanation p {
-    font-size: 15px;
-    margin: 0; }
-
-.fallacyExample .screenshot .icon {
-  cursor: pointer !important; }
-
-.fallacyExample .screenshot .label {
-  background: #2185D0; }
+    font-size: 18px;
+    margin-left: 2px; }
+    .fallacyExample .fallacyHeader .editButton.editing {
+      color: #FF695E; }
+  .fallacyExample .fallacyHeader:hover .editButton {
+    display: inline !important; }
+  .fallacyExample .fallacyMaterial {
+    margin-top: 15px; }
+  .fallacyExample .fallacyExplanation {
+    margin: 0;
+    padding: 14px;
+    width: 100%; }
+  .fallacyExample span.clearfix {
+    display: block; }
+  .fallacyExample .commonMarkLink {
+    margin: 0.5em 0.3em 0 !important; }
+    .fallacyExample .commonMarkLink a {
+      color: #545454;
+      float: right;
+      font-size: 12px; }
+      .fallacyExample .commonMarkLink a:hover {
+        text-decoration: underline; }
+  @media only screen and (max-width: 1025px) {
+    .fallacyExample .fallacyExplanation .header {
+      font-size: 18px; } }
+  .fallacyExample .explanation {
+    white-space: pre-line; }
+    .fallacyExample .explanation p {
+      font-size: 15px;
+      margin: 0; }
+  .fallacyExample .screenshot .icon {
+    cursor: pointer !important; }

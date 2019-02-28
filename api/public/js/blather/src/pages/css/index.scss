@@ -696,32 +696,11 @@ a {
 
 /* Tags page */
 .tagsPage {
-    .segment {
-        &.basic {
-            padding: 0;
-        }
-
-        img {
-            margin-bottom: 1.2em;
-        }
-    }
-
     .tagsWrapper {
-        margin-top: 20px;
         width: 100%;
 
         .menu.tagMenu {
-            margin-top: 40px !important;
-
-            &:hover {
-                .editButton {
-                    display: inline !important;
-                }
-            }
-
-            .editButton {
-                font-size: 16px !important;
-            }
+            margin-top: 16px !important;
 
             .list {
                 .item {
@@ -733,11 +712,37 @@ a {
                 }
             }
         }
+
+        .segment.stacked {
+            overflow: hidden;
+
+            &:hover {
+                .editButton {
+                    display: inline !important;
+                }
+            }
+
+            .editButtonWrapper {
+                height: 25px;
+
+                .editButton {
+                    display: inline !important;
+                    font-size: 16px !important;
+                    margin-bottom: 10px;
+                }
+            }
+
+            img {
+                max-width: 400px;
+            }
+        }
     }
 
     @media only screen and (max-width: 1025px) {
         .tagsWrapper {
-            margin-top: 0;
+            .segment.stacked img {
+                width: 300px;
+            }
         }
     }
 }

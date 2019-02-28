@@ -1,6 +1,8 @@
 @import '../../../css/colors.scss';
 
 .fallacyExample {
+    overflow: hidden;
+
     .fallacyHeader {
         .editButton {
             color: $blue;
@@ -70,10 +72,6 @@
     .screenshot {
         .icon {
             cursor: pointer !important;
-        }
-
-        .label {
-            background: $blue;
         }
     }
 }

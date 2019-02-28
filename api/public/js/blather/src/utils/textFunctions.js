@@ -41,9 +41,25 @@ export const formatPlural = (count, term) => {
 
 export const sanitizeText = html => {
 	return sanitizeHtml(html, {
-		allowedTags: ["b", "i", "em", "strong", "a", "p", "ul", "ol"],
+		allowedTags: [
+			"b",
+			"i",
+			"em",
+			"strong",
+			"a",
+			"p",
+			"ul",
+			"ol",
+			"li",
+			"h1",
+			"h2",
+			"h3",
+			"h4",
+			"img"
+		],
 		allowedAttributes: {
-			a: ["href"]
+			a: ["href"],
+			img: ["src", "alt"]
 		},
 		allowedIframeHostnames: ["www.youtube.com"]
 	})
