@@ -76,7 +76,10 @@ const fallacy = (state = initial(), action) => {
 				let contradiction_tweet = JSON.parse(fallacy.contradiction_tweet_json)
 				contradiction_tweet.archive = contradiction_archive
 				contradiction = {
-					highlightedText: fallacy.contradiction_highlighted_text === "" ? null : fallacy.contradiction_highlighted_text,
+					highlightedText:
+						fallacy.contradiction_highlighted_text === ""
+							? null
+							: fallacy.contradiction_highlighted_text,
 					tweet: contradiction_tweet,
 					user: {
 						img: fallacy.contradiction_page_profile_pic
