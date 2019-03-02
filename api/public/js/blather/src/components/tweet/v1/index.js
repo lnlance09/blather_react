@@ -44,16 +44,12 @@ class Tweet extends Component {
 
 	getHighlightedText = (text, higlight) => {
 		const parts = text.split(new RegExp(`(${higlight.replace(/[()]/g, "")})`, "gi"))
-		return (
-			<span>
-				{parts.map(part =>
-					part.toLowerCase() === higlight.toLowerCase() ? (
-						<b key={`highlighted${part}`}>{part}</b>
-					) : (
-						part
-					)
-				)}
-			</span>
+		return parts.map(part =>
+			part.toLowerCase() === higlight.toLowerCase() ? (
+				<b key={`highlighted${part}`}>{part}</b>
+			) : (
+				part
+			)
 		)
 	}
 

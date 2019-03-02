@@ -76,7 +76,7 @@ const fallacy = (state = initial(), action) => {
 				let contradiction_tweet = JSON.parse(fallacy.contradiction_tweet_json)
 				contradiction_tweet.archive = contradiction_archive
 				contradiction = {
-					highlightedText: fallacy.contradiction_highlighted_text,
+					highlightedText: fallacy.contradiction_highlighted_text === "" ? null : fallacy.contradiction_highlighted_text,
 					tweet: contradiction_tweet,
 					user: {
 						img: fallacy.contradiction_page_profile_pic
@@ -142,7 +142,7 @@ const fallacy = (state = initial(), action) => {
 				explanation: fallacy.explanation,
 				fallacyId: parseInt(fallacy.fallacy_id, 10),
 				fallacyName: fallacy.fallacy_name,
-				highlightedText: fallacy.highlighted_text,
+				highlightedText: fallacy.highlighted_text === "" ? null : fallacy.highlighted_text,
 				status: parseInt(fallacy.status, 10),
 				title: fallacy.title,
 				similarCount,
