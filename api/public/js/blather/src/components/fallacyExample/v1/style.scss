@@ -70,7 +70,10 @@
     }
 
     .screenshot {
+        border-color: $darkWhite !important;
+
         .icon {
+            color: $lightBlack;
             cursor: pointer !important;
         }
     }

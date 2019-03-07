@@ -466,7 +466,7 @@ a {
   padding: 0 !important;
   width: 100% !important; }
   .usersPage .profileContentContainer .profileContentSegment {
-    min-height: 450px; }
+    height: 100%; }
 
 .usersPage .profilePic.default {
   background: #FFFFFF;
