@@ -317,7 +317,7 @@ class FallacyExample extends Component {
 			) {
 				return (
 					<Label className="screenshot" corner="left" onClick={this.captureScreenshot}>
-						<Icon color="green" name="download" />
+						<Icon color="black" name="camera" />
 					</Label>
 				)
 			}

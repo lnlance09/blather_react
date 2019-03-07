@@ -40,5 +40,8 @@
     .fallacyExample .explanation p {
       font-size: 15px;
       margin: 0; }
-  .fallacyExample .screenshot .icon {
-    cursor: pointer !important; }
+  .fallacyExample .screenshot {
+    border-color: #F3F4F5 !important; }
+    .fallacyExample .screenshot .icon {
+      color: #545454;
+      cursor: pointer !important; }
