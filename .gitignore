@@ -1,19 +1,20 @@
 .DS_Store
 
-application/cache/*
-!application/cache/index.html
-!application/cache/.htaccess
+api/application/cache/*
+!api/application/cache/index.html
+!api/application/cache/.htaccess
 
-application/logs/*
-!application/logs/index.html
-!application/logs/.htaccess
+api/application/logs/*
+!api/application/logs/index.html
+!api/application/logs/.htaccess
 api/public/img/*
+api/vendor/*
+api/application/vendor/*
 
-user_guide_src/build/*
-user_guide_src/cilexer/build/*
-user_guide_src/cilexer/dist/*
-user_guide_src/cilexer/pycilexer.egg-info/*
-/vendor/
+api/user_guide_src/build/*
+api/user_guide_src/cilexer/build/*
+api/user_guide_src/cilexer/dist/*
+api/user_guide_src/cilexer/pycilexer.egg-info/*
 
 # IDE Files
 #-------------------------

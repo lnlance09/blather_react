@@ -22,6 +22,52 @@ export const createArchive = ({ bearer, url }) => dispatch => {
 	)
 }
 
+export const createVideoArchive = ({ bearer, description, endTime, id, startTime }) => dispatch => {
+	request.post(
+		`${window.location.origin}/api/youtube/archive`,
+		{
+			form: {
+				description,
+				endTime,
+				id,
+				startTime
+			},
+			headers: {
+				Authorization: bearer
+			},
+			json: true
+		},
+		function(err, response, body) {
+			dispatch({
+				type: constants.CREATE_VIDEO_ARCHIVE,
+				payload: body
+			})
+		}
+	)
+}
+
+export const downloadVideo = ({ audio, bearer, id }) => dispatch => {
+	request.post(
+		`${window.location.origin}/api/youtube/download`,
+		{
+			form: {
+				audio,
+				id
+			},
+			headers: {
+				Authorization: bearer
+			},
+			json: true
+		},
+		function(err, response, body) {
+			dispatch({
+				type: constants.DOWNLOAD_VIDEO,
+				payload: body
+			})
+		}
+	)
+}
+
 export const fetchPostData = ({ bearer, url }) => dispatch => {
 	request.get(
 		`${window.location.origin}/api/${url}`,

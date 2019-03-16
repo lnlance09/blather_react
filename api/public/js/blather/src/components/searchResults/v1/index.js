@@ -268,12 +268,12 @@ SearchResults.defaultProps = {
 	count: 0,
 	data: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
 	error: false,
-	fetchSearchResults: fetchSearchResults,
+	fetchSearchResults,
 	hasMore: false,
 	loading: true,
 	page: 0,
 	q: "",
-	refreshYouTubeToken: refreshYouTubeToken,
+	refreshYouTubeToken,
 	type: "twitter"
 }
 

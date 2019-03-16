@@ -109,7 +109,7 @@ NewsFeed.propTypes = {
 }
 
 NewsFeed.defaultProps = {
-	mostFallacious: mostFallacious,
+	mostFallacious,
 	results: []
 }
 

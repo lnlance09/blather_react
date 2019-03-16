@@ -7,7 +7,6 @@
 
 			$this->base_url = $this->config->base_url();
 			$this->load->model('FallaciesModel', 'fallacies');
-			$this->load->model('FacebookModel', 'fb');
 			$this->load->model('TwitterModel', 'twitter');
 			$this->load->model('YouTubeModel', 'youtube');
 		}
@@ -17,7 +16,7 @@
 			$type = $this->input->get('type');
 
 			$networks = ['twitter', 'youtube'];
-			if(!$id || !in_array($type, $networks)) {
+			if (!$id || !in_array($type, $networks)) {
 				$this->output->set_status_header(400);
 				echo json_encode([
 					'error' => 'This page does not exist',
@@ -26,14 +25,14 @@
 				exit;
 			}
 
-			switch($type) {
-				case'twitter':
+			switch ($type) {
+				case 'twitter':
 					$auth = $this->user ? $this->user->linkedTwitter : false;
 					$token = $auth ? $this->user->twitterAccessToken : null;
 					$secret = $auth ? $this->user->twitterAccessSecret : null;
 					$page = $this->twitter->getPageExtended($id, $auth, $token, $secret);
 					break;
-				case'youtube':
+				case 'youtube':
 					$auth = $this->user ? $this->user->linkedYoutube : false;
 					$token = $auth ? $this->user->youtubeAccessToken : null;
 					$page = $this->youtube->getPageExtended($id, null, $auth, $token);
@@ -74,7 +73,7 @@
 			$page = $this->input->get('page');
 			$type = $this->input->get('type');
 
-			if(!$this->user) {
+			if (!$this->user) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'Please sign in to view',
@@ -83,9 +82,9 @@
 				exit;
 			}
 
-			switch($type) {
-				case'fb':
-					if(!$this->user->linkedFb) {
+			switch ($type) {
+				case 'fb':
+					if (!$this->user->linkedFb) {
 						$this->output->set_status_header(401);
 						echo json_encode([
 							'error' => 'You have not linked your Facebook account',
@@ -99,8 +98,8 @@
 					echo $posts;
 					break;
 
-				case'twitter':
-					if(!$this->user->linkedTwitter) {
+				case 'twitter':
+					if (!$this->user->linkedTwitter) {
 						$this->output->set_status_header(401);
 						echo json_encode([
 							'error' => "You need to link your Twitter account to view this user's tweets.",
@@ -123,10 +122,10 @@
 					$posts['data'] = $this->twitter->getStatuses($data, $token, $secret);
 					$posts['blocked'] = false;
 
-					if(!array_key_exists('errors', $posts['data'])) {
+					if (!array_key_exists('errors', $posts['data'])) {
 						$count = count($posts['data']);
 						$posts['count'] = $count;
-						if($count > 0) {
+						if ($count > 0) {
 							$posts['hasMore'] = $count === 18;
 							$x = $count > 0 ? $count-1 : 0;
 							$posts['lastId'] = $posts['data'][$x]['id'];
@@ -134,15 +133,15 @@
 					} else {
 						$error = true;
 						$posts['count'] = 0;
-						if($posts['data']['errors'][0]['code'] == 136) {
+						if ($posts['data']['errors'][0]['code'] == 136) {
 							$posts['blocked'] = true;
 							$error = "This user has blocked you";
 						}
 					}
 					break;
 
-				case'youtube':
-					if(!$this->user->linkedYoutube) {
+				case 'youtube':
+					if (!$this->user->linkedYoutube) {
 						$this->output->set_status_header(401);
 						echo json_encode([
 							'error' => "You need to link your YouTube account to view this user's videos.",
@@ -156,12 +155,12 @@
 					$posts = $this->youtube->getVideos([
 						'channelId' => $id,
 						'maxResults' => 18,
-						'pageToken' => $nextPageToken,
 						'order' => 'date',
+						'pageToken' => $nextPageToken,
 						'part' => 'id,snippet',
 						'type' => 'video'
 					], $token, $page, true, true);
-					if(!$posts) {
+					if (!$posts) {
 						$error = true;
 						$posts = [
 							'data' => []

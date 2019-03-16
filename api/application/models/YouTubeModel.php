@@ -34,16 +34,16 @@
         }
 
         public function getCommentExtended($id, $videoId, $auth, $token) {
-            if($auth) {
+            if ($auth) {
                 $comment = $this->getCommentInfo($id, $token, true);
-                if(array_key_exists('error', $comment)) {
+                if (array_key_exists('error', $comment)) {
                     return [
                         'code' => $comment['error']['code'],
                         'error' => 'Refresh token'
                     ];
                 }
 
-                if(count($comment['items']) === 0) {
+                if (count($comment['items']) === 0) {
                     return [
                         'code' => 404,
                         'error' => 'That comment does not exist'
@@ -58,16 +58,16 @@
                 $message = $snippet['textOriginal'];
                 $parentId = array_key_exists('parentId', $snippet) ? $snippet['parentId'] : null;
                 
-                if($parentId) {
+                if ($parentId) {
                     $parentComment = $this->getCommentInfo($parentId, $token, true);
-                    if(array_key_exists('error', $parentComment)) {
+                    if (array_key_exists('error', $parentComment)) {
                         return [
                             'code' => $parentComment['error']['code'],
                             'error' => 'Refresh token'
                         ];
                     }
 
-                    if(count($parentComment['items']) === 0) {
+                    if (count($parentComment['items']) === 0) {
                         return [
                             'code' => 404,
                             'error' => 'That comment does not exist'
@@ -141,54 +141,53 @@
             $this->db->join('youtube_videos yv', 'yc.video_id=yv.video_id');
             $this->db->join('pages vp', 'yv.channel_id=vp.social_media_id');
 
-            if($archive) {
+            if ($archive) {
                 $this->db->join('youtube_comment_fallacies f', 'yc.comment_id=f.comment_id', 'left');
             }
 
             $this->db->where('p.type', 'youtube');
             $this->db->where('yc.comment_id', $id);
-            $data = $this->db->get('youtube_comments yc')->result_array();
+            $data = $this->db->get('youtube_comments yc')->row();
 
-            if(empty($data)) {
+            if (empty($data)) {
                 return false;
             }
 
-            $item = $data[0];
-            $likeCount = $item['video_like_count'];
-            $dislikeCount = $item['video_dislike_count'];
-            $totalCount = $likeCount+$dislikeCount;
-            $likePct = $totalCount > 0 ? ($likeCount/$totalCount)*100 : 100;
+            $like_count = $data->video_like_count;
+            $dislike_count = $data->video_dislike_count;
+            $total_count = $like_count+$dislike_count;
+            $like_pct = $total_count > 0 ? ($like_count/$total_count)*100 : 100;
             
             return [
                 'commenter' => [
-                    'about' => $item['commenter_about'],
-                    'id' => $item['commenter_social_media_id'],
-                    'img' => $item['commenter_profile_pic'],
-                    'title' => $item['commenter_page_name']
+                    'about' => $data->commenter_about,
+                    'id' => $data->commenter_social_media_id,
+                    'img' => $data->commenter_profile_pic,
+                    'title' => $data->commenter_page_name
                 ],
-                'date_created' => $item['date_created'],
-                'id' => $item['comment_id'],
-                'like_count' => $item['like_count'],
-                'message' => $item['message'],
+                'date_created' => $data->date_created,
+                'id' => $data->comment_id,
+                'like_count' => $data->like_count,
+                'message' => $data->message,
                 'video' => [
                     'channel' => [
-                        'about' => $item['channel_about'],
-                        'id' => $item['channel_social_media_id'],
-                        'img' => $item['channel_profile_pic'],
-                        'title' => $item['channel_name']
+                        'about' => $data->channel_about,
+                        'id' => $data->channel_social_media_id,
+                        'img' => $data->channel_profile_pic,
+                        'title' => $data->channel_name
                     ],
-                    'date_created' => $item['video_date_created'],
-                    'description' => $item['video_description'],
-                    'id' => $item['video_id'],
-                    'img' => $item['video_img'],
+                    'date_created' => $data->video_date_created,
+                    'description' => $data->video_description,
+                    'id' => $data->video_id,
+                    'img' => $data->video_img,
                     'stats' => [
                         'commentCount' => 0,
-                        'dislikeCount' => (int)$dislikeCount,
-                        'likeCount' => (int)$likeCount,
-                        'likePct' => (int)$likePct,
-                        'viewCount' => (int)$item['video_view_count']
+                        'dislikeCount' => (int)$dislike_count,
+                        'likeCount' => (int)$like_count,
+                        'likePct' => (int)$like_pct,
+                        'viewCount' => (int)$data->video_view_count
                     ],
-                    'title' => $item['video_title']
+                    'title' => $data->video_title
                 ]
             ];
         }
@@ -232,23 +231,23 @@
         }
 
         public function getPageExtended($id, $username, $auth = false, $token = null) {
-            if($auth) {
+            if ($auth) {
                 $page = $this->getPageInfo($id, $username, $token);
-                if(!$page) {
+                if (!$page) {
                     return [
                         'code' => 404,
                         'error' => 'This channel does not exist'
                     ];
                 }
 
-                if(array_key_exists('error', $page)) {
+                if (array_key_exists('error', $page)) {
                     return [
                         'code' => 401,
                         'error' => 'Refresh token'
                     ];
                 }
 
-                if(count($page['items']) === 0) {
+                if (count($page['items']) === 0) {
                     return [
                         'code' => 404,
                         'error' => 'That channel does not exist'
@@ -256,14 +255,14 @@
                 }
                 $item = $page['items'][0];
                 $snippet = $item['snippet'];
-                $channelDescription = $snippet['description'];
-                $channelImg = $snippet['thumbnails']['high']['url'];
-                $channelTitle = $snippet['title'];
+                $channel_description = $snippet['description'];
+                $channel_img = $snippet['thumbnails']['high']['url'];
+                $channel_title = $snippet['title'];
                 $page = $this->insertPage([
-                    'about' => $channelDescription,
+                    'about' => $channel_description,
                     'is_verified' => null,
-                    'name' => $channelTitle,
-                    'profile_pic' => $channelImg,
+                    'name' => $channel_title,
+                    'profile_pic' => $channel_img,
                     'social_media_id' => $id,
                     'type' => 'youtube',
                     'username' => array_key_exists('customUrl', $snippet) ? $snippet['customUrl'] : null
@@ -275,14 +274,14 @@
                 ];
             } else {
                 $page = $this->getPageInfoFromDB($id);
-                if(!$page) {
+                if (!$page) {
                     return [
                         'code' => 404,
                         'error' => 'That channel does not exist'
                     ];
                 }
 
-                $page['external_url'] = 'https://www.youtube.com/channel/'.$id;
+                $page->external_url = 'https://www.youtube.com/channel/'.$id;
                 return [
                     'data' => $page,
                     'error' => false
@@ -303,7 +302,7 @@
                 'part' => 'id,contentDetails,contentOwnerDetails,statistics,status,snippet,invideoPromotion,brandingSettings,localizations',
                 'key' => $this->apiKey
             ];
-            if($username) {
+            if ($username) {
                 $data['forUsername'] = $username;
             } else {
                 $data['id'] = $id;
@@ -321,11 +320,8 @@
                     FROM pages
                     WHERE type = 'youtube'
                     AND (social_media_id = ? OR username = ?)";
-            $query = $this->db->query($sql, [$id, $id])->result_array();
-            if(!empty($query)) {
-                return $query[0];
-            }
-            return false;
+            $query = $this->db->query($sql, [$id, $id])->row();
+            return empty($query) ? false : $query;
         }
 
         /**
@@ -402,14 +398,14 @@
         public function getVideoExtended($id, $auth = false, $token = null) {
             if($auth) {
                 $video = $this->getVideoInfo($id, $token);
-                if(array_key_exists('error', $video)) {
+                if (array_key_exists('error', $video)) {
                     return [
                         'code' => 401,
                         'error' => 'Refresh token'
                     ];
                 }
 
-                if(count($video['items']) === 0) {
+                if (count($video['items']) === 0) {
                     return [
                         'code' => 404,
                         'error' => 'That video does not exist'
@@ -418,32 +414,34 @@
 
                 $item = $video['items'][0];
                 $stats = array_key_exists('statistics', $item) ? $item['statistics'] : [];
-                $dislikeCount = array_key_exists('dislikeCount', $stats) ? $stats['dislikeCount'] : null;
-                $likeCount = array_key_exists('likeCount', $stats) ? $stats['likeCount'] : null;
-                $viewCount = array_key_exists('viewCount', $stats) ? $stats['viewCount'] : null;
-                $totalCount = $dislikeCount+$likeCount;
-                $likePct = $totalCount > 0 ? ($likeCount/$totalCount)*100 : 100;
+                $dislike_count = array_key_exists('dislikeCount', $stats) ? $stats['dislikeCount'] : null;
+                $like_count = array_key_exists('likeCount', $stats) ? $stats['likeCount'] : null;
+                $view_count = array_key_exists('viewCount', $stats) ? $stats['viewCount'] : null;
+                $total_count = $dislike_count+$like_count;
+                $like_pct = $total_count > 0 ? ($like_count/$total_count)*100 : 100;
                 $snippet = $item['snippet'];
-                $channelId = $snippet['channelId'];
-                $videoDescription = $snippet['description'];
-                $videoDateCreated = $snippet['publishedAt'];
-                $videoImg = $snippet['thumbnails']['default']['url'];
-                $videoTitle = $snippet['title'];
+                $channel_id = $snippet['channelId'];
+                $video_description = $snippet['description'];
+                $video_date_created = $snippet['publishedAt'];
+                $video_img = $snippet['thumbnails']['default']['url'];
+                $video_title = $snippet['title'];
+                $duration = parseDuration($item['contentDetails']['duration']);
 
                 $this->insertVideo([
-                    'channel_id' => $channelId,
-                    'date_created' => $videoDateCreated,
-                    'description' => $videoDescription,
-                    'dislike_count' => $dislikeCount,
-                    'img' => $videoImg,
-                    'like_count' => $likeCount,
-                    'title' => $videoTitle,
+                    'channel_id' => $channel_id,
+                    'date_created' => $video_date_created,
+                    'description' => $video_description,
+                    'dislike_count' => $dislike_count,
+                    'duration' => $duration,
+                    'img' => $video_img,
+                    'like_count' => $like_count,
+                    'title' => $video_title,
                     'video_id' => $id,
-                    'view_count' => $viewCount
+                    'view_count' => $view_count
                 ]);
 
-                $channel = $this->getPageExtended($channelId, null, $auth, $token);
-                if($channel['error']) {
+                $channel = $this->getPageExtended($channel_id, null, $auth, $token);
+                if ($channel['error']) {
                     return $channel;
                 }
 
@@ -451,28 +449,31 @@
                     'data' => [
                         'channel' => [
                             'about' => $channel['data']['about'],
-                            'id' => $channelId,
+                            'db_id' => null,
+                            'id' => $channel_id,
                             'img' => $channel['data']['profile_pic'],
                             'title' => $channel['data']['name']
                         ],
-                        'date_created' => $videoDateCreated,
-                        'description' => $videoDescription,
+                        'date_created' => $video_date_created,
+                        'description' => $video_description,
+                        'duration' => $duration,
                         'id' => $id,
-                        'img' => $videoImg,
+                        'img' => $video_img,
+                        's3_link' => null,
                         'stats' => [
                             'commentCount' => 0,
-                            'dislikeCount' => (int)$dislikeCount,
-                            'likeCount' => (int)$likeCount,
-                            'likePct' => (int)$likePct,
-                            'viewCount' => (int)$viewCount
+                            'dislikeCount' => (int)$dislike_count,
+                            'likeCount' => (int)$like_count,
+                            'likePct' => (int)$like_pct,
+                            'viewCount' => (int)$view_count
                         ],
-                        'title' => $videoTitle
+                        'title' => $video_title
                     ],
                     'error' => false
                 ];
             } else {
                 $video = $this->getVideoFromDB($id);
-                if(!$video) {
+                if (!$video) {
                     return [
                         'code' => 404,
                         'error' => 'That video does not exist'
@@ -493,10 +494,10 @@
          * @return [array|boolean]     [An array containing data about the video | false]
          */
         public function getVideoFromDB($id, $archive = false) {
-            $this->db->select('yv.*, p.about, p.name AS page_name, p.profile_pic, p.social_media_id, p.username');
+            $this->db->select('yv.*, p.id AS page_db_id, p.about, p.name AS page_name, p.profile_pic, p.social_media_id, p.username');
             $this->db->join('pages p', 'yv.channel_id=p.social_media_id');
 
-            if($archive) {
+            if ($archive) {
                 $this->db->join('youtube_video_fallacies f', 'yv.video_id=f.video_id', 'left');
             }
 
@@ -504,32 +505,35 @@
             $this->db->where('yv.video_id', $id);
             $data = $this->db->get('youtube_videos yv')->result_array();
 
-            if(empty($data)) {
+            if (empty($data)) {
                 return false;
             }
 
             $item = $data[0];
-            $likeCount = $item['like_count'];
-            $dislikeCount = $item['dislike_count'];
-            $totalCount = $likeCount+$dislikeCount;
-            $likePct = $totalCount > 0 ? ($likeCount/$totalCount)*100 : 100;
+            $like_count = $item['like_count'];
+            $dislike_count = $item['dislike_count'];
+            $total_count = $like_count+$dislike_count;
+            $like_pct = $total_count > 0 ? ($like_count/$total_count)*100 : 100;
 
             return [
                 'channel' => [
                     'about' => $item['about'],
+                    'db_id' => $item['page_db_id'],
                     'id' => $item['channel_id'],
                     'img' => $item['profile_pic'],
                     'title' => $item['page_name']
                 ],
                 'date_created' => $item['date_created'],
                 'description' => $item['description'],
+                'duration' => $item['duration'],
                 'id' => $item['video_id'],
                 'img' => $item['img'],
+                's3_link' => $item['s3_link'],
                 'stats' => [
                     'commentCount' => 0,
-                    'dislikeCount' => (int)$dislikeCount,
-                    'likeCount' => (int)$likeCount,
-                    'likePct' => (int)$likePct,
+                    'dislikeCount' => (int)$dislike_count,
+                    'likeCount' => (int)$like_count,
+                    'likePct' => (int)$like_pct,
                     'viewCount' => (int)$item['view_count']
                 ],
                 'title' => $item['title']
@@ -545,21 +549,21 @@
         public function getVideoInfo($id, $token) {
             $data = [
                 'id' => $id,
-                'part' => 'snippet,statistics'
+                'part' => 'snippet,statistics,contentDetails'
             ];
             return $this->sendRequest($this->videosUrl, false, $data, $token);
         }
 
         public function getVideos($data, $token, $page = 0, $decode = false, $parse = false) {
             $results = $this->sendRequest($this->searchUrl, false, $data, $token, $decode);
-            if(array_key_exists('error', $results)) {
+            if (array_key_exists('error', $results)) {
                 return false;
             }
 
-            if($parse) {
+            if ($parse) {
                 $count = $results['pageInfo']['totalResults'];
                 $return = [];
-                for($i=0;$i<count($results['items']);$i++) {
+                for ($i=0;$i<count($results['items']);$i++) {
                     $item = $results['items'][$i];
                     $snippet = $item['snippet'];
                     $return[$i] = [
@@ -591,10 +595,9 @@
             $this->db->select('COUNT(*) AS count');
             $this->db->where('comment_id', $data['comment_id']);
             $query = $this->db->get('youtube_comments');
-            $result = $query->result();
-            $count = $result[0]->count;
+            $result = $query->row();
 
-            if($count == 0) {
+            if ($result->count == 0) {
                 $this->db->insert('youtube_comments', $data);
             } else {
                 unset($data['video_id']);
@@ -614,9 +617,9 @@
                 'social_media_id' => $data['social_media_id'],
                 'type' => 'youtube'
             ]);
-            $query = $this->db->get('pages')->result();
+            $query = $this->db->get('pages')->row();
 
-            if($query[0]->count == 0) {
+            if ($query->count == 0) {
                 $this->db->insert('pages', $data);
             } else {
                 $this->db->where([
@@ -638,10 +641,9 @@
             $this->db->select('COUNT(*) AS count');
             $this->db->where('video_id', $data['video_id']);
             $query = $this->db->get('youtube_videos');
-            $result = $query->result();
-            $count = $result[0]->count;
+            $result = $query->row();
 
-            if($count == 0) {
+            if ($result->count == 0) {
                 $this->db->insert('youtube_videos', $data);
             } else {
                 $this->db->where('video_id', $data['video_id']);
@@ -663,7 +665,7 @@
                 'refresh_token' => $refreshToken
             ];
             $request = $this->sendRequest($this->tokenUrl, true, $data, null);
-            if(array_key_exists('access_token', $request)) {
+            if (array_key_exists('access_token', $request)) {
                 $this->db->where('user_id', $userId);
                 $this->db->update('youtube_users', [
                     'youtube_access_token' => $request['access_token'],
@@ -682,13 +684,13 @@
          */
         public function searchPages($data, $token, $decode = false, $parse = false) {
             $results = $this->sendRequest($this->searchUrl, false, $data, $token, $decode);
-            if(array_key_exists('error', $results)) {
+            if (array_key_exists('error', $results)) {
                 return false;
             }
 
-            if($parse) {
+            if ($parse) {
                 $count = $results['pageInfo']['totalResults'];
-                for($i=0;$i<count($results['items']);$i++) {
+                for ($i=0;$i<count($results['items']);$i++) {
                     $item = $results['items'][$i];
                     $snippet = $item['snippet'];
                     $return[$i] = [
@@ -715,27 +717,27 @@
 
         public function searchPagesFromDb($q, $page = 0, $just_count = false) {
             $select = 'about, name, profile_pic, social_media_id, type, username';
-            if($just_count) {
+            if ($just_count) {
                 $select = 'COUNT(*) AS count';
             }
 
             $sql = "SELECT ".$select." FROM pages WHERE type = 'youtube' ";
             $params = [];
-            if($q) {
+            if ($q) {
                 $sql .= "AND (name LIKE ? OR username LIKE ? OR about LIKE ?)";
                 $params[] = '%'.$q.'%';
                 $params[] = '%'.$q.'%';
                 $params[] = '%'.$q.'%';
             }
 
-            if(!$just_count) {
+            if (!$just_count) {
                 $limit = 10;
                 $start = $page*$limit;
                 $sql .= " LIMIT ".$start.", ".$limit;
             }
 
             $results = $this->db->query($sql, $params)->result_array();
-            if($just_count) {
+            if ($just_count) {
                 return $results[0]['count'];
             }
 
@@ -751,12 +753,12 @@
          * @param [boolean]  $decode [Whether or not to decode the JSON response]
          */
         public function sendRequest($url, $post, $data, $token, $decode = true) {
-            if(!$post && $data) {
+            if (!$post && $data) {
                 $url .= '?'.http_build_query($data);
             }
 
             $headers = [];
-            if($token) {
+            if ($token) {
                 $headers = ['Authorization: Bearer '.$token];
             }
 
@@ -765,7 +767,7 @@
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_REFERER, 'http://localhost:8888/blather');
 
-            if($post) {
+            if ($post) {
                 $header = 'Content-Type: application/x-www-form-urlencoded';
                 array_push($headers, $header);
                 curl_setopt($ch, CURLOPT_POST, true);

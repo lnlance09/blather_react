@@ -154,11 +154,13 @@ class FallacyForm extends Component {
 			title: this.state.title
 		})
 		const title = `${page.name} has been assigned a fallacy`
+		/*
 		this.props.sendNotification(
 			title,
 			this.state.explanation,
 			`https://blather.io/fallacies/150`
 		)
+		*/
 	}
 
 	handleDismiss = () => {
@@ -606,15 +608,16 @@ FallacyForm.propTypes = {
 
 FallacyForm.defaultProps = {
 	assigned: false,
-	assignFallacy: assignFallacy,
-	clearContradiction: clearContradiction,
+	assignFallacy,
+	clearContradiction,
 	commentId: null,
-	fallacies: fallacies,
+	fallacies,
 	fallacy: {
 		contradiction: {}
 	},
-	setContradictionEndTime: setContradictionEndTime,
-	setContradictionHighlight: setContradictionHighlight
+	handleSubmit: () => null,
+	setContradictionEndTime,
+	setContradictionHighlight
 }
 
 const mapStateToProps = (state, ownProps) => ({

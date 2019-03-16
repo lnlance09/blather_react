@@ -19,7 +19,7 @@
  * Service definition for CloudSourceRepositories (v1).
  *
  * <p>
- * Access source code repositories hosted by Google.</p>
+ * Accesses source code repositories hosted by Google.</p>
  *
  * <p>
  * For more information about this service, see the API
@@ -57,6 +57,7 @@ class Google_Service_CloudSourceRepositories extends Google_Service
     parent::__construct($client);
     $this->rootUrl = 'https://sourcerepo.googleapis.com/';
     $this->servicePath = '';
+    $this->batchPath = 'batch';
     $this->version = 'v1';
     $this->serviceName = 'sourcerepo';
 

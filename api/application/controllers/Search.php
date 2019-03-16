@@ -8,7 +8,6 @@
             $this->base_url = $this->config->base_url();
             $this->load->model('DiscussionsModel', 'discussions');
             $this->load->model('FallaciesModel', 'fallacies');
-            $this->load->model('FacebookModel', 'fb');
             $this->load->model('TwitterModel', 'twitter');
             $this->load->model('YouTubeModel', 'youtube');
         }
@@ -30,9 +29,9 @@
             $limit = 10;
             $start = $page*$limit;
 
-            switch($type) {
+            switch ($type) {
                 case'facebook':
-                    if($this->user ? $this->user->linkedFb : false) {
+                    if ($this->user ? $this->user->linkedFb : false) {
                         $is_live_search = true;
                         $results = $this->fb->searchPages($q, $this->user->fbAccessToken);
                         FormatArray($results);
@@ -43,7 +42,7 @@
                     break;
 
                 case'twitter':
-                    if($this->user ? $this->user->linkedTwitter && !empty($q) : false) {
+                    if ($this->user ? $this->user->linkedTwitter && !empty($q) : false) {
                         $is_live_search = true;
                         $token = $this->user->twitterAccessToken;
                         $secret = $this->user->twitterAccessSecret;
@@ -55,7 +54,7 @@
                         $count = count($results);
                         $hasMore = $count === $limit;
                         
-                        if(!$results) {
+                        if (!$results) {
                             $error = true;
                             $results = [];
                         }
@@ -66,7 +65,7 @@
                     break;
 
                 case'youtube':
-                    if($this->user ? $this->user->linkedYoutube : false) {
+                    if ($this->user ? $this->user->linkedYoutube : false) {
                         $is_live_search = true;
                         $token = $this->user->youtubeAccessToken;
                         $pages = $this->youtube->searchPages([
@@ -78,7 +77,7 @@
                             'type' => 'channel'
                         ], $token, true, true);
 
-                        if(!$pages) {
+                        if (!$pages) {
                             $count = 0;
                             $error = true;
                             $results = [];
@@ -136,14 +135,14 @@
             $youtubeResults = $this->youtube->searchPagesFromDb($q, 0, false);
             $twitterResults = $this->twitter->searchPagesFromDb($q, 0, false);
             
-            if(empty($youtubeResults)) {
+            if (empty($youtubeResults)) {
                 $youtubeResults = [];
             }
-            if(empty($twitterResults)) {
+            if (empty($twitterResults)) {
                 $twitterResults = [];
             }
             $merge = array_merge($youtubeResults, $twitterResults);
-            for($i=0;$i<count($merge);$i++) {
+            for ($i=0;$i<count($merge);$i++) {
                 $merge[$i]['description'] = $merge[$i]['about'];
                 $merge[$i]['image'] = $merge[$i]['profile_pic'];
                 $merge[$i]['key'] = $merge[$i]['social_media_id'];

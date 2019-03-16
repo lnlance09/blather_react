@@ -67,6 +67,7 @@ class Google_Service_Monitoring extends Google_Service
     parent::__construct($client);
     $this->rootUrl = 'https://monitoring.googleapis.com/';
     $this->servicePath = '';
+    $this->batchPath = 'batch';
     $this->version = 'v3';
     $this->serviceName = 'monitoring';
 
@@ -199,6 +200,10 @@ class Google_Service_Monitoring extends Google_Service
                   'type' => 'string',
                   'required' => true,
                 ),
+                'recursive' => array(
+                  'location' => 'query',
+                  'type' => 'boolean',
+                ),
               ),
             ),'get' => array(
               'path' => 'v3/{+name}',
@@ -219,14 +224,6 @@ class Google_Service_Monitoring extends Google_Service
                   'type' => 'string',
                   'required' => true,
                 ),
-                'childrenOfGroup' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'descendantsOfGroup' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
                 'pageToken' => array(
                   'location' => 'query',
                   'type' => 'string',
@@ -236,6 +233,14 @@ class Google_Service_Monitoring extends Google_Service
                   'type' => 'integer',
                 ),
                 'ancestorsOfGroup' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'childrenOfGroup' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'descendantsOfGroup' => array(
                   'location' => 'query',
                   'type' => 'string',
                 ),
@@ -273,15 +278,11 @@ class Google_Service_Monitoring extends Google_Service
                   'type' => 'string',
                   'required' => true,
                 ),
-                'interval.endTime' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'filter' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
                 'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'interval.startTime' => array(
                   'location' => 'query',
                   'type' => 'string',
                 ),
@@ -289,7 +290,11 @@ class Google_Service_Monitoring extends Google_Service
                   'location' => 'query',
                   'type' => 'integer',
                 ),
-                'interval.startTime' => array(
+                'interval.endTime' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'filter' => array(
                   'location' => 'query',
                   'type' => 'string',
                 ),
@@ -343,15 +348,15 @@ class Google_Service_Monitoring extends Google_Service
                   'type' => 'string',
                   'required' => true,
                 ),
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
                 'pageSize' => array(
                   'location' => 'query',
                   'type' => 'integer',
                 ),
                 'filter' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'pageToken' => array(
                   'location' => 'query',
                   'type' => 'string',
                 ),
@@ -427,13 +432,13 @@ class Google_Service_Monitoring extends Google_Service
                   'type' => 'string',
                   'required' => true,
                 ),
-                'pageSize' => array(
-                  'location' => 'query',
-                  'type' => 'integer',
-                ),
                 'pageToken' => array(
                   'location' => 'query',
                   'type' => 'string',
+                ),
+                'pageSize' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
                 ),
               ),
             ),
@@ -674,13 +679,13 @@ class Google_Service_Monitoring extends Google_Service
                   'type' => 'string',
                   'required' => true,
                 ),
-                'pageSize' => array(
-                  'location' => 'query',
-                  'type' => 'integer',
-                ),
                 'pageToken' => array(
                   'location' => 'query',
                   'type' => 'string',
+                ),
+                'pageSize' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
                 ),
               ),
             ),'patch' => array(
@@ -711,13 +716,13 @@ class Google_Service_Monitoring extends Google_Service
               'path' => 'v3/uptimeCheckIps',
               'httpMethod' => 'GET',
               'parameters' => array(
-                'pageSize' => array(
-                  'location' => 'query',
-                  'type' => 'integer',
-                ),
                 'pageToken' => array(
                   'location' => 'query',
                   'type' => 'string',
+                ),
+                'pageSize' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
                 ),
               ),
             ),

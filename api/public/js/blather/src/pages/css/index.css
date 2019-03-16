@@ -261,10 +261,10 @@ a {
 .fallacyPage .commentsContent {
   width: 100%; }
 
-.fallacyPage .shareContainer {
-  margin-top: 15px; }
-  .fallacyPage .shareContainer .shareList .item {
-    cursor: pointer; }
+.fallacyPage .exportSection {
+  margin-top: 16px; }
+  .fallacyPage .exportSection .downloadBtn {
+    margin-top: 16px; }
 
 .fallacyPage .similarFallaciesSegment {
   width: 100%; }

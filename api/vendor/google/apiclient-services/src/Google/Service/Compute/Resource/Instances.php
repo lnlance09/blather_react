@@ -58,7 +58,8 @@ class Google_Service_Compute_Resource_Instances extends Google_Service_Resource
     return $this->call('addAccessConfig', array($params), "Google_Service_Compute_Operation");
   }
   /**
-   * Retrieves aggregated list of instances. (instances.aggregatedList)
+   * Retrieves aggregated list of all of the instances in your project across all
+   * regions and zones. (instances.aggregatedList)
    *
    * @param string $project Project ID for this request.
    * @param array $optParams Optional parameters.
@@ -122,8 +123,7 @@ class Google_Service_Compute_Resource_Instances extends Google_Service_Resource
    * @param array $optParams Optional parameters.
    *
    * @opt_param bool forceAttach Whether to force attach the disk even if it's
-   * currently attached to another instance. This is only available for regional
-   * disks.
+   * currently attached to another instance.
    * @opt_param string requestId An optional request ID to identify requests.
    * Specify a unique request ID so that if you must retry your request, the
    * server will know to ignore the request if it has already been completed.
@@ -209,8 +209,9 @@ class Google_Service_Compute_Resource_Instances extends Google_Service_Resource
    *
    * @param string $project Project ID for this request.
    * @param string $zone The name of the zone for this request.
-   * @param string $instance Instance name.
-   * @param string $deviceName Disk device name to detach.
+   * @param string $instance Instance name for this request.
+   * @param string $deviceName The device name of the disk to detach. Make a get()
+   * request on the instance to view currently attached disks and device names.
    * @param array $optParams Optional parameters.
    *
    * @opt_param string requestId An optional request ID to identify requests.
@@ -250,7 +251,23 @@ class Google_Service_Compute_Resource_Instances extends Google_Service_Resource
     return $this->call('get', array($params), "Google_Service_Compute_Instance");
   }
   /**
-   * Returns the specified instance's serial port output.
+   * Gets the access control policy for a resource. May be empty if no such policy
+   * or resource exists. (instances.getIamPolicy)
+   *
+   * @param string $project Project ID for this request.
+   * @param string $zone The name of the zone for this request.
+   * @param string $resource Name or id of the resource for this request.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Compute_Policy
+   */
+  public function getIamPolicy($project, $zone, $resource, $optParams = array())
+  {
+    $params = array('project' => $project, 'zone' => $zone, 'resource' => $resource);
+    $params = array_merge($params, $optParams);
+    return $this->call('getIamPolicy', array($params), "Google_Service_Compute_Policy");
+  }
+  /**
+   * Returns the last 1 MB of serial port output from the specified instance.
    * (instances.getSerialPortOutput)
    *
    * @param string $project Project ID for this request.
@@ -298,9 +315,9 @@ class Google_Service_Compute_Resource_Instances extends Google_Service_Resource
    *
    * This field is optional. It can be a full or partial URL. For example, the
    * following are all valid URLs to an instance template:   - https://www.googlea
-   * pis.com/compute/v1/projects/project/global/global/instanceTemplates/instanceT
-   * emplate  - projects/project/global/global/instanceTemplates/instanceTemplate
-   * - global/instancesTemplates/instanceTemplate
+   * pis.com/compute/v1/projects/project/global/instanceTemplates/instanceTemplate
+   * - projects/project/global/instanceTemplates/instanceTemplate  -
+   * global/instanceTemplates/instanceTemplate
    * @return Google_Service_Compute_Operation
    */
   public function insert($project, $zone, Google_Service_Compute_Instance $postBody, $optParams = array())
@@ -365,7 +382,8 @@ class Google_Service_Compute_Resource_Instances extends Google_Service_Resource
   }
   /**
    * Retrieves the list of referrers to instances contained within the specified
-   * zone. (instances.listReferrers)
+   * zone. For more information, read Viewing Referrers to VM Instances.
+   * (instances.listReferrers)
    *
    * @param string $project Project ID for this request.
    * @param string $zone The name of the zone for this request.
@@ -420,8 +438,9 @@ class Google_Service_Compute_Resource_Instances extends Google_Service_Resource
     return $this->call('listReferrers', array($params), "Google_Service_Compute_InstanceListReferrers");
   }
   /**
-   * Performs a reset on the instance. For more information, see Resetting an
-   * instance. (instances.reset)
+   * Performs a reset on the instance. This is a hard reset the VM does not do a
+   * graceful shutdown. For more information, see Resetting an instance.
+   * (instances.reset)
    *
    * @param string $project Project ID for this request.
    * @param string $zone The name of the zone for this request.
@@ -453,7 +472,7 @@ class Google_Service_Compute_Resource_Instances extends Google_Service_Resource
    *
    * @param string $project Project ID for this request.
    * @param string $zone The name of the zone for this request.
-   * @param string $resource Name of the resource for this request.
+   * @param string $resource Name or id of the resource for this request.
    * @param array $optParams Optional parameters.
    *
    * @opt_param bool deletionProtection Whether the resource should be protected
@@ -484,10 +503,11 @@ class Google_Service_Compute_Resource_Instances extends Google_Service_Resource
    *
    * @param string $project Project ID for this request.
    * @param string $zone The name of the zone for this request.
-   * @param string $instance The instance name.
+   * @param string $instance The instance name for this request.
    * @param bool $autoDelete Whether to auto-delete the disk when the instance is
    * deleted.
-   * @param string $deviceName The device name of the disk to modify.
+   * @param string $deviceName The device name of the disk to modify. Make a get()
+   * request on the instance to view currently attached disks and device names.
    * @param array $optParams Optional parameters.
    *
    * @opt_param string requestId An optional request ID to identify requests.
@@ -509,6 +529,23 @@ class Google_Service_Compute_Resource_Instances extends Google_Service_Resource
     $params = array('project' => $project, 'zone' => $zone, 'instance' => $instance, 'autoDelete' => $autoDelete, 'deviceName' => $deviceName);
     $params = array_merge($params, $optParams);
     return $this->call('setDiskAutoDelete', array($params), "Google_Service_Compute_Operation");
+  }
+  /**
+   * Sets the access control policy on the specified resource. Replaces any
+   * existing policy. (instances.setIamPolicy)
+   *
+   * @param string $project Project ID for this request.
+   * @param string $zone The name of the zone for this request.
+   * @param string $resource Name or id of the resource for this request.
+   * @param Google_Service_Compute_ZoneSetPolicyRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Compute_Policy
+   */
+  public function setIamPolicy($project, $zone, $resource, Google_Service_Compute_ZoneSetPolicyRequest $postBody, $optParams = array())
+  {
+    $params = array('project' => $project, 'zone' => $zone, 'resource' => $resource, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('setIamPolicy', array($params), "Google_Service_Compute_Policy");
   }
   /**
    * Sets labels on an instance. To learn more about labels, read the Labeling
@@ -666,7 +703,7 @@ class Google_Service_Compute_Resource_Instances extends Google_Service_Resource
    *
    * @param string $project Project ID for this request.
    * @param string $zone The name of the zone for this request.
-   * @param string $instance Instance name.
+   * @param string $instance Instance name for this request.
    * @param Google_Service_Compute_Scheduling $postBody
    * @param array $optParams Optional parameters.
    *
@@ -722,8 +759,8 @@ class Google_Service_Compute_Resource_Instances extends Google_Service_Resource
     return $this->call('setServiceAccount', array($params), "Google_Service_Compute_Operation");
   }
   /**
-   * Sets tags for the specified instance to the data included in the request.
-   * (instances.setTags)
+   * Sets network tags for the specified instance to the data included in the
+   * request. (instances.setTags)
    *
    * @param string $project Project ID for this request.
    * @param string $zone The name of the zone for this request.
@@ -750,6 +787,22 @@ class Google_Service_Compute_Resource_Instances extends Google_Service_Resource
     $params = array('project' => $project, 'zone' => $zone, 'instance' => $instance, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
     return $this->call('setTags', array($params), "Google_Service_Compute_Operation");
+  }
+  /**
+   * Simulates a maintenance event on the instance.
+   * (instances.simulateMaintenanceEvent)
+   *
+   * @param string $project Project ID for this request.
+   * @param string $zone The name of the zone for this request.
+   * @param string $instance Name of the instance scoping this request.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Compute_Operation
+   */
+  public function simulateMaintenanceEvent($project, $zone, $instance, $optParams = array())
+  {
+    $params = array('project' => $project, 'zone' => $zone, 'instance' => $instance);
+    $params = array_merge($params, $optParams);
+    return $this->call('simulateMaintenanceEvent', array($params), "Google_Service_Compute_Operation");
   }
   /**
    * Starts an instance that was stopped using the instances().stop method. For
@@ -842,6 +895,23 @@ class Google_Service_Compute_Resource_Instances extends Google_Service_Resource
     $params = array('project' => $project, 'zone' => $zone, 'instance' => $instance);
     $params = array_merge($params, $optParams);
     return $this->call('stop', array($params), "Google_Service_Compute_Operation");
+  }
+  /**
+   * Returns permissions that a caller has on the specified resource.
+   * (instances.testIamPermissions)
+   *
+   * @param string $project Project ID for this request.
+   * @param string $zone The name of the zone for this request.
+   * @param string $resource Name or id of the resource for this request.
+   * @param Google_Service_Compute_TestPermissionsRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Compute_TestPermissionsResponse
+   */
+  public function testIamPermissions($project, $zone, $resource, Google_Service_Compute_TestPermissionsRequest $postBody, $optParams = array())
+  {
+    $params = array('project' => $project, 'zone' => $zone, 'resource' => $resource, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('testIamPermissions', array($params), "Google_Service_Compute_TestPermissionsResponse");
   }
   /**
    * Updates the specified access config from an instance's network interface with

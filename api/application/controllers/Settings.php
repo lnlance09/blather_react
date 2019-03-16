@@ -14,7 +14,7 @@
 		public function recover() {
 			$email = $this->input->post('email');
 
-			if($this->user) {
+			if ($this->user) {
 				echo json_encode([
 					'error' => true,
 					'msg' => 'You must logout to recover your password'
@@ -22,7 +22,7 @@
 				exit;
 			}
 
-			if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+			if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 				$this->output->set_status_header(400);
 				echo json_encode([
 					'error' => true,
@@ -32,7 +32,7 @@
 			}
 
 			$exists = $this->users->userLookupByEmail($email);
-			if($exists) {
+			if ($exists) {
 				$this->output->set_status_header(400);
 				echo json_encode([
 					'error' => true,
@@ -61,7 +61,7 @@
 			$mail->AltBody = $msg;
 			$mail->AddAddress($email, $name);
 
-			if(!$mail->Send()) {
+			if (!$mail->Send()) {
 				$this->output->set_status_header(403);
 				exit;
 			}

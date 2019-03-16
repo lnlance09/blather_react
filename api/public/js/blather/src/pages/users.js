@@ -362,8 +362,8 @@ UserPage.propTypes = {
 }
 
 UserPage.defaultProps = {
-	changeProfilePic: changeProfilePic,
-	fetchUserData: fetchUserData,
+	changeProfilePic,
+	fetchUserData,
 	loading: true,
 	user: {}
 }

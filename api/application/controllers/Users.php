@@ -10,7 +10,6 @@
 			$this->imgUrl = $this->baseUrl.'api/public/img/';
 			$this->load->model('DiscussionsModel', 'discussions');
 			$this->load->model('FallaciesModel', 'fallacies');
-			$this->load->model('FacebookModel', 'fb');
 			$this->load->model('TwitterModel', 'twitter');
 			$this->load->model('YouTubeModel', 'youtube');
 		}
@@ -20,7 +19,7 @@
 			$newPassword = $this->input->post('new_password');
 			$confirmPassword = $this->input->post('confirm_password');
 
-			if(!$this->user) {
+			if (!$this->user) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You must be logged in to change your password'
@@ -28,7 +27,7 @@
 				exit;
 			}
 			
-			if(empty($currentPassword)) {
+			if (empty($currentPassword)) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You must enter your current password'
@@ -37,7 +36,7 @@
 			}
 
 			$exists = $this->users->getUserByCurrentPassword($this->user->id, $currentPassword);
-			if(!$exists) {
+			if (!$exists) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'Your current password is incorrect'
@@ -45,7 +44,7 @@
 				exit;
 			}
 
-			if(strlen($newPassword) < 7) {
+			if (strlen($newPassword) < 7) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'Your password must be at least 7 characters long'
@@ -53,7 +52,7 @@
 				exit;
 			}
 
-			if($newPassword !== $confirmPassword) {
+			if ($newPassword !== $confirmPassword) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'Your passwords do not match'
@@ -61,7 +60,7 @@
 				exit;
 			}
 
-			if($newPassword === $currentPassword) {
+			if ($newPassword === $currentPassword) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'Your password must be different than your old one'
@@ -79,7 +78,7 @@
 		}
 
 		public function changeProfilePic() {
-			if(!$this->user) {
+			if (!$this->user) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You must be logged in to change your picture'
@@ -96,7 +95,7 @@
 				'upload_path' => './public/img/profile_pics/'
 			]);
 
-			if(!$this->upload->do_upload('file')) {
+			if (!$this->upload->do_upload('file')) {
 				$this->output->set_status_header(403);
 				$data = $this->upload->display_errors();
 				echo json_encode([
@@ -124,7 +123,7 @@
 
 		public function createArchive() {
 			$url = $this->input->post('url');
-			if(empty($url)) {
+			if (empty($url)) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You must include a URL',
@@ -133,7 +132,7 @@
 			}
 
 			$parse = parseUrl($url);
-			if(!$parse) {
+			if (!$parse) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'This URL cannot be parsed',
@@ -143,14 +142,23 @@
 
 			$code = createArchive($url);
 			$data = [];
-			if($code && $this->user) {
+			if ($code && $this->user) {
+				$page = $this->twitter->getPageInfoFromDB($parse['username']);
+				if (!$page) {
+					$this->output->set_status_header(401);
+					echo json_encode([
+					'	error' => 'This page does not exist',
+					]);
+					exit;
+				}
+
 				$data = [
 					'code' => $code,
 					'comment_id' => $parse['comment_id'],
 					'link' => $url,
 					'network' => $parse['network'],
 					'object_id' => $parse['object_id'],
-					'page_id' => $parse['username'],
+					'page_id' => $page->id,
 					'user_id' => $this->user->id
 				];
 				$archive = $this->users->createArchive($data);
@@ -169,7 +177,7 @@
 			$unique = (int)$this->input->get('unique');
 
 			$where = ['user_id' => $id];
-			if($pageId) {
+			if ($pageId) {
 				$where['pt.id'] = $pageId;
 			}
 
@@ -179,11 +187,10 @@
 			}
 
 			$links = $this->users->getArchivedLinks($where, $unique, $page);
-
-			$perPage = 10;
-			$pages = ceil($count/$perPage);
-			$start = $page*$perPage;
-			$hasMore = ($page+1) == $pages ? false : true;
+			$per_page = 10;
+			$pages = ceil($count/$per_page);
+			$start = $page*$per_page;
+			$hasMore = ($page+1) != $pages;
 
 			echo json_encode([
 				'count' => (int)$count,
@@ -201,7 +208,7 @@
 			$select = "bio, email_verified AS emailVerified, u.id AS id, CONCAT('".$this->imgUrl."profile_pics/', u.img) AS img, linked_twitter AS linkedTwitter, linked_youtube AS linkedYoutube, name, username";
 			$info = $this->users->getUserInfo($username, $select);
 
-			if(!$info) {
+			if (!$info) {
 				$this->output->set_status_header(404);
 				echo json_encode([
 					'error' => 'That user does not exist'
@@ -209,13 +216,13 @@
 				exit;
 			}
 
-			if(empty($info['bio'])) {
-				$info['bio'] = $info['name']." does not have a bio yet";
+			if (empty($info->bio)) {
+				$info->bio = $info->name." does not have a bio yet";
 			}
 
-			$info['discussion_count'] = $this->discussions->search([
+			$info->discussion_count = $this->discussions->search([
 				'both' => true,
-				'by' => $info['id'],
+				'by' => $info->id,
 				'page' => null,
 				'q' => null,
 				'status' => null,
@@ -223,8 +230,8 @@
 				'with' => null
 			], true);
 
-			$info['fallacy_count'] = $this->fallacies->search([
-				'assigned_by' => $info['id'],
+			$info->fallacy_count = $this->fallacies->search([
+				'assigned_by' => $info->id,
 				'assigned_to' => null,
 				'comment_id' => null,
 				'fallacies' => null,
@@ -235,8 +242,8 @@
 				'q' => null
 			], true);
 			
-			$info['archive_count'] = $this->users->getArchivedLinks([
-				'user_id' => $info['id']
+			$info->archive_count = $this->users->getArchivedLinks([
+				'user_id' => $info->id
 			], false, 0, true);
 
 			echo json_encode([
@@ -249,7 +256,7 @@
 			$email = $this->input->post('email');
 			$password = $this->input->post('password');
 
-			if(empty($email)) {
+			if (empty($email)) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'Username or email is required'
@@ -257,7 +264,7 @@
 				exit;
 			}
 
-			if(empty($password)) {
+			if (empty($password)) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'Password is required'
@@ -266,7 +273,7 @@
 			}
 
 			$login = $this->users->login($email, $password);
-			if(!$login) {
+			if (!$login) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'Incorrect login credentials'
@@ -276,7 +283,7 @@
 
 			$user = $login[0];
 			$user['emailVerified'] = $user['emailVerified'] === '1';
-			$user['fbUrl'] = $this->fb->loginUrl();
+			$user['fbUrl'] = '';
 			$user['img'] = $user['img'] ? $this->imgUrl.'profile_pics/'.$user['img'] : null;
 			$user['linkedFb'] = $user['linkedFb'] === '1';
 			$user['linkedTwitter'] = $user['linkedTwitter'] === '1';
@@ -286,7 +293,7 @@
 			$user['twitterUrl'] = null;
 			$user['youtubeUrl'] = $user['linkedYoutube'] ? null : $this->youtube->getTokenUrl();
 
-			if(!$user['linkedTwitter']) {
+			if (!$user['linkedTwitter']) {
 				$token = $this->twitter->getRequestToken();
 				if($token) {
 					$user['twitterAccessToken'] = $token['oauth_token'];
@@ -322,7 +329,7 @@
 				'verification_code' => generateAlphaNumString(10)
 			];
 
-			if(empty($params['name'])) {
+			if (empty($params['name'])) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'A name is required'
@@ -330,7 +337,7 @@
 				exit;
 			}
 
-			if(preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $params['name'])) {
+			if (preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $params['name'])) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'Your name cannot contain special characters'
@@ -338,7 +345,7 @@
 				exit;
 			}
 
-			if(!filter_var($params['email'], FILTER_VALIDATE_EMAIL)) {
+			if (!filter_var($params['email'], FILTER_VALIDATE_EMAIL)) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'A valid email is required'
@@ -346,7 +353,7 @@
 				exit;
 			}
 
-			if(empty($params['username'])) {
+			if (empty($params['username'])) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'A username is required'
@@ -354,7 +361,7 @@
 				exit;
 			}
 
-			if(preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $params['username'])
+			if (preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $params['username'])
 			|| strpos($params['username'], " ")) {
 				$this->output->set_status_header(401);
 				echo json_encode([
@@ -363,7 +370,7 @@
 				exit;
 			}
 
-			if(strlen($params['username']) > 18) {
+			if (strlen($params['username']) > 18) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'Your username is too long'
@@ -371,7 +378,7 @@
 				exit;
 			}
 
-			if(strlen($params['password']) < 7) {
+			if (strlen($params['password']) < 7) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'Your password is not long enough'
@@ -380,7 +387,7 @@
 			}
 
 			$register = $this->users->register($params);
-			if(!$register) {
+			if (!$register) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'Something went wrong. Please try again.'
@@ -388,7 +395,7 @@
 				exit;
 			}
 
-			if($register['error']) {
+			if ($register['error']) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => $register['msg']
@@ -412,7 +419,7 @@
 			$mail->AltBody = $msg;
 			$mail->AddAddress($params['email'], $params['name']);
 			
-			if($mail->Send()) {
+			if ($mail->Send()) {
 				echo json_encode($register);
 				exit;
 			}
@@ -420,7 +427,7 @@
 
 		public function uniqueFallacies() {
 			$id = $this->input->get('id');
-			if(empty($id)) {
+			if (empty($id)) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You need to specify a user'
@@ -436,7 +443,7 @@
 
 		public function update() {
 			$bio = $this->input->post('bio');
-			if(!$this->user) {
+			if (!$this->user) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You must login to update your account'
@@ -452,7 +459,7 @@
 		}
 
 		public function verifyEmail() {
-			if(!$this->user) {
+			if (!$this->user) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You must login to verify your account'
@@ -460,7 +467,7 @@
 				exit;
 			}
 
-			if($this->input->post('code') !== $this->user->verificationCode) {
+			if( $this->input->post('code') !== $this->user->verificationCode) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'Incorrect verification code'

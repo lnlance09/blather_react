@@ -138,7 +138,7 @@ class Page extends Component {
 			})
 			setTimeout(() => {
 				window.location.reload()
-			}, 200)
+			}, 400)
 		}
 		const DimmerMsg = ({ btn, msg, props }) => (
 			<Dimmer active>
@@ -402,14 +402,14 @@ Page.defaultProps = {
 		error: false,
 		data: [{}, {}, {}, {}, {}]
 	},
-	fetchPageData: fetchPageData,
+	fetchPageData,
 	img: defaultImg,
 	posts: {
 		count: 0,
 		error: false,
 		data: [{}, {}, {}, {}, {}]
 	},
-	refreshYouTubeToken: refreshYouTubeToken,
+	refreshYouTubeToken,
 	sincerityTest: {},
 	turingTest: {}
 }

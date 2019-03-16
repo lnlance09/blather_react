@@ -20,7 +20,7 @@
     margin-top: 15px; }
   .fallacyExample .fallacyExplanation {
     margin: 0;
-    padding: 14px;
+    padding: 0 4px;
     width: 100%; }
   .fallacyExample span.clearfix {
     display: block; }
@@ -40,5 +40,3 @@
     .fallacyExample .explanation p {
       font-size: 15px;
       margin: 0; }
-  .fallacyExample .screenshot .icon {
-    cursor: pointer !important; }

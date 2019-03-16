@@ -19,8 +19,8 @@
  * Service definition for CloudResourceManager (v2).
  *
  * <p>
- * The Google Cloud Resource Manager API provides methods for creating, reading,
- * and updating project metadata.</p>
+ * Creates, reads, and updates metadata for Google Cloud Platform resource
+ * containers.</p>
  *
  * <p>
  * For more information about this service, see the API
@@ -51,6 +51,7 @@ class Google_Service_CloudResourceManager extends Google_Service
     parent::__construct($client);
     $this->rootUrl = 'https://cloudresourcemanager.googleapis.com/';
     $this->servicePath = '';
+    $this->batchPath = 'batch';
     $this->version = 'v2';
     $this->serviceName = 'cloudresourcemanager';
 
@@ -103,6 +104,10 @@ class Google_Service_CloudResourceManager extends Google_Service
               'path' => 'v2/folders',
               'httpMethod' => 'GET',
               'parameters' => array(
+                'parent' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
                 'showDeleted' => array(
                   'location' => 'query',
                   'type' => 'boolean',
@@ -114,10 +119,6 @@ class Google_Service_CloudResourceManager extends Google_Service
                 'pageSize' => array(
                   'location' => 'query',
                   'type' => 'integer',
-                ),
-                'parent' => array(
-                  'location' => 'query',
-                  'type' => 'string',
                 ),
               ),
             ),'move' => array(

@@ -146,7 +146,7 @@ TweetList.propTypes = {
 TweetList.defaultProps = {
 	emptyMsgContent: "",
 	emptyMsgHeader: "This user has not tweeted yet",
-	fetchPagePosts: fetchPagePosts,
+	fetchPagePosts,
 	page: 0,
 	posts: {
 		count: 0,

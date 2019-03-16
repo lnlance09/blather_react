@@ -15,7 +15,7 @@
 		public function index() {
 			$id = $this->input->get('id');
 			$discussion = $this->discussions->getDiscussion($id, false, true, true);
-			if(!$discussion['discussion_id']) {
+			if (!$discussion['discussion_id']) {
 				echo json_encode([
 					'error' => true,
 					'errorMsg' => 'This discussion does not exist'
@@ -30,7 +30,7 @@
 		}
 
 		public function accept() {
-			if(!$this->user) {
+			if (!$this->user) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'Sign in to update this discussion'
@@ -41,7 +41,7 @@
 			$acceptance = $this->input->post('acceptance');
 
 			$exists = $this->discussions->getDiscussion($id);
-			if(empty($exists)) {
+			if (empty($exists)) {
 					echo json_encode([
 					'error' => true,
 					'errorMsg' => 'This discussion does not exist',
@@ -50,7 +50,7 @@
 				exit;
 			}
 
-			if($exists['status'] > 0) {
+			if ($exists['status'] > 0) {
 				echo json_encode([
 					'error' => true,
 					'errorMsg' => 'This conversation is already in progress',
@@ -59,7 +59,7 @@
 				exit;
 			}
 			
-			if(empty($acceptance)) {
+			if (empty($acceptance)) {
 				$this->output->set_status_header(400);
 				echo json_encode([
 					'error' => true,
@@ -90,14 +90,14 @@
 			$extra = $this->input->post('extra');
 			$tags = $this->input->post('tags');
 
-			if(!$this->user) {
+			if (!$this->user) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'Sign in to create a discussion'
 				]);
 			}
 
-			if(empty($title)) {
+			if (empty($title)) {
 				$this->output->set_status_header(400);
 				echo json_encode([
 					'error' => true,
@@ -107,7 +107,7 @@
 				exit;
 			}
 
-			if(strlen($title) > 250) {
+			if (strlen($title) > 250) {
 				$this->output->set_status_header(400);
 				echo json_encode([
 					'error' => true,
@@ -117,7 +117,7 @@
 				exit;
 			}
 
-			if(empty(strip_tags($description))) {
+			if (empty(strip_tags($description))) {
 				$this->output->set_status_header(400);
 				echo json_encode([
 					'error' => true,
@@ -127,7 +127,7 @@
 				exit;
 			}
 
-			if(empty($extra)) {
+			if (empty($extra)) {
 				$this->output->set_status_header(400);
 				echo json_encode([
 					'error' => true,
@@ -169,7 +169,7 @@
 			$id = $this->input->post('id');
 			$tagId = $this->input->post('tagId');
 
-			if(!$this->user) {
+			if (!$this->user) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You must be logged in'
@@ -177,7 +177,7 @@
 				exit;
 			}
 
-			if(empty($tagId)) {
+			if (empty($tagId)) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You must include a tag'
@@ -185,14 +185,14 @@
 			}
 
 			$discussion = $this->discussions->getDiscussion($id);
-			if(empty($discussion)) {
+			if (empty($discussion)) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'This discussion does not exist'
 				]);
 			}
 
-			if($discussion['discussion_created_by'] !== $this->user->id) {
+			if ($discussion['discussion_created_by'] !== $this->user->id) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You do not have permission to edit this discussion'
@@ -233,7 +233,7 @@
 			$msg = $this->input->post('msg');
 			$status = (int)$this->input->post('status');
 
-			if(!$this->user) {
+			if (!$this->user) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You must be logged in'
@@ -241,7 +241,7 @@
 				exit;
 			}
 
-			if(!in_array($status, [1,2,3])) {
+			if (!in_array($status, [1,2,3])) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'That status is not supported'
@@ -250,7 +250,7 @@
 			}
 
 			$discussion = $this->discussions->getDiscussion($id, true);
-			if(!$discussion) {
+			if (!$discussion) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'This discussion does not exist'
@@ -258,7 +258,7 @@
 				exit;
 			}
 
-			if((int)$discussion['status'] === 2 || (int)$discussion['status'] === 3) {
+			if ((int)$discussion['status'] === 2 || (int)$discussion['status'] === 3) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'This discussion has ended'
@@ -267,7 +267,7 @@
 			}
 
 			$lastPost = $this->discussions->lastConvoExchange($id);
-			if(!$lastPost && (int)$discussion['created_by'] === $this->user->id) {
+			if (!$lastPost && (int)$discussion['created_by'] === $this->user->id) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You cannot have a conversation with yourself'
@@ -275,7 +275,7 @@
 				exit;
 			}
 
-			if((int)$lastPost['user_id'] === $this->user->id) {
+			if ((int)$lastPost['user_id'] === $this->user->id) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You have to wait your turn'
@@ -283,7 +283,7 @@
 				exit;
 			}
 
-			if(empty($msg)) {
+			if (empty($msg)) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'Your response cannot be blank'
@@ -310,7 +310,7 @@
 		}
 
 		public function update() {
-			if(!$this->user) {
+			if (!$this->user) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'Sign in to update this discussion'
@@ -324,7 +324,7 @@
 			$tags = $this->input->post('tags');
 
 			$exists = $this->discussions->getDiscussion($id);
-			if(empty($exists)) {
+			if (empty($exists)) {
 					echo json_encode([
 					'error' => true,
 					'errorMsg' => 'This discussion does not exist',
@@ -333,7 +333,7 @@
 				exit;
 			}
 
-			if($exists['discussion_created_by'] !== $this->user->id) {
+			if ($exists['discussion_created_by'] !== $this->user->id) {
 				echo json_encode([
 					'error' => true,
 					'errorMsg' => 'You do not have permission to edit this discussion',
@@ -343,7 +343,7 @@
 			}
 			
 			$title = empty($title) ? $exists['title'] : $title;
-			if(strlen($title) > 250) {
+			if (strlen($title) > 250) {
 				$this->output->set_status_header(400);
 				echo json_encode([
 					'error' => true,

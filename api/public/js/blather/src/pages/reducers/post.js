@@ -10,7 +10,21 @@ const post = (state = initial(), action) => {
 				...state,
 				archive: action.payload.archive
 			}
+		case constants.CREATE_VIDEO_ARCHIVE:
+			if (action.payload.error) {
+				return {
+					...state,
+					archiveError: true
+				}
+			}
 
+			return {
+				...state,
+				archiveError: false,
+				archives: state.archives.length > 0
+					? [...state.archives, action.payload.archive]
+					: action.payload.archives
+			}
 		case constants.FETCH_VIDEO_COMMENTS:
 			if (action.payload.error) {
 				return {
@@ -49,16 +63,22 @@ const post = (state = initial(), action) => {
 				}
 			}
 
+			let existsOnYt = true
+			let needToRefresh = false
 			if (payload.type === "video") {
+				existsOnYt = payload.exists_on_yt
+				needToRefresh = payload.need_to_refresh
 				profileImg = payload.data.channel.img
 			}
 
 			return {
 				...state.post,
 				archive: payload.archive,
+				archives: payload.archives,
 				error: payload.error,
-				errorCode: payload.code,
+				existsOnYt,
 				info: payload.data,
+				needToRefresh,
 				profileImg,
 				type: payload.type
 			}

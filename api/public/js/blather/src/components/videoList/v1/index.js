@@ -119,7 +119,7 @@ VideoList.propTypes = {
 VideoList.defaultProps = {
 	emptyMsgContent: "",
 	emptyMsgHeader: "This channel has not uploaded any videos yet",
-	fetchPagePosts: fetchPagePosts,
+	fetchPagePosts,
 	page: 0,
 	posts: {
 		count: 0,

@@ -1,6 +1,6 @@
 <?php 
     class TagsModel extends CI_Model {
-        public function __construct() {       
+        public function __construct() {
             parent:: __construct();
 
             $this->baseUrl = $this->config->base_url();
@@ -33,8 +33,8 @@
             $this->db->join('tag_versions tv', 't.id = tv.tag_id');
             $this->db->where('t.id', $id);
             $this->db->where("tv.version = (SELECT MAX(version) FROM tag_versions WHERE tag_id = ".$id.")");
-            $result = $this->db->get('tags t')->result_array();
-            return count($result) === 1 ? $result[0] : false;
+            $result = $this->db->get('tags t')->row();
+            return count($result) === 1 ? $result : false;
         }
 
         public function getTags() {
@@ -43,13 +43,14 @@
         }
 
         public function insertTags($id, $tags, $type, $userId) {
-            foreach($tags as $tag) {
+            foreach ($tags as $tag) {
                 $tagName = is_array($tag) ? $tag['name'] : $tag;
                 $this->db->select('id');
                 $this->db->where('value', $tagName);
                 $query = $this->db->get('tags');
-                $result = $query->result_array();
-                if(count($result) === 0) {
+                $result = $query->row();
+
+                if (empty($result)) {
                     $this->db->insert('tags', [
                         'created_by' => $userId,
                         'date_created' => date('Y-m-d H:i:s'),
@@ -69,16 +70,16 @@
                         'tag_id' => $tagId
                     ]);
                 } else {
-                    $tag_id = $result[0]['id'];
+                    $tag_id = $result->id;
                     $this->db->select('COUNT(*) AS count');
                     $this->db->where([
                         $type.'_id' => $id,
                         'tag_id' => $tag_id
                     ]);
                     $query = $this->db->get($type.'_tags');
-                    $result = $query->result_array();
+                    $result = $query->row();
                     
-                    if($result[0]['count'] == 0) {
+                    if ($result->count == 0) {
                         $this->db->insert($type.'_tags', [
                             'date_created' => date('Y-m-d H:i:s'),
                             $type.'_id' => $id,
@@ -101,17 +102,16 @@
             $subquery = "SELECT description, img, version
                         FROM tag_versions 
                         WHERE tag_id = ?
-                        ORDER BY version DESC 
-                        LIMIT 1";
-            $query = $this->db->query($subquery, [$id])->result();
-            if(!empty($query)) {
-                if(!array_key_exists('img', $data)) {
-                    $data['img'] = $query[0]->img;
+                        ORDER BY version DESC";
+            $query = $this->db->query($subquery, [$id])->row();
+            if (!empty($query)) {
+                if (!array_key_exists('img', $data)) {
+                    $data['img'] = $query->img;
                 }
-                if(!array_key_exists('description', $data)) {
-                    $data['description'] = $query[0]->description;
+                if (!array_key_exists('description', $data)) {
+                    $data['description'] = $query->description;
                 }
-                $data['version'] = $query[0]->version+1;
+                $data['version'] = $query->version+1;
             }
 
             $this->db->insert('tag_versions', $data);

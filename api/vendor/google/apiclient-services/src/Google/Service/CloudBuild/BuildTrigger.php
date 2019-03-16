@@ -15,15 +15,20 @@
  * the License.
  */
 
-class Google_Service_CloudBuild_BuildTrigger extends Google_Model
+class Google_Service_CloudBuild_BuildTrigger extends Google_Collection
 {
+  protected $collection_key = 'includedFiles';
   protected $buildType = 'Google_Service_CloudBuild_Build';
   protected $buildDataType = '';
   public $createTime;
   public $description;
   public $disabled;
   public $filename;
+  protected $githubType = 'Google_Service_CloudBuild_GitHubEventsConfig';
+  protected $githubDataType = '';
   public $id;
+  public $ignoredFiles;
+  public $includedFiles;
   public $substitutions;
   protected $triggerTemplateType = 'Google_Service_CloudBuild_RepoSource';
   protected $triggerTemplateDataType = '';
@@ -74,6 +79,20 @@ class Google_Service_CloudBuild_BuildTrigger extends Google_Model
   {
     return $this->filename;
   }
+  /**
+   * @param Google_Service_CloudBuild_GitHubEventsConfig
+   */
+  public function setGithub(Google_Service_CloudBuild_GitHubEventsConfig $github)
+  {
+    $this->github = $github;
+  }
+  /**
+   * @return Google_Service_CloudBuild_GitHubEventsConfig
+   */
+  public function getGithub()
+  {
+    return $this->github;
+  }
   public function setId($id)
   {
     $this->id = $id;
@@ -81,6 +100,22 @@ class Google_Service_CloudBuild_BuildTrigger extends Google_Model
   public function getId()
   {
     return $this->id;
+  }
+  public function setIgnoredFiles($ignoredFiles)
+  {
+    $this->ignoredFiles = $ignoredFiles;
+  }
+  public function getIgnoredFiles()
+  {
+    return $this->ignoredFiles;
+  }
+  public function setIncludedFiles($includedFiles)
+  {
+    $this->includedFiles = $includedFiles;
+  }
+  public function getIncludedFiles()
+  {
+    return $this->includedFiles;
   }
   public function setSubstitutions($substitutions)
   {

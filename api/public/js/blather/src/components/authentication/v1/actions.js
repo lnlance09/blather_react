@@ -274,7 +274,7 @@ export const submitRegistrationForm = ({ email, name, password, username }) => d
 		function(err, response, body) {
 			if (!body.error) {
 				const token = jwt.sign({ data: body.user }, "secret", {
-					expiresIn: 60 * 60
+					expiresIn: (60 * 60)*12
 				})
 				localStorage.setItem("jwtToken", token)
 				body.bearer = token

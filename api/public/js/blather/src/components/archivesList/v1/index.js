@@ -75,7 +75,7 @@ class ArchivesList extends Component {
 		const { options, value } = this.state
 		const RenderArchives = props => {
 			return props.archives.map((archive, i) => {
-				if (archive.code) {
+				if (archive.link) {
 					let info = parseArchiveInfo(archive)
 					let meta = (
 						<div>
@@ -210,7 +210,7 @@ ArchivesList.defaultProps = {
 	archives: [{}, {}, {}, {}, {}, {}, {}, {}],
 	emptyMsgContent: "This user has not archived anything yet",
 	emptyMsgHeader: "No archives",
-	getArchives: getArchives,
+	getArchives,
 	page: 0
 }
 

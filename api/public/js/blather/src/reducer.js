@@ -14,6 +14,7 @@ import tag from "pages/reducers/tag"
 import target from "pages/reducers/target"
 import user from "components/authentication/v1/reducer"
 import pageUser from "pages/reducers/user"
+import video from "components/youTubeVideo/v1/reducer"
 
 export default combineReducers({
 	about,
@@ -30,5 +31,6 @@ export default combineReducers({
 	searchResults,
 	tag,
 	target,
-	user
+	user,
+	video
 })

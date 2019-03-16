@@ -90,6 +90,23 @@ class Google_Service_ShoppingContent_Resource_Orders extends Google_Service_Reso
     return $this->call('cancellineitem', array($params), "Google_Service_ShoppingContent_OrdersCancelLineItemResponse");
   }
   /**
+   * Sandbox only. Cancels a test order for customer-initiated cancellation.
+   * (orders.canceltestorderbycustomer)
+   *
+   * @param string $merchantId The ID of the account that manages the order. This
+   * cannot be a multi-client account.
+   * @param string $orderId The ID of the test order to cancel.
+   * @param Google_Service_ShoppingContent_OrdersCancelTestOrderByCustomerRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_ShoppingContent_OrdersCancelTestOrderByCustomerResponse
+   */
+  public function canceltestorderbycustomer($merchantId, $orderId, Google_Service_ShoppingContent_OrdersCancelTestOrderByCustomerRequest $postBody, $optParams = array())
+  {
+    $params = array('merchantId' => $merchantId, 'orderId' => $orderId, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('canceltestorderbycustomer', array($params), "Google_Service_ShoppingContent_OrdersCancelTestOrderByCustomerResponse");
+  }
+  /**
    * Sandbox only. Creates a test order. (orders.createtestorder)
    *
    * @param string $merchantId The ID of the account that should manage the order.
@@ -105,18 +122,20 @@ class Google_Service_ShoppingContent_Resource_Orders extends Google_Service_Reso
     return $this->call('createtestorder', array($params), "Google_Service_ShoppingContent_OrdersCreateTestOrderResponse");
   }
   /**
-   * Retrieves or modifies multiple orders in a single request.
-   * (orders.custombatch)
+   * Sandbox only. Creates a test return. (orders.createtestreturn)
    *
-   * @param Google_Service_ShoppingContent_OrdersCustomBatchRequest $postBody
+   * @param string $merchantId The ID of the account that manages the order. This
+   * cannot be a multi-client account.
+   * @param string $orderId The ID of the order.
+   * @param Google_Service_ShoppingContent_OrdersCreateTestReturnRequest $postBody
    * @param array $optParams Optional parameters.
-   * @return Google_Service_ShoppingContent_OrdersCustomBatchResponse
+   * @return Google_Service_ShoppingContent_OrdersCreateTestReturnResponse
    */
-  public function custombatch(Google_Service_ShoppingContent_OrdersCustomBatchRequest $postBody, $optParams = array())
+  public function createtestreturn($merchantId, $orderId, Google_Service_ShoppingContent_OrdersCreateTestReturnRequest $postBody, $optParams = array())
   {
-    $params = array('postBody' => $postBody);
+    $params = array('merchantId' => $merchantId, 'orderId' => $orderId, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
-    return $this->call('custombatch', array($params), "Google_Service_ShoppingContent_OrdersCustomBatchResponse");
+    return $this->call('createtestreturn', array($params), "Google_Service_ShoppingContent_OrdersCreateTestReturnResponse");
   }
   /**
    * Retrieves an order from your Merchant Center account. (orders.get)
@@ -134,11 +153,11 @@ class Google_Service_ShoppingContent_Resource_Orders extends Google_Service_Reso
     return $this->call('get', array($params), "Google_Service_ShoppingContent_Order");
   }
   /**
-   * Retrieves an order using merchant order id. (orders.getbymerchantorderid)
+   * Retrieves an order using merchant order ID. (orders.getbymerchantorderid)
    *
    * @param string $merchantId The ID of the account that manages the order. This
    * cannot be a multi-client account.
-   * @param string $merchantOrderId The merchant order id to be looked for.
+   * @param string $merchantOrderId The merchant order ID to be looked for.
    * @param array $optParams Optional parameters.
    * @return Google_Service_ShoppingContent_OrdersGetByMerchantOrderIdResponse
    */
@@ -156,6 +175,9 @@ class Google_Service_ShoppingContent_Resource_Orders extends Google_Service_Reso
    * This cannot be a multi-client account.
    * @param string $templateName The name of the template to retrieve.
    * @param array $optParams Optional parameters.
+   *
+   * @opt_param string country The country of the template to retrieve. Defaults
+   * to US.
    * @return Google_Service_ShoppingContent_OrdersGetTestOrderTemplateResponse
    */
   public function gettestordertemplate($merchantId, $templateName, $optParams = array())
@@ -165,7 +187,8 @@ class Google_Service_ShoppingContent_Resource_Orders extends Google_Service_Reso
     return $this->call('gettestordertemplate', array($params), "Google_Service_ShoppingContent_OrdersGetTestOrderTemplateResponse");
   }
   /**
-   * Notifies that item return and refund was handled directly in store.
+   * Notifies that item return and refund was handled directly by merchant outside
+   * of Google payments processing (e.g. cash refund done in store).
    * (orders.instorerefundlineitem)
    *
    * @param string $merchantId The ID of the account that manages the order. This
@@ -222,22 +245,6 @@ class Google_Service_ShoppingContent_Resource_Orders extends Google_Service_Reso
     return $this->call('list', array($params), "Google_Service_ShoppingContent_OrdersListResponse");
   }
   /**
-   * Refund a portion of the order, up to the full amount paid. (orders.refund)
-   *
-   * @param string $merchantId The ID of the account that manages the order. This
-   * cannot be a multi-client account.
-   * @param string $orderId The ID of the order to refund.
-   * @param Google_Service_ShoppingContent_OrdersRefundRequest $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_ShoppingContent_OrdersRefundResponse
-   */
-  public function refund($merchantId, $orderId, Google_Service_ShoppingContent_OrdersRefundRequest $postBody, $optParams = array())
-  {
-    $params = array('merchantId' => $merchantId, 'orderId' => $orderId, 'postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('refund', array($params), "Google_Service_ShoppingContent_OrdersRefundResponse");
-  }
-  /**
    * Rejects return on an line item. (orders.rejectreturnlineitem)
    *
    * @param string $merchantId The ID of the account that manages the order. This
@@ -252,22 +259,6 @@ class Google_Service_ShoppingContent_Resource_Orders extends Google_Service_Reso
     $params = array('merchantId' => $merchantId, 'orderId' => $orderId, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
     return $this->call('rejectreturnlineitem', array($params), "Google_Service_ShoppingContent_OrdersRejectReturnLineItemResponse");
-  }
-  /**
-   * Returns a line item. (orders.returnlineitem)
-   *
-   * @param string $merchantId The ID of the account that manages the order. This
-   * cannot be a multi-client account.
-   * @param string $orderId The ID of the order.
-   * @param Google_Service_ShoppingContent_OrdersReturnLineItemRequest $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_ShoppingContent_OrdersReturnLineItemResponse
-   */
-  public function returnlineitem($merchantId, $orderId, Google_Service_ShoppingContent_OrdersReturnLineItemRequest $postBody, $optParams = array())
-  {
-    $params = array('merchantId' => $merchantId, 'orderId' => $orderId, 'postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('returnlineitem', array($params), "Google_Service_ShoppingContent_OrdersReturnLineItemResponse");
   }
   /**
    * Returns and refunds a line item. Note that this method can only be called on
@@ -287,8 +278,11 @@ class Google_Service_ShoppingContent_Resource_Orders extends Google_Service_Reso
     return $this->call('returnrefundlineitem', array($params), "Google_Service_ShoppingContent_OrdersReturnRefundLineItemResponse");
   }
   /**
-   * Sets (overrides) merchant provided annotations on the line item.
-   * (orders.setlineitemmetadata)
+   * Sets (or overrides if it already exists) merchant provided annotations in the
+   * form of key-value pairs. A common use case would be to supply us with
+   * additional structured information about a line item that cannot be provided
+   * via other methods. Submitted key-value pairs can be retrieved as part of the
+   * orders resource. (orders.setlineitemmetadata)
    *
    * @param string $merchantId The ID of the account that manages the order. This
    * cannot be a multi-client account.

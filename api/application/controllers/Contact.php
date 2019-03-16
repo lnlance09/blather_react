@@ -11,7 +11,7 @@
 
 		public function send() {
 			$msg = $this->input->post('msg');
-			if(empty($msg)) {
+			if (empty($msg)) {
 				$this->output->set_status_header(400);
 				echo json_encode([
 					'error' => 'you must include a message'
@@ -34,7 +34,7 @@
 			$mail->AltBody = $msg;
 			$mail->AddAddress('lnlance09@gmail.com', 'Lance Newman');
 
-			if(!$mail->Send()) {
+			if (!$mail->Send()) {
 				$this->output->set_status_header(400);
 				echo json_encode([
 					'error' => 'your message could not be sent'

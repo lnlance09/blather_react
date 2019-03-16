@@ -214,8 +214,15 @@ class App extends Component {
 						</Switch>
 
 						<Switch>
-							<Route component={Post} exact path="/video/:id" />
-							<Route component={Post} path="/video/:id/:commentId" />
+							<Route
+								exact
+								path="/video/:id"
+								render={props => <Post sendNotification={(title, body, url) => this.sendNotification(title, body, url)} {...props} />}
+							/>
+							<Route
+								path="/video/:id/:commentId"
+								render={props => <Post sendNotification={(title, body, url) => this.sendNotification(title, body, url)} {...props} />}
+							/>
 						</Switch>
 					</Router>
 				</Provider>

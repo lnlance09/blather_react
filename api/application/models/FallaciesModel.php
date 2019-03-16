@@ -17,8 +17,8 @@
                 'media_id' => $media_id,
                 'page_id' => $page_id
             ]);
-            $result = $this->db->get('fallacy_entries')->result_array();
-            return count($result) === 0 ? false : $result[0]['id'];
+            $result = $this->db->get('fallacy_entries')->row();
+            return empty($result) ? false : $result->id;
         }
 
         public function assignContradiction($id, $contradiction) {
@@ -32,7 +32,7 @@
             $startTime = array_key_exists('currentTime', $decode['data']) ? $decode['data']['currentTime'] : null;
 
             $exists = $this->contradictionExists($id);
-            if($exists) {
+            if ($exists) {
                 $this->db->where('id', $id);
                 $this->db->update('contradictions', [
                     'comment_id' => $commentId,
@@ -87,7 +87,7 @@
             ]);
             $id = $this->db->insert_id();
 
-            if($contradiction) {
+            if ($contradiction) {
                 $this->assignContradiction($id, $contradiction);
             }
 
@@ -97,8 +97,8 @@
         public function contradictionExists($id) {
             $this->db->select('id');
             $this->db->where('fallacy_entry_id', $id);
-            $result = $this->db->get('contradictions')->result_array();
-            return count($result) === 0 ? false : $result[0]['id'];
+            $result = $this->db->get('contradictions')->row();
+            return empty($result) ? false : $result->id;
         }
 
         /**
@@ -117,8 +117,8 @@
         public function fallacyTypeExists($id) {
             $this->db->select('COUNT(*) AS count');
             $this->db->where('id', $id);
-            $result = $this->db->get('fallacies')->result_array();
-            return $result[0]['count'] == 0 ? false : true;
+            $result = $this->db->get('fallacies')->row();
+            return $result->count == 1;
         }
 
         /**
@@ -129,25 +129,25 @@
          */
         public function getComments($id, $page = null, $just_count = false) {
             $select = "f.created_at, f.message, f.user_id, CONCAT('".$this->imgUrl."profile_pics/', u.img) AS img, u.name, u.username";
-            if($just_count) {
+            if ($just_count) {
                 $select = 'COUNT(*) AS count';
             }
 
             $this->db->select($select);
             $this->db->join('users u', 'f.user_id=u.id');
             $this->db->where('fallacy_id', $id);
-            if(!$just_count) {
+            if (!$just_count) {
                 $this->db->order_by('created_at', 'DESC');
-                if($page !== null) {
-                    $perPage = 10;
-                    $limit = $page*$perPage;
+                if ($page !== null) {
+                    $per_page = 10;
+                    $limit = $page*$per_page;
                 }
             }
 
             $query = $this->db->get('fallacy_comments f');
-            if($just_count) {
-                $result = $query->result_array();
-                return $result[0]['count'];
+            if ($just_count) {
+                $result = $query->row();
+                return $result->count;
             }
             return $query->result_array();
         }
@@ -251,13 +251,13 @@
                 cyc.message AS contradiction_comment_message,
                 cyc.video_id AS contradiction_comment_video_id";
 
-            if($just_count) {
+            if ($just_count) {
                 $select = "assigned_by, page_id AS assigned_to, explanation, fallacy_id, status, title";
             }
 
             $this->db->select($select);
 
-            if(!$just_count) {
+            if (!$just_count) {
                 $this->db->join('fallacies f', 'fe.fallacy_id = f.id');
                 $this->db->join('pages p', 'fe.page_id = p.social_media_id');
                 $this->db->join('users u', 'fe.assigned_by = u.id');
@@ -279,15 +279,90 @@
             }
 
             $this->db->where('fe.id', $id);
-            $result = $this->db->get('fallacy_entries fe')->result_array();
-            return empty($result) ? false : $result[0];
+            $result = $this->db->get('fallacy_entries fe')->row();
+
+            if (empty($result)) {
+                return false;
+            }
+            // FormatArray($result);
+            // die;
+
+            if ($result->tweet_json !== null) {
+                $tweet_json = $result->tweet_json;
+                $tweet = @json_decode($tweet_json, true);
+                $result->tweet_json = $this->twitter->parseExtendedEntities($tweet);
+                $result->page_profile_pic = $this->twitter->saveUserPic($result->page_profile_pic);
+                if (array_key_exists('retweeted_status', $tweet)) {
+                    $result->page_profile_pic = $this->twitter->saveUserPic($tweet['retweeted_status']['user']['profile_image_url_https']);
+                }
+            }
+
+            if ($result->contradiction_tweet_json !== null) {
+                $tweet_json = $result->contradiction_tweet_json;
+                $tweet = @json_decode($tweet_json, true);
+                $result->contradiction_tweet_json = $this->twitter->parseExtendedEntities($tweet);
+                $result->contradiction_page_profile_pic = $this->twitter->saveUserPic($result->contradiction_page_profile_pic);
+                if (array_key_exists('retweeted_status', $tweet)) {
+                    $result->contradiction_page_profile_pic = $this->twitter->saveUserPic($tweet['retweeted_status']['user']['profile_image_url_https']);
+                }
+            }
+
+            if ($result->tweet_json !== null) {
+                // Tweet only
+                $fallacy_ref_id = 1;
+                // Tweet with another tweet
+                if ($result->contradiction_tweet_json !== null) {
+                    $fallacy_ref_id = 2;
+                }
+                // Tweet with a video
+                if ($result->contradiction_video_video_id !== null) {
+                    $fallacy_ref_id = 3;
+                }
+            }
+
+            if ($result->video_video_id !== null) {
+                // Video only
+                $fallacy_ref_id = 4;
+                // Video with a twitter user assigned
+                if ($result->contradiction_video_video_id !== null) {
+                    $fallacy_ref_id = 5;
+                }
+                // Video with a video as a contradiction
+                if ($result->contradiction_video_video_id !== null) {
+                    $fallacy_ref_id = 6;
+                }
+                // Video with a comment as a contradiction
+                if ($result->contradiction_comment_id !== null) {
+                    $fallacy_ref_id = 7;
+                }
+                // Video with a tweet
+                if ($result->contradiction_tweet_json !== null) {
+                    $fallacy_ref_id = 8;
+                }
+            }
+
+            if ($result->comment_id !== null) {
+                // Comment only
+                $fallacy_ref_id = 9;
+                // Comment with another comment
+                if ($result->contradiction_comment_id !== null) {
+                    $fallacy_ref_id = 10;
+                }
+                // Comment with a video
+                if ($result->contradiction_video_video_id !== null) {
+                    $fallacy_ref_id = 11;
+                }
+            }
+
+            $result->fallacy_ref_id = $fallacy_ref_id;
+            return $result;
         }
 
         public function getFallacyCount($id) {
             $this->db->select('COUNT(*) AS count');
             $this->db->where('page_id', $id);
-            $result = $this->db->get('fallacy_entries')->result_array();
-            return (int)$result[0]['count'];
+            $result = $this->db->get('fallacy_entries')->row();
+            return (int)$result->count;
         }
 
         public function getFallacyTypes() {
@@ -347,16 +422,16 @@
             $this->db->select("f.id AS value, f.name AS key, CONCAT(f.name, ' (', COUNT(*), ')') AS text, COUNT(*) AS count");
             $this->db->join('fallacies f', 'fe.fallacy_id = f.id');
             
-            if($type === 'pages') {
+            if ($type === 'pages') {
                 $this->db->where('fe.page_id', $network === 'twitter' ? (int)$id : $id);
             } 
-            if($type === 'post') {
+            if ($type === 'post') {
                 $this->db->where('fe.media_id', $network === 'twitter' ? (int)$id : $id);
             }
-            if($type === 'users') {
+            if ($type === 'users') {
                 $this->db->where('fe.assigned_by', $id);
             }
-            if($type === 'targets') {
+            if ($type === 'targets') {
                 $this->db->where([
                     'fe.page_id' => $id,
                     'fe.assigned_by' => $assigned_by
@@ -371,7 +446,7 @@
         public function insertFallacyRefs() {
             $file = file_get_contents(getcwd().'/public/js/blather/src/fallacies.json');
             $json = @json_decode($file, true);
-            for($i=0;$i<count($json);$i++) {
+            for ($i=0;$i<count($json);$i++) {
                 $this->db->insert('fallacies', [
                     'description' => $json[$i]['description'],
                     'name' => $json[$i]['name']
@@ -383,9 +458,8 @@
             $this->db->select('*');
             $this->db->where('fallacy_id', $id);
             $this->db->order_by('date_created', 'DESC');
-            $this->db->limit(1);
-            $results = $this->db->get('fallacy_conversations')->result_array();
-            return count($results) === 1 ? $results[0] : false;
+            $result = $this->db->get('fallacy_conversations')->row();
+            return empty($result) ? false : $result;
         }
 
         public function getMostFallacious() {
@@ -406,11 +480,8 @@
         public function pageExists($id) {
             $this->db->select('COUNT(*) AS count');
             $this->db->where('id', $id);
-            $query = $this->db->get('pages')->result();
-            if($query[0]->count == 0) {
-                return false;
-            }
-            return true;
+            $query = $this->db->get('pages')->row();
+            return $query->count == 1;
         }
 
         public function search($data, $just_count = false) {
@@ -445,7 +516,7 @@
                 GROUP_CONCAT(DISTINCT t.id SEPARATOR ', ') tag_ids, 
                 GROUP_CONCAT(DISTINCT t.value SEPARATOR ', ') AS tag_names, ";
 
-            if($just_count) {
+            if ($just_count) {
                 $select = 'COUNT(DISTINCT(fe.id)) AS count';
             }
 
@@ -457,48 +528,48 @@
             $this->db->join('fallacy_tags ft', 'fe.id = ft.fallacy_id', 'left');
             $this->db->join('tags t', 'ft.tag_id = t.id', 'left');
 
-            if($data['object_id'] && $data['network'] === 'twitter') {
+            if ($data['object_id'] && $data['network'] === 'twitter') {
                 $this->db->join('twitter_posts tp', 'fe.media_id = tp.tweet_id');
             }
 
-            if($data['network'] === 'youtube') {
-                if($data['comment_id']) {
+            if ($data['network'] === 'youtube') {
+                if ($data['comment_id']) {
                     $this->db->join('youtube_comments yc', 'fe.comment_id = yc.comment_id');
                 } else {
                     $this->db->join('youtube_videos yv', 'fe.media_id = yv.video_id');
                 }
             }
 
-            if($data['q']) {
+            if ($data['q']) {
                 $this->db->where("(title LIKE '%".$data['q']."%' OR explanation LIKE '%".$data['q']."%')");
             }
 
-            if(!empty($data['fallacies'])) {
+            if (!empty($data['fallacies'])) {
                 $this->db->where_in('fe.fallacy_id', $data['fallacies']);
             }
 
-            if($data['assigned_by']) {
+            if ($data['assigned_by']) {
                 $this->db->where('fe.assigned_by', $data['assigned_by']);
             }
 
-            if($data['assigned_to']) {
+            if ($data['assigned_to']) {
                 $this->db->where('p.social_media_id', is_numeric($data['assigned_to']) ? (int)$data['assigned_to'] : $data['assigned_to']);
             }
 
-            if($data['object_id']) {
+            if ($data['object_id']) {
                 $this->db->where([
                     'fe.network' => $data['network'],
                     'fe.media_id' => $data['network'] === 'twitter' ? (int)$data['object_id'] : $data['object_id']
                 ]);
             }
 
-            if($data['fallacy_id']) {
+            if ($data['fallacy_id']) {
                 $this->db->where([
                     'fe.fallacy_id' => $data['fallacy_id']
                 ]);
             }
 
-            if(!$just_count) {
+            if (!$just_count) {
                 $limit = 10;
                 $start = $data['page']*$limit;
                 $this->db->order_by('fe.id DESC');
@@ -506,9 +577,9 @@
                 $this->db->group_by('fe.id');
             }
 
-            if($just_count) {
-                $result = $this->db->get('fallacy_entries fe')->result();
-                return (int)$result[0]->count;
+            if ($just_count) {
+                $result = $this->db->get('fallacy_entries fe')->row();
+                return (int)$result->count;
             }
 
             $results = $this->db->get('fallacy_entries fe')->result_array();
@@ -524,7 +595,15 @@
             ]);
         }
 
-        public function updateFallacy($id, $explanation, $fallacy_id, $tags = null, $title, $userId, $contradiction = null) {
+        public function updateFallacy(
+            $id,
+            $explanation,
+            $fallacy_id,
+            $tags = null,
+            $title,
+            $userId,
+            $contradiction = null
+        ) {
             $this->db->where('id', $id);
             $this->db->update('fallacy_entries', [
                 'explanation' => $explanation,
@@ -533,7 +612,7 @@
                 'title' => $title
             ]);
 
-            if($tags) {
+            if ($tags) {
                 $this->tags->insertTags($id, $tags, 'fallacy', $userId);
             }
         }

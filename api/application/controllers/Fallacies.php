@@ -2,14 +2,14 @@
 	defined('BASEPATH') OR exit('No direct script access allowed');
 
 	class Fallacies extends CI_Controller {
-		public function __construct() {       
+		public function __construct() {
 			parent:: __construct();
 			
 			$this->baseUrl = $this->config->base_url();
 			$this->imgUrl = $this->baseUrl.'api/public/img/';
 			$this->load->helper('common_helper');
 			$this->load->model('FallaciesModel', 'fallacies');
-			$this->load->model('FacebookModel', 'fb');
+			$this->load->model('MediaModel', 'media');
 			$this->load->model('TagsModel', 'tags');
 			$this->load->model('TwitterModel', 'twitter');
 			$this->load->model('UsersModel', 'users');
@@ -19,7 +19,7 @@
 		public function index() {
 			$id = $this->input->get('id');
 			$fallacy = $this->fallacies->getFallacy($id);
-			if(!$fallacy) {
+			if (!$fallacy) {
 				$this->output->set_status_header(404);
 				echo json_encode([
 					'error' => 'Fallacy not found'
@@ -27,74 +27,36 @@
 				exit;
 			}
 
-			$this->fallacies->updateViewCount($id);
-
+			$similar_count = 0;
 			$archive = false;
 			$contradiction_archive = false;
-			if($this->user) {
-				$archive = $this->users->getArchivedLinks([
-					'object_id' => $fallacy['media_id'],
-					'user_id' => $this->user->id
-				]);
+			// FormatArray($fallacy);
+			// die;
 
-				if($fallacy['contradiction_page_id']) {
-					$contradiction_archive = $this->users->getArchivedLinks([
-						'object_id' => $fallacy['contradiction_media_id'],
+			$error = $fallacy->id === null;
+			if (!$error) {
+				$this->fallacies->updateViewCount($id);
+
+				if ($this->user) {
+					$archive = $this->users->getArchivedLinks([
+						'object_id' => $fallacy->media_id,
 						'user_id' => $this->user->id
 					]);
-				}
-			}
 
-			if ($fallacy['tweet_json'] !== null) {
-				$tweet = @json_decode($fallacy['tweet_json'], true);
-				$page_pic = $fallacy['page_profile_pic'];
-				if (array_key_exists('retweeted_status', $tweet)) {
-					$page_pic = $tweet['retweeted_status']['user']['profile_image_url_https'];
-				}
-				$page_profile_pic = str_replace('_normal', '', $page_pic);
-				$img = savePic($page_profile_pic, 'public/img/pages/');
-				$fallacy['page_profile_pic'] = $this->imgUrl.'pages/'.$img;
-
-				if (array_key_exists('extended_entities', $tweet)) {
-					for ($i=0;$i<count($tweet['extended_entities']['media']);$i++) {
-						$pic = $tweet['extended_entities']['media'][$i]['media_url_https'];
-						$img = savePic($pic, 'public/img/tweets/');
-						$tweet['extended_entities']['media'][$i]['media_url_https'] = $this->imgUrl.'tweets/'.$img;
+					if ($fallacy->contradiction_page_id) {
+						$contradiction_archive = $this->users->getArchivedLinks([
+							'object_id' => $fallacy->contradiction_media_id,
+							'user_id' => $this->user->id
+						]);
 					}
-					$fallacy['tweet_json'] = json_encode($tweet, true);
 				}
 
-				if ($fallacy['contradiction_tweet_json'] !== null) {
-					$tweet = json_decode($fallacy['contradiction_tweet_json'], true);
-					$page_pic = $fallacy['contradiction_page_profile_pic'];
-					if (array_key_exists('retweeted_status', $tweet)) {
-						$page_pic = $tweet['retweeted_status']['user']['profile_image_url_https'];
-					}
-					$page_profile_pic = str_replace('_normal', '', $page_pic);
-					$img = savePic($page_profile_pic, 'public/img/pages/');
-					$fallacy['contradiction_page_profile_pic'] = $this->imgUrl.'pages/'.$img;
-
-					if (array_key_exists('extended_entities', $tweet)) {
-						for ($i=0;$i<count($tweet['extended_entities']['media']);$i++) {
-							$pic = $tweet['extended_entities']['media'][$i]['media_url_https'];
-							$img = savePic($pic, 'public/img/tweets/');
-							$tweet['extended_entities']['media'][$i]['media_url_https'] = $this->imgUrl.'tweets/'.$img;
-						}
-					}
-					$fallacy['contradiction_tweet_json'] = json_encode($tweet, true);
-				}
-			}
-
-			$error = $fallacy['id'] === null;
-			$similar_count = 0;
-
-			if (!$error) {
 				$params = [
 					'assigned_by' => null,
 					'assigned_to' => null,
 					'comment_id' => null,
 					'fallacies' => null,
-					'fallacy_id' => $fallacy['fallacy_id'],
+					'fallacy_id' => $fallacy->fallacy_id,
 					'network' => null,
 					'object_id' => null,
 					'page' => null,
@@ -220,7 +182,7 @@
 			$comments = $this->fallacies->getComments($id, $page);
 			$perPage = 10;
 			$pages = ceil($count/$perPage);
-			$hasMore = ($page+1) < $pages ? true : false;
+			$hasMore = ($page+1) < $pages;
 
 			echo json_encode([
 				'comments' => $comments,
@@ -245,11 +207,11 @@
 			$pageId = (int)$this->input->get('pageId');
 			$review = $this->fallacies->getReview($userId, $pageId, null);
 
-			if(empty($review)) {
+			if (empty($review)) {
 				$user = $this->users->userExists($userId);
 				$page = $this->fallacies->pageExists($pageId);
 
-				if($user && $page) {
+				if ($user && $page) {
 					$this->fallacies->createReview([
 						'page_id' => $pageId,
 						'user_id' => $userId
@@ -410,7 +372,7 @@
 			$id = $this->input->post('id');
 			$msg = $this->input->post('message');
 
-			if(!$this->user) {
+			if (!$this->user) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You must be logged in'
@@ -441,7 +403,7 @@
 			$id = $this->input->post('id');
 			$tagId = $this->input->post('tagId');
 
-			if(!$this->user) {
+			if (!$this->user) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You must be logged in'
@@ -449,7 +411,7 @@
 				exit;
 			}
 
-			if(empty($tagId)) {
+			if (empty($tagId)) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You must include a tag'
@@ -457,14 +419,14 @@
 			}
 
 			$fallacy = $this->fallacies->getFallacy($id);
-			if(!$fallacy) {
+			if (!$fallacy) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'This fallacy does not exist'
 				]);
 			}
 
-			if($fallacy['assigned_by'] !== $this->user->id) {
+			if ($fallacy->assigned_by !== $this->user->id) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You do not have permission to edit this fallacy'
@@ -512,7 +474,7 @@
 			$msg = $this->input->post('msg');
 			$status = (int)$this->input->post('status');
 
-			if(!$this->user) {
+			if (!$this->user) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You must be logged in'
@@ -520,7 +482,7 @@
 				exit;
 			}
 
-			if(!in_array($status, [1,2,3])) {
+			if (!in_array($status, [1,2,3])) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'That status is not supported'
@@ -529,7 +491,7 @@
 			}
 
 			$fallacy = $this->fallacies->getFallacy($id);
-			if(!$fallacy) {
+			if (!$fallacy) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'This fallacy does not exist'
@@ -537,7 +499,7 @@
 				exit;
 			}
 
-			if((int)$fallacy['status'] === 2 || (int)$fallacy['status'] === 3) {
+			if ((int)$fallacy['status'] === 2 || (int)$fallacy['status'] === 3) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'This conversation has ended'
@@ -546,7 +508,7 @@
 			}
 
 			$lastPost = $this->fallacies->lastConvoExchange($id);
-			if(!$lastPost && (int)$fallacy['assigned_by'] === $this->user->id) {
+			if (!$lastPost && (int)$fallacy['assigned_by'] === $this->user->id) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You cannot have a conversation with yourself'
@@ -554,7 +516,7 @@
 				exit;
 			}
 
-			if((int)$lastPost['user_id'] === $this->user->id) {
+			if ((int)$lastPost['user_id'] === $this->user->id) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You have to wait your turn'
@@ -562,7 +524,7 @@
 				exit;
 			}
 
-			if(empty($msg)) {
+			if (empty($msg)) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'Your response cannot be blank'
@@ -570,7 +532,7 @@
 				exit;
 			}
 
-			$accepted_by = (int)$fallacy['status'] === 0 ? $this->user->id : null;
+			$accepted_by = (int)$fallacy->status === 0 ? $this->user->id : null;
 			$this->fallacies->updateStatus($id, $status, $accepted_by);
 			$this->fallacies->submitConversation($id, $this->user->id, $msg);
 			echo json_encode([
@@ -594,7 +556,7 @@
 			$type = $this->input->get('type');
 			$network = $this->input->get('network');
 
-			if(empty($id)) {
+			if (empty($id)) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You need to specify a page'
@@ -617,7 +579,7 @@
 			$tags = $this->input->post('tags');
 			$title = $this->input->post('title');
 
-			if(!$this->user) {
+			if (!$this->user) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You are not logged in'
@@ -626,7 +588,7 @@
 			}
 
 			$fallacy = $this->fallacies->getFallacy($id);
-			if(!$fallacy) {
+			if (!$fallacy) {
 				$this->output->set_status_header(404);
 				echo json_encode([
 					'error' => 'This fallacy does not exist'
@@ -634,7 +596,7 @@
 				exit;
 			}
 
-			if($fallacy['assigned_by'] !== $this->user->id) {
+			if ($fallacy->assigned_by !== $this->user->id) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You do not have permission to edit this fallacy'
@@ -642,9 +604,9 @@
 				exit;
 			}
 
-			$fallacyId = !$this->fallacies->fallacyTypeExists($fallacyId) ? $fallacy['fallacy_id'] : $fallacyId;
-			$title = empty($title) ? $fallacy['title'] : $title; 
-			$explanation = empty($explanation) ? $fallacy['explanation'] : $explanation;
+			$fallacyId = !$this->fallacies->fallacyTypeExists($fallacyId) ? $fallacy->fallacy_id : $fallacyId;
+			$title = empty($title) ? $fallacy->title : $title; 
+			$explanation = empty($explanation) ? $fallacy->explanation : $explanation;
 			$this->fallacies->updateFallacy($id, $explanation, $fallacyId, $tags, $title, $this->user->id);
 			$fallacy = $this->fallacies->getFallacy($id);
 			echo json_encode([
@@ -725,5 +687,99 @@
 			echo json_encode([
 				'review' => $data
 			]);
+		}
+
+		public function createVideo() {
+			$id = $this->input->get('id');
+
+			$fallacy = $this->fallacies->getFallacy($id);
+			if (!$fallacy) {
+				$this->output->set_status_header(404);
+				echo json_encode([
+					'error' => 'Fallacy not found'
+				]);
+				exit;
+			}
+
+			$fallacy_video = null;
+
+			if (!empty($fallacy['video_video_id'])) {
+				// Download the youtube video
+				$video_id = $fallacy['video_video_id'];
+				$video_created_at = $fallacy['video_created_at'];
+				$youtube_file = $this->media->downloadYouTubeVideo($video_id, false);
+
+				// Clip the video if there are start and end times
+				$clip_one = $youtube_file;
+				$clip_one_exists = false;
+				if (!empty($fallacy['start_time']) && !empty($fallacy['end_time'])) {
+					$clip_one_exists = true;
+					$start_time = $fallacy['start_time'];
+					$end_time = $fallacy['end_time'];
+					$length = $end_time-$start_time;
+					$clip_one = $this->media->clipVideo($id, $video_id, $youtube_file, $start_time, $length);
+				}
+
+				$has_contradiction_video = false;
+				if (!empty($fallacy['contradiction_video_video_id'])) {
+					$has_contradiction_video = true;
+
+					// Download contradiction video
+					$cont_video_id = $fallacy['contradiction_video_video_id'];
+					$cont_video_created_at = $fallacy['contradiction_video_created_at'];
+					$cont_youtube_file = $this->media->downloadYouTubeVideo($cont_video_id, false);
+
+					// Generate time image
+					$time_img = $this->media->createTimePic($id, 640, 356, "4 months prior...");
+
+					// Clip the contradiction video
+					$clip_two = $cont_youtube_file;
+					$clip_two_exists = false;
+					if (!empty($fallacy['contradiction_start_time']) && !empty($fallacy['contradiction_end_time'])) {
+						$clip_two_exists = true;
+						$cont_start_time = $fallacy['contradiction_start_time'];
+						$cont_end_time = $fallacy['contradiction_end_time'];
+						$cont_length = $cont_end_time-$cont_start_time;
+						$clip_two = $this->media->clipVideo($id, $cont_video_id, $cont_youtube_file, $cont_start_time, $cont_length);
+					}
+
+					$this->media->concatVideo($id, $clip_one, $clip_two);
+					$fallacy_video = true;
+				}
+
+				// Add the first youtube video to s3
+				$this->media->addToS3('youtube_videos/'.$video_id.'.mp4', APPPATH.'assets/youtube_videos/'.$video_id.'.mp4');
+				exec('rm '.APPPATH.'assets/youtube_videos/'.$video_id.'.mp4');
+
+				// Add the first clip to s3
+				if ($clip_one_exists) {
+					$this->media->addToS3('fallacy_videos/'.$id.'/'.$clip_one, APPPATH.'assets/fallacy_videos/'.$id.'/'.$clip_one);
+					exec('rm '.APPPATH.'assets/fallacy_videos/'.$id.'/'.$clip_one);
+				}
+
+				// Add contradiction video to s3
+				if ($has_contradiction_video) {
+					$this->media->addToS3('youtube_videos/'.$cont_video_id.'.mp4', APPPATH.'assets/youtube_videos/'.$cont_video_id.'.mp4');
+					exec('rm '.APPPATH.'assets/youtube_videos/'.$cont_video_id.'.mp4');
+
+					// Add the time img to s3
+					$this->media->addToS3('fallacy_videos/'.$id.'/time.png', APPPATH.'assets/fallacy_videos/'.$id.'/time.png');
+					exec('rm '.APPPATH.'assets/fallacy_videos/'.$id.'/time.png');
+				}
+
+				// Add the second clip to s3
+				if ($clip_two_exists) {
+					$this->media->addToS3('fallacy_videos/'.$id.'/'.$clip_two, APPPATH.'assets/fallacy_videos/'.$id.'/'.$clip_two);
+					exec('rm '.APPPATH.'assets/fallacy_videos/'.$id.'/'.$clip_two);
+				}
+
+				// Add the fallacy to s3
+				if ($fallacy_video) {
+					$this->media->addToS3('fallacy_videos/'.$id.'/video.mp4', APPPATH.'assets/fallacy_videos/'.$id.'/video.mp4');
+					exec('rm '.APPPATH.'assets/fallacy_videos/'.$id.'/video.mp4');
+				}
+			}
+
+			// FormatArray($fallacy);
 		}
 	}

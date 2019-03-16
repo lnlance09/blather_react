@@ -446,13 +446,11 @@ a {
         width: 100%;
     }
 
-    .shareContainer {
-         margin-top: 15px;
+    .exportSection {
+        margin-top: 16px;
 
-        .shareList {
-            .item {
-                cursor: pointer;
-            }
+        .downloadBtn {
+            margin-top: 16px;
         }
     }
 

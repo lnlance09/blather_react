@@ -133,7 +133,7 @@ const fallacy = (state = initial(), action) => {
 			return {
 				...state,
 				canRespond: fallacy.can_respond === "1",
-				contradiction: contradiction,
+				contradiction,
 				createdAt: fallacy.date_created,
 				createdBy: {
 					id: parseInt(fallacy.user_id, 10),
@@ -146,13 +146,14 @@ const fallacy = (state = initial(), action) => {
 				fallacyId: parseInt(fallacy.fallacy_id, 10),
 				fallacyName: fallacy.fallacy_name,
 				highlightedText: fallacy.highlighted_text === "" ? null : fallacy.highlighted_text,
+				refId: fallacy.fallacy_ref_id,
 				status: parseInt(fallacy.status, 10),
 				title: fallacy.title,
 				similarCount,
 				startTime: fallacy.start_time,
 				tag_ids: fallacy.tag_ids,
 				tag_names: fallacy.tag_names,
-				tweet: tweet,
+				tweet,
 				user: {
 					id: fallacy.page_id,
 					img: fallacy.page_profile_pic,
@@ -160,7 +161,7 @@ const fallacy = (state = initial(), action) => {
 					type: fallacy.page_type,
 					username: fallacy.page_username
 				},
-				video: video,
+				video,
 				viewCount: parseInt(fallacy.view_count, 10)
 			}
 

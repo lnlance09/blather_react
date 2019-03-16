@@ -1,7 +1,7 @@
 import "pages/css/index.css"
 import { refreshYouTubeToken } from "components/authentication/v1/actions"
 import { DisplayMetaTags } from "utils/metaFunctions"
-import { fetchPostData } from "pages/actions/post"
+import { downloadVideo, fetchPostData } from "pages/actions/post"
 import { Provider, connect } from "react-redux"
 import { Breadcrumb, Container, Header, Image, Message, Segment, Sticky } from "semantic-ui-react"
 import FallacyForm from "components/fallacyForm/v1/"
@@ -41,6 +41,10 @@ class Post extends Component {
 			bearer: currentState.user.bearer,
 			url
 		})
+
+		if (type === "video") {
+			this.props.downloadVideo({audio: 0, bearer, id})
+		}
 
 		this.handleHoverOn = this.handleHoverOn.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
@@ -98,7 +102,7 @@ class Post extends Component {
 			network,
 			type
 		} = this.state
-		if (this.props.error && this.props.errorCode !== 404 && network === "youtube") {
+		if (this.props.needToRefresh) {
 			this.props.refreshYouTubeToken({
 				bearer
 			})
@@ -203,7 +207,7 @@ class Post extends Component {
 			}
 			return null
 		}
-		const DisplayFallacies = ({ props }) => {
+		const DisplayFallacies = props => {
 			if (props.info) {
 				return (
 					<div className="fallaciesWrapper">
@@ -233,6 +237,7 @@ class Post extends Component {
 							<div>
 								<Tweet
 									archive={props.archive}
+									archives={props.archives}
 									bearer={bearer}
 									canArchive
 									created_at={props.info.created_at}
@@ -274,30 +279,30 @@ class Post extends Component {
 				case "video":
 					if (props.info) {
 						return (
-							<div>
-								<YouTubeVideo
-									archive={props.archive}
-									bearer={bearer}
-									canArchive
-									channel={props.info.channel}
-									dateCreated={props.info.date_created}
-									description={props.info.description}
-									history={props.history}
-									id={props.info.id}
-									placeholder={props.info.img}
-									showComments
-									stats={props.info.stats}
-									title={props.info.title}
-								/>
-							</div>
+							<YouTubeVideo
+								archive={props.archive}
+								bearer={bearer}
+								canArchive
+								channel={props.info.channel}
+								dateCreated={props.info.date_created}
+								description={props.info.description}
+								existsOnYt={props.existsOnYt}
+								history={props.history}
+								id={props.info.id}
+								placeholder={props.info.img}
+								playing
+								s3Link={props.info.s3_link}
+								sendNotification={props.sendNotification}
+								showComments
+								stats={props.info.stats}
+								title={props.info.title}
+							/>
 						)
 					} else {
 						return (
-							<div>
-								<Segment className="lazyLoadSegment">
-									<Image centered size="large" src={ThumbnailPic} />
-								</Segment>
-							</div>
+							<Segment className="lazyLoadSegment">
+								<Image centered size="large" src={ThumbnailPic} />
+							</Segment>
 						)
 					}
 				case "youtube_comment":
@@ -347,7 +352,7 @@ class Post extends Component {
 									sendNotification={this.props.sendNotification}
 									user={user}
 								/>
-								<DisplayFallacies props={this.props} />
+								{DisplayFallacies(this.props)}
 							</div>
 						)}
 					</Container>
@@ -367,8 +372,13 @@ Post.propTypes = {
 			link: PropTypes.string
 		})
 	]),
+	archives: PropTypes.array,
+	downloadVideo: PropTypes.func,
+	error: PropTypes.bool,
+	existsOnYt: PropTypes.bool,
 	info: PropTypes.object,
 	fallacyCount: PropTypes.number,
+	needToRefresh: PropTypes.bool,
 	profileImg: PropTypes.string,
 	refreshYouTubeToken: PropTypes.func,
 	sendNotification: PropTypes.func,
@@ -376,8 +386,12 @@ Post.propTypes = {
 }
 
 Post.defaultProps = {
+	archives: [],
 	data: null,
-	refreshYouTubeToken: refreshYouTubeToken
+	existsOnYt: true,
+	downloadVideo,
+	needToRefresh: false,
+	refreshYouTubeToken
 }
 
 const mapStateToProps = (state, ownProps) => {
@@ -390,5 +404,5 @@ const mapStateToProps = (state, ownProps) => {
 
 export default connect(
 	mapStateToProps,
-	{ fetchPostData, refreshYouTubeToken }
+	{ downloadVideo, fetchPostData, refreshYouTubeToken }
 )(Post)

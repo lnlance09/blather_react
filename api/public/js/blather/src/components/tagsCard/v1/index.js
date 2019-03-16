@@ -190,10 +190,10 @@ TagsCard.propTypes = {
 TagsCard.defaultProps = {
 	canEdit: false,
 	type: "fallacy",
-	removeDiscussionTag: removeDiscussionTag,
-	removeFallacyTag: removeFallacyTag,
-	updateDiscussion: updateDiscussion,
-	updateFallacy: updateFallacy
+	removeDiscussionTag,
+	removeFallacyTag,
+	updateDiscussion,
+	updateFallacy
 }
 
 const mapStateToProps = (state, ownProps) => {

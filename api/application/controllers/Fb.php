@@ -9,7 +9,6 @@
 			$this->imgUrl = $this->baseUrl.'api/public/img/';
 			$this->load->helper('common_helper');
 			$this->load->model('DiscussionsModel', 'discussions');
-			$this->load->model('FacebookModel', 'fb');
 			$this->load->model('TwitterModel', 'twitter');
 			$this->load->model('YouTubeModel', 'youtube');
 		}

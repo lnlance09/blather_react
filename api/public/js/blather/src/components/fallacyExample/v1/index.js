@@ -13,12 +13,10 @@ import {
 	Header,
 	Icon,
 	Image,
-	Label,
 	List,
 	Segment,
 	TextArea
 } from "semantic-ui-react"
-import html2canvas from "html2canvas"
 import ImagePic from "images/image-square.png"
 import LazyLoad from "components/lazyLoad/v1/"
 import Marked from "marked"
@@ -36,45 +34,10 @@ class FallacyExample extends Component {
 			loading: false
 		}
 
-		this.captureScreenshot = this.captureScreenshot.bind(this)
 		this.onChangeExplanation = this.onChangeExplanation.bind(this)
 		this.onChangeFallacy = this.onChangeFallacy.bind(this)
 		this.onClickEdit = this.onClickEdit.bind(this)
 		this.updateFallacy = this.updateFallacy.bind(this)
-	}
-
-	captureScreenshot = () => {
-		const { createdAt, fallacyName, user } = this.props
-		const filename = `${fallacyName}-by-${user.name}-${createdAt}`
-		const width = document.getElementById("fallacyExample").offsetWidth
-		const endPixel = width * 2
-		const elements = document.getElementsByClassName("linkifyTweet")
-		for (let i = 0; i < elements.length; i++) {
-			elements[i].classList.add("downloading")
-		}
-
-		html2canvas(document.getElementById("fallacyExample"), {
-			allowTaint: true,
-			width: width
-		}).then(canvas => {
-			const ctx = canvas.getContext("2d")
-			ctx.globalAlpha = 1
-			ctx.font = "24px Arial"
-			ctx.fillStyle = "#07f"
-			ctx.fillText(`blather.io/fallacies/${this.props.id}`, endPixel - 320, 45)
-
-			let link = document.createElement("a")
-			link.download =
-				filename
-					.toLowerCase()
-					.split(" ")
-					.join("-") + ".png"
-			link.href = canvas.toDataURL("image/png")
-			link.click()
-			for (let i = 0; i < elements.length; i++) {
-				elements[i].classList.remove("downloading")
-			}
-		})
 	}
 
 	onChangeExplanation = (e, { value }) => {
@@ -299,6 +262,7 @@ class FallacyExample extends Component {
 							showChannel
 							showComment={material.video.comment !== null}
 							showStats={false}
+							showVideo={material.video.comment === null}
 							startTime={material.video.startTime}
 							stats={material.video.stats}
 							title={material.video.title}
@@ -306,19 +270,6 @@ class FallacyExample extends Component {
 						/>
 						{FeaturedInVideo(material.video, props)}
 					</div>
-				)
-			}
-			return null
-		}
-		const Ribbon = props => {
-			if (
-				props.tweet &&
-				((props.contradiction ? props.contradiction.tweet : false) || !props.contradiction)
-			) {
-				return (
-					<Label className="screenshot" corner="left" onClick={this.captureScreenshot}>
-						<Icon color="green" name="download" />
-					</Label>
 				)
 			}
 			return null
@@ -353,7 +304,6 @@ class FallacyExample extends Component {
 
 		return (
 			<Segment className="fallacyExample" id="fallacyExample" stacked>
-				{Ribbon(this.props)}
 				{Explanation(this.props)}
 				{Material(this.props)}
 			</Segment>
@@ -370,7 +320,7 @@ FallacyExample.propTypes = {
 
 FallacyExample.defaultProps = {
 	canEdit: false,
-	editExplanation: editExplanation,
+	editExplanation,
 	showExplanation: true
 }
 

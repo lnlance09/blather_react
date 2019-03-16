@@ -5,26 +5,19 @@ import { DisplayMetaTags } from "utils/metaFunctions"
 import { fetchCommentCount, fetchFallacy, updateFallacy } from "pages/actions/fallacy"
 import { connect, Provider } from "react-redux"
 import { Link } from "react-router-dom"
-import {
-	FacebookIcon,
-	FacebookShareButton,
-	RedditIcon,
-	RedditShareButton,
-	TumblrIcon,
-	TumblrShareButton,
-	TwitterIcon,
-	TwitterShareButton
-} from "react-share"
+import { TwitterShareButton } from "react-share"
 import {
 	Button,
 	Container,
+	Divider,
+	Form,
 	Grid,
 	Header,
 	Icon,
 	Image,
 	Label,
-	List,
 	Menu,
+	Radio,
 	Responsive,
 	Segment
 } from "semantic-ui-react"
@@ -32,6 +25,7 @@ import Comments from "components/comments/v1/"
 import FallacyExample from "components/fallacyExample/v1/"
 import FallaciesList from "components/fallaciesList/v1/"
 import FallacyRef from "components/fallacyRef/v1/"
+import html2canvas from "html2canvas"
 import Moment from "react-moment"
 import PageFooter from "components/footer/v1/"
 import PageHeader from "components/header/v1/"
@@ -49,7 +43,7 @@ class Fallacy extends Component {
 		const id = parseInt(this.props.match.params.id, 10)
 		let tab = this.props.match.params.tab
 		const currentState = store.getState()
-		const authenticated = currentState.user.authenticated
+		const auth = currentState.user.authenticated
 		const bearer = currentState.user.bearer
 		const userId = parseInt(currentState.user.data.id, 10)
 
@@ -59,17 +53,55 @@ class Fallacy extends Component {
 
 		this.state = {
 			activeItem: tab,
-			authenticated,
+			auth,
 			bearer,
 			editing: false,
+			exportOpt: "screenshot",
 			id,
+			screenshots: [1,2,4,9,11,12],
 			show: false,
 			tabs,
 			userId,
 			value: ""
 		}
+
+		this.captureScreenshot = this.captureScreenshot.bind(this)
+		this.handleExportChange = this.handleExportChange.bind(this)
 	}
 
+	captureScreenshot = () => {
+		const { createdAt, fallacyName, user } = this.props
+		const filename = `${fallacyName}-by-${user.name}-${createdAt}`
+		const width = document.getElementById("fallacyExample").offsetWidth
+		const endPixel = width * 2
+		const elements = document.getElementsByClassName("linkifyTweet")
+		for (let i = 0; i < elements.length; i++) {
+			elements[i].classList.add("downloading")
+		}
+
+		html2canvas(document.getElementById("fallacyExample"), {
+			allowTaint: true,
+			width: width
+		}).then(canvas => {
+			const ctx = canvas.getContext("2d")
+			ctx.globalAlpha = 1
+			ctx.font = "24px Arial"
+			ctx.fillStyle = "#07f"
+			ctx.fillText(`blather.io/fallacies/${this.state.id}`, endPixel - 320, 45)
+
+			let link = document.createElement("a")
+			link.download =
+				filename
+					.toLowerCase()
+					.split(" ")
+					.join("-") + ".png"
+			link.href = canvas.toDataURL("image/png")
+			link.click()
+			for (let i = 0; i < elements.length; i++) {
+				elements[i].classList.remove("downloading")
+			}
+		})
+	}
 	componentDidMount() {
 		this.props.fetchCommentCount({ id: this.state.id })
 		this.props.fetchFallacy({
@@ -77,7 +109,6 @@ class Fallacy extends Component {
 			id: this.state.id
 		})
 	}
-
 	componentWillReceiveProps(newProps) {
 		const newId = parseInt(newProps.match.params.id, 10)
 		if (newId !== this.state.id) {
@@ -95,28 +126,25 @@ class Fallacy extends Component {
 		}
 		this.setState({ activeItem: tab })
 	}
-
+	handleExportChange = (e, { value }) => this.setState({ exportOpt: value })
 	handleHide = () => this.setState({ active: false })
-
 	handleItemClick = (e, { name }) => {
 		this.setState({ activeItem: name })
 		this.props.history.push(`/fallacies/${this.state.id}/${name}`)
 	}
-
 	handleShow = () => this.setState({ active: true })
-
 	onChange = value => {
 		this.setState({ value })
 		if (this.props.onChange) {
 			this.props.onChange(value.toString("html"))
 		}
 	}
-
 	showImage = () => this.setState({ show: true })
 
 	render() {
-		const { activeItem, authenticated, bearer, id, userId } = this.state
+		const { activeItem, auth, bearer, exportOpt, id, screenshots, userId } = this.state
 		const canEdit = this.props.createdBy ? this.props.createdBy.id === userId : false
+		const canScreenshot = screenshots.includes(this.props.refId)
 		const ContactUser = props => {
 			if (props.user) {
 				const userLink = `/pages/${props.user.type}/${
@@ -158,6 +186,57 @@ class Fallacy extends Component {
 			}
 			return null
 		}
+		const ExportSection = props => (
+			<div className="exportSection">
+				<Header as="h3" dividing>
+					Export Options
+				</Header>
+				<div>
+					{canScreenshot ? (
+						<Form>
+							<Form.Field>
+								<Radio
+									checked={exportOpt === "screenshot"}
+									label="Screenshot just the tweet(s)"
+									onChange={this.handleExportChange}
+									name="exportOption"
+									value="screenshot"
+								/>
+							</Form.Field>
+							<Form.Field>
+								<Radio
+									checked={exportOpt === "screenshotAll"}
+									label="Screenshot the tweet(s) plus the explanation"
+									onChange={this.handleExportChange}
+									name="exportOption"
+									value="screenshotAll"
+								/>
+							</Form.Field>
+						</Form>
+					) : (
+						<Form>
+							<Form.Field>
+								<Radio
+									checked={exportOpt === "video"}
+									label="Download a video"
+									onChange={this.handleExportChange}
+									name="exportOption"
+									value="video"
+								/>
+							</Form.Field>
+						</Form>
+					)}
+					<Button
+						className="downloadBtn"
+						color="green"
+						compact
+						content="Download"
+						icon="download"
+						onClick={this.captureScreenshot}
+					/>
+				</div>
+			</div>
+		)
 		const FallacyMenu = props => (
 			<Menu className="fallacyMainMenu" fluid stackable tabular>
 				<Menu.Item
@@ -226,32 +305,6 @@ class Fallacy extends Component {
 				/>
 			)
 		}
-		const ShareButtons = props => (
-			<Container className="shareContainer" textAlign="center">
-				<List className="shareList" horizontal>
-					<List.Item>
-						<FacebookShareButton url={`${window.location.origin}/fallacies/${id}`}>
-							<FacebookIcon round size={35} />
-						</FacebookShareButton>
-					</List.Item>
-					<List.Item>
-						<TwitterShareButton url={`${window.location.origin}/fallacies/${id}`}>
-							<TwitterIcon round size={35} />
-						</TwitterShareButton>
-					</List.Item>
-					<List.Item>
-						<RedditShareButton url={`${window.location.origin}/fallacies/${id}`}>
-							<RedditIcon round size={35} />
-						</RedditShareButton>
-					</List.Item>
-					<List.Item>
-						<TumblrShareButton url={`${window.location.origin}/fallacies/${id}`}>
-							<TumblrIcon round size={35} />
-						</TumblrShareButton>
-					</List.Item>
-				</List>
-			</Container>
-		)
 		const ShowContent = props => {
 			switch (activeItem) {
 				case "material":
@@ -263,14 +316,13 @@ class Fallacy extends Component {
 								history={props.history}
 								id={id}
 							/>
-							{ContactUser(props)}
 						</div>
 					)
 				case "comments":
 					return (
 						<Segment className="commentsContent" stacked>
 							<Comments
-								authenticated={authenticated}
+								authenticated={auth}
 								bearer={bearer}
 								history={this.props.history}
 								id={id}
@@ -334,6 +386,13 @@ class Fallacy extends Component {
 									</Grid.Row>
 									<Grid.Row>{FallacyMenu(this.props)}</Grid.Row>
 									<Grid.Row>{ShowContent(this.props)}</Grid.Row>
+									<Grid.Row>{ExportSection(this.props)}</Grid.Row>
+									{activeItem === "material" && (
+										<div>
+											<Divider />
+											<Grid.Row>{ContactUser(this.props)}</Grid.Row>
+										</div>
+									)}
 									{activeItem === "material" && (
 										<Grid.Row>{ShowTags(this.props)}</Grid.Row>
 									)}
@@ -345,6 +404,9 @@ class Fallacy extends Component {
 								<Grid>
 									<Grid.Column className="leftSide" width={12}>
 										{ShowContent(this.props)}
+										{ExportSection(this.props)}
+										<Divider />
+										{activeItem === "material" && ContactUser(this.props)}
 									</Grid.Column>
 									<Grid.Column className="rightSide" width={4}>
 										{ShowTags(this.props)}
@@ -390,6 +452,7 @@ Fallacy.propTypes = {
 	fetchFallacy: PropTypes.func,
 	highlightedText: PropTypes.string,
 	id: PropTypes.number,
+	refId: PropTypes.number,
 	status: PropTypes.number,
 	tag_ids: PropTypes.string,
 	tag_names: PropTypes.string,
@@ -410,8 +473,8 @@ Fallacy.defaultProps = {
 	convoLoading: true,
 	error: false,
 	fallacyCount: 0,
-	fetchCommentCount: fetchCommentCount,
-	fetchFallacy: fetchFallacy
+	fetchCommentCount,
+	fetchFallacy
 }
 
 const mapStateToProps = (state, ownProps) => {
