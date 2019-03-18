@@ -170,7 +170,7 @@
 
 			$where = ['user_id' => $id];
 			if($pageId) {
-				$where['pt.id'] = $pageId;
+				$where['p.id'] = $pageId;
 			}
 
 			$count = 0;

@@ -11,6 +11,28 @@ const post = (state = initial(), action) => {
 				archive: action.payload.archive
 			}
 
+		case constants.CREATE_VIDEO_ARCHIVE:
+			if (action.payload.error) {
+				return {
+					...state,
+					archiveError: true,
+					archiveErrorMsg: action.payload.error
+				}
+			}
+
+			return {
+				...state,
+				archiveDescription: "",
+				archiveEndTime: "",
+				archiveError: false,
+				archiveErrorMsg: "",
+				archiveStartTime: "0:00",
+				archives:
+					state.archives.length > 0
+						? [...state.archives, action.payload.archive]
+						: [action.payload.archive]
+			}
+
 		case constants.FETCH_VIDEO_COMMENTS:
 			if (action.payload.error) {
 				return {
@@ -49,16 +71,25 @@ const post = (state = initial(), action) => {
 				}
 			}
 
+			let existsOnYt = true
+			let needToRefresh = false
 			if (payload.type === "video") {
-				profileImg = payload.data.channel.img
+				existsOnYt = payload.exists_on_yt
+				needToRefresh = payload.need_to_refresh
+				if (!payload.error) {
+					profileImg = payload.data.channel.img
+				}
 			}
 
 			return {
 				...state.post,
 				archive: payload.archive,
+				archives: payload.archives,
 				error: payload.error,
 				errorCode: payload.code,
+				existsOnYt,
 				info: payload.data,
+				needToRefresh,
 				profileImg,
 				type: payload.type
 			}
@@ -114,6 +145,24 @@ const post = (state = initial(), action) => {
 					...state.info,
 					comment: null
 				}
+			}
+
+		case constants.UPDATE_ARCHIVE_DESCRIPTION:
+			return {
+				...state,
+				archiveDescription: action.val
+			}
+
+		case constants.UPDATE_ARCHIVE_END_TIME:
+			return {
+				...state,
+				archiveEndTime: action.val
+			}
+
+		case constants.UPDATE_ARCHIVE_START_TIME:
+			return {
+				...state,
+				archiveStartTime: action.val
 			}
 
 		default:

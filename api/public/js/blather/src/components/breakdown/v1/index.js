@@ -117,7 +117,7 @@ Breakdown.propTypes = {
 	authenticated: PropTypes.bool,
 	count: PropTypes.number,
 	dbId: PropTypes.number,
-	id: PropTypes.number,
+	id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 	name: PropTypes.string,
 	network: PropTypes.string,
 	setFallacyId: PropTypes.func,

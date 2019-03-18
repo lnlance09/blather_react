@@ -6,7 +6,84 @@
 			parent:: __construct();
 
 			$this->load->helper('common_helper');
+			$this->load->model('MediaModel', 'media');
 			$this->load->model('YouTubeModel', 'youtube');
+		}
+
+		public function archive() {
+			$description = $this->input->post('description');
+			$end_time = timeToSecs($this->input->post('endTime'));
+			$id = $this->input->post('id');
+			$start_time = timeToSecs($this->input->post('startTime'));
+
+			if (empty($id)) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'You must include a video id',
+				]);
+				exit;
+			}
+			if (empty($description)) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'You must include a description',
+				]);
+				exit;
+			}
+			if (strlen($description) > 250) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'Your description is too long',
+				]);
+				exit;
+			}
+
+			$video = $this->youtube->getVideoExtended($id, false);
+			if ($video['error']) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'This video does not exist',
+				]);
+				exit;
+			}
+			if ($start_time > $video['data']['duration']) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'Your start time is incorrect',
+				]);
+				exit;
+			}
+			if ($end_time <= 0 || $end_time > $video['data']['duration'] || $end_time <= $start_time) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'Your end time is incorrect',
+				]);
+				exit;
+			}
+
+			$data = [];
+			$error = true;
+			if ($this->user) {
+				$img = $this->media->getImgFromVideo($id, $start_time);
+				$data = [
+					'code' => null,
+					'description' => $description,
+					'end_time' => $end_time,
+					'img' => $img,
+					'link' => 'https://www.youtube.com/watch?v='.$id,
+					'network' => 'youtube',
+					'object_id' => $id,
+					'page_id' => $video['data']['channel']['db_id'],
+					'start_time' => $start_time,
+					'user_id' => $this->user->id
+				];
+				$archive = $this->users->createArchive($data);
+				$error = false;
+			}
+			echo json_encode([
+				'archive' => $data,
+				'error' => $error
+			]);
 		}
 
 		public function authorize() {
@@ -38,6 +115,35 @@
 				'data' => $comment['data'],
 				'is_live_search' => $auth,
 				'type' => 'youtube_comment'
+			]);
+		}
+
+		public function download() {
+			$id = $this->input->post('id');
+			$audio = (int)$this->input->post('audio');
+			if (!$id) {
+				$this->output->set_status_header(404);
+				echo json_encode([
+					'error' => 'You must provide an id'
+				]);
+				exit;
+			}
+
+			$ext = $audio ? 'mp3' : 'mp4';
+			$s3_path = 'youtube_videos/'.$id.'.'.$ext;
+			$s3_link = 'https://s3.amazonaws.com/blather22/'.$s3_path;
+			$exists = $this->media->existsInS3($s3_path);
+			if (!$exists) {
+				$video = $this->media->downloadYouTubeVideo($id, $audio);
+				$this->media->addToS3($s3_path, $video);
+				$this->youtube->insertVideo([
+					's3_link' => $s3_link,
+					'video_id' => $id
+				]);
+			}
+			echo json_encode([
+				'error' => false,
+				's3_link' => $s3_link
 			]);
 		}
 
@@ -189,7 +295,7 @@
 
 		public function video() {
 			$id = $this->input->get('id');
-			if(!$id) {
+			if (!$id) {
 				$this->output->set_status_header(404);
 				echo json_encode([
 					'error' => 'You must provide an id'
@@ -199,26 +305,45 @@
 
 			$auth = $this->user ? $this->user->linkedYoutube : false;
 			$token = $auth ? $this->user->youtubeAccessToken : null;
-			$video = $this->youtube->getVideoExtended($id, $auth, $token);
+			$exists_on_yt = true;
+			$need_to_refresh = false;
 
-			if($video['error']) {
-				$this->output->set_status_header($video['code']);
-				echo json_encode($video);
-				exit;
+			if ($auth) {
+				$video = $this->youtube->getVideoExtended($id, true, $token);
+				if ($video['error']) {
+					if ($video['code'] === 401) {
+						$exists_on_yt = false;
+						$need_to_refresh = true;
+					} else {
+						// get video from db
+						$video = $this->youtube->getVideoExtended($id, false, $token);
+						$exists_on_yt = false;
+					}
+				}
+			} else {
+				$video = $this->youtube->getVideoExtended($id, false, $token);
+				$exists_on_yt = false;
 			}
 
-			$archive = false;
-			if($this->user) {
-				$archive = $this->users->getArchivedLinks([
-					'object_id' => $id,
-					'user_id' => $this->user->id
-				]);
+			$archives = false;
+			if (!$video['error']) {
+				if ($this->user) {
+					$archives = $this->youtube->getVideoArchives($id, $this->user->id);
+				}
+			}
+
+			if ($video['error']) {
+				$this->output->set_status_header($video['code']);
 			}
 
 			echo json_encode([
-				'archive' => empty($archive) ? false : $archive,
-				'data' => $video['data'],
+				'archives' => empty($archives) ? [] : $archives,
+				'code' => $video['error'] ? $video['code'] : 0,
+				'data' => !$video['error'] ? $video['data'] : [],
+				'error' => $video['error'] ? true : false,
+				'exists_on_yt' => $exists_on_yt,
 				'is_live_search' => $auth,
+				'need_to_refresh' => $need_to_refresh && $auth,
 				'type' => 'video'
 			]);
 		}

@@ -10,44 +10,48 @@
   .youTubeVideo .youTubeTitle a {
     color: #1B1C1D; }
 
-.youTubeVideo .channelCard {
-  margin-bottom: 14px !important; }
-  .youTubeVideo .channelCard.hasComment {
+.youTubeVideo .progress {
+  margin-bottom: 12px !important; }
+
+.youTubeVideo .channelSegment {
+  margin: 1px !important;
+  padding-top: 0; }
+  .youTubeVideo .channelSegment.hasComment {
     margin-bottom: 0 !important; }
-  .youTubeVideo .channelCard .content .header {
+  .youTubeVideo .channelSegment .header {
     color: #2185D0;
     cursor: pointer;
-    font-size: 16px !important;
-    font-weight: 400 !important; }
-    .youTubeVideo .channelCard .content .header:hover {
+    font-size: 14px !important; }
+    .youTubeVideo .channelSegment .header:hover {
       text-decoration: underline; }
-  .youTubeVideo .channelCard .content .meta {
-    font-size: 12px !important; }
-  .youTubeVideo .channelCard .content .description {
-    white-space: pre-line; }
-  .youTubeVideo .channelCard .content.extra {
-    line-height: 1.5em;
-    margin-top: 5px;
-    padding-top: 10px !important; }
-    .youTubeVideo .channelCard .content.extra .icon.sticky.note {
-      cursor: pointer;
-      float: right;
-      vertical-align: middle; }
-    .youTubeVideo .channelCard .content.extra .archiveMsg {
-      margin-bottom: 0 !important; }
-      .youTubeVideo .channelCard .content.extra .archiveMsg a {
-        color: #2185D0; }
-        .youTubeVideo .channelCard .content.extra .archiveMsg a:hover {
-          color: #1e77ba; }
+    .youTubeVideo .channelSegment .header.subheader {
+      font-size: 11px; }
+    .youTubeVideo .channelSegment .header img {
+      margin-right: 2px; }
+  .youTubeVideo .channelSegment .videoDescription {
+    color: #767676; }
 
 .youTubeVideo .videoPlayer {
   width: 100% !important; }
 
-.youTubeVideo .stats .viewCount {
+.youTubeVideo .stats .likeCount {
   float: left; }
 
-.youTubeVideo .stats .likeCount {
-  float: right; }
+.youTubeVideo .stats .statistic {
+  margin-bottom: 0; }
+
+.youTubeVideo .archiveForm {
+  margin-top: 10px; }
+
+.youTubeVideo .archivesList {
+  margin-bottom: 18px !important; }
+  .youTubeVideo .archivesList .item img.avatar {
+    border-radius: 0; }
+  .youTubeVideo .archivesList .item span {
+    color: #2185D0;
+    cursor: pointer; }
+    .youTubeVideo .archivesList .item span:hover {
+      text-decoration: underline; }
 
 .youTubeVideo .toggleComments {
   float: right;

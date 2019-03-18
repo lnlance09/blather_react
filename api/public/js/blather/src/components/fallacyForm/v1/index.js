@@ -613,6 +613,7 @@ FallacyForm.defaultProps = {
 	fallacy: {
 		contradiction: {}
 	},
+	handleSubmit: () => null,
 	setContradictionEndTime: setContradictionEndTime,
 	setContradictionHighlight: setContradictionHighlight
 }

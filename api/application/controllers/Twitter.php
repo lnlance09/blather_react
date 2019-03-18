@@ -172,8 +172,9 @@
 
 			echo json_encode([
 				'archive' => empty($archive) ? false : $archive,
+				'code' => $tweet['error'] ? $tweet['code'] : 0,
 				'data' => $tweet['error'] ? null : $tweet['data'],
-				'error' => $tweet['error'] ? $tweet['code'] : false,
+				'error' => $tweet['error'] ? true : false,
 				'is_live_search' => $auth,
 				'type' => 'tweet'
 			]);

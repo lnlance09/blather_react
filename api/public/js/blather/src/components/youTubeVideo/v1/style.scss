@@ -11,56 +11,38 @@
         }
     }
 
-    .channelCard {
-        margin-bottom: 14px !important;
+    .progress {
+        margin-bottom: 12px !important;
+    }
+
+    .channelSegment {
+        margin: 1px !important;
+        padding-top: 0;
 
         &.hasComment {
             margin-bottom: 0 !important;
         }
 
-        .content {
-            .header {
-                color: $blue;
-                cursor: pointer;
-                font-size: 16px !important;
-                font-weight: 400 !important;
+        .header {
+            color: $blue;
+            cursor: pointer;
+            font-size: 14px !important;
 
-                &:hover {
-                    text-decoration: underline;
-                }
+            &:hover {
+                text-decoration: underline;
             }
 
-            .meta {
-                font-size: 12px !important;
+            &.subheader {
+                font-size: 11px;
             }
 
-            .description {
-                white-space: pre-line;
+            img {
+                margin-right: 2px;
             }
+        }
 
-            &.extra {
-                line-height: 1.5em;
-                margin-top: 5px;
-                padding-top: 10px !important;
-
-                .icon.sticky.note {
-                    cursor: pointer;
-                    float: right;
-                    vertical-align: middle;
-                }
-
-                .archiveMsg {
-                    margin-bottom: 0 !important;
-
-                    a {
-                        color: $blue;
-
-                        &:hover {
-                            color: darken($blue, 5%);
-                        }
-                    }
-                }
-            }
+        .videoDescription {
+            color: $grey;
         }
     }
 
@@ -69,12 +51,35 @@
     }
 
     .stats {
-        .viewCount {
+        .likeCount {
             float: left;
         }
 
-        .likeCount {
-            float: right;
+        .statistic {
+            margin-bottom: 0;
+        }
+    }
+
+    .archiveForm {
+        margin-top: 10px;
+    }
+
+    .archivesList {
+        margin-bottom: 18px !important;
+
+        .item {
+            img.avatar {
+                border-radius: 0;
+            }
+
+            span {
+                color: $blue;
+                cursor: pointer;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
         }
     }
 

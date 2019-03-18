@@ -138,7 +138,7 @@ class Page extends Component {
 			})
 			setTimeout(() => {
 				window.location.reload()
-			}, 200)
+			}, 1000)
 		}
 		const DimmerMsg = ({ btn, msg, props }) => (
 			<Dimmer active>
