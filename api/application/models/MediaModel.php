@@ -95,7 +95,7 @@
             $file_type = $audio_only ? 'mp3' : 'mp4';
             $file = $this->youtubePath.$video_id.'.'.$file_type;
             if (!file_exists($file)) {
-                $command = '/usr/local/bin/youtube-dl -o "'.$file.'" ';
+                $command = 'youtube-dl -o "'.$file.'" ';
                 if ($audio_only) {
                     $command .= '--extract-audio --audio-format '.$file_type.' ';
                 }
@@ -118,7 +118,7 @@
 
         public function getImgFromVideo($id, $time) {
             $img = $id.'_'.$time.'.jpg';
-            $command = APPPATH."ffmpeg/bin/ffmpeg -i ".$this->youtubePath.$id.".mp4 -ss ".gmdate('H:i:s', $time)." -vframes 1 ".$this->archivePath.$img;
+            $command = "ffmpeg -i ".$this->youtubePath.$id.".mp4 -ss ".gmdate('H:i:s', $time)." -vframes 1 ".$this->archivePath.$img;
             exec($command, $output);
             return $img;
         }
