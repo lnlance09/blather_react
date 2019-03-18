@@ -488,7 +488,7 @@ DiscussionsList.propTypes = {
 }
 
 DiscussionsList.defaultProps = {
-	fetchDiscussions: fetchDiscussions,
+	fetchDiscussions,
 	emptyMsgContent: "Try searching something else...",
 	emptyMsgHeader: "No discussions",
 	filter: {},

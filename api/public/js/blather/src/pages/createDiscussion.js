@@ -346,8 +346,8 @@ CreateDiscussionPage.defaultProps = {
 	discussion: {},
 	error: false,
 	options: [],
-	setTags: setTags,
-	submitDiscussion: submitDiscussion,
+	setTags,
+	submitDiscussion,
 	tags: []
 }
 

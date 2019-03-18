@@ -245,7 +245,7 @@ About.propTypes = {
 
 About.defaultProps = {
 	messageSent: false,
-	sendContactMsg: sendContactMsg
+	sendContactMsg
 }
 
 const mapStateToProps = (state, ownProps) => {

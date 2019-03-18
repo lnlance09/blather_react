@@ -105,7 +105,7 @@ TitleHeader.propTypes = {
 TitleHeader.defaultProps = {
 	canEdit: false,
 	dividing: false,
-	updateFallacy: updateFallacy
+	updateFallacy
 }
 
 const mapStateToProps = (state, ownProps) => ({

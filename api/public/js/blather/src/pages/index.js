@@ -402,14 +402,14 @@ Page.defaultProps = {
 		error: false,
 		data: [{}, {}, {}, {}, {}]
 	},
-	fetchPageData: fetchPageData,
+	fetchPageData,
 	img: defaultImg,
 	posts: {
 		count: 0,
 		error: false,
 		data: [{}, {}, {}, {}, {}]
 	},
-	refreshYouTubeToken: refreshYouTubeToken,
+	refreshYouTubeToken,
 	sincerityTest: {},
 	turingTest: {}
 }

@@ -213,7 +213,7 @@ ArchivesList.defaultProps = {
 	archives: [{}, {}, {}, {}, {}, {}, {}, {}],
 	emptyMsgContent: "This user has not archived anything yet",
 	emptyMsgHeader: "No archives",
-	getArchives: getArchives,
+	getArchives,
 	page: 0
 }
 

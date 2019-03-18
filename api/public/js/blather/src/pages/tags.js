@@ -268,13 +268,13 @@ Tags.propTypes = {
 }
 
 Tags.defaultProps = {
-	changePic: changePic,
+	changePic,
 	editHistory: [],
-	fetchHistory: fetchHistory,
-	fetchTagInfo: fetchTagInfo,
+	fetchHistory,
+	fetchTagInfo,
 	loading: true,
-	updateDescription: updateDescription,
-	updateTag: updateTag
+	updateDescription,
+	updateTag
 }
 
 const mapStateToProps = (state, ownProps) => {

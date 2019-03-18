@@ -164,7 +164,7 @@ class Header extends Component {
 
 Header.defaultProps = {
 	authenticated: false,
-	logout: logout
+	logout
 }
 
 Header.propTypes = {

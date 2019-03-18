@@ -10,7 +10,7 @@ const pageUser = (state = initial(), action) => {
 				payload.pagination.page > 0 ? [...state.archives, ...payload.links] : payload.links
 			return {
 				...state,
-				archives: archives,
+				archives,
 				count: payload.count,
 				hasMore: payload.pagination.hasMore,
 				loadingMore: false,
