@@ -453,14 +453,14 @@ Conversation.propTypes = {
 
 Conversation.defaultProps = {
 	acceptance: "",
-	acceptDiscussionConvo: acceptDiscussionConvo,
+	acceptDiscussionConvo,
 	conversation: [],
 	error: false,
-	fetchDiscussionConversation: fetchDiscussionConversation,
-	fetchFallacyConversation: fetchFallacyConversation,
+	fetchDiscussionConversation,
+	fetchFallacyConversation,
 	loading: true,
-	submitDiscussionConversation: submitDiscussionConversation,
-	submitFallacyConversation: submitFallacyConversation,
+	submitDiscussionConversation,
+	submitFallacyConversation,
 	submitted: false
 }
 

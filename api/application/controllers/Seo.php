@@ -16,7 +16,6 @@
 			}
 
 			public function index() {
-				$discussions = $this->discussions->getDiscussions();
 				$fallacies = $this->fallacies->getFallacies();
 				$fallacyTypes = $this->fallacies->getFallacyTypes();
 				$reviews = $this->fallacies->getReviews();
@@ -28,7 +27,6 @@
 				$youtubePages = $this->youtube->getAllPages();
 
 				$this->load->view('sitemap', [
-					'discussions' => $discussions,
 					'fallacies' => $fallacies,
 					'fallacyTypes' => $fallacyTypes,
 					'reviews' => $reviews,

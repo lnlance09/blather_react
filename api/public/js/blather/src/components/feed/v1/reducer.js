@@ -16,7 +16,7 @@ const test = (state = initial(), action) => {
 				loadingMore: false,
 				page: action.payload.page,
 				pages: action.payload.pages,
-				results: results
+				results
 			}
 
 		default:

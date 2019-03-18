@@ -284,10 +284,10 @@ Authentication.propTypes = {
 
 Authentication.defaultProps = {
 	login: true,
-	submitLoginForm: submitLoginForm,
-	submitRegistrationForm: submitRegistrationForm,
-	switchTab: switchTab,
-	verifyEmail: verifyEmail
+	submitLoginForm,
+	submitRegistrationForm,
+	switchTab,
+	verifyEmail
 }
 
 const mapStateToProps = (state, ownProps) => ({

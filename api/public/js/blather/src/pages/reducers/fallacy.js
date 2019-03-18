@@ -133,7 +133,7 @@ const fallacy = (state = initial(), action) => {
 			return {
 				...state,
 				canRespond: fallacy.can_respond === "1",
-				contradiction: contradiction,
+				contradiction,
 				createdAt: fallacy.date_created,
 				createdBy: {
 					id: parseInt(fallacy.user_id, 10),
@@ -152,7 +152,7 @@ const fallacy = (state = initial(), action) => {
 				startTime: fallacy.start_time,
 				tag_ids: fallacy.tag_ids,
 				tag_names: fallacy.tag_names,
-				tweet: tweet,
+				tweet,
 				user: {
 					id: fallacy.page_id,
 					img: fallacy.page_profile_pic,
@@ -160,7 +160,7 @@ const fallacy = (state = initial(), action) => {
 					type: fallacy.page_type,
 					username: fallacy.page_username
 				},
-				video: video,
+				video,
 				viewCount: parseInt(fallacy.view_count, 10)
 			}
 

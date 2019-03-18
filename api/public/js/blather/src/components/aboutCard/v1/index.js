@@ -109,7 +109,7 @@ AboutCard.defaultProps = {
 	canEdit: false,
 	network: "twitter",
 	type: "page",
-	updateAbout: updateAbout
+	updateAbout
 }
 
 const mapStateToProps = (state, ownProps) => ({

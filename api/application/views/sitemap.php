@@ -83,22 +83,6 @@
 	}
 ?>
 
-
-<?php
-	// Discussions
-	for ($i=0;$i<count($fallacies);$i++) {
-		$id = $fallacies[$i]['id'];
-		$url = $base_url.'discussions/'.$id;
-?>
-	<url>
-		<loc><?php echo $url; ?></loc>
-		<changefreq>daily</changefreq>
-		<priority>0.5</priority>
-	</url>
-<?php
-	}
-?>
-
 <?php
 	// Tags
 	for ($i=0;$i<count($tags);$i++) {

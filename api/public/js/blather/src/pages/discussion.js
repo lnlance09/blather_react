@@ -363,11 +363,11 @@ DiscussionPage.propTypes = {
 
 DiscussionPage.defaultProps = {
 	convoLoading: true,
-	fetchDiscussios: fetchDiscussion,
+	fetchDiscussion,
 	user: null,
-	updateDescription: updateDescription,
-	updateDiscussion: updateDiscussion,
-	updateExtra: updateExtra
+	updateDescription,
+	updateDiscussion,
+	updateExtra
 }
 
 const mapStateToProps = (state, ownProps) => {

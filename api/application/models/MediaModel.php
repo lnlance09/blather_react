@@ -15,7 +15,7 @@
 
         public function addToS3($key, $source_file) {
             $this->s3->upload($key, $source_file);
-            // exec('rm '.$source_file);
+            exec('rm '.$source_file);
         }
 
         public function clipVideo($fallacy_id, $video_id, $file, $start, $length) {

@@ -111,7 +111,7 @@ FeedComponent.propTypes = {
 }
 
 FeedComponent.defaultProps = {
-	getFeed: getFeed,
+	getFeed,
 	page: 0,
 	results: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
 	size: "large"

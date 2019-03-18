@@ -9,9 +9,6 @@ import { Route, Router, Switch } from "react-router-dom"
 import history from "history.js"
 import About from "pages/about"
 import Bot from "pages/bot"
-import CreateDiscussion from "pages/createDiscussion"
-import Discussion from "pages/discussion"
-import Discussions from "pages/discussions"
 import Fallacy from "pages/fallacy"
 import Fallacies from "pages/fallacies"
 import NewsFeed from "pages/newsFeed"
@@ -118,12 +115,6 @@ class App extends Component {
 									<About key={window.location.pathname} {...props} />
 								)}
 							/>
-						</Switch>
-
-						<Switch>
-							<Route component={CreateDiscussion} exact path="/discussion/create" />
-							<Route component={Discussions} exact path="/discussions" />
-							<Route component={Discussion} path="/discussions/:id" />
 						</Switch>
 
 						<Switch>

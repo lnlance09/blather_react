@@ -289,14 +289,14 @@ class SettingsPage extends Component {
 		const SettingsMenu = props => (
 			<Menu borderless className="settingsMenu" fluid secondary stackable vertical>
 				<Menu.Item
-					name="basic"
 					key="basic"
+					name="basic"
 					active={activeItem === "basic"}
 					onClick={this.handleItemClick}
 				/>
 				<Menu.Item
-					name="twitter"
 					key="twitter"
+					name="twitter"
 					active={activeItem === "twitter"}
 					onClick={this.handleItemClick}
 				>
@@ -308,8 +308,8 @@ class SettingsPage extends Component {
 					/>
 				</Menu.Item>
 				<Menu.Item
-					name="youtube"
 					key="youtube"
+					name="youtube"
 					active={activeItem === "youtube"}
 					onClick={this.handleItemClick}
 				>
@@ -396,9 +396,9 @@ SettingsPage.propTypes = {
 }
 
 SettingsPage.defaultProps = {
-	changePassword: changePassword,
-	removeTwitter: removeTwitter,
-	removeYouTube: removeYouTube
+	changePassword,
+	removeTwitter,
+	removeYouTube
 }
 
 const mapStateToProps = (state, ownProps) => {

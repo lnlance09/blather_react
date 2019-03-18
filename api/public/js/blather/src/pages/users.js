@@ -19,7 +19,6 @@ import {
 import AboutCard from "components/aboutCard/v1/"
 import defaultImg from "images/trump.svg"
 import ArchivesList from "components/archivesList/v1/"
-import DiscussionsList from "components/discussionsList/v1/"
 import Dropzone from "react-dropzone"
 import FallaciesList from "components/fallaciesList/v1/"
 import ImagePic from "images/image-square.png"
@@ -34,7 +33,7 @@ import TrumpImg from "images/trump-white.png"
 class UserPage extends Component {
 	constructor(props) {
 		super(props)
-		const tabs = ["discussions", "fallacies", "archives"]
+		const tabs = ["fallacies", "archives"]
 		let tab = props.match.params.tab
 		const username = props.match.params.username
 		const id = props.match.params.id
@@ -200,22 +199,6 @@ class UserPage extends Component {
 		const ShowContent = props => {
 			if (props.user.id) {
 				switch (activeItem) {
-					case "discussions":
-						return (
-							<DiscussionsList
-								emptyMsgContent={`${
-									props.user.name
-								} hasn't discussed anything yet.`}
-								filter={{
-									both: true,
-									startedBy: props.user.id
-								}}
-								onUserPage
-								source="user"
-								userId={props.user.id}
-								{...props}
-							/>
-						)
 					case "fallacies":
 						return (
 							<FallaciesList
@@ -251,16 +234,6 @@ class UserPage extends Component {
 					Fallacies{" "}
 					{props.user.fallacyCount > 0 && (
 						<Label color="blue">{props.user.fallacyCount}</Label>
-					)}
-				</Menu.Item>
-				<Menu.Item
-					active={activeItem === "discussions"}
-					name="discussions"
-					onClick={this.handleItemClick}
-				>
-					Discussions{" "}
-					{props.user.discussionCount > 0 && (
-						<Label color="blue">{props.user.discussionCount}</Label>
 					)}
 				</Menu.Item>
 				<Menu.Item
@@ -362,8 +335,8 @@ UserPage.propTypes = {
 }
 
 UserPage.defaultProps = {
-	changeProfilePic: changeProfilePic,
-	fetchUserData: fetchUserData,
+	changeProfilePic,
+	fetchUserData,
 	loading: true,
 	user: {}
 }

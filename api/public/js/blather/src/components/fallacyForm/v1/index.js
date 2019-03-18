@@ -606,16 +606,16 @@ FallacyForm.propTypes = {
 
 FallacyForm.defaultProps = {
 	assigned: false,
-	assignFallacy: assignFallacy,
-	clearContradiction: clearContradiction,
+	assignFallacy,
+	clearContradiction,
 	commentId: null,
 	fallacies: fallacies,
 	fallacy: {
 		contradiction: {}
 	},
 	handleSubmit: () => null,
-	setContradictionEndTime: setContradictionEndTime,
-	setContradictionHighlight: setContradictionHighlight
+	setContradictionEndTime,
+	setContradictionHighlight
 }
 
 const mapStateToProps = (state, ownProps) => ({

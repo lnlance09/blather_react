@@ -415,7 +415,7 @@ Tweet.propTypes = {
 
 Tweet.defaultProps = {
 	canArchive: false,
-	createArchive: createArchive,
+	createArchive,
 	extended_entities: {
 		media: []
 	},

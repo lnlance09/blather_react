@@ -370,7 +370,7 @@ FallacyExample.propTypes = {
 
 FallacyExample.defaultProps = {
 	canEdit: false,
-	editExplanation: editExplanation,
+	editExplanation,
 	showExplanation: true
 }
 

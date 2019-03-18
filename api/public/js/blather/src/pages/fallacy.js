@@ -5,16 +5,7 @@ import { DisplayMetaTags } from "utils/metaFunctions"
 import { fetchCommentCount, fetchFallacy, updateFallacy } from "pages/actions/fallacy"
 import { connect, Provider } from "react-redux"
 import { Link } from "react-router-dom"
-import {
-	FacebookIcon,
-	FacebookShareButton,
-	RedditIcon,
-	RedditShareButton,
-	TumblrIcon,
-	TumblrShareButton,
-	TwitterIcon,
-	TwitterShareButton
-} from "react-share"
+import { TwitterShareButton } from "react-share"
 import {
 	Button,
 	Container,
@@ -226,32 +217,6 @@ class Fallacy extends Component {
 				/>
 			)
 		}
-		const ShareButtons = props => (
-			<Container className="shareContainer" textAlign="center">
-				<List className="shareList" horizontal>
-					<List.Item>
-						<FacebookShareButton url={`${window.location.origin}/fallacies/${id}`}>
-							<FacebookIcon round size={35} />
-						</FacebookShareButton>
-					</List.Item>
-					<List.Item>
-						<TwitterShareButton url={`${window.location.origin}/fallacies/${id}`}>
-							<TwitterIcon round size={35} />
-						</TwitterShareButton>
-					</List.Item>
-					<List.Item>
-						<RedditShareButton url={`${window.location.origin}/fallacies/${id}`}>
-							<RedditIcon round size={35} />
-						</RedditShareButton>
-					</List.Item>
-					<List.Item>
-						<TumblrShareButton url={`${window.location.origin}/fallacies/${id}`}>
-							<TumblrIcon round size={35} />
-						</TumblrShareButton>
-					</List.Item>
-				</List>
-			</Container>
-		)
 		const ShowContent = props => {
 			switch (activeItem) {
 				case "material":
@@ -410,8 +375,8 @@ Fallacy.defaultProps = {
 	convoLoading: true,
 	error: false,
 	fallacyCount: 0,
-	fetchCommentCount: fetchCommentCount,
-	fetchFallacy: fetchFallacy
+	fetchCommentCount,
+	fetchFallacy
 }
 
 const mapStateToProps = (state, ownProps) => {

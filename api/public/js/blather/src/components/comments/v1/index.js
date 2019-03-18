@@ -126,8 +126,8 @@ CommentsSection.defaultProps = {
 		count: 0,
 		results: [{}, {}, {}, {}, {}, {}, {}]
 	},
-	fetchComments: fetchComments,
-	postComment: postComment
+	fetchComments,
+	postComment
 }
 
 const mapStateToProps = (state, ownProps) => ({

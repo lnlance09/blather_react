@@ -99,7 +99,6 @@ class YouTubeVideo extends Component {
 
 	render() {
 		const { archiveVisible, auth, playing } = this.state
-		const dateCreated = this.props.showVideo ? adjustTimezone(this.props.dateCreated) : null
 		const ArchiveForm = props => (
 			<div className="archiveForm">
 				<Form
@@ -155,10 +154,6 @@ class YouTubeVideo extends Component {
 								{props.archives.map((a, i) => {
 									return (
 										<List.Item key={`${a.start_time}_${a.end_time}`}>
-											<Image
-												avatar
-												src={`/api/public/img/archive_pics/${a.img}`}
-											/>
 											<List.Content>
 												<List.Header>
 													<span onClick={() => this.seekTo(a)}>
@@ -194,7 +189,7 @@ class YouTubeVideo extends Component {
 							<Header.Content>
 								{props.channel.title}
 								<Header.Subheader>
-									<Moment date={dateCreated} fromNow />
+									<Moment date={props.dateCreated} format="MMM DD, YYYY" />
 								</Header.Subheader>
 							</Header.Content>
 						</Header>
