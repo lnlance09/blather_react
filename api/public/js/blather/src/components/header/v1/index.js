@@ -131,9 +131,6 @@ class Header extends Component {
 								<Menu.Item className="fallaciesLink">
 									<Link to="/fallacies">Fallacies</Link>
 								</Menu.Item>
-								<Menu.Item className="discussionsLink">
-									<Link to="/discussions">Discussions</Link>
-								</Menu.Item>
 								{LoginButton(this.props)}
 							</Responsive>
 						</Container>
