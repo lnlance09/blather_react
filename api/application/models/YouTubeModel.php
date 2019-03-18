@@ -377,6 +377,18 @@
             return $this->loginUrl.'?'.http_build_query($data);
         }
 
+        public function getVideoArchives($id, $user_id) {
+            $this->db->select('a.description, a.end_time, a.img, a.start_time');
+            $this->db->where([
+                'network' => 'youtube',
+                'object_id' => $id,
+                'user_id' => $user_id
+            ]);
+            $this->db->order_by('start_time');
+            $results = $this->db->get('archived_links a')->result_array();
+            return $results;
+        }
+
         /**
          * Get all of the comments on a particular YouTube video
          * @param  [string]  $token     [The access token]
@@ -425,6 +437,7 @@
                 $likePct = $totalCount > 0 ? ($likeCount/$totalCount)*100 : 100;
                 $snippet = $item['snippet'];
                 $channelId = $snippet['channelId'];
+                $duration = parseDuration($item['contentDetails']['duration']);
                 $videoDescription = $snippet['description'];
                 $videoDateCreated = $snippet['publishedAt'];
                 $videoImg = $snippet['thumbnails']['default']['url'];
@@ -434,6 +447,7 @@
                     'channel_id' => $channelId,
                     'date_created' => $videoDateCreated,
                     'description' => $videoDescription,
+                    'duration' => $duration,
                     'dislike_count' => $dislikeCount,
                     'img' => $videoImg,
                     'like_count' => $likeCount,
@@ -451,14 +465,17 @@
                     'data' => [
                         'channel' => [
                             'about' => $channel['data']['about'],
+                            'db_id' => null,
                             'id' => $channelId,
                             'img' => $channel['data']['profile_pic'],
                             'title' => $channel['data']['name']
                         ],
                         'date_created' => $videoDateCreated,
                         'description' => $videoDescription,
+                        'duration' => $duration,
                         'id' => $id,
                         'img' => $videoImg,
+                        's3_link' => null,
                         'stats' => [
                             'commentCount' => 0,
                             'dislikeCount' => (int)$dislikeCount,
@@ -493,7 +510,7 @@
          * @return [array|boolean]     [An array containing data about the video | false]
          */
         public function getVideoFromDB($id, $archive = false) {
-            $this->db->select('yv.*, p.about, p.name AS page_name, p.profile_pic, p.social_media_id, p.username');
+            $this->db->select('yv.*, p.id AS page_db_id, p.about, p.name AS page_name, p.profile_pic, p.social_media_id, p.username');
             $this->db->join('pages p', 'yv.channel_id=p.social_media_id');
 
             if($archive) {
@@ -517,14 +534,17 @@
             return [
                 'channel' => [
                     'about' => $item['about'],
+                    'db_id' => $item['page_db_id'],
                     'id' => $item['channel_id'],
                     'img' => $item['profile_pic'],
                     'title' => $item['page_name']
                 ],
                 'date_created' => $item['date_created'],
                 'description' => $item['description'],
+                'duration' => $item['duration'],
                 'id' => $item['video_id'],
                 'img' => $item['img'],
+                's3_link' => $item['s3_link'],
                 'stats' => [
                     'commentCount' => 0,
                     'dislikeCount' => (int)$dislikeCount,
@@ -545,7 +565,7 @@
         public function getVideoInfo($id, $token) {
             $data = [
                 'id' => $id,
-                'part' => 'snippet,statistics'
+                'part' => 'snippet,statistics,contentDetails'
             ];
             return $this->sendRequest($this->videosUrl, false, $data, $token);
         }

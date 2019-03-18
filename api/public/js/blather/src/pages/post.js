@@ -1,7 +1,7 @@
 import "pages/css/index.css"
 import { refreshYouTubeToken } from "components/authentication/v1/actions"
 import { DisplayMetaTags } from "utils/metaFunctions"
-import { fetchPostData } from "pages/actions/post"
+import { downloadVideo, fetchPostData } from "pages/actions/post"
 import { Provider, connect } from "react-redux"
 import { Breadcrumb, Container, Header, Image, Message, Segment, Sticky } from "semantic-ui-react"
 import FallacyForm from "components/fallacyForm/v1/"
@@ -41,6 +41,10 @@ class Post extends Component {
 			bearer: currentState.user.bearer,
 			url
 		})
+
+		if (type === "video" && this.props.existsOnYt) {
+			this.props.downloadVideo({ audio: 0, bearer, id })
+		}
 
 		this.handleHoverOn = this.handleHoverOn.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
@@ -98,7 +102,7 @@ class Post extends Component {
 			network,
 			type
 		} = this.state
-		if (this.props.error && this.props.errorCode !== 404 && network === "youtube") {
+		if (this.props.needToRefresh) {
 			this.props.refreshYouTubeToken({
 				bearer
 			})
@@ -107,10 +111,10 @@ class Post extends Component {
 			}, 1000)
 		}
 
+		const containerClassName = this.props.info ? "mainContainer bc" : "mainContainer"
 		const tweetExists = this.props.error && network === "twitter" ? false : true
 		const videoExists =
 			this.props.error && this.props.errorCode === 404 && network === "youtube" ? false : true
-		const containerClassName = this.props.info ? "mainContainer bc" : "mainContainer"
 		const user = this.props.info
 			? network === "twitter"
 				? this.props.info.user
@@ -203,7 +207,7 @@ class Post extends Component {
 			}
 			return null
 		}
-		const DisplayFallacies = ({ props }) => {
+		const DisplayFallacies = props => {
 			if (props.info) {
 				return (
 					<div className="fallaciesWrapper">
@@ -230,74 +234,72 @@ class Post extends Component {
 				case "tweet":
 					if (props.info) {
 						return (
-							<div>
-								<Tweet
-									archive={props.archive}
-									bearer={bearer}
-									canArchive
-									created_at={props.info.created_at}
-									extended_entities={props.info.extended_entities}
-									externalLink
-									highlight={highlightedText !== ""}
-									highlightedText={highlightedText}
-									full_text={props.info.full_text}
-									handleHoverOn={this.handleHoverOn}
-									id={props.info.id_str}
-									imageSize="medium"
-									is_quote_status={props.info.is_quote_status}
-									profileImg={props.profileImg}
-									quoted_status={
-										props.info.quoted_status === undefined &&
-										props.info.is_quote_status
-											? props.info.retweeted_status
-											: props.info.quoted_status
-									}
-									quoted_status_id_str={props.info.quoted_status_id_str}
-									quoted_status_permalink={props.info.quoted_status_permalink}
-									retweeted_status={
-										props.info.retweeted_status === undefined
-											? false
-											: props.info.retweeted_status
-									}
-									stats={{
-										favorite_count: props.info.favorite_count,
-										retweet_count: props.info.retweet_count
-									}}
-									useLocalProfilePic
-									user={props.info.user}
-								/>
-							</div>
+							<Tweet
+								archive={props.archive}
+								archives={props.archives}
+								bearer={bearer}
+								canArchive
+								created_at={props.info.created_at}
+								extended_entities={props.info.extended_entities}
+								externalLink
+								highlight={highlightedText !== ""}
+								highlightedText={highlightedText}
+								full_text={props.info.full_text}
+								handleHoverOn={this.handleHoverOn}
+								id={props.info.id_str}
+								imageSize="medium"
+								is_quote_status={props.info.is_quote_status}
+								profileImg={props.profileImg}
+								quoted_status={
+									props.info.quoted_status === undefined &&
+									props.info.is_quote_status
+										? props.info.retweeted_status
+										: props.info.quoted_status
+								}
+								quoted_status_id_str={props.info.quoted_status_id_str}
+								quoted_status_permalink={props.info.quoted_status_permalink}
+								retweeted_status={
+									props.info.retweeted_status === undefined
+										? false
+										: props.info.retweeted_status
+								}
+								stats={{
+									favorite_count: props.info.favorite_count,
+									retweet_count: props.info.retweet_count
+								}}
+								useLocalProfilePic
+								user={props.info.user}
+							/>
 						)
 					} else {
 						return <LazyLoad />
 					}
 				case "video":
-					if (props.info) {
+					if (props.info && videoExists) {
 						return (
-							<div>
-								<YouTubeVideo
-									archive={props.archive}
-									bearer={bearer}
-									canArchive
-									channel={props.info.channel}
-									dateCreated={props.info.date_created}
-									description={props.info.description}
-									history={props.history}
-									id={props.info.id}
-									placeholder={props.info.img}
-									showComments
-									stats={props.info.stats}
-									title={props.info.title}
-								/>
-							</div>
+							<YouTubeVideo
+								bearer={bearer}
+								canArchive
+								channel={props.info.channel}
+								dateCreated={props.info.date_created}
+								description={props.info.description}
+								existsOnYt={props.existsOnYt}
+								history={props.history}
+								id={props.info.id}
+								placeholder={props.info.img}
+								playing
+								s3Link={props.info.s3_link}
+								sendNotification={props.sendNotification}
+								showComments
+								stats={props.info.stats}
+								title={props.info.title}
+							/>
 						)
 					} else {
 						return (
-							<div>
-								<Segment className="lazyLoadSegment">
-									<Image centered size="large" src={ThumbnailPic} />
-								</Segment>
-							</div>
+							<Segment className="lazyLoadSegment">
+								<Image centered size="large" src={ThumbnailPic} />
+							</Segment>
 						)
 					}
 				case "youtube_comment":
@@ -347,7 +349,7 @@ class Post extends Component {
 									sendNotification={this.props.sendNotification}
 									user={user}
 								/>
-								<DisplayFallacies props={this.props} />
+								{DisplayFallacies(this.props)}
 							</div>
 						)}
 					</Container>
@@ -367,8 +369,14 @@ Post.propTypes = {
 			link: PropTypes.string
 		})
 	]),
+	archives: PropTypes.array,
+	downloadVideo: PropTypes.func,
+	error: PropTypes.bool,
+	errorCode: PropTypes.number,
+	existsOnYt: PropTypes.bool,
 	info: PropTypes.object,
 	fallacyCount: PropTypes.number,
+	needToRefresh: PropTypes.bool,
 	profileImg: PropTypes.string,
 	refreshYouTubeToken: PropTypes.func,
 	sendNotification: PropTypes.func,
@@ -376,8 +384,12 @@ Post.propTypes = {
 }
 
 Post.defaultProps = {
+	archives: [],
 	data: null,
-	refreshYouTubeToken: refreshYouTubeToken
+	downloadVideo,
+	existsOnYt: true,
+	needToRefresh: false,
+	refreshYouTubeToken
 }
 
 const mapStateToProps = (state, ownProps) => {
@@ -390,5 +402,5 @@ const mapStateToProps = (state, ownProps) => {
 
 export default connect(
 	mapStateToProps,
-	{ fetchPostData, refreshYouTubeToken }
+	{ downloadVideo, fetchPostData, refreshYouTubeToken }
 )(Post)

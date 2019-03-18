@@ -135,6 +135,19 @@
 		return count($exp) == 2 ? $exp[1] : $commentStr;
 	}
 
+	function parseDuration($duration) {
+		preg_match("/PT(\d+)M(\d+)S/", $duration, $matches);
+		if (count($matches) > 1) {
+			return ($matches[1]*60)+$matches[2];
+		}
+
+		preg_match("/PT(\d+)H(\d+)M/", $duration, $matches);
+		if (count($matches) > 1) {
+			return ($matches[1]*3600)+($matches[2]*60);
+		}
+		return null;
+	}
+
 	function parseUrl($url) {
 		$parse = parse_url($url);
 		$network = null;
@@ -166,7 +179,7 @@
 				$exp = explode('/', $parse['path']);
 				array_shift($exp);
 				if(count($exp) === 3) {
-					$username = $exp[1];
+					$username = $exp[0];
 					$object_id = $exp[2];
 					$type = 'tweet';
 				}
@@ -227,4 +240,15 @@
 			file_put_contents($path, $img);
 		}
 		return $name;
+	}
+
+	function timeToSecs($time) {
+		$exp = explode(':', $time);
+		if (count($exp) === 2) {
+			return ($exp[0]*60)+$exp[1];
+		}
+		if (count($exp) === 3) {
+			return ($exp[0]*3600)+($exp[1]*60)+$exp[2];
+		}
+		return null;
 	}

@@ -75,7 +75,7 @@ class ArchivesList extends Component {
 		const { options, value } = this.state
 		const RenderArchives = props => {
 			return props.archives.map((archive, i) => {
-				if (archive.code) {
+				if (archive.link) {
 					let info = parseArchiveInfo(archive)
 					let meta = (
 						<div>
@@ -85,32 +85,35 @@ class ArchivesList extends Component {
 							</p>
 						</div>
 					)
-					let menu = (
-						<Dropdown
-							className="archiveItemMenu"
-							direction="left"
-							icon="ellipsis vertical"
-						>
-							<Dropdown.Menu>
-								<Dropdown.Item
-									icon={archive.network}
-									onClick={() => window.open(archive.link, "_blank").focus()}
-									text={`View ${
-										archive.network === "twitter" ? "tweet" : "video"
-									}`}
-								/>
-								<Dropdown.Item
-									icon="sticky note"
-									onClick={() =>
-										window
-											.open(`http://archive.is/${archive.code}`, "_blank")
-											.focus()
-									}
-									text="View archive"
-								/>
-							</Dropdown.Menu>
-						</Dropdown>
-					)
+					let menu = null
+					if (archive.network === "twitter") {
+						menu = (
+							<Dropdown
+								className="archiveItemMenu"
+								direction="left"
+								icon="ellipsis vertical"
+							>
+								<Dropdown.Menu>
+									<Dropdown.Item
+										icon={archive.network}
+										onClick={() => window.open(archive.link, "_blank").focus()}
+										text={`View ${
+											archive.network === "twitter" ? "tweet" : "video"
+										}`}
+									/>
+									<Dropdown.Item
+										icon="sticky note"
+										onClick={() =>
+											window
+												.open(`http://archive.is/${archive.code}`, "_blank")
+												.focus()
+										}
+										text="View archive"
+									/>
+								</Dropdown.Menu>
+							</Dropdown>
+						)
+					}
 					return (
 						<ResultItem
 							description={
