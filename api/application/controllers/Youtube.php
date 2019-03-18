@@ -64,12 +64,25 @@
 			$data = [];
 			$error = true;
 			if ($this->user) {
-				$img = $this->media->getImgFromVideo($id, $start_time);
+				$archive = $this->users->alreadyArchived([
+					'end_time' => $end_time,
+					'object_id' => $id,
+					'start_time' => $start_time,
+					'user_id' => $this->user->id
+				]);
+
+				if ($archive) {
+					$this->output->set_status_header(401);
+					echo json_encode([
+						'error' => 'You have already archived this time frame',
+					]);
+					exit;
+				}
+
 				$data = [
 					'code' => null,
 					'description' => $description,
 					'end_time' => $end_time,
-					'img' => $img,
 					'link' => 'https://www.youtube.com/watch?v='.$id,
 					'network' => 'youtube',
 					'object_id' => $id,
