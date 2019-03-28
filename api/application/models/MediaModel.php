@@ -14,7 +14,7 @@
             $this->youtubePath = $this->basePath.'public/videos/youtube/';
 
             // $this->ffmpeg = APPPATH.'ffmpeg/ffmpeg';
-            $this->ffmpeg = '/usr/bin/ffmpeg';
+            $this->ffmpeg = 'sudo /usr/bin/ffmpeg';
             $this->s3Path = 'https://s3.amazonaws.com/blather22/';
 
             // Load s3 library
