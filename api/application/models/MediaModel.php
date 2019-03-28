@@ -253,7 +253,7 @@
             $file_type = $audio_only ? 'mp3' : 'mp4';
             $file = $this->youtubePath.$video_id.'.'.$file_type;
             if (!file_exists($file)) {
-                $command = 'youtube-dl -o "'.$file.'" ';
+                $command = 'sudo youtube-dl -o "'.$file.'" ';
                 if ($audio_only) {
                     $command .= '--extract-audio --audio-format '.$file_type.' ';
                 }
