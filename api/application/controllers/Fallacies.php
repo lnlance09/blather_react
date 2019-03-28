@@ -160,6 +160,8 @@
 		}
 
 		public function createVideo() {
+			set_time_limit(0);
+
 			$id = $this->input->post('id');
 			$img = $this->input->post('img');
 			$ref_id = $this->input->post('refId');
