@@ -73,7 +73,7 @@
             array $video_info
         ) {
             $path = $this->fallacyPath.$id.'/';
-            $output_file = $id.'_fallacy_video.mp4';
+            $file = 'video_'.date('Y-m-d_H:i:s').'.mp4';
 
             $width = $video_info['width'];
             $height = $video_info['height'];
@@ -90,11 +90,8 @@
                     [video]setsar='.$sar.'[video]; \
                     [pic][1:a][video][2:a]concat=n=2:v=1:a=1[final_video]; \
                     [final_video][3:v]overlay=x=(main_w-overlay_w):y=(main_h-overlay_h)
-                " \ '.$output_file;
+                " \ '.$path.$file;
             exec($command, $output);
-
-            $file = 'video_'.date('Y-m-d_H:i:s').'.mp4';
-            rename(' '.$output_file, $path.$file);
             return $id.'/'.$file;
         }
 
