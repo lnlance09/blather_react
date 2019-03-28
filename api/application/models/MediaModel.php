@@ -14,7 +14,7 @@
             $this->youtubePath = $this->basePath.'public/videos/youtube/';
 
             // $this->ffmpeg = APPPATH.'ffmpeg/ffmpeg';
-            $this->ffmpeg = '/usr/local/bin/ffmpeg';
+            $this->ffmpeg = '/usr/bin/ffmpeg';
             $this->s3Path = 'https://s3.amazonaws.com/blather22/';
 
             // Load s3 library
@@ -112,7 +112,7 @@
             array $source_two
         ) {
             $path = $this->fallacyPath.$id.'/';
-            $output_file = $id.'_fallacy_video.mp4';
+            $file = 'video_'.date('Y-m-d_H:i:s').'.mp4';
 
             $source_one_is_img = $source_one['type'] == 'tweet' || $source_one['type'] == 'comment';
             $source_two_is_img = $source_two['type'] == 'tweet' || $source_two['type'] == 'comment';
@@ -173,11 +173,8 @@
                             [final_video][4:v]overlay=x=(main_w-overlay_w):y=(main_h-overlay_h)';
             }
 
-            $command .= '" \ '.$output_file;
+            $command .= '" \ '.$path.$file;
             exec($command, $output);
-
-            $file = 'video_'.date('Y-m-d_H:i:s').'.mp4';
-            rename(' '.$output_file, $path.$file);
             return $id.'/'.$file;
         }
 
