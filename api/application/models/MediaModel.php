@@ -54,7 +54,7 @@
                     exec('mkdir '.$path);
                 }
 
-                $command = $this->ffmpeg.' -i '.$this->youtubePath.$video_id.'.mp4 -ss '.gmdate('H:i:s', $start).' -t '.gmdate('H:i:s', $length).' -async 1 '.$path.'/'.$new_file;
+                $command = $this->ffmpeg.' -i '.$this->youtubePath.$video_id.'.mp4 -ss '.gmdate('H:i:s', $start).' -t '.gmdate('H:i:s', $length).' -c copy -async 1 '.$path.'/'.$new_file;
                 exec($command, $output);
             }
             return $path.'/'.$new_file;
