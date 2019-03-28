@@ -5,7 +5,7 @@
 
             // Define the paths
             $this->baseUrl = $this->config->base_url();
-            $this->basePath = '/Applications/MAMP/htdocs/blather/api/';
+            $this->basePath = '/var/www/html/blather_react/api/';
             $this->archivePath = $this->basePath.'public/img/archive_pics/';
             $this->commentPath = $this->basePath.'public/img/comments/';
             $this->fallacyPath = $this->basePath.'public/videos/fallacies/';

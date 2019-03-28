@@ -48,7 +48,7 @@ export const createVideoArchive = ({ bearer, description, endTime, id, startTime
 
 export const downloadVideo = ({ audio, id }) => dispatch => {
 	request.post(
-		`${window.location.origin}/api/youtube/download`,
+		"http://ec2-54-149-129-33.us-west-2.compute.amazonaws.com/blather_react/api/index.php/youtube/download",
 		{
 			form: {
 				audio,
