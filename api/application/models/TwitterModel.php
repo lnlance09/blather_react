@@ -5,6 +5,9 @@
         public function __construct() {
             parent::__construct();
 
+            $this->baseUrl = $this->config->base_url();
+            $this->imgUrl = $this->baseUrl.'api/public/img/';
+
             // Define the API settings
             $this->appId = '5S2buTVsPQb13zCvJfVmnYWm8';
             $this->appSecret = 'Jr5Lb3oHB8akqCYJnOLnArofpcKxjpdF9Bynu979O3tyuUb09n';
@@ -488,7 +491,6 @@
             $this->db->where('social_media_id', $page['social_media_id']);
             $row = $this->db->get('pages')->row();
             $page['id'] = $row->id;
-
             $page['about'] = defaultPageAbout($page['about'], $page['name']);
             return $page;
         }
@@ -507,6 +509,18 @@
                 $this->db->where('tweet_id', $data['tweet_id']);
                 $this->db->update('twitter_posts', $data);
             }
+        }
+
+        public function parseExtendedEntities($tweet) {
+            if (array_key_exists('extended_entities', $tweet)) {
+                for ($i=0;$i<count($tweet['extended_entities']['media']);$i++) {
+                    $pic = $tweet['extended_entities']['media'][$i]['media_url_https'];
+                    $path = 'public/img/tweets/'.$tweet['id'].'/'.basename($pic);
+                    savePic($pic, $path);
+                    $tweet['extended_entities']['media'][$i]['media_url_https'] = '/api/'.$path;
+                }
+            }
+            return json_encode($tweet, true);
         }
 
         public function parseSearchResults($results) {
@@ -570,6 +584,13 @@
             ];
 
             $info = $this->sendRequest('https://api.twitter.com/oauth/authenticate', false, $data, $headers, false, false);
+        }
+
+        public function saveUserPic($id, string $pic) {
+            $pic = str_replace('_normal', '', $pic);
+            $path = 'public/img/pages/twitter/'.$id.'.jpg';
+            savePic($pic, $path);
+            return $path;
         }
 
         public function search($data, $token, $secret, $parse = false) {

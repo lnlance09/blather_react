@@ -3,6 +3,10 @@
 /*---   Neutrals  ---*/
 /*---   Misc  ---*/
 /*---   Social colors  ---*/
+.fallacyForm .formHeader img {
+  background: #F9FAFB;
+  border: solid 1px #F3F4F5; }
+
 .fallacyForm .startTime, .fallacyForm .field.contradictionStartTime {
   padding-left: 0 !important;
   padding-right: 0 !important; }
@@ -15,18 +19,27 @@
   .fallacyForm .contradictionWrapper.active {
     padding: 10px; }
 
-.fallacyForm .segment {
-  border-bottom-left-radius: 3px !important;
-  border-bottom-right-radius: 3px !important;
-  margin-left: 0 !important; }
-  .fallacyForm .segment .buttons button {
-    width: 50%; }
+.fallacyForm .zigzag {
+  background: linear-gradient(-137deg, #FFE21F 6px, transparent 0) 0 5px, linear-gradient(320deg, #FFE21F 5px, #FFFFFF 0) 0 5px;
+  background-color: #FFE21F;
+  background-position: left bottom;
+  background-repeat: repeat-y;
+  background-size: 10px 10px;
+  float: left;
+  height: 315px;
+  width: 14px; }
+
+.fallacyForm .form {
+  float: right;
+  width: 96%; }
+
+.fallacyForm .buttons button {
+  width: 50%; }
 
 .fallacyForm .commonMarkLink {
   margin: 0.5em 0.3em 0 !important; }
   .fallacyForm .commonMarkLink a {
-    color: #545454;
-    float: right;
+    color: #767676;
     font-size: 12px; }
     .fallacyForm .commonMarkLink a:hover {
       text-decoration: underline; }

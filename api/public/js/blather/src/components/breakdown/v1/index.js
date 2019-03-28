@@ -51,10 +51,7 @@ class Breakdown extends Component {
 							onClick={() => setFallacyId(result.value)}
 						>
 							<Header size="small">
-								{result.key}{" "}
-								<Label color="red" size="mini">
-									{result.count}
-								</Label>
+								{result.key} <Label size="mini">{result.count}</Label>
 							</Header>
 							<Progress percent={percent} progress size="medium" />
 						</div>
@@ -74,41 +71,43 @@ class Breakdown extends Component {
 			)
 
 		return (
-			<div className="breakdown">
-				<Segment>
-					{options.length > 0 ? (
-						<Segment basic className="percentages">
-							{RenderFallacies()}
-						</Segment>
-					) : (
-						<Message content="No fallacies have been assigned" />
-					)}
+			<Segment className="breakdown">
+				<Message
+					content="This is a measure of how clearly this person(s) thinks. It is a list of mental tricks that they have used, either knowingly or unknowingly, to defend their beliefs from being challenged."
+					header="How reputable is this source?"
+					icon="question"
+				/>
 
-					<Header className="statHeader first" size="medium">
-						Can pass an{" "}
-						<a
-							href="https://www.econlib.org/archives/2011/06/the_ideological.html"
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							Ideological Turing Test
-						</a>
-						?<Header.Subheader>{Stats(turingTest)}</Header.Subheader>
-					</Header>
+				{options.length > 0 ? (
+					<Segment className="percentages">{RenderFallacies()}</Segment>
+				) : (
+					<Message content="No fallacies have been assigned" />
+				)}
 
-					<Header className="statHeader" size="medium">
-						Believes most of what they talk about?
-						<Header.Subheader>{Stats(sincerity)}</Header.Subheader>
-					</Header>
+				<Header className="statHeader first" size="small">
+					Can pass an{" "}
+					<a
+						href="https://www.econlib.org/archives/2011/06/the_ideological.html"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						Ideological Turing Test
+					</a>
+					?<Header.Subheader>{Stats(turingTest)}</Header.Subheader>
+				</Header>
 
-					<p>
-						<Icon color="yellow" name="star" />{" "}
-						<Link to={`/targets/${authenticated ? userId : "create"}/${dbId}`}>
-							Create a review
-						</Link>
-					</p>
-				</Segment>
-			</div>
+				<Header className="statHeader" size="small">
+					Believes most of what they talk about?
+					<Header.Subheader>{Stats(sincerity)}</Header.Subheader>
+				</Header>
+
+				<p className="createReview">
+					<Icon color="yellow" name="star" />{" "}
+					<Link to={`/targets/${authenticated ? userId : "create"}/${dbId}`}>
+						Create a review
+					</Link>
+				</p>
+			</Segment>
 		)
 	}
 }

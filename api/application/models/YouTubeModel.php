@@ -3,6 +3,9 @@
         public function __construct() {
             parent::__construct();
 
+            $this->baseUrl = $this->config->base_url();
+            $this->imgUrl = $this->baseUrl.'api/public/img/';
+
             $this->apiKey = 'AIzaSyAxGMJJB1_uUQWHBXZG9TCCwjsVTPBIDLE';
             $this->clientId = '208834451570-uhnsvk3tb5cqr6uoipnrl9ks68cmeicp.apps.googleusercontent.com';
             $this->clientSecret = 'La5tIudFHoDWMz62OWzOl8xg';
@@ -34,16 +37,16 @@
         }
 
         public function getCommentExtended($id, $videoId, $auth, $token) {
-            if($auth) {
+            if ($auth) {
                 $comment = $this->getCommentInfo($id, $token, true);
-                if(array_key_exists('error', $comment)) {
+                if (array_key_exists('error', $comment)) {
                     return [
                         'code' => $comment['error']['code'],
                         'error' => 'Refresh token'
                     ];
                 }
 
-                if(count($comment['items']) === 0) {
+                if (count($comment['items']) === 0) {
                     return [
                         'code' => 404,
                         'error' => 'That comment does not exist'
@@ -58,16 +61,16 @@
                 $message = $snippet['textOriginal'];
                 $parentId = array_key_exists('parentId', $snippet) ? $snippet['parentId'] : null;
                 
-                if($parentId) {
+                if ($parentId) {
                     $parentComment = $this->getCommentInfo($parentId, $token, true);
-                    if(array_key_exists('error', $parentComment)) {
+                    if (array_key_exists('error', $parentComment)) {
                         return [
                             'code' => $parentComment['error']['code'],
                             'error' => 'Refresh token'
                         ];
                     }
 
-                    if(count($parentComment['items']) === 0) {
+                    if (count($parentComment['items']) === 0) {
                         return [
                             'code' => 404,
                             'error' => 'That comment does not exist'
@@ -232,28 +235,29 @@
         }
 
         public function getPageExtended($id, $username, $auth = false, $token = null) {
-            if($auth) {
+            if ($auth) {
                 $page = $this->getPageInfo($id, $username, $token);
-                if(!$page) {
+                if (!$page) {
                     return [
                         'code' => 404,
                         'error' => 'This channel does not exist'
                     ];
                 }
 
-                if(array_key_exists('error', $page)) {
+                if (array_key_exists('error', $page)) {
                     return [
                         'code' => 401,
                         'error' => 'Refresh token'
                     ];
                 }
 
-                if(count($page['items']) === 0) {
+                if (count($page['items']) === 0) {
                     return [
                         'code' => 404,
                         'error' => 'That channel does not exist'
                     ];
                 }
+
                 $item = $page['items'][0];
                 $snippet = $item['snippet'];
                 $channelDescription = $snippet['description'];
@@ -268,6 +272,7 @@
                     'type' => 'youtube',
                     'username' => array_key_exists('customUrl', $snippet) ? $snippet['customUrl'] : null
                 ]);
+                $page['profile_pic'] = '/api/'.$this->saveChannelPic($id, $channelImg);
                 $page['external_url'] = 'https://www.youtube.com/channel/'.$id;
                 return [
                     'data' => $page,
@@ -275,7 +280,7 @@
                 ];
             } else {
                 $page = $this->getPageInfoFromDB($id);
-                if(!$page) {
+                if (!$page) {
                     return [
                         'code' => 404,
                         'error' => 'That channel does not exist'
@@ -300,8 +305,8 @@
          */
         public function getPageInfo($id, $username, $token) {
             $data = [
-                'part' => 'id,contentDetails,contentOwnerDetails,statistics,status,snippet,invideoPromotion,brandingSettings,localizations',
-                'key' => $this->apiKey
+                'key' => $this->apiKey,
+                'part' => 'id,contentDetails,contentOwnerDetails,statistics,status,snippet,invideoPromotion,brandingSettings,localizations'
             ];
             if($username) {
                 $data['forUsername'] = $username;
@@ -693,6 +698,12 @@
             return false;
         }
 
+        public function saveChannelPic(string $id, string $pic) {
+            $path = 'public/img/pages/youtube/'.$id.'.png';
+            savePic($pic, $path);
+            return $path;
+        }
+
         /**
          * Search YouTube for channels or videos
          * @param  [array]   $data   [An array containing request parameters]
@@ -708,6 +719,7 @@
 
             if($parse) {
                 $count = $results['pageInfo']['totalResults'];
+                $return = [];
                 for($i=0;$i<count($results['items']);$i++) {
                     $item = $results['items'][$i];
                     $snippet = $item['snippet'];

@@ -3,36 +3,41 @@
 /*---   Neutrals  ---*/
 /*---   Misc  ---*/
 /*---   Social colors  ---*/
-.breakdown .ui.header.small {
-  margin-bottom: 7px !important; }
-
-.breakdown .percentages {
-  margin: 2px 0;
-  padding: 1px 0; }
-  .breakdown .percentages .fallacyPercentage {
-    cursor: pointer; }
-    .breakdown .percentages .fallacyPercentage:hover {
-      background: #F9FAFB; }
-    .breakdown .percentages .fallacyPercentage .progress {
-      margin-bottom: 12px; }
-      .breakdown .percentages .fallacyPercentage .progress .bar {
-        background: #0084b4 !important; }
-        .breakdown .percentages .fallacyPercentage .progress .bar .progress {
-          color: #FFFFFF; }
-    .breakdown .percentages .fallacyPercentage .label {
-      background: #FF695E !important; }
-
-.breakdown .statHeader {
-  margin: 12px auto; }
-  .breakdown .statHeader.first {
-    margin-top: 0 !important; }
-
-@media only screen and (max-width: 1025px) {
-  .breakdown .ui.header.medium {
-    font-size: 15px !important; }
-  .breakdown .fallacyPercentage .ui.header.small {
-    font-size: 14px !important; } }
-
-.breakdown .stats {
-  margin: 0 !important;
-  padding: 0; }
+.breakdown {
+  background: #F9FAFB !important; }
+  .breakdown .message {
+    background: #FFFFFF; }
+  .breakdown .percentages {
+    background: #FFFFFF; }
+    .breakdown .percentages .ui.header.small {
+      margin-bottom: 7px !important; }
+    .breakdown .percentages .fallacyPercentage {
+      cursor: pointer;
+      margin-top: 12px; }
+      .breakdown .percentages .fallacyPercentage:first-of-type {
+        margin-top: 0; }
+      .breakdown .percentages .fallacyPercentage:hover {
+        background: #F9FAFB; }
+      .breakdown .percentages .fallacyPercentage .progress {
+        margin-bottom: 0; }
+        .breakdown .percentages .fallacyPercentage .progress .bar {
+          background: #2185D0 !important; }
+          .breakdown .percentages .fallacyPercentage .progress .bar .progress {
+            color: #FFFFFF; }
+        .breakdown .percentages .fallacyPercentage .progress .label {
+          background: #F9FAFB;
+          color: #545454; }
+  .breakdown .statHeader {
+    margin: 12px 12px; }
+    .breakdown .statHeader.first {
+      margin-top: 10px !important; }
+  @media only screen and (max-width: 1025px) {
+    .breakdown .ui.header.medium {
+      font-size: 15px !important; }
+    .breakdown .fallacyPercentage .ui.header.small {
+      font-size: 14px !important; } }
+  .breakdown .stats {
+    margin: 0 !important;
+    padding: 0; }
+  .breakdown .createReview {
+    margin: 15px 12px !important; }

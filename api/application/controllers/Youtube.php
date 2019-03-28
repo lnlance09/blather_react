@@ -339,10 +339,8 @@
 			}
 
 			$archives = false;
-			if (!$video['error']) {
-				if ($this->user) {
-					$archives = $this->youtube->getVideoArchives($id, $this->user->id);
-				}
+			if (!$video['error'] && $this->user) {
+				$archives = $this->youtube->getVideoArchives($id, $this->user->id);
 			}
 
 			if ($video['error']) {

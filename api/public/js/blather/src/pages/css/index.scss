@@ -408,7 +408,6 @@ a {
         }
 
         .statusActionSegment {
-            margin-top: 15px;
             text-align: center;
 
             .youtubeButton {
@@ -446,18 +445,23 @@ a {
         width: 100%;
     }
 
-    .shareContainer {
-         margin-top: 15px;
+    .exportSection {
+        margin-top: 16px;
 
-        .shareList {
-            .item {
-                cursor: pointer;
-            }
+        .downloadBtn {
+            margin-top: 16px;
         }
     }
 
     .similarFallaciesSegment {
+        padding: 0 !important;
         width: 100%;
+    }
+
+    canvas {
+        display: none;
+        height: 720px;
+        width: 1280px;
     }
 
     @media only screen and (max-width: 1025px) {
@@ -539,8 +543,11 @@ a {
 
         .signInPlaceholder {
             border: none;
-            
             padding: 0;
+        }
+
+        .segment.basic {
+            padding: 0 !important;
         }
     }
 }
@@ -552,12 +559,8 @@ a {
         font-size: 13px;
         padding: 0 !important;
 
-        .fallaciesWrapper {
-            margin-top: 1.2em;
-        }
-
         .fallacyFormWrapper {
-            margin-top: 16px;
+            margin: 30px 0;
         }
 
         .placeholderContainer {
@@ -815,6 +818,7 @@ a {
 
         .profileContentSegment {
             height: 100%;
+            padding: 0;
         }
     }
 

@@ -2,7 +2,7 @@
 	defined('BASEPATH') OR exit('No direct script access allowed');
 
 	class Twitter extends CI_Controller {
-		public function __construct() {       
+		public function __construct() {
 			parent:: __construct();
 
 			$this->load->helper('common_helper');
@@ -163,7 +163,7 @@
 			}
 
 			$archive = false;
-			if ($this->user) {
+			if (!$tweet['error'] && $this->user) {
 				$archive = $this->users->getArchivedLinks([
 					'object_id' => $id,
 					'user_id' => $this->user->id

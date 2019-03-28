@@ -1,10 +1,6 @@
-.placeholderSegment {
-    width: 100%;
+@import '../../../css/colors.scss';
 
-    * {
-        box-sizing: border-box;
-    }
-
+.placeholder {
     .placeholderHeader {
         width: 100px;
     }

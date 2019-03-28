@@ -5,6 +5,13 @@ const initial = () => ({})
 const fallacy = (state = initial(), action) => {
 	const payload = action.payload
 	switch (action.type) {
+		case constants.CREATE_FALLACY_VIDEO:
+			return {
+				...state,
+				creating: false,
+				exportVideoUrl: payload.video
+			}
+
 		case constants.GET_FALLACY:
 			if (payload.error) {
 				return {
@@ -13,11 +20,15 @@ const fallacy = (state = initial(), action) => {
 				}
 			}
 
+			/* Parse the material. The tweet and/or video */
 			const archive = payload.archive
-			const contradiction_archive = payload.contradiction_archive
+			const contradictionArchive = payload.contradictionArchive
 			const fallacy = payload.fallacy
 			const similarCount = payload.similarCount
 			let contradiction = null
+			let contradictionComment = null
+			let contradictionTweet = null
+			let comment = null
 			let tweet = null
 			let video = null
 
@@ -33,7 +44,6 @@ const fallacy = (state = initial(), action) => {
 			}
 
 			if (fallacy.network === "youtube") {
-				let comment = null
 				if (fallacy.comment_video_id) {
 					comment = {
 						dateCreated: fallacy.comment_created_at,
@@ -73,14 +83,14 @@ const fallacy = (state = initial(), action) => {
 			}
 
 			if (payload.fallacy.contradiction_network === "twitter") {
-				let contradiction_tweet = JSON.parse(fallacy.contradiction_tweet_json)
-				contradiction_tweet.archive = contradiction_archive
+				contradictionTweet = JSON.parse(fallacy.contradiction_tweet_json)
+				contradictionTweet.archive = contradictionArchive
 				contradiction = {
 					highlightedText:
 						fallacy.contradiction_highlighted_text === ""
 							? null
 							: fallacy.contradiction_highlighted_text,
-					tweet: contradiction_tweet,
+					tweet: contradictionTweet,
 					user: {
 						img: fallacy.contradiction_page_profile_pic
 					}
@@ -88,7 +98,6 @@ const fallacy = (state = initial(), action) => {
 			}
 
 			if (payload.fallacy.contradiction_network === "youtube") {
-				let contradictionComment = null
 				if (fallacy.contradiction_comment_id) {
 					contradictionComment = {
 						dateCreated: fallacy.contradiction_comment_created_at,
@@ -130,10 +139,124 @@ const fallacy = (state = initial(), action) => {
 				}
 			}
 
+			const user = {
+				id: fallacy.page_id,
+				img: fallacy.page_profile_pic,
+				name: fallacy.page_name,
+				type: fallacy.page_type,
+				username: fallacy.page_username
+			}
+			const pageTitle = `@${user.username} ${fallacy.title} - ${fallacy.fallacy_name} by ${
+				user.name
+			}`
+
+			/* Determine what kind of export can be made */
+			const refId = fallacy.ref_id
+			const videoRefIds = [4, 5, 6, 7, 8]
+			let canMakeVideo = false
+			let screenshotEl = "tweetContradiction"
+			let originalPayload = {}
+			let contradictionPayload = {}
+
+			if (
+				(refId === 3 || refId === 11) &&
+				contradiction.video.endTime - contradiction.video.startTime < 61 &&
+				contradiction.video.endTime > 0
+			) {
+				canMakeVideo = true
+
+				// original content is a tweet
+				if (refId === 3) {
+					screenshotEl = "tweetOriginal"
+					originalPayload = {
+						date: tweet.created_at,
+						id: tweet.id,
+						type: "tweet"
+					}
+				}
+
+				// original content is a comment
+				if (refId === 11) {
+					screenshotEl = "commentOriginal"
+					originalPayload = {
+						date: comment.dateCreated,
+						id: comment.id,
+						type: "comment"
+					}
+				}
+
+				contradictionPayload = {
+					date: contradiction.video.dateCreated,
+					endTime: parseInt(contradiction.video.endTime, 10),
+					id: contradiction.video.id,
+					startTime: parseInt(contradiction.video.startTime, 10),
+					type: "video"
+				}
+			}
+
+			if (videoRefIds.includes(refId)) {
+				if (video.endTime - video.startTime < 61 && video.endTime > 0) {
+					canMakeVideo = true
+				}
+				if (
+					refId === 6 &&
+					contradiction.video.endTime - contradiction.video.startTime > 60
+				) {
+					canMakeVideo = false
+				}
+
+				// original content is a video
+				originalPayload = {
+					date: video.dateCreated,
+					endTime: parseInt(video.endTime, 10),
+					id: video.id,
+					startTime: parseInt(video.startTime, 10),
+					type: "video"
+				}
+			}
+
+			// contradiction is a video
+			if (refId === 6) {
+				contradictionPayload = {
+					date: contradiction.video.dateCreated,
+					endTime: parseInt(contradiction.video.endTime, 10),
+					id: contradiction.video.id,
+					startTime: parseInt(contradiction.video.startTime, 10),
+					type: "video"
+				}
+			}
+
+			// contradiction is a comment
+			if (refId === 7 || refId === 10) {
+				if (refId === 7) {
+					screenshotEl = "commentContradiction"
+				}
+
+				contradictionPayload = {
+					date: contradictionComment.dateCreated,
+					id: contradictionComment.id,
+					type: "comment"
+				}
+			}
+
+			// contradiction is a tweet
+			if (refId === 8) {
+				contradictionPayload = {
+					date: contradiction.tweet.created_at,
+					id: contradiction.tweet.id,
+					type: "tweet"
+				}
+			}
+
+			const canScreenshot = [1, 2, 9, 10].includes(refId)
+
 			return {
 				...state,
+				canMakeVideo,
 				canRespond: fallacy.can_respond === "1",
+				canScreenshot,
 				contradiction,
+				contradictionPayload,
 				createdAt: fallacy.date_created,
 				createdBy: {
 					id: parseInt(fallacy.user_id, 10),
@@ -141,25 +264,25 @@ const fallacy = (state = initial(), action) => {
 					name: fallacy.user_name,
 					username: fallacy.user_username
 				},
+				endTime: fallacy.end_time,
 				error: false,
 				explanation: fallacy.explanation,
 				fallacyId: parseInt(fallacy.fallacy_id, 10),
 				fallacyName: fallacy.fallacy_name,
 				highlightedText: fallacy.highlighted_text === "" ? null : fallacy.highlighted_text,
+				id: parseInt(fallacy.id, 10),
+				originalPayload,
+				pageTitle,
+				refId,
+				screenshotEl,
 				status: parseInt(fallacy.status, 10),
-				title: fallacy.title,
 				similarCount,
 				startTime: fallacy.start_time,
 				tag_ids: fallacy.tag_ids,
 				tag_names: fallacy.tag_names,
+				title: fallacy.title,
 				tweet,
-				user: {
-					id: fallacy.page_id,
-					img: fallacy.page_profile_pic,
-					name: fallacy.page_name,
-					type: fallacy.page_type,
-					username: fallacy.page_username
-				},
+				user,
 				video,
 				viewCount: parseInt(fallacy.view_count, 10)
 			}
@@ -233,16 +356,22 @@ const fallacy = (state = initial(), action) => {
 					submitted: false
 				}
 			}
-			const convo = state.conversation
+			const conversation = state.conversation
 				? [...state.conversation, ...payload.conversation]
 				: payload.conversation
 			return {
 				...state,
-				conversation: convo,
+				conversation,
 				error: false,
 				errorMsg: "",
 				status: payload.conversation.status,
 				submitted: true
+			}
+
+		case constants.TOGGLE_CREATE_MODE:
+			return {
+				...state,
+				creating: !state.toggle
 			}
 
 		case constants.UPDATE_FALLACY:
@@ -251,11 +380,68 @@ const fallacy = (state = initial(), action) => {
 					...state
 				}
 			}
+
+			contradiction = state.contradiction
+			originalPayload = state.originalPayload
+			contradictionPayload = state.contradictionPayload
+
+			let validOriginalLength = true
+			let validContradictionLength = true
+			let startTime = parseInt(payload.fallacy.start_time, 10)
+			let endTime = parseInt(payload.fallacy.end_time, 10)
+
+			if (payload.fallacy.network === "youtube" && payload.fallacy.comment_id === null) {
+				validOriginalLength = false
+				if (endTime - startTime < 61 && endTime > 0) {
+					validOriginalLength = true
+				}
+
+				originalPayload = {
+					...state.originalPayload,
+					endTime,
+					startTime
+				}
+			}
+
+			if (
+				payload.fallacy.contradiction_network === "youtube" &&
+				payload.fallacy.contradiction_comment_id === null
+			) {
+				startTime = parseInt(payload.fallacy.contradiction_start_time, 10)
+				endTime = parseInt(payload.fallacy.contradiction_end_time, 10)
+
+				validContradictionLength = false
+				if (endTime - startTime < 61 && endTime > 0) {
+					validContradictionLength = true
+				}
+
+				contradiction = {
+					...state.contradiction,
+					video: {
+						...state.contradiction.video,
+						endTime,
+						startTime
+					}
+				}
+
+				contradictionPayload = {
+					...state.contradictionPayload,
+					endTime,
+					startTime
+				}
+			}
+
 			return {
 				...state,
+				canMakeVideo: validOriginalLength && validContradictionLength,
+				contradiction,
+				contradictionPayload,
+				endTime: payload.fallacy.end_time,
 				explanation: payload.fallacy.explanation,
 				fallacyId: parseInt(payload.fallacy.fallacy_id, 10),
 				fallacyName: payload.fallacy.fallacy_name,
+				originalPayload,
+				startTime: payload.fallacy.start_time,
 				tag_ids: payload.fallacy.tag_ids,
 				tag_names: payload.fallacy.tag_names,
 				title: payload.fallacy.title
