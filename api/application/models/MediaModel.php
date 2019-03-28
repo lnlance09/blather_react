@@ -298,7 +298,7 @@
          * @return [array]         Info including dimensions and SAR of the video
          */
         function getVideoAttributes($video) {
-            $command = $this->ffmpeg.' -i '.$video.' -vstats 2>&1';
+            $command = 'sudo ffprobe -i '.$video;
             exec($command, $output);
 
             foreach ($output as $o) {
