@@ -43,7 +43,7 @@ class Post extends Component {
 		})
 
 		if (type === "video" && this.props.existsOnYt) {
-			this.props.downloadVideo({ audio: 0, bearer, id })
+			this.props.downloadVideo({ audio: 0, id })
 		}
 
 		this.handleHoverOn = this.handleHoverOn.bind(this)
