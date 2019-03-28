@@ -133,8 +133,7 @@
                     $this->media->saveTweetPic($original['id'], $img);
 
                     // Download the video and get its data
-                    $this->media->downloadYouTubeVideo($contradiction['id']);
-                    $video = 'public/videos/youtube/'.$contradiction['id'].'.mp4';
+                    $video = $this->media->downloadYouTubeVideo($contradiction['id']);
                     $video_info = $this->media->getVideoAttributes($video);
 
                     // Create the duration pic
@@ -170,9 +169,7 @@
                 // A video but a twitter user assigned
                 case 5:
 
-                    $this->media->downloadYouTubeVideo($original['id']);
-
-                    $video = 'public/videos/youtube/'.$original['id'].'.mp4';
+                    $video = $this->media->downloadYouTubeVideo($original['id']);
                     $video_info = $this->media->getVideoAttributes($video);
 
                     $text_pic = $this->media->createTextPic(
@@ -206,13 +203,11 @@
                 // A video with a video as a contradiction
                 case 6:
 
-                    $this->media->downloadYouTubeVideo($original['id']);
-                    $video = 'public/videos/youtube/'.$original['id'].'.mp4';
-                    $video_info_one = $this->media->getVideoAttributes($video);
+                    $video_one = $this->media->downloadYouTubeVideo($original['id']);
+                    $video_info_one = $this->media->getVideoAttributes($video_one);
 
-                    $this->media->downloadYouTubeVideo($contradiction['id']);
-                    $video = 'public/videos/youtube/'.$contradiction['id'].'.mp4';
-                    $video_info_two = $this->media->getVideoAttributes($video);
+                    $video_two = $this->media->downloadYouTubeVideo($contradiction['id']);
+                    $video_info_two = $this->media->getVideoAttributes($video_two);
 
                     $this->media->createTextPic(
                         $id,
@@ -256,8 +251,7 @@
 
                     $this->media->saveCommentPic($contradiction['id'], $img);
 
-                    $this->media->downloadYouTubeVideo($original['id']);
-                    $video = 'public/videos/youtube/'.$original['id'].'.mp4';
+                    $video = $this->media->downloadYouTubeVideo($original['id']);
                     $video_info = $this->media->getVideoAttributes($video);
 
                     $this->media->createTextPic(
@@ -290,8 +284,7 @@
 
                     $this->media->saveTweetPic($contradiction['id'], $img);
 
-                    $this->media->downloadYouTubeVideo($original['id']);
-                    $video = 'public/videos/youtube/'.$original['id'].'.mp4';
+                    $video = $this->media->downloadYouTubeVideo($original['id']);
                     $video_info = $this->media->getVideoAttributes($video);
 
                     $this->media->createTextPic(
@@ -324,8 +317,7 @@
 
                     $this->media->saveCommentPic($original['id'], $img);
 
-                    $this->media->downloadYouTubeVideo($contradiction['id']);
-                    $video = 'public/videos/youtube/'.$contradiction['id'].'.mp4';
+                    $video = $this->media->downloadYouTubeVideo($contradiction['id']);
                     $video_info = $this->media->getVideoAttributes($video);
 
                     $this->media->createTextPic(
