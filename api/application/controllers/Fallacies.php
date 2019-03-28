@@ -160,6 +160,10 @@
 		}
 
 		public function createVideo() {
+			header("Access-Control-Allow-Origin: http://localhost:3000");
+			header("Access-Control-Allow-Headers: origin, content-type, accept, authorization");
+			header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS, HEAD");
+
 			set_time_limit(0);
 
 			$id = $this->input->post('id');

@@ -48,8 +48,8 @@
         ) {
             $length = $end-$start;
             $new_file = $video_id.'_'.$start.'_'.$length.'.mp4';
+            $path = $this->fallacyPath.$fallacy_id;
             if (!file_exists($path.$new_file)) {
-                $path = $this->fallacyPath.$fallacy_id;
                 if (!is_dir($path)) {
                     exec('mkdir '.$path);
                 }

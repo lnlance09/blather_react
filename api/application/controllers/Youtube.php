@@ -132,6 +132,10 @@
 		}
 
 		public function download() {
+			header("Access-Control-Allow-Origin: http://localhost:3000");
+			header("Access-Control-Allow-Headers: origin, content-type, accept, authorization");
+			header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS, HEAD");
+
 			$id = $this->input->post('id');
 			$audio = (int)$this->input->post('audio');
 			if (!$id) {
