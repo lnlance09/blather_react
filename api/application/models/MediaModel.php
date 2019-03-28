@@ -92,8 +92,9 @@
                     [video]setsar='.$sar.'[video]; \
                     [pic][1:a][video][2:a]concat=n=2:v=1:a=1[final_video]; \
                     [final_video][3:v]overlay=x=(main_w-overlay_w):y=(main_h-overlay_h)
-                " \ '.$path.$file;
+                " \ '.$file;
             exec($command, $output);
+            exec("sudo mv ' ".$file."' ".$path.$file);
             return $id.'/'.$file;
         }
 
@@ -172,8 +173,9 @@
                             [final_video][4:v]overlay=x=(main_w-overlay_w):y=(main_h-overlay_h)';
             }
 
-            $command .= '" \ '.$path.$file;
+            $command .= '" \ '.$file;
             exec($command, $output);
+            exec("sudo mv ' ".$file."' ".$path.$file);
             return $id.'/'.$file;
         }
 
@@ -294,7 +296,7 @@
          * @return [array]         Info including dimensions and SAR of the video
          */
         function getVideoAttributes($video) {
-            $command = 'sudo ffprobe -i '.$video;
+            $command = 'sudo ffprobe -i '.$video.' 2>&1';
             exec($command, $output);
 
             foreach ($output as $o) {
