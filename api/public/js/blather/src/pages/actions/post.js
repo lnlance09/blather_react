@@ -46,16 +46,13 @@ export const createVideoArchive = ({ bearer, description, endTime, id, startTime
 	)
 }
 
-export const downloadVideo = ({ audio, bearer, id }) => dispatch => {
+export const downloadVideo = ({ audio, id }) => dispatch => {
 	request.post(
 		`${window.location.origin}/api/youtube/download`,
 		{
 			form: {
 				audio,
 				id
-			},
-			headers: {
-				Authorization: bearer
 			},
 			json: true
 		},
