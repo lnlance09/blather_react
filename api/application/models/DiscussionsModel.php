@@ -1,6 +1,6 @@
 <?php 
     class DiscussionsModel extends CI_Model {
-        public function __construct() {       
+        public function __construct() {
             parent:: __construct();
 
             $this->baseUrl = $this->config->base_url();

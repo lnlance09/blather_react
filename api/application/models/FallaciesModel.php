@@ -1,6 +1,6 @@
 <?php 
     class FallaciesModel extends CI_Model {
-        public function __construct() {       
+        public function __construct() {
             parent:: __construct();
 
             $this->baseUrl = $this->config->base_url();
@@ -24,12 +24,12 @@
         public function assignContradiction($id, $contradiction) {
             $decode = @json_decode($contradiction, true);
             $commentId = array_key_exists('commentId', $decode) ? $decode['commentId'] : null;
-            $endTime = array_key_exists('endTime', $decode) ? $decode['endTime'] : null;
             $highlightedText = array_key_exists('highlightedText', $decode) ? $decode['highlightedText'] : null;
+            $startTime = array_key_exists('currentTime', $decode['data']) ? $decode['data']['currentTime'] : null;
+            $endTime = array_key_exists('endTime', $decode) ? $decode['endTime'] : null;
             $mediaId = $decode['mediaId'];
             $network = $decode['network'];
             $pageId = $decode['pageId'];
-            $startTime = array_key_exists('currentTime', $decode['data']) ? $decode['data']['currentTime'] : null;
 
             $exists = $this->contradictionExists($id);
             if($exists) {
@@ -114,11 +114,254 @@
             $this->db->insert('criticisms', $data);
         }
 
+        public function createVideo(
+            int $id,
+            int $ref_id,
+            array $original,
+            array $contradiction = null,
+            string $img = null,
+            string $fallacy_name = null,
+            string $duration = null
+        ) {
+            $sleep = 1;
+
+            switch ($ref_id) {
+                // Tweet with video as contradiction
+                case 3:
+
+                    // Save the tweet as a pic
+                    $this->media->saveTweetPic($original['id'], $img);
+
+                    // Download the video and get its data
+                    $this->media->downloadYouTubeVideo($contradiction['id']);
+                    $video = 'public/videos/youtube/'.$contradiction['id'].'.mp4';
+                    $video_info = $this->media->getVideoAttributes($video);
+
+                    // Create the duration pic
+                    $this->media->createTextPic(
+                        $id,
+                        $video_info['width'],
+                        $video_info['height'],
+                        $duration,
+                        [211, 7, 100]
+                    );
+
+                    // Clip the video at the given time frame
+                    $clip = $this->media->clipVideo(
+                        $id,
+                        $contradiction['id'],
+                        $contradiction['startTime'],
+                        $contradiction['endTime']
+                    );
+                    sleep($sleep);
+                    $contradiction['file'] = $clip;
+                    $contradiction['video_info'] = $video_info;
+
+                    // Produce the final video
+                    $file = $this->media->concatVideo(
+                        $id,
+                        $original,
+                        $contradiction
+                    );
+                    break;
+
+                // Just a video
+                case 4:
+                // A video but a twitter user assigned
+                case 5:
+
+                    $this->media->downloadYouTubeVideo($original['id']);
+
+                    $video = 'public/videos/youtube/'.$original['id'].'.mp4';
+                    $video_info = $this->media->getVideoAttributes($video);
+
+                    $text_pic = $this->media->createTextPic(
+                        $id,
+                        $video_info['width'],
+                        $video_info['height'],
+                        $fallacy_name,
+                        [211, 7, 100],
+                        36,
+                        'fallacy_text.png'
+                    );
+
+                    $clip = $this->media->clipVideo(
+                        $id,
+                        $original['id'],
+                        $original['startTime'],
+                        $original['endTime']
+                    );
+                    sleep($sleep);
+
+                    $original['file'] = $clip;
+                    $original['video_info'] = $video_info;
+                    $file = $this->media->concatImgAndVideo(
+                        $id,
+                        $text_pic,
+                        $original,
+                        $video_info
+                    );
+                    break;
+
+                // A video with a video as a contradiction
+                case 6:
+
+                    $this->media->downloadYouTubeVideo($original['id']);
+                    $video = 'public/videos/youtube/'.$original['id'].'.mp4';
+                    $video_info_one = $this->media->getVideoAttributes($video);
+
+                    $this->media->downloadYouTubeVideo($contradiction['id']);
+                    $video = 'public/videos/youtube/'.$contradiction['id'].'.mp4';
+                    $video_info_two = $this->media->getVideoAttributes($video);
+
+                    $this->media->createTextPic(
+                        $id,
+                        $video_info_one['width'],
+                        $video_info_one['height'],
+                        $duration,
+                        [211, 7, 100]
+                    );
+
+                    $clipOne = $this->media->clipVideo(
+                        $id,
+                        $original['id'],
+                        $original['startTime'],
+                        $original['endTime']
+                    );
+                    sleep($sleep);
+
+                    $clipTwo = $this->media->clipVideo(
+                        $id,
+                        $contradiction['id'],
+                        $contradiction['startTime'],
+                        $contradiction['endTime']
+                    );
+                    sleep($sleep);
+
+                    $original['file'] = $clipOne;
+                    $original['video_info'] = $video_info_one;
+
+                    $contradiction['file'] = $clipTwo;
+                    $contradiction['video_info'] = $video_info_two;
+
+                    $file = $this->media->concatVideo(
+                        $id,
+                        $original,
+                        $contradiction
+                    );
+                    break;
+
+                // A video with a comment as a contradiction
+                case 7:
+
+                    $this->media->saveCommentPic($contradiction['id'], $img);
+
+                    $this->media->downloadYouTubeVideo($original['id']);
+                    $video = 'public/videos/youtube/'.$original['id'].'.mp4';
+                    $video_info = $this->media->getVideoAttributes($video);
+
+                    $this->media->createTextPic(
+                        $id,
+                        $video_info['width'],
+                        $video_info['height'],
+                        $duration,
+                        [211, 7, 100]
+                    );
+
+                    $clip = $this->media->clipVideo(
+                        $id,
+                        $original['id'],
+                        $original['startTime'],
+                        $original['endTime']
+                    );
+                    sleep($sleep);
+
+                    $original['file'] = $clip;
+                    $original['video_info'] = $video_info;
+                    $file = $this->media->concatVideo(
+                        $id,
+                        $original,
+                        $contradiction
+                    );
+                    break;
+
+                // A video with a tweet as a contradiction
+                case 8:
+
+                    $this->media->saveTweetPic($contradiction['id'], $img);
+
+                    $this->media->downloadYouTubeVideo($original['id']);
+                    $video = 'public/videos/youtube/'.$original['id'].'.mp4';
+                    $video_info = $this->media->getVideoAttributes($video);
+
+                    $this->media->createTextPic(
+                        $id,
+                        $video_info['width'],
+                        $video_info['height'],
+                        $duration,
+                        [211, 7, 100]
+                    );
+
+                    $clip = $this->media->clipVideo(
+                        $id,
+                        $original['id'],
+                        $original['startTime'],
+                        $original['endTime']
+                    );
+                    sleep($sleep);
+
+                    $original['file'] = $clip;
+                    $original['video_info'] = $video_info;
+                    $file = $this->media->concatVideo(
+                        $id,
+                        $original,
+                        $contradiction
+                    );
+                    break;
+
+                // A comment with a video as a contradiction
+                case 11:
+
+                    $this->media->saveCommentPic($original['id'], $img);
+
+                    $this->media->downloadYouTubeVideo($contradiction['id']);
+                    $video = 'public/videos/youtube/'.$contradiction['id'].'.mp4';
+                    $video_info = $this->media->getVideoAttributes($video);
+
+                    $this->media->createTextPic(
+                        $id,
+                        $video_info['width'],
+                        $video_info['height'],
+                        $duration,
+                        [211, 7, 100]
+                    );
+
+                    $clip = $this->media->clipVideo(
+                        $id,
+                        $contradiction['id'],
+                        $contradiction['startTime'],
+                        $contradiction['endTime']
+                    );
+                    sleep($sleep);
+
+                    $contradiction['file'] = $clip;
+                    $contradiction['video_info'] = $video_info;
+                    $file = $this->media->concatVideo(
+                        $id,
+                        $original,
+                        $contradiction
+                    );
+                    break;
+            }
+
+            return $file;
+        }
+
         public function fallacyTypeExists($id) {
             $this->db->select('COUNT(*) AS count');
             $this->db->where('id', $id);
             $result = $this->db->get('fallacies')->result_array();
-            return $result[0]['count'] == 0 ? false : true;
+            return $result[0]['count'] == 1;
         }
 
         /**
@@ -251,13 +494,13 @@
                 cyc.message AS contradiction_comment_message,
                 cyc.video_id AS contradiction_comment_video_id";
 
-            if($just_count) {
+            if ($just_count) {
                 $select = "assigned_by, page_id AS assigned_to, explanation, fallacy_id, status, title";
             }
 
             $this->db->select($select);
 
-            if(!$just_count) {
+            if (!$just_count) {
                 $this->db->join('fallacies f', 'fe.fallacy_id = f.id');
                 $this->db->join('pages p', 'fe.page_id = p.social_media_id');
                 $this->db->join('users u', 'fe.assigned_by = u.id');
@@ -280,7 +523,102 @@
 
             $this->db->where('fe.id', $id);
             $result = $this->db->get('fallacy_entries fe')->result_array();
-            return empty($result) ? false : $result[0];
+
+            if (empty($result)) {
+                return false;
+            }
+
+            $fallacy = $result[0];
+            $ref_id = 0;
+            if ($fallacy['tweet_json'] !== null) {
+                // Tweet only
+                $ref_id = 1;
+                // Tweet with another tweet
+                if ($fallacy['contradiction_tweet_json'] !== null) {
+                    $ref_id = 2;
+                }
+                // Tweet with a video
+                if ($fallacy['contradiction_video_video_id'] !== null) {
+                    $ref_id = 3;
+                }
+            }
+            if ($fallacy['video_video_id'] !== null) {
+                // Video only
+                $ref_id = 4;
+                // Video with a twitter user assigned
+                if ($fallacy['page_type'] == 'twitter') {
+                    $ref_id = 5;
+                }
+                // Video with a video as a contradiction
+                if ($fallacy['contradiction_video_video_id'] !== null) {
+                    $ref_id = 6;
+                }
+                // Video with a comment as a contradiction
+                if ($fallacy['contradiction_comment_id'] !== null) {
+                    $ref_id = 7;
+                }
+                // Video with a tweet
+                if ($fallacy['contradiction_tweet_json'] !== null) {
+                    $ref_id = 8;
+                }
+            }
+            if ($fallacy['comment_id'] !== null) {
+                // Comment only
+                $ref_id = 9;
+                // Comment with another comment
+                if ($fallacy['contradiction_comment_id'] !== null) {
+                    $ref_id = 10;
+                }
+                // Comment with a video
+                if ($fallacy['contradiction_video_video_id'] !== null
+                    && $fallacy['contradiction_comment_id'] === null) {
+                    $ref_id = 11;
+                }
+            }
+
+            if ($ref_id == 1 || $ref_id == 2 || $ref_id == 3) {
+                $tweet = @json_decode($fallacy['tweet_json'], true);
+                $fallacy['tweet_json'] = $this->twitter->parseExtendedEntities($tweet);
+                $profile_pic = $this->twitter->saveUserPic($tweet['user']['id'], $fallacy['page_profile_pic']);
+                $fallacy['page_profile_pic'] = '/api/'.$profile_pic;
+
+                if (array_key_exists('retweeted_status', $tweet)) {
+                    $retweet = $tweet['retweeted_status'];
+                    $profile_pic = $this->twitter->saveUserPic($retweet['user']['id'], $retweet['user']['profile_image_url_https']);
+                    $fallacy['page_profile_pic'] = '/api/'.$profile_pic;
+                }
+            }
+
+            if ($ref_id == 2 || $ref_id == 8) {
+                $tweet = @json_decode($fallacy['contradiction_tweet_json'], true);
+                $fallacy['contradiction_tweet_json'] = $this->twitter->parseExtendedEntities($tweet);
+                $profile_pic = $this->twitter->saveUserPic($tweet['user']['id'], $fallacy['contradiction_page_profile_pic']);
+                $fallacy['contradiction_page_profile_pic'] = '/api/'.$profile_pic;
+
+                if (array_key_exists('retweeted_status', $tweet)) {
+                    $retweet = $tweet['retweeted_status'];
+                    $profile_pic = $this->twitter->saveUserPic($retweet['user']['id'], $retweet['user']['profile_image_url_https']);
+                    $fallacy['contradiction_page_profile_pic'] = '/api/'.$profile_pic;
+                }
+
+            }
+
+            if ($ref_id == 9 || $ref_id == 10 || $ref_id == 11) {
+                $pic = $fallacy['page_profile_pic'];
+                $channel_id = $fallacy['comment_channel_id'];
+                $channel_pic = $this->youtube->saveChannelPic($channel_id, $pic);
+                $fallacy['page_profile_pic'] = '/api/'.$channel_pic;
+            }
+
+            if ($ref_id == 7 || $ref_id == 10) {
+                $pic = $fallacy['contradiction_page_profile_pic'];
+                $channel_id = $fallacy['contradiction_comment_channel_id'];
+                $channel_pic = $this->youtube->saveChannelPic($channel_id, $pic);
+                $fallacy['contradiction_page_profile_pic'] = '/api/'.$channel_pic;
+            }
+
+            $fallacy['ref_id'] = $ref_id;
+            return $fallacy;
         }
 
         public function getFallacyCount($id) {
@@ -524,18 +862,18 @@
             ]);
         }
 
-        public function updateFallacy($id, $explanation, $fallacy_id, $tags = null, $title, $userId, $contradiction = null) {
+        public function update($id, $data, $userId, $tags = null) {
             $this->db->where('id', $id);
-            $this->db->update('fallacy_entries', [
-                'explanation' => $explanation,
-                'fallacy_id' => $fallacy_id,
-                'last_updated' => date('Y-m-d H:i:s'),
-                'title' => $title
-            ]);
+            $this->db->update('fallacy_entries', $data);
 
             if($tags) {
                 $this->tags->insertTags($id, $tags, 'fallacy', $userId);
             }
+        }
+
+        public function updateContradiction($id, $data) {
+            $this->db->where('fallacy_entry_id', $id);
+            $this->db->update('contradictions', $data);
         }
 
         public function updateReview($id, $data) {

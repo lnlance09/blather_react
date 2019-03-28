@@ -8,12 +8,24 @@ import {
 	setContradictionHighlight
 } from "./actions"
 import { refreshYouTubeToken } from "components/authentication/v1/actions"
-import { convertTimeToSeconds } from "utils/textFunctions"
 import { connect, Provider } from "react-redux"
-import { Button, Dropdown, Form, Icon, Input, Message, Modal, TextArea } from "semantic-ui-react"
+import {
+	Button,
+	Dropdown,
+	Form,
+	Header,
+	Icon,
+	Image,
+	Input,
+	Message,
+	Modal,
+	TextArea
+} from "semantic-ui-react"
 import { fallacyDropdownOptions } from "utils/fallacyFunctions"
+import { convertTimeToSeconds } from "utils/textFunctions"
 import _ from "lodash"
 import fallacies from "fallacies.json"
+import BrainImg from "images/brain-logo.png"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import SearchForm from "components/search/v1/"
@@ -29,6 +41,7 @@ class FallacyForm extends Component {
 			changed: false,
 			endTime: "",
 			explanation: "",
+			formVisible: false,
 			highlightedText: "",
 			id: 1,
 			loading: false,
@@ -66,6 +79,9 @@ class FallacyForm extends Component {
 		})
 		this.props.clearContradiction()
 		this.props.handleSubmit()
+	}
+	componentDidMount() {
+		this.setState({ formVisible: true })
 	}
 	handleHoverOn = e => {
 		let text = ""
@@ -421,10 +437,8 @@ class FallacyForm extends Component {
 								<a
 									href={`/pages/${page.type}/${assigneeLink}`}
 									onClick={() => {
-										this.props.clearContradiction()
-										this.props.history.push(
-											`/pages/${page.type}/${assigneeLink}`
-										)
+										props.clearContradiction()
+										props.history.push(`/pages/${page.type}/${assigneeLink}`)
 									}}
 								>
 									{page.name}
@@ -438,10 +452,8 @@ class FallacyForm extends Component {
 										color="blue"
 										content="View this fallacy"
 										onClick={() => {
-											this.props.clearContradiction()
-											this.props.history.push(
-												`/fallacies/${props.fallacy.id}`
-											)
+											props.clearContradiction()
+											props.history.push(`/fallacies/${props.fallacy.id}`)
 										}}
 									/>
 									<Button.Or />
@@ -463,15 +475,15 @@ class FallacyForm extends Component {
 		return (
 			<Provider store={store}>
 				<div className="fallacyForm">
-					<Message
-						attached
-						className="headerMsg"
-						content="Assign a fallacy"
-						header="Does this logic make sense?"
-						size="large"
-					/>
+					<Header className="formHeader" size="large">
+						<Image circular src={BrainImg} />
+						<Header.Content>
+							Does this logic make sense?
+							<Header.Subheader>Assign a fallacy</Header.Subheader>
+						</Header.Content>
+					</Header>
+					<div className="zigzag" />
 					<Form
-						className="attached fluid segment"
 						error={
 							this.props.fallacyFormError || contradictionError || !contradictionValid
 						}
@@ -519,7 +531,7 @@ class FallacyForm extends Component {
 						{this.props.authenticated ? (
 							<Button color="blue" compact content="Assign" fluid type="submit" />
 						) : (
-							<Button.Group fluid>
+							<Button.Group>
 								<Button
 									content="Assign anonymously"
 									icon="spy"
@@ -543,9 +555,9 @@ class FallacyForm extends Component {
 							>
 								view commonmark specs
 							</a>
-							<span className="clearfix" />
 						</p>
 					</Form>
+					<div className="clearfix" />
 					<div>{SuccessModal(this.props)}</div>
 				</div>
 			</Provider>

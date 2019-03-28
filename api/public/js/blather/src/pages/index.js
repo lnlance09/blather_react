@@ -215,28 +215,26 @@ class Page extends Component {
 
 				if (activeItem === "fallacies") {
 					return (
-						<Segment stacked>
-							<FallaciesList
-								assignedTo={props.id}
-								changeUrl
-								emptyMsgContent={`No fallacies have been assigned to ${props.name}`}
-								fallacies={fallacyId}
-								history={props.history}
-								icon="sticky note"
-								network={network}
-								page={0}
-								setFallacyId={this.setFallacyId}
-								showPics={false}
-								source="pages"
-							/>
-						</Segment>
+						<FallaciesList
+							assignedTo={props.id}
+							changeUrl
+							emptyMsgContent={`No fallacies have been assigned to ${props.name}`}
+							fallacies={fallacyId}
+							history={props.history}
+							icon="sticky note"
+							network={network}
+							page={0}
+							setFallacyId={this.setFallacyId}
+							showPics={false}
+							source="pages"
+						/>
 					)
 				}
 
 				if (authenticated) {
 					if (activeItem === "tweets" && props.data.linkedTwitter) {
 						return (
-							<Segment stacked>
+							<Segment basic>
 								<TweetList bearer={bearer} history={props.history} username={id} />
 							</Segment>
 						)
@@ -244,7 +242,7 @@ class Page extends Component {
 
 					if (activeItem === "videos" && props.data.linkedYoutube) {
 						return (
-							<Segment stacked>
+							<Segment basic>
 								<VideoList bearer={bearer} channelId={id} history={props.history} />
 							</Segment>
 						)
@@ -306,6 +304,7 @@ class Page extends Component {
 									<Grid.Row>{PageHeaderInfo(this.props)}</Grid.Row>
 									<Grid.Row className="pageContentRow">
 										<Image
+											bordered
 											className="profilePic"
 											onError={i => (i.target.src = defaultImg)}
 											rounded
@@ -327,6 +326,7 @@ class Page extends Component {
 								<Grid>
 									<Grid.Column width={4}>
 										<Image
+											bordered
 											centered
 											className="profilePic"
 											onError={i => (i.target.src = defaultImg)}

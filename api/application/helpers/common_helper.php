@@ -232,14 +232,15 @@
 		return false;
 	}
 
-	function savePic($pic, $dir) {
-		$img = @file_get_contents($pic);
-		$name = basename($pic);
-		$path = $dir.$name;
+	function savePic($pic, $path) {
 		if (!file_exists($path)) {
+			if (!is_dir(dirname($path))) {
+				mkdir(dirname($path));
+			}
+
+			$img = @file_get_contents($pic);
 			file_put_contents($path, $img);
 		}
-		return $name;
 	}
 
 	function timeToSecs($time) {

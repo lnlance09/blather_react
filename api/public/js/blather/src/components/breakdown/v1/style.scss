@@ -1,44 +1,55 @@
 @import '../../../css/colors.scss';
 
 .breakdown {
-    .ui.header.small {
-        margin-bottom: 7px !important;
+    background: $offWhite !important;
+
+    .message {
+        background: $white;
     }
 
     .percentages {
-        margin: 2px 0;
-        padding: 1px 0;
+        background: $white;
+
+        .ui.header.small {
+            margin-bottom: 7px !important;
+        }
 
         .fallacyPercentage {
             cursor: pointer;
+            margin-top: 12px;
+
+            &:first-of-type {
+                margin-top: 0;
+            }
 
             &:hover {
                 background: $offWhite;
             }
 
             .progress {
-                margin-bottom: 12px;
+                margin-bottom: 0;
 
                 .bar {
-                    background: $twitter !important;
+                    background: $blue !important;
 
                     .progress {
                         color: $white;
                     }
                 }
-            }
 
-            .label {
-                background: $lightRed !important;
+                .label {
+                    background: $offWhite;
+                    color: $lightBlack;
+                }
             }
         }
     }
 
     .statHeader {
-        margin: 12px auto;
+        margin: 12px 12px;
 
         &.first {
-            margin-top: 0 !important;
+            margin-top: 10px !important;
         }
     }
 
@@ -57,5 +68,9 @@
     .stats {
         margin: 0 !important;
         padding: 0;
+    }
+
+    .createReview {
+        margin: 15px 12px !important;
     }
 }

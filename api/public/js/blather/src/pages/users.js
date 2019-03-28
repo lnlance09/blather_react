@@ -186,6 +186,7 @@ class UserPage extends Component {
 			}
 			return (
 				<Image
+					bordered
 					centered
 					className={`profilePic ${
 						!this.props.user.img && !this.props.loading ? "default" : ""
@@ -271,7 +272,11 @@ class UserPage extends Component {
 										{AboutSection(this.props)}
 										{UserMenu(this.props)}
 										<Container className="profileContentContainer">
-											<Segment className="profileContentSegment" stacked>
+											<Segment
+												basic
+												className="profileContentSegment"
+												stacked
+											>
 												{ShowContent(this.props)}
 											</Segment>
 										</Container>
@@ -293,7 +298,7 @@ class UserPage extends Component {
 										/>
 										{UserMenu(this.props)}
 										<Container className="profileContentContainer">
-											<Segment className="profileContentSegment" stacked>
+											<Segment basic className="profileContentSegment">
 												{ShowContent(this.props)}
 											</Segment>
 										</Container>

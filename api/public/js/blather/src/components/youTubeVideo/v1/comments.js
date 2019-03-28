@@ -50,17 +50,23 @@ class YouTubeCommentsSection extends Component {
 	}
 
 	componentDidMount() {
-		this.props.fetchVideoComments({
-			bearer: this.props.bearer,
-			id: this.props.videoId
-		})
-		this.loadMore = _.debounce(this.loadMore.bind(this), 200)
+		if (this.props.auth && this.props.source === "post") {
+			this.props.fetchVideoComments({
+				bearer: this.props.bearer,
+				id: this.props.videoId
+			})
+			this.loadMore = _.debounce(this.loadMore.bind(this), 200)
+		}
 	}
 
 	componentWillReceiveProps(newProps) {
-		if (newProps.videoId !== this.props.videoId) {
+		if (
+			newProps.videoId !== this.props.videoId &&
+			newProps.auth &&
+			this.props.source === "post"
+		) {
 			this.props.fetchVideoComments({
-				bearer: this.props.bearer,
+				bearer: newProps.bearer,
 				id: newProps.videoId
 			})
 			this.loadMore = _.debounce(this.loadMore.bind(this), 200)
@@ -134,6 +140,7 @@ class YouTubeCommentsSection extends Component {
 							<Comment.Group>
 								{IndividualComment(comment, i, replyId !== null)}
 							</Comment.Group>
+							<Divider />
 							<FallacyForm
 								authenticated={props.auth}
 								bearer={props.bearer}
@@ -273,12 +280,17 @@ class YouTubeCommentsSection extends Component {
 						onError={i => (i.target.src = ImagePic)}
 						src={content.authorProfileImageUrl}
 					/>
-					<Comment.Content
-						onClick={() => {
-							this.openModal(id, i)
-						}}
-					>
-						<Comment.Author as="a">{content.authorDisplayName}</Comment.Author>
+					<Comment.Content onClick={() => this.openModal(id, i)}>
+						<Comment.Author
+							as="a"
+							onClick={() =>
+								this.props.history.push(
+									`/pages/youtube/${content.authorChannelId.value}`
+								)
+							}
+						>
+							{content.authorDisplayName}
+						</Comment.Author>
 						<Comment.Metadata>
 							<div>
 								<Moment date={content.publishedAt} fromNow />
@@ -349,12 +361,12 @@ class YouTubeCommentsSection extends Component {
 		return (
 			<div>
 				{this.props.showComment && <div>{SelectedComment(this.props)}</div>}
-				{this.props.showComments && (
+				{this.props.showComments && this.props.source === "post" ? (
 					<div>
 						{CommentsSection(this.props)}
 						{CommentModal(i, this.props, r, replyId)}
 					</div>
-				)}
+				) : null}
 			</div>
 		)
 	}
@@ -387,6 +399,7 @@ YouTubeCommentsSection.propTypes = {
 	insertComment: PropTypes.func,
 	sendNotification: PropTypes.func,
 	showComment: PropTypes.bool,
+	source: PropTypes.string,
 	unsetComment: PropTypes.func,
 	videoId: PropTypes.string
 }

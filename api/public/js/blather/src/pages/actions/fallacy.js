@@ -1,6 +1,38 @@
 import * as constants from "../constants"
 import request from "request"
 
+export const createVideoFallacy = ({
+	contradiction,
+	duration,
+	fallacyName,
+	id,
+	img,
+	original,
+	refId
+}) => dispatch => {
+	request.post(
+		`${window.location.origin}/api/fallacies/createVideo`,
+		{
+			form: {
+				contradiction,
+				duration,
+				fallacyName,
+				id,
+				img,
+				original,
+				refId
+			},
+			json: true
+		},
+		function(err, response, body) {
+			dispatch({
+				type: constants.CREATE_FALLACY_VIDEO,
+				payload: body
+			})
+		}
+	)
+}
+
 export const editExplanation = ({ explanation }) => dispatch => {
 	dispatch({
 		type: constants.EDIT_EXPLANATION,
@@ -165,12 +197,22 @@ export const submitFallacyConversation = ({ bearer, id, msg }) => dispatch => {
 	)
 }
 
+export const toggleCreateMode = () => dispatch => {
+	dispatch({
+		type: constants.TOGGLE_CREATE_MODE
+	})
+}
+
 export const updateFallacy = ({
 	bearer,
+	contradictionEndTime,
+	contradictionStartTime,
+	endTime,
 	explanation,
 	fallacyId,
 	fallacyName,
 	id,
+	startTime,
 	tags,
 	title
 }) => dispatch => {
@@ -178,10 +220,14 @@ export const updateFallacy = ({
 		`${window.location.origin}/api/fallacies/update`,
 		{
 			form: {
+				contradictionEndTime,
+				contradictionStartTime,
+				endTime,
 				explanation,
 				fallacyId,
 				fallacyName,
 				id,
+				startTime,
 				tags,
 				title
 			},

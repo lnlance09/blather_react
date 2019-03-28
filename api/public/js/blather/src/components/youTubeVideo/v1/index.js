@@ -1,13 +1,12 @@
 import "./style.css"
-import { adjustTimezone } from "utils/dateFunctions"
 import { formatDuration, formatNumber, formatPlural } from "utils/textFunctions"
 import {
 	createVideoArchive,
+	setCurrentVideoTime,
+	setDuration,
 	updateArchiveDescription,
 	updateArchiveEndTime,
-	updateArchiveStartTime,
-	setCurrentVideoTime,
-	setDuration
+	updateArchiveStartTime
 } from "pages/actions/post"
 import { clearContradiction, setContradictionVideoTime } from "components/fallacyForm/v1/actions"
 import { connect } from "react-redux"
@@ -17,8 +16,8 @@ import {
 	Form,
 	Grid,
 	Header,
-	Input,
 	Image,
+	Input,
 	List,
 	Message,
 	Progress,
@@ -123,8 +122,8 @@ class YouTubeVideo extends Component {
 						/>
 					</Form.Group>
 					<Form.TextArea
-						onChange={this.changeArchiveDescription}
 						maxLength={250}
+						onChange={this.changeArchiveDescription}
 						placeholder="Leave a note"
 						value={props.archiveDescription}
 					/>
@@ -256,7 +255,7 @@ class YouTubeVideo extends Component {
 										: this.props.s3Link
 								}
 							/>
-							{!this.props.existsOnYt && auth ? (
+							{!this.props.existsOnYt && auth && this.props.id ? (
 								<Message
 									content="You are watching an archived version"
 									header="This video has either been deleted or made private"
@@ -326,6 +325,7 @@ class YouTubeVideo extends Component {
 							sendNotification={this.props.sendNotification}
 							showComment={this.props.showComment}
 							showComments={this.props.showComments}
+							source={this.props.source}
 							videoId={this.props.id}
 						/>
 					) : null}
@@ -375,7 +375,7 @@ YouTubeVideo.propTypes = {
 	currentTime: PropTypes.number,
 	dateCreated: PropTypes.string,
 	description: PropTypes.string,
-	endTime: PropTypes.string,
+	endTime: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 	existsOnYt: PropTypes.bool,
 	id: PropTypes.string,
 	playing: PropTypes.bool,
@@ -391,7 +391,8 @@ YouTubeVideo.propTypes = {
 	showStats: PropTypes.bool,
 	showTimes: PropTypes.bool,
 	showVideo: PropTypes.bool,
-	startTime: PropTypes.string,
+	source: PropTypes.string,
+	startTime: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 	stats: PropTypes.shape({
 		commentCount: PropTypes.number,
 		dislikeCount: PropTypes.number,
@@ -435,6 +436,7 @@ YouTubeVideo.defaultProps = {
 	showStats: true,
 	showTimes: false,
 	showVideo: true,
+	source: "post",
 	statists: {},
 	updateArchiveDescription,
 	updateArchiveEndTime,

@@ -1,6 +1,7 @@
 @import '../../../css/colors.scss';
 
 .fallacyExample {
+    background: $offWhite !important;
     overflow: hidden;
 
     .fallacyHeader {
@@ -30,7 +31,7 @@
 
     .fallacyExplanation {
         margin: 0;
-        padding: 14px;
+        padding: 4px 8px 0 8px;
         width: 100%;
     }
 
@@ -69,12 +70,18 @@
         }
     }
 
-    .screenshot {
-        border-color: $darkWhite !important;
+    .editTimesForm {
+        margin-top: 12px !important;
+    }
 
-        .icon {
-            color: $lightBlack;
-            cursor: pointer !important;
+    .watermarkLabel {
+        float: right;
+        margin: 6px;
+        padding: 2px 6px 2px 2px;
+
+        img {
+            display: inline !important;
+            margin-right: 6px;
         }
     }
 }

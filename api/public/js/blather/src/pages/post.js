@@ -214,16 +214,14 @@ class Post extends Component {
 						<Header dividing size="large">
 							Fallacies
 						</Header>
-						<Segment stacked>
-							<FallaciesList
-								emptyMsgContent={`No fallacies have been assigned to this ${type}`}
-								icon={network}
-								network={network}
-								objectId={props.info.id}
-								source="post"
-								{...props}
-							/>
-						</Segment>
+						<FallaciesList
+							emptyMsgContent={`No fallacies have been assigned to this ${type}`}
+							icon={network}
+							network={network}
+							objectId={props.info.id}
+							source="post"
+							{...props}
+						/>
 					</div>
 				)
 			}
@@ -335,20 +333,22 @@ class Post extends Component {
 						{!tweetExists && <Message content="This tweet does not exist" error />}
 						{!videoExists && <Message content="This video does not exist" error />}
 						{!this.props.error && (
-							<div className="fallacyFormWrapper">
-								<FallacyForm
-									authenticated={authenticated}
-									bearer={bearer}
-									commentId={commentId}
-									handleSubmit={this.handleSubmit}
-									highlightedText={highlightedText}
-									history={this.props.history}
-									network={network}
-									objectId={id}
-									pageInfo={pageInfo}
-									sendNotification={this.props.sendNotification}
-									user={user}
-								/>
+							<div>
+								<div className="fallacyFormWrapper">
+									<FallacyForm
+										authenticated={authenticated}
+										bearer={bearer}
+										commentId={commentId}
+										handleSubmit={this.handleSubmit}
+										highlightedText={highlightedText}
+										history={this.props.history}
+										network={network}
+										objectId={id}
+										pageInfo={pageInfo}
+										sendNotification={this.props.sendNotification}
+										user={user}
+									/>
+								</div>
 								{DisplayFallacies(this.props)}
 							</div>
 						)}

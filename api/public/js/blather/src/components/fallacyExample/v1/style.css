@@ -4,6 +4,7 @@
 /*---   Misc  ---*/
 /*---   Social colors  ---*/
 .fallacyExample {
+  background: #F9FAFB !important;
   overflow: hidden; }
   .fallacyExample .fallacyHeader .editButton {
     color: #2185D0;
@@ -20,7 +21,7 @@
     margin-top: 15px; }
   .fallacyExample .fallacyExplanation {
     margin: 0;
-    padding: 14px;
+    padding: 4px 8px 0 8px;
     width: 100%; }
   .fallacyExample span.clearfix {
     display: block; }
@@ -40,8 +41,12 @@
     .fallacyExample .explanation p {
       font-size: 15px;
       margin: 0; }
-  .fallacyExample .screenshot {
-    border-color: #F3F4F5 !important; }
-    .fallacyExample .screenshot .icon {
-      color: #545454;
-      cursor: pointer !important; }
+  .fallacyExample .editTimesForm {
+    margin-top: 12px !important; }
+  .fallacyExample .watermarkLabel {
+    float: right;
+    margin: 6px;
+    padding: 2px 6px 2px 2px; }
+    .fallacyExample .watermarkLabel img {
+      display: inline !important;
+      margin-right: 6px; }

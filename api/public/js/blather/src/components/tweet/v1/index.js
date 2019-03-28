@@ -131,7 +131,7 @@ class Tweet extends Component {
 					<Card.Meta className="tweetUserScreenName">
 						@{screenName} •
 						<span className="tweetTime">
-							<Moment date={createdAt} fromNow />
+							<Moment date={createdAt} format="MMM DD, YYYY" />
 						</span>
 					</Card.Meta>
 				</div>
@@ -253,7 +253,7 @@ class Tweet extends Component {
 		return (
 			<Provider store={store}>
 				<div className={className}>
-					<Card fluid>
+					<Card color={this.props.color} fluid raised={this.props.raised}>
 						{RetweetedText(this.props)}
 						<Card.Content
 							onClick={() => {
@@ -339,6 +339,7 @@ Tweet.propTypes = {
 	]),
 	bearer: PropTypes.string,
 	canArchive: PropTypes.bool,
+	color: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
 	createArchive: PropTypes.func,
 	created_at: PropTypes.string,
 	extended_entities: PropTypes.shape({
@@ -376,6 +377,7 @@ Tweet.propTypes = {
 	quoted_status_permalink: PropTypes.shape({
 		expanded: PropTypes.string
 	}),
+	raised: PropTypes.bool,
 	redirect: PropTypes.bool,
 	retweeted_status: PropTypes.oneOfType([
 		PropTypes.bool,
@@ -415,6 +417,7 @@ Tweet.propTypes = {
 
 Tweet.defaultProps = {
 	canArchive: false,
+	color: null,
 	createArchive,
 	extended_entities: {
 		media: []
@@ -425,6 +428,7 @@ Tweet.defaultProps = {
 	quoted_status: {
 		user: {}
 	},
+	raised: false,
 	redirect: false,
 	retweeted_status: {
 		user: {}

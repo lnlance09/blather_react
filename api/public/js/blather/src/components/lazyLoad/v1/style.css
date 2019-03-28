@@ -1,6 +1,7 @@
-.placeholderSegment {
-  width: 100%; }
-  .placeholderSegment * {
-    box-sizing: border-box; }
-  .placeholderSegment .placeholderHeader {
-    width: 100px; }
+/*---  Colors  ---*/
+/*---  Light Colors  ---*/
+/*---   Neutrals  ---*/
+/*---   Misc  ---*/
+/*---   Social colors  ---*/
+.placeholder .placeholderHeader {
+  width: 100px; }

@@ -135,7 +135,7 @@
             $q = $this->input->get('q');
             $youtubeResults = $this->youtube->searchPagesFromDb($q, 0, false);
             $twitterResults = $this->twitter->searchPagesFromDb($q, 0, false);
-            
+
             if(empty($youtubeResults)) {
                 $youtubeResults = [];
             }
