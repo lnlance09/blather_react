@@ -102,6 +102,7 @@ class Fallacy extends Component {
 				original: this.props.originalPayload,
 				refId
 			})
+			return
 		}
 
 		if (refId === 6) {
@@ -123,7 +124,7 @@ class Fallacy extends Component {
 			el = "fallacyExample"
 		}
 
-		if (this.props.canMakeVideo && refId !== 4 && refId !== 5) {
+		if (this.props.canMakeVideo) {
 			duration = document.getElementById("fallacyDateDiff").textContent
 			el = this.props.screenshotEl
 			scale = 1
