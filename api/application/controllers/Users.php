@@ -124,7 +124,7 @@
 
 		public function createArchive() {
 			$url = $this->input->post('url');
-			if(empty($url)) {
+			if (empty($url)) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You must include a URL',
@@ -133,7 +133,7 @@
 			}
 
 			$parse = parseUrl($url);
-			if(!$parse) {
+			if (!$parse) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'This URL cannot be parsed',
@@ -143,14 +143,30 @@
 
 			$code = createArchive($url);
 			$data = [];
-			if($code && $this->user) {
+			if ($code && $this->user) {
+				$page = null;
+				if ($parse['network'] == 'twitter') {
+					$page = $this->twitter->getPageInfoFromDB($parse['username']);
+				}
+
+				if ($parse['network'] == 'youtube') {
+					$page = $this->youtube->getPageInfoFromDB($parse['username']);
+				}
+
+				if (!$page) {
+					$this->output->set_status_header(401);
+					echo json_encode([
+						'error' => 'This page does not exist',
+					]);
+				}
+
 				$data = [
 					'code' => $code,
 					'comment_id' => $parse['comment_id'],
 					'link' => $url,
 					'network' => $parse['network'],
 					'object_id' => $parse['object_id'],
-					'page_id' => $parse['username'],
+					'page_id' => $page['id'],
 					'user_id' => $this->user->id
 				];
 				$archive = $this->users->createArchive($data);
@@ -476,5 +492,41 @@
 				'error' => false,
 				'user' => $this->user
 			]);
+		}
+
+		public function sample() {
+			$this->load->database();
+			$this->db->select('id, network, object_id, page_id');
+			// $this->db->where('page_id', 'status');
+			$archives = $this->db->get('archived_links')->result_array();
+			// FormatArray($archives);
+
+			for ($i=0;$i<count($archives);$i++) {
+				$archive_id = $archives[$i]['id'];
+				$object_id = $archives[$i]['object_id'];
+
+				if ($archives[$i]['network'] == 'twitter') {
+					$this->db->select('p.id');
+					$this->db->join('pages p', 't.page_id=p.social_media_id');
+					$this->db->where('tweet_id', $object_id);
+					$tweet = $this->db->get('twitter_posts t')->row();
+					// FormatArray($tweet);
+					$this->db->where('id', $archive_id);
+					$this->db->update('archived_links', [
+						'page_id' => $tweet->id
+					]);
+				} elseif($archives[$i]['network'] == 'youtube') {
+					echo 'youtube';
+					$this->db->select('p.id');
+					$this->db->join('pages p', 'v.channel_id=p.social_media_id');
+					$this->db->where('video_id', $object_id);
+					$video = $this->db->get('youtube_videos v')->row();
+					// FormatArray($video);
+					$this->db->where('id', $archive_id);
+					$this->db->update('archived_links', [
+						'page_id' => $video->id
+					]);
+				}
+			}
 		}
 	}
