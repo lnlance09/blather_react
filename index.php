@@ -391,7 +391,7 @@
         <div id="root"></div>
     </body>
     <script src="/static/js/1.a4469f5b.chunk.js"></script>
-    <script src="/static/js/main.d2621fe3.chunk.js"></script>
+    <script src="/static/js/main.5089aecb.chunk.js"></script>
     <script src="/static/js/runtime~main.229c360f.js"></script>
 <?php
     if ($schema) {
