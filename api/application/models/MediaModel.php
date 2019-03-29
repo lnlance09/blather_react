@@ -48,13 +48,13 @@
         ) {
             $length = $end-$start;
             $new_file = $video_id.'_'.$start.'_'.$length.'.mp4';
+            $path = $this->fallacyPath.$fallacy_id;
             if (!file_exists($path.$new_file)) {
-                $path = $this->fallacyPath.$fallacy_id;
                 if (!is_dir($path)) {
                     exec('mkdir '.$path);
                 }
 
-                $command = $this->ffmpeg.' -i '.$this->youtubePath.$video_id.'.mp4 -ss '.gmdate('H:i:s', $start).' -t '.gmdate('H:i:s', $length).' -c copy -async 1 '.$path.'/'.$new_file;
+                $command = $this->ffmpeg.' -i '.$this->youtubePath.$video_id.'.mp4 -ss '.gmdate('H:i:s', $start).' -t '.gmdate('H:i:s', $length).' -async 1 '.$path.'/'.$new_file;
                 exec($command, $output);
             }
             return $path.'/'.$new_file;
@@ -82,7 +82,7 @@
             $sar = $video_info['sar'];
 
             $command = $this->ffmpeg.' \
-                -loop 1 -framerate 24 -t 5 -i '.$img.' \
+                -loop 1 -framerate 25 -t 5 -i '.$img.' \
                 -f lavfi -t 1 -i anullsrc \
                 '.$this->createInputCommand($video).' \
                 -i '.$this->watermarkPath.' \
@@ -95,7 +95,7 @@
                 " \ '.$output_file;
             exec($command, $output);
 
-            $file = 'video_'.date('Y-m-d_H:i:s').'.mp4';
+            $file = 'video_'.date('Y-m-d_H_i_s').'.mp4';
             rename(' '.$output_file, $path.$file);
             return $id.'/'.$file;
         }
@@ -178,7 +178,7 @@
             $command .= '" \ '.$output_file;
             exec($command, $output);
 
-            $file = 'video_'.date('Y-m-d_H:i:s').'.mp4';
+            $file = 'video_'.date('Y-m-d_H_i_s').'.mp4';
             rename(' '.$output_file, $path.$file);
             return $id.'/'.$file;
         }
