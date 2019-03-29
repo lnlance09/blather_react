@@ -493,40 +493,4 @@
 				'user' => $this->user
 			]);
 		}
-
-		public function sample() {
-			$this->load->database();
-			$this->db->select('id, network, object_id, page_id');
-			// $this->db->where('page_id', 'status');
-			$archives = $this->db->get('archived_links')->result_array();
-			// FormatArray($archives);
-
-			for ($i=0;$i<count($archives);$i++) {
-				$archive_id = $archives[$i]['id'];
-				$object_id = $archives[$i]['object_id'];
-
-				if ($archives[$i]['network'] == 'twitter') {
-					$this->db->select('p.id');
-					$this->db->join('pages p', 't.page_id=p.social_media_id');
-					$this->db->where('tweet_id', $object_id);
-					$tweet = $this->db->get('twitter_posts t')->row();
-					// FormatArray($tweet);
-					$this->db->where('id', $archive_id);
-					$this->db->update('archived_links', [
-						'page_id' => $tweet->id
-					]);
-				} elseif($archives[$i]['network'] == 'youtube') {
-					echo 'youtube';
-					$this->db->select('p.id');
-					$this->db->join('pages p', 'v.channel_id=p.social_media_id');
-					$this->db->where('video_id', $object_id);
-					$video = $this->db->get('youtube_videos v')->row();
-					// FormatArray($video);
-					$this->db->where('id', $archive_id);
-					$this->db->update('archived_links', [
-						'page_id' => $video->id
-					]);
-				}
-			}
-		}
 	}
