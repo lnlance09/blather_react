@@ -54,7 +54,7 @@
                     exec('mkdir '.$path);
                 }
 
-                $command = $this->ffmpeg.' -i '.$this->youtubePath.$video_id.'.mp4 -ss '.gmdate('H:i:s', $start).' -t '.gmdate('H:i:s', $length).' -c copy -async 1 '.$path.'/'.$new_file;
+                $command = $this->ffmpeg.' -i '.$this->youtubePath.$video_id.'.mp4 -ss '.gmdate('H:i:s', $start).' -t '.gmdate('H:i:s', $length).' -async 1 '.$path.'/'.$new_file;
                 exec($command, $output);
             }
             return $path.'/'.$new_file;
@@ -75,14 +75,14 @@
             array $video_info
         ) {
             $path = $this->fallacyPath.$id.'/';
-            $file = 'video_'.date('Y-m-d_H:i:s').'.mp4';
+            $file = 'video_'.date('Y-m-d_H_i_s').'.mp4';
 
             $width = $video_info['width'];
             $height = $video_info['height'];
             $sar = $video_info['sar'];
 
             $command = $this->ffmpeg.' \
-                -loop 1 -framerate 24 -t 5 -i '.$img.' \
+                -loop 1 -framerate 25 -t 5 -i '.$img.' \
                 -f lavfi -t 1 -i anullsrc \
                 '.$this->createInputCommand($video).' \
                 -i '.$this->watermarkPath.' \
@@ -112,7 +112,7 @@
             array $source_two
         ) {
             $path = $this->fallacyPath.$id.'/';
-            $file = 'video_'.date('Y-m-d_H:i:s').'.mp4';
+            $file = 'video_'.date('Y-m-d_H_i_s').'.mp4';
 
             $source_one_is_img = $source_one['type'] == 'tweet' || $source_one['type'] == 'comment';
             $source_two_is_img = $source_two['type'] == 'tweet' || $source_two['type'] == 'comment';

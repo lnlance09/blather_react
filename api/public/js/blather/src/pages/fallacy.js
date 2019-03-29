@@ -94,7 +94,18 @@ class Fallacy extends Component {
 		let duration = ""
 		let scale = window.devicePixelRatio
 
+		if (refId === 4 || refId === 5) {
+			this.props.toggleCreateMode()
+			this.props.createVideoFallacy({
+				fallacyName: this.props.fallacyName,
+				id: this.props.id,
+				original: this.props.originalPayload,
+				refId
+			})
+		}
+
 		if (refId === 6) {
+			this.props.toggleCreateMode()
 			duration = document.getElementById("fallacyDateDiff").textContent
 			this.props.createVideoFallacy({
 				contradiction: this.props.contradictionPayload,
@@ -139,40 +150,32 @@ class Fallacy extends Component {
 				link.click()
 
 				this.setState({ downloading: false })
-			} else if (this.props.canMakeVideo) {
+			} else if (this.props.canMakeVideo && refId !== 4 && refId !== 5) {
 				this.props.toggleCreateMode()
-				if (refId === 4 || refId === 5) {
-					this.props.createVideoFallacy({
-						fallacyName: this.props.fallacyName,
-						id: this.props.id,
-						original: this.props.originalPayload,
-						refId
-					})
-				} else {
-					// const img = canvas.toDataURL("image/png")
-					const newCanvas = document.getElementById("materialCanvas")
-					newCanvas.width = 1280
-					newCanvas.height = 720
 
-					const canvasContent = newCanvas.getContext("2d")
-					canvasContent.fillStyle = "#66dd30"
-					canvasContent.fillRect(0, 0, 1280, 720)
-					canvasContent.drawImage(
-						canvas,
-						1280 / 2 - canvas.width / 2,
-						720 / 2 - canvas.height / 2
-					)
-					const newImg = newCanvas.toDataURL("image/png")
+				// const img = canvas.toDataURL("image/png")
+				const newCanvas = document.getElementById("materialCanvas")
+				newCanvas.width = 1280
+				newCanvas.height = 720
 
-					this.props.createVideoFallacy({
-						contradiction: this.props.contradictionPayload,
-						duration,
-						id: this.props.id,
-						img: newImg,
-						original: this.props.originalPayload,
-						refId
-					})
-				}
+				const canvasContent = newCanvas.getContext("2d")
+				canvasContent.fillStyle = "#66dd30"
+				canvasContent.fillRect(0, 0, 1280, 720)
+				canvasContent.drawImage(
+					canvas,
+					1280 / 2 - canvas.width / 2,
+					720 / 2 - canvas.height / 2
+				)
+				const newImg = newCanvas.toDataURL("image/png")
+
+				this.props.createVideoFallacy({
+					contradiction: this.props.contradictionPayload,
+					duration,
+					id: this.props.id,
+					img: newImg,
+					original: this.props.originalPayload,
+					refId
+				})
 			}
 
 			this.adjustHighlightBlocks(false)
