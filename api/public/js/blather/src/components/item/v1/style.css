@@ -5,7 +5,10 @@
 /*---   Social colors  ---*/
 .resultItem {
   background: #FFFFFF;
-  cursor: pointer; }
+  cursor: pointer;
+  width: 100%; }
+  .resultItem .placeholderSegment {
+    width: 100% !important; }
   .resultItem .meta {
     margin-top: 3px !important; }
     .resultItem .meta .label {

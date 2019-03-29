@@ -327,7 +327,7 @@
                     WHERE type = 'youtube'
                     AND (social_media_id = ? OR username = ?)";
             $query = $this->db->query($sql, [$id, $id])->result_array();
-            if(!empty($query)) {
+            if (!empty($query)) {
                 return $query[0];
             }
             return false;

@@ -3,6 +3,11 @@
 .resultItem {
     background: $white;
     cursor: pointer;
+    width: 100%;
+
+    .placeholderSegment {
+        width: 100% !important;
+    }
 
     .meta {
         margin-top: 3px !important;
