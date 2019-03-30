@@ -184,7 +184,7 @@
 				$duration
 			);
 
-			$s3Link = $this->media->addToS3('fallacy_videos/'.$video, '/var/www/html/blather_react/api/public/videos/fallacies/'.$video);
+			$s3Link = $this->media->addToS3('fallacy_videos/'.$video, '/var/www/html/api/public/videos/fallacies/'.$video);
 
 			echo json_encode([
 				'error' => false,
