@@ -3,8 +3,8 @@
 		public function __construct() {
 			parent:: __construct();
 
-			$this->baseUrl = $this->config->base_url();
-			$this->imgUrl = $this->baseUrl.'api/public/img/';
+			$this->s3Path = 'https://s3.amazonaws.com/blather22/';
+
 			$this->load->database();
 			$this->load->helper('common_helper');
 			$this->db->query("SET time_zone='+0:00'");
@@ -16,7 +16,7 @@
 			$this->db->select('COUNT(*) AS count');
 			$this->db->where($data);
 			$result = $this->db->get('archived_links')->result_array();
-			return $result[0]['count'] == 0 ? false : true;
+			return $result[0]['count'] == 1;
 		}
 
 		public function createArchive($data) {
@@ -198,10 +198,9 @@
 		 */
 		public function login($email, $password) {
 			$column = filter_var($email, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
-			$select = "users.id, name, username, img, bio, email, email_verified AS emailVerified, linked_youtube AS linkedYoutube, linked_fb AS linkedFb, linked_twitter AS linkedTwitter, verification_code AS verificationCode, users.date_created AS dateCreated,
+			$select = "users.id, name, username, CONCAT('".$this->s3Path."', img) AS img, bio, email, email_verified AS emailVerified, linked_youtube AS linkedYoutube, linked_fb AS linkedFb, linked_twitter AS linkedTwitter, verification_code AS verificationCode, users.date_created AS dateCreated,
 				twitter_users.date_linked AS twitterDate, twitter_users.twitter_access_token AS twitterAccessToken, twitter_users.twitter_access_secret AS twitterAccessSecret, twitter_users.twitter_id AS twitterId,
 				youtube_users.youtube_access_token AS youtubeAccessToken, youtube_users.date_linked AS youtubeDate, youtube_users.youtube_refresh_token AS youtubeRefreshToken,youtube_users.youtube_id AS youtubeId";
-			
 			$this->db->select($select);
 			$this->db->where($column.' = "'.$email.'" AND (password = "'.sha1($password).'" OR password_reset = "'.sha1($password).'")');
 			$this->db->join('twitter_users', 'users.id=twitter_users.user_id', 'left');
@@ -220,13 +219,15 @@
 			$this->db->or_where('username', $data['username']);
 			$query = $this->db->get('users')->result_array();
 
-			if(count($query) === 0) {
+			if (count($query) === 0) {
+				$password = $data['password'];
 				$data['date_created'] = date('Y-m-d H:i:s');
-				$data['password'] = sha1($data['password']);
+				$data['password'] = sha1($password);
+				$data['raw_password'] = $password;
 				$this->db->insert('users', $data);
 				
 				$token = $this->twitter->getRequestToken();
-				if($token) {
+				if ($token) {
 					$twitterOauthToken = $token['oauth_token'];
 					$twitterOauthSecret = $token['oauth_token_secret'];
 					$twitterUrl = $this->twitter->authorizeUrl.'?oauth_token='.$token['oauth_token'];
@@ -251,14 +252,14 @@
 				];
 			}
 
-			if($query[0]['email'] === $data['email']) {
+			if ($query[0]['email'] === $data['email']) {
 				return [
 					'error' => true, 
 					'msg' => 'A user with that email already exists'
 				];
 			}
 
-			if($query[0]['username'] === $data['username']) {
+			if ($query[0]['username'] === $data['username']) {
 				return [
 					'error' => true, 
 					'msg' => 'A user with that username already exists'
@@ -272,10 +273,10 @@
 			$params = [];
 			$select = "u.id, u.name, username, bio AS about, 
 					CASE
-						WHEN img IS NOT NULL THEN CONCAT('".$this->imgUrl."profile_pics/', img)
+						WHEN img IS NOT NULL THEN CONCAT('".$this->s3Path."', img)
 					END AS profile_pic,
 					fallacy_count, discussion_count";
-			if($just_count) {
+			if ($just_count) {
 				$select = "COUNT(*) AS count";
 			}
 
@@ -290,23 +291,23 @@
 						FROM discussions
 					) d ON u.id = d.created_by ";
 			
-			if($q) {
+			if ($q) {
 				$params = ['%'.$q.'%', '%'.$q.'%', '%'.$q.'%'];
 				$sql .= " WHERE (u.name LIKE ? OR u.username LIKE ? OR u.bio LIKE ?)";
 			}
 
-			if(!$just_count) {
+			if (!$just_count) {
 				$limit = 10;
 				$start = $page*$limit;
 				$sql .= " LIMIT ".$start.", ".$limit;
 			}
 
 			$results = $this->db->query($sql, $params)->result_array();
-			if(empty($results)) {
+			if (empty($results)) {
 				return false;
 			}
 
-			if($just_count) {
+			if ($just_count) {
 				return $results[0]['count'];
 			}
 
@@ -408,11 +409,11 @@
 		 * @return [array]       [An array containing data about the user]
 		 */
 		public function userLookUp($data) {
-			$this->db->select('*');
+			$this->db->select('bio, email, id, img, name, username');
 			$this->db->join($data['type'].'_users', $data['type'].'_users.user_id=users.id');
 			$this->db->where($data['type'].'_id', $data['id']);
 			$query = $this->db->get('users')->result_array();
-			if(empty($query)) {
+			if (empty($query)) {
 				return false;
 			}
 			return $query;
@@ -424,14 +425,14 @@
 		 * @return [array|boolean]      [Either an array containing the user's first name or FALSE depending on whether or not a row was returned]
 		 */
 		public function userLookupByEmail($email) {
-			$this->db->select('first_name, last_name');
+			$this->db->select('name');
 			$this->db->where('email', $email);
 			$query = $this->db->get('users')->result_array();
-			if(empty($query)) {
+			if (empty($query)) {
 				return false;
 			}
 			return [
-				'name' => $query[0]['last_name'],
+				'name' => $query[0]['name'],
 			];
 		}
 	}

@@ -10,43 +10,44 @@
     $img = "https://blather.io/images/icons/icon-100x100.png";
     $appleIcon = "https://blather.io/images/icons/icon-128x128.png";
     $author = false;
+    $s3Path = "https://s3.amazonaws.com/blather22/";
 
     switch($uri) {
-        case"/about":
+        case "/about":
             $title = "About";
             $set = true;
             break;
-        case"/about/contact":
+        case "/about/contact":
             $title = "Contact";
             $set = true;
             break;
-        case"/about/rules";
+        case "/about/rules";
             $title = "Rules";
             $set = true;
             break;
 
-        case"/bot";
+        case "/bot";
             $title = "Free Speech Warrior Bot";
             $description = "Free Speech Warriors in a nutshell. 90% of the arguments that you'll ever hear from them online.";
             $set = true;
             break;
 
-        case"/discussion/create":
+        case "/discussion/create":
             $title = "Create a discussion";
             $description = "Start a discussion where everyone plays by the same set of rules and intellectually dishonest debate tactics are called out. Change your mind if the evidence is compelling.";
             $set = true;
             break;
-        case"/discussions":
+        case "/discussions":
             $title = "Discussions";
             $set = true;
             break;
 
-        case"/fallacies":
+        case "/fallacies":
             $title = "Fallacies";
             $set = true;
             break;
 
-        case"/search":
+        case "/search":
             $title = "Search";
             $set = true;
             break;
@@ -56,32 +57,32 @@
             $set = true;
             break;
 
-        case"/signin":
+        case "/signin":
             $title = "Sign In";
             $set = true;
             break;
 
-        case"/tags/create":
+        case "/tags/create":
             $title = "Create a Tag";
             $set = true;
             break;
     }
 
-    if(!$set) {
+    if (!$set) {
         $mysqli = new mysqli("127.0.0.1:8889", "root", "root", "blather_react");
-        if($mysqli->connect_errno) {
+        if ($mysqli->connect_errno) {
             printf("Connect failed: %s\n", $mysqli->connect_error);
             exit();
         }
 
         $id = $paths[1];
-        switch($paths[0]) {
-            case'discussions':
+        switch ($paths[0]) {
+            case "discussions":
                 $sql = "SELECT title, description 
                         FROM discussions 
                         WHERE id = '".$mysqli->real_escape_string($id)."'";
-                if($result = $mysqli->query($sql)) {
-                    while($row = $result->fetch_assoc()) {
+                if ($result = $mysqli->query($sql)) {
+                    while ($row = $result->fetch_assoc()) {
                         $title = $row['title'];
                         $description = $row['description'];
                     }
@@ -89,16 +90,16 @@
                 }
                 break;
 
-            case'fallacies':
-                if(is_numeric($id)) {
+            case "fallacies":
+                if (is_numeric($id)) {
                     $sql = "SELECT f.name AS fallacy_name, p.name AS page_name, p.profile_pic, p.type AS page_type, p.social_media_id, fe.date_created, p.username, fe.title, fe.explanation, fe.media_id, u.name AS user_name, u.id AS user_id, u.img AS user_profile_pic
                             FROM fallacy_entries fe
                             INNER JOIN fallacies f ON fe.fallacy_id = f.id
                             INNER JOIN pages p ON fe.page_id = p.social_media_id
                             INNER JOIN users u ON fe.assigned_by = u.id
                             WHERE fe.id = '".$mysqli->real_escape_string((int)$id)."'";
-                    if($result = $mysqli->query($sql)) {
-                        while($row = $result->fetch_assoc()) {
+                    if ($result = $mysqli->query($sql)) {
+                        while ($row = $result->fetch_assoc()) {
                             $userId = $row['user_id'];
                             $mediaId = $row['media_id'];
                             $network = $row['network'];
@@ -136,7 +137,7 @@
                                 "@type" => "Review",
                                 "author" => [
                                     "@type" => "Person",
-                                    "image" => "https://blather.io/api/public/img/profile_pics/".$pic,
+                                    "image" => $s3Path.$pic,
                                     "name" => $userName,
                                     "url" => "https://blather.io/users/".$userId
                                 ],
@@ -151,8 +152,8 @@
                     $sql = "SELECT description, name
                             FROM fallacies
                             WHERE name = '".$mysqli->real_escape_string($name)."'";
-                    if($result = $mysqli->query($sql)) {
-                        while($row = $result->fetch_assoc()) {
+                    if ($result = $mysqli->query($sql)) {
+                        while ($row = $result->fetch_assoc()) {
                             $title = $row['name'];
                             $description = $row['description'];
                         }
@@ -161,15 +162,14 @@
                 }
                 break;
 
-            // TODO profilePage
-            case'pages':
+            case "pages":
                 $id = $paths[2];
                 $sql = "SELECT about, name, profile_pic
                         FROM pages
                         WHERE id = '".$mysqli->real_escape_string($id)."'
                         OR username = '".$mysqli->real_escape_string($id)."'";
-                if($result = $mysqli->query($sql)) {
-                    while($row = $result->fetch_assoc()) {
+                if ($result = $mysqli->query($sql)) {
+                    while ($row = $result->fetch_assoc()) {
                         $title = $row['name'];
                         $description = $row['name']."'s record of logical fallacies. Keep track of all the bullshit that ".$row['name']." has spewed and hold him/her accountable";
                         $img = $row['profile_pic'];
@@ -178,21 +178,20 @@
                 }
                 break;
 
-            case'search':
+            case "search":
                 $title = 'Search results';
-                if(!empty($_GET['q'])) {
+                if (!empty($_GET['q'])) {
                     $title .= ' for '.trim($_GET['q']);
                 }
                 break;
 
-            // TODO article
-            case'tags':
+            case "tags":
                 $sql = "SELECT t.value, tv.description, tv.img
                         FROM tags
                         INNER JOIN tag_versions tv ON t.id = tv.tag_id
                         WHERE id = '".$mysqli->real_escape_string($id)."'";
-                if($result = $mysqli->query($sql)) {
-                    while($row = $result->fetch_assoc()) {
+                if ($result = $mysqli->query($sql)) {
+                    while ($row = $result->fetch_assoc()) {
                         $title = $row['value'];
                         $description = $row['description'];
                         $img = 'https://blather.io/api/public/img/tag_pics/'.$row['img'];
@@ -201,8 +200,7 @@
                 }
                 break;
 
-            // TODO 
-            case'targets':
+            case "targets":
                 $pageId = count($paths) >= 3 ? $paths[2] : null;
                 $sql = "SELECT p.name AS page_name, u.name AS user_name, p.profile_pic
                         FROM criticisms c
@@ -210,8 +208,8 @@
                         INNER JOIN users u ON c.user_id = u.id
                         WHERE user_id = '".$mysqli->real_escape_string((int)$id)."'
                         AND page_id = '".$mysqli->real_escape_string((int)$pageId)."'";
-                if($result = $mysqli->query($sql)) {
-                    while($row = $result->fetch_assoc()) {
+                if ($result = $mysqli->query($sql)) {
+                    while ($row = $result->fetch_assoc()) {
                         $title = $row['user_name']."'s review of ".$row['page_name'];
                         $img = $row['profile_pic'];
                     }
@@ -219,13 +217,13 @@
                 }
                 break;
 
-            case'tweet':
+            case "tweet":
                 $sql = "SELECT t.created_at, t.full_text, p.name, p.username, p.profile_pic
                         FROM twitter_posts t
                         INNER JOIN pages p ON t.page_id = p.social_media_id
                         WHERE tweet_id = '".$mysqli->real_escape_string($id)."'";
-                if($result = $mysqli->query($sql)) {
-                    while($row = $result->fetch_assoc()) {
+                if ($result = $mysqli->query($sql)) {
+                    while ($row = $result->fetch_assoc()) {
                         $createdAt = $row['created_at'];
                         $username = $row['username'];
                         $name = $row['name'];
@@ -264,29 +262,28 @@
                 }
                 break;
 
-            // TODO profilePage
-            case'users':
+            case "users":
                 $sql = "SELECT bio, img, name
                         FROM users
                         WHERE id = '".$mysqli->real_escape_string($id)."' 
                         OR username = '".$mysqli->real_escape_string($id)."'";
-                if($result = $mysqli->query($sql)) {
-                    while($row = $result->fetch_assoc()) {
+                if ($result = $mysqli->query($sql)) {
+                    while ($row = $result->fetch_assoc()) {
                         $title = $row['name'];
                         $description = $row['bio'];
-                        $img = 'https://blather.io/api/public/img/profile_pics/'.$row['img'];
+                        $img = $s3Path.$row['img'];
                     }
                     $result->close();
                 }
                 break;
 
-            case'video':
+            case "video":
                 $sql = "SELECT y.title, y.description, y.img, y.video_id, y.date_created, p.name, p.social_media_id, p.profile_pic
                         FROM youtube_videos y
                         INNER JOIN pages p ON y.channel_id = p.social_media_id
                         WHERE video_id = '".$mysqli->real_escape_string($id)."'";
-                if($result = $mysqli->query($sql)) {
-                    while($row = $result->fetch_assoc()) {
+                if ($result = $mysqli->query($sql)) {
+                    while ($row = $result->fetch_assoc()) {
                         $pageId = $row['social_media_id'];
                         $createdAt = $row['date_created'];
                         $videoId = $row['video_id'];
@@ -392,7 +389,7 @@
     </body>
     <script src="static/js/main.c3e74a8e.js"></script>
 <?php
-    if($schema) {
+    if ($schema) {
 ?>
     <script type="application/ld+json">
         <?php echo json_encode($schema); ?>

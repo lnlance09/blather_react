@@ -3,8 +3,11 @@
         public function __construct() {
             parent:: __construct();
 
-            $this->baseUrl = $this->config->base_url();
-            $this->imgUrl = $this->baseUrl.'api/public/img/';
+            $this->basePath = '/Applications/MAMP/htdocs/blather/api/';
+            $this->commentPath = $this->basePath.'public/img/comments/';
+            $this->tweetPath = $this->basePath.'public/img/tweet_pics/';
+            $this->s3Path = 'https://s3.amazonaws.com/blather22/';
+
             $this->load->database();
             $this->db->query("SET time_zone='+0:00'");
         }
@@ -130,7 +133,8 @@
                 case 3:
 
                     // Save the tweet as a pic
-                    $this->media->saveTweetPic($original['id'], $img);
+                    $path = $this->tweetPath.$original['id'].'.png';
+                    $this->media->createPicFromData($path, $img);
 
                     // Download the video and get its data
                     $video = $this->media->downloadYouTubeVideo($contradiction['id']);
@@ -249,7 +253,8 @@
                 // A video with a comment as a contradiction
                 case 7:
 
-                    $this->media->saveCommentPic($contradiction['id'], $img);
+                    $path = $this->commentPath.$contradiction['id'].'.png';
+                    $this->media->createPicFromData($path, $img);
 
                     $video = $this->media->downloadYouTubeVideo($original['id']);
                     $video_info = $this->media->getVideoAttributes($video);
@@ -282,7 +287,8 @@
                 // A video with a tweet as a contradiction
                 case 8:
 
-                    $this->media->saveTweetPic($contradiction['id'], $img);
+                    $path = $this->tweetPath.$contradiction['id'].'.png';
+                    $this->media->createPicFromData($path, $img);
 
                     $video = $this->media->downloadYouTubeVideo($original['id']);
                     $video_info = $this->media->getVideoAttributes($video);
@@ -315,7 +321,8 @@
                 // A comment with a video as a contradiction
                 case 11:
 
-                    $this->media->saveCommentPic($original['id'], $img);
+                    $path = $this->commentPath.$original['id'].'.png';
+                    $this->media->createPicFromData($path, $img);
 
                     $video = $this->media->downloadYouTubeVideo($contradiction['id']);
                     $video_info = $this->media->getVideoAttributes($video);
@@ -363,7 +370,7 @@
          * @return [type]          [description]
          */
         public function getComments($id, $page = null, $just_count = false) {
-            $select = "f.created_at, f.message, f.user_id, CONCAT('".$this->imgUrl."profile_pics/', u.img) AS img, u.name, u.username";
+            $select = "f.created_at, f.message, f.user_id, CONCAT('".$this->s3Path."', u.img) AS img, u.name, u.username";
             if($just_count) {
                 $select = 'COUNT(*) AS count';
             }
@@ -388,7 +395,7 @@
         }
 
         public function getConversation($id) {
-            $this->db->select("fc.date_created, fc.message, fc.user_id, u.name, CONCAT('".$this->imgUrl."profile_pics/', u.img) AS img, u.username");
+            $this->db->select("fc.date_created, fc.message, fc.user_id, u.name, CONCAT('".$this->s3Path."', u.img) AS img, u.username");
             $this->db->join('users u', 'fc.user_id = u.id');
             $this->db->where('fc.fallacy_id', $id);
             $this->db->order_by('date_created', 'ASC');
@@ -425,7 +432,7 @@
 
                 u.name AS user_name, 
                 u.username AS user_username, 
-                CONCAT('".$this->imgUrl."profile_pics/', u.img) AS user_img, 
+                CONCAT('".$this->s3Path."', u.img) AS user_img, 
                 u.id AS user_id, 
 
                 GROUP_CONCAT(DISTINCT t.id SEPARATOR ', ') tag_ids, 
@@ -568,45 +575,55 @@
                 }
             }
 
-            if ($ref_id == 1 || $ref_id == 2 || $ref_id == 3) {
+            $twitter = $this->twitter;
+            if (in_array($ref_id, [1, 2, 3])) {
                 $tweet = @json_decode($fallacy['tweet_json'], true);
-                $fallacy['tweet_json'] = $this->twitter->parseExtendedEntities($tweet);
-                $profile_pic = $this->twitter->saveUserPic($tweet['user']['id'], $fallacy['page_profile_pic']);
-                $fallacy['page_profile_pic'] = '/api/'.$profile_pic;
+                $fallacy['tweet_json'] = $twitter->parseExtendedEntities($tweet);
+                $user_id = $tweet['user']['id'];
+                $user_img = $fallacy['page_profile_pic'];
+                $profile_pic = $twitter->saveUserPic($user_id, $user_img);
+                $fallacy['page_profile_pic'] = $profile_pic;
 
                 if (array_key_exists('retweeted_status', $tweet)) {
                     $retweet = $tweet['retweeted_status'];
-                    $profile_pic = $this->twitter->saveUserPic($retweet['user']['id'], $retweet['user']['profile_image_url_https']);
-                    $fallacy['page_profile_pic'] = '/api/'.$profile_pic;
+                    $user_id = $retweet['user']['id'];
+                    $user_img = $retweet['user']['profile_image_url_https'];
+                    $profile_pic = $twitter->saveUserPic($user_id, $user_img);
+                    $fallacy['page_profile_pic'] = $profile_pic;
                 }
             }
 
-            if ($ref_id == 2 || $ref_id == 8) {
+            if (in_array($ref_id, [2, 8])) {
                 $tweet = @json_decode($fallacy['contradiction_tweet_json'], true);
-                $fallacy['contradiction_tweet_json'] = $this->twitter->parseExtendedEntities($tweet);
-                $profile_pic = $this->twitter->saveUserPic($tweet['user']['id'], $fallacy['contradiction_page_profile_pic']);
-                $fallacy['contradiction_page_profile_pic'] = '/api/'.$profile_pic;
+                $fallacy['contradiction_tweet_json'] = $twitter->parseExtendedEntities($tweet);
+                $user_id = $tweet['user']['id'];
+                $user_img = $fallacy['contradiction_page_profile_pic'];
+                $profile_pic = $twitter->saveUserPic($user_id, $user_img);
+                $fallacy['contradiction_page_profile_pic'] = $profile_pic;
 
                 if (array_key_exists('retweeted_status', $tweet)) {
                     $retweet = $tweet['retweeted_status'];
-                    $profile_pic = $this->twitter->saveUserPic($retweet['user']['id'], $retweet['user']['profile_image_url_https']);
-                    $fallacy['contradiction_page_profile_pic'] = '/api/'.$profile_pic;
+                    $user_id = $retweet['user']['id'];
+                    $user_img = $retweet['user']['profile_image_url_https'];
+                    $profile_pic = $twitter->saveUserPic($user_id, $user_img);
+                    $fallacy['contradiction_page_profile_pic'] = $profile_pic;
                 }
 
             }
 
-            if ($ref_id == 9 || $ref_id == 10 || $ref_id == 11) {
+            $youtube = $this->youtube;
+            if (in_array($ref_id, [9, 10, 11])) {
                 $pic = $fallacy['page_profile_pic'];
                 $channel_id = $fallacy['comment_channel_id'];
-                $channel_pic = $this->youtube->saveChannelPic($channel_id, $pic);
-                $fallacy['page_profile_pic'] = '/api/'.$channel_pic;
+                $channel_pic = $youtube->saveChannelPic($channel_id, $pic);
+                $fallacy['page_profile_pic'] = $channel_pic;
             }
 
-            if ($ref_id == 7 || $ref_id == 10) {
+            if (in_array($ref_id, [7, 10])) {
                 $pic = $fallacy['contradiction_page_profile_pic'];
                 $channel_id = $fallacy['contradiction_comment_channel_id'];
-                $channel_pic = $this->youtube->saveChannelPic($channel_id, $pic);
-                $fallacy['contradiction_page_profile_pic'] = '/api/'.$channel_pic;
+                $channel_pic = $youtube->saveChannelPic($channel_id, $pic);
+                $fallacy['contradiction_page_profile_pic'] = $channel_pic;
             }
 
             $fallacy['ref_id'] = $ref_id;
@@ -765,7 +782,7 @@
 
                 u.name AS user_name, 
                 u.username AS user_username, 
-                CONCAT('".$this->imgUrl."profile_pics/', u.img) AS user_img, 
+                CONCAT('".$this->s3Path."', u.img) AS user_img, 
                 u.id AS user_id,
 
                 a.code AS archive_code,
@@ -775,7 +792,7 @@
                 GROUP_CONCAT(DISTINCT t.id SEPARATOR ', ') tag_ids, 
                 GROUP_CONCAT(DISTINCT t.value SEPARATOR ', ') AS tag_names, ";
 
-            if($just_count) {
+            if ($just_count) {
                 $select = 'COUNT(DISTINCT(fe.id)) AS count';
             }
 
@@ -787,11 +804,11 @@
             $this->db->join('fallacy_tags ft', 'fe.id = ft.fallacy_id', 'left');
             $this->db->join('tags t', 'ft.tag_id = t.id', 'left');
 
-            if($data['object_id'] && $data['network'] === 'twitter') {
+            if ($data['object_id'] && $data['network'] === 'twitter') {
                 $this->db->join('twitter_posts tp', 'fe.media_id = tp.tweet_id');
             }
 
-            if($data['network'] === 'youtube') {
+            if ($data['network'] === 'youtube') {
                 if($data['comment_id']) {
                     $this->db->join('youtube_comments yc', 'fe.comment_id = yc.comment_id');
                 } else {
@@ -799,36 +816,36 @@
                 }
             }
 
-            if($data['q']) {
+            if ($data['q']) {
                 $this->db->where("(title LIKE '%".$data['q']."%' OR explanation LIKE '%".$data['q']."%')");
             }
 
-            if(!empty($data['fallacies'])) {
+            if (!empty($data['fallacies'])) {
                 $this->db->where_in('fe.fallacy_id', $data['fallacies']);
             }
 
-            if($data['assigned_by']) {
+            if ($data['assigned_by']) {
                 $this->db->where('fe.assigned_by', $data['assigned_by']);
             }
 
-            if($data['assigned_to']) {
+            if ($data['assigned_to']) {
                 $this->db->where('p.social_media_id', is_numeric($data['assigned_to']) ? (int)$data['assigned_to'] : $data['assigned_to']);
             }
 
-            if($data['object_id']) {
+            if ($data['object_id']) {
                 $this->db->where([
                     'fe.network' => $data['network'],
                     'fe.media_id' => $data['network'] === 'twitter' ? (int)$data['object_id'] : $data['object_id']
                 ]);
             }
 
-            if($data['fallacy_id']) {
+            if ($data['fallacy_id']) {
                 $this->db->where([
                     'fe.fallacy_id' => $data['fallacy_id']
                 ]);
             }
 
-            if(!$just_count) {
+            if (!$just_count) {
                 $limit = 10;
                 $start = $data['page']*$limit;
                 $this->db->order_by('fe.id DESC');
@@ -836,7 +853,7 @@
                 $this->db->group_by('fe.id');
             }
 
-            if($just_count) {
+            if ($just_count) {
                 $result = $this->db->get('fallacy_entries fe')->result();
                 return (int)$result[0]->count;
             }

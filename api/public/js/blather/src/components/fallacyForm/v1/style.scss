@@ -1,13 +1,6 @@
 @import '../../../css/colors.scss';
 
 .fallacyForm {
-    .formHeader {
-        img {
-            background: $offWhite;
-            border: solid 1px $darkWhite;
-        }
-    }
-
     .startTime, .field.contradictionStartTime {
         padding-left: 0 !important;
         padding-right: 0 !important;
@@ -26,19 +19,20 @@
     }
 
     .zigzag {
-        background: linear-gradient(-137deg, $lightYellow 6px, transparent 0) 0 5px, linear-gradient(320deg, $lightYellow 5px, $white 0) 0 5px;
-        background-color: $lightYellow;
+        background: linear-gradient(-137deg, $lightYellow 6px, transparent 0) 0 5px, linear-gradient(320deg, $yellow 5px, $white 0) 0 5px;
+        background-color: $darkWhite;
         background-position: left bottom;
         background-repeat: repeat-y;
         background-size: 10px 10px;
         float: left;
-        height: 315px;
-        width: 14px;
+        min-height: 400px;
+        width: 16px;
     }
 
-    .form {
+    .formRight {
         float: right;
-        width: 96%;
+        padding: 1px 9px;
+        width: 97%;
     }
 
     .buttons {
@@ -47,8 +41,12 @@
         }
     }
 
+    .button {
+        float: right;
+    }
+
     .commonMarkLink {
-        margin: 0.5em 0.3em 0 !important;
+        margin: 0.2em 0.3em 0 !important;
 
         a {
             color: $grey;

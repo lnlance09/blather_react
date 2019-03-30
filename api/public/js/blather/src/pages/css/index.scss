@@ -407,6 +407,10 @@ a {
             }
         }
 
+        .divider.seperator {
+            margin: 1rem 0;
+        }
+
         .statusActionSegment {
             text-align: center;
 
@@ -543,7 +547,14 @@ a {
 
         .signInPlaceholder {
             border: none;
+            box-shadow: none !important;
             padding: 0;
+        }
+
+        @media only screen and (max-width: 1025px) {
+            .signInPlaceholder {
+                height: 250px;
+            }
         }
 
         .segment.basic {

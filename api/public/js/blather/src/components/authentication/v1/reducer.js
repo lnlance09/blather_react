@@ -212,14 +212,14 @@ const test = (state = initial(), action) => {
 
 			return {
 				...state,
-				authenticated: authenticated,
+				authenticated,
 				bearer: action.payload.bearer,
 				data: user,
 				loadingLogin: false,
 				loadingRegistration: false,
-				loginError: loginError,
-				loginErrorMsg: loginErrorMsg,
-				verify: verify
+				loginError,
+				loginErrorMsg,
+				verify
 			}
 
 		case constants.SWITCH_TAB:
