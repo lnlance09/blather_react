@@ -4,7 +4,7 @@
             parent:: __construct();
 
             // Define the paths
-            $this->basePath = '/var/www/html/blather_react/api/';
+            $this->basePath = '/var/www/html/api/';
             $this->archivePath = $this->basePath.'public/img/archive_pics/';
             $this->commentPath = $this->basePath.'public/img/comments/';
             $this->fallacyPath = $this->basePath.'public/videos/fallacies/';
