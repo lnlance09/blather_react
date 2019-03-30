@@ -10,8 +10,7 @@ export const createVideoFallacy = ({
 	original,
 	refId
 }) => dispatch => {
-	request.post(
-		"http://ec2-54-149-129-33.us-west-2.compute.amazonaws.com/blather_react/api/index.php/fallacies/createVideo",
+	request.post("https://media.blather.io/api/fallacies/createVideo",
 		{
 			form: {
 				contradiction,

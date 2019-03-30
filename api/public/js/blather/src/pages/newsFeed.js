@@ -17,20 +17,6 @@ class NewsFeed extends Component {
 		super(props)
 		this.state = {}
 		this.props.mostFallacious()
-
-		fetch("https://ec2-54-149-129-33.us-west-2.compute.amazonaws.com/blather_react/api/index.php/youtube/download", {
-			headers: {
-				"Content-Type": "application/json"
-			}
-		})
-		.then(response => {
-			if (response.ok) {
-				response.json().then(data => {
-					console.log(data)
-				})
-			}
-		})
-		.catch(err => console.log(err))
 	}
 
 	render() {
