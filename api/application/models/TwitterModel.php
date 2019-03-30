@@ -5,8 +5,10 @@
         public function __construct() {
             parent::__construct();
 
-            $this->baseUrl = $this->config->base_url();
-            $this->imgUrl = $this->baseUrl.'api/public/img/';
+            $this->s3Path = 'https://s3.amazonaws.com/blather22/';
+
+            // Load the models
+            $this->load->model('MediaModel', 'media');
 
             // Define the API settings
             $this->appId = '5S2buTVsPQb13zCvJfVmnYWm8';
@@ -517,7 +519,10 @@
                     $pic = $tweet['extended_entities']['media'][$i]['media_url_https'];
                     $path = 'public/img/tweets/'.$tweet['id'].'/'.basename($pic);
                     savePic($pic, $path);
-                    $tweet['extended_entities']['media'][$i]['media_url_https'] = '/api/'.$path;
+
+                    $key = 'tweets/'.$tweet['id'].'/'.basename($pic);
+                    $s3Link = $this->media->addToS3($key, $path);
+                    $tweet['extended_entities']['media'][$i]['media_url_https'] = $s3Link;
                 }
             }
             return json_encode($tweet, true);
@@ -590,7 +595,8 @@
             $pic = str_replace('_normal', '', $pic);
             $path = 'public/img/pages/twitter/'.$id.'.jpg';
             savePic($pic, $path);
-            return $path;
+            $s3Link = $this->media->addToS3('pages/twitter/'.$id.'.jpg', $path);
+            return $s3Link;
         }
 
         public function search($data, $token, $secret, $parse = false) {

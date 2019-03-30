@@ -134,8 +134,8 @@ class Fallacy extends Component {
 		this.setState({ downloading: true })
 
 		html2canvas(document.getElementById(el), {
-			allowTaint: true,
-			scale
+			scale,
+			useCORS: true
 		}).then(canvas => {
 			if (this.props.canScreenshot) {
 				const ctx = canvas.getContext("2d")
@@ -151,7 +151,7 @@ class Fallacy extends Component {
 				link.click()
 
 				this.setState({ downloading: false })
-			} else if (this.props.canMakeVideo && refId !== 4 && refId !== 5) {
+			} else if (this.props.canMakeVideo) {
 				this.props.toggleCreateMode()
 
 				// const img = canvas.toDataURL("image/png")
@@ -520,7 +520,7 @@ class Fallacy extends Component {
 									{activeItem === "material" && (
 										<div>
 											<Grid.Row>{ExportSection(this.props)}</Grid.Row>
-											<Divider />
+											<Divider className="seperator" />
 											<Grid.Row>{ContactUser(this.props)}</Grid.Row>
 										</div>
 									)}
@@ -538,7 +538,7 @@ class Fallacy extends Component {
 										{activeItem === "material" && (
 											<div>
 												<Grid.Row>{ExportSection(this.props)}</Grid.Row>
-												<Divider />
+												<Divider className="seperator" />
 												<Grid.Row>{ContactUser(this.props)}</Grid.Row>
 											</div>
 										)}

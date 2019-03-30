@@ -3,8 +3,7 @@
         public function __construct() {
             parent::__construct();
 
-            $this->baseUrl = $this->config->base_url();
-            $this->imgUrl = $this->baseUrl.'api/public/img/';
+            $this->s3Path = 'https://s3.amazonaws.com/blather22/';
 
             $this->apiKey = 'AIzaSyAxGMJJB1_uUQWHBXZG9TCCwjsVTPBIDLE';
             $this->clientId = '208834451570-uhnsvk3tb5cqr6uoipnrl9ks68cmeicp.apps.googleusercontent.com';
@@ -272,7 +271,7 @@
                     'type' => 'youtube',
                     'username' => array_key_exists('customUrl', $snippet) ? $snippet['customUrl'] : null
                 ]);
-                $page['profile_pic'] = '/api/'.$this->saveChannelPic($id, $channelImg);
+                $page['profile_pic'] = $this->saveChannelPic($id, $channelImg);
                 $page['external_url'] = 'https://www.youtube.com/channel/'.$id;
                 return [
                     'data' => $page,
@@ -518,7 +517,7 @@
             $this->db->select('yv.*, p.id AS page_db_id, p.about, p.name AS page_name, p.profile_pic, p.social_media_id, p.username');
             $this->db->join('pages p', 'yv.channel_id=p.social_media_id');
 
-            if($archive) {
+            if ($archive) {
                 $this->db->join('youtube_video_fallacies f', 'yv.video_id=f.video_id', 'left');
             }
 
@@ -526,7 +525,7 @@
             $this->db->where('yv.video_id', $id);
             $data = $this->db->get('youtube_videos yv')->result_array();
 
-            if(empty($data)) {
+            if (empty($data)) {
                 return false;
             }
 
@@ -549,7 +548,7 @@
                 'duration' => $item['duration'],
                 'id' => $item['video_id'],
                 'img' => $item['img'],
-                's3_link' => $item['s3_link'],
+                's3_link' => $this->s3Path.$item['s3_link'],
                 'stats' => [
                     'commentCount' => 0,
                     'dislikeCount' => (int)$dislikeCount,
@@ -701,7 +700,8 @@
         public function saveChannelPic(string $id, string $pic) {
             $path = 'public/img/pages/youtube/'.$id.'.png';
             savePic($pic, $path);
-            return $path;
+            $s3Link = $this->media->addToS3('pages/youtube/'.$id.'.png', $path);
+            return $s3Link;
         }
 
         /**

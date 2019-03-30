@@ -15,7 +15,6 @@ import {
 	Form,
 	Header,
 	Icon,
-	Image,
 	Input,
 	Message,
 	Modal,
@@ -25,7 +24,6 @@ import { fallacyDropdownOptions } from "utils/fallacyFunctions"
 import { convertTimeToSeconds } from "utils/textFunctions"
 import _ from "lodash"
 import fallacies from "fallacies.json"
-import BrainImg from "images/brain-logo.png"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import SearchForm from "components/search/v1/"
@@ -475,88 +473,94 @@ class FallacyForm extends Component {
 		return (
 			<Provider store={store}>
 				<div className="fallacyForm">
-					<Header className="formHeader" size="large">
-						<Image circular src={BrainImg} />
-						<Header.Content>
-							Does this logic make sense?
-							<Header.Subheader>Assign a fallacy</Header.Subheader>
-						</Header.Content>
-					</Header>
 					<div className="zigzag" />
-					<Form
-						error={
-							this.props.fallacyFormError || contradictionError || !contradictionValid
-						}
-						loading={this.props.loading}
-						onSubmit={this.onSubmitForm}
-					>
-						{canAssign && (
-							<div>
-								{StartTime(this.props)}
-								<div className="selectAssignee">{SelectAssignee(this.props)}</div>
-							</div>
-						)}
-						<Form.Field>
-							<Dropdown
-								className="fallacyDropdown"
-								defaultValue={"1"}
-								fluid
-								onChange={this.onChangeFallacy}
-								options={fallacyDropdownOptions}
-								placeholder="Select a fallacy"
-								search
-								selection
-							/>
-						</Form.Field>
-						{ContradictionInput(this.props)}
-						<Form.Field>
-							<Input
-								className="titleField"
-								fluid
-								onChange={this.onChangeTitle}
-								placeholder="Title"
-								value={title}
-							/>
-						</Form.Field>
-						<Form.Field className="explanationField">
-							<TextArea
-								autoHeight
-								onChange={this.onChangeExplanation}
-								placeholder="Explain how this is a fallacy"
-								rows={8}
-								value={explanation}
-							/>
-						</Form.Field>
-						<ErrorMsg props={this.props} />
-						{this.props.authenticated ? (
-							<Button color="blue" compact content="Assign" fluid type="submit" />
-						) : (
-							<Button.Group>
-								<Button
-									content="Assign anonymously"
-									icon="spy"
-									secondary
-									type="submit"
+					<div className="formRight">
+						<Header className="formHeader" size="large">
+							<Header.Content>
+								Does this logic make sense?
+								<Header.Subheader>Assign a fallacy</Header.Subheader>
+							</Header.Content>
+						</Header>
+						<Form
+							error={
+								this.props.fallacyFormError ||
+								contradictionError ||
+								!contradictionValid
+							}
+							loading={this.props.loading}
+							onSubmit={this.onSubmitForm}
+						>
+							{canAssign && (
+								<div>
+									{StartTime(this.props)}
+									<div className="selectAssignee">
+										{SelectAssignee(this.props)}
+									</div>
+								</div>
+							)}
+							<Form.Field>
+								<Dropdown
+									className="fallacyDropdown"
+									defaultValue={"1"}
+									fluid
+									onChange={this.onChangeFallacy}
+									options={fallacyDropdownOptions}
+									placeholder="Select a fallacy"
+									search
+									selection
 								/>
-								<Button.Or />
-								<Button
-									content="Sign up"
-									icon="sign in"
-									primary
-									onClick={() => this.props.history.push("/signin")}
+							</Form.Field>
+							{ContradictionInput(this.props)}
+							<Form.Field>
+								<Input
+									className="titleField"
+									fluid
+									onChange={this.onChangeTitle}
+									placeholder="Title"
+									value={title}
 								/>
-							</Button.Group>
-						)}
-						<p className="commonMarkLink">
-							<a
-								href="https://spec.commonmark.org/0.28/"
-								rel="noopener noreferrer"
-								target="_blank"
-							>
-								view commonmark specs
-							</a>
-						</p>
-					</Form>
+							</Form.Field>
+							<Form.Field className="explanationField">
+								<TextArea
+									autoHeight
+									onChange={this.onChangeExplanation}
+									placeholder="Explain how this is a fallacy"
+									rows={8}
+									value={explanation}
+								/>
+								<p className="commonMarkLink">
+									<a
+										href="https://spec.commonmark.org/0.28/"
+										rel="noopener noreferrer"
+										target="_blank"
+									>
+										view commonmark specs
+									</a>
+								</p>
+							</Form.Field>
+							<ErrorMsg props={this.props} />
+							{this.props.authenticated ? (
+								<Button color="blue" compact content="Assign" type="submit" />
+							) : (
+								<Button.Group fluid>
+									<Button
+										content="Assign anonymously"
+										icon="spy"
+										secondary
+										type="submit"
+									/>
+									<Button.Or />
+									<Button
+										content="Sign up"
+										icon="sign in"
+										primary
+										onClick={() => this.props.history.push("/signin")}
+									/>
+								</Button.Group>
+							)}
+							<div className="clearfix" />
+						</Form>
+					</div>
 					<div className="clearfix" />
 					<div>{SuccessModal(this.props)}</div>
 				</div>

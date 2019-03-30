@@ -4,7 +4,6 @@
             parent:: __construct();
 
             // Define the paths
-            $this->baseUrl = $this->config->base_url();
             $this->basePath = '/var/www/html/blather_react/api/';
             $this->archivePath = $this->basePath.'public/img/archive_pics/';
             $this->commentPath = $this->basePath.'public/img/comments/';
@@ -24,12 +23,18 @@
         /**
          * Add a file to s3
          * @param [string] $key         The path/name of the file that will be stored in s3
-         * @param [string] $source_file The path to the file on the local server
+         * @param [string] $file        The path to the file on the local server
          */
-        public function addToS3($key, $source_file) {
-            $this->s3->upload($key, $source_file);
+        public function addToS3($key, $file, $remove = true) {
+            if (!$this->existsInS3($key)) {
+                $this->s3->upload($key, $file);
+            }
+
+            if ($remove) {
+                unlink($file);
+            }
+
             return $this->s3Path.$key;
-            // exec('rm '.$source_file);
         }
 
         /**
@@ -47,17 +52,22 @@
             $end
         ) {
             $length = $end-$start;
-            $new_file = $video_id.'_'.$start.'_'.$length.'.mp4';
             $path = $this->fallacyPath.$fallacy_id;
-            if (!file_exists($path.$new_file)) {
+            $file = $video_id.'_'.$start.'_'.$length.'.mp4';
+            $output = $path.'/'.$file;
+
+            if (!file_exists($output)) {
                 if (!is_dir($path)) {
                     exec('mkdir '.$path);
                 }
 
-                $command = $this->ffmpeg.' -i '.$this->youtubePath.$video_id.'.mp4 -ss '.gmdate('H:i:s', $start).' -t '.gmdate('H:i:s', $length).' -async 1 '.$path.'/'.$new_file;
-                exec($command, $output);
+                $command = $this->ffmpeg.' -i '.$this->youtubePath.$video_id.'.mp4 -ss '.gmdate('H:i:s', $start).' -t '.gmdate('H:i:s', $length).' -async 1 '.$output;
+                exec($command);
+
+                $key = 'fallacy_videos/'.$fallacy_id.'/'.$file;
+                $this->addToS3($key, $output, false);
             }
-            return $path.'/'.$new_file;
+            return $output;
         }
 
         /**
@@ -194,6 +204,22 @@
             return ' -i '.$source['file'];
         }
 
+        public function createPicFromData(
+            $path,
+            $content,
+            $remove = false
+        ) {
+            if (!file_exists($path)) {
+                list($type, $data) = explode(';', $content);
+                list(, $data) = explode(',', $data);
+                file_put_contents($path, base64_decode($data));
+
+                if ($remove) {
+                    unlink($path);
+                }
+            }
+        }
+
         /**
          * Create an image with text
          * @param  [type] $id
@@ -213,31 +239,32 @@
             $font_size = 36,
             $file_name = 'time.png'
         ) {
-            $angle = 0;
-            $font = 'public/fonts/ViceCitySans.otf';
-            $im = imagecreatetruecolor($img_width, $img_height);
-            $white = imagecolorallocate($im, 255, 255, 255);
-            $grey = imagecolorallocate($im, 128, 128, 128);
-            $black = imagecolorallocate($im, 0, 0, 0);
-            $pink = imagecolorallocate($im, $color[0], $color[1], $color[2]);
-            imagefilledrectangle($im, 0, 0, $img_width, $img_height, $pink);
-
-            $text_box = imagettfbbox($font_size, $angle, $font, $text);
-            $text_width = $text_box[2]-$text_box[0];
-            $text_height = $text_box[7]-$text_box[1];
-            $x = ($img_width/2) - ($text_width/2);
-            $y = ($img_height/2) - ($text_height/2);
-
-            imagettftext($im, $font_size, 0, $x, $y, $white, $font, $text);
-
             $path = $this->fallacyPath.$id;
-            if (!is_dir($path)) {
-                exec('mkdir '.$path);
+            $file = $path.'/'.$file_name;
+            if (!file_exists($file)) {
+                if (!is_dir($path)) {
+                    exec('mkdir '.$path);
+                }
+
+                $angle = 0;
+                $font = 'public/fonts/ViceCitySans.otf';
+                $im = imagecreatetruecolor($img_width, $img_height);
+                $white = imagecolorallocate($im, 255, 255, 255);
+                $grey = imagecolorallocate($im, 128, 128, 128);
+                $black = imagecolorallocate($im, 0, 0, 0);
+                $pink = imagecolorallocate($im, $color[0], $color[1], $color[2]);
+                imagefilledrectangle($im, 0, 0, $img_width, $img_height, $pink);
+
+                $text_box = imagettfbbox($font_size, $angle, $font, $text);
+                $text_width = $text_box[2]-$text_box[0];
+                $text_height = $text_box[7]-$text_box[1];
+                $x = ($img_width/2) - ($text_width/2);
+                $y = ($img_height/2) - ($text_height/2);
+
+                imagettftext($im, $font_size, 0, $x, $y, $white, $font, $text);
+                imagepng($im, $file);
             }
 
-            $file = $path.'/'.$file_name;
-            imagepng($im, $file);
-            // imagedestroy($im);
             return $file;
         }
 
@@ -321,21 +348,5 @@
                 'sar' => str_replace(':', '/', $sar),
                 'width' => $width
             ];
-        }
-
-        /* TODO */
-        // Merge with saveTweetPic
-        public function saveCommentPic($id, $content) {
-            list($type, $data) = explode(';', $content);
-            list(, $data) = explode(',', $data);
-            $data = base64_decode($data);
-            file_put_contents($this->commentPath.$id.'.png', $data);
-        }
-
-        public function saveTweetPic($id, $content) {
-            list($type, $data) = explode(';', $content);
-            list(, $data) = explode(',', $data);
-            $data = base64_decode($data);
-            file_put_contents($this->tweetPath.$id.'.png', $data);
         }
     }

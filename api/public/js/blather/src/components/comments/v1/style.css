@@ -10,6 +10,3 @@
     margin-right: 0; }
   .commentsSection .ui.comments {
     max-width: none; }
-    .commentsSection .ui.comments .comment .avatar img {
-      height: 36px !important;
-      width: 36px !important; }

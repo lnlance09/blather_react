@@ -8,9 +8,12 @@
 
 			$this->baseUrl = $this->config->base_url();
 			$this->imgUrl = $this->baseUrl.'api/public/img/';
+			$this->s3Path = 'https://s3.amazonaws.com/blather22/';
+
 			$this->load->model('DiscussionsModel', 'discussions');
 			$this->load->model('FallaciesModel', 'fallacies');
 			$this->load->model('FacebookModel', 'fb');
+			$this->load->model('MediaModel', 'media');
 			$this->load->model('TwitterModel', 'twitter');
 			$this->load->model('YouTubeModel', 'youtube');
 		}
@@ -79,7 +82,8 @@
 		}
 
 		public function changeProfilePic() {
-			if(!$this->user) {
+			$user = $this->user;
+			if (!$user) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You must be logged in to change your picture'
@@ -96,7 +100,7 @@
 				'upload_path' => './public/img/profile_pics/'
 			]);
 
-			if(!$this->upload->do_upload('file')) {
+			if (!$this->upload->do_upload('file')) {
 				$this->output->set_status_header(403);
 				$data = $this->upload->display_errors();
 				echo json_encode([
@@ -106,12 +110,17 @@
 			} 
 
 			$data = $this->upload->data();
+			$file = $data['file_name'];
+			$path = $data['full_path'];
+			$s3Path = 'users/'.$user->id.'_'.$file;
+			$s3Link = $this->media->addToS3($s3Path, $path);
+
 			$this->users->updateUser($this->user->id, [
-				'img' => $data['file_name']
+				'img' => $s3Path
 			]);
 			echo json_encode([
 				'error' => false,
-				'img' => $this->imgUrl.'profile_pics/'.$data['file_name']
+				'img' => $s3Link
 			]);
 		}
 
@@ -214,10 +223,10 @@
 
 		public function getInfo() {
 			$username = $this->input->get('username');
-			$select = "bio, email_verified AS emailVerified, u.id AS id, CONCAT('".$this->imgUrl."profile_pics/', u.img) AS img, linked_twitter AS linkedTwitter, linked_youtube AS linkedYoutube, name, username";
+			$select = "bio, email_verified AS emailVerified, u.id AS id, CONCAT('".$this->s3Path."', u.img) AS img, linked_twitter AS linkedTwitter, linked_youtube AS linkedYoutube, name, username";
 			$info = $this->users->getUserInfo($username, $select);
 
-			if(!$info) {
+			if (!$info) {
 				$this->output->set_status_header(404);
 				echo json_encode([
 					'error' => 'That user does not exist'
@@ -225,7 +234,7 @@
 				exit;
 			}
 
-			if(empty($info['bio'])) {
+			if (empty($info['bio'])) {
 				$info['bio'] = $info['name']." does not have a bio yet";
 			}
 
@@ -265,7 +274,7 @@
 			$email = $this->input->post('email');
 			$password = $this->input->post('password');
 
-			if(empty($email)) {
+			if (empty($email)) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'Username or email is required'
@@ -273,7 +282,7 @@
 				exit;
 			}
 
-			if(empty($password)) {
+			if (empty($password)) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'Password is required'
@@ -282,7 +291,7 @@
 			}
 
 			$login = $this->users->login($email, $password);
-			if(!$login) {
+			if (!$login) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'Incorrect login credentials'
@@ -293,7 +302,7 @@
 			$user = $login[0];
 			$user['emailVerified'] = $user['emailVerified'] === '1';
 			$user['fbUrl'] = $this->fb->loginUrl();
-			$user['img'] = $user['img'] ? $this->imgUrl.'profile_pics/'.$user['img'] : null;
+			$user['img'] = $user['img'] ? $user['img'] : null;
 			$user['linkedFb'] = $user['linkedFb'] === '1';
 			$user['linkedTwitter'] = $user['linkedTwitter'] === '1';
 			$user['linkedYoutube'] = $user['linkedYoutube'] === '1';
@@ -302,9 +311,9 @@
 			$user['twitterUrl'] = null;
 			$user['youtubeUrl'] = $user['linkedYoutube'] ? null : $this->youtube->getTokenUrl();
 
-			if(!$user['linkedTwitter']) {
+			if (!$user['linkedTwitter']) {
 				$token = $this->twitter->getRequestToken();
-				if($token) {
+				if ($token) {
 					$user['twitterAccessToken'] = $token['oauth_token'];
 					$user['twitterAccessSecret'] = $token['oauth_token_secret'];
 					$user['twitterUrl'] = $this->twitter->authorizeUrl.'?oauth_token='.$token['oauth_token'];
@@ -338,7 +347,7 @@
 				'verification_code' => generateAlphaNumString(10)
 			];
 
-			if(empty($params['name'])) {
+			if (empty($params['name'])) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'A name is required'
@@ -346,7 +355,7 @@
 				exit;
 			}
 
-			if(preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $params['name'])) {
+			if (preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $params['name'])) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'Your name cannot contain special characters'
@@ -354,7 +363,7 @@
 				exit;
 			}
 
-			if(!filter_var($params['email'], FILTER_VALIDATE_EMAIL)) {
+			if (!filter_var($params['email'], FILTER_VALIDATE_EMAIL)) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'A valid email is required'
@@ -362,7 +371,7 @@
 				exit;
 			}
 
-			if(empty($params['username'])) {
+			if (empty($params['username'])) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'A username is required'
@@ -370,7 +379,7 @@
 				exit;
 			}
 
-			if(preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $params['username'])
+			if (preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $params['username'])
 			|| strpos($params['username'], " ")) {
 				$this->output->set_status_header(401);
 				echo json_encode([
@@ -379,7 +388,7 @@
 				exit;
 			}
 
-			if(strlen($params['username']) > 18) {
+			if (strlen($params['username']) > 18) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'Your username is too long'
@@ -387,7 +396,7 @@
 				exit;
 			}
 
-			if(strlen($params['password']) < 7) {
+			if (strlen($params['password']) < 7) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'Your password is not long enough'
@@ -396,7 +405,7 @@
 			}
 
 			$register = $this->users->register($params);
-			if(!$register) {
+			if (!$register) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'Something went wrong. Please try again.'
@@ -404,7 +413,7 @@
 				exit;
 			}
 
-			if($register['error']) {
+			if ($register['error']) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => $register['msg']
@@ -428,7 +437,7 @@
 			$mail->AltBody = $msg;
 			$mail->AddAddress($params['email'], $params['name']);
 			
-			if($mail->Send()) {
+			if ($mail->Send()) {
 				echo json_encode($register);
 				exit;
 			}

@@ -73,7 +73,9 @@ class Breakdown extends Component {
 		return (
 			<Segment className="breakdown">
 				<Message
-					content="This is a measure of how clearly this person(s) thinks. It is a list of mental tricks that they have used, either knowingly or unknowingly, to defend their beliefs from being challenged."
+					content={`A measure of ${
+						this.props.name
+					}'s level of partisanship, logical consistency, and intellectual honesty.`}
 					header="How reputable is this source?"
 					icon="question"
 				/>

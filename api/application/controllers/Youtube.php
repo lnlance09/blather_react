@@ -147,20 +147,17 @@
 			}
 
 			$ext = $audio ? 'mp3' : 'mp4';
-			$s3_path = 'youtube_videos/'.$id.'.'.$ext;
-			$s3_link = 'https://s3.amazonaws.com/blather22/'.$s3_path;
-			$exists = $this->media->existsInS3($s3_path);
-			if (!$exists) {
-				$video = $this->media->downloadYouTubeVideo($id, $audio);
-				$this->media->addToS3($s3_path, $video);
-				$this->youtube->insertVideo([
-					's3_link' => $s3_link,
-					'video_id' => $id
-				]);
-			}
+			$key = 'youtube_videos/'.$id.'.'.$ext;
+			$video = $this->media->downloadYouTubeVideo($id, $audio);
+			$s3Link = $this->media->addToS3($key, $video, false);
+			$this->youtube->insertVideo([
+				's3_link' => $key,
+				'video_id' => $id
+			]);
+
 			echo json_encode([
 				'error' => false,
-				's3_link' => $s3_link
+				's3_link' => $s3Link
 			]);
 		}
 
