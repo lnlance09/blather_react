@@ -243,7 +243,7 @@
             $file = $path.'/'.$file_name;
             if (!file_exists($file)) {
                 if (!is_dir($path)) {
-                    exec('mkdir '.$path);
+                    exec('sudo mkdir '.$path);
                 }
 
                 $angle = 0;
