@@ -336,7 +336,8 @@
                     $height = $regs[4] ? $regs[4] : null;
                 }
 
-                $regex_sar = "/SAR ([^,]*)/"; 
+                $regex_sar = "/SAR ([^,]*)/";
+                $sar_str = '1:1';
                 if (preg_match($regex_sar, $o, $regs)) {
                     $sar_str = $regs[1] ? $regs[1] : null;
                 }
