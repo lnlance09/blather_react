@@ -58,7 +58,8 @@
 
             if (!file_exists($output)) {
                 if (!is_dir($path)) {
-                    exec('mkdir '.$path);
+                    exec('sudo mkdir '.$path);
+                    exec('sudo chmod 777 '.$path);
                 }
 
                 $command = $this->ffmpeg.' -i '.$this->youtubePath.$video_id.'.mp4 -ss '.gmdate('H:i:s', $start).' -t '.gmdate('H:i:s', $length).' -async 1 '.$output;
@@ -244,6 +245,7 @@
             if (!file_exists($file)) {
                 if (!is_dir($path)) {
                     exec('sudo mkdir '.$path);
+                    exec('sudo chmod 777 '.$path);
                 }
 
                 $angle = 0;
