@@ -15,7 +15,7 @@
 
 .youTubeVideo .channelSegment {
   margin: 1px !important;
-  padding-top: 0; }
+  padding: 0; }
   .youTubeVideo .channelSegment.hasComment {
     margin-bottom: 0 !important; }
   .youTubeVideo .channelSegment .header {
@@ -28,6 +28,8 @@
       font-size: 11px; }
     .youTubeVideo .channelSegment .header img {
       margin-right: 2px; }
+    .youTubeVideo .channelSegment .header .sub.header {
+      font-size: 12px !important; }
   .youTubeVideo .channelSegment .videoDescription {
     color: #767676; }
 
@@ -40,60 +42,84 @@
 .youTubeVideo .stats .statistic {
   margin-bottom: 0; }
 
-.youTubeVideo .archiveForm {
-  margin-top: 10px; }
+.youTubeVideo .archiveForm .form {
+  margin-top: 0;
+  padding: 0; }
 
-.youTubeVideo .archivesList {
-  margin-bottom: 18px !important; }
-  .youTubeVideo .archivesList .item img.avatar {
-    border-radius: 0; }
-  .youTubeVideo .archivesList .item span {
-    color: #2185D0;
-    cursor: pointer; }
-    .youTubeVideo .archivesList .item span:hover {
-      text-decoration: underline; }
+.youTubeVideo .archivesList .item span {
+  color: #2185D0;
+  cursor: pointer; }
+  .youTubeVideo .archivesList .item span:hover {
+    text-decoration: underline; }
 
-.youTubeVideo .toggleComments {
+.youTubeVideo .editVideoTimes {
+  margin-top: 5px; }
+
+.youtubeCommentsSection .toggleComments {
   float: right;
-  font-size: 18px;
-  margin-right: 0; }
+  margin-right: 0;
+  vertical-align: middle; }
 
-.youTubeVideo .emptyCommentMsg {
+.youtubeCommentsSection .emptyCommentMsg {
   text-align: center; }
 
-.youTubeVideo .commentsSection {
-  margin-top: 10px; }
-  .youTubeVideo .commentsSection .dimmed.dimmable {
+.youtubeCommentsSection .commentsSection {
+  margin: 20px 0; }
+  .youtubeCommentsSection .commentsSection .dimmed.dimmable {
     padding: 10px; }
-    .youTubeVideo .commentsSection .dimmed.dimmable .dimmer {
+    .youtubeCommentsSection .commentsSection .dimmed.dimmable .dimmer {
       background: rgba(255, 255, 255, 0.8) !important; }
-    .youTubeVideo .commentsSection .dimmed.dimmable .content .header {
+    .youtubeCommentsSection .commentsSection .dimmed.dimmable .content .header {
       color: #1B1C1D; }
+  .youtubeCommentsSection .commentsSection .basic.segment {
+    margin-top: 0;
+    padding: 0; }
 
-.youTubeVideo .comments {
+.youtubeCommentsSection .comments {
   max-width: none !important; }
-  .youTubeVideo .comments .comment {
+  .youtubeCommentsSection .comments .comment {
     cursor: pointer;
     margin: 0;
     white-space: pre-line; }
-    .youTubeVideo .comments .comment .actions a {
+    .youtubeCommentsSection .comments .comment.selectedComment {
+      cursor: text; }
+      .youtubeCommentsSection .comments .comment.selectedComment .content .text {
+        color: #1B1C1D; }
+        .youtubeCommentsSection .comments .comment.selectedComment .content .text b {
+          background: #ffff00 !important; }
+    .youtubeCommentsSection .comments .comment .actions a {
       color: #1B1C1D; }
-      .youTubeVideo .comments .comment .actions a .icon {
+      .youtubeCommentsSection .comments .comment .actions a .icon {
         color: #2185D0; }
-      .youTubeVideo .comments .comment .actions a.youtubeLink:hover {
+      .youtubeCommentsSection .comments .comment .actions a.youtubeLink:hover {
         text-decoration: underline; }
-    .youTubeVideo .comments .comment .actions .likeComment {
+    .youtubeCommentsSection .comments .comment .actions .likeComment {
       cursor: default !important; }
 
-.youtubeCommentModal .comments .comment {
-  cursor: pointer;
-  margin: 0;
-  white-space: pre-line; }
-  .youtubeCommentModal .comments .comment .actions a {
-    color: #1B1C1D; }
-    .youtubeCommentModal .comments .comment .actions a .icon {
-      color: #2185D0; }
-    .youtubeCommentModal .comments .comment .actions a.youtubeLink:hover {
-      text-decoration: underline; }
-  .youtubeCommentModal .comments .comment .actions .likeComment {
-    cursor: default !important; }
+.modals.dimmer .ui.scrolling.modal.youtubeCommentModal {
+  margin-top: 0 !important; }
+
+.youtubeCommentModal {
+  margin-top: 0 !important; }
+  .youtubeCommentModal .comments {
+    max-width: none !important; }
+    .youtubeCommentModal .comments .comment {
+      cursor: text;
+      margin: 0;
+      white-space: pre-line; }
+      .youtubeCommentModal .comments .comment .content .text {
+        color: #1B1C1D; }
+        .youtubeCommentModal .comments .comment .content .text b {
+          background: #ffff00 !important; }
+      .youtubeCommentModal .comments .comment .actions a {
+        color: #1B1C1D; }
+        .youtubeCommentModal .comments .comment .actions a .icon {
+          color: #2185D0; }
+        .youtubeCommentModal .comments .comment .actions a.youtubeLink:hover {
+          text-decoration: underline; }
+      .youtubeCommentModal .comments .comment .actions .likeComment {
+        cursor: default !important; }
+      .youtubeCommentModal .comments .comment .actions .archiveComment {
+        float: right; }
+        .youtubeCommentModal .comments .comment .actions .archiveComment .icon {
+          color: #FBBD08; }

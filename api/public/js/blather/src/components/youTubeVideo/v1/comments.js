@@ -1,5 +1,11 @@
+import { adjustTimezone } from "utils/dateFunctions"
 import { formatNumber } from "utils/textFunctions"
-import { fetchVideoComments, insertComment, unsetComment } from "pages/actions/post"
+import {
+	createCommentArchive,
+	fetchVideoComments,
+	insertComment,
+	unsetComment
+} from "pages/actions/post"
 import { clearContradiction } from "components/fallacyForm/v1/actions"
 import { connect } from "react-redux"
 import {
@@ -9,6 +15,7 @@ import {
 	Divider,
 	Header,
 	Icon,
+	Message,
 	Modal,
 	Radio,
 	Segment,
@@ -50,7 +57,7 @@ class YouTubeCommentsSection extends Component {
 	}
 
 	componentDidMount() {
-		if (this.props.auth && this.props.source === "post") {
+		if (this.props.auth && this.props.source === "post" && this.props.videoId !== undefined) {
 			this.props.fetchVideoComments({
 				bearer: this.props.bearer,
 				id: this.props.videoId
@@ -62,6 +69,7 @@ class YouTubeCommentsSection extends Component {
 	componentWillReceiveProps(newProps) {
 		if (
 			newProps.videoId !== this.props.videoId &&
+			newProps.videoId !== undefined &&
 			newProps.auth &&
 			this.props.source === "post"
 		) {
@@ -71,6 +79,17 @@ class YouTubeCommentsSection extends Component {
 			})
 			this.loadMore = _.debounce(this.loadMore.bind(this), 200)
 		}
+	}
+
+	getHighlightedText = (text, higlight) => {
+		const parts = text.split(new RegExp(`(${higlight.replace(/[()]/g, "")})`, "gi"))
+		return parts.map(part =>
+			part.toLowerCase() === higlight.toLowerCase() ? (
+				<b key={`highlighted${part}`}>{part}</b>
+			) : (
+				part
+			)
+		)
 	}
 
 	loadMore = () => {
@@ -87,6 +106,14 @@ class YouTubeCommentsSection extends Component {
 				nextPageToken: this.props.comments.nextPageToken
 			})
 		}
+	}
+
+	onClickArchive = commentId => {
+		this.props.createCommentArchive({
+			bearer: this.props.bearer,
+			commentId,
+			id: this.props.videoId
+		})
 	}
 
 	openModal = (commentId, i, r = null, replyId = null) => {
@@ -113,6 +140,26 @@ class YouTubeCommentsSection extends Component {
 
 	render() {
 		const { commentId, i, r, open, replyId, visible } = this.state
+		const ArchiveInfo = props => {
+			if (props.archive) {
+				const archiveDate = adjustTimezone(props.archive.date_created)
+				return (
+					<Message className="archiveMsg">
+						<Icon color="green" name="checkmark" /> Archived this{" "}
+						<a
+							href={`http://archive.is/${props.archive.code}`}
+							rel="noopener noreferrer"
+							target="_blank"
+						>
+							comment
+						</a>{" "}
+						<Moment date={archiveDate} fromNow />
+					</Message>
+				)
+			}
+			return null
+		}
+
 		const CommentModal = (i, props, r = null, replyId = null) => {
 			if (props.comments.count > 0 && i !== null) {
 				let comment = props.comments.items[i]
@@ -129,17 +176,19 @@ class YouTubeCommentsSection extends Component {
 
 				return (
 					<Modal
+						centered={false}
 						className="youtubeCommentModal"
+						dimmer="blurring"
 						inverted="true"
 						onClose={this.closeModal}
 						open={open}
 						size="small"
 					>
-						<Modal.Header>Assign a fallacy</Modal.Header>
 						<Modal.Content>
 							<Comment.Group>
-								{IndividualComment(comment, i, replyId !== null)}
+								{IndividualComment(comment, i, replyId !== null, false)}
 							</Comment.Group>
+							{ArchiveInfo(props)}
 							<Divider />
 							<FallacyForm
 								authenticated={props.auth}
@@ -161,7 +210,8 @@ class YouTubeCommentsSection extends Component {
 
 		const CommentsSection = props => (
 			<div className="commentsSection">
-				<div>
+				<Header dividing size="large">
+					Comments
 					<Radio
 						checked={visible}
 						className="toggleComments"
@@ -171,51 +221,47 @@ class YouTubeCommentsSection extends Component {
 						slider
 					/>
 					<div className="clearfix" />
-				</div>
-				<Divider />
-				<Transition animation="scale" duration={400} visible={visible}>
-					<Visibility continuous offset={[50, 50]} onBottomVisible={this.loadMore}>
-						{props.auth ? (
-							<Comment.Group>{DisplayComments(props)}</Comment.Group>
-						) : (
-							<Dimmer.Dimmable
-								as={Segment}
-								blurring
-								className="commentsDimmer"
-								dimmed
-							>
-								<Segment className="lazyLoadSegment">
-									<LazyLoad />
-								</Segment>
-								<Dimmer active inverted>
-									<Header as="h2">Sign in to see comments</Header>
-									<Button
-										color="green"
-										onClick={e => props.history.push("/signin")}
-									>
-										Sign in
-									</Button>
-								</Dimmer>
-							</Dimmer.Dimmable>
-						)}
-					</Visibility>
-				</Transition>
+				</Header>
+				<Segment basic>
+					<Transition animation="scale" duration={400} visible={visible}>
+						<Visibility continuous offset={[50, 50]} onBottomVisible={this.loadMore}>
+							{props.auth ? (
+								<Comment.Group>{DisplayComments(props)}</Comment.Group>
+							) : (
+								<Dimmer.Dimmable as={Segment} className="commentsDimmer" dimmed>
+									<Segment className="lazyLoadSegment">
+										<LazyLoad />
+									</Segment>
+									<Dimmer active>
+										<Header as="h2">Sign in to see comments</Header>
+										<Button
+											color="green"
+											onClick={e => props.history.push("/signin")}
+										>
+											Sign in
+										</Button>
+									</Dimmer>
+								</Dimmer.Dimmable>
+							)}
+						</Visibility>
+					</Transition>
+				</Segment>
 			</div>
 		)
 
 		const DisplayComments = props => {
 			if (props.comments.count > 0) {
 				return props.comments.items.map((comment, i) => {
-					return IndividualComment(comment, i, false, true)
+					return IndividualComment(comment, i, false, true, false)
 				})
 			}
 
 			if (props.comments.count === 0 && !props.comments.error) {
-				return <p className="emptyCommentMsg">There are no comments...</p>
+				return <Message content="There are no comments..." />
 			}
 
 			if (props.comments.code === 403) {
-				return <p className="emptyCommentMsg">Comments have been disabled on this video</p>
+				return <Message content="Comments have been disabled on this video" />
 			}
 
 			return [{}, {}, {}, {}, {}, {}, {}].map((comment, i) => (
@@ -247,7 +293,20 @@ class YouTubeCommentsSection extends Component {
 									<Moment date={snippet.publishedAt} fromNow />
 								</div>
 							</Comment.Metadata>
-							<Comment.Text>{snippet.textOriginal}</Comment.Text>
+							<Comment.Text
+								onMouseUp={() => {
+									if (open) {
+										this.props.handleHoverOn()
+									}
+								}}
+							>
+								{this.props.highlightedText
+									? this.getHighlightedText(
+											snippet.textOriginal,
+											this.props.highlightedText
+									  )
+									: snippet.textOriginal}
+							</Comment.Text>
 							<Comment.Actions>
 								<Comment.Action className="likeComment">
 									<Icon name="thumbs up" />
@@ -267,7 +326,13 @@ class YouTubeCommentsSection extends Component {
 			})
 		}
 
-		const IndividualComment = (comment, i, reply = false, replies = false) => {
+		const IndividualComment = (
+			comment,
+			i,
+			reply = false,
+			replies = false,
+			openModal = true
+		) => {
 			let snippet = comment.snippet
 			let id = reply ? comment.id : snippet.topLevelComment.id
 			let content = reply ? comment.snippet : snippet.topLevelComment.snippet
@@ -280,7 +345,13 @@ class YouTubeCommentsSection extends Component {
 						onError={i => (i.target.src = ImagePic)}
 						src={content.authorProfileImageUrl}
 					/>
-					<Comment.Content onClick={() => this.openModal(id, i)}>
+					<Comment.Content
+						onClick={() => {
+							if (!openModal) {
+								this.openModal(id, i)
+							}
+						}}
+					>
 						<Comment.Author
 							as="a"
 							onClick={() =>
@@ -296,7 +367,20 @@ class YouTubeCommentsSection extends Component {
 								<Moment date={content.publishedAt} fromNow />
 							</div>
 						</Comment.Metadata>
-						<Comment.Text>{content.textOriginal}</Comment.Text>
+						<Comment.Text
+							onMouseUp={() => {
+								if (open) {
+									this.props.handleHoverOn()
+								}
+							}}
+						>
+							{this.props.highlightedText
+								? this.getHighlightedText(
+										content.textOriginal,
+										this.props.highlightedText
+								  )
+								: content.textOriginal}
+						</Comment.Text>
 						<Comment.Actions>
 							<Comment.Action className="likeComment">
 								<Icon name="thumbs up" />
@@ -309,6 +393,14 @@ class YouTubeCommentsSection extends Component {
 								<Icon color="red" name="youtube" />
 								View on YouTube
 							</Comment.Action>
+							{openModal && (
+								<Comment.Action className="archiveComment">
+									<Icon
+										name="sticky note"
+										onClick={() => this.onClickArchive(id)}
+									/>
+								</Comment.Action>
+							)}
 						</Comment.Actions>
 					</Comment.Content>
 					{showReplies > 0 && (
@@ -320,7 +412,7 @@ class YouTubeCommentsSection extends Component {
 
 		const SelectedComment = props => (
 			<Comment.Group>
-				<Comment>
+				<Comment className="selectedComment">
 					<Comment.Avatar
 						onError={i => (i.target.src = ImagePic)}
 						src={props.comment.user.img}
@@ -329,7 +421,7 @@ class YouTubeCommentsSection extends Component {
 						<Comment.Author
 							as="a"
 							onClick={() =>
-								props.history.push(`/pages/youtube/${props.comment.user.id}`)
+								this.props.history.push(`/pages/youtube/${props.comment.user.id}`)
 							}
 						>
 							{props.comment.user.title}
@@ -339,7 +431,14 @@ class YouTubeCommentsSection extends Component {
 								<Moment date={props.comment.dateCreated} fromNow />
 							</div>
 						</Comment.Metadata>
-						<Comment.Text>{props.comment.message}</Comment.Text>
+						<Comment.Text onMouseUp={() => props.handleHoverOn()}>
+							{props.highlightedText
+								? this.getHighlightedText(
+										props.comment.message,
+										props.highlightedText
+								  )
+								: props.comment.message}
+						</Comment.Text>
 						<Comment.Actions>
 							<Comment.Action className="likeComment">
 								<Icon name="thumbs up" />
@@ -359,9 +458,13 @@ class YouTubeCommentsSection extends Component {
 		)
 
 		return (
-			<div>
-				{this.props.showComment && <div>{SelectedComment(this.props)}</div>}
-				{this.props.showComments && this.props.source === "post" ? (
+			<div className="youtubeCommentsSection">
+				{this.props.showComment && this.props.comment ? (
+					<Segment className="selectedCommentWrapper">
+						{SelectedComment(this.props)}
+					</Segment>
+				) : null}
+				{this.props.showComments && this.props.comments ? (
 					<div>
 						{CommentsSection(this.props)}
 						{CommentModal(i, this.props, r, replyId)}
@@ -373,6 +476,15 @@ class YouTubeCommentsSection extends Component {
 }
 
 YouTubeCommentsSection.propTypes = {
+	archive: PropTypes.oneOfType([
+		PropTypes.bool,
+		PropTypes.shape({
+			code: PropTypes.string,
+			date_created: PropTypes.string,
+			link: PropTypes.string,
+			network: PropTypes.string
+		})
+	]),
 	auth: PropTypes.bool,
 	bearer: PropTypes.string,
 	clearContradiction: PropTypes.func,
@@ -396,6 +508,9 @@ YouTubeCommentsSection.propTypes = {
 		nextPageToken: PropTypes.string,
 		page: PropTypes.number
 	}),
+	createArchive: PropTypes.func,
+	handleHoverOn: PropTypes.func,
+	highlightedText: PropTypes.string,
 	insertComment: PropTypes.func,
 	sendNotification: PropTypes.func,
 	showComment: PropTypes.bool,
@@ -407,6 +522,7 @@ YouTubeCommentsSection.propTypes = {
 YouTubeCommentsSection.defaultProps = {
 	auth: false,
 	clearContradiction,
+	createCommentArchive,
 	comments: {
 		code: 0,
 		count: 0,
@@ -428,6 +544,7 @@ export default connect(
 	mapStateToProps,
 	{
 		clearContradiction,
+		createCommentArchive,
 		fetchVideoComments,
 		insertComment,
 		unsetComment

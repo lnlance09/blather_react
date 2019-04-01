@@ -41,6 +41,12 @@ export const assignFallacy = ({
 				type: constants.ASSIGN_FALLACY,
 				payload: body
 			})
+
+			if (!body.error) {
+				dispatch({
+					type: constants.TOGGLE_MODAL
+				})
+			}
 		}
 	)
 }
@@ -51,7 +57,7 @@ export const clearContradiction = () => dispatch => {
 	})
 }
 
-export const parseContradiction = ({ bearer, url }) => dispatch => {
+export const parseContradiction = ({ bearer, type, url }) => dispatch => {
 	request.post(
 		`${window.location.origin}/api/fallacies/parseUrl`,
 		{
@@ -66,7 +72,8 @@ export const parseContradiction = ({ bearer, url }) => dispatch => {
 		function(err, response, body) {
 			dispatch({
 				type: constants.PARSE_CONTRADICTION,
-				payload: body
+				payload: body,
+				postType: type
 			})
 		}
 	)
@@ -108,5 +115,11 @@ export const setContradictionVideoTime = time => dispatch => {
 		payload: {
 			time
 		}
+	})
+}
+
+export const toggleModal = () => dispatch => {
+	dispatch({
+		type: constants.TOGGLE_MODAL
 	})
 }

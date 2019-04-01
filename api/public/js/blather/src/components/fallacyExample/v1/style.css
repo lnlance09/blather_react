@@ -43,6 +43,10 @@
       margin: 0; }
   .fallacyExample .editTimesForm {
     margin-top: 12px !important; }
+    .fallacyExample .editTimesForm .fields {
+      margin-bottom: 0; }
+    .fallacyExample .editTimesForm .button {
+      margin-top: 12px; }
   .fallacyExample .watermarkLabel {
     float: right;
     margin: 6px;

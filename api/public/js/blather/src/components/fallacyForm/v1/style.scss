@@ -1,7 +1,11 @@
 @import '../../../css/colors.scss';
 
 .fallacyForm {
-    .startTime, .field.contradictionStartTime {
+    .formHeader {
+        font-size: 24px !important;
+    }
+
+    .field.startTime, .field.contradictionStartTime {
         padding-left: 0 !important;
         padding-right: 0 !important;
     }
@@ -14,25 +18,8 @@
         margin-top: 0.9em;
 
         &.active {
-            padding: 10px;
+            padding: 0;
         }
-    }
-
-    .zigzag {
-        background: linear-gradient(-137deg, $lightYellow 6px, transparent 0) 0 5px, linear-gradient(320deg, $yellow 5px, $white 0) 0 5px;
-        background-color: $darkWhite;
-        background-position: left bottom;
-        background-repeat: repeat-y;
-        background-size: 10px 10px;
-        float: left;
-        min-height: 400px;
-        width: 16px;
-    }
-
-    .formRight {
-        float: right;
-        padding: 1px 9px;
-        width: 97%;
     }
 
     .buttons {

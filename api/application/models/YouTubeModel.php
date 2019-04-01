@@ -35,7 +35,7 @@
             return $this->db->get('youtube_videos')->result_array();
         }
 
-        public function getCommentExtended($id, $videoId, $auth, $token) {
+        public function getCommentExtended($id, $videoId = null, $auth = false, $token = null) {
             if ($auth) {
                 $comment = $this->getCommentInfo($id, $token, true);
                 if (array_key_exists('error', $comment)) {
@@ -124,7 +124,7 @@
                 $comment = $this->getCommentFromDB($id);
                 return [
                     'data' => $comment,
-                    'error' => false
+                    'error' => $comment === false
                 ];
             }
         }
@@ -135,23 +135,35 @@
          * @param  [boolean] $archive [Whether or not to get the archive code]
          * @return [array|boolean]     [An array containing data about the video | false]
          */
-        public function getCommentFromDB($id, $archive = false) {
-            $select = 'yc.*, p.about AS commenter_about, p.name AS commenter_page_name, p.profile_pic AS commenter_profile_pic, p.social_media_id AS commenter_social_media_id, p.username AS commenter_username,yv.date_created AS video_date_created, yv.description AS video_description, yv.dislike_count AS video_dislike_count, yv.img AS video_img, yv.like_count AS video_like_count, yv.title AS video_title, yv.view_count AS video_view_count,
-                    vp.about AS channel_about, vp.name AS channel_name, vp.profile_pic AS channel_profile_pic, vp.social_media_id AS channel_social_media_id';
+        public function getCommentFromDB($id) {
+            $select = 'yc.*, 
+                    p.about AS commenter_about,
+                    p.name AS commenter_page_name,
+                    p.profile_pic AS commenter_profile_pic,
+                    p.social_media_id AS commenter_social_media_id,
+                    p.username AS commenter_username,
+
+                    yv.date_created AS video_date_created,
+                    yv.description AS video_description,
+                    yv.dislike_count AS video_dislike_count,
+                    yv.img AS video_img,
+                    yv.like_count AS video_like_count,
+                    yv.title AS video_title,
+                    yv.view_count AS video_view_count,
+
+                    vp.about AS channel_about,
+                    vp.name AS channel_name,
+                    vp.profile_pic AS channel_profile_pic,
+                    vp.social_media_id AS channel_social_media_id';
             $this->db->select($select);
             $this->db->join('pages p', 'yc.channel_id=p.social_media_id');
-            $this->db->join('youtube_videos yv', 'yc.video_id=yv.video_id');
-            $this->db->join('pages vp', 'yv.channel_id=vp.social_media_id');
-
-            if($archive) {
-                $this->db->join('youtube_comment_fallacies f', 'yc.comment_id=f.comment_id', 'left');
-            }
-
+            $this->db->join('youtube_videos yv', 'yc.video_id=yv.video_id', 'left');
+            $this->db->join('pages vp', 'yv.channel_id=vp.social_media_id', 'left');
             $this->db->where('p.type', 'youtube');
             $this->db->where('yc.comment_id', $id);
             $data = $this->db->get('youtube_comments yc')->result_array();
 
-            if(empty($data)) {
+            if (empty($data)) {
                 return false;
             }
 
@@ -381,14 +393,22 @@
             return $this->loginUrl.'?'.http_build_query($data);
         }
 
-        public function getVideoArchives($id, $user_id) {
-            $this->db->select('a.description, a.end_time, a.img, a.start_time');
-            $this->db->where([
+        public function getVideoArchives($id, $user_id = null) {
+            $select = 'a.description, a.end_time, a.id, a.start_time, CONCAT("'.$this->s3Path.'", u.img) AS img, u.id AS user_id';
+            $data = [
                 'network' => 'youtube',
-                'object_id' => $id,
-                'user_id' => $user_id
-            ]);
+                'object_id' => $id
+            ];
+
+            if (!empty($user_id)) {
+                $data['user_id'] = $user_id;
+            }
+
+            $this->db->select($select);
+            $this->db->where($data);
+            $this->db->join('users u', 'a.user_id=u.id');
             $this->db->order_by('start_time');
+            $this->db->group_by('start_time, end_time');
             $results = $this->db->get('archived_links a')->result_array();
             return $results;
         }

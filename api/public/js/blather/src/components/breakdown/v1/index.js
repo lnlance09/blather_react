@@ -86,22 +86,24 @@ class Breakdown extends Component {
 					<Message content="No fallacies have been assigned" />
 				)}
 
-				<Header className="statHeader first" size="small">
-					Can pass an{" "}
-					<a
-						href="https://www.econlib.org/archives/2011/06/the_ideological.html"
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						Ideological Turing Test
-					</a>
-					?<Header.Subheader>{Stats(turingTest)}</Header.Subheader>
-				</Header>
+				<Segment>
+					<Header className="statHeader first" size="small">
+						Can pass an{" "}
+						<a
+							href="https://www.econlib.org/archives/2011/06/the_ideological.html"
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							Ideological Turing Test
+						</a>
+						?<Header.Subheader>{Stats(turingTest)}</Header.Subheader>
+					</Header>
 
-				<Header className="statHeader" size="small">
-					Believes most of what they talk about?
-					<Header.Subheader>{Stats(sincerity)}</Header.Subheader>
-				</Header>
+					<Header className="statHeader" size="small">
+						Believes most of what they talk about?
+						<Header.Subheader>{Stats(sincerity)}</Header.Subheader>
+					</Header>
+				</Segment>
 
 				<p className="createReview">
 					<Icon color="yellow" name="star" />{" "}

@@ -150,16 +150,14 @@
 				exit;
 			}
 
+			$user = $this->user;
 			$code = createArchive($url);
 			$data = [];
-			if ($code && $this->user) {
+			if ($code && $user) {
 				$page = null;
-				if ($parse['network'] == 'twitter') {
+				$network = $parse['network'];
+				if ($network == 'twitter') {
 					$page = $this->twitter->getPageInfoFromDB($parse['username']);
-				}
-
-				if ($parse['network'] == 'youtube') {
-					$page = $this->youtube->getPageInfoFromDB($parse['username']);
 				}
 
 				if (!$page) {
@@ -167,15 +165,17 @@
 					echo json_encode([
 						'error' => 'This page does not exist',
 					]);
+					exit;
 				}
 
 				$data = [
 					'code' => $code,
 					'comment_id' => $parse['comment_id'],
 					'link' => $url,
-					'network' => $parse['network'],
+					'network' => $network,
 					'object_id' => $parse['object_id'],
 					'page_id' => $page['id'],
+					'type' => 'tweet',
 					'user_id' => $this->user->id
 				];
 				$archive = $this->users->createArchive($data);
@@ -194,12 +194,12 @@
 			$unique = (int)$this->input->get('unique');
 
 			$where = ['user_id' => $id];
-			if($pageId) {
+			if ($pageId) {
 				$where['p.id'] = $pageId;
 			}
 
 			$count = 0;
-			if(!$unique) {
+			if (!$unique) {
 				$count = $this->users->getArchivedLinks($where, $unique, 0, true);
 			}
 
@@ -477,7 +477,7 @@
 		}
 
 		public function verifyEmail() {
-			if(!$this->user) {
+			if (!$this->user) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You must login to verify your account'
@@ -485,7 +485,7 @@
 				exit;
 			}
 
-			if($this->input->post('code') !== $this->user->verificationCode) {
+			if ($this->input->post('code') !== $this->user->verificationCode) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'Incorrect verification code'

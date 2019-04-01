@@ -118,6 +118,13 @@ class App extends Component {
 						</Switch>
 
 						<Switch>
+							<Route
+								path="/comment/:id"
+								render={props => <Post sendNotification={(title, body, url) => this.sendNotification(title, body, url)} {...props} />}
+							/>
+						</Switch>
+
+						<Switch>
 							<Route component={Fallacies} exact path="/fallacies" />
 							<Route
 								exact
@@ -208,10 +215,6 @@ class App extends Component {
 							<Route
 								exact
 								path="/video/:id"
-								render={props => <Post sendNotification={(title, body, url) => this.sendNotification(title, body, url)} {...props} />}
-							/>
-							<Route
-								path="/video/:id/:commentId"
 								render={props => <Post sendNotification={(title, body, url) => this.sendNotification(title, body, url)} {...props} />}
 							/>
 						</Switch>

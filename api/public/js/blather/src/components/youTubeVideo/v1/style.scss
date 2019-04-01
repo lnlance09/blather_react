@@ -17,7 +17,7 @@
 
     .channelSegment {
         margin: 1px !important;
-        padding-top: 0;
+        padding: 0;
 
         &.hasComment {
             margin-bottom: 0 !important;
@@ -38,6 +38,10 @@
 
             img {
                 margin-right: 2px;
+            }
+
+            .sub.header {
+                font-size: 12px !important;
             }
         }
 
@@ -61,17 +65,14 @@
     }
 
     .archiveForm {
-        margin-top: 10px;
+        .form {
+            margin-top: 0;
+            padding: 0;
+        }
     }
 
     .archivesList {
-        margin-bottom: 18px !important;
-
         .item {
-            img.avatar {
-                border-radius: 0;
-            }
-
             span {
                 color: $blue;
                 cursor: pointer;
@@ -83,10 +84,16 @@
         }
     }
 
+    .editVideoTimes {
+        margin-top: 5px;
+    }
+}
+
+.youtubeCommentsSection {
     .toggleComments {
         float: right;
-        font-size: 18px; 
         margin-right: 0;
+        vertical-align: middle;
     }
 
     .emptyCommentMsg {
@@ -94,7 +101,7 @@
     }
 
     .commentsSection {
-        margin-top: 10px;
+        margin: 20px 0;
 
         .dimmed.dimmable {
             padding: 10px;
@@ -109,6 +116,11 @@
                 }
             }
         }
+
+        .basic.segment {
+            margin-top: 0;
+            padding: 0;
+        }
     }
 
     .comments {
@@ -118,6 +130,20 @@
             cursor: pointer;
             margin: 0;
             white-space: pre-line;
+
+            &.selectedComment {
+                cursor: text;
+
+                .content {
+                    .text {
+                        color: $black;
+
+                        b {
+                            background: $higlighterYellow !important;
+                        }
+                    }
+                }
+            }
 
             .actions {
                 a {
@@ -140,14 +166,38 @@
             }
         }
     }
+
+    .selectedCommentWrapper {
+        
+    }
+}
+
+.modals.dimmer {
+    .ui.scrolling.modal.youtubeCommentModal {
+        margin-top: 0 !important;
+    }
 }
 
 .youtubeCommentModal {
+    margin-top: 0 !important;
+
     .comments {
+        max-width: none !important;
+
         .comment {
-            cursor: pointer;
+            cursor: text;
             margin: 0;
             white-space: pre-line;
+
+            .content {
+                .text {
+                    color: $black;
+
+                    b {
+                        background: $higlighterYellow !important;
+                    }
+                }
+            }
 
             .actions {
                 a {
@@ -166,6 +216,14 @@
 
                 .likeComment {
                     cursor: default !important;
+                }
+
+                .archiveComment {
+                    float: right;
+
+                    .icon {
+                        color: $yellow;
+                    }
                 }
             }
         }
