@@ -46,11 +46,11 @@
     }
 
     .statHeader {
-        margin: 12px 12px;
-
-        &.first {
-            margin-top: 10px !important;
+        &.first-of-type {
+            margin: 0 !important;
         }
+
+        margin-top: 15px;
     }
 
     @media only screen and (max-width: 1025px) {
@@ -71,6 +71,6 @@
     }
 
     .createReview {
-        margin: 15px 12px !important;
+        margin: 15px 4px !important;
     }
 }

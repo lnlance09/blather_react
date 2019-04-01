@@ -73,10 +73,37 @@ class ArchivesList extends Component {
 
 	render() {
 		const { options, value } = this.state
+		const ParseArchiveInfo = archive => {
+			switch (archive.type) {
+				case "comment":
+					return {
+						description: archive.title,
+						img: archive.youtube_comment_profile_pic,
+						link: `/comment/${archive.comment_id}`,
+						title: `Comment by ${archive.youtube_comment_page_name}`
+					}
+				case "tweet":
+					return {
+						description: archive.full_text,
+						img: archive.twitter_profile_pic,
+						link: `/tweet/${archive.tweet_id}`,
+						title: `Tweet by ${archive.twitter_page_name}`
+					}
+				case "video":
+					return {
+						description: archive.title,
+						img: archive.youtube_video_profile_pic,
+						link: `/video/${archive.video_id}`,
+						title: `Video by ${archive.youtube_video_page_name}`
+					}
+				default:
+					return null
+			}
+		}
 		const RenderArchives = props => {
 			return props.archives.map((archive, i) => {
 				if (archive.link) {
-					let info = parseArchiveInfo(archive)
+					let info = ParseArchiveInfo(archive)
 					let meta = (
 						<div>
 							<p>
@@ -86,7 +113,7 @@ class ArchivesList extends Component {
 						</div>
 					)
 					let menu = null
-					if (archive.network === "twitter") {
+					if (archive.type === "tweet" || archive.type === "comment") {
 						menu = (
 							<Dropdown
 								className="archiveItemMenu"
@@ -97,9 +124,7 @@ class ArchivesList extends Component {
 									<Dropdown.Item
 										icon={archive.network}
 										onClick={() => window.open(archive.link, "_blank").focus()}
-										text={`View ${
-											archive.network === "twitter" ? "tweet" : "video"
-										}`}
+										text={`View ${archive.type}`}
 									/>
 									<Dropdown.Item
 										icon="sticky note"
@@ -130,35 +155,13 @@ class ArchivesList extends Component {
 							sanitize={false}
 							title={info.title}
 							type="archive"
-							url={
-								archive.network === "twitter"
-									? `/tweet/${archive.tweet_id}`
-									: `/video/${archive.video_id}`
-							}
+							url={info.link}
 						/>
 					)
 				} else {
 					return <LazyLoad key={`archive_${i}`} />
 				}
 			})
-		}
-		const parseArchiveInfo = archive => {
-			switch (archive.network) {
-				case "twitter":
-					return {
-						description: archive.full_text,
-						img: archive.twitter_profile_pic,
-						title: `Tweet by ${archive.twitter_page_name}`
-					}
-				case "youtube":
-					return {
-						description: archive.title,
-						img: archive.youtube_video_profile_pic,
-						title: `YouTube video by ${archive.youtube_video_page_name}`
-					}
-				default:
-					return null
-			}
 		}
 
 		return (

@@ -28,9 +28,9 @@
           background: #F9FAFB;
           color: #545454; }
   .breakdown .statHeader {
-    margin: 12px 12px; }
-    .breakdown .statHeader.first {
-      margin-top: 10px !important; }
+    margin-top: 15px; }
+    .breakdown .statHeader.first-of-type {
+      margin: 0 !important; }
   @media only screen and (max-width: 1025px) {
     .breakdown .ui.header.medium {
       font-size: 15px !important; }
@@ -40,4 +40,4 @@
     margin: 0 !important;
     padding: 0; }
   .breakdown .createReview {
-    margin: 15px 12px !important; }
+    margin: 15px 4px !important; }

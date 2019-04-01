@@ -2,6 +2,8 @@ import "./style.css"
 import { formatDuration, formatNumber, formatPlural } from "utils/textFunctions"
 import {
 	createVideoArchive,
+	deleteArchive,
+	getVideoArchives,
 	setCurrentVideoTime,
 	setDuration,
 	updateArchiveDescription,
@@ -13,18 +15,22 @@ import { connect } from "react-redux"
 import { Link } from "react-router-dom"
 import {
 	Button,
+	Divider,
 	Form,
 	Grid,
 	Header,
+	Icon,
 	Image,
 	Input,
 	List,
+	Menu,
 	Message,
 	Progress,
 	Segment,
 	Statistic,
 	Transition
 } from "semantic-ui-react"
+import ImagePic from "images/image-square.png"
 import LazyLoad from "components/lazyLoad/v1/"
 import Moment from "react-moment"
 import PropTypes from "prop-types"
@@ -32,22 +38,32 @@ import React, { Component } from "react"
 import ReactPlayer from "react-player"
 import store from "store"
 import TextTruncate from "react-text-truncate"
-import YouTubeCommentsSection from "./comments"
 
 class YouTubeVideo extends Component {
 	constructor(props) {
 		super(props)
 		const currentState = store.getState()
 		const auth = currentState.user.authenticated
+		const user = currentState.user.data
 		this.state = {
+			activeItem: auth ? "Mine" : "All",
 			archiveEndTime: 0,
 			archiveVisible: false,
 			auth,
 			currentState,
 			currentTime: 0,
-			playing: true
+			playing: true,
+			user
 		}
 
+		if (auth && props.source === "post" && this.props.id !== undefined) {
+			this.props.getVideoArchives({
+				id: this.props.id,
+				userId: user.id
+			})
+		}
+
+		this.handleItemClick = this.handleItemClick.bind(this)
 		this.onSubmitArchive = this.onSubmitArchive.bind(this)
 		this.seekTo = this.seekTo.bind(this)
 		this.setTime = this.setTime.bind(this)
@@ -64,6 +80,25 @@ class YouTubeVideo extends Component {
 	}
 	componentDidMount() {
 		this.setState({ archiveVisible: !this.props.archive })
+	}
+	componentWillReceiveProps(props) {
+		if (
+			this.state.auth &&
+			props.source === "post" &&
+			props.id !== this.props.id &&
+			props.id !== undefined
+		) {
+			this.props.getVideoArchives({
+				id: props.id,
+				userId: this.state.user.id
+			})
+		}
+	}
+	deleteArchive = id => {
+		this.props.deleteArchive({ bearer: this.props.bearer, id })
+	}
+	handleItemClick = (e, { name }) => {
+		this.setState({ activeItem: name })
 	}
 	onSubmitArchive = () => {
 		this.props.createVideoArchive({
@@ -97,7 +132,7 @@ class YouTubeVideo extends Component {
 	}
 
 	render() {
-		const { archiveVisible, auth, playing } = this.state
+		const { activeItem, archiveVisible, auth, playing, user } = this.state
 		const ArchiveForm = props => (
 			<div className="archiveForm">
 				<Form
@@ -108,6 +143,7 @@ class YouTubeVideo extends Component {
 					<Form.Group widths="equal">
 						<Form.Input
 							fluid
+							icon="hourglass start"
 							onChange={this.changeArchiveStartTime}
 							placeholder="Start time"
 							type="text"
@@ -115,6 +151,7 @@ class YouTubeVideo extends Component {
 						/>
 						<Form.Input
 							fluid
+							icon="hourglass end"
 							onChange={this.changeArchiveEndTime}
 							placeholder="End time"
 							type="text"
@@ -135,27 +172,57 @@ class YouTubeVideo extends Component {
 			</div>
 		)
 		const ArchivesList = props => {
-			if (!props.archives) {
+			const archives = activeItem === "All" ? props.archives : props.myArchives
+			if (!archives) {
 				return null
 			}
-
 			return (
 				<div>
-					<Header as="h3" dividing>
-						My archives
-						<Header.Subheader>{props.archives.length} clips</Header.Subheader>
-					</Header>
+					<Menu secondary>
+						{auth && (
+							<Menu.Item
+								active={activeItem === "Mine"}
+								name="Mine"
+								onClick={this.handleItemClick}
+							/>
+						)}
+						<Menu.Item
+							active={activeItem === "All"}
+							name="All"
+							onClick={this.handleItemClick}
+						/>
+					</Menu>
 					{props.archives.length === 0 ? (
-						<Message content="You haven't archived any clips yet" />
+						<Message
+							content={`${
+								activeItem === "Mine" ? "You haven't " : "There aren't any "
+							} archived any clips yet`}
+						/>
 					) : (
 						<Transition animation="scale" duration={400} visible={archiveVisible}>
-							<List className="archivesList" divided relaxed>
-								{props.archives.map((a, i) => {
+							<List className="archivesList" divided relaxed selection>
+								{archives.map((a, i) => {
 									return (
 										<List.Item key={`${a.start_time}_${a.end_time}`}>
+											{a.user_id === user.id && (
+												<List.Content floated="right">
+													<Icon
+														color="red"
+														name="delete"
+														onClick={() => this.deleteArchive(a.id)}
+														size="small"
+													/>
+												</List.Content>
+											)}
+											<Image
+												avatar
+												circular
+												onError={i => (i.target.src = ImagePic)}
+												src={a.img === null ? ImagePic : a.img}
+											/>
 											<List.Content>
-												<List.Header>
-													<span onClick={() => this.seekTo(a)}>
+												<List.Header onClick={() => this.seekTo(a)}>
+													<span>
 														{formatDuration(a.start_time)} -{" "}
 														{formatDuration(a.end_time)}
 													</span>
@@ -176,15 +243,18 @@ class YouTubeVideo extends Component {
 		const ChannelCard = props => {
 			if (props.channel) {
 				return (
-					<Segment
-						className={`channelSegment ${props.comment ? "hasComment" : null}`}
-						vertical
-					>
+					<Segment className="channelSegment" vertical>
 						<Header
 							as="h2"
 							onClick={() => props.history.push(`/pages/youtube/${props.channel.id}`)}
 						>
-							<Image circular floated="left" size="tiny" src={props.channel.img} />
+							<Image
+								bordered
+								circular
+								floated="left"
+								size="tiny"
+								src={props.channel.img}
+							/>
 							<Header.Content>
 								{props.channel.title}
 								<Header.Subheader>
@@ -263,13 +333,6 @@ class YouTubeVideo extends Component {
 								/>
 							) : null}
 
-							{this.props.canArchive && this.props.existsOnYt ? (
-								<div>
-									{ArchiveForm(this.props)}
-									{ArchivesList(this.props)}
-								</div>
-							) : null}
-
 							<Header className="youTubeTitle" size="medium">
 								{this.props.redirect ? (
 									<Link to={`/video/${this.props.id}`}>{this.props.title}</Link>
@@ -286,17 +349,27 @@ class YouTubeVideo extends Component {
 
 							{this.props.showChannel && <div>{ChannelCard(this.props)}</div>}
 
+							{this.props.canArchive && (
+								<div>
+									<Divider />
+									{ArchiveForm(this.props)}
+									<Divider />
+									{ArchivesList(this.props)}
+								</div>
+							)}
+
 							{this.props.showTimes && (
-								<Grid>
+								<Grid className="editVideoTimes">
 									<Grid.Column width={8}>
 										<Input
-											defaultValue={this.props.startTime}
+											icon="hourglass start"
 											placeholder="Start time"
 											value={formatDuration(this.props.info.currentTime)}
 										/>
 									</Grid.Column>
 									<Grid.Column width={8}>
 										<Input
+											icon="hourglass end"
 											onChange={this.props.changeEndTime}
 											placeholder="End time"
 											value={this.props.endTime}
@@ -313,22 +386,6 @@ class YouTubeVideo extends Component {
 							)}
 						</div>
 					)}
-
-					{(this.props.showComments || this.props.showComment) &&
-					this.props.existsOnYt ? (
-						<YouTubeCommentsSection
-							auth={auth}
-							bearer={this.props.bearer}
-							comment={this.props.comment}
-							comments={this.props.comments}
-							history={this.props.history}
-							sendNotification={this.props.sendNotification}
-							showComment={this.props.showComment}
-							showComments={this.props.showComments}
-							source={this.props.source}
-							videoId={this.props.id}
-						/>
-					) : null}
 				</Segment>
 			</div>
 		)
@@ -350,34 +407,16 @@ YouTubeVideo.propTypes = {
 	}),
 	changeEndTime: PropTypes.func,
 	clearContradiction: PropTypes.func,
-	comment: PropTypes.shape({
-		dateCreated: PropTypes.string,
-		id: PropTypes.string,
-		likeCount: PropTypes.number,
-		message: PropTypes.string,
-		user: PropTypes.shape({
-			about: PropTypes.string,
-			id: PropTypes.string,
-			img: PropTypes.string,
-			title: PropTypes.string
-		})
-	}),
-	comments: PropTypes.shape({
-		code: PropTypes.number,
-		count: PropTypes.number,
-		error: PropTypes.bool,
-		items: PropTypes.array,
-		nextPageToken: PropTypes.string,
-		page: PropTypes.number
-	}),
 	contradiction: PropTypes.bool,
 	createVideoArchive: PropTypes.func,
 	currentTime: PropTypes.number,
 	dateCreated: PropTypes.string,
+	deleteArchive: PropTypes.func,
 	description: PropTypes.string,
 	endTime: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 	existsOnYt: PropTypes.bool,
 	id: PropTypes.string,
+	myArchives: PropTypes.array,
 	playing: PropTypes.bool,
 	redirect: PropTypes.bool,
 	s3Link: PropTypes.string,
@@ -386,8 +425,6 @@ YouTubeVideo.propTypes = {
 	setCurrentVideoTime: PropTypes.func,
 	setDuration: PropTypes.func,
 	showChannel: PropTypes.bool,
-	showComment: PropTypes.bool,
-	showComments: PropTypes.bool,
 	showStats: PropTypes.bool,
 	showTimes: PropTypes.bool,
 	showVideo: PropTypes.bool,
@@ -414,25 +451,17 @@ YouTubeVideo.defaultProps = {
 	canArchive: false,
 	channel: {},
 	clearContradiction,
-	comments: {
-		code: 0,
-		count: 0,
-		error: null,
-		items: [],
-		nextPageToken: null,
-		page: 0
-	},
 	contradiction: false,
 	createVideoArchive,
+	deleteArchive,
 	existsOnYt: true,
+	getVideoArchives,
 	playing: false,
 	s3Link: null,
 	setContradictionVideoTime,
 	setCurrentVideoTime,
 	setDuration,
 	showChannel: true,
-	showComment: false,
-	showComments: false,
 	showStats: true,
 	showTimes: false,
 	showVideo: true,
@@ -453,6 +482,8 @@ export default connect(
 	{
 		clearContradiction,
 		createVideoArchive,
+		deleteArchive,
+		getVideoArchives,
 		setCurrentVideoTime,
 		setDuration,
 		setContradictionVideoTime,

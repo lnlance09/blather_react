@@ -26,6 +26,7 @@ import Marked from "marked"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import Tweet from "components/tweet/v1/"
+import YouTubeCommentsSection from "components/youTubeVideo/v1/comments"
 import YouTubeVideo from "components/youTubeVideo/v1/"
 
 class FallacyExample extends Component {
@@ -187,9 +188,9 @@ class FallacyExample extends Component {
 				>
 					<Form.Group widths="equal">
 						<Form.Field>
-							<label>Start at</label>
 							<Input
 								className={startName}
+								icon="hourglass start"
 								name={startName}
 								onChange={this.onChangeStartTime}
 								onClick={() => this.setEditMode(contradiction)}
@@ -199,9 +200,9 @@ class FallacyExample extends Component {
 							/>
 						</Form.Field>
 						<Form.Field>
-							<label>End at</label>
 							<Input
 								className={endName}
+								icon="hourglass end"
 								name={endName}
 								onChange={this.onChangeEndTime}
 								onClick={() => this.setEditMode(contradiction)}
@@ -384,10 +385,9 @@ class FallacyExample extends Component {
 			}
 			if (material.video) {
 				return (
-					<div id={`comment${contradiction ? "Contradiction" : "Original"}`}>
+					<div>
 						<YouTubeVideo
 							channel={material.video.channel}
-							comment={material.video.comment}
 							dateCreated={material.video.dateCreated}
 							description={material.video.description}
 							endTime={material.video.endTime}
@@ -395,19 +395,35 @@ class FallacyExample extends Component {
 							id={material.video.id}
 							redirect
 							showChannel
-							showComment={material.video.comment !== null}
 							showStats={false}
-							showVideo={material.video.comment === null}
 							source="fallacy"
 							startTime={material.video.startTime}
 							stats={material.video.stats}
 							title={material.video.title}
 							{...props.history}
 						/>
-						{props.canEdit && material.video.comment === null
-							? EditTimesForm(props, contradiction)
-							: null}
+						{props.canEdit ? EditTimesForm(props, contradiction) : null}
 						{FeaturedInVideo(material.video, props)}
+					</div>
+				)
+			}
+			if (material.comment) {
+				return (
+					<div id={`comment${contradiction ? "Contradiction" : "Original"}`}>
+						<YouTubeCommentsSection
+							auth={false}
+							bearer={props.bearer}
+							comment={material.comment}
+							handleHoverOn={this.handleHoverOn}
+							highlightedText={
+								material.highlightedText ? material.highlightedText.trim() : ""
+							}
+							history={props.history}
+							showComment
+							showComments={false}
+							source="fallacy"
+							videoId={material.comment.videoId}
+						/>
 					</div>
 				)
 			}
@@ -422,9 +438,9 @@ class FallacyExample extends Component {
 				}
 				if (props.video) {
 					dateOne = props.video.dateCreated
-					if (props.video.comment) {
-						dateOne = props.video.comment.dateCreated
-					}
+				}
+				if (props.comment) {
+					dateOne = props.comment.dateCreated
 				}
 
 				if (props.contradiction.tweet) {
@@ -432,9 +448,9 @@ class FallacyExample extends Component {
 				}
 				if (props.contradiction.video) {
 					dateTwo = props.contradiction.video.dateCreated
-					if (props.contradiction.video.comment) {
-						dateTwo = props.contradiction.video.comment.dateCreated
-					}
+				}
+				if (props.contradiction.comment) {
+					dateTwo = props.contradiction.comment.dateCreated
 				}
 				return (
 					<Divider horizontal id="fallacyDateDiff">

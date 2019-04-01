@@ -84,10 +84,16 @@ export const DisplayMetaTags = ({ page, props, state }) => {
 		case "post":
 			if (props.info) {
 				let title = ""
+				if (props.type === "comment") {
+					title = `Comment by ${
+						props.info.comment.user ? props.info.comment.user.title : ""
+					}`
+				}
+				if (props.type === "tweet") {
+					title = `Tweet by ${props.info.user ? props.info.user.name : ""}`
+				}
 				if (props.type === "video") {
 					title = props.info.title
-				} else {
-					title = `Tweet by ${props.info.user ? props.info.user.name : ""}`
 				}
 				metaTags = {
 					description: `Does the logic in this ${

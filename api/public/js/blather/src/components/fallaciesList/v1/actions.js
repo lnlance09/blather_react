@@ -9,7 +9,8 @@ export const getFallacies = ({
 	fallacyId,
 	network,
 	objectId,
-	page
+	page,
+	type
 }) => dispatch => {
 	request.get(
 		`${window.location.origin}/api/fallacies/search`,
@@ -23,7 +24,8 @@ export const getFallacies = ({
 				fallacyId,
 				network,
 				objectId,
-				page
+				page,
+				type
 			}
 		},
 		function(err, response, body) {

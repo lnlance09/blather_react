@@ -61,14 +61,15 @@
 				exit;
 			}
 
+			$user = $this->user;
 			$data = [];
 			$error = true;
-			if ($this->user) {
+			if ($user) {
 				$archive = $this->users->alreadyArchived([
 					'end_time' => $end_time,
 					'object_id' => $id,
 					'start_time' => $start_time,
-					'user_id' => $this->user->id
+					'user_id' => $user->id
 				]);
 
 				if ($archive) {
@@ -88,14 +89,90 @@
 					'object_id' => $id,
 					'page_id' => $video['data']['channel']['db_id'],
 					'start_time' => $start_time,
-					'user_id' => $this->user->id
+					'type' => 'video',
+					'user_id' => $user->id
 				];
 				$archive = $this->users->createArchive($data);
 				$error = false;
+				$data['id'] = $this->users->alreadyArchived($data, true);
+				$data['img'] = $user->img;
 			}
 			echo json_encode([
 				'archive' => $data,
 				'error' => $error
+			]);
+		}
+
+		public function archiveComment() {
+			$id = $this->input->post('id');
+			$comment_id = $this->input->post('commentId');
+
+			if (empty($id)) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'You must include a video id',
+				]);
+				exit;
+			}
+
+			if (empty($comment_id)) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'You must include a comment id',
+				]);
+				exit;
+			}
+
+			$comment = $this->youtube->getCommentFromDB($comment_id);
+			if (!$comment) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'This comment does not exist',
+				]);
+				exit;
+			}
+
+			$user = $this->user;
+			if (!$user) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'You must login',
+				]);
+				exit;
+			}
+
+			$url = 'https://www.youtube.com/watch?v='.$id.'&lc='.$comment_id;
+			$code = createArchive($url);
+			$data = [];
+			if ($code) {
+				$archive = $this->users->alreadyArchived([
+					'object_id' => $comment_id,
+					'type' => 'comment',
+					'user_id' => $user->id
+				]);
+
+				if ($archive) {
+					$this->output->set_status_header(401);
+					echo json_encode([
+						'error' => 'You have already archived this comment',
+					]);
+					exit;
+				}
+
+				$data = [
+					'code' => $code,
+					'link' => $url,
+					'network' => 'youtube',
+					'object_id' => $comment_id,
+					'page_id' => $comment['commenter']['id'],
+					'type' => 'comment',
+					'user_id' => $user->id
+				];
+				$this->users->createArchive($data);
+			}
+			echo json_encode([
+				'archive' => $data,
+				'error' => false
 			]);
 		}
 
@@ -107,7 +184,8 @@
 		public function comment() {
 			$id = $this->input->get('id');
 			$videoId = $this->input->get('videoId');
-			if(!$id) {
+
+			if (!$id) {
 				$this->output->set_status_header(404);
 				echo json_encode([
 					'error' => 'You must provide an id'
@@ -115,19 +193,75 @@
 				exit;
 			}
 
-			$auth = $this->user ? $this->user->linkedYoutube : false;
+			if (empty($videoId)) {
+				$videoId = null;
+			}
+
+			$user = $this->user;
+			$auth = $user ? $user->linkedYoutube : false;
 			$token = $auth ? $this->user->youtubeAccessToken : null;
-			$comment = $this->youtube->getCommentExtended($id, $videoId, $auth, $token);
-			if($comment['error']) {
+
+			// See if the comment exists in the DB first
+			$comment = $this->youtube->getCommentExtended($id, $videoId);
+
+			if ($comment['error'] && $auth) {
+				$comment = $this->youtube->getCommentExtended($id, $videoId, true, $token);
+			}
+
+			if ($comment['error']) {
 				$this->output->set_status_header($comment['code']);
 				echo json_encode($comment);
 				exit;
 			}
 
+			$archive = null;
+			if ($user) {
+				$archive = $this->users->getArchivedLinks([
+					'object_id' => $id,
+					'user_id' => $user->id
+				]);
+			}
+
 			echo json_encode([
+				'archive' => $archive,
 				'data' => $comment['data'],
 				'is_live_search' => $auth,
-				'type' => 'youtube_comment'
+				'type' => 'comment'
+			]);
+		}
+
+		public function deleteArchive() {
+			$user = $this->user;
+			$id = $this->input->post('id');
+
+			if (!$id) {
+				$this->output->set_status_header(404);
+				echo json_encode([
+					'error' => 'You must provide an id'
+				]);
+				exit;
+			}
+
+			if (!$user) {
+				$this->output->set_status_header(404);
+				echo json_encode([
+					'error' => 'You must be logged in'
+				]);
+				exit;
+			}
+
+			$archive = $this->users->alreadyArchived([
+				'id' => $id,
+				'user_id' => $user->id
+			]);
+
+			if ($archive) {
+				$this->users->deleteArchive($id);
+			}
+
+			echo json_encode([
+				'error' => false,
+				'id' => $id
 			]);
 		}
 
@@ -208,9 +342,29 @@
 			]);
 		}
 
+		public function getVideoArchives() {
+			$id = $this->input->get('id');
+			$user_id = $this->input->get('userId');
+
+			if (!$id) {
+				$this->output->set_status_header(404);
+				echo json_encode([
+					'error' => 'You must provide an id'
+				]);
+				exit;
+			}
+
+			$archives = $this->youtube->getVideoArchives($id, $user_id);
+			echo json_encode([
+				'archives' => $archives,
+				'error' => false
+			]);
+		}
+
 		public function redirect() {
+			$user = $this->user;
 			$code = $this->input->post('code');
-			if(!$this->user) {
+			if (!$user) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You must login'
@@ -222,20 +376,20 @@
 			$data = $this->youtube->GetToken($code);
 			$accessToken = $data['access_token'];
 			$refreshToken = $data['refresh_token'];
-			if($accessToken && $refreshToken) {
+			if ($accessToken && $refreshToken) {
 				$linkedYouTube = true;
 			}
 
 			$data = [];
 			$data['linked_youtube'] = $linkedYouTube;
-			$this->users->updateUser($this->user->id, $data);
+			$this->users->updateUser($user->id, $data);
 
 			$data['youtube_access_token'] = $accessToken;
 			$data['youtube_refresh_token'] = $refreshToken;
-			$data['youtube_date'] = ($linkedYouTube ? date('Y-m-d H:i:s') : null);
+			$data['youtube_date'] = $linkedYouTube ? date('Y-m-d H:i:s') : null;
 			$data['youtube_id'] = null;
 
-			if($linkedYouTube) {
+			if ($linkedYouTube) {
 				$info = $this->youtube->getMyInfo($accessToken);
 				$channelId = $info['items'][0]['id'];
 				$userData = [
@@ -243,7 +397,7 @@
 					'youtube_access_token' => $accessToken,
 					'youtube_refresh_token' => $refreshToken
 				];
-				$this->users->setYouTubeDetails($this->user->id, $userData);
+				$this->users->setYouTubeDetails($user->id, $userData);
 				$data['youtube_id'] = $channelId;
 			}
 
@@ -305,6 +459,10 @@
 
 		public function video() {
 			$id = $this->input->get('id');
+			if (substr($id, -1) == '&') {
+				$id = rtrim($id, '&');
+			}
+
 			if (!$id) {
 				$this->output->set_status_header(404);
 				echo json_encode([
@@ -313,8 +471,9 @@
 				exit;
 			}
 
-			$auth = $this->user ? $this->user->linkedYoutube : false;
-			$token = $auth ? $this->user->youtubeAccessToken : null;
+			$user = $this->user;
+			$auth = $user ? $user->linkedYoutube : false;
+			$token = $auth ? $user->youtubeAccessToken : null;
 			$exists_on_yt = true;
 			$need_to_refresh = false;
 
@@ -326,26 +485,26 @@
 						$need_to_refresh = true;
 					} else {
 						// get video from db
-						$video = $this->youtube->getVideoExtended($id, false, $token);
+						$video = $this->youtube->getVideoExtended($id, false);
 						$exists_on_yt = false;
 					}
 				}
 			} else {
-				$video = $this->youtube->getVideoExtended($id, false, $token);
+				$video = $this->youtube->getVideoExtended($id, false);
 				$exists_on_yt = false;
-			}
-
-			$archives = false;
-			if (!$video['error'] && $this->user) {
-				$archives = $this->youtube->getVideoArchives($id, $this->user->id);
 			}
 
 			if ($video['error']) {
 				$this->output->set_status_header($video['code']);
 			}
 
+			$archives = [];
+			if (!$video['error']) {
+				$archives = $this->youtube->getVideoArchives($id);
+			}
+
 			echo json_encode([
-				'archives' => empty($archives) ? [] : $archives,
+				'archives' => $archives,
 				'code' => $video['error'] ? $video['code'] : 0,
 				'data' => !$video['error'] ? $video['data'] : [],
 				'error' => $video['error'] ? true : false,

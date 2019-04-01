@@ -11,6 +11,12 @@ const post = (state = initial(), action) => {
 				archive: action.payload.archive
 			}
 
+		case constants.CREATE_COMMENT_ARCHIVE:
+			return {
+				...state,
+				archive: action.payload.archive
+			}
+
 		case constants.CREATE_VIDEO_ARCHIVE:
 			if (action.payload.error) {
 				return {
@@ -30,7 +36,18 @@ const post = (state = initial(), action) => {
 				archives:
 					state.archives.length > 0
 						? [...state.archives, action.payload.archive]
+						: [action.payload.archive],
+				myArchives:
+					state.myArchives.length > 0
+						? [...state.myArchives, action.payload.archive]
 						: [action.payload.archive]
+			}
+
+		case constants.DELETE_ARCHIVE:
+			return {
+				...state,
+				archives: state.archives.filter(item => item.id !== action.payload.id),
+				myArchives: state.myArchives.filter(item => item.id !== action.payload.id)
 			}
 
 		case constants.FETCH_VIDEO_COMMENTS:
@@ -61,19 +78,52 @@ const post = (state = initial(), action) => {
 			}
 
 		case constants.GET_POST_DATA:
-			let profileImg = ""
-			if (!payload.error) {
-				if (payload.type === "tweet") {
-					profileImg = payload.data.user.profile_image_url_https
-					if (payload.data.retweeted_status) {
-						profileImg = payload.data.retweeted_status.user.profile_image_url_https
-					}
+			if (payload.error) {
+				return {
+					...state.post,
+					error: payload.error,
+					errorCode: payload.code,
+					needToRefresh: payload.need_to_refresh
 				}
 			}
 
+			let pageInfo = {}
+			let profileImg = ""
 			let existsOnYt = true
 			let needToRefresh = false
+			let info = {}
+
+			if (payload.type === "comment") {
+				profileImg = payload.data.commenter.img
+				info.comment = {
+					dateCreated: payload.data.date_created,
+					id: payload.data.id,
+					likeCount: parseInt(payload.data.like_count, 10),
+					message: payload.data.message,
+					user: {
+						id: payload.data.commenter.id,
+						img: payload.data.commenter.img,
+						title: payload.data.commenter.title
+					}
+				}
+				pageInfo = {
+					id: payload.data.commenter.id,
+					name: payload.data.commenter.title,
+					type: "comment",
+					username: ""
+				}
+			}
+
+			if (payload.type === "tweet") {
+				info = payload.data
+				profileImg = payload.data.user.profile_image_url_https
+				if (payload.data.retweeted_status) {
+					profileImg = payload.data.retweeted_status.user.profile_image_url_https
+				}
+			}
+
 			if (payload.type === "video") {
+				info = payload.data
 				existsOnYt = payload.exists_on_yt
 				needToRefresh = payload.need_to_refresh
 				if (!payload.error) {
@@ -88,15 +138,23 @@ const post = (state = initial(), action) => {
 				error: payload.error,
 				errorCode: payload.code,
 				existsOnYt,
-				info: payload.data,
+				info,
 				needToRefresh,
+				pageInfo,
 				profileImg,
 				type: payload.type
+			}
+
+		case constants.GET_VIDEO_ARCHIVES:
+			return {
+				...state,
+				myArchives: payload.archives
 			}
 
 		case constants.INSERT_COMMENT:
 			return {
 				...state,
+				archive: payload.archive,
 				info: {
 					...state.info,
 					comment: {
@@ -115,7 +173,7 @@ const post = (state = initial(), action) => {
 				pageInfo: {
 					id: payload.data.commenter.id,
 					name: payload.data.commenter.title,
-					type: "youtube",
+					type: "comment",
 					username: ""
 				}
 			}
@@ -141,6 +199,7 @@ const post = (state = initial(), action) => {
 		case constants.UNSET_COMMENT:
 			return {
 				...state,
+				archive: false,
 				info: {
 					...state.info,
 					comment: null

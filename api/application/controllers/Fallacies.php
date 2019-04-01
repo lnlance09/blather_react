@@ -22,22 +22,23 @@
 			$id = $this->input->get('id');
 			$fallacy = $this->fallacies->getFallacy($id);
 
+			$user = $this->user;
 			$archive = false;
 			$contradiction_archive = false;
 			$similar_count = 0;
-			
-			if ($this->user && $fallacy) {
+
+			if ($user && $fallacy) {
 				if ($fallacy['ref_id'] == 1) {
 					$archive = $this->users->getArchivedLinks([
 						'object_id' => $fallacy['media_id'],
-						'user_id' => $this->user->id
+						'user_id' => $user->id
 					]);
 				}
 
 				if ($fallacy['ref_id'] == 2 || $fallacy['ref_id'] == 8) {
 					$contradiction_archive = $this->users->getArchivedLinks([
 						'object_id' => $fallacy['contradiction_media_id'],
-						'user_id' => $this->user->id
+						'user_id' => $user->id
 					]);
 				}
 			}

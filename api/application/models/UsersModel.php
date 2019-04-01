@@ -10,19 +10,22 @@
 			$this->db->query("SET time_zone='+0:00'");
 		}
 
-		public function alreadyArchived($data) {
+		public function alreadyArchived($data, $return_id = false) {
 			/* TODO */
 			// Merge with getArchivedLinks
-			$this->db->select('COUNT(*) AS count');
+			$this->db->select('COUNT(*) AS count, id');
 			$this->db->where($data);
 			$result = $this->db->get('archived_links')->result_array();
+			if ($return_id) {
+				return $result[0]['id'];
+			}
 			return $result[0]['count'] == 1;
 		}
 
 		public function createArchive($data) {
 			$code = $data['code'];
 			$already = $this->alreadyArchived($data);
-			if($already) {
+			if ($already) {
 				$this->db->where('link', $data['link']);
 				$this->db->where('user_id', $data['user_id']);
 				$this->db->update('archived_links', $data);
@@ -41,7 +44,7 @@
 		 */
 		public function createUser($id, $type, $data) {
 			$networks = ['fb', 'twitter', 'youtube'];
-			if(in_array($type, $networks)) {
+			if (in_array($type, $networks)) {
 				$table = $type.'_users';
 				$column = $table.'.'.$type.'_id';
 
@@ -49,13 +52,18 @@
 				$this->db->join($table, 'users.id='.$table.'.user_id');
 				$this->db->where($column, $id);
 				$query = $this->db->get('users')->result();
-				if($query[0]->count == 0) {
+				if ($query[0]->count == 0) {
 					$this->db->insert('users', $data);
 					return true;
 				}
 
 				return false;
 			}
+		}
+
+		public function deleteArchive($id) {
+			$this->db->where('id', $id);
+			$this->db->delete('archived_links');
 		}
 
 		public function generateBearerToken($data, $token = null) {
@@ -79,20 +87,20 @@
 			$just_count = false
 		) {
 			$post = array_key_exists('object_id', $data);
-			$select = 'a.code, a.date_created, a.link, a.network';
+			$select = 'a.code, a.date_created, a.link, a.network, a.type';
 			if ($just_count) {
 				$select = 'COUNT(*) AS count';
 			}
 
 			if (!$just_count && !$post) {
 				$select .= ', t.full_text, t.tweet_id, ytv.title, ytc.message, ytv.video_id, ytc.comment_id, 
-				p.name AS twitter_page_name, 
-				pytv.name AS youtube_video_page_name, 
-				pytc.name AS youtube_comment_page_name,
+					p.name AS twitter_page_name, 
+					pytv.name AS youtube_video_page_name, 
+					pytc.name AS youtube_comment_page_name,
 
-				p.profile_pic AS twitter_profile_pic, 
-				pytv.profile_pic AS youtube_video_profile_pic, 
-				pytc.profile_pic AS youtube_comment_profile_pic';
+					p.profile_pic AS twitter_profile_pic, 
+					pytv.profile_pic AS youtube_video_profile_pic, 
+					pytc.profile_pic AS youtube_comment_profile_pic';
 			}
 
 			if ($unique) {

@@ -3,7 +3,10 @@
 /*---   Neutrals  ---*/
 /*---   Misc  ---*/
 /*---   Social colors  ---*/
-.fallacyForm .startTime, .fallacyForm .field.contradictionStartTime {
+.fallacyForm .formHeader {
+  font-size: 24px !important; }
+
+.fallacyForm .field.startTime, .fallacyForm .field.contradictionStartTime {
   padding-left: 0 !important;
   padding-right: 0 !important; }
 
@@ -13,22 +16,7 @@
 .fallacyForm .contradictionWrapper {
   margin-top: 0.9em; }
   .fallacyForm .contradictionWrapper.active {
-    padding: 10px; }
-
-.fallacyForm .zigzag {
-  background: linear-gradient(-137deg, #FFE21F 6px, transparent 0) 0 5px, linear-gradient(320deg, #FBBD08 5px, #FFFFFF 0) 0 5px;
-  background-color: #F3F4F5;
-  background-position: left bottom;
-  background-repeat: repeat-y;
-  background-size: 10px 10px;
-  float: left;
-  min-height: 400px;
-  width: 16px; }
-
-.fallacyForm .formRight {
-  float: right;
-  padding: 1px 9px;
-  width: 97%; }
+    padding: 0; }
 
 .fallacyForm .buttons button {
   width: 50%; }

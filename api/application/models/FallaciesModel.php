@@ -809,7 +809,7 @@
             }
 
             if ($data['network'] === 'youtube') {
-                if($data['comment_id']) {
+                if ($data['comment_id']) {
                     $this->db->join('youtube_comments yc', 'fe.comment_id = yc.comment_id');
                 } else {
                     $this->db->join('youtube_videos yv', 'fe.media_id = yv.video_id');
@@ -836,6 +836,12 @@
                 $this->db->where([
                     'fe.network' => $data['network'],
                     'fe.media_id' => $data['network'] === 'twitter' ? (int)$data['object_id'] : $data['object_id']
+                ]);
+            }
+
+            if ($data['comment_id']) {
+                $this->db->where([
+                    'fe.comment_id' => $data['comment_id']
                 ]);
             }
 

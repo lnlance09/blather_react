@@ -26,7 +26,6 @@ const fallacy = (state = initial(), action) => {
 			const fallacy = payload.fallacy
 			const similarCount = payload.similarCount
 			let contradiction = null
-			let contradictionComment = null
 			let contradictionTweet = null
 			let comment = null
 			let tweet = null
@@ -44,7 +43,7 @@ const fallacy = (state = initial(), action) => {
 			}
 
 			if (fallacy.network === "youtube") {
-				if (fallacy.comment_video_id) {
+				if (fallacy.comment_id) {
 					comment = {
 						dateCreated: fallacy.comment_created_at,
 						id: fallacy.comment_id,
@@ -54,31 +53,32 @@ const fallacy = (state = initial(), action) => {
 							id: fallacy.comment_channel_id,
 							img: fallacy.page_profile_pic,
 							title: fallacy.page_name
-						}
+						},
+						videoId: fallacy.comment_video_id
 					}
-				}
-				video = {
-					channel: {
-						id: fallacy.video_channel_id,
-						img: fallacy.video_channel_img,
-						title: fallacy.video_channel_name
-					},
-					comment: comment,
-					dateCreated: fallacy.video_created_at,
-					description: fallacy.video_description,
-					endTime: fallacy.end_time,
-					id: fallacy.video_video_id,
-					startTime: fallacy.start_time,
-					stats: {
-						dislikeCount: parseInt(fallacy.video_dislike_count, 10),
-						likeCount: parseInt(fallacy.video_like_count, 10),
-						likePct:
-							(fallacy.video_like_count /
-								(fallacy.video_like_count + fallacy.video_dislike_count)) *
-							100,
-						viewCount: parseInt(fallacy.video_view_count, 10)
-					},
-					title: fallacy.video_title
+				} else {
+					video = {
+						channel: {
+							id: fallacy.video_channel_id,
+							img: fallacy.video_channel_img,
+							title: fallacy.video_channel_name
+						},
+						dateCreated: fallacy.video_created_at,
+						description: fallacy.video_description,
+						endTime: fallacy.end_time,
+						id: fallacy.video_video_id,
+						startTime: fallacy.start_time,
+						stats: {
+							dislikeCount: parseInt(fallacy.video_dislike_count, 10),
+							likeCount: parseInt(fallacy.video_like_count, 10),
+							likePct:
+								(fallacy.video_like_count /
+									(fallacy.video_like_count + fallacy.video_dislike_count)) *
+								100,
+							viewCount: parseInt(fallacy.video_view_count, 10)
+						},
+						title: fallacy.video_title
+					}
 				}
 			}
 
@@ -99,42 +99,52 @@ const fallacy = (state = initial(), action) => {
 
 			if (payload.fallacy.contradiction_network === "youtube") {
 				if (fallacy.contradiction_comment_id) {
-					contradictionComment = {
-						dateCreated: fallacy.contradiction_comment_created_at,
-						id: fallacy.contradiction_comment_id,
-						likeCount: parseInt(fallacy.contradiction_comment_like_count, 10),
-						message: fallacy.contradiction_comment_message,
-						user: {
-							id: fallacy.contradiction_comment_channel_id,
-							img: fallacy.contradiction_page_profile_pic,
-							title: fallacy.contradiction_page_name
-						}
+					contradiction = {
+						comment: {
+							dateCreated: fallacy.contradiction_comment_created_at,
+							id: fallacy.contradiction_comment_id,
+							likeCount: parseInt(fallacy.contradiction_comment_like_count, 10),
+							message: fallacy.contradiction_comment_message,
+							user: {
+								id: fallacy.contradiction_comment_channel_id,
+								img: fallacy.contradiction_page_profile_pic,
+								title: fallacy.contradiction_page_name
+							},
+							videoId: fallacy.contradiction_comment_video_id
+						},
+						highlightedText:
+							fallacy.contradiction_highlighted_text === ""
+								? null
+								: fallacy.contradiction_highlighted_text
 					}
-				}
-				contradiction = {
-					video: {
-						channel: {
-							id: fallacy.contradiction_video_channel_id,
-							img: fallacy.contradiction_page_profile_pic,
-							title: fallacy.contradiction_page_name
-						},
-						comment: contradictionComment,
-						dateCreated: fallacy.contradiction_video_created_at,
-						description: fallacy.contradiction_video_description,
-						endTime: fallacy.contradiction_end_time,
-						id: fallacy.contradiction_video_video_id,
-						startTime: fallacy.contradiction_start_time,
-						stats: {
-							dislikeCount: parseInt(fallacy.contradiction_video_dislike_count, 10),
-							likeCount: parseInt(fallacy.contradiction_video_like_count, 10),
-							likePct:
-								(fallacy.contradiction_video_like_count /
-									(fallacy.contradiction_video_like_count +
-										fallacy.contradiction_video_dislike_count)) *
-								100,
-							viewCount: parseInt(fallacy.contradiction_video_view_count, 10)
-						},
-						title: fallacy.contradiction_video_video_title
+				} else {
+					contradiction = {
+						video: {
+							channel: {
+								id: fallacy.contradiction_video_channel_id,
+								img: fallacy.contradiction_page_profile_pic,
+								title: fallacy.contradiction_page_name
+							},
+							dateCreated: fallacy.contradiction_video_created_at,
+							description: fallacy.contradiction_video_description,
+							endTime: fallacy.contradiction_end_time,
+							id: fallacy.contradiction_video_video_id,
+							startTime: fallacy.contradiction_start_time,
+							stats: {
+								dislikeCount: parseInt(
+									fallacy.contradiction_video_dislike_count,
+									10
+								),
+								likeCount: parseInt(fallacy.contradiction_video_like_count, 10),
+								likePct:
+									(fallacy.contradiction_video_like_count /
+										(fallacy.contradiction_video_like_count +
+											fallacy.contradiction_video_dislike_count)) *
+									100,
+								viewCount: parseInt(fallacy.contradiction_video_view_count, 10)
+							},
+							title: fallacy.contradiction_video_video_title
+						}
 					}
 				}
 			}
@@ -233,8 +243,8 @@ const fallacy = (state = initial(), action) => {
 				}
 
 				contradictionPayload = {
-					date: contradictionComment.dateCreated,
-					id: contradictionComment.id,
+					date: contradiction.comment.dateCreated,
+					id: contradiction.comment.id,
 					type: "comment"
 				}
 			}
@@ -255,6 +265,7 @@ const fallacy = (state = initial(), action) => {
 				canMakeVideo,
 				canRespond: fallacy.can_respond === "1",
 				canScreenshot,
+				comment,
 				contradiction,
 				contradictionPayload,
 				createdAt: fallacy.date_created,

@@ -22,6 +22,28 @@ export const createArchive = ({ bearer, url }) => dispatch => {
 	)
 }
 
+export const createCommentArchive = ({ bearer, commentId, id }) => dispatch => {
+	request.post(
+		`${window.location.origin}/api/youtube/archiveComment`,
+		{
+			form: {
+				id,
+				commentId
+			},
+			headers: {
+				Authorization: bearer
+			},
+			json: true
+		},
+		function(err, response, body) {
+			dispatch({
+				type: constants.CREATE_COMMENT_ARCHIVE,
+				payload: body
+			})
+		}
+	)
+}
+
 export const createVideoArchive = ({ bearer, description, endTime, id, startTime }) => dispatch => {
 	request.post(
 		`${window.location.origin}/api/youtube/archive`,
@@ -40,6 +62,27 @@ export const createVideoArchive = ({ bearer, description, endTime, id, startTime
 		function(err, response, body) {
 			dispatch({
 				type: constants.CREATE_VIDEO_ARCHIVE,
+				payload: body
+			})
+		}
+	)
+}
+
+export const deleteArchive = ({ bearer, id }) => dispatch => {
+	request.post(
+		`${window.location.origin}/api/youtube/deleteArchive`,
+		{
+			form: {
+				id
+			},
+			headers: {
+				Authorization: bearer
+			},
+			json: true
+		},
+		function(err, response, body) {
+			dispatch({
+				type: constants.DELETE_ARCHIVE,
 				payload: body
 			})
 		}
@@ -100,6 +143,25 @@ export const fetchVideoComments = ({ bearer, id, nextPageToken, page }) => dispa
 		function(err, response, body) {
 			dispatch({
 				type: constants.FETCH_VIDEO_COMMENTS,
+				payload: body
+			})
+		}
+	)
+}
+
+export const getVideoArchives = ({ id, userId }) => dispatch => {
+	request.get(
+		`${window.location.origin}/api/youtube/getVideoArchives`,
+		{
+			json: true,
+			qs: {
+				id,
+				userId
+			}
+		},
+		function(err, response, body) {
+			dispatch({
+				type: constants.GET_VIDEO_ARCHIVES,
 				payload: body
 			})
 		}

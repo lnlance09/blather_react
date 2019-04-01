@@ -1,6 +1,8 @@
 import * as constants from "./constants"
 
-const initial = () => ({})
+const initial = () => ({
+	modalOpen: false
+})
 
 const fallacyForm = (state = initial(), action) => {
 	switch (action.type) {
@@ -8,7 +10,6 @@ const fallacyForm = (state = initial(), action) => {
 			if (action.payload.error) {
 				return {
 					...state,
-					assigned: false,
 					fallacyFormError: true,
 					fallacyFormErrorCode: action.payload.code,
 					fallacyFormErrorMsg: action.payload.error,
@@ -19,7 +20,6 @@ const fallacyForm = (state = initial(), action) => {
 			const fallacy = action.payload.fallacy
 			return {
 				...state,
-				assigned: true,
 				fallacyFormError: false,
 				fallacyFormErrorCode: 0,
 				fallacyFormErrorMsg: "",
@@ -68,13 +68,24 @@ const fallacyForm = (state = initial(), action) => {
 
 			const data = action.payload.data
 			data.currentTime = action.payload.startTime
+
+			let pageInfo = state.pageInfo
+			if (action.payload.type === "tweet" && action.postType === "video") {
+				pageInfo = {
+					id: action.payload.pageId,
+					name: data.user.name,
+					type: "twitter",
+					username: action.payload.username
+				}
+			}
+
 			return {
 				...state,
 				fallacy: {
 					...state.fallacy,
 					contradiction: {
 						commentId: action.payload.commentId,
-						data: data,
+						data,
 						error: false,
 						errorMsg: "",
 						mediaId: action.payload.mediaId,
@@ -84,7 +95,8 @@ const fallacyForm = (state = initial(), action) => {
 						type: action.payload.type,
 						username: action.payload.username
 					}
-				}
+				},
+				pageInfo
 			}
 
 		case constants.SELECT_ASSIGNEE:
@@ -133,6 +145,12 @@ const fallacyForm = (state = initial(), action) => {
 						}
 					}
 				}
+			}
+
+		case constants.TOGGLE_MODAL:
+			return {
+				...state,
+				modalOpen: !state.modalOpen
 			}
 
 		default:

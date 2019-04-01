@@ -455,7 +455,7 @@ class Fallacy extends Component {
 							<Comments
 								authenticated={auth}
 								bearer={bearer}
-								history={this.props.history}
+								history={props.history}
 								id={id}
 							/>
 						</Segment>

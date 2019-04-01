@@ -3,7 +3,16 @@ import { refreshYouTubeToken } from "components/authentication/v1/actions"
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { downloadVideo, fetchPostData } from "pages/actions/post"
 import { Provider, connect } from "react-redux"
-import { Breadcrumb, Container, Header, Image, Message, Segment, Sticky } from "semantic-ui-react"
+import {
+	Breadcrumb,
+	Container,
+	Divider,
+	Header,
+	Image,
+	Message,
+	Segment,
+	Sticky
+} from "semantic-ui-react"
 import FallacyForm from "components/fallacyForm/v1/"
 import FallaciesList from "components/fallaciesList/v1/"
 import PageFooter from "components/footer/v1/"
@@ -14,22 +23,25 @@ import React, { Component } from "react"
 import store from "store"
 import ThumbnailPic from "images/image.png"
 import Tweet from "components/tweet/v1/"
+import YouTubeCommentsSection from "components/youTubeVideo/v1/comments"
 import YouTubeVideo from "components/youTubeVideo/v1/"
 
 class Post extends Component {
 	constructor(props) {
 		super(props)
 		const path = this.props.match.path
-		const id = this.props.match.params.id
-		const commentId = this.props.match.params.commentId
+		let id = this.props.match.params.id
+		if (id.substring(id.length - 1, id.length) === "&") {
+			id = id.slice(0, -1)
+		}
+
 		const currentState = store.getState()
 		const authenticated = currentState.user.authenticated
 		const bearer = currentState.user.bearer
-		const { network, type, url } = this.postType(id, commentId, path)
+		const { network, type, url } = this.postType(id, path)
 		this.state = {
 			authenticated,
 			bearer,
-			commentId,
 			highlightedText: "",
 			id,
 			network,
@@ -66,8 +78,14 @@ class Post extends Component {
 		this.setState({ submitted: !this.state.submitted })
 	}
 
-	postType(id, commentId, path) {
+	postType(id, path) {
 		switch (path) {
+			case "/comment/:id":
+				return {
+					network: "youtube",
+					type: "comment",
+					url: `youtube/comment?id=${id}`
+				}
 			case "/tweet/:id":
 				return {
 					network: "twitter",
@@ -80,28 +98,13 @@ class Post extends Component {
 					type: "video",
 					url: `youtube/video?id=${id}`
 				}
-			case "/video/:id/commentId":
-				return {
-					network: "youtube",
-					type: "youtube_comment",
-					url: ``
-				}
 			default:
 				return false
 		}
 	}
 
 	render() {
-		const {
-			authenticated,
-			bearer,
-			commentId,
-			contextRef,
-			highlightedText,
-			id,
-			network,
-			type
-		} = this.state
+		const { authenticated, bearer, contextRef, highlightedText, id, network, type } = this.state
 		if (this.props.needToRefresh) {
 			this.props.refreshYouTubeToken({
 				bearer
@@ -111,18 +114,44 @@ class Post extends Component {
 			}, 1000)
 		}
 
-		const containerClassName = this.props.info ? "mainContainer bc" : "mainContainer"
-		const tweetExists = this.props.error && network === "twitter" ? false : true
-		const videoExists =
-			this.props.error && this.props.errorCode === 404 && network === "youtube" ? false : true
-		const user = this.props.info
-			? network === "twitter"
-				? this.props.info.user
-				: this.props.info.channel
-			: null
+		const { error, errorCode, info } = this.props
+		const containerClassName = info ? "mainContainer bc" : "mainContainer"
+		const tweetExists = error && network === "twitter" ? false : true
+		const videoExists = error && errorCode === 404 && network === "youtube" ? false : true
+		const user = info ? (network === "twitter" ? info.user : info.channel) : null
+
 		const Breadcrumbs = props => {
 			if (props.info) {
 				switch (type) {
+					case "comment":
+						if (props.info.comment.user) {
+							return (
+								<Breadcrumb>
+									<Breadcrumb.Section
+										link
+										onClick={() => this.props.history.push("/search/youtube")}
+									>
+										YouTube comments
+									</Breadcrumb.Section>
+									<Breadcrumb.Divider icon="right chevron" />
+									<Breadcrumb.Section
+										link
+										onClick={() =>
+											this.props.history.push(
+												`/pages/youtube/${props.info.comment.user.id}`
+											)
+										}
+									>
+										{props.info.comment.user.title}
+									</Breadcrumb.Section>
+									<Breadcrumb.Divider icon="right chevron" />
+									<Breadcrumb.Section active>
+										{props.info.comment.id}
+									</Breadcrumb.Section>
+								</Breadcrumb>
+							)
+						}
+						return null
 					case "tweet":
 						if (props.info.user) {
 							return (
@@ -162,7 +191,7 @@ class Post extends Component {
 								</Breadcrumb>
 							)
 						}
-						break
+						return null
 					case "video":
 						if (props.info.channel) {
 							return (
@@ -200,7 +229,7 @@ class Post extends Component {
 								</Breadcrumb>
 							)
 						}
-						break
+						return null
 					default:
 						return null
 				}
@@ -215,6 +244,7 @@ class Post extends Component {
 							Fallacies
 						</Header>
 						<FallaciesList
+							commentId={type === "comment" ? id : null}
 							emptyMsgContent={`No fallacies have been assigned to this ${type}`}
 							icon={network}
 							network={network}
@@ -227,47 +257,91 @@ class Post extends Component {
 			}
 			return null
 		}
+		const DisplayFallacyForm = props => (
+			<div className="fallacyFormWrapper">
+				<FallacyForm
+					authenticated={authenticated}
+					bearer={bearer}
+					commentId={type === "comment" ? id : null}
+					handleSubmit={this.handleSubmit}
+					highlightedText={highlightedText}
+					history={props.history}
+					network={network}
+					objectId={id}
+					pageInfo={pageInfo}
+					sendNotification={props.sendNotification}
+					type={type}
+					user={user}
+				/>
+			</div>
+		)
 		const DisplayPost = props => {
 			switch (type) {
+				case "comment":
+					if (props.info) {
+						return (
+							<div>
+								<YouTubeCommentsSection
+									archive={props.archive}
+									auth={authenticated}
+									bearer={bearer}
+									comment={props.info.comment}
+									handleHoverOn={this.handleHoverOn}
+									highlightedText={highlightedText}
+									history={props.history}
+									sendNotification={props.sendNotification}
+									showComment
+									showComments={false}
+									source="post"
+									videoId={props.info.id}
+								/>
+								<Divider />
+							</div>
+						)
+					}
+					break
 				case "tweet":
 					if (props.info) {
 						return (
-							<Tweet
-								archive={props.archive}
-								archives={props.archives}
-								bearer={bearer}
-								canArchive
-								created_at={props.info.created_at}
-								extended_entities={props.info.extended_entities}
-								externalLink
-								highlight={highlightedText !== ""}
-								highlightedText={highlightedText}
-								full_text={props.info.full_text}
-								handleHoverOn={this.handleHoverOn}
-								id={props.info.id_str}
-								imageSize="medium"
-								is_quote_status={props.info.is_quote_status}
-								profileImg={props.profileImg}
-								quoted_status={
-									props.info.quoted_status === undefined &&
-									props.info.is_quote_status
-										? props.info.retweeted_status
-										: props.info.quoted_status
-								}
-								quoted_status_id_str={props.info.quoted_status_id_str}
-								quoted_status_permalink={props.info.quoted_status_permalink}
-								retweeted_status={
-									props.info.retweeted_status === undefined
-										? false
-										: props.info.retweeted_status
-								}
-								stats={{
-									favorite_count: props.info.favorite_count,
-									retweet_count: props.info.retweet_count
-								}}
-								useLocalProfilePic
-								user={props.info.user}
-							/>
+							<div>
+								<Tweet
+									archive={props.archive}
+									archives={props.archives}
+									bearer={bearer}
+									canArchive
+									created_at={props.info.created_at}
+									extended_entities={props.info.extended_entities}
+									externalLink
+									highlight={highlightedText !== ""}
+									highlightedText={highlightedText}
+									full_text={props.info.full_text}
+									handleHoverOn={this.handleHoverOn}
+									id={props.info.id_str}
+									imageSize="medium"
+									is_quote_status={props.info.is_quote_status}
+									profileImg={props.profileImg}
+									quoted_status={
+										props.info.quoted_status === undefined &&
+										props.info.is_quote_status
+											? props.info.retweeted_status
+											: props.info.quoted_status
+									}
+									quoted_status_id_str={props.info.quoted_status_id_str}
+									quoted_status_permalink={props.info.quoted_status_permalink}
+									retweeted_status={
+										props.info.retweeted_status === undefined
+											? false
+											: props.info.retweeted_status
+									}
+									stats={{
+										favorite_count: props.info.favorite_count,
+										retweet_count: props.info.retweet_count
+									}}
+									useLocalProfilePic
+									user={props.info.user}
+								/>
+								{DisplayFallacyForm(props)}
+							</div>
 						)
 					} else {
 						return <LazyLoad />
@@ -275,23 +349,41 @@ class Post extends Component {
 				case "video":
 					if (props.info && videoExists) {
 						return (
-							<YouTubeVideo
-								bearer={bearer}
-								canArchive
-								channel={props.info.channel}
-								dateCreated={props.info.date_created}
-								description={props.info.description}
-								existsOnYt={props.existsOnYt}
-								history={props.history}
-								id={props.info.id}
-								placeholder={props.info.img}
-								playing
-								s3Link={props.info.s3_link}
-								sendNotification={props.sendNotification}
-								showComments
-								stats={props.info.stats}
-								title={props.info.title}
-							/>
+							<div>
+								<YouTubeVideo
+									bearer={bearer}
+									canArchive
+									channel={props.info.channel}
+									dateCreated={props.info.date_created}
+									description={props.info.description}
+									existsOnYt={props.existsOnYt}
+									history={props.history}
+									id={props.info.id}
+									placeholder={props.info.img}
+									playing
+									s3Link={props.info.s3_link}
+									sendNotification={props.sendNotification}
+									showComments
+									showStats={false}
+									stats={props.info.stats}
+									title={props.info.title}
+								/>
+								{DisplayFallacyForm(props)}
+								<YouTubeCommentsSection
+									archive={props.archive}
+									auth={authenticated}
+									bearer={bearer}
+									comments={props.comments}
+									handleHoverOn={this.handleHoverOn}
+									highlightedText={highlightedText}
+									history={props.history}
+									sendNotification={props.sendNotification}
+									showComment={false}
+									showComments
+									source="post"
+									videoId={props.info.id}
+								/>
+							</div>
 						)
 					} else {
 						return (
@@ -332,26 +424,7 @@ class Post extends Component {
 						{DisplayPost(this.props)}
 						{!tweetExists && <Message content="This tweet does not exist" error />}
 						{!videoExists && <Message content="This video does not exist" error />}
-						{!this.props.error && (
-							<div>
-								<div className="fallacyFormWrapper">
-									<FallacyForm
-										authenticated={authenticated}
-										bearer={bearer}
-										commentId={commentId}
-										handleSubmit={this.handleSubmit}
-										highlightedText={highlightedText}
-										history={this.props.history}
-										network={network}
-										objectId={id}
-										pageInfo={pageInfo}
-										sendNotification={this.props.sendNotification}
-										user={user}
-									/>
-								</div>
-								{DisplayFallacies(this.props)}
-							</div>
-						)}
+						{!this.props.error && <div>{DisplayFallacies(this.props)}</div>}
 					</Container>
 					<PageFooter />
 				</div>
