@@ -30,7 +30,6 @@ import {
 	Statistic,
 	Transition
 } from "semantic-ui-react"
-import ImagePic from "images/image-square.png"
 import LazyLoad from "components/lazyLoad/v1/"
 import Moment from "react-moment"
 import PropTypes from "prop-types"
@@ -214,12 +213,6 @@ class YouTubeVideo extends Component {
 													/>
 												</List.Content>
 											)}
-											<Image
-												avatar
-												circular
-												onError={i => (i.target.src = ImagePic)}
-												src={a.img === null ? ImagePic : a.img}
-											/>
 											<List.Content>
 												<List.Header onClick={() => this.seekTo(a)}>
 													<span>

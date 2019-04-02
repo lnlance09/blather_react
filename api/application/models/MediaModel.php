@@ -173,14 +173,27 @@
 
             if (!$source_one_is_img && !$source_two_is_img) {
                 $src_one_video_info = $source_one['video_info'];
+                $src_one_height = $src_one_video_info['height'];
+                $src_one_width = $src_one_video_info['width'];
                 $src_one_sar = $src_one_video_info['sar'];
+
                 $src_two_video_info = $source_two['video_info'];
+                $src_two_height = $src_two_video_info['height'];
+                $src_two_width = $src_two_video_info['width'];
                 $src_two_sar = $src_two_video_info['sar'];
 
-                $command .= '[1:v][0:v]scale2ref[logo][video]; \
-                            [logo]setsar='.$src_one_sar.'[logo]; \
-                            [logo][3:v]scale2ref[logo][video_two]; \
-                            [video_two]setsar='.$src_two_sar.'[video_two]; \
+                $dar = '16/9';
+                $width = $src_one_height;
+                $height = $src_one_height;
+                if ($src_two_width > $src_one_width) {
+                    $width = $src_two_height;
+                    $height = $src_two_height;
+                }
+
+                $command .= '[0:v]scale='.$width.':'.$height.',setdar='.$dar.'[video]; \
+                            [1:v][video]scale2ref[logo][video]; \
+                            [3:v]scale='.$width.':'.$height.',setdar='.$dar.'[video_two]; \
+                            [logo][video_two]scale2ref[logo][video_two]; \
                             [video][0:a][logo][2:a][video_two][3:a]concat=n=3:v=1:a=1[final_video]; \
                             [final_video][4:v]overlay=x=(main_w-overlay_w):y=(main_h-overlay_h)';
             }
