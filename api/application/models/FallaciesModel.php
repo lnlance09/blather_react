@@ -3,7 +3,7 @@
         public function __construct() {
             parent:: __construct();
 
-            $this->basePath = '/Applications/MAMP/htdocs/blather/api/';
+            $this->basePath = '/var/www/html/api/';
             $this->commentPath = $this->basePath.'public/img/comments/';
             $this->tweetPath = $this->basePath.'public/img/tweet_pics/';
             $this->s3Path = 'https://s3.amazonaws.com/blather22/';
