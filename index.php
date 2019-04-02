@@ -387,8 +387,8 @@
         </noscript>
         <div id="root"></div>
     </body>
-    <script src="/static/js/1.3395a2a7.chunk.js"></script>
-    <script src="/static/js/main.b6361a9c.chunk.js"></script>
+    <script src="/static/js/1.31d62795.chunk.js"></script>
+    <script src="/static/js/main.8faa896a.chunk.js"></script>
     <script src="/static/js/runtime~main.229c360f.js"></script>
 <?php
     if ($schema) {
