@@ -9,7 +9,7 @@ const fallacy = (state = initial(), action) => {
 			return {
 				...state,
 				creating: false,
-				exportVideoUrl: payload.video
+				s3Link: payload.video
 			}
 
 		case constants.GET_FALLACY:
