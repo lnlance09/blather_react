@@ -3,17 +3,7 @@ import { getFallacies, getTargets } from "./actions"
 import { adjustTimezone } from "utils/dateFunctions"
 import { formatPlural } from "utils/textFunctions"
 import { connect, Provider } from "react-redux"
-import {
-	Divider,
-	Dropdown,
-	Form,
-	Header,
-	Icon,
-	Item,
-	Message,
-	Segment,
-	Visibility
-} from "semantic-ui-react"
+import { Divider, Dropdown, Form, Icon, Item, Message, Visibility } from "semantic-ui-react"
 import FallacyRef from "components/fallacyRef/v1/"
 import LazyLoad from "components/lazyLoad/v1/"
 import Moment from "react-moment"
@@ -319,15 +309,7 @@ class FallaciesList extends Component {
 						</div>
 					) : (
 						<div className="emptyFallaciesContainer">
-							<Segment placeholder>
-								<Header icon>
-									<Icon
-										className={`${this.props.icon}Icon`}
-										name={this.props.icon}
-									/>
-									{this.props.emptyMsgContent}
-								</Header>
-							</Segment>
+							<Message>{this.props.emptyMsgContent}</Message>
 						</div>
 					)}
 				</div>

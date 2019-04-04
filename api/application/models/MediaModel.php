@@ -96,13 +96,11 @@
                 -loop 1 -framerate 25 -t 5 -i '.$img.' \
                 -f lavfi -t 1 -i anullsrc \
                 '.$this->createInputCommand($video).' \
-                -i '.$this->watermarkPath.' \
                 -filter_complex " \
                     [0:v]scale='.$width.':'.$height.',setsar='.$sar.'[pic]; \
                     [2:v][pic]scale2ref[video][pic]; \
                     [video]setsar='.$sar.'[video]; \
-                    [pic][1:a][video][2:a]concat=n=2:v=1:a=1[final_video]; \
-                    [final_video][3:v]overlay=x=(main_w-overlay_w):y=(main_h-overlay_h)
+                    [pic][1:a][video][2:a]concat=n=2:v=1:a=1
                 " \ '.$file;
             exec($command, $output);
             exec("sudo mv ' ".$file."' ".$path.$file);
@@ -125,8 +123,10 @@
             $path = $this->fallacyPath.$id.'/';
             $file = 'video_'.date('Y-m-d_H_i_s').'.mp4';
 
-            $source_one_is_img = $source_one['type'] == 'tweet' || $source_one['type'] == 'comment';
-            $source_two_is_img = $source_two['type'] == 'tweet' || $source_two['type'] == 'comment';
+            $src_one_type = $source_one['type'];
+            $src_two_type = $source_two['type'];
+            $source_one_is_img = $src_one_type == 'tweet' || $src_one_type == 'comment';
+            $source_two_is_img = $src_two_type == 'tweet' || $src_two_type == 'comment';
 
             $source_one_cmd = $this->createInputCommand($source_one);
             $source_two_cmd = $this->createInputCommand($source_two);
@@ -137,7 +137,6 @@
                 '.$source_one_cmd.' \
                 '.$time_pic_cmd.' \
                 '.$source_two_cmd.' \
-                -i '.$this->watermarkPath.' \
                 -filter_complex " ';
 
             if ($source_one_is_img && !$source_two_is_img) {
@@ -151,8 +150,7 @@
                             [pic_two]scale='.$src_two_width.':'.$src_two_height.',setsar='.$src_two_sar.'[pic_two]; \
                             [pic_two][4:v]scale2ref[pic_two][video]; \
                             [video]setsar='.$src_two_sar.'[video]; \
-                            [pic_one][1:a][pic_two][3:a][video][4:a]concat=n=3:v=1:a=1[final_video]; \
-                            [final_video][5:v]overlay=x=(main_w-overlay_w):y=(main_h-overlay_h)';
+                            [pic_one][1:a][pic_two][3:a][video][4:a]concat=n=3:v=1:a=1';
             }
 
             if (!$source_one_is_img && $source_two_is_img) {
@@ -166,8 +164,7 @@
                             [duration]setsar='.$src_one_sar.'[duration]; \
                             [3:v]scale='.$src_one_width.':'.$src_one_height.',setsar='.$src_one_sar.'[pic_one]; \
                             [duration][pic_one]scale2ref[duration][pic_one]; \
-                            [video][0:a][duration][2:a][pic_one][4:a]concat=n=3:v=1:a=1[final_video]; \
-                            [final_video][5:v]overlay=x=(main_w-overlay_w):y=(main_h-overlay_h)';
+                            [video][0:a][duration][2:a][pic_one][4:a]concat=n=3:v=1:a=1';
             }
 
             if (!$source_one_is_img && !$source_two_is_img) {
@@ -193,8 +190,7 @@
                             [1:v][video]scale2ref[logo][video]; \
                             [3:v]scale='.$width.':'.$height.',setdar='.$dar.',setsar='.$src_two_sar.'[video_two]; \
                             [logo][video_two]scale2ref[logo][video_two]; \
-                            [video][0:a][logo][2:a][video_two][3:a]concat=n=3:v=1:a=1[final_video]; \
-                            [final_video][4:v]overlay=x=(main_w-overlay_w):y=(main_h-overlay_h)';
+                            [video][0:a][logo][2:a][video_two][3:a]concat=n=3:v=1:a=1';
             }
 
             $command .= '" \ '.$file;

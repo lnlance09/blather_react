@@ -55,7 +55,9 @@ class Tweet extends Component {
 
 	render() {
 		const { animation, duration, visible } = this.state
+		const { highlight, retweeted_status } = this.props
 		const className = `tweet ${this.props.redirect ? " clickable" : ""}`
+
 		const ArchiveIcon = props => {
 			if (props.canArchive && !props.archive) {
 				return (
@@ -232,10 +234,8 @@ class Tweet extends Component {
 				</List>
 			)
 		}
-		const tweetText = Parser(
-			this.props.retweeted_status
-				? this.props.retweeted_status.full_text
-				: this.props.full_text
+		const TweetText = Parser(
+			retweeted_status ? retweeted_status.full_text : this.props.full_text
 		)
 		const LinkifiedTweet = (
 			<Linkify
@@ -244,9 +244,9 @@ class Tweet extends Component {
 				}}
 				sanitize
 			>
-				{this.props.highlight
-					? this.getHighlightedText(tweetText, this.props.highlightedText)
-					: tweetText}
+				{highlight
+					? this.getHighlightedText(TweetText, this.props.highlightedText)
+					: TweetText}
 			</Linkify>
 		)
 
@@ -276,13 +276,13 @@ class Tweet extends Component {
 							<Card.Content extra>
 								<StatsBar
 									favoriteCount={
-										this.props.retweeted_status
-											? this.props.retweeted_status.favorite_count
+										retweeted_status
+											? retweeted_status.favorite_count
 											: this.props.stats.favorite_count
 									}
 									retweetCount={
-										this.props.retweeted_status
-											? this.props.retweeted_status.retweet_count
+										retweeted_status
+											? retweeted_status.retweet_count
 											: this.props.stats.retweet_count
 									}
 								/>

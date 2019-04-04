@@ -37,6 +37,7 @@ import React, { Component } from "react"
 import ReactPlayer from "react-player"
 import store from "store"
 import TextTruncate from "react-text-truncate"
+import TimeField from "react-simple-timefield"
 
 class YouTubeVideo extends Component {
 	constructor(props) {
@@ -71,11 +72,11 @@ class YouTubeVideo extends Component {
 	changeArchiveDescription = (e, { value }) => {
 		this.props.updateArchiveDescription(value)
 	}
-	changeArchiveEndTime = (e, { value }) => {
-		this.props.updateArchiveEndTime(value)
+	changeArchiveEndTime = time => {
+		this.props.updateArchiveEndTime(time)
 	}
-	changeArchiveStartTime = (e, { value }) => {
-		this.props.updateArchiveStartTime(value)
+	changeArchiveStartTime = time => {
+		this.props.updateArchiveStartTime(time)
 	}
 	componentDidMount() {
 		this.setState({ archiveVisible: !this.props.archive })
@@ -140,22 +141,38 @@ class YouTubeVideo extends Component {
 					onSubmit={this.onSubmitArchive}
 				>
 					<Form.Group widths="equal">
-						<Form.Input
-							fluid
-							icon="hourglass start"
-							onChange={this.changeArchiveStartTime}
-							placeholder="Start time"
-							type="text"
-							value={props.archiveStartTime}
-						/>
-						<Form.Input
-							fluid
-							icon="hourglass end"
-							onChange={this.changeArchiveEndTime}
-							placeholder="End time"
-							type="text"
-							value={props.archiveEndTime}
-						/>
+						<Form.Field>
+							<TimeField
+								input={
+									<Form.Input
+										fluid
+										icon="hourglass end"
+										placeholder="Start time"
+										type="text"
+									/>
+								}
+								onChange={this.changeArchiveStartTime}
+								showSeconds
+								style={{ width: "100%", fontSize: 14 }}
+								value={props.archiveStartTime}
+							/>
+						</Form.Field>
+						<Form.Field>
+							<TimeField
+								input={
+									<Form.Input
+										fluid
+										icon="hourglass end"
+										placeholder="End time"
+										type="text"
+									/>
+								}
+								onChange={this.changeArchiveEndTime}
+								showSeconds
+								style={{ width: "100%", fontSize: 14 }}
+								value={props.archiveEndTime}
+							/>
+						</Form.Field>
 					</Form.Group>
 					<Form.TextArea
 						maxLength={250}
@@ -172,7 +189,7 @@ class YouTubeVideo extends Component {
 		)
 		const ArchivesList = props => {
 			const archives = activeItem === "All" ? props.archives : props.myArchives
-			if (!archives) {
+			if (!archives || archives === undefined) {
 				return null
 			}
 			return (
@@ -202,7 +219,10 @@ class YouTubeVideo extends Component {
 							<List className="archivesList" divided relaxed selection>
 								{archives.map((a, i) => {
 									return (
-										<List.Item key={`${a.start_time}_${a.end_time}`}>
+										<List.Item
+											key={`${a.start_time}_${a.end_time}`}
+											onClick={() => this.seekTo(a)}
+										>
 											{a.user_id === user.id && (
 												<List.Content floated="right">
 													<Icon
@@ -214,7 +234,7 @@ class YouTubeVideo extends Component {
 												</List.Content>
 											)}
 											<List.Content>
-												<List.Header onClick={() => this.seekTo(a)}>
+												<List.Header>
 													<span>
 														{formatDuration(a.start_time)} -{" "}
 														{formatDuration(a.end_time)}
@@ -359,6 +379,10 @@ class YouTubeVideo extends Component {
 											placeholder="Start time"
 											value={formatDuration(this.props.info.currentTime)}
 										/>
+										<TimeField
+											value={this.props.info.currentTime}
+											onChange={this.onTimeChange}
+										/>
 									</Grid.Column>
 									<Grid.Column width={8}>
 										<Input
@@ -438,9 +462,9 @@ YouTubeVideo.propTypes = {
 
 YouTubeVideo.defaultProps = {
 	archiveDescription: "",
-	archiveEndTime: "0:01",
+	archiveEndTime: "00:00:01",
 	archiveError: false,
-	archiveStartTime: "0:00",
+	archiveStartTime: "00:00:00",
 	canArchive: false,
 	channel: {},
 	clearContradiction,

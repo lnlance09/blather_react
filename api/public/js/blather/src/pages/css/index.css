@@ -232,10 +232,11 @@ a {
     padding: 0 14px; }
   .fallacyPage .ui.grid .materialWrapper {
     width: 100%; }
-  .fallacyPage .ui.grid .row {
-    padding: 0.5em; }
-    .fallacyPage .ui.grid .row:first-of-type {
-      padding-top: 0; }
+  .fallacyPage .ui.grid .row:first-of-type {
+    padding-top: 0; }
+  .fallacyPage .ui.grid .materialRow {
+    padding: 0 !important;
+    width: 100%; }
   .fallacyPage .ui.grid .divider.seperator {
     margin: 1rem 0; }
   .fallacyPage .ui.grid .statusActionSegment {
@@ -282,7 +283,9 @@ a {
   .fallacyPage .statusActionSegment .header {
     font-size: 14px !important; }
   .fallacyPage .statusActionSegment .twitterButton, .fallacyPage .statusActionSegment .youtubeButton {
-    font-size: 12px; } }
+    font-size: 12px; }
+  .fallacyPage .row {
+    padding-bottom: 0 !important; } }
 
 @media only screen and (max-width: 1025px) {
   .feedPage .grid {

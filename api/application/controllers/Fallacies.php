@@ -185,7 +185,13 @@
 				$duration
 			);
 
-			$s3Link = $this->media->addToS3('fallacy_videos/'.$video, '/var/www/html/api/public/videos/fallacies/'.$video);
+			$key = 'fallacy_videos/'.$video;
+			$s3Link = $this->media->addToS3($key, '/var/www/html/api/public/videos/fallacies/'.$video);
+
+			$this->fallacies->update($id, [
+				's3_link' => $key
+			]);
+
 
 			echo json_encode([
 				'error' => false,

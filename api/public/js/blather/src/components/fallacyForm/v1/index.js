@@ -19,6 +19,7 @@ import PropTypes from "prop-types"
 import React, { Component } from "react"
 import SearchForm from "components/search/v1/"
 import store from "store"
+import TimeField from "react-simple-timefield"
 import Tweet from "components/tweet/v1/"
 import YouTubeCommentsSection from "components/youTubeVideo/v1/comments"
 import YouTubeVideo from "components/youTubeVideo/v1/"
@@ -145,7 +146,7 @@ class FallacyForm extends Component {
 		}
 	}
 
-	onChangeEndTime = (e, { value }) => this.setState({ endTime: value })
+	onChangeEndTime = time => this.setState({ endTime: time })
 
 	onChangeExplanation = (e, { value }) => this.setState({ explanation: value })
 
@@ -154,7 +155,7 @@ class FallacyForm extends Component {
 		this.setState({ id: value })
 	}
 
-	onChangeStartTime = (e, { value }) => this.setState({ beginTime: value })
+	onChangeStartTime = time => this.setState({ beginTime: time })
 
 	onChangeTitle = (e, { value }) => this.setState({ title: value })
 
@@ -225,7 +226,7 @@ class FallacyForm extends Component {
 		}
 
 		let page = formPage
-		if (this.props.info.comment) {
+		if (this.props.info && this.props.info.comment) {
 			page = postPage
 		}
 		return page
@@ -395,20 +396,32 @@ class FallacyForm extends Component {
 				return (
 					<Form.Group widths="equal">
 						<Form.Field>
-							<Input
-								className={c ? "contradictionStartTime" : "startTime"}
-								icon="hourglass start"
+							<TimeField
+								input={
+									<Input
+										className={c ? "contradictionStartTime" : "startTime"}
+										icon="hourglass start"
+										placeholder="Start time"
+									/>
+								}
 								onChange={this.onChangeStartTime}
-								placeholder="Start time"
+								showSeconds
+								style={{ width: "100%", fontSize: 14 }}
 								value={beginTime}
 							/>
 						</Form.Field>
 						<Form.Field>
-							<Input
-								className={c ? "contradictionEndTime" : "endTime"}
-								icon="hourglass end"
+							<TimeField
+								input={
+									<Input
+										className={c ? "contradictionEndTime" : "endTime"}
+										icon="hourglass end"
+										placeholder="End time"
+									/>
+								}
 								onChange={this.onChangeEndTime}
-								placeholder="End time"
+								showSeconds
+								style={{ width: "100%", fontSize: 14 }}
 								value={endTime}
 							/>
 						</Form.Field>
