@@ -186,9 +186,9 @@
                     $height = $src_two_height;
                 }
 
-                $command .= '[0:v]scale='.$width.':'.$height.',setdar='.$dar.',setsar='.$src_one_sar.'[video]; \
+                $command .= '[0:v]scale='.$width.':'.$height.',setdar='.$dar.',setsar=1[video]; \
                             [1:v][video]scale2ref[logo][video]; \
-                            [3:v]scale='.$width.':'.$height.',setdar='.$dar.',setsar='.$src_two_sar.'[video_two]; \
+                            [3:v]scale='.$width.':'.$height.',setdar='.$dar.',setsar=1[video_two]; \
                             [logo][video_two]scale2ref[logo][video_two]; \
                             [video][0:a][logo][2:a][video_two][3:a]concat=n=3:v=1:a=1';
             }
