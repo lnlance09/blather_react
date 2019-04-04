@@ -400,7 +400,7 @@ class Post extends Component {
 		}
 		const pageInfo = user
 			? {
-					id: `${user.id}`,
+					id: `${network === "twitter" ? user.id_str : user.id}`,
 					name: network === "youtube" ? user.title : user.name,
 					type: network,
 					username: network === "youtube" ? null : user.screen_name
