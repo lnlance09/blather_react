@@ -275,12 +275,14 @@ class YouTubeVideo extends Component {
 								</Header.Subheader>
 							</Header.Content>
 						</Header>
-						<TextTruncate
-							className="videoDescription"
-							line={3}
-							text={props.description}
-							truncateText="..."
-						/>
+						{props.showDescription && (
+							<TextTruncate
+								className="videoDescription"
+								line={3}
+								text={props.description}
+								truncateText="..."
+							/>
+						)}
 					</Segment>
 				)
 			}
@@ -440,6 +442,7 @@ YouTubeVideo.propTypes = {
 	sendNotification: PropTypes.func,
 	setContradictionVideoTime: PropTypes.func,
 	setCurrentVideoTime: PropTypes.func,
+	showDescription: PropTypes.bool,
 	setDuration: PropTypes.func,
 	showChannel: PropTypes.bool,
 	showStats: PropTypes.bool,
@@ -478,6 +481,7 @@ YouTubeVideo.defaultProps = {
 	setContradictionVideoTime,
 	setCurrentVideoTime,
 	setDuration,
+	showDescription: false,
 	showChannel: true,
 	showStats: true,
 	showTimes: false,

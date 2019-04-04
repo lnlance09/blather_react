@@ -294,16 +294,25 @@ class Fallacy extends Component {
 				</Header>
 				{props.id && (
 					<div>
-						{props.exportVideoUrl ? (
+						{props.s3Link ? (
 							<div>
 								<Icon name="film" />
 								<a
-									href={props.exportVideoUrl}
+									href={props.s3Link}
 									rel="noopener noreferrer"
 									target="_blank"
 								>
 									Click here to download
 								</a>
+								<div>
+									<Divider />
+									<Embed
+										className="exportEmbed"
+										icon="right circle arrow"
+										placeholder={PlaceholderImg}
+										url={props.s3Link}
+									/>
+								</div>
 							</div>
 						) : (
 							<div>
@@ -361,18 +370,6 @@ class Fallacy extends Component {
 										onClick={this.captureScreenshot}
 									/>
 								) : null}
-								{props.s3Link && (
-									<div>
-										<Divider />
-										<Embed
-											aspectRatio="16:9"
-											className="exportEmbed"
-											icon="right circle arrow"
-											placeholder={PlaceholderImg}
-											url={props.s3Link}
-										/>
-									</div>
-								)}
 							</div>
 						)}
 					</div>
