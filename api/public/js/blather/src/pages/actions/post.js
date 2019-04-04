@@ -90,7 +90,8 @@ export const deleteArchive = ({ bearer, id }) => dispatch => {
 }
 
 export const downloadVideo = ({ audio, id }) => dispatch => {
-	request.post("https://media.blather.io/api/youtube/download",
+	request.post(
+		"https://media.blather.io/api/youtube/download",
 		{
 			form: {
 				audio,

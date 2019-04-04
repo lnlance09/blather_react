@@ -297,11 +297,7 @@ class Fallacy extends Component {
 						{props.s3Link ? (
 							<div>
 								<Icon name="film" />
-								<a
-									href={props.s3Link}
-									rel="noopener noreferrer"
-									target="_blank"
-								>
+								<a href={props.s3Link} rel="noopener noreferrer" target="_blank">
 									Click here to download
 								</a>
 								<div>
