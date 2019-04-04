@@ -16,6 +16,7 @@ import {
 	Button,
 	Container,
 	Divider,
+	Embed,
 	Form,
 	Grid,
 	Header,
@@ -36,6 +37,7 @@ import html2canvas from "html2canvas"
 import Moment from "react-moment"
 import PageFooter from "components/footer/v1/"
 import PageHeader from "components/header/v1/"
+import PlaceholderImg from "images/art/kiss.jpg"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import store from "store"
@@ -359,6 +361,18 @@ class Fallacy extends Component {
 										onClick={this.captureScreenshot}
 									/>
 								) : null}
+								{props.s3Link && (
+									<div>
+										<Divider />
+										<Embed
+											aspectRatio="16:9"
+											className="exportEmbed"
+											icon="right circle arrow"
+											placeholder={PlaceholderImg}
+											url={props.s3Link}
+										/>
+									</div>
+								)}
 							</div>
 						)}
 					</div>
@@ -433,6 +447,13 @@ class Fallacy extends Component {
 				/>
 			)
 		}
+		const MaterialRow = (
+			<div className="materialRow">
+				<Grid.Row>{ExportSection(this.props)}</Grid.Row>
+				<Divider className="seperator" />
+				<Grid.Row>{ContactUser(this.props)}</Grid.Row>
+			</div>
+		)
 		const ShowContent = props => {
 			switch (activeItem) {
 				case "material":
@@ -517,13 +538,7 @@ class Fallacy extends Component {
 									</Grid.Row>
 									<Grid.Row>{FallacyMenu(this.props)}</Grid.Row>
 									<Grid.Row>{ShowContent(this.props)}</Grid.Row>
-									{activeItem === "material" && (
-										<div>
-											<Grid.Row>{ExportSection(this.props)}</Grid.Row>
-											<Divider className="seperator" />
-											<Grid.Row>{ContactUser(this.props)}</Grid.Row>
-										</div>
-									)}
+									{activeItem === "material" && MaterialRow}
 									{activeItem === "material" && (
 										<Grid.Row>{ShowTags(this.props)}</Grid.Row>
 									)}
@@ -535,13 +550,7 @@ class Fallacy extends Component {
 								<Grid>
 									<Grid.Column className="leftSide" width={12}>
 										{ShowContent(this.props)}
-										{activeItem === "material" && (
-											<div>
-												<Grid.Row>{ExportSection(this.props)}</Grid.Row>
-												<Divider className="seperator" />
-												<Grid.Row>{ContactUser(this.props)}</Grid.Row>
-											</div>
-										)}
+										{activeItem === "material" && MaterialRow}
 									</Grid.Column>
 									<Grid.Column className="rightSide" width={4}>
 										{ShowTags(this.props)}
@@ -608,6 +617,7 @@ Fallacy.propTypes = {
 	}),
 	pageTitle: PropTypes.string,
 	refId: PropTypes.number,
+	s3Link: PropTypes.string,
 	status: PropTypes.number,
 	screenshotEl: PropTypes.string,
 	tag_ids: PropTypes.string,

@@ -419,6 +419,7 @@
                 fe.highlighted_text,
                 fe.media_id,
                 fe.network,
+                CONCAT('".$this->s3Path."', fe.s3_link) AS s3_link,
                 fe.start_time,
                 fe.status,
                 fe.title,
@@ -877,7 +878,7 @@
             ]);
         }
 
-        public function update($id, $data, $userId, $tags = null) {
+        public function update($id, $data, $userId = null, $tags = null) {
             $this->db->where('id', $id);
             $this->db->update('fallacy_entries', $data);
 

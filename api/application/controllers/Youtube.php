@@ -64,39 +64,38 @@
 			$user = $this->user;
 			$data = [];
 			$error = true;
-			if ($user) {
-				$archive = $this->users->alreadyArchived([
-					'end_time' => $end_time,
-					'object_id' => $id,
-					'start_time' => $start_time,
-					'user_id' => $user->id
+			$user_id = $user ? $user->id : 6;
+			$archive = $this->users->alreadyArchived([
+				'end_time' => $end_time,
+				'object_id' => $id,
+				'start_time' => $start_time,
+				'user_id' => $user_id
+			]);
+
+			if ($archive) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'You have already archived this time frame',
 				]);
-
-				if ($archive) {
-					$this->output->set_status_header(401);
-					echo json_encode([
-						'error' => 'You have already archived this time frame',
-					]);
-					exit;
-				}
-
-				$data = [
-					'code' => null,
-					'description' => $description,
-					'end_time' => $end_time,
-					'link' => 'https://www.youtube.com/watch?v='.$id,
-					'network' => 'youtube',
-					'object_id' => $id,
-					'page_id' => $video['data']['channel']['db_id'],
-					'start_time' => $start_time,
-					'type' => 'video',
-					'user_id' => $user->id
-				];
-				$archive = $this->users->createArchive($data);
-				$error = false;
-				$data['id'] = $this->users->alreadyArchived($data, true);
-				$data['img'] = $user->img;
+				exit;
 			}
+
+			$data = [
+				'code' => null,
+				'description' => $description,
+				'end_time' => $end_time,
+				'link' => 'https://www.youtube.com/watch?v='.$id,
+				'network' => 'youtube',
+				'object_id' => $id,
+				'page_id' => $video['data']['channel']['db_id'],
+				'start_time' => $start_time,
+				'type' => 'video',
+				'user_id' => $user_id
+			];
+			$archive = $this->users->createArchive($data);
+			$error = false;
+			$data['id'] = $this->users->alreadyArchived($data, true);
+
 			echo json_encode([
 				'archive' => $data,
 				'error' => $error

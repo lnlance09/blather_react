@@ -285,6 +285,7 @@ const fallacy = (state = initial(), action) => {
 				originalPayload,
 				pageTitle,
 				refId,
+				s3Link: fallacy.s3_link,
 				screenshotEl,
 				status: parseInt(fallacy.status, 10),
 				similarCount,

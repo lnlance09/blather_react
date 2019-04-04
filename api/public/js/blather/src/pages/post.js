@@ -449,6 +449,7 @@ Post.propTypes = {
 	existsOnYt: PropTypes.bool,
 	info: PropTypes.object,
 	fallacyCount: PropTypes.number,
+	myArchives: PropTypes.array,
 	needToRefresh: PropTypes.bool,
 	profileImg: PropTypes.string,
 	refreshYouTubeToken: PropTypes.func,
@@ -461,6 +462,7 @@ Post.defaultProps = {
 	data: null,
 	downloadVideo,
 	existsOnYt: true,
+	myArchives: [],
 	needToRefresh: false,
 	refreshYouTubeToken
 }

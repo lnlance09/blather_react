@@ -1,6 +1,8 @@
 import * as constants from "../constants"
 
-const initial = () => ({})
+const initial = () => ({
+	myArchives: []
+})
 
 const post = (state = initial(), action) => {
 	const payload = action.payload
@@ -132,7 +134,7 @@ const post = (state = initial(), action) => {
 			}
 
 			return {
-				...state.post,
+				...state,
 				archive: payload.archive,
 				archives: payload.archives,
 				error: payload.error,

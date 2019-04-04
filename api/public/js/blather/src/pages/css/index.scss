@@ -400,11 +400,14 @@ a {
         }
 
         .row {
-            padding: 0.5em;
-
             &:first-of-type {
                 padding-top: 0;
             }
+        }
+
+        .materialRow {
+            padding: 0 !important;
+            width: 100%;
         }
 
         .divider.seperator {
@@ -481,6 +484,10 @@ a {
             .twitterButton, .youtubeButton {
                 font-size: 12px;
             }
+        }
+
+        .row {
+            padding-bottom: 0 !important;
         }
     }
 }

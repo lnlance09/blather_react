@@ -1,9 +1,8 @@
 import "./style.css"
 import { editExplanation, updateFallacy } from "pages/actions/fallacy"
-import { dateDifference } from "utils/dateFunctions"
+import { dateDifference, formatTime } from "utils/dateFunctions"
 import { fallacyDropdownOptions } from "utils/fallacyFunctions"
-import { sanitizeText } from "utils/textFunctions"
-import { convertTimeToSeconds, formatDuration } from "utils/textFunctions"
+import { convertTimeToSeconds, formatDuration, sanitizeText } from "utils/textFunctions"
 import { connect } from "react-redux"
 import {
 	Button,
@@ -25,6 +24,7 @@ import LazyLoad from "components/lazyLoad/v1/"
 import Marked from "marked"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
+import TimeField from "react-simple-timefield"
 import Tweet from "components/tweet/v1/"
 import YouTubeCommentsSection from "components/youTubeVideo/v1/comments"
 import YouTubeVideo from "components/youTubeVideo/v1/"
@@ -56,25 +56,25 @@ class FallacyExample extends Component {
 
 	componentWillReceiveProps(newProps) {
 		this.setState({
-			endTime: newProps.endTime > 0 ? formatDuration(newProps.endTime) : "",
-			startTime: newProps.startTime > 0 ? formatDuration(newProps.startTime) : ""
+			endTime: newProps.endTime > 0 ? formatTime(newProps.endTime) : "",
+			startTime: newProps.startTime > 0 ? formatTime(newProps.startTime) : ""
 		})
 
 		if (newProps.contradiction && newProps.contradiction.video) {
 			const endTime = newProps.contradiction.video.endTime
 			const startTime = newProps.contradiction.video.startTime
 			this.setState({
-				contradictionEndTime: endTime > 0 ? formatDuration(endTime) : "",
-				contradictionStartTime: startTime > 0 ? formatDuration(startTime) : ""
+				contradictionEndTime: endTime > 0 ? formatTime(endTime) : "",
+				contradictionStartTime: startTime > 0 ? formatTime(startTime) : ""
 			})
 		}
 	}
 
-	onChangeEndTime = (e, { name, value }) => {
-		if (name === "contradictionEndTime") {
-			this.setState({ contradictionEndTime: value })
+	onChangeEndTime = (time, contradiction) => {
+		if (contradiction) {
+			this.setState({ contradictionEndTime: time })
 		} else {
-			this.setState({ endTime: value })
+			this.setState({ endTime: time })
 		}
 	}
 
@@ -92,11 +92,11 @@ class FallacyExample extends Component {
 		})
 	}
 
-	onChangeStartTime = (e, { name, value }) => {
-		if (name === "contradictionStartTime") {
-			this.setState({ contradictionStartTime: value })
+	onChangeStartTime = (time, contradiction) => {
+		if (contradiction) {
+			this.setState({ contradictionStartTime: time })
 		} else {
-			this.setState({ startTime: value })
+			this.setState({ startTime: time })
 		}
 	}
 
@@ -181,33 +181,44 @@ class FallacyExample extends Component {
 			const open = contradiction ? editingContradictionTimes : editingTimes
 			return (
 				<Form
-					className="editTimesForm segment"
-					error={false}
+					className="editTimesForm"
 					name={contradiction ? "contradictionTimeForm" : "timeForm"}
 					onSubmit={this.updateTimes}
 				>
 					<Form.Group widths="equal">
 						<Form.Field>
-							<Input
-								className={startName}
-								icon="hourglass start"
-								name={startName}
-								onChange={this.onChangeStartTime}
-								onClick={() => this.setEditMode(contradiction)}
-								placeholder="Start time"
-								readOnly={!open}
+							<TimeField
+								input={
+									<Input
+										className={startName}
+										icon="hourglass start"
+										name={startName}
+										onClick={() => this.setEditMode(contradiction)}
+										placeholder="Start time"
+										readOnly={!open}
+									/>
+								}
+								onChange={time => this.onChangeStartTime(time, contradiction)}
+								showSeconds
+								style={{ width: "100%", fontSize: 14 }}
 								value={contradiction ? contradictionStartTime : startTime}
 							/>
 						</Form.Field>
 						<Form.Field>
-							<Input
-								className={endName}
-								icon="hourglass end"
-								name={endName}
-								onChange={this.onChangeEndTime}
-								onClick={() => this.setEditMode(contradiction)}
-								placeholder="End time"
-								readOnly={!open}
+							<TimeField
+								input={
+									<Input
+										className={endName}
+										icon="hourglass end"
+										name={startName}
+										onClick={() => this.setEditMode(contradiction)}
+										placeholder="Start time"
+										readOnly={!open}
+									/>
+								}
+								onChange={time => this.onChangeEndTime(time, contradiction)}
+								showSeconds
+								style={{ width: "100%", fontSize: 14 }}
 								value={contradiction ? contradictionEndTime : endTime}
 							/>
 						</Form.Field>
@@ -279,7 +290,7 @@ class FallacyExample extends Component {
 								)}
 							</div>
 						) : (
-							<LazyLoad header={false} />
+							<LazyLoad />
 						)}
 					</Segment>
 				)
@@ -468,7 +479,7 @@ class FallacyExample extends Component {
 		)
 
 		return (
-			<Segment className="fallacyExample" id="fallacyExample" stacked>
+			<Segment className="fallacyExample" id="fallacyExample">
 				{Explanation(this.props)}
 				{Material(this.props)}
 			</Segment>
