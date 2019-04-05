@@ -108,7 +108,7 @@
 			}
 			
 			$this->db->select($select);
-			if (!$post) {
+			if (!$just_count && !$post) {
 				$this->db->join('twitter_posts t', "a.object_id = t.tweet_id AND network = 'twitter'", 'left');
 				$this->db->join('youtube_videos ytv', "a.object_id = ytv.video_id AND network = 'youtube'", 'left');
 				$this->db->join('youtube_comments ytc', "a.object_id = ytc.comment_id AND network = 'youtube'", 'left');

@@ -200,7 +200,7 @@
 
 			$count = 0;
 			if (!$unique) {
-				$count = $this->users->getArchivedLinks($where, $unique, 0, true);
+				$count = $this->users->getArchivedLinks($where, false, 0, true);
 			}
 
 			$links = $this->users->getArchivedLinks($where, $unique, $page);

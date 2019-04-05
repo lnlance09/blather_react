@@ -84,25 +84,25 @@ class UserPage extends Component {
 				bearer: this.state.bearer,
 				username: username
 			})
-		}
 
-		const isMyProfile = username === this.state.myUsername
-		let tab = newProps.match.params.tab
-		if (!this.state.tabs.includes(tab)) {
-			tab = "fallacies"
-		}
+			const isMyProfile = username === this.state.myUsername
+			let tab = newProps.match.params.tab
+			if (!this.state.tabs.includes(tab)) {
+				tab = "fallacies"
+			}
 
-		this.setState({
-			activeItem: tab,
-			isMyProfile,
-			tab,
-			username
-		})
+			this.setState({
+				activeItem: tab,
+				isMyProfile,
+				tab,
+				username
+			})
 
-		if (isMyProfile) {
-			const currentState = store.getState()
-			const user = currentState.user
-			this.setState({ about: user.data.bio })
+			if (isMyProfile) {
+				const currentState = store.getState()
+				const user = currentState.user
+				this.setState({ about: user.data.bio })
+			}
 		}
 	}
 

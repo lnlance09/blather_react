@@ -25,7 +25,7 @@ class FallaciesList extends Component {
 			objectId: null,
 			options: [],
 			q: "",
-			page: 0,
+			page: this.props.page,
 			showFilter: this.props.source !== "fallacy",
 			showTargets: false,
 			value: this.props.fallacies ? this.props.fallacies : ""
@@ -46,7 +46,7 @@ class FallaciesList extends Component {
 			fallacyId: this.props.fallacyId,
 			network: this.props.network,
 			objectId: this.props.objectId,
-			page: 0
+			page: this.state.page
 		})
 		if (this.props.source === "users") {
 			this.props.getTargets({ id: this.props.assignedBy })
