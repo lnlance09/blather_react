@@ -244,7 +244,7 @@ class FallacyForm extends Component {
 		const { beginTime, endTime, explanation, highlightedText, id, title, url } = this.state
 		const { bearer, fallacy, info } = this.props
 		let type = this.props.type
-		if (type === "video" && info.comment) {
+		if (type === "video" && info !== undefined && info.comment) {
 			type = "comment"
 		}
 		const page = this.whichPage()
