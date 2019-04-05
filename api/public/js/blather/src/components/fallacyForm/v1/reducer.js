@@ -105,6 +105,18 @@ const fallacyForm = (state = initial(), action) => {
 				pageInfo: action.payload.page
 			}
 
+		case constants.SET_CONTRADICTION_BEGIN_TIME:
+			return {
+				...state,
+				fallacy: {
+					...state.fallacy,
+					contradiction: {
+						...state.fallacy.contradiction,
+						startTime: action.payload.value.value
+					}
+				}
+			}
+
 		case constants.SET_CONTRADICTION_END_TIME:
 			return {
 				...state,

@@ -425,6 +425,7 @@ Tweet.defaultProps = {
 		media: []
 	},
 	externalLink: false,
+	full_text: "",
 	highlight: false,
 	imageSize: "tiny",
 	quoted_status: {

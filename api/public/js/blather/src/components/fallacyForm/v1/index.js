@@ -4,6 +4,7 @@ import {
 	clearContradiction,
 	parseContradiction,
 	selectAssignee,
+	setContradictionBeginTime,
 	setContradictionEndTime,
 	setContradictionHighlight,
 	toggleModal
@@ -30,6 +31,8 @@ class FallacyForm extends Component {
 		this.state = {
 			beginTime: "0:00",
 			changed: false,
+			contradictionBeginTime: "0:00",
+			contradictionEndTime: "0:00",
 			endTime: "",
 			explanation: "",
 			formVisible: false,
@@ -40,6 +43,7 @@ class FallacyForm extends Component {
 			visible: true
 		}
 
+		this.changeContradictionBeginTime = this.changeContradictionBeginTime.bind(this)
 		this.changeContradictionEndTime = this.changeContradictionEndTime.bind(this)
 		this.closeModal = this.closeModal.bind(this)
 		this.handleHoverOn = this.handleHoverOn.bind(this)
@@ -54,8 +58,12 @@ class FallacyForm extends Component {
 		this.onSubmitForm = this.onSubmitForm.bind(this)
 	}
 
-	changeContradictionEndTime = (e, { value }) => {
-		this.props.setContradictionEndTime({ value: convertTimeToSeconds(value) })
+	changeContradictionBeginTime = time => {
+		this.props.setContradictionBeginTime({ value: time })
+	}
+
+	changeContradictionEndTime = time => {
+		this.props.setContradictionEndTime({ value: time })
 	}
 
 	closeModal = () => {
@@ -360,9 +368,11 @@ class FallacyForm extends Component {
 						<YouTubeVideo
 							bearer={props.bearer}
 							changeEndTime={this.changeContradictionEndTime}
+							changeStartTime={this.changeContradictionBeginTime}
 							channel={video.channel}
 							contradiction
 							dateCreated={video.date_created}
+							endTime={c.endTime}
 							id={c.mediaId}
 							placeholder={video.img}
 							publishedAt={video.date_created}
@@ -431,56 +441,59 @@ class FallacyForm extends Component {
 			return null
 		}
 		const SuccessModal = props => {
-			const assigneeLink = page.type === "youtube" ? page.id : page.username
-			return (
-				<Modal
-					centered={false}
-					className="successModal"
-					inverted="true"
-					onClose={this.closeModal}
-					open={props.modalOpen}
-					size="small"
-				>
-					<Modal.Header>
-						<Icon color="green" name="check" /> Your fallacy has been assigned
-					</Modal.Header>
-					<Modal.Content>
-						<p>
-							<a
-								href={`/pages/${page.type}/${assigneeLink}`}
-								onClick={() => {
-									props.clearContradiction()
-									props.history.push(`/pages/${page.type}/${assigneeLink}`)
-								}}
-							>
-								{page.name}
-							</a>{" "}
-							will have the opportunity to respond to this accusation of fallacious
-							reasoning and counter your claim.
-						</p>
-						<div className="modalBtnWrapper">
-							<Button.Group>
-								<Button
-									color="blue"
-									content="View this fallacy"
+			if (page !== null) {
+				const assigneeLink = page.type === "youtube" ? page.id : page.username
+				return (
+					<Modal
+						centered={false}
+						className="successModal"
+						inverted="true"
+						onClose={this.closeModal}
+						open={props.modalOpen}
+						size="small"
+					>
+						<Modal.Header>
+							<Icon color="green" name="check" /> Your fallacy has been assigned
+						</Modal.Header>
+						<Modal.Content>
+							<p>
+								<a
+									href={`/pages/${page.type}/${assigneeLink}`}
 									onClick={() => {
-										props.toggleModal()
 										props.clearContradiction()
-										props.history.push(`/fallacies/${props.fallacy.id}`)
+										props.history.push(`/pages/${page.type}/${assigneeLink}`)
 									}}
-								/>
-								<Button.Or />
-								<Button
-									color="red"
-									content="Assign another one"
-									onClick={this.closeModal}
-									positive
-								/>
-							</Button.Group>
-						</div>
-					</Modal.Content>
-				</Modal>
-			)
+								>
+									{page.name}
+								</a>{" "}
+								will have the opportunity to respond to this accusation of fallacious
+								reasoning and counter your claim.
+							</p>
+							<div className="modalBtnWrapper">
+								<Button.Group>
+									<Button
+										color="blue"
+										content="View this fallacy"
+										onClick={() => {
+											props.toggleModal()
+											props.clearContradiction()
+											props.history.push(`/fallacies/${props.fallacy.id}`)
+										}}
+									/>
+									<Button.Or />
+									<Button
+										color="red"
+										content="Assign another one"
+										onClick={this.closeModal}
+										positive
+									/>
+								</Button.Group>
+							</div>
+						</Modal.Content>
+					</Modal>
+				)
+			}
+			return null
 		}
 
 		return (
@@ -608,6 +621,7 @@ FallacyForm.propTypes = {
 	}),
 	parseContradiction: PropTypes.func,
 	sendNotification: PropTypes.func,
+	setContradictionBeginTime: PropTypes.func,
 	setContradictionEndTime: PropTypes.func,
 	setContradictionHighlight: PropTypes.func,
 	toggleModal: PropTypes.func
@@ -624,6 +638,7 @@ FallacyForm.defaultProps = {
 	},
 	handleSubmit: () => null,
 	modalOpen: false,
+	setContradictionBeginTime,
 	setContradictionEndTime,
 	setContradictionHighlight,
 	toggleModal
@@ -643,6 +658,7 @@ export default connect(
 		parseContradiction,
 		refreshYouTubeToken,
 		selectAssignee,
+		setContradictionBeginTime,
 		setContradictionEndTime,
 		setContradictionHighlight,
 		toggleModal

@@ -124,12 +124,12 @@ class Post extends Component {
 			if (props.info) {
 				switch (type) {
 					case "comment":
-						if (props.info.comment.user) {
+						if (props.info.comment !== undefined && props.info.comment.user) {
 							return (
 								<Breadcrumb>
 									<Breadcrumb.Section
 										link
-										onClick={() => this.props.history.push("/search/youtube")}
+										onClick={() => props.history.push("/search/youtube")}
 									>
 										YouTube comments
 									</Breadcrumb.Section>
@@ -137,7 +137,7 @@ class Post extends Component {
 									<Breadcrumb.Section
 										link
 										onClick={() =>
-											this.props.history.push(
+											props.history.push(
 												`/pages/youtube/${props.info.comment.user.id}`
 											)
 										}
@@ -158,7 +158,7 @@ class Post extends Component {
 								<Breadcrumb>
 									<Breadcrumb.Section
 										link
-										onClick={() => this.props.history.push("/search/twitter")}
+										onClick={() => props.history.push("/search/twitter")}
 									>
 										Twitter profiles
 									</Breadcrumb.Section>
@@ -166,7 +166,7 @@ class Post extends Component {
 									<Breadcrumb.Section
 										link
 										onClick={() =>
-											this.props.history.push(
+											props.history.push(
 												`/pages/twitter/${props.info.user.screen_name}`
 											)
 										}
@@ -177,7 +177,7 @@ class Post extends Component {
 									<Breadcrumb.Section
 										link
 										onClick={() =>
-											this.props.history.push(
+											props.history.push(
 												`/pages/twitter/${
 													props.info.user.screen_name
 												}/tweets`
@@ -198,7 +198,7 @@ class Post extends Component {
 								<Breadcrumb>
 									<Breadcrumb.Section
 										link
-										onClick={() => this.props.history.push("/search/youtube")}
+										onClick={() => props.history.push("/search/youtube")}
 									>
 										YouTube channels
 									</Breadcrumb.Section>
@@ -206,7 +206,7 @@ class Post extends Component {
 									<Breadcrumb.Section
 										link
 										onClick={() =>
-											this.props.history.push(
+											props.history.push(
 												`/pages/youtube/${props.info.channel.id}`
 											)
 										}
@@ -217,7 +217,7 @@ class Post extends Component {
 									<Breadcrumb.Section
 										link
 										onClick={() =>
-											this.props.history.push(
+											props.history.push(
 												`/pages/youtube/${props.info.channel.id}/videos`
 											)
 										}
