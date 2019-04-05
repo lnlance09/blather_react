@@ -17,11 +17,11 @@ class ArchivesList extends Component {
 			id: null,
 			loadingMore: false,
 			options: [],
-			page: 0
+			page: this.props.page
 		}
 	}
 
-	componentDidMount() {
+	componentWillMount() {
 		this.getArchivedUsers()
 		this.props.getArchives({
 			id: this.props.id,
