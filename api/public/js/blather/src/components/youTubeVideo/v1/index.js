@@ -17,7 +17,6 @@ import {
 	Button,
 	Divider,
 	Form,
-	Grid,
 	Header,
 	Icon,
 	Image,

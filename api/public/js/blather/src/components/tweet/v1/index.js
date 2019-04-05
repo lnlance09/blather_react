@@ -244,11 +244,9 @@ class Tweet extends Component {
 				}}
 				sanitize
 			>
-				{highlight && this.props.id ? (
-					this.getHighlightedText(TweetText, this.props.highlightedText)
-				) : (
-					TweetText
-				)}
+				{highlight && this.props.id
+					? this.getHighlightedText(TweetText, this.props.highlightedText)
+					: TweetText}
 			</Linkify>
 		)
 
