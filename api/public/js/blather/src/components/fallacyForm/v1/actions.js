@@ -93,6 +93,15 @@ export const selectAssignee = ({ id, name, type, username }) => dispatch => {
 	})
 }
 
+export const setContradictionBeginTime = value => dispatch => {
+	dispatch({
+		type: constants.SET_CONTRADICTION_BEGIN_TIME,
+		payload: {
+			value
+		}
+	})
+}
+
 export const setContradictionEndTime = value => dispatch => {
 	dispatch({
 		type: constants.SET_CONTRADICTION_END_TIME,

@@ -374,27 +374,36 @@ class YouTubeVideo extends Component {
 							)}
 
 							{this.props.showTimes && (
-								<Grid className="editVideoTimes">
-									<Grid.Column width={8}>
-										<Input
-											icon="hourglass start"
-											placeholder="Start time"
-											value={formatDuration(this.props.info.currentTime)}
-										/>
+								<Form.Group className="editVideoTimes" widths="equal">
+									<Form.Field>
 										<TimeField
-											value={this.props.info.currentTime}
-											onChange={this.onTimeChange}
+											input={
+												<Input
+													icon="hourglass start"
+													placeholder="Start time"
+												/>
+											}
+											onChange={this.props.changeStartTime}
+											showSeconds
+											style={{ width: "100%", fontSize: 14 }}
+											value={formatDuration(this.props.startTime)}
 										/>
-									</Grid.Column>
-									<Grid.Column width={8}>
-										<Input
-											icon="hourglass end"
+									</Form.Field>
+									<Form.Field>
+										<TimeField
+											input={
+												<Input
+													icon="hourglass end"
+													placeholder="End time"
+												/>
+											}
 											onChange={this.props.changeEndTime}
-											placeholder="End time"
-											value={this.props.endTime}
+											showSeconds
+											style={{ width: "100%", fontSize: 14 }}
+											value={formatDuration(this.props.endTime)}
 										/>
-									</Grid.Column>
-								</Grid>
+									</Form.Field>
+								</Form.Group>
 							)}
 
 							{this.props.showStats && (
@@ -425,6 +434,7 @@ YouTubeVideo.propTypes = {
 		title: PropTypes.string
 	}),
 	changeEndTime: PropTypes.func,
+	changeStartTime: PropTypes.func,
 	clearContradiction: PropTypes.func,
 	contradiction: PropTypes.bool,
 	createVideoArchive: PropTypes.func,
@@ -467,6 +477,7 @@ YouTubeVideo.defaultProps = {
 	archiveDescription: "",
 	archiveEndTime: "00:00:01",
 	archiveError: false,
+	archives: [],
 	archiveStartTime: "00:00:00",
 	canArchive: false,
 	channel: {},
@@ -476,6 +487,7 @@ YouTubeVideo.defaultProps = {
 	deleteArchive,
 	existsOnYt: true,
 	getVideoArchives,
+	myArchives: [],
 	playing: false,
 	s3Link: null,
 	setContradictionVideoTime,

@@ -28,14 +28,17 @@
             $decode = @json_decode($contradiction, true);
             $commentId = array_key_exists('commentId', $decode) ? $decode['commentId'] : null;
             $highlightedText = array_key_exists('highlightedText', $decode) ? $decode['highlightedText'] : null;
-            $startTime = array_key_exists('currentTime', $decode['data']) ? $decode['data']['currentTime'] : null;
+            $startTime = array_key_exists('startTime', $decode) ? $decode['startTime'] : null;
             $endTime = array_key_exists('endTime', $decode) ? $decode['endTime'] : null;
+            $startTime = timeToSecs($startTime);
+            $endTime = timeToSecs($endTime);
             $mediaId = $decode['mediaId'];
             $network = $decode['network'];
             $pageId = $decode['pageId'];
 
+
             $exists = $this->contradictionExists($id);
-            if($exists) {
+            if ($exists) {
                 $this->db->where('id', $id);
                 $this->db->update('contradictions', [
                     'comment_id' => $commentId,
