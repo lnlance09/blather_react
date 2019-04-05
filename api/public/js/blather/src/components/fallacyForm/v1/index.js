@@ -466,8 +466,8 @@ class FallacyForm extends Component {
 								>
 									{page.name}
 								</a>{" "}
-								will have the opportunity to respond to this accusation of fallacious
-								reasoning and counter your claim.
+								will have the opportunity to respond to this accusation of
+								fallacious reasoning and counter your claim.
 							</p>
 							<div className="modalBtnWrapper">
 								<Button.Group>
