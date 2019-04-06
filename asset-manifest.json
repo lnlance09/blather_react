@@ -1,9 +1,9 @@
 {
-  "main.css": "/static/css/main.b73be3a9.chunk.css",
-  "main.js": "/static/js/main.37d785b7.chunk.js",
-  "main.js.map": "/static/js/main.37d785b7.chunk.js.map",
-  "static/js/1.98dc07ec.chunk.js": "/static/js/1.98dc07ec.chunk.js",
-  "static/js/1.98dc07ec.chunk.js.map": "/static/js/1.98dc07ec.chunk.js.map",
+  "main.css": "/static/css/main.70290063.chunk.css",
+  "main.js": "/static/js/main.72749a67.chunk.js",
+  "main.js.map": "/static/js/main.72749a67.chunk.js.map",
+  "static/js/1.bc03d39a.chunk.js": "/static/js/1.bc03d39a.chunk.js",
+  "static/js/1.bc03d39a.chunk.js.map": "/static/js/1.bc03d39a.chunk.js.map",
   "runtime~main.js": "/static/js/runtime~main.229c360f.js",
   "runtime~main.js.map": "/static/js/runtime~main.229c360f.js.map",
   "static/media/trump-white.png": "/static/media/trump-white.b65f57d1.png",
@@ -11,10 +11,10 @@
   "static/media/trump.svg": "/static/media/trump.d6fed37c.svg",
   "static/media/sound.mp3": "/static/media/sound.ec792557.mp3",
   "static/media/sound.ogg": "/static/media/sound.b8da6d65.ogg",
-  "static/media/kiss.jpg": "/static/media/kiss.3109edfb.jpg",
+  "static/media/blue.jpg": "/static/media/blue.e4627444.jpg",
   "static/media/semantic.min.css": "/static/media/brand-icons.a1a749e8.svg",
-  "static/css/main.b73be3a9.chunk.css.map": "/static/css/main.b73be3a9.chunk.css.map",
+  "static/css/main.70290063.chunk.css.map": "/static/css/main.70290063.chunk.css.map",
   "index.html": "/index.html",
-  "precache-manifest.d3acc8b97793c6ba299ed8ac8e2a6b29.js": "/precache-manifest.d3acc8b97793c6ba299ed8ac8e2a6b29.js",
+  "precache-manifest.02492cfc2c338f6abcf1db4e77c157a1.js": "/precache-manifest.02492cfc2c338f6abcf1db4e77c157a1.js",
   "service-worker.js": "/service-worker.js"
 }
