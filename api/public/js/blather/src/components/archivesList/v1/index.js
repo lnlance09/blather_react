@@ -63,12 +63,14 @@ class ArchivesList extends Component {
 			this.setState({
 				loadingMore: true,
 				page: newPage,
-				pageId: this.state.value
+				pageId: this.state.value,
+				q: this.state.q
 			})
 			this.props.getArchives({
 				id: this.props.id,
 				page: newPage,
-				pageId: this.state.value
+				pageId: this.state.value,
+				q: this.state.q
 			})
 		}
 	}
