@@ -101,13 +101,13 @@ class Tweet extends Component {
 			let name = props.user.name
 			let screenName = props.user.screen_name
 			let createdAt = new Date(props.created_at)
-			if (props.retweeted_status) {
-				createdAt = new Date(props.retweeted_status.created_at)
-				name = props.retweeted_status.user.name
+			if (retweeted_status) {
+				createdAt = new Date(retweeted_status.created_at)
+				name = retweeted_status.user.name
 				profileImg = props.useLocalProfilePic
 					? props.profileImg
-					: props.retweeted_status.user.profile_image_url_https
-				screenName = props.retweeted_status.user.screen_name
+					: retweeted_status.user.profile_image_url_https
+				screenName = retweeted_status.user.screen_name
 			}
 
 			return (
@@ -117,7 +117,7 @@ class Tweet extends Component {
 						className="tweetUserImg"
 						onError={i => (i.target.src = ItemPic)}
 						floated="left"
-						src={profileImg.replace("_normal", "")}
+						src={profileImg === undefined ? null : profileImg.replace("_normal", "")}
 					/>
 					<Card.Header className="tweetUserName">{name}</Card.Header>
 					<Card.Meta className="tweetUserScreenName">
