@@ -1,5 +1,5 @@
 import { adjustTimezone } from "utils/dateFunctions"
-import { formatNumber } from "utils/textFunctions"
+import { formatNumber, getHighlightedText } from "utils/textFunctions"
 import {
 	createCommentArchive,
 	fetchVideoComments,
@@ -79,17 +79,6 @@ class YouTubeCommentsSection extends Component {
 			})
 			this.loadMore = _.debounce(this.loadMore.bind(this), 200)
 		}
-	}
-
-	getHighlightedText = (text, higlight) => {
-		const parts = text.split(new RegExp(`(${higlight.replace(/[()]/g, "")})`, "gi"))
-		return parts.map(part =>
-			part.toLowerCase() === higlight.toLowerCase() ? (
-				<b key={`highlighted${part}`}>{part}</b>
-			) : (
-				part
-			)
-		)
 	}
 
 	loadMore = () => {
@@ -301,7 +290,7 @@ class YouTubeCommentsSection extends Component {
 								}}
 							>
 								{this.props.highlightedText
-									? this.getHighlightedText(
+									? getHighlightedText(
 											snippet.textOriginal,
 											this.props.highlightedText
 									  )
@@ -375,7 +364,7 @@ class YouTubeCommentsSection extends Component {
 							}}
 						>
 							{this.props.highlightedText
-								? this.getHighlightedText(
+								? getHighlightedText(
 										content.textOriginal,
 										this.props.highlightedText
 								  )
@@ -433,10 +422,7 @@ class YouTubeCommentsSection extends Component {
 						</Comment.Metadata>
 						<Comment.Text onMouseUp={() => props.handleHoverOn()}>
 							{props.highlightedText
-								? this.getHighlightedText(
-										props.comment.message,
-										props.highlightedText
-								  )
+								? getHighlightedText(props.comment.message, props.highlightedText)
 								: props.comment.message}
 						</Comment.Text>
 						<Comment.Actions>

@@ -63,6 +63,14 @@
 
         .description {
             white-space: pre-line;
+
+            span {
+                color: $black;
+
+                b {
+                    background: $higlighterYellow;
+                }
+            }
         }
     }
 

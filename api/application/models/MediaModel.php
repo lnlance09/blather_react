@@ -158,6 +158,7 @@
                 $src_one_width = $src_one_video_info['width'];
                 $src_one_height = $src_one_video_info['height'];
                 $src_one_sar = $src_one_video_info['sar'];
+                $src_two_sar = $src_two_video_info['sar'];
 
                 $command .= '[1:v][0:v]scale2ref[duration][video]; \
                             [video]setsar='.$src_one_sar.'[video]; \
@@ -178,7 +179,6 @@
                 $src_two_width = $src_two_video_info['width'];
                 $src_two_sar = $src_two_video_info['sar'];
 
-                $dar = '16/9';
                 $width = $src_one_height;
                 $height = $src_one_height;
                 if ($src_two_width > $src_one_width) {
@@ -186,9 +186,15 @@
                     $height = $src_two_height;
                 }
 
-                $command .= '[0:v]scale='.$width.':'.$height.',setdar='.$dar.'[video]; \
+                $dar = '16/9';
+                $sar = $src_two_sar;
+                if ($src_one_sar > $src_two_sar) {
+                    $sar = $src_one_sar;
+                }
+
+                $command .= '[0:v]scale='.$width.':'.$height.',setdar='.$dar.',setsar='.$sar.'[video]; \
                             [1:v][video]scale2ref[logo][video]; \
-                            [3:v]scale='.$width.':'.$height.',setdar='.$dar.'[video_two]; \
+                            [3:v]scale='.$width.':'.$height.',setdar='.$dar.',setsar='.$sar.'[video_two]; \
                             [logo][video_two]scale2ref[logo][video_two]; \
                             [video][0:a][logo][2:a][video_two][3:a]concat=n=3:v=1:a=1';
             }

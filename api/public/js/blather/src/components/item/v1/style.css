@@ -38,6 +38,10 @@
         color: #FBBD08; }
   .resultItem .content .description {
     white-space: pre-line; }
+    .resultItem .content .description span {
+      color: #1B1C1D; }
+      .resultItem .content .description span b {
+        background: #ffff00; }
   @media only screen and (max-width: 1025px) {
     .resultItem .content {
       padding: 0 !important; } }

@@ -14,8 +14,7 @@ const pageUser = (state = initial(), action) => {
 				count: payload.count,
 				hasMore: payload.pagination.hasMore,
 				loadingMore: false,
-				page: payload.pagination.page,
-				pages: payload.pagination.pages
+				page: payload.pagination.page
 			}
 
 		case constants.GET_USER_DATA:

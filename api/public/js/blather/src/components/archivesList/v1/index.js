@@ -2,10 +2,20 @@ import "./style.css"
 import { getArchives } from "pages/actions/user"
 import { adjustTimezone } from "utils/dateFunctions"
 import { connect } from "react-redux"
-import { Dropdown, Form, Header, Icon, Item, Segment, Visibility } from "semantic-ui-react"
+import {
+	Divider,
+	Dropdown,
+	Form,
+	Header,
+	Icon,
+	Input,
+	Item,
+	Segment,
+	Visibility
+} from "semantic-ui-react"
 import LazyLoad from "components/lazyLoad/v1/"
 import Moment from "react-moment"
-import Parser from "html-react-parser"
+import _ from "lodash"
 import PropTypes from "prop-types"
 import ResultItem from "components/item/v1/"
 import React, { Component } from "react"
@@ -17,7 +27,8 @@ class ArchivesList extends Component {
 			id: null,
 			loadingMore: false,
 			options: [],
-			page: this.props.page
+			page: this.props.page,
+			q: ""
 		}
 	}
 
@@ -62,39 +73,50 @@ class ArchivesList extends Component {
 		}
 	}
 
-	onChangeSearch = (e, { value }) => {
-		this.setState({ archives: value, page: 0, value })
+	onChangeInput = (e, { value }) => {
+		this.setState({ page: 0, q: value })
 		this.props.getArchives({
 			id: this.props.id,
 			page: 0,
-			pageId: value
+			pageId: this.state.value,
+			q: value
+		})
+	}
+
+	onChangeSearch = (e, { value }) => {
+		this.setState({ page: 0, value })
+		this.props.getArchives({
+			id: this.props.id,
+			page: 0,
+			pageId: value,
+			q: this.state.q
 		})
 	}
 
 	render() {
-		const { options, value } = this.state
+		const { options, q, value } = this.state
 		const ParseArchiveInfo = archive => {
 			switch (archive.type) {
 				case "comment":
 					return {
 						description: archive.title,
-						img: archive.youtube_comment_profile_pic,
+						img: archive.profile_pic,
 						link: `/comment/${archive.comment_id}`,
-						title: `Comment by ${archive.youtube_comment_page_name}`
+						title: `Comment by ${archive.page_name}`
 					}
 				case "tweet":
 					return {
 						description: archive.full_text,
-						img: archive.twitter_profile_pic,
+						img: archive.profile_pic,
 						link: `/tweet/${archive.tweet_id}`,
-						title: `Tweet by ${archive.twitter_page_name}`
+						title: `Tweet by ${archive.page_name}`
 					}
 				case "video":
 					return {
-						description: archive.title,
-						img: archive.youtube_video_profile_pic,
+						description: archive.description,
+						img: archive.profile_pic,
 						link: `/video/${archive.video_id}`,
-						title: `Video by ${archive.youtube_video_page_name}`
+						title: archive.title
 					}
 				default:
 					return null
@@ -141,11 +163,9 @@ class ArchivesList extends Component {
 					}
 					return (
 						<ResultItem
-							description={
-								info.description === null
-									? info.description
-									: Parser(info.description)
-							}
+							description={info.description}
+							highlight={q !== ""}
+							highlightText={q}
 							history={props.history}
 							id={`archive_${i}`}
 							img={info.img}
@@ -155,6 +175,7 @@ class ArchivesList extends Component {
 							sanitize={false}
 							title={info.title}
 							type="archive"
+							truncate={false}
 							url={info.link}
 						/>
 					)
@@ -166,16 +187,21 @@ class ArchivesList extends Component {
 
 		return (
 			<div className="archivesList">
-				{this.props.archives.length > 0 ? (
-					<Visibility
-						className="archiveWrapper"
-						continuous
-						onBottomVisible={this.loadMore}
-					>
-						<Form>
+				<Visibility className="archiveWrapper" continuous onBottomVisible={this.loadMore}>
+					<Form>
+						<Form.Group widths="equal">
 							<Form.Field
+								control={Input}
+								icon="search"
+								onChange={_.debounce(this.onChangeInput, 8000, {
+									leading: true
+								})}
+								placeholder="Search"
+								value={q}
+							/>
+							<Form.Field
+								clearable
 								control={Dropdown}
-								fluid
 								onChange={this.onChangeSearch}
 								options={options}
 								placeholder="Filter by page or channel"
@@ -183,21 +209,24 @@ class ArchivesList extends Component {
 								selection
 								value={value}
 							/>
-						</Form>
+						</Form.Group>
+					</Form>
+					<Divider />
+					{this.props.archives.length > 0 ? (
 						<Item.Group className="fallacyItems" divided>
 							{RenderArchives(this.props)}
 						</Item.Group>
-					</Visibility>
-				) : (
-					<div className="emptyArchiveContainer">
-						<Segment placeholder>
-							<Header icon>
-								<Icon color="red" name="save" />
-								{this.props.emptyMsgContent}
-							</Header>
-						</Segment>
-					</div>
-				)}
+					) : (
+						<div className="emptyArchiveContainer">
+							<Segment placeholder>
+								<Header icon>
+									<Icon color="red" name="save" />
+									{this.props.emptyMsgContent}
+								</Header>
+							</Segment>
+						</div>
+					)}
+				</Visibility>
 			</div>
 		)
 	}

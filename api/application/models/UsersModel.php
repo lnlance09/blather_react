@@ -87,20 +87,21 @@
 			$just_count = false
 		) {
 			$post = array_key_exists('object_id', $data);
-			$select = 'a.code, a.date_created, a.link, a.network, a.type';
+			$q = null;
+			if (array_key_exists('q', $data)) {
+				$q = empty($data['q']) ? null : $data['q'];
+				unset($data['q']);
+			}
+
+			$select = 'a.code, a.date_created, a.description,a.link, a.network, a.type';
 			if ($just_count) {
 				$select = 'COUNT(*) AS count';
 			}
 
 			if (!$just_count && !$post) {
-				$select .= ', t.full_text, t.tweet_id, ytv.title, ytc.message, ytv.video_id, ytc.comment_id, 
-					p.name AS twitter_page_name, 
-					pytv.name AS youtube_video_page_name, 
-					pytc.name AS youtube_comment_page_name,
-
-					p.profile_pic AS twitter_profile_pic, 
-					pytv.profile_pic AS youtube_video_profile_pic, 
-					pytc.profile_pic AS youtube_comment_profile_pic';
+				$select .= ', t.full_text, t.tweet_id, ytv.title, ytc.message, ytv.video_id, ytc.comment_id,
+					p.name AS page_name,
+					p.profile_pic';
 			}
 
 			if ($unique) {
@@ -108,18 +109,24 @@
 			}
 			
 			$this->db->select($select);
-			if (!$just_count && !$post) {
-				$this->db->join('twitter_posts t', "a.object_id = t.tweet_id AND network = 'twitter'", 'left');
-				$this->db->join('youtube_videos ytv', "a.object_id = ytv.video_id AND network = 'youtube'", 'left');
-				$this->db->join('youtube_comments ytc', "a.object_id = ytc.comment_id AND network = 'youtube'", 'left');
-				$this->db->join('pages p', "t.page_id = p.social_media_id", 'left');
-				$this->db->join('pages pytv', "ytv.channel_id = pytv.social_media_id", 'left');
-				$this->db->join('pages pytc', "ytc.channel_id = pytc.social_media_id", 'left');
+			$this->db->join('pages p', 'a.page_id = p.id');
+
+			if (!$post) {
+				$this->db->join('twitter_posts t', "a.object_id = t.tweet_id AND a.type = 'tweet'", 'left');
+				$this->db->join('youtube_videos ytv', "a.object_id = ytv.video_id AND a.type = 'video'", 'left');
+				$this->db->join('youtube_comments ytc', "a.object_id = ytc.comment_id AND a.type = 'comment'", 'left');
 			}
 
 			$this->db->where($data);
-			
-			if (!$just_count && !$post && !$unique) {
+
+			if ($q && !$post) {
+				$this->db->like('t.full_text', $q);
+				$this->db->or_like('a.description', $q);
+				$this->db->or_like('ytv.title', $q);
+				$this->db->or_like('ytc.message', $q);
+			}
+
+			if (!$just_count && !$unique) {
 				$per_page = 10;
 				$start = $per_page*$page;
 				$this->db->limit($per_page, $start);
