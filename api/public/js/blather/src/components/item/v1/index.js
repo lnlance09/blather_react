@@ -1,5 +1,5 @@
 import "./style.css"
-import { formatNumber, formatPlural } from "utils/textFunctions"
+import { formatNumber, formatPlural, getHighlightedText } from "utils/textFunctions"
 import { Item, Label, List } from "semantic-ui-react"
 import ImagePic from "images/image-square.png"
 import LazyLoad from "components/lazyLoad/v1/"
@@ -86,12 +86,18 @@ class ResultItem extends Component {
 			return (
 				<Item.Content>
 					<Item.Header>
-						{props.title}
+						{props.highlight && props.title ? (
+							<span>
+								{getHighlightedText(props.title, props.highlightText, props.id)}
+							</span>
+						) : (
+							<span>{props.title}</span>
+						)}
 						{props.menu ? props.menu : null}
 					</Item.Header>
 					{props.meta && <Item.Meta>{props.meta}</Item.Meta>}
 					<Item.Description>
-						{validDescription && (
+						{validDescription && props.truncate ? (
 							<TextTruncate
 								line={3}
 								text={
@@ -101,6 +107,17 @@ class ResultItem extends Component {
 								}
 								truncateText="..."
 							/>
+						) : null}
+						{props.highlight && props.description ? (
+							<span>
+								{getHighlightedText(
+									props.description,
+									props.highlightText,
+									props.id
+								)}
+							</span>
+						) : (
+							<span>{props.description}</span>
 						)}
 					</Item.Description>
 					{props.extra && <Item.Extra>{ItemExtra(props)}</Item.Extra>}
@@ -131,6 +148,8 @@ class ResultItem extends Component {
 ResultItem.propTypes = {
 	description: PropTypes.string,
 	extra: PropTypes.oneOfType([PropTypes.array, PropTypes.bool, PropTypes.object]),
+	highlight: PropTypes.bool,
+	highlightText: PropTypes.string,
 	img: PropTypes.string,
 	id: PropTypes.string,
 	key: PropTypes.string,
@@ -142,12 +161,15 @@ ResultItem.propTypes = {
 	tags: PropTypes.array,
 	title: PropTypes.string,
 	type: PropTypes.string,
+	truncate: PropTypes.bool,
 	url: PropTypes.string
 }
 
 ResultItem.defaultProps = {
+	highlight: false,
 	menu: false,
-	redirect: true
+	redirect: true,
+	truncate: true
 }
 
 export default ResultItem

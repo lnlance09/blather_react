@@ -11,7 +11,17 @@ import {
 } from "./actions"
 import { refreshYouTubeToken } from "components/authentication/v1/actions"
 import { connect, Provider } from "react-redux"
-import { Button, Dropdown, Form, Icon, Input, Message, Modal, TextArea } from "semantic-ui-react"
+import {
+	Button,
+	Dropdown,
+	Form,
+	Header,
+	Icon,
+	Input,
+	Message,
+	Modal,
+	TextArea
+} from "semantic-ui-react"
 import { fallacyDropdownOptions } from "utils/fallacyFunctions"
 import { convertTimeToSeconds } from "utils/textFunctions"
 import _ from "lodash"
@@ -402,7 +412,7 @@ class FallacyForm extends Component {
 			/>
 		)
 		const StartTime = props => {
-			if (props.type === "video" && !props.info.comment) {
+			if (props.type === "video" && info !== undefined && !info.comment) {
 				return (
 					<Form.Group widths="equal">
 						<Form.Field>
@@ -499,8 +509,9 @@ class FallacyForm extends Component {
 		return (
 			<Provider store={store}>
 				<div className="fallacyForm">
+					<Header>Does this logic make sense?</Header>
 					<Form
-						className="form segment"
+						className="form basic segment"
 						error={this.props.fallacyFormError || cError || !cValid}
 						onSubmit={this.onSubmitForm}
 					>
@@ -543,13 +554,7 @@ class FallacyForm extends Component {
 						</Form.Field>
 						<ErrorMsg props={this.props} />
 						{this.props.authenticated ? (
-							<Button
-								color="black"
-								compact
-								content="Assign a fallacy"
-								fluid
-								type="submit"
-							/>
+							<Button color="orange" content="Assign a fallacy" fluid type="submit" />
 						) : (
 							<Button.Group fluid>
 								<Button

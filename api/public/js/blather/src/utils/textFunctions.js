@@ -1,6 +1,7 @@
 import numeral from "numeral"
 import moment from "moment"
 import momentDurationFormatSetup from "moment-duration-format"
+import React from "react"
 import sanitizeHtml from "sanitize-html"
 momentDurationFormatSetup(moment)
 
@@ -37,6 +38,17 @@ export const formatPlural = (count, term) => {
 		return parseInt(count, 10) === 1 ? term : `${word}ies`
 	}
 	return parseInt(count, 10) === 1 ? term : `${term}s`
+}
+
+export const getHighlightedText = (text, higlight, className = "") => {
+	const parts = text.split(new RegExp(`(${higlight.replace(/[()]/g, "")})`, "gi"))
+	return parts.map((part, i) =>
+		part.toLowerCase() === higlight.toLowerCase() ? (
+			<b key={`${className}_highlighted_${i}_${part}`}>{part}</b>
+		) : (
+			part
+		)
+	)
 }
 
 export const sanitizeText = html => {

@@ -191,30 +191,27 @@
 			$id = $this->input->get('id');
 			$page = $this->input->get('page');
 			$pageId = $this->input->get('pageId');
+			$q = $this->input->get('q');
 			$unique = (int)$this->input->get('unique');
 
-			$where = ['user_id' => $id];
+			$where = [
+				'q' => $q,
+				'user_id' => $id
+			];
 			if ($pageId) {
 				$where['p.id'] = $pageId;
 			}
 
-			$count = 0;
-			if (!$unique) {
-				$count = $this->users->getArchivedLinks($where, false, 0, true);
-			}
-
 			$links = $this->users->getArchivedLinks($where, $unique, $page);
-
-			$perPage = 10;
-			$pages = ceil($count/$perPage);
-			$start = $page*$perPage;
-			$hasMore = ($page+1) == $pages ? false : true;
+			$count = count($links);
+			$per_page = 10;
+			$has_more = $count === $per_page;
 
 			echo json_encode([
-				'count' => (int)$count,
+				'count' => $count,
 				'links' => $links,
 				'pagination' => [
-					'hasMore' => $hasMore,
+					'hasMore' => $has_more,
 					'nextPage' => (int)$page+1,
 					'page' => (int)$page
 				],
@@ -238,16 +235,7 @@
 				$info['bio'] = $info['name']." does not have a bio yet";
 			}
 
-			$info['discussion_count'] = $this->discussions->search([
-				'both' => true,
-				'by' => $info['id'],
-				'page' => null,
-				'q' => null,
-				'status' => null,
-				'tags' => false,
-				'with' => null
-			], true);
-
+			$info['discussion_count'] = 0;
 			$info['fallacy_count'] = $this->fallacies->search([
 				'assigned_by' => $info['id'],
 				'assigned_to' => null,
@@ -259,7 +247,6 @@
 				'page' => null,
 				'q' => null
 			], true);
-			
 			$info['archive_count'] = $this->users->getArchivedLinks([
 				'user_id' => $info['id']
 			], false, 0, true);

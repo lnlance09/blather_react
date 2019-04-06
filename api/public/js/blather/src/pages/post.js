@@ -50,7 +50,7 @@ class Post extends Component {
 		}
 
 		this.props.fetchPostData({
-			bearer: currentState.user.bearer,
+			bearer,
 			url
 		})
 
@@ -60,6 +60,37 @@ class Post extends Component {
 
 		this.handleHoverOn = this.handleHoverOn.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
+	}
+
+	componentWillReceiveProps(newProps) {
+		let id = newProps.match.params.id
+		if (id.substring(id.length - 1, id.length) === "&") {
+			id = id.slice(0, -1)
+		}
+
+		if (this.state.id !== id) {
+			const path = newProps.match.path
+			const currentState = store.getState()
+			const authenticated = currentState.user.authenticated
+			const bearer = currentState.user.bearer
+			const { network, type, url } = this.postType(id, path)
+			this.setState({
+				authenticated,
+				bearer,
+				id,
+				network,
+				type
+			})
+
+			this.props.fetchPostData({
+				bearer,
+				url
+			})
+
+			if (type === "video" && newProps.existsOnYt) {
+				this.props.downloadVideo({ audio: 0, id })
+			}
+		}
 	}
 
 	handleContextRef = contextRef => this.setState({ contextRef })
@@ -124,7 +155,7 @@ class Post extends Component {
 			if (props.info) {
 				switch (type) {
 					case "comment":
-						if (props.info.comment !== undefined && props.info.comment.user) {
+						if (info.comment !== undefined && info.comment.user) {
 							return (
 								<Breadcrumb>
 									<Breadcrumb.Section
@@ -248,7 +279,7 @@ class Post extends Component {
 							emptyMsgContent={`No fallacies have been assigned to this ${type}`}
 							icon={network}
 							network={network}
-							objectId={props.info.id}
+							objectId={id}
 							source="post"
 							{...props}
 						/>

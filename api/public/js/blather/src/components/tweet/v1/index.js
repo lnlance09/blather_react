@@ -1,6 +1,7 @@
 import "./style.css"
 import { createArchive } from "pages/actions/post"
 import { adjustTimezone } from "utils/dateFunctions"
+import { getHighlightedText } from "utils/textFunctions"
 import { linkHashtags, linkMentions } from "utils/linkifyAdditions"
 import { Provider, connect } from "react-redux"
 import { Card, Icon, Image, Label, List, Message, Popup, Transition } from "semantic-ui-react"
@@ -40,17 +41,6 @@ class Tweet extends Component {
 			bearer: this.props.bearer,
 			url: `https://twitter.com/${this.props.user.screen_name}/status/${this.props.id}`
 		})
-	}
-
-	getHighlightedText = (text, higlight) => {
-		const parts = text.split(new RegExp(`(${higlight.replace(/[()]/g, "")})`, "gi"))
-		return parts.map(part =>
-			part.toLowerCase() === higlight.toLowerCase() ? (
-				<b key={`highlighted${part}`}>{part}</b>
-			) : (
-				part
-			)
-		)
 	}
 
 	render() {
@@ -245,7 +235,7 @@ class Tweet extends Component {
 				sanitize
 			>
 				{highlight && this.props.id
-					? this.getHighlightedText(TweetText, this.props.highlightedText)
+					? getHighlightedText(TweetText, this.props.highlightedText)
 					: TweetText}
 			</Linkify>
 		)
