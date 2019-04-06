@@ -75,7 +75,7 @@ class SearchResults extends Component {
 			})
 			setTimeout(() => {
 				window.location.reload()
-			}, 200)
+			}, 1000)
 		}
 		const formatData = result => {
 			switch (this.props.type) {

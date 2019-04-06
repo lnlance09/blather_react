@@ -182,6 +182,7 @@ class FallaciesList extends Component {
 						<div>
 							<Form>
 								<Form.Field
+									clearable
 									control={Dropdown}
 									fluid
 									lazyLoad
@@ -190,11 +191,7 @@ class FallaciesList extends Component {
 									placeholder="Filter by fallacy"
 									scrolling
 									selection
-									value={
-										value === "" && options.length > 0
-											? options[0].value
-											: value
-									}
+									value={value}
 								/>
 							</Form>
 							<Divider />
@@ -242,7 +239,6 @@ class FallaciesList extends Component {
 							img={props.showPics ? img : null}
 							key={`fallacy_${i}`}
 							meta={meta}
-							sanitize
 							tags={[result.fallacy_name]}
 							title={result.title}
 							type="fallacy"

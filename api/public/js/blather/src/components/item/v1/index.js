@@ -97,27 +97,34 @@ class ResultItem extends Component {
 					</Item.Header>
 					{props.meta && <Item.Meta>{props.meta}</Item.Meta>}
 					<Item.Description>
-						{validDescription && props.truncate ? (
-							<TextTruncate
-								line={3}
-								text={
-									props.sanitize
-										? this.sanitizeHtml(props.description)
-										: props.description
-								}
-								truncateText="..."
-							/>
-						) : null}
-						{props.highlight && props.description ? (
-							<span>
-								{getHighlightedText(
-									props.description,
-									props.highlightText,
-									props.id
+						{validDescription && (
+							<div>
+								{props.truncate ? (
+									<TextTruncate
+										line={3}
+										text={
+											props.sanitize
+												? this.sanitizeHtml(props.description)
+												: props.description
+										}
+										truncateText="..."
+									/>
+								) : (
+									<div>
+										{props.highlight ? (
+											<span>
+												{getHighlightedText(
+													props.description,
+													props.highlightText,
+													props.id
+												)}
+											</span>
+										) : (
+											<span>{props.description}</span>
+										)}
+									</div>
 								)}
-							</span>
-						) : (
-							<span>{props.description}</span>
+							</div>
 						)}
 					</Item.Description>
 					{props.extra && <Item.Extra>{ItemExtra(props)}</Item.Extra>}
