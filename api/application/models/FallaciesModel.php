@@ -660,12 +660,13 @@
         }
 
         public function getReviewStats($page_id) {
-            $this->db->select("COUNT(*) AS count, SUM(sincerity) AS sincerity_votes, SUM(turing_test) AS turing_test_votes");
-            $this->db->join('pages p', 'c.page_id = p.id');
-            $this->db->where([
-                'p.social_media_id' => $page_id
-            ]);
-            return $this->db->get('criticisms c')->row();
+            $sql = "SELECT COUNT(*) AS count, (COUNT(*)-SUM(sincerity)) AS sincerity_no, (COUNT(*)-SUM(turing_test)) AS turing_test_no
+                FROM criticisms c
+                INNER JOIN pages p ON c.page_id = p.id
+                WHERE p.social_media_id = ?
+                AND c.sincerity IS NOT NULL
+                AND c.turing_test IS NOT NULL";
+            return $this->db->query($sql, [$page_id])->row();
         }
 
         public function getTargetsData($id) {
