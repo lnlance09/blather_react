@@ -198,7 +198,7 @@ class About extends Component {
 					<DisplayMetaTags page="about" props={this.props} state={this.state} />
 					<PageHeader {...this.props} />
 					<Container className="mainContainer" textAlign="left">
-						<Segment className="logoContainer" textAlign="center">
+						<Segment basic className="logoContainer" textAlign="center">
 							<Header className="aboutHeader" size="huge" textAlign="center">
 								<ReactSVG
 									className="blatherLogo"
@@ -208,7 +208,7 @@ class About extends Component {
 								/>
 								Blather
 								<Header.Subheader>
-									It's not what you think; it's how you think
+									It's not what you think. It's how you think.
 								</Header.Subheader>
 							</Header>
 						</Segment>

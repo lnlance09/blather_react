@@ -10,7 +10,7 @@ export const DisplayMetaTags = ({ page, props, state }) => {
 	switch (page) {
 		case "about":
 			metaTags = {
-				description: description,
+				description,
 				img,
 				title: capitalizeWord(state.activeItem)
 			}
@@ -61,7 +61,14 @@ export const DisplayMetaTags = ({ page, props, state }) => {
 			break
 		case "feed":
 			metaTags = {
-				description: "",
+				description,
+				img,
+				title: "Activity"
+			}
+			break
+		case "home":
+			metaTags = {
+				description,
 				img,
 				title: "Home"
 			}
@@ -158,7 +165,7 @@ export const DisplayMetaTags = ({ page, props, state }) => {
 			break
 		default:
 			metaTags = {
-				description: description,
+				description,
 				img,
 				title: ""
 			}

@@ -73,7 +73,7 @@ class Header extends Component {
 							color="green"
 							compact
 							content="Sign In"
-							onClick={() => this.props.history.push("/signin")}
+							onClick={() => props.history.push("/signin")}
 						/>
 					</Menu.Item>
 				)
@@ -108,7 +108,7 @@ class Header extends Component {
 										name="sidebar"
 										onClick={() =>
 											this.setState({
-												visible: this.state.visible ? false : true
+												visible: !visible
 											})
 										}
 										size="large"
@@ -127,6 +127,9 @@ class Header extends Component {
 										svgClassName="svgHeaderLogo"
 									/>
 									<NavSearch history={this.props.history} />
+								</Menu.Item>
+								<Menu.Item className="fallaciesLink">
+									<Link to="/activity">Activity</Link>
 								</Menu.Item>
 								<Menu.Item className="fallaciesLink">
 									<Link to="/fallacies">Fallacies</Link>

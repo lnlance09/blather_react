@@ -11,6 +11,7 @@ import About from "pages/about"
 import Bot from "pages/bot"
 import Fallacy from "pages/fallacy"
 import Fallacies from "pages/fallacies"
+import Home from "pages/home"
 import NewsFeed from "pages/newsFeed"
 import Page from "pages/"
 import Post from "pages/post"
@@ -97,7 +98,9 @@ class App extends Component {
 			<div className="app">
 				<Provider store={store}>
 					<Router history={history}>
-						<Route component={NewsFeed} exact path="/" />
+						<Route component={Home} exact path="/" />
+
+						<Route component={NewsFeed} exact path="/activity" />
 
 						<Route component={Bot} path="/bot" />
 

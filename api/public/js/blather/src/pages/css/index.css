@@ -88,25 +88,25 @@ a {
   .sub.header {
     font-size: 13px !important; } }
 
-/* About page */
-.aboutPage .logoContainer {
+.logoContainer {
   background: #FFFFFF;
   padding: 16px 0; }
-  .aboutPage .logoContainer .header.aboutHeader {
+  .logoContainer .header.aboutHeader {
     line-height: 1; }
-    .aboutPage .logoContainer .header.aboutHeader .sub.header {
+    .logoContainer .header.aboutHeader .sub.header {
       margin-top: 6px; }
-    .aboutPage .logoContainer .header.aboutHeader .blatherLogo {
+    .logoContainer .header.aboutHeader .blatherLogo {
       margin-bottom: 8px; }
-      .aboutPage .logoContainer .header.aboutHeader .blatherLogo .blatherLogoSvg {
+      .logoContainer .header.aboutHeader .blatherLogo .blatherLogoSvg {
         fill: #2185D0;
         height: 84px;
         line-height: 96px;
         vertical-align: middle;
         width: 84px; }
-    .aboutPage .logoContainer .header.aboutHeader span {
+    .logoContainer .header.aboutHeader span {
       line-height: 96px; }
 
+/* About page */
 .aboutPage .contactForm button {
   float: right; }
 

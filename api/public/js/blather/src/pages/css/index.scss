@@ -128,38 +128,39 @@ a {
     }
 }
 
+.logoContainer {
+    background: $white;
+    padding: 16px 0;
+
+    .header.aboutHeader {
+        line-height: 1;
+
+        .sub.header {
+            margin-top: 6px;
+        }
+
+        .blatherLogo {
+            margin-bottom: 8px;
+            
+            .blatherLogoSvg {
+                fill: $blue;
+                height: 84px;
+                line-height: 96px;
+                vertical-align: middle;
+                width: 84px;
+            }
+        }
+
+        span {
+            line-height: 96px;
+        }
+    }
+}
+
+
 
 /* About page */
 .aboutPage {
-    .logoContainer {
-        background: $white;
-        padding: 16px 0;
-
-        .header.aboutHeader {
-            line-height: 1;
-
-            .sub.header {
-                margin-top: 6px;
-            }
-
-            .blatherLogo {
-                margin-bottom: 8px;
-                
-                .blatherLogoSvg {
-                    fill: $blue;
-                    height: 84px;
-                    line-height: 96px;
-                    vertical-align: middle;
-                    width: 84px;
-                }
-            }
-
-            span {
-                line-height: 96px;
-            }
-        }
-    }
-
     .contactForm {
         button {
             float: right;
