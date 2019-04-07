@@ -94,7 +94,6 @@ class Fallacy extends Component {
 		const { createdAt, fallacyName, refId, user } = this.props
 		const filename = `${fallacyName}-by-${user.name}-${createdAt}`
 		let duration = ""
-		let scale = window.devicePixelRatio
 
 		if (refId === 4 || refId === 5) {
 			this.props.toggleCreateMode()
@@ -129,15 +128,14 @@ class Fallacy extends Component {
 		if (this.props.canMakeVideo) {
 			duration = document.getElementById("fallacyDateDiff").textContent
 			el = this.props.screenshotEl
-			scale = 1
 		}
 
 		this.adjustHighlightBlocks(true)
 		this.setState({ downloading: true })
 
 		html2canvas(document.getElementById(el), {
-			scale,
-			useCORS: true
+			scale: 2,
+			useCORS: true,
 		}).then(canvas => {
 			if (this.props.canScreenshot) {
 				const ctx = canvas.getContext("2d")
@@ -155,27 +153,13 @@ class Fallacy extends Component {
 				this.setState({ downloading: false })
 			} else if (this.props.canMakeVideo) {
 				this.props.toggleCreateMode()
-
-				// const img = canvas.toDataURL("image/png")
-				const newCanvas = document.getElementById("materialCanvas")
-				newCanvas.width = 1280
-				newCanvas.height = 720
-
-				const canvasContent = newCanvas.getContext("2d")
-				canvasContent.fillStyle = "#66dd30"
-				canvasContent.fillRect(0, 0, 1280, 720)
-				canvasContent.drawImage(
-					canvas,
-					1280 / 2 - canvas.width / 2,
-					720 / 2 - canvas.height / 2
-				)
-				const newImg = newCanvas.toDataURL("image/png")
+				const img = canvas.toDataURL("image/png")
 
 				this.props.createVideoFallacy({
 					contradiction: this.props.contradictionPayload,
 					duration,
 					id: this.props.id,
-					img: newImg,
+					img,
 					original: this.props.originalPayload,
 					refId
 				})

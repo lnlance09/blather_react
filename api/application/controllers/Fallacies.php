@@ -175,27 +175,24 @@
 			$contradiction = $this->input->post('contradiction');
 			$fallacy_name = $this->input->post('fallacyName');
 
+			$text = empty($duration) ? $fallacy_name : $duration;
 			$video = $this->fallacies->createVideo(
 				$id,
 				$ref_id,
 				$original,
 				$contradiction,
 				$img,
-				$fallacy_name,
-				$duration
+				$text
 			);
 
-			$key = 'fallacy_videos/'.$video;
-			$s3Link = $this->media->addToS3($key, '/var/www/html/api/public/videos/fallacies/'.$video);
-
 			$this->fallacies->update($id, [
-				's3_link' => $key
+				's3_link' => $video['key']
 			]);
 
 
 			echo json_encode([
 				'error' => false,
-				'video' => $s3Link
+				'video' => $video['src']
 			]);
 		}
 
