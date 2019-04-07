@@ -13,6 +13,7 @@ import { refreshYouTubeToken } from "components/authentication/v1/actions"
 import { connect, Provider } from "react-redux"
 import {
 	Button,
+	Divider,
 	Dropdown,
 	Form,
 	Header,
@@ -534,6 +535,7 @@ class FallacyForm extends Component {
 							/>
 						</Form.Field>
 						{ContradictionInput(this.props)}
+						<Divider />
 						<Form.Field>
 							<Input
 								className="titleField"

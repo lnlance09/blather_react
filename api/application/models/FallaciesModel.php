@@ -6,6 +6,9 @@
             $this->basePath = '/Applications/MAMP/htdocs/blather/api/';
             $this->commentPath = $this->basePath.'public/img/comments/';
             $this->tweetPath = $this->basePath.'public/img/tweet_pics/';
+            $this->placeholderVideoPath = $this->basePath.'public/videos/placeholders/';
+            $this->placeholderImgPath = $this->basePath.'public/img/placeholders/';
+
             $this->s3Path = 'https://s3.amazonaws.com/blather22/';
 
             $this->load->database();
@@ -126,49 +129,44 @@
             array $original,
             array $contradiction = null,
             string $img = null,
-            string $fallacy_name = null,
-            string $duration = null
+            string $text = null
         ) {
-            $sleep = 1;
+            $output_file = 'fallacy_videos/'.$id.'/'.date('Y-m-d_H_i_s').'.mp4';
+            $text_obj = $this->media->createTextVideo($text);
 
             switch ($ref_id) {
                 // Tweet with video as contradiction
                 case 3:
 
-                    // Save the tweet as a pic
-                    $path = $this->tweetPath.$original['id'].'.png';
-                    $this->media->createPicFromData($path, $img);
+                    $path = $this->tweetPath;
+                    $screenshot = $this->media->saveScreenshot($original['id'], $path, $img, 'tweet_pics');
 
-                    // Download the video and get its data
                     $video = $this->media->downloadYouTubeVideo($contradiction['id']);
-                    $video_info = $this->media->getVideoAttributes($video);
+                    $this->media->addToS3('youtube_videos/'.$contradiction['id'].'.mp4', $video);
 
-                    // Create the duration pic
-                    $this->media->createTextPic(
-                        $id,
-                        $video_info['width'],
-                        $video_info['height'],
-                        $duration,
-                        [211, 7, 100]
-                    );
-
-                    // Clip the video at the given time frame
-                    $clip = $this->media->clipVideo(
-                        $id,
-                        $contradiction['id'],
-                        $contradiction['startTime'],
-                        $contradiction['endTime']
-                    );
-                    sleep($sleep);
-                    $contradiction['file'] = $clip;
-                    $contradiction['video_info'] = $video_info;
-
-                    // Produce the final video
-                    $file = $this->media->concatVideo(
-                        $id,
-                        $original,
-                        $contradiction
-                    );
+                    $input = [
+                        [
+                            'name' => $screenshot,
+                            'start_time' => null,
+                            'duration' => null
+                        ],
+                        [
+                            'name' => $text_obj['key'],
+                            'start_time' => null,
+                            'duration' => null
+                        ],
+                        [
+                            'name' => 'youtube_videos/'.$contradiction['id'].'.mp4',
+                            'start_time' => gmdate('H:i:s', $contradiction['startTime']),
+                            'duration' => gmdate('H:i:s', $contradiction['endTime']-$contradiction['startTime'])
+                        ]
+                    ];
+                    $output = [
+                        'name' => $output_file,
+                        'start_time' => null,
+                        'duration' => null
+                    ];
+                    $this->media->createVideo($input, $output);
                     break;
 
                 // Just a video
@@ -177,186 +175,171 @@
                 case 5:
 
                     $video = $this->media->downloadYouTubeVideo($original['id']);
-                    $video_info = $this->media->getVideoAttributes($video);
+                    $this->media->addToS3('youtube_videos/'.$original['id'].'.mp4', $video);
 
-                    $text_pic = $this->media->createTextPic(
-                        $id,
-                        $video_info['width'],
-                        $video_info['height'],
-                        $fallacy_name,
-                        [211, 7, 100],
-                        36,
-                        'fallacy_text.png'
-                    );
-
-                    $clip = $this->media->clipVideo(
-                        $id,
-                        $original['id'],
-                        $original['startTime'],
-                        $original['endTime']
-                    );
-                    sleep($sleep);
-
-                    $original['file'] = $clip;
-                    $original['video_info'] = $video_info;
-                    $file = $this->media->concatImgAndVideo(
-                        $id,
-                        $text_pic,
-                        $original,
-                        $video_info
-                    );
+                    $input = [
+                        [
+                            'name' => $text_obj['key'],
+                            'start_time' => null,
+                            'duration' => null
+                        ],
+                        [
+                            'name' => 'youtube_videos/'.$original['id'].'.mp4',
+                            'start_time' => gmdate('H:i:s', $original['startTime']),
+                            'duration' => gmdate('H:i:s', $original['endTime']-$original['startTime'])
+                        ]
+                    ];
+                    $output = [
+                        'name' => $output_file,
+                        'start_time' => null,
+                        'duration' => null
+                    ];
+                    $this->media->createVideo($input, $output);
                     break;
 
                 // A video with a video as a contradiction
                 case 6:
 
                     $video_one = $this->media->downloadYouTubeVideo($original['id']);
-                    $video_info_one = $this->media->getVideoAttributes($video_one);
+                    $this->media->addToS3('youtube_videos/'.$original['id'].'.mp4', $video_one);
 
                     $video_two = $this->media->downloadYouTubeVideo($contradiction['id']);
-                    $video_info_two = $this->media->getVideoAttributes($video_two);
+                    $this->media->addToS3('youtube_videos/'.$contradiction['id'].'.mp4', $video_two);
 
-                    $this->media->createTextPic(
-                        $id,
-                        $video_info_one['width'],
-                        $video_info_one['height'],
-                        $duration,
-                        [211, 7, 100]
-                    );
-
-                    $clipOne = $this->media->clipVideo(
-                        $id,
-                        $original['id'],
-                        $original['startTime'],
-                        $original['endTime']
-                    );
-                    sleep($sleep);
-
-                    $clipTwo = $this->media->clipVideo(
-                        $id,
-                        $contradiction['id'],
-                        $contradiction['startTime'],
-                        $contradiction['endTime']
-                    );
-                    sleep($sleep);
-
-                    $original['file'] = $clipOne;
-                    $original['video_info'] = $video_info_one;
-
-                    $contradiction['file'] = $clipTwo;
-                    $contradiction['video_info'] = $video_info_two;
-
-                    $file = $this->media->concatVideo(
-                        $id,
-                        $original,
-                        $contradiction
-                    );
+                    $input = [
+                        [
+                            'name' => 'youtube_videos/'.$original['id'].'.mp4',
+                            'start_time' => gmdate('H:i:s', $original['startTime']),
+                            'duration' => gmdate('H:i:s', $original['endTime']-$original['startTime'])
+                        ],
+                        [
+                            'name' => $text_obj['key'],
+                            'start_time' => null,
+                            'duration' => null
+                        ],
+                        [
+                            'name' => 'youtube_videos/'.$contradiction['id'].'.mp4',
+                            'start_time' => gmdate('H:i:s', $contradiction['startTime']),
+                            'duration' => gmdate('H:i:s', $contradiction['endTime']-$contradiction['startTime'])
+                        ]
+                    ];
+                    $output = [
+                        'name' => $output_file,
+                        'start_time' => null,
+                        'duration' => null
+                    ];
+                    $this->media->createVideo($input, $output);
                     break;
 
                 // A video with a comment as a contradiction
                 case 7:
 
-                    $path = $this->commentPath.$contradiction['id'].'.png';
-                    $this->media->createPicFromData($path, $img);
-
                     $video = $this->media->downloadYouTubeVideo($original['id']);
-                    $video_info = $this->media->getVideoAttributes($video);
+                    $screenshot = $this->media->addToS3('youtube_videos/'.$original['id'].'.mp4', $video);
 
-                    $this->media->createTextPic(
-                        $id,
-                        $video_info['width'],
-                        $video_info['height'],
-                        $duration,
-                        [211, 7, 100]
-                    );
+                    $path = $this->commentPath;
+                    $screenshot = $this->media->saveScreenshot($contradiction['id'], $path, $img, 'comments');
 
-                    $clip = $this->media->clipVideo(
-                        $id,
-                        $original['id'],
-                        $original['startTime'],
-                        $original['endTime']
-                    );
-                    sleep($sleep);
-
-                    $original['file'] = $clip;
-                    $original['video_info'] = $video_info;
-                    $file = $this->media->concatVideo(
-                        $id,
-                        $original,
-                        $contradiction
-                    );
+                    $input = [
+                        [
+                            'name' => 'youtube_videos/'.$original['id'].'.mp4',
+                            'start_time' => gmdate('H:i:s', $original['startTime']),
+                            'duration' => gmdate('H:i:s', $original['endTime']-$original['startTime'])
+                        ],
+                        [
+                            'name' => $text_obj['key'],
+                            'start_time' => null,
+                            'duration' => null
+                        ],
+                        [
+                            'name' => $screenshot,
+                            'start_time' => null,
+                            'duration' => null
+                        ]
+                    ];
+                    $output = [
+                        'name' => $output_file,
+                        'start_time' => null,
+                        'duration' => null
+                    ];
+                    $this->media->createVideo($input, $output);
                     break;
 
                 // A video with a tweet as a contradiction
                 case 8:
 
-                    $path = $this->tweetPath.$contradiction['id'].'.png';
-                    $this->media->createPicFromData($path, $img);
-
                     $video = $this->media->downloadYouTubeVideo($original['id']);
-                    $video_info = $this->media->getVideoAttributes($video);
+                    $this->media->addToS3('youtube_videos/'.$original['id'].'.mp4', $video);
 
-                    $this->media->createTextPic(
-                        $id,
-                        $video_info['width'],
-                        $video_info['height'],
-                        $duration,
-                        [211, 7, 100]
-                    );
+                    $path = $this->tweetPath;
+                    $screenshot = $this->media->saveScreenshot($contradiction['id'], $path, $img, 'tweet_pics');
 
-                    $clip = $this->media->clipVideo(
-                        $id,
-                        $original['id'],
-                        $original['startTime'],
-                        $original['endTime']
-                    );
-                    sleep($sleep);
+                    $input = [
+                        [
+                            'name' => 'youtube_videos/'.$original['id'].'.mp4',
+                            'start_time' => gmdate('H:i:s', $original['startTime']),
+                            'duration' => gmdate('H:i:s', $original['endTime']-$original['startTime'])
+                        ],
+                        [
+                            'name' => $text_obj['key'],
+                            'start_time' => null,
+                            'duration' => null
+                        ],
+                        [
+                            'name' => $screenshot,
+                            'start_time' => null,
+                            'duration' => null
+                        ]
+                    ];
+                    $output = [
+                        'name' => $output_file,
+                        'start_time' => null,
+                        'duration' => null
+                    ];
+                    $this->media->createVideo($input, $output);
 
-                    $original['file'] = $clip;
-                    $original['video_info'] = $video_info;
-                    $file = $this->media->concatVideo(
-                        $id,
-                        $original,
-                        $contradiction
-                    );
                     break;
 
                 // A comment with a video as a contradiction
                 case 11:
 
-                    $path = $this->commentPath.$original['id'].'.png';
-                    $this->media->createPicFromData($path, $img);
+                    $path = $this->commentPath;
+                    $screenshot = $this->media->saveScreenshot($original['id'], $path, $img, 'comments');
 
                     $video = $this->media->downloadYouTubeVideo($contradiction['id']);
-                    $video_info = $this->media->getVideoAttributes($video);
+                    $this->media->addToS3('youtube_videos/'.$contradiction['id'].'.mp4', $video);
 
-                    $this->media->createTextPic(
-                        $id,
-                        $video_info['width'],
-                        $video_info['height'],
-                        $duration,
-                        [211, 7, 100]
-                    );
+                    $input = [
+                         [
+                            'name' => $screenshot,
+                            'start_time' => null,
+                            'duration' => null
+                        ],
+                        [
+                            'name' => $text_obj['key'],
+                            'start_time' => null,
+                            'duration' => null
+                        ],
+                        [
+                            'name' => 'youtube_videos/'.$contradiction['id'].'.mp4',
+                            'start_time' => gmdate('H:i:s', $contradiction['startTime']),
+                            'duration' => gmdate('H:i:s', $contradiction['endTime']-$contradiction['startTime'])
+                        ]
+                    ];
+                    $output = [
+                        'name' => $output_file,
+                        'start_time' => null,
+                        'duration' => null
+                    ];
+                    $this->media->createVideo($input, $output);
 
-                    $clip = $this->media->clipVideo(
-                        $id,
-                        $contradiction['id'],
-                        $contradiction['startTime'],
-                        $contradiction['endTime']
-                    );
-                    sleep($sleep);
-
-                    $contradiction['file'] = $clip;
-                    $contradiction['video_info'] = $video_info;
-                    $file = $this->media->concatVideo(
-                        $id,
-                        $original,
-                        $contradiction
-                    );
                     break;
             }
 
-            return $file;
+            return [
+                'key' => $output_file,
+                'src' => $this->s3Path.$output_file
+            ];
         }
 
         public function fallacyTypeExists($id) {

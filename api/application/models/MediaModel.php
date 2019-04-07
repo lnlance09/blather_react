@@ -5,19 +5,17 @@
 
             // Define the paths
             $this->basePath = '/Applications/MAMP/htdocs/blather/api/';
-            $this->archivePath = $this->basePath.'public/img/archive_pics/';
             $this->commentPath = $this->basePath.'public/img/comments/';
-            $this->fallacyPath = $this->basePath.'public/videos/fallacies/';
+            $this->placeholderVideoPath = $this->basePath.'public/videos/placeholders/';
+            $this->placeholderImgPath = $this->basePath.'public/img/placeholders/';
             $this->tweetPath = $this->basePath.'public/img/tweet_pics/';
-            $this->watermarkPath = $this->basePath.'public/img/watermark.png';
             $this->youtubePath = $this->basePath.'public/videos/youtube/';
 
             // $this->ffmpeg = APPPATH.'ffmpeg/ffmpeg';
             $this->ffmpeg = '/usr/local/bin/ffmpeg';
             $this->s3Path = 'https://s3.amazonaws.com/blather22/';
 
-            // Load s3 library
-            $this->load->library('s3');
+            $this->load->library('aws');
         }
 
         /**
@@ -27,7 +25,7 @@
          */
         public function addToS3($key, $file, $remove = true) {
             if (!$this->existsInS3($key)) {
-                $this->s3->upload($key, $file);
+                $this->aws->upload($key, $file);
             }
 
             if ($remove) {
@@ -37,229 +35,33 @@
             return $this->s3Path.$key;
         }
 
-        /**
-         * [clipVideo description]
-         * @param  [type] $fallacy_id [description]
-         * @param  [type] $video_id   [description]
-         * @param  [type] $start      [description]
-         * @param  [type] $end        [description]
-         * @return [type]             [description]
-         */
-        public function clipVideo(
-            $fallacy_id,
-            $video_id,
-            $start,
-            $end
-        ) {
-            $length = $end-$start;
-            $path = $this->fallacyPath.$fallacy_id;
-            $file = $video_id.'_'.$start.'_'.$length.'.mp4';
-            $output = $path.'/'.$file;
-
-            if (!file_exists($output)) {
-                if (!is_dir($path)) {
-                    exec('mkdir '.$path);
-                }
-
-                $command = $this->ffmpeg.' -i '.$this->youtubePath.$video_id.'.mp4 -ss '.gmdate('H:i:s', $start).' -t '.gmdate('H:i:s', $length).' -async 1 '.$output;
-                exec($command);
-
-                $key = 'fallacy_videos/'.$fallacy_id.'/'.$file;
-                $this->addToS3($key, $output, false);
-            }
-            return $output;
-        }
-
-        /**
-         * [concatImgAndVideo description]
-         * @param  [type] $id         [description]
-         * @param  string $img        [description]
-         * @param  array  $video      [description]
-         * @param  array  $video_info [description]
-         * @return [type]             [description]
-         */
-        public function concatImgAndVideo(
-            $id,
-            string $img,
-            array $video,
-            array $video_info
-        ) {
-            $path = $this->fallacyPath.$id.'/';
-            $output_file = $id.'_fallacy_video.mp4';
-
-            $width = $video_info['width'];
-            $height = $video_info['height'];
-            $sar = $video_info['sar'];
-
-            $command = $this->ffmpeg.' \
-                -loop 1 -framerate 25 -t 5 -i '.$img.' \
-                -f lavfi -t 1 -i anullsrc \
-                '.$this->createInputCommand($video).' \
-                -filter_complex " \
-                    [0:v]scale='.$width.':'.$height.',setsar='.$sar.'[pic]; \
-                    [2:v][pic]scale2ref[video][pic]; \
-                    [video]setsar='.$sar.'[video]; \
-                    [pic][1:a][video][2:a]concat=n=2:v=1:a=1
-                " \ '.$output_file;
-            exec($command, $output);
-
-            $file = 'video_'.date('Y-m-d_H_i_s').'.mp4';
-            rename(' '.$output_file, $path.$file);
-            return $id.'/'.$file;
-        }
-
-        /**
-         * [concatVideo description]
-         * @param  [type] $id         [description]
-         * @param  array  $source_one [description]
-         * @param  array  $source_two [description]
-         * @param  array  $video_info [description]
-         * @return [type]             [description]
-         */
-        public function concatVideo(
-            $id,
-            array $source_one,
-            array $source_two
-        ) {
-            $path = $this->fallacyPath.$id.'/';
-            $output_file = $id.'_fallacy_video.mp4';
-
-            $src_one_type = $source_one['type'];
-            $src_two_type = $source_two['type'];
-            $source_one_is_img = $src_one_type == 'tweet' || $src_one_type == 'comment';
-            $source_two_is_img = $src_two_type == 'tweet' || $src_two_type == 'comment';
-
-            $source_one_cmd = $this->createInputCommand($source_one);
-            $source_two_cmd = $this->createInputCommand($source_two);
-            $time_pic_cmd = ' -loop 1 -framerate 24 -t 5 -i '.$path.'time.png \
-                            -f lavfi -t 1 -i anullsrc ';
-
-            $command = $this->ffmpeg.' \
-                '.$source_one_cmd.' \
-                '.$time_pic_cmd.' \
-                '.$source_two_cmd.' \
-                -filter_complex " ';
-
-            if ($source_one_is_img && !$source_two_is_img) {
-                $src_two_video_info = $source_two['video_info'];
-                $src_two_width = $src_two_video_info['width'];
-                $src_two_height = $src_two_video_info['height'];
-                $src_two_sar = $src_two_video_info['sar'];
-
-                $command .= '[0:v]scale='.$src_two_width.':'.$src_two_height.',setsar='.$src_two_sar.'[pic_one]; \
-                            [2:v][pic_one]scale2ref[pic_two][pic_one]; \
-                            [pic_two]scale='.$src_two_width.':'.$src_two_height.',setsar='.$src_two_sar.'[pic_two]; \
-                            [pic_two][4:v]scale2ref[pic_two][video]; \
-                            [video]setsar='.$src_two_sar.'[video]; \
-                            [pic_one][1:a][pic_two][3:a][video][4:a]concat=n=3:v=1:a=1';
-            }
-
-            if (!$source_one_is_img && $source_two_is_img) {
-                $src_one_video_info = $source_one['video_info'];
-                $src_one_width = $src_one_video_info['width'];
-                $src_one_height = $src_one_video_info['height'];
-                $src_one_sar = $src_one_video_info['sar'];
-                $src_two_sar = $src_two_video_info['sar'];
-
-                $command .= '[1:v][0:v]scale2ref[duration][video]; \
-                            [video]setsar='.$src_one_sar.'[video]; \
-                            [duration]setsar='.$src_one_sar.'[duration]; \
-                            [3:v]scale='.$src_one_width.':'.$src_one_height.',setsar='.$src_one_sar.'[pic_one]; \
-                            [duration][pic_one]scale2ref[duration][pic_one]; \
-                            [video][0:a][duration][2:a][pic_one][4:a]concat=n=3:v=1:a=1';
-            }
-
-            if (!$source_one_is_img && !$source_two_is_img) {
-                $src_one_video_info = $source_one['video_info'];
-                $src_one_height = $src_one_video_info['height'];
-                $src_one_width = $src_one_video_info['width'];
-                $src_one_sar = $src_one_video_info['sar'];
-
-                $src_two_video_info = $source_two['video_info'];
-                $src_two_height = $src_two_video_info['height'];
-                $src_two_width = $src_two_video_info['width'];
-                $src_two_sar = $src_two_video_info['sar'];
-
-                $width = $src_one_height;
-                $height = $src_one_height;
-                if ($src_two_width > $src_one_width) {
-                    $width = $src_two_height;
-                    $height = $src_two_height;
-                }
-
-                $dar = '16/9';
-                $sar = $src_two_sar;
-                if ($src_one_sar > $src_two_sar) {
-                    $sar = $src_one_sar;
-                }
-
-                $command .= '[0:v]scale='.$width.':'.$height.',setdar='.$dar.',setsar='.$sar.'[video]; \
-                            [1:v][video]scale2ref[logo][video]; \
-                            [3:v]scale='.$width.':'.$height.',setdar='.$dar.',setsar='.$sar.'[video_two]; \
-                            [logo][video_two]scale2ref[logo][video_two]; \
-                            [video][0:a][logo][2:a][video_two][3:a]concat=n=3:v=1:a=1';
-            }
-
-            $command .= '" \ '.$output_file;
-            exec($command, $output);
-
-            $file = 'video_'.date('Y-m-d_H_i_s').'.mp4';
-            rename(' '.$output_file, $path.$file);
-            return $id.'/'.$file;
-        }
-
-        /**
-         * [createInputCommand description]
-         * @param  [type] $source [description]
-         * @return [type]         [description]
-         */
-        public function createInputCommand($source) {
-            if ($source['type'] == 'tweet' || $source['type'] == 'comment') {
-                $img_path = $source['type'] == 'tweet' ? $this->tweetPath : $this->commentPath;
-                return ' -loop 1 -framerate 25 -t 5 -i '.$img_path.$source['id'].'.png \
-                    -f lavfi -t 1 -i anullsrc ';
-            }
-
-            return ' -i '.$source['file'];
-        }
-
         public function createPicFromData(
+            $file,
             $path,
             $content,
             $remove = false
         ) {
-            if (!file_exists($path)) {
+            if (!file_exists($path.$file)) {
                 list($type, $data) = explode(';', $content);
                 list(, $data) = explode(',', $data);
-                file_put_contents($path, base64_decode($data));
+                file_put_contents($path.$file, base64_decode($data));
 
                 if ($remove) {
-                    unlink($path);
+                    unlink($path.$file);
                 }
             }
         }
 
-        /**
-         * Create an image with text
-         * @param  [type] $id
-         * @param  [int] $img_width
-         * @param  [int] $img_height
-         * @param  [string] $text      The text to be written in the image
-         * @param  [array] $color      The RGB value
-         * @param  [string] $file_name The path to the image
-         * @return [string]            The path to the image
-         */
         public function createTextPic(
-            $id,
-            $img_width,
-            $img_height,
+            $path,
+            $file_name,
             $text,
-            $color,
-            $font_size = 36,
-            $file_name = 'time.png'
+            $img_width = 1280,
+            $img_height = 720,
+            $color = [211, 7, 100],
+            $font_size = 36
         ) {
-            $path = $this->fallacyPath.$id;
-            $file = $path.'/'.$file_name;
+            $file = $path.$file_name;
             if (!file_exists($file)) {
                 if (!is_dir($path)) {
                     exec('mkdir '.$path);
@@ -285,6 +87,33 @@
             }
 
             return $file;
+        }
+
+        public function createTextVideo($text) {
+            $text_dash = str_replace(' ', '-', $text);
+            $text_pic = $this->media->createTextPic(
+                $this->placeholderImgPath,
+                $text_dash.'.png',
+                $text
+            );
+            $key = 'labels/'.$text_dash.'.mp4';
+            $text_video = $this->placeholderVideoPath.$text_dash.'.mp4';
+            $this->createVideoFromImg($text_pic, $text_video);
+            $this->addToS3($key, $text_video);
+            return [
+                'key' => $key,
+                'src' => $text_video
+            ];
+        }
+
+        public function createVideo($input, $output) {
+            $this->aws->createJob($input, $output);
+        }
+
+        public function createVideoFromImg($input, $output) {
+            $command = $this->ffmpeg.' -loop 1 -framerate 25 -t 5 -i '.$input.' \
+                    -f lavfi -t 1 -i anullsrc '.$output;
+            exec($command);
         }
 
         /**
@@ -319,54 +148,16 @@
          * @return [boolean]       Whether or not the file exists
          */
         public function existsInS3($file) {
-            return $this->s3->exist($file);
+            return $this->aws->exist($file);
         }
 
-        /**
-         * [getImgFromVideo description]
-         * @param  [type] $id   [description]
-         * @param  [type] $time [description]
-         * @return [type]       [description]
-         */
-        public function getImgFromVideo($id, $time) {
-            $img = $id.'_'.$time.'.jpg';
-            $path = $this->archivePath;
-            $command = $this->ffmpeg."-i ".$this->youtubePath.$id.".mp4 -ss ".gmdate('H:i:s', $time)." -vframes 1 ".$path.$img;
-            exec($command, $output);
-            return $img;
-        }
-
-        /**
-         * Get the width, height, SAR and codec of a video
-         * @param  [string] $video The path to the video
-         * @return [array]         Info including dimensions and SAR of the video
-         */
-        function getVideoAttributes($video) {
-            $command = $this->ffmpeg.' -i '.$video.' -vstats 2>&1';
-            exec($command, $output);
-
-            foreach ($output as $o) {
-                $regex_sizes = "/Video: ([^\r\n]*), ([^,]*), ([0-9]{1,4})x([0-9]{1,4})/"; 
-                if (preg_match($regex_sizes, $o, $regs)) {
-                    $codec = $regs[1] ? $regs[1] : null;
-                    $width = $regs[3] ? $regs[3] : null;
-                    $height = $regs[4] ? $regs[4] : null;
-                }
-
-                $regex_sar = "/SAR ([^,]*)/";
-                $sar_str = '1:1';
-                if (preg_match($regex_sar, $o, $regs)) {
-                    $sar_str = $regs[1] ? $regs[1] : null;
-                }
-            }
-
-            $sar_arr = explode(' ', $sar_str);
-            $sar = $sar_arr[0];
-            return [
-                'codec' => $codec,
-                'height' => $height,
-                'sar' => str_replace(':', '/', $sar),
-                'width' => $width
-            ];
+        public function saveScreenshot($id, $path, $img, $folder) {
+            $img_file = $id.'.png';
+            $mp4_file = $id.'.mp4';
+            $key = $folder.'/'.$mp4_file;
+            $this->createPicFromData($img_file, $path, $img);
+            $this->createVideoFromImg($path.$img_file, $path.$mp4_file);
+            $this->addToS3($key, $path.$mp4_file);
+            return $key;
         }
     }
