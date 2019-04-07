@@ -135,7 +135,7 @@ class Fallacy extends Component {
 
 		html2canvas(document.getElementById(el), {
 			scale: 2,
-			useCORS: true,
+			useCORS: true
 		}).then(canvas => {
 			if (this.props.canScreenshot) {
 				const ctx = canvas.getContext("2d")
