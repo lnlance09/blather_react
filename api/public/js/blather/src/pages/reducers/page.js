@@ -14,15 +14,14 @@ const page = (state = initial(), action) => {
 					exists: false
 				}
 			}
-			const reviewCount = parseInt(payload.review.count, 10)
-			const sincerityVotes =
-				payload.review.sincerity_votes === null
-					? 0
-					: parseInt(payload.review.sincerity_votes, 10)
-			const turingTestVotes =
-				payload.review.turing_test_votes === null
-					? 0
-					: parseInt(payload.review.turing_test_votes, 10)
+
+			const review = payload.review
+			const reviewCount = parseInt(review.count, 10)
+			const sincerityNo = review.sincerity_no === null ? 0 : parseInt(review.sincerity_no, 10)
+			const turingTestNo = review.turing_test_no === null ? 0 : parseInt(review.turing_test_no, 10)
+			const sincerityYes = parseInt(reviewCount - sincerityNo, 10)
+			const turingTestYes = parseInt(reviewCount - turingTestNo, 10)
+
 			return {
 				...state,
 				about: payload.data.about,
@@ -40,13 +39,13 @@ const page = (state = initial(), action) => {
 				network: payload.data.type,
 				sincerity: {
 					count: reviewCount,
-					yes: sincerityVotes ? (sincerityVotes / reviewCount) * 100 : 0,
-					no: sincerityVotes ? ((reviewCount - sincerityVotes) / reviewCount) * 100 : 0
+					yes: sincerityYes,
+					no: sincerityNo
 				},
 				turingTest: {
 					count: reviewCount,
-					yes: turingTestVotes ? (turingTestVotes / reviewCount) * 100 : 0,
-					no: turingTestVotes ? ((reviewCount - turingTestVotes) / reviewCount) * 100 : 0
+					yes: turingTestYes,
+					no: turingTestNo
 				},
 				username: payload.data.username
 			}
