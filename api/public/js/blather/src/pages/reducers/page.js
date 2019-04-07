@@ -18,7 +18,8 @@ const page = (state = initial(), action) => {
 			const review = payload.review
 			const reviewCount = parseInt(review.count, 10)
 			const sincerityNo = review.sincerity_no === null ? 0 : parseInt(review.sincerity_no, 10)
-			const turingTestNo = review.turing_test_no === null ? 0 : parseInt(review.turing_test_no, 10)
+			const turingTestNo =
+				review.turing_test_no === null ? 0 : parseInt(review.turing_test_no, 10)
 			const sincerityYes = parseInt(reviewCount - sincerityNo, 10)
 			const turingTestYes = parseInt(reviewCount - turingTestNo, 10)
 

@@ -510,7 +510,10 @@ class FallacyForm extends Component {
 		return (
 			<Provider store={store}>
 				<div className="fallacyForm">
-					<Header>Does this logic make sense?</Header>
+					<Header dividing size="large">
+						Does this logic make sense?
+						<Header.Subheader>Assign a fallacy</Header.Subheader>
+					</Header>
 					<Form
 						className="form basic segment"
 						error={this.props.fallacyFormError || cError || !cValid}
@@ -556,7 +559,13 @@ class FallacyForm extends Component {
 						</Form.Field>
 						<ErrorMsg props={this.props} />
 						{this.props.authenticated ? (
-							<Button color="orange" content="Assign a fallacy" fluid type="submit" />
+							<Button
+								color={this.props.network}
+								compact
+								content="Assign a fallacy"
+								fluid
+								type="submit"
+							/>
 						) : (
 							<Button.Group fluid>
 								<Button
