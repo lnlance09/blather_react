@@ -11,6 +11,7 @@
     $appleIcon = "https://blather.io/images/icons/icon-128x128.png";
     $author = false;
     $s3Path = "https://s3.amazonaws.com/blather22/";
+    $video = null;
 
     switch ($uri) {
         case "/about":
@@ -114,11 +115,16 @@
                             $description = $row['explanation'];
                             $img = $row['profile_pic'];
                             $pic = $row['user_profile_pic'];
+                            $s3Link = $row['s3_link'];
                         }
                         $result->close();
 
                         $pageUrl = $pageType === "twitter" ? "https://twitter.com/".$username : "https://www.youtube.com/channel/".$pageId;
                         $postUrl = $network === "twitter" ? "https://twitter.com/".$username."/status/".$mediaId : "https://www.youtube.com/watch?v=".$mediaId;
+                        if ($s3Link) {
+                            $video = $s3Path.$s3Link;
+                        }
+
                         $author = $userName;
                         $schema = [
                             "@context" => "http://schema.org",
@@ -344,6 +350,15 @@
         <meta property="og:site_name" content="Blather" />
         <meta property="og:title" content="<?php echo htmlentities($title); ?>">
         <meta property="og:type" content="website" />
+<?php
+    if ($video) {
+?>
+        <meta property="og:video" content="<?php echo $video; ?>" />
+        <meta property="og:video:height" content="1920" />
+        <meta property="og:video:width" content="1080" />
+<?php
+    }
+?>
         <meta property="og:url" content="https://blather.io<?php echo $uri; ?>">
 
         <meta name="description" content="<?php echo htmlentities($description); ?>">
