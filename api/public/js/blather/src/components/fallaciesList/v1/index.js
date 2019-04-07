@@ -223,7 +223,8 @@ class FallaciesList extends Component {
 									<span>
 										Assigned by <b>{result.user_name}</b>
 									</span>
-								)}
+								)}{" "}
+								<Icon className={`${result.network}Icon`} name={result.network} />
 							</p>
 							<p>
 								<Icon name="clock outline" />
