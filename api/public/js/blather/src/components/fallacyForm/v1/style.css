@@ -6,7 +6,7 @@
 .fallacyForm .formHeader {
   font-size: 24px !important; }
 
-.fallacyForm .segment {
+.fallacyForm .segment.basic {
   padding: 0; }
 
 .fallacyForm .field.startTime, .fallacyForm .field.contradictionStartTime {
