@@ -37,7 +37,7 @@ import html2canvas from "html2canvas"
 import Moment from "react-moment"
 import PageFooter from "components/footer/v1/"
 import PageHeader from "components/header/v1/"
-import PlaceholderImg from "images/blue.jpg"
+import PlaceholderImg from "images/background.jpg"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import store from "store"
@@ -280,19 +280,12 @@ class Fallacy extends Component {
 					<div>
 						{props.s3Link ? (
 							<div>
-								<Icon name="film" />
-								<a href={props.s3Link} rel="noopener noreferrer" target="_blank">
-									Click here to download
-								</a>
-								<div>
-									<Divider />
-									<Embed
-										className="exportEmbed"
-										icon="right circle arrow"
-										placeholder={PlaceholderImg}
-										url={props.s3Link}
-									/>
-								</div>
+								<Embed
+									className="exportEmbed"
+									icon="right circle arrow"
+									placeholder={PlaceholderImg}
+									url={props.s3Link}
+								/>
 							</div>
 						) : (
 							<div>
