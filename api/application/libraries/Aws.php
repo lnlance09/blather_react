@@ -98,7 +98,7 @@ class Aws {
 					'Key' => $input[$i]['name'],
 					'FrameRate' => 'auto',
 					'Resolution' => 'auto',
-					'AspectRatio' => 'auto',
+					'AspectRatio' => '16:9',
 					'Interlaced' => 'auto',
 					'Container' => 'mp4',
 					// 'Encryption' => $encryption,

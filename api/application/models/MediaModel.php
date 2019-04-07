@@ -56,8 +56,8 @@
             $path,
             $file_name,
             $text,
-            $img_width = 1280,
-            $img_height = 720,
+            $img_width = 1920,
+            $img_height = 1080,
             $color = [211, 7, 100],
             $font_size = 36
         ) {
