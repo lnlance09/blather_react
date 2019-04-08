@@ -78,12 +78,17 @@ class ArchivesList extends Component {
 
 	onChangeInput = (e, { value }) => {
 		this.setState({ page: 0, q: value })
-		this.props.getArchives({
-			id: this.props.id,
-			page: 0,
-			pageId: this.state.value,
-			q: value
-		})
+		setTimeout(() => {
+			 if (value.length < 3) {
+			 	return this.resetComponent()
+			}
+			this.props.getArchives({
+				id: this.props.id,
+				page: 0,
+				pageId: this.state.value,
+				q: value
+			})
+		}, 800)
 	}
 
 	onChangeSearch = (e, { value }) => {
@@ -95,6 +100,8 @@ class ArchivesList extends Component {
 			q: this.state.q
 		})
 	}
+
+	resetComponent = () => this.setState({ value: '' })
 
 	render() {
 		const { options, q, value } = this.state
@@ -199,7 +206,7 @@ class ArchivesList extends Component {
 							<Form.Field
 								control={Input}
 								icon="search"
-								onChange={_.debounce(this.onChangeInput, 8000, {
+								onChange={_.debounce(this.onChangeInput, 800, {
 									leading: true
 								})}
 								placeholder="Search"
