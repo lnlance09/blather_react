@@ -42,7 +42,9 @@ class NavSearch extends Component {
 
 	handleSearchChange = (e, { value }) => {
 		this.setState({ isLoading: value.length > 3, value })
-		this.fetchResults()
+		setTimeout(() => {
+			this.fetchResults()
+		}, 500)
 	}
 
 	handleSubmit = e => {
