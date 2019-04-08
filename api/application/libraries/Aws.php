@@ -61,7 +61,7 @@ class Aws {
 				// 'ThumbnailPattern' => 'string',
 				// 'ThumbnailEncryption' => $encryption,
 				'Rotate' => '0',
-				'PresetId' => '1351620000001-100180',
+				'PresetId' => '1351620000001-000001',
 				// 'SegmentDuration' => '00:00:12',
 				/*
 				'Watermarks' => [
