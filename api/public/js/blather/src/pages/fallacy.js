@@ -282,7 +282,6 @@ class Fallacy extends Component {
 								<ReactPlayer
 									className="exportEmbed"
 									controls
-									playing
 									url={props.s3Link}
 								/>
 							</div>
