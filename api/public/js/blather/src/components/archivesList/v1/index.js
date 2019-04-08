@@ -1,6 +1,7 @@
 import "./style.css"
 import { getArchives } from "pages/actions/user"
 import { adjustTimezone } from "utils/dateFunctions"
+import { formatDuration } from "utils/textFunctions"
 import { connect } from "react-redux"
 import {
 	Divider,
@@ -111,11 +112,13 @@ class ArchivesList extends Component {
 						description: archive.full_text,
 						img: archive.profile_pic,
 						link: `/tweet/${archive.tweet_id}`,
-						title: `Tweet by ${archive.page_name}`
+						title: archive.page_name
 					}
 				case "video":
 					return {
-						description: archive.description,
+						description: `${formatDuration(archive.start_time)} - ${formatDuration(
+							archive.end_time
+						)} - ${archive.description}`,
 						img: archive.profile_pic,
 						link: `/video/${archive.video_id}`,
 						title: archive.title
@@ -133,6 +136,8 @@ class ArchivesList extends Component {
 							<p>
 								<Icon name="clock outline" />{" "}
 								<Moment date={adjustTimezone(archive.date_created)} fromNow />
+								{"  "}
+								<Icon className={`${archive.network}Icon`} name={archive.network} />
 							</p>
 						</div>
 					)
@@ -170,7 +175,6 @@ class ArchivesList extends Component {
 							highlightText={q}
 							history={props.history}
 							id={`archive_${i}`}
-							img={info.img}
 							key={`archive_${i}`}
 							menu={menu}
 							meta={meta}
