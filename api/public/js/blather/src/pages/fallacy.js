@@ -39,6 +39,7 @@ import PageFooter from "components/footer/v1/"
 import PageHeader from "components/header/v1/"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
+import ReactPlayer from "react-player"
 import store from "store"
 import TagsCard from "components/tagsCard/v1/"
 import TitleHeader from "components/titleHeader/v1/"
@@ -279,9 +280,10 @@ class Fallacy extends Component {
 					<div>
 						{props.s3Link ? (
 							<div>
-								<Embed
+								<ReactPlayer
 									className="exportEmbed"
-									icon="right circle arrow"
+									controls
+									playing
 									url={props.s3Link}
 								/>
 							</div>

@@ -267,8 +267,9 @@ a {
   margin-top: 16px; }
   .fallacyPage .exportSection .downloadBtn {
     margin-top: 16px; }
-  .fallacyPage .exportSection .exportEmbed .icon {
-    background: #E03997 !important; }
+  .fallacyPage .exportSection .exportEmbed {
+    display: inline;
+    text-align: center; }
 
 .fallacyPage .similarFallaciesSegment {
   padding: 0 !important;
