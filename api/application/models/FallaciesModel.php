@@ -805,7 +805,7 @@
             }
 
             if ($data['q']) {
-                $this->db->where("(title LIKE '%".$data['q']."%' OR explanation LIKE '%".$data['q']."%')");
+                $this->db->where("(title LIKE '%".$data['q']."%' OR explanation LIKE '%".$data['q']."%' OR p.name LIKE '%".$data['q']."%')");
             }
 
             if (!empty($data['fallacies'])) {

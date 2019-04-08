@@ -1,6 +1,7 @@
 import "./style.css"
 import { fetchSearchResults } from "./actions"
 import { refreshYouTubeToken } from "components/authentication/v1/actions"
+import { adjustTimezone } from "utils/dateFunctions"
 import { formatNumber, formatPlural } from "utils/textFunctions"
 import { connect, Provider } from "react-redux"
 import { Link } from "react-router-dom"
@@ -82,8 +83,17 @@ class SearchResults extends Component {
 				case "fallacies":
 					let dateCreated = (
 						<div>
-							Assigned <Moment date={result.date_created} fromNow /> by{" "}
-							{result.user_name}
+							<p>
+								<Icon name="arrow right" />{" "}
+								<span>
+									Assigned to <b>{result.page_name}</b>
+								</span>
+								<Icon className={`${result.network}Icon`} name={result.network} />
+							</p>
+							<p>
+								<Icon name="clock outline" />
+								<Moment date={adjustTimezone(result.date_created)} fromNow />
+							</p>
 						</div>
 					)
 					return {
@@ -212,6 +222,8 @@ class SearchResults extends Component {
 				<ResultItem
 					description={itemData.description}
 					extra={itemData.extra}
+					highlight={this.props.q !== "" && this.props.type === "fallacies"}
+					highlightText={this.props.q}
 					history={this.props.history}
 					id={`${this.props.type}_${i}`}
 					img={itemData.img}
@@ -220,6 +232,7 @@ class SearchResults extends Component {
 					sanitize
 					tags={itemData.tags}
 					title={itemData.title}
+					truncate={false}
 					type={this.props.type}
 					url={itemData.url}
 				/>
