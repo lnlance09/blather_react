@@ -93,15 +93,14 @@
 				unset($data['q']);
 			}
 
-			$select = 'a.code, a.date_created, a.description,a.link, a.network, a.type';
+			$select = 'a.code, a.date_created, a.description, a.end_time, a.link, a.network, a.start_time, a.type';
 			if ($just_count) {
 				$select = 'COUNT(*) AS count';
 			}
 
 			if (!$just_count && !$post) {
 				$select .= ', t.full_text, t.tweet_id, ytv.title, ytc.message, ytv.video_id, ytc.comment_id,
-					p.name AS page_name,
-					p.profile_pic';
+					p.name AS page_name';
 			}
 
 			if ($unique) {
