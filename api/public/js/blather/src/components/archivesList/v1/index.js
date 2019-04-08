@@ -101,7 +101,7 @@ class ArchivesList extends Component {
 		})
 	}
 
-	resetComponent = () => this.setState({ value: '' })
+	resetComponent = () => this.setState({ q: '' })
 
 	render() {
 		const { options, q, value } = this.state
