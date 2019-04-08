@@ -459,8 +459,9 @@ a {
             margin-top: 16px;
         }
 
-        .exportEmbed .icon {
-            background: $pink !important;
+        .exportEmbed {
+            display: inline;
+            text-align: center;
         }
     }
 
