@@ -61,7 +61,7 @@ class Aws {
 				// 'ThumbnailPattern' => 'string',
 				// 'ThumbnailEncryption' => $encryption,
 				'Rotate' => '0',
-				'PresetId' => '1351620000001-100070',
+				'PresetId' => '1554727984534-hosagq',
 				// 'SegmentDuration' => '00:00:12',
 				/*
 				'Watermarks' => [
@@ -134,8 +134,8 @@ class Aws {
 				'Interlaced' => 'auto',
 				'Container' => 'mp4',
 				'TimeSpan' => [
-					'StartTime' => '',
-					'Duration' => '00:00:12'
+					'StartTime' => $input[0]['start_time'],
+					'Duration' => $input[0]['duration']
 				]
 			];
 		}
