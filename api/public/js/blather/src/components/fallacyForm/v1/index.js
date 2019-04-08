@@ -291,7 +291,7 @@ class FallacyForm extends Component {
 						<Input
 							className="contradictionInput"
 							icon="paperclip"
-							iconPosition="left"
+							iconPosition="right"
 							onKeyUp={this.onChangeContradiction}
 							onPaste={this.onPaste}
 							placeholder="Link to contradiction"
@@ -510,7 +510,7 @@ class FallacyForm extends Component {
 		return (
 			<Provider store={store}>
 				<div className="fallacyForm">
-					<Header dividing size="large">
+					<Header size="large">
 						Does this logic make sense?
 						<Header.Subheader>Assign a fallacy</Header.Subheader>
 					</Header>
