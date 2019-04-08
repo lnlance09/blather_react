@@ -80,7 +80,7 @@ class ArchivesList extends Component {
 		this.setState({ page: 0, q: value })
 		setTimeout(() => {
 			 if (value.length < 3) {
-			 	return this.resetComponent()
+			 	return
 			}
 			this.props.getArchives({
 				id: this.props.id,
@@ -100,8 +100,6 @@ class ArchivesList extends Component {
 			q: this.state.q
 		})
 	}
-
-	resetComponent = () => this.setState({ q: '' })
 
 	render() {
 		const { options, q, value } = this.state
