@@ -8,6 +8,8 @@
 			$this->load->helper('common_helper');
 			$this->load->model('MediaModel', 'media');
 			$this->load->model('YouTubeModel', 'youtube');
+
+			$this->s3Path = 'https://s3.amazonaws.com/blather22/';
 		}
 
 		public function archive() {
@@ -80,6 +82,23 @@
 				exit;
 			}
 
+			$error = false;
+
+			$output_file = 'youtube_videos/'.$id.'_'.$start_time.'_'.$end_time.'.mp4';
+			$input = [
+				[
+					'name' => 'youtube_videos/'.$id.'.mp4',
+					'start_time' => gmdate('H:i:s', $start_time),
+					'duration' => gmdate('H:i:s', $end_time-$start_time)
+				]
+			];
+			$output = [
+				'name' => $output_file,
+				'start_time' => null,
+				'duration' => null
+			];
+			$this->media->createVideo($input, $output);
+
 			$data = [
 				'code' => null,
 				'description' => $description,
@@ -88,13 +107,14 @@
 				'network' => 'youtube',
 				'object_id' => $id,
 				'page_id' => $video['data']['channel']['db_id'],
+				's3_link' => $output_file,
 				'start_time' => $start_time,
 				'type' => 'video',
 				'user_id' => $user_id
 			];
 			$archive = $this->users->createArchive($data);
-			$error = false;
 			$data['id'] = $this->users->alreadyArchived($data, true);
+			$data['s3_link'] = $this->s3Path.$output_file;
 
 			echo json_encode([
 				'archive' => $data,

@@ -47,10 +47,12 @@
   padding: 0; }
 
 .youTubeVideo .archivesList .item span {
-  color: #2185D0;
-  cursor: pointer; }
+  color: #1B1C1D; }
   .youTubeVideo .archivesList .item span:hover {
     text-decoration: underline; }
+
+.youTubeVideo .archivesList .item p {
+  margin-top: 10px; }
 
 .youTubeVideo .editVideoTimes {
   margin: 20px 0 0 0 !important; }

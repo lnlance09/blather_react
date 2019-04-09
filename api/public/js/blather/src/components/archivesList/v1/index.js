@@ -79,8 +79,8 @@ class ArchivesList extends Component {
 	onChangeInput = (e, { value }) => {
 		this.setState({ page: 0, q: value })
 		setTimeout(() => {
-			 if (value.length < 3) {
-			 	return
+			if (value.length < 3) {
+				return
 			}
 			this.props.getArchives({
 				id: this.props.id,

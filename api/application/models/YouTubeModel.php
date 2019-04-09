@@ -394,7 +394,7 @@
         }
 
         public function getVideoArchives($id, $user_id = null) {
-            $select = 'a.description, a.end_time, a.id, a.start_time, CONCAT("'.$this->s3Path.'", u.img) AS img, u.id AS user_id';
+            $select = 'a.description, a.end_time, a.id, CONCAT("'.$this->s3Path.'", a.s3_link) AS s3_link, a.start_time, CONCAT("'.$this->s3Path.'", u.img) AS img, u.id AS user_id';
             $data = [
                 'network' => 'youtube',
                 'object_id' => $id

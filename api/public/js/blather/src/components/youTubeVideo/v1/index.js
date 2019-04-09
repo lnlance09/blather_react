@@ -99,6 +99,17 @@ class YouTubeVideo extends Component {
 	handleItemClick = (e, { name }) => {
 		this.setState({ activeItem: name })
 	}
+	openDownloadLink = link => {
+		if (link) {
+			const a = document.createElement("a")
+			a.target = "_blank"
+			a.href = link
+			a.download = link.substr(link.lastIndexOf("/") + 1)
+			document.body.appendChild(a)
+			a.click()
+			document.body.removeChild(a)
+		}
+	}
 	onSubmitArchive = () => {
 		this.props.createVideoArchive({
 			bearer: this.props.bearer,
@@ -227,14 +238,28 @@ class YouTubeVideo extends Component {
 													<Icon
 														color="red"
 														name="delete"
-														onClick={() => this.deleteArchive(a.id)}
+														onClick={e => {
+															e.stopPropagation()
+															this.deleteArchive(a.id)
+														}}
 														size="small"
 													/>
 												</List.Content>
 											)}
 											<List.Content>
 												<List.Header>
-													<span>
+													<Icon
+														color="blue"
+														name="download"
+														onClick={() =>
+															this.openDownloadLink(a.s3_link)
+														}
+													/>
+													<span
+														onClick={() =>
+															this.openDownloadLink(a.s3_link)
+														}
+													>
 														{formatDuration(a.start_time)} -{" "}
 														{formatDuration(a.end_time)}
 													</span>

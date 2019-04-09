@@ -135,7 +135,7 @@ class Fallacy extends Component {
 		this.setState({ downloading: true })
 
 		html2canvas(document.getElementById(el), {
-			scale ,
+			scale,
 			useCORS: true
 		}).then(canvas => {
 			if (this.props.canScreenshot) {
@@ -294,11 +294,7 @@ class Fallacy extends Component {
 					<div>
 						{props.s3Link ? (
 							<div>
-								<ReactPlayer
-									className="exportEmbed"
-									controls
-									url={props.s3Link}
-								/>
+								<ReactPlayer className="exportEmbed" controls url={props.s3Link} />
 							</div>
 						) : (
 							<div>
