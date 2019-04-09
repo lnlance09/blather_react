@@ -74,12 +74,15 @@
     .archivesList {
         .item {
             span {
-                color: $blue;
-                cursor: pointer;
+                color: $black;
 
                 &:hover {
                     text-decoration: underline;
                 }
+            }
+
+            p {
+                margin-top: 10px;
             }
         }
     }

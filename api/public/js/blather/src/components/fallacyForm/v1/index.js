@@ -510,10 +510,11 @@ class FallacyForm extends Component {
 		return (
 			<Provider store={store}>
 				<div className="fallacyForm">
-					<Header size="large">
+					<Header size="large" textAlign="center">
 						Does this logic make sense?
 						<Header.Subheader>Assign a fallacy</Header.Subheader>
 					</Header>
+					<Divider />
 					<Form
 						className="form basic segment"
 						error={this.props.fallacyFormError || cError || !cValid}

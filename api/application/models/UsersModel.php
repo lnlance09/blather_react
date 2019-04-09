@@ -129,7 +129,11 @@
 				$per_page = 10;
 				$start = $per_page*$page;
 				$this->db->limit($per_page, $start);
-				$this->db->group_by('a.object_id');
+
+				if (empty($q)) {
+					$this->db->group_by('a.object_id');
+				}
+
 				$this->db->order_by('date_created', 'DESC');
 			}
 

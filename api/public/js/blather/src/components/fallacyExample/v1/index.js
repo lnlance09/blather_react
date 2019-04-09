@@ -405,7 +405,7 @@ class FallacyExample extends Component {
 							history={props.history}
 							id={material.video.id}
 							redirect
-							showChannel
+							showChannel={false}
 							showStats={false}
 							source="fallacy"
 							startTime={material.video.startTime}

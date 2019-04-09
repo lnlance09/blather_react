@@ -127,7 +127,7 @@ class Aws {
 
 		if ($input_count === 1) {
 			$data['Input'] = [
-				'Key' => $input,
+				'Key' => $input[0]['name'],
 				'FrameRate' => 'auto',
 				'Resolution' => 'auto',
 				'AspectRatio' => 'auto',
