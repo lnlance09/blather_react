@@ -91,6 +91,7 @@
 
         public function createTextVideo($text) {
             $text_dash = str_replace(' ', '-', $text);
+            $text_dash = str_replace("'", '', $text_dash);
             $text_pic = $this->media->createTextPic(
                 $this->placeholderImgPath,
                 $text_dash.'.png',
