@@ -32,20 +32,20 @@
 		curl_close($ch);
 
 		$location = false;
-		if($code === 302) {
-			if(preg_match('~Location: (.*)~i', $data, $match)) {
+		if ($code === 302) {
+			if (preg_match('~Location: (.*)~i', $data, $match)) {
 				$location = trim($match[1]);
 			}
 		}
 
-		if($code === 200) {
-			if(preg_match('~Refresh: (.*)~i', $data, $match)) {
+		if ($code === 200) {
+			if (preg_match('~Refresh: (.*)~i', $data, $match)) {
 				$location = trim($match[1]);
 			}
 		}
 
 		$code = null;
-		if($location) {
+		if ($location) {
 			$exp = explode('/', $location);
 			$code = end($exp);
 		}
@@ -69,7 +69,7 @@
 	 * @param {boolean} [style] Whether or not to style the preformatted array
 	 */
 	function FormatArray($array, $style = false) {
-		if($style) {
+		if ($style) {
 			echo '<div style="color:#090127;text-shadow:none;text-align:left;">';
 		}
 
@@ -77,7 +77,7 @@
 		print_r($array);
 		echo '</pre>';
 
-		if($style) {
+		if ($style) {
 			echo '</div>';
 		}
 	}
@@ -86,7 +86,7 @@
 		$characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
 		$string = '';
 		$max = strlen($characters) - 1;
-		for($i=0;$i<$length;$i++) {
+		for ($i=0;$i<$length;$i++) {
 			$string .= $characters[mt_rand(0, $max)];
 		}
 
@@ -96,7 +96,7 @@
 	function getArticle($word) {
 		$vowels = ['a','e','i','o','u'];
 		$subStr = substr(strtolower($word), 0, 1);
-		return (in_array($subStr, $vowels) ? 'an' : 'a');
+		return in_array($subStr, $vowels) ? 'an' : 'a';
 	}
 
 	/**
@@ -124,7 +124,7 @@
 		$data = curl_exec($ch);
 		$code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 		curl_close($ch);
-		if($code == 200) {
+		if ($code == 200) {
 			return @json_decode($data, true);
 		}
 		return false;
@@ -158,56 +158,64 @@
 		$end_time = null;
 		$type = 'tweet';
 
-		switch($parse['host']) {
-			case'www.facebook.com':
-			case'facebook.com':
+		$host = $parse['host'];
+		switch ($host) {
+			case 'www.facebook.com':
+			case 'facebook.com':
+
 				$network = 'facebook';
 				$exp = explode('/', $parse['path']);
-				if(count($exp) > 3) {
+				if (count($exp) > 3) {
 					$username = $exp[1];
 					$object_id = $exp[3];
 				}
 
-				if(array_key_exists('query', $parse)) {
+				if (array_key_exists('query', $parse)) {
 					parse_str($parse['query'], $query);
 					$comment_id = array_key_exists('comment_id', $query) ? $query['comment_id'] : null;
 				}
 				break;
-			case'www.twitter.com':
-			case'twitter.com':
+
+			case 'www.twitter.com':
+			case 'twitter.com':
+
 				$network = 'twitter';
 				$exp = explode('/', $parse['path']);
 				array_shift($exp);
-				if(count($exp) === 3) {
+				if (count($exp) === 3) {
 					$username = $exp[0];
 					$object_id = $exp[2];
 					$type = 'tweet';
 				}
 				break;
-			case'www.youtube.com':
-			case'youtube.com':
+
+			case 'www.youtube.com':
+			case 'youtube.com':
+
 				$network = 'youtube';
-				if(array_key_exists('query', $parse)) {
+				if (array_key_exists('query', $parse)) {
 					parse_str($parse['query'], $query);
 					$type = 'video';
 					$object_id = array_key_exists('v', $query) ? $query['v'] : null;
 					$comment_id = array_key_exists('lc', $query) ? $query['lc'] : null;
 					$start_time = array_key_exists('t', $query) ? $query['t'] : null;
-					if($comment_id) {
+					if ($comment_id) {
 						$type = 'comment';
 					}
 				}
 				break;
-			case'youtu.be':
+
+			case 'youtu.be':
+
 				$network = 'youtube';
-				if(array_key_exists('path', $parse)) {
+				if (array_key_exists('path', $parse)) {
 					$exp = explode('/', $parse['path']);
 					array_shift($exp);
-					if(count($exp) === 1) {
+					if (count($exp) === 1) {
 						$object_id = $exp[0];
 						$type = 'video';
 					}
-					if(array_key_exists('query', $parse)) {
+					if (array_key_exists('query', $parse)) {
 						parse_str($parse['query'], $query);
 						$comment_id = array_key_exists('lc', $query) ? $query['lc'] : null;
 						$start_time = array_key_exists('t', $query) ? $query['t'] : null;
@@ -217,7 +225,29 @@
 				break;
 		}
 
-		if($network) {
+		if (($host == 'blather.io' || $host == 'localhost') && array_key_exists('path', $parse)) {
+			$exp = explode('/', $parse['path']);
+			array_shift($exp);
+			if (count($exp) === 2) {
+				$type = $exp[0];
+				$object_id = $exp[1];
+
+				if ($type == 'comment') {
+					$network = 'youtube';
+					$comment_id = $object_id;
+				}
+
+				if ($type == 'tweet') {
+					$network = 'twitter';
+				}
+
+				if ($type == 'video') {
+					$network = 'youtube';
+				}
+			}
+		}
+
+		if ($network) {
 			return [
 				'comment_id' => $comment_id,
 				'end_time' => $end_time,

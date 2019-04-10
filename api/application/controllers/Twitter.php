@@ -10,7 +10,7 @@
 		}
 
 		public function getCredentials() {
-			if(!($this->user ? $this->user->twitterAccessSecret : false)) {
+			if (!($this->user ? $this->user->twitterAccessSecret : false)) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => true
@@ -22,7 +22,7 @@
 			$verifier = $this->input->post('oauth_verifier');
 			$access = $this->twitter->getAccessToken($verifier, $token, $this->user->twitterAccessSecret);
 
-			if($access) {
+			if ($access) {
 				$linkedTwitter = true;
 				$oauthToken = $access['oauth_token'];
 				$oauthSecret = $access['oauth_token_secret'];
@@ -36,7 +36,7 @@
 				$twitterUsername = null;
 				$token = $this->twitter->getRequestToken();
 
-				if($token) {
+				if ($token) {
 					$oauthToken = $token['oauth_token'];
 					$oauthSecret = $token['oauth_token_secret'];
 					/*TODO */
@@ -54,7 +54,7 @@
 			$data['twitter_id'] = $twitterId;
 			$data['twitter_username'] = $twitterUsername;
 
-			if($linkedTwitter) {
+			if ($linkedTwitter) {
 				$this->users->setTwitterDetails($this->user->id, [
 					'user_id' => $this->user->id,
 					'twitter_access_secret' => $oauthSecret,
@@ -71,7 +71,7 @@
 			$id = $this->input->post('id');
 			$since = $this->input->post('since');
 
-			if(!($this->user ? $this->user->linkedTwitter : false)) {
+			if (!($this->user ? $this->user->linkedTwitter : false)) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You must link your twitter account'
@@ -96,7 +96,7 @@
 		}
 
 		public function remove() {
-			if(!($this->user ? $this->user->linkedTwitter : false)) {
+			if (!($this->user ? $this->user->linkedTwitter : false)) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You must link your twitter account'
@@ -117,7 +117,7 @@
 		}
 
 		public function requestToken() {
-			if(!$this->user) {
+			if (!$this->user) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You must login'
@@ -126,7 +126,7 @@
 			}
 
 			$token = $this->twitter->getRequestToken();
-			if(!$token) {
+			if (!$token) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'Cannot generate token'

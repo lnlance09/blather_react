@@ -315,7 +315,7 @@
 			$ext = $audio ? 'mp3' : 'mp4';
 			$key = 'youtube_videos/'.$id.'.'.$ext;
 			$video = $this->media->downloadYouTubeVideo($id, $audio);
-			$s3Link = $this->media->addToS3($key, $video, false);
+			$s3Link = $this->media->addToS3($key, $video);
 			$this->youtube->insertVideo([
 				's3_link' => $key,
 				'video_id' => $id
@@ -328,7 +328,9 @@
 		}
 
 		public function getCommentReplies() {
-			if(!($this->user ? $this->user->linkedYoutube : false)) {
+			$user = $this->user;
+			$linkedYoutube = $user ? $user->linkedYoutube : false;
+			if (!$linkedYoutube) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'code' => 101,
@@ -346,7 +348,9 @@
 		}
 
 		public function getComments() {
-			if(!($this->user ? $this->user->linkedYoutube : false)) {
+			$user = $this->user;
+			$linkedYoutube = $user ? $user->linkedYoutube : false;
+			if (!$linkedYoutube) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'code' => 101,
@@ -355,13 +359,13 @@
 				exit;
 			}
 
-			$token = $this->user->youtubeAccessToken;
+			$token = $user->youtubeAccessToken;
 			$id = $this->input->get('id');
 			$page = $this->input->get('page');
 			$nextPageToken = $this->input->get('nextPageToken');
 			$comments = $this->youtube->getVideoComments($token, $id, null, $nextPageToken, 20);
 
-			if(array_key_exists('error', $comments)) {
+			if (array_key_exists('error', $comments)) {
 				$this->output->set_status_header($comments['error']['code']);
 				echo json_encode([
 					'code' => $comments['error']['code'],
@@ -441,7 +445,8 @@
 		}
 
 		public function refresh() {
-			if(!$this->user) {
+			$user = $this->user;
+			if (!$user) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => true,
@@ -450,7 +455,7 @@
 				exit;
 			}
 
-			if(!$this->user->linkedYoutube) {
+			if (!$user->linkedYoutube) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => true,
@@ -459,8 +464,8 @@
 				exit;
 			}
 
-			$token = $this->youtube->refreshToken($this->user->youtubeRefreshToken, $this->user->id);
-			if(!$token) {
+			$token = $this->youtube->refreshToken($user->youtubeRefreshToken, $user->id);
+			if (!$token) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => true,
@@ -476,7 +481,9 @@
 		}
 
 		public function remove() {
-			if(!($this->user ? $this->user->linkedYoutube : false)) {
+			$user = $this->user;
+			$linkedYoutube = $user ? $user->linkedYoutube : false;
+			if (!$linkedYoutube) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You must link your youtube account'

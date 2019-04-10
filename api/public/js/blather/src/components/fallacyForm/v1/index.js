@@ -511,7 +511,7 @@ class FallacyForm extends Component {
 			<Provider store={store}>
 				<div className="fallacyForm">
 					<Header size="large" textAlign="center">
-						Does this logic make sense?
+						Does this make sense?
 						<Header.Subheader>Assign a fallacy</Header.Subheader>
 					</Header>
 					<Divider />
@@ -562,7 +562,6 @@ class FallacyForm extends Component {
 						{this.props.authenticated ? (
 							<Button
 								color={this.props.network}
-								compact
 								content="Assign a fallacy"
 								fluid
 								type="submit"

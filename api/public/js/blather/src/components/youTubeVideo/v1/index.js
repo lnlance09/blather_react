@@ -251,14 +251,15 @@ class YouTubeVideo extends Component {
 													<Icon
 														color="blue"
 														name="download"
-														onClick={() =>
+														onClick={e => {
 															this.openDownloadLink(a.s3_link)
-														}
+														}}
 													/>
 													<span
-														onClick={() =>
+														onClick={e => {
+															e.stopPropagation()
 															this.openDownloadLink(a.s3_link)
-														}
+														}}
 													>
 														{formatDuration(a.start_time)} -{" "}
 														{formatDuration(a.end_time)}
