@@ -165,7 +165,8 @@
 			$data = [];
 			if ($code) {
 				$archive = $this->users->alreadyArchived([
-					'object_id' => $comment_id,
+					'comment_id' => $comment_id,
+					'object_id' => $id,
 					'type' => 'comment',
 					'user_id' => $user->id
 				]);
@@ -178,12 +179,24 @@
 					exit;
 				}
 
+
+				$commenter_id = $comment['commenter']['id'];
+				$page = $this->youtube->getPageInfoFromDB($commenter_id);
+				if (!$page) {
+					$this->output->set_status_header(401);
+					echo json_encode([
+						'error' => 'You commenter does not exist',
+					]);
+					exit;
+				}
+
 				$data = [
 					'code' => $code,
+					'comment_id' => $comment_id,
 					'link' => $url,
 					'network' => 'youtube',
-					'object_id' => $comment_id,
-					'page_id' => $comment['commenter']['id'],
+					'object_id' => $id,
+					'page_id' => $page['id'],
 					'type' => 'comment',
 					'user_id' => $user->id
 				];
@@ -236,7 +249,7 @@
 			$archive = null;
 			if ($user) {
 				$archive = $this->users->getArchivedLinks([
-					'object_id' => $id,
+					'a.comment_id' => $id,
 					'user_id' => $user->id
 				]);
 			}
