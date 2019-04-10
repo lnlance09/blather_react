@@ -298,6 +298,7 @@
 
 		public function parseUrl() {
 			$url = $this->input->post('url');
+
 			$parse = false;
 			if (filter_var($url, FILTER_VALIDATE_URL)) {
 				$parse = parseUrl(rawurldecode($url));
@@ -311,16 +312,20 @@
 				exit;
 			}
 
-			switch ($parse['network']) {
-				case'twitter':
-					$auth = $this->user ? $this->user->linkedTwitter : false;
+			$user = $this->user;
+			$network = $parse['network'];
+
+			switch ($network) {
+				case 'twitter':
+
+					$auth = $user ? $user->linkedTwitter : false;
 					if (!$auth) {
 						$tokens = $this->users->getDefaultTwitterTokens();
 						$token = $tokens->twitter_access_token;
 						$secret = $tokens->twitter_access_secret;
 					} else {
-						$token = $this->user->twitterAccessToken;
-						$secret = $this->user->twitterAccessSecret;
+						$token = $user->twitterAccessToken;
+						$secret = $user->twitterAccessSecret;
 					}
 
 					$object = $this->twitter->getTweetExtended($parse['object_id'], false, $token, $secret);
@@ -348,10 +353,11 @@
 						'username' => !$object['error'] ? $object['data']['user']['screen_name'] : null
 					]);
 					break;
-				case'youtube':
-				case'youtu.be':
-					$auth = $this->user ? $this->user->linkedYoutube : false;
-					$token = $auth ? $this->user->youtubeAccessToken : null;
+
+				case 'youtube':
+				case 'youtu.be':
+					$auth = $user ? $user->linkedYoutube : false;
+					$token = $auth ? $user->youtubeAccessToken : null;
 					$commentId = $parse['comment_id'];
 					$videoId = $parse['object_id'];
 
@@ -395,7 +401,8 @@
 			$id = $this->input->post('id');
 			$msg = $this->input->post('message');
 
-			if(!$this->user) {
+			$user = $this->user;
+			if (!$user) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You must be logged in'
@@ -407,16 +414,16 @@
 				'created_at' => date('Y-m-d H:i:s'),
 				'fallacy_id' => $id,
 				'message' => strip_tags($msg),
-				'user_id' => $this->user->id
+				'user_id' => $user->id
 			];
 			$this->fallacies->createComment($data);
 			echo json_encode([
 				'comment' => [
 					'created_at' => date('Y-m-d H:i:s'),
-					'img' => $this->user->img,
+					'img' => $user->img,
 					'message' => strip_tags($msg),
-					'name' => $this->user->name,
-					'user_id' => $this->user->id
+					'name' => $user->name,
+					'user_id' => $user->id
 				],
 				'error' => false
 			]);
@@ -426,7 +433,7 @@
 			$id = $this->input->post('id');
 			$tagId = $this->input->post('tagId');
 
-			if(!$this->user) {
+			if (!$this->user) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You must be logged in'
@@ -434,7 +441,7 @@
 				exit;
 			}
 
-			if(empty($tagId)) {
+			if (empty($tagId)) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You must include a tag'
@@ -442,14 +449,14 @@
 			}
 
 			$fallacy = $this->fallacies->getFallacy($id);
-			if(!$fallacy) {
+			if (!$fallacy) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'This fallacy does not exist'
 				]);
 			}
 
-			if($fallacy['assigned_by'] !== $this->user->id) {
+			if ($fallacy['assigned_by'] !== $this->user->id) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You do not have permission to edit this fallacy'
@@ -497,7 +504,7 @@
 			$msg = $this->input->post('msg');
 			$status = (int)$this->input->post('status');
 
-			if(!$this->user) {
+			if (!$this->user) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You must be logged in'
@@ -505,7 +512,7 @@
 				exit;
 			}
 
-			if(!in_array($status, [1,2,3])) {
+			if (!in_array($status, [1,2,3])) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'That status is not supported'
@@ -514,7 +521,7 @@
 			}
 
 			$fallacy = $this->fallacies->getFallacy($id);
-			if(!$fallacy) {
+			if (!$fallacy) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'This fallacy does not exist'
@@ -522,7 +529,7 @@
 				exit;
 			}
 
-			if((int)$fallacy['status'] === 2 || (int)$fallacy['status'] === 3) {
+			if ((int)$fallacy['status'] === 2 || (int)$fallacy['status'] === 3) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'This conversation has ended'
@@ -531,7 +538,7 @@
 			}
 
 			$lastPost = $this->fallacies->lastConvoExchange($id);
-			if(!$lastPost && (int)$fallacy['assigned_by'] === $this->user->id) {
+			if (!$lastPost && (int)$fallacy['assigned_by'] === $this->user->id) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You cannot have a conversation with yourself'
@@ -539,7 +546,7 @@
 				exit;
 			}
 
-			if((int)$lastPost['user_id'] === $this->user->id) {
+			if ((int)$lastPost['user_id'] === $this->user->id) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You have to wait your turn'
@@ -547,7 +554,7 @@
 				exit;
 			}
 
-			if(empty($msg)) {
+			if (empty($msg)) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'Your response cannot be blank'
@@ -579,7 +586,7 @@
 			$type = $this->input->get('type');
 			$network = $this->input->get('network');
 
-			if(empty($id)) {
+			if (empty($id)) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You need to specify a page'
@@ -604,7 +611,7 @@
 			$tags = $this->input->post('tags');
 			$title = $this->input->post('title');
 
-			if(!$this->user) {
+			if (!$this->user) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You are not logged in'
@@ -613,7 +620,7 @@
 			}
 
 			$fallacy = $this->fallacies->getFallacy($id);
-			if(!$fallacy) {
+			if (!$fallacy) {
 				$this->output->set_status_header(404);
 				echo json_encode([
 					'error' => 'This fallacy does not exist'
@@ -621,7 +628,7 @@
 				exit;
 			}
 
-			if($fallacy['assigned_by'] !== $this->user->id) {
+			if ($fallacy['assigned_by'] !== $this->user->id) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You do not have permission to edit this fallacy'

@@ -30,8 +30,9 @@
             $limit = 10;
             $start = $page*$limit;
 
-            switch($type) {
-                case'facebook':
+            switch ($type) {
+                case 'facebook':
+
                     if($this->user ? $this->user->linkedFb : false) {
                         $is_live_search = true;
                         $results = $this->fb->searchPages($q, $this->user->fbAccessToken);
@@ -42,8 +43,9 @@
                     }
                     break;
 
-                case'twitter':
-                    if($this->user ? $this->user->linkedTwitter && !empty($q) : false) {
+                case 'twitter':
+
+                    if ($this->user ? $this->user->linkedTwitter && !empty($q) : false) {
                         $is_live_search = true;
                         $token = $this->user->twitterAccessToken;
                         $secret = $this->user->twitterAccessSecret;
@@ -55,7 +57,7 @@
                         $count = count($results);
                         $hasMore = $count === $limit;
                         
-                        if(!$results) {
+                        if (!$results) {
                             $error = true;
                             $results = [];
                         }
@@ -65,8 +67,9 @@
                     }
                     break;
 
-                case'youtube':
-                    if($this->user ? $this->user->linkedYoutube : false) {
+                case 'youtube':
+
+                    if ($this->user ? $this->user->linkedYoutube : false) {
                         $is_live_search = true;
                         $token = $this->user->youtubeAccessToken;
                         $pages = $this->youtube->searchPages([
@@ -78,7 +81,7 @@
                             'type' => 'channel'
                         ], $token, true, true);
 
-                        if(!$pages) {
+                        if (!$pages) {
                             $count = 0;
                             $error = true;
                             $results = [];
@@ -96,11 +99,13 @@
                     break;
 
                 case'users':
+
                     $count = $this->users->searchUsers($q, $page, true);
                     $results = $this->users->searchUsers($q, $page);
                     break;
 
                 case'fallacies':
+
                     $fallacies = $fallacies ? array_map('intval', explode(',', $fallacies)) : null;
                     $params = [
                         'assigned_by' => null,
@@ -136,14 +141,16 @@
             $youtubeResults = $this->youtube->searchPagesFromDb($q, 0, false);
             $twitterResults = $this->twitter->searchPagesFromDb($q, 0, false);
 
-            if(empty($youtubeResults)) {
+            if (empty($youtubeResults)) {
                 $youtubeResults = [];
             }
-            if(empty($twitterResults)) {
+
+            if (empty($twitterResults)) {
                 $twitterResults = [];
             }
+
             $merge = array_merge($youtubeResults, $twitterResults);
-            for($i=0;$i<count($merge);$i++) {
+            for ($i=0;$i<count($merge);$i++) {
                 $merge[$i]['description'] = $merge[$i]['about'];
                 $merge[$i]['image'] = $merge[$i]['profile_pic'];
                 $merge[$i]['key'] = $merge[$i]['social_media_id'];

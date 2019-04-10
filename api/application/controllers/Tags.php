@@ -13,7 +13,7 @@
         public function index() {
             $id = (int)$this->input->get('id');
             $tag = $this->tags->getTagInfo($id);
-            if(!$tag) {
+            if (!$tag) {
                 $this->output->set_status_header(401);
                 echo json_encode([
                     'error' => 'This tag does not exist'
@@ -30,7 +30,7 @@
         public function changePic() {
             $id = $this->input->get('id');
 
-            if(!$this->user) {
+            if (!$this->user) {
                 $this->output->set_status_header(401);
                 echo json_encode([
                     'error' => 'You must be logged in to edit tags'
@@ -47,7 +47,7 @@
                 'upload_path' => './public/img/tag_pics/'
             ]);
 
-            if(!$this->upload->do_upload('file')) {
+            if (!$this->upload->do_upload('file')) {
                 $this->output->set_status_header(403);
                 $data = $this->upload->display_errors();
                 echo json_encode([
@@ -90,7 +90,7 @@
             $id = $this->input->post('id');
             $description = $this->input->post('description');
 
-            if(!$this->user) {
+            if (!$this->user) {
                 $this->output->set_status_header(401);
                 echo json_encode([
                     'error' => 'You must be logged in to edit tags'

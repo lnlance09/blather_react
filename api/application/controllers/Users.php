@@ -23,7 +23,7 @@
 			$newPassword = $this->input->post('new_password');
 			$confirmPassword = $this->input->post('confirm_password');
 
-			if(!$this->user) {
+			if (!$this->user) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You must be logged in to change your password'
@@ -31,7 +31,7 @@
 				exit;
 			}
 			
-			if(empty($currentPassword)) {
+			if (empty($currentPassword)) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You must enter your current password'
@@ -40,7 +40,7 @@
 			}
 
 			$exists = $this->users->getUserByCurrentPassword($this->user->id, $currentPassword);
-			if(!$exists) {
+			if (!$exists) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'Your current password is incorrect'
@@ -48,7 +48,7 @@
 				exit;
 			}
 
-			if(strlen($newPassword) < 7) {
+			if (strlen($newPassword) < 7) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'Your password must be at least 7 characters long'
@@ -56,7 +56,7 @@
 				exit;
 			}
 
-			if($newPassword !== $confirmPassword) {
+			if ($newPassword !== $confirmPassword) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'Your passwords do not match'
@@ -64,7 +64,7 @@
 				exit;
 			}
 
-			if($newPassword === $currentPassword) {
+			if ($newPassword === $currentPassword) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'Your password must be different than your old one'
