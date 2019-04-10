@@ -1,6 +1,7 @@
 import "pages/css/index.css"
 import { changeProfilePic, updateAbout } from "components/authentication/v1/actions"
 import { DisplayMetaTags } from "utils/metaFunctions"
+import { formatNumber } from "utils/textFunctions"
 import { fetchUserData } from "pages/actions/user"
 import { Provider, connect } from "react-redux"
 import {
@@ -234,7 +235,7 @@ class UserPage extends Component {
 				>
 					Fallacies{" "}
 					{props.user.fallacyCount > 0 && (
-						<Label color="blue">{props.user.fallacyCount}</Label>
+						<Label color="blue">{formatNumber(props.user.fallacyCount)}</Label>
 					)}
 				</Menu.Item>
 				<Menu.Item
@@ -244,7 +245,7 @@ class UserPage extends Component {
 				>
 					Archives{" "}
 					{props.user.archiveCount > 0 && (
-						<Label color="blue">{props.user.archiveCount}</Label>
+						<Label color="blue">{formatNumber(props.user.archiveCount)}</Label>
 					)}
 				</Menu.Item>
 			</Menu>

@@ -113,7 +113,7 @@
 			if (!$post) {
 				$this->db->join('twitter_posts t', "a.object_id = t.tweet_id AND a.type = 'tweet'", 'left');
 				$this->db->join('youtube_videos ytv', "a.object_id = ytv.video_id AND a.type = 'video'", 'left');
-				$this->db->join('youtube_comments ytc', "a.object_id = ytc.comment_id AND a.type = 'comment'", 'left');
+				$this->db->join('youtube_comments ytc', "a.comment_id = ytc.comment_id AND a.object_id = ytc.video_id AND a.type = 'comment'", 'left');
 			}
 
 			$this->db->where($data);
@@ -129,11 +129,6 @@
 				$per_page = 10;
 				$start = $per_page*$page;
 				$this->db->limit($per_page, $start);
-
-				if (empty($q)) {
-					$this->db->group_by('a.object_id');
-				}
-
 				$this->db->order_by('date_created', 'DESC');
 			}
 
