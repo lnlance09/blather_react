@@ -93,7 +93,7 @@
 				unset($data['q']);
 			}
 
-			$select = 'a.code, a.date_created, a.description, a.end_time, a.link, a.network, a.start_time, a.type';
+			$select = 'a.code, a.comment_id, a.date_created, a.description, a.end_time, a.link, a.network, a.start_time, a.type';
 			if ($just_count) {
 				$select = 'COUNT(*) AS count';
 			}
