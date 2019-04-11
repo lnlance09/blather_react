@@ -510,7 +510,7 @@ class FallacyForm extends Component {
 		return (
 			<Provider store={store}>
 				<div className="fallacyForm">
-					<Header size="large" textAlign="center">
+					<Header size="large">
 						Does this make sense?
 						<Header.Subheader>Assign a fallacy</Header.Subheader>
 					</Header>
