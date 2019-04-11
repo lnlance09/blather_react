@@ -70,7 +70,7 @@ class Aws {
 			]
 		];
 		if (array_key_exists('watermark', $output)) {
-			$data['Watermarks'] = [
+			$data['Output']['Watermarks'] = [
 				[
 					'PresetWatermarkId' => 'TopLeft',
 					'InputKey' => 'watermark.png',
