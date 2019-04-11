@@ -134,6 +134,22 @@
             $output_file = 'fallacy_videos/'.$id.'/'.date('Y-m-d_H_i_s').'.mp4';
             $text_obj = $this->media->createTextVideo($text);
 
+            $watermark_key = 'labels/'.$id.'.png';
+            $watermark_pic = $this->media->createTextPic(
+                'labels/',
+                $id.'.png',
+                'blather.io/fallacies/'.$id,
+                600,
+                60,
+                [255, 255, 255],
+                [255, 255, 255],
+                24,
+                true,
+                false,
+                'public/fonts/Courier-BoldRegular.ttf'
+            );
+            $this->media->addToS3($watermark_key, $watermark_pic);
+
             switch ($ref_id) {
                 // Tweet with video as contradiction
                 case 3:
@@ -164,7 +180,8 @@
                     $output = [
                         'name' => $output_file,
                         'start_time' => null,
-                        'duration' => null
+                        'duration' => null,
+                        'watermark' => $watermark_key
                     ];
                     $this->media->createVideo($input, $output);
                     break;
@@ -192,7 +209,8 @@
                     $output = [
                         'name' => $output_file,
                         'start_time' => null,
-                        'duration' => null
+                        'duration' => null,
+                        'watermark' => $watermark_key
                     ];
                     $this->media->createVideo($input, $output);
                     break;
@@ -226,7 +244,8 @@
                     $output = [
                         'name' => $output_file,
                         'start_time' => null,
-                        'duration' => null
+                        'duration' => null,
+                        'watermark' => $watermark_key
                     ];
                     $this->media->createVideo($input, $output);
                     break;
@@ -260,7 +279,8 @@
                     $output = [
                         'name' => $output_file,
                         'start_time' => null,
-                        'duration' => null
+                        'duration' => null,
+                        'watermark' => $watermark_key
                     ];
                     $this->media->createVideo($input, $output);
                     break;
@@ -294,10 +314,10 @@
                     $output = [
                         'name' => $output_file,
                         'start_time' => null,
-                        'duration' => null
+                        'duration' => null,
+                        'watermark' => $watermark_key
                     ];
                     $this->media->createVideo($input, $output);
-
                     break;
 
                 // A comment with a video as a contradiction
@@ -329,10 +349,10 @@
                     $output = [
                         'name' => $output_file,
                         'start_time' => null,
-                        'duration' => null
+                        'duration' => null,
+                        'watermark' => $watermark_key
                     ];
                     $this->media->createVideo($input, $output);
-
                     break;
             }
 

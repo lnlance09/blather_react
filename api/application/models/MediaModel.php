@@ -59,7 +59,11 @@
             $img_width = 1920,
             $img_height = 1080,
             $color = [211, 7, 100],
-            $font_size = 36
+            $text_color = [255, 255, 255],
+            $font_size = 36,
+            $background_transparent = false,
+            $center_text = true,
+            $font = 'public/fonts/ViceCitySans.otf'
         ) {
             $file = $path.$file_name;
             if (!file_exists($file)) {
@@ -68,21 +72,32 @@
                 }
 
                 $angle = 0;
-                $font = 'public/fonts/ViceCitySans.otf';
                 $im = imagecreatetruecolor($img_width, $img_height);
-                $white = imagecolorallocate($im, 255, 255, 255);
-                $grey = imagecolorallocate($im, 128, 128, 128);
-                $black = imagecolorallocate($im, 0, 0, 0);
-                $pink = imagecolorallocate($im, $color[0], $color[1], $color[2]);
-                imagefilledrectangle($im, 0, 0, $img_width, $img_height, $pink);
+                if ($background_transparent) {
+                    imagesavealpha($im, true);
+                }
 
+                $text_color = imagecolorallocate($im, $text_color[0], $text_color[1], $text_color[2]);
+                if ($background_transparent) {
+                    $fill_color = imagecolorallocatealpha($im, $color[0], $color[1], $color[2], 127);
+                } else {
+                    $fill_color = imagecolorallocate($im, $color[0], $color[1], $color[2]);
+                }
+
+                imagefill($im, 0, 0, $fill_color);
                 $text_box = imagettfbbox($font_size, $angle, $font, $text);
                 $text_width = $text_box[2]-$text_box[0];
                 $text_height = $text_box[7]-$text_box[1];
-                $x = ($img_width/2) - ($text_width/2);
-                $y = ($img_height/2) - ($text_height/2);
 
-                imagettftext($im, $font_size, 0, $x, $y, $white, $font, $text);
+                if ($center_text) {
+                    $x = ($img_width/2) - ($text_width/2);
+                    $y = ($img_height/2) - ($text_height/2);
+                } else {
+                    $x = $img_width-$text_width;
+                    $y = $img_height;
+                }
+
+                imagettftext($im, $font_size, 0, $x, $y, $text_color, $font, $text);
                 imagepng($im, $file);
             }
 
