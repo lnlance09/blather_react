@@ -125,9 +125,13 @@
 		}
 
 		public function create() {
-			$id = $this->input->post('id');	
-			$network = $this->input->post('network');	
-			$data = ['name' => $this->input->post('name')];
+			$id = $this->input->post('id');
+			$name = $this->input->post('name');
+			$network = $this->input->post('network');
+
+			$data = [
+				'name' => $name
+			];
 			$this->users->createUser($id, $network, $data);
 		}
 
@@ -288,7 +292,7 @@
 
 			$user = $login[0];
 			$user['emailVerified'] = $user['emailVerified'] === '1';
-			$user['fbUrl'] = $this->fb->loginUrl();
+			$user['fbUrl'] = null;
 			$user['img'] = $user['img'] ? $user['img'] : null;
 			$user['linkedFb'] = $user['linkedFb'] === '1';
 			$user['linkedTwitter'] = $user['linkedTwitter'] === '1';
@@ -296,7 +300,7 @@
 			$user['twitterOauthSecret'] = null;
 			$user['twitterOauthToken'] = null;
 			$user['twitterUrl'] = null;
-			$user['youtubeUrl'] = $user['linkedYoutube'] ? null : $this->youtube->getTokenUrl();
+			$user['youtubeUrl'] = null;
 
 			if (!$user['linkedTwitter']) {
 				$token = $this->twitter->getRequestToken();
@@ -432,7 +436,7 @@
 
 		public function uniqueFallacies() {
 			$id = $this->input->get('id');
-			if(empty($id)) {
+			if (empty($id)) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You need to specify a user'
@@ -448,7 +452,9 @@
 
 		public function update() {
 			$bio = $this->input->post('bio');
-			if(!$this->user) {
+
+			$user = $this->user;
+			if (!$user) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You must login to update your account'
@@ -456,7 +462,7 @@
 				exit;
 			}
 
-			$this->users->updateUser($this->user->id, ['bio' => $bio]);
+			$this->users->updateUser($user->id, ['bio' => $bio]);
 			echo json_encode([
 				'bio' => $bio,
 				'error' => false
@@ -464,7 +470,8 @@
 		}
 
 		public function verifyEmail() {
-			if (!$this->user) {
+			$user = $this->user;
+			if (!$user) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You must login to verify your account'
@@ -472,7 +479,7 @@
 				exit;
 			}
 
-			if ($this->input->post('code') !== $this->user->verificationCode) {
+			if ($this->input->post('code') !== $user->verificationCode) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'Incorrect verification code'
@@ -480,13 +487,13 @@
 				exit;
 			}
 
-			$this->users->updateUser($this->user->id, [
+			$this->users->updateUser($user->id, [
 				'email_verified' => 1
 			]);
 			$this->user->emailVerified = true;
 			echo json_encode([
 				'error' => false,
-				'user' => $this->user
+				'user' => $user
 			]);
 		}
 	}

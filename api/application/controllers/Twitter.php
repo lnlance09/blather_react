@@ -10,17 +10,12 @@
 		}
 
 		public function getCredentials() {
-			if (!($this->user ? $this->user->twitterAccessSecret : false)) {
-				$this->output->set_status_header(401);
-				echo json_encode([
-					'error' => true
-				]);
-				exit;
-			}
+			$user = $this->user;
 
 			$token = $this->input->post('oauth_token');
+			$secret = $this->input->post('oauth_secret');
 			$verifier = $this->input->post('oauth_verifier');
-			$access = $this->twitter->getAccessToken($verifier, $token, $this->user->twitterAccessSecret);
+			$access = $this->twitter->getAccessToken($verifier, $token, $secret);
 
 			if ($access) {
 				$linkedTwitter = true;
@@ -40,23 +35,77 @@
 					$oauthToken = $token['oauth_token'];
 					$oauthSecret = $token['oauth_token_secret'];
 					/*TODO */
-					//I this needed?
+					// Is this needed?
 					$twitterUrl = $this->twitter->authorizeUrl.'?oauth_token='.$token['oauth_token'];
 				}
 			}
 
-			$data['linked_twitter'] = $linkedTwitter;
-			$this->users->updateUser($this->user->id, $data);
+			if ($user) {
+				$user_id = $user->id;
+			}
 
-			$data['twitter_access_secret'] = $oauthSecret;
-			$data['twitter_access_token'] = $oauthToken;
-			$data['twitter_date'] = $twitterDate;
-			$data['twitter_id'] = $twitterId;
-			$data['twitter_username'] = $twitterUsername;
+			if (!$user) {
+				$userInfo = $this->twitter->verifyCredentials($oauthToken, $oauthSecret);
+				if (empty($userInfo)) {
+					$this->output->set_status_header(401);
+					echo json_encode([
+						'error' => 'Your twitter account could not be linked'
+					]);
+					exit;
+				}
+
+				// FormatArray($userInfo);
+				$name = $userInfo['name'];
+				$username = $userInfo['screen_name'];
+				$bio = $userInfo['description'];
+				$exists = $this->users->userLookupByEmail($username);
+
+				if ($exists) {
+					$user_id = $exists['id'];
+					$bio = $exists['bio'];
+					$img = $exists['img'];
+				} else {
+					$register = $this->users->register([
+						'bio' => $bio,
+						'email' => null,
+						'name' => $name,
+						'password' => null,
+						'username' => $username,
+						'verification_code' => null
+					]);
+					if ($register['error']) {
+						$this->output->set_status_header(401);
+						echo json_encode([
+							'error' => $register['msg']
+						]);
+						exit;
+					}
+					$user_id = $register['user']['id'];
+					$img = null;
+				}
+
+				$linkedTwitter = true;
+				$data['id'] = $user_id;
+				$data['bio'] = $bio;
+				$data['img'] = $img;
+				$data['name'] = $name;
+				$data['username'] = $username;
+			}
+
+			$data['linkedTwitter'] = $linkedTwitter;
+			$data['twitterAccessSecret'] = $oauthSecret;
+			$data['twitterAccessToken'] = $oauthToken;
+			$data['twitterDate'] = $twitterDate;
+			$data['twitterId'] = $twitterId;
+			$data['twitterUsername'] = $twitterUsername;
+
+			$this->users->updateUser($user_id, [
+				'linked_twitter' => $linkedTwitter,
+			]);
 
 			if ($linkedTwitter) {
-				$this->users->setTwitterDetails($this->user->id, [
-					'user_id' => $this->user->id,
+				$this->users->setTwitterDetails($user_id, [
+					'user_id' => $user_id,
 					'twitter_access_secret' => $oauthSecret,
 					'twitter_access_token' => $oauthToken,
 					'twitter_id' => $access['user_id'],
@@ -64,14 +113,18 @@
 				]);
 			}
 
-			echo json_encode($data);
+			echo json_encode([
+				'error' => false,
+				'user' => $data
+			]);
 		}
 
 		public function nextTweetsPage() {
 			$id = $this->input->post('id');
 			$since = $this->input->post('since');
 
-			if (!($this->user ? $this->user->linkedTwitter : false)) {
+			$user = $this->user;
+			if (!($user ? $user->linkedTwitter : false)) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You must link your twitter account'
@@ -79,8 +132,8 @@
 				exit;
 			}
 
-			$token = $this->user->twitterAccessToken;
-			$secret = $this->user->twitterAccessSecret;
+			$token = $user->twitterAccessToken;
+			$secret = $user->twitterAccessSecret;
 			$data = [
 				'count' => 18,
 				'exclude_replies' => false,
@@ -96,7 +149,8 @@
 		}
 
 		public function remove() {
-			if (!($this->user ? $this->user->linkedTwitter : false)) {
+			$user = $this->user;
+			if (!($user ? $user->linkedTwitter : false)) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You must link your twitter account'
@@ -104,7 +158,7 @@
 				exit;
 			}
 
-			$this->users->updateUser($this->user->id, [
+			$this->users->updateUser($user->id, [
 				'linked_twitter' => 0
 			]);
 			$token = $this->twitter->getRequestToken();
@@ -117,14 +171,6 @@
 		}
 
 		public function requestToken() {
-			if (!$this->user) {
-				$this->output->set_status_header(401);
-				echo json_encode([
-					'error' => 'You must login'
-				]);
-				exit;
-			}
-
 			$token = $this->twitter->getRequestToken();
 			if (!$token) {
 				$this->output->set_status_header(401);
@@ -136,6 +182,7 @@
 
 			echo json_encode([
 				'error' => false,
+				'secret' => $token['oauth_token_secret'],
 				'url' => $this->twitter->authorizeUrl.'?oauth_token='.$token['oauth_token']
 			]);
 		}

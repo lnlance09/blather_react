@@ -395,6 +395,7 @@ a {
 
 /* Signin page */
 .loginContainer {
+  background: #F9FAFB;
   height: 100vh; }
   .loginContainer .signInPageHeader {
     background: #FFFFFF;
@@ -409,8 +410,6 @@ a {
       line-height: 4;
       vertical-align: middle;
       width: 36px; }
-      .loginContainer .signInPageHeader .svgMainLogo:hover, .loginContainer .signInPageHeader .mainLogo:hover {
-        fill: #54C8FF; }
   .loginContainer .loginForm {
     height: 100%;
     padding-top: 10px; }

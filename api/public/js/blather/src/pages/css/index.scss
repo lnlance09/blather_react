@@ -680,6 +680,7 @@ a {
 
 /* Signin page */
 .loginContainer {
+    background: $offWhite;
     height: 100vh;
 
     .signInPageHeader {
@@ -696,10 +697,6 @@ a {
             line-height: 4;
             vertical-align: middle;
             width: 36px;
-
-            &:hover {
-                fill: $lightBlue;
-            }
         }
     }
 

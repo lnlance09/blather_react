@@ -133,7 +133,10 @@ class SettingsPage extends Component {
 
 	handleItemClick = (e, { name }) => {
 		if (name === "twitter") {
-			this.props.twitterRequestToken(this.props.bearer)
+			this.props.twitterRequestToken({
+				bearer: this.props.bearer,
+				reset: false
+			})
 		}
 		this.setState({ activeItem: name })
 	}

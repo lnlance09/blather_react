@@ -3,17 +3,17 @@
 /*---   Neutrals  ---*/
 /*---   Misc  ---*/
 /*---   Social colors  ---*/
-.signInLogo {
+.authComponent .signInLogo {
   display: inline;
   fill: #2185D0;
   height: 48px;
   width: 48px; }
 
-.authSegment .error.message {
+.authComponent .authSegment .error.message {
   margin-bottom: 14px; }
 
-.registerLink {
+.authComponent .registerLink {
   color: #2185D0;
   cursor: pointer; }
-  .registerLink:hover {
+  .authComponent .registerLink:hover {
     text-decoration: underline; }

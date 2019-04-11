@@ -1,5 +1,11 @@
 import "./style.css"
-import { submitLoginForm, submitRegistrationForm, switchTab, verifyEmail } from "./actions"
+import {
+	submitLoginForm,
+	submitRegistrationForm,
+	switchTab,
+	twitterRequestToken,
+	verifyEmail
+} from "./actions"
 import { Provider, connect } from "react-redux"
 import { Redirect } from "react-router-dom"
 import { Button, Form, Header, Input, Message, Segment } from "semantic-ui-react"
@@ -36,9 +42,16 @@ class Authentication extends Component {
 		this.onChangeVerificationCode = this.onChangeVerificationCode.bind(this)
 
 		this.onClick = this.onClick.bind(this)
+		this.redirectToUrl = this.redirectToUrl.bind(this)
 		this.submitLoginForm = this.submitLoginForm.bind(this)
 		this.submitRegistrationForm = this.submitRegistrationForm.bind(this)
 		this.submitEmailVerificationForm = this.submitEmailVerificationForm.bind(this)
+	}
+
+	componentDidMount() {
+		this.props.twitterRequestToken({
+			reset: true
+		})
 	}
 
 	onClick() {
@@ -63,6 +76,12 @@ class Authentication extends Component {
 	onRegChangePassword = (e, { value }) => this.setState({ regPassword: value })
 
 	onRegChangeUsername = (e, { value }) => this.setState({ username: value })
+
+	redirectToUrl = url => {
+		if (url) {
+			window.open(url, "_self")
+		}
+	}
 
 	submitEmailVerificationForm(e) {
 		e.preventDefault()
@@ -109,7 +128,7 @@ class Authentication extends Component {
 			username,
 			verificationCode
 		} = this.state
-		const emailVerificationForm = props => {
+		const EmailVerificationForm = props => {
 			if (props.verify) {
 				return (
 					<div>
@@ -127,34 +146,34 @@ class Authentication extends Component {
 				)
 			}
 		}
-		const errorMsg = props => {
+		const ErrorMsg = props => {
 			if (props.loginError && props.loginErrorMsg) {
 				return <Message content={props.loginErrorMsg} error />
 			}
 		}
-		const headerText = () => {
-			if (!this.props.verify) {
+		const HeaderText = props => {
+			if (!props.verify) {
 				return login ? "Sign In" : "Create an account"
 			}
 			return "Please verify your email"
 		}
-		const infoBox = () => {
-			if (!this.props.verify) {
+		const InfoBox = props => {
+			if (!props.verify) {
 				return (
 					<Segment>
-						{registerText()}{" "}
+						{RegisterText()}{" "}
 						<span className="registerLink" onClick={this.onClick}>
-							{registerButton()}
+							{RegisterButton()}
 						</span>
 					</Segment>
 				)
 			}
 		}
-		const mainForm = () => {
-			if (login && !this.props.verify) {
+		const MainForm = props => {
+			if (login && !props.verify) {
 				return (
 					<Form
-						loading={loadingLogin && !this.props.loginError}
+						loading={loadingLogin && !props.loginError}
 						onSubmit={this.submitLoginForm}
 					>
 						<Form.Field>
@@ -172,15 +191,15 @@ class Authentication extends Component {
 								value={password}
 							/>
 						</Form.Field>
-						<Button content="Login" fluid primary type="submit" />
+						<Button color="blue" content="Login" fluid type="submit" />
 					</Form>
 				)
 			}
 
-			if (!login && !this.props.verify) {
+			if (!login && !props.verify) {
 				return (
 					<Form
-						loading={loadingRegistration && !this.props.loginError}
+						loading={loadingRegistration && !props.loginError}
 						onSubmit={this.submitRegistrationForm}
 					>
 						<Form.Field>
@@ -218,21 +237,35 @@ class Authentication extends Component {
 				)
 			}
 		}
-		const registerButton = () => (login ? "Create an account" : "Sign in")
-		const registerText = () => (login ? "New to Blather?" : "Already have an account?")
+		const RegisterButton = () => (login ? "Create an account" : "Sign in")
+		const RegisterText = () => (login ? "New to Blather?" : "Already have an account?")
+		const SocialMediaSegment = props => (
+			<Segment className="socialMediaSegment">
+				<Button
+					color="twitter"
+					content="Sign in with Twitter"
+					fluid
+					icon="twitter"
+					onClick={() => this.redirectToUrl(props.data.twitterUrl)}
+				/>
+			</Segment>
+		)
 
 		return this.props.data.emailVerified ? (
 			<Redirect to="/" />
 		) : (
 			<Provider store={store}>
-				<div>
-					<Header as="h1">{headerText()}</Header>
+				<div className="authComponent">
+					<Header as="h1">{HeaderText(this.props)}</Header>
 					<Segment>
-						{mainForm()}
-						{errorMsg(this.props)}
-						{emailVerificationForm(this.props)}
+						{MainForm(this.props)}
+						{ErrorMsg(this.props)}
+						{EmailVerificationForm(this.props)}
 					</Segment>
-					{infoBox()}
+					{login && !this.props.verify ? (
+						<div>{SocialMediaSegment(this.props)}</div>
+					) : null}
+					{InfoBox(this.props)}
 				</div>
 			</Provider>
 		)
@@ -277,6 +310,7 @@ Authentication.propTypes = {
 	submitLoginForm: PropTypes.func.isRequired,
 	submitRegistrationForm: PropTypes.func.isRequired,
 	switchTab: PropTypes.func.isRequired,
+	twitterRequestToken: PropTypes.func,
 	verificationCode: PropTypes.string,
 	verify: PropTypes.bool,
 	verifyEmail: PropTypes.func
@@ -287,6 +321,7 @@ Authentication.defaultProps = {
 	submitLoginForm,
 	submitRegistrationForm,
 	switchTab,
+	twitterRequestToken,
 	verifyEmail
 }
 
@@ -301,6 +336,7 @@ export default connect(
 		submitLoginForm,
 		submitRegistrationForm,
 		switchTab,
+		twitterRequestToken,
 		verifyEmail
 	}
 )(Authentication)

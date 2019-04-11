@@ -82,23 +82,36 @@ export const linkTwitter = ({ bearer, secret, token, verifier }) => dispatch => 
 			json: true
 		},
 		function(err, response, body) {
-			let localData = parseJwt()
-			localData.twitterAccessSecret = body.twitter_access_secret
-			localData.twitterAccessToken = body.twitter_access_token
-			localData.twitterUrl = body.twitterUrl
-			if (body.linked_twitter) {
-				localData.linkedTwitter = 1
-				localData.twitterDate = body.twitter_date
-				localData.twitterId = body.twitter_id
-				localData.twitterUsername = body.twitter_username
-			}
-			const token = setToken(localData)
-			body.bearer = token
+			let token = ""
+			if (bearer) {
+				let localData = parseJwt()
+				localData.twitterAccessSecret = body.twitterAccessSecret
+				localData.twitterAccessToken = body.twitterAccessToken
+				localData.twitterUrl = body.twitterUrl
+				if (body.linkedTwitter) {
+					localData.linkedTwitter = 1
+					localData.twitterDate = body.twitterDate
+					localData.twitterId = body.twitterId
+					localData.twitterUsername = body.twitterUsername
+				}
+				token = setToken(localData)
+				body.bearer = token
 
-			dispatch({
-				payload: body,
-				type: constants.LINK_TWITTER_ACCOUNT
-			})
+				dispatch({
+					payload: body,
+					type: constants.LINK_TWITTER_ACCOUNT
+				})
+				return
+			}
+
+			if (!body.error) {
+				token = setToken(body.user)
+				body.bearer = token
+				dispatch({
+					payload: body,
+					type: constants.SET_USER_DATA
+				})
+			}
 		}
 	)
 }
@@ -108,7 +121,7 @@ export const linkYouTube = ({ bearer, code }) => dispatch => {
 		`${window.location.origin}/api/youtube/redirect`,
 		{
 			form: {
-				code: code
+				code
 			},
 			headers: {
 				Authorization: bearer
@@ -240,8 +253,8 @@ export const submitLoginForm = ({ email, password }) => dispatch => {
 		`${window.location.origin}/api/users/login`,
 		{
 			form: {
-				email: email,
-				password: password
+				email,
+				password
 			},
 			json: true
 		},
@@ -264,10 +277,10 @@ export const submitRegistrationForm = ({ email, name, password, username }) => d
 		`${window.location.origin}/api/users/register`,
 		{
 			form: {
-				email: email,
-				name: name,
-				password: password,
-				username: username
+				email,
+				name,
+				password,
+				username
 			},
 			json: true
 		},
@@ -295,7 +308,7 @@ export const switchTab = tab => dispatch => {
 	})
 }
 
-export const twitterRequestToken = bearer => dispatch => {
+export const twitterRequestToken = ({ bearer, reset }) => dispatch => {
 	request.post(
 		`${window.location.origin}/api/twitter/requestToken`,
 		{
@@ -306,14 +319,18 @@ export const twitterRequestToken = bearer => dispatch => {
 		},
 		function(err, response, body) {
 			if (!body.error) {
-				let localData = parseJwt()
-				localData.twitterUrl = body.url
-				const token = setToken(localData)
+				let token = null
+				if (!reset) {
+					let localData = parseJwt()
+					localData.twitterUrl = body.url
+					token = setToken(localData)
+				}
 
 				dispatch({
 					payload: {
-						twitterUrl: body.url,
-						bearer: token
+						bearer: token,
+						twitterAccessSecret: body.secret,
+						twitterUrl: body.url
 					},
 					type: constants.SET_TWITTER_URL
 				})
@@ -327,7 +344,7 @@ export const updateAbout = ({ bearer, bio }) => dispatch => {
 		`${window.location.origin}/api/users/update`,
 		{
 			form: {
-				bio: bio
+				bio
 			},
 			headers: {
 				Authorization: bearer
@@ -357,7 +374,7 @@ export const verifyEmail = ({ code, bearer }) => dispatch => {
 		`${window.location.origin}/api/users/verifyEmail`,
 		{
 			form: {
-				code: code
+				code
 			},
 			headers: {
 				Authorization: bearer

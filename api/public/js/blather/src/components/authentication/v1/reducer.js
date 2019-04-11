@@ -14,11 +14,11 @@ jwt.verify(token, "secret", (err, decoded) => {
 })
 
 const initial = () => ({
-	authenticated: authenticated,
+	authenticated,
 	bearer: token,
 	data: localData,
 	passwordError: false,
-	verify: verify
+	verify
 })
 
 const test = (state = initial(), action) => {
@@ -60,13 +60,13 @@ const test = (state = initial(), action) => {
 				bearer: action.payload.bearer,
 				data: {
 					...state.data,
-					linkedTwitter: action.payload.linked_twitter,
-					twitterAccessToken: action.payload.twitter_access_token,
-					twitterAccessSecret: action.payload.twitter_access_secret,
-					twitterDate: action.payload.twitter_date,
-					twitterId: action.payload.twitter_id,
-					twitterUrl: action.payload.twitter_url,
-					twitterUsername: action.payload.twitter_username
+					linkedTwitter: action.payload.user.linkedTwitter,
+					twitterAccessToken: action.payload.user.twitterAccessToken,
+					twitterAccessSecret: action.payload.user.twitterAccessSecret,
+					twitterDate: action.payload.user.twitterDate,
+					twitterId: action.payload.user.twitterId,
+					twitterUrl: action.payload.user.twitterUrl,
+					twitterUsername: action.payload.user.twitterUsername
 				}
 			}
 
@@ -165,6 +165,7 @@ const test = (state = initial(), action) => {
 				bearer: action.payload.bearer,
 				data: {
 					...state.data,
+					twitterAccessSecret: action.payload.twitterAccessSecret,
 					twitterUrl: action.payload.twitterUrl
 				}
 			}

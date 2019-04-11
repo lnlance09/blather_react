@@ -19,7 +19,7 @@
 
             // Define the OAuth API endpoints
             $this->accessUrl = 'https://api.twitter.com/oauth/access_token';
-            $this->authorizeUrl = 'https://api.twitter.com/oauth/authorize';
+            $this->authorizeUrl = 'https://api.twitter.com/oauth/authenticate';
             $this->refreshUrl = 'https://api.twitter.com/oauth/token';
             $this->tokenUrl = 'https://api.twitter.com/oauth/request_token';
             $this->verifyUrl = 'https://api.twitter.com/1.1/account/verify_credentials.json';
@@ -66,7 +66,7 @@
          */
         public function cryptoRandSecure($min, $max) {
             $range = $max - $min;
-            if($range < 1) {
+            if ($range < 1) {
                 return $min;
             }
 
@@ -91,13 +91,13 @@
          */
         public function generateBaseString($post, $url, $params) {
             $status = false;
-            if(array_key_exists('status', $params)) {
+            if (array_key_exists('status', $params)) {
                 $status = $params['status'];
                 unset($params['status']);
             }
             $string = ($post ? 'POST' : 'GET').'&'.rawurlencode($url).'&';
             $string .= rawurlencode(http_build_query($params));
-            if($status) {
+            if ($status) {
                 $string .= rawurlencode('&status='.$status);
             }
             return $string;
@@ -113,7 +113,7 @@
             $codeAlphabet.= 'abcdefghijklmnopqrstuvwxyz';
             $codeAlphabet.= '0123456789';
             $max = strlen($codeAlphabet)-1;
-            for($i=0;$i<32;$i++) {
+            for ($i=0;$i<32;$i++) {
                 $token .= $codeAlphabet[$this->cryptoRandSecure(0, $max)];
             }
             return $token;
@@ -127,7 +127,7 @@
          */
         public function generateSignature($string, $token) {
             $key = rawurlencode($this->appSecret).'&';
-            if($token) {
+            if ($token) {
                 $key .= rawurlencode($token);
             }
             return rawurlencode(base64_encode(hash_hmac('sha1', $string, $key, true)));
@@ -165,7 +165,7 @@
                 'oauth_version' => $this->version
             ];
             $info = $this->sendRequest($this->accessUrl, true, $data, $headers, $token, $secret);
-            if($info === 'Reverse auth credentials are invalid') {
+            if ($info === 'Reverse auth credentials are invalid') {
                 return false;
             }
 
@@ -175,16 +175,16 @@
 
         public function getAuthUrl() {
             $token = $this->getRequestToken();
-            if($token) {
+            if ($token) {
                 return $this->authorizeUrl.'?oauth_token='.$token['oauth_token'];
             }
             return false;
         }
 
         public function getPageExtended($id, $auth, $token, $secret) {
-            if($auth) {
+            if ($auth) {
                 $page = $this->getPageInfo($id, $token, $secret);
-                if(array_key_exists('errors', $page)) {
+                if (array_key_exists('errors', $page)) {
                     return [
                         'code' => 404,
                         'error' => 'This twitter page does not exist'
@@ -207,7 +207,7 @@
                 ];
             } else {
                 $page = $this->getPageInfoFromDB($id);
-                if(!$page) {
+                if (!$page) {
                     return [
                         'code' => 404,
                         'error' => 'That twitter page does not exist'
@@ -250,7 +250,7 @@
          */
         public function getPageInfoFromDB($id, $just_count = false) {
             $select = '*';
-            if($just_count) {
+            if ($just_count) {
                 $select = 'COUNT(*) AS count';
             }
 
@@ -261,11 +261,11 @@
             $params = [$id, $id];
             $results = $this->db->query($sql, $params)->result_array();
             
-            if($just_count) {
+            if ($just_count) {
                 return $results[0]['count'] == 0 ? false : true;
             }
 
-            if(empty($results)) {
+            if (empty($results)) {
                 return false;
             }
 
@@ -316,9 +316,9 @@
         }
 
         public function getTweetExtended($id, $auth, $token, $secret) {
-            if($auth) {
+            if ($auth) {
                 $tweet = $this->getTweetInfo($id, $token, $secret);
-                if(array_key_exists('errors', $tweet)) {
+                if (array_key_exists('errors', $tweet)) {
                     return [
                         'code' => 404,
                         'error' => 'This tweet does not exist'
@@ -332,10 +332,10 @@
                 $data['retweet_count'] = $tweet['retweet_count'];
                 $data['page_id'] = $tweet['user']['id'];
                 $data['tweet_id'] = $tweet['id'];
-                if(array_key_exists('extended_entities', $tweet)) {
+                if (array_key_exists('extended_entities', $tweet)) {
                     $data['extended_entities'] = json_encode($tweet['extended_entities'], true);
                 }
-                if(array_key_exists('entities', $tweet)) {
+                if (array_key_exists('entities', $tweet)) {
                     $data['entities'] = json_encode($tweet['entities'], true);
                 }
                 $this->insertPage([
@@ -348,7 +348,7 @@
                     'username' => $tweet['user']['screen_name']
                 ]);
 
-                if(array_key_exists('retweeted_status', $tweet)) {
+                if (array_key_exists('retweeted_status', $tweet)) {
                     $retweet = $tweet['retweeted_status'];
                     $data['retweeted_created_at'] = date('Y-m-d H:i:s', strtotime($retweet['created_at']));
                     $data['retweeted_favorite_count'] = $retweet['favorite_count'];
@@ -357,10 +357,10 @@
                     $data['retweeted_page_id'] = $retweet['user']['id'];
                     $data['retweeted_status'] = true;
                     $data['retweeted_tweet_id'] = $retweet['id'];
-                    if(array_key_exists('extended_entities', $retweet)) {
+                    if (array_key_exists('extended_entities', $retweet)) {
                         $data['retweeted_extended_entities'] = json_encode($retweet['extended_entities'], true);
                     }
-                    if(array_key_exists('entities', $retweet)) {
+                    if (array_key_exists('entities', $retweet)) {
                         $data['retweeted_entities'] = json_encode($retweet['entities'], true);
                     }
                     $this->insertPage([
@@ -374,7 +374,7 @@
                     ]);
                 }
 
-                if(array_key_exists('quoted_status', $tweet)) {
+                if (array_key_exists('quoted_status', $tweet)) {
                     $quoted_tweet = $tweet['quoted_status'];
                     $data['quoted_created_at'] = date('Y-m-d H:i:s', strtotime($quoted_tweet['created_at']));
                     $data['quoted_favorite_count'] = $quoted_tweet['favorite_count'];
@@ -402,7 +402,7 @@
                 ];
             } else {
                 $tweet = $this->getTweetFromDB($id);
-                if(!$tweet) {
+                if (!$tweet) {
                     return [
                         'code' => 404,
                         'error' => 'That tweet does not exist'
@@ -450,15 +450,15 @@
          */
         public function getTweetFromDB($id, $archive = false, $fallacies = false) {
             $select = 'tweet_json';
-            if($archive) {
+            if ($archive) {
                 $select .= ', a.code, a.date_created';
             }
 
             $this->db->select($select);
-            if($archive) {
+            if ($archive) {
                 $this->db->join('archive_links a', 'a.object_id=tp.tweet_id AND a.page_id=tp.page_id', 'left');
             }
-            if($fallacies) {
+            if ($fallacies) {
                 $this->db->join('twitter_page_fallacies f', 'tp.tweet_id=f.tweet_id', 'left');
             }
 
@@ -479,7 +479,7 @@
                 'type' => 'twitter'
             ]);
             $query = $this->db->get('pages')->result_array();
-            if($query[0]['count'] == 0) {
+            if ($query[0]['count'] == 0) {
                 $this->db->insert('pages', $page);
             } else {
                 $this->db->where([
@@ -505,7 +505,7 @@
             $this->db->select('COUNT(*) AS count');
             $this->db->where('tweet_id', $data['tweet_id']);
             $query = $this->db->get('twitter_posts')->result_array();
-            if($query[0]['count'] == 0) {
+            if ($query[0]['count'] == 0) {
                 $this->db->insert('twitter_posts', $data);
             } else {
                 $this->db->where('tweet_id', $data['tweet_id']);
@@ -529,12 +529,12 @@
         }
 
         public function parseSearchResults($results) {
-            if(array_key_exists('errors', $results)) {
+            if (array_key_exists('errors', $results)) {
                 return false;
             }
 
             $return = [];
-            for($i=0;$i<count($results);$i++) {
+            for ($i=0;$i<count($results);$i++) {
                 $return[$i] = [
                     'about' => $results[$i]['description'],
                     'id' => $results[$i]['id_str'],
@@ -610,7 +610,7 @@
                 'oauth_version' => $this->version,
             ];
             $results = $this->sendRequest($this->searchUrl, false, $data, $headers, $token, $secret);
-            if($parse) {
+            if ($parse) {
                 return $this->parseSearchResults(@json_decode($results, true));
             }
 
@@ -619,27 +619,27 @@
 
         public function searchPagesFromDb($q, $page = 0, $just_count = false) {
             $select = 'about, name, profile_pic, social_media_id, type, username';
-            if($just_count) {
+            if ($just_count) {
                 $select = 'COUNT(*) AS count';
             }
 
             $sql = "SELECT ".$select." FROM pages WHERE type = 'twitter' ";
             $params = [];
-            if($q) {
+            if ($q) {
                 $sql .= "AND (name LIKE ? OR username LIKE ? OR about LIKE ?)";
                 $params[] = '%'.$q.'%';
                 $params[] = '%'.$q.'%';
                 $params[] = '%'.$q.'%';
             }
 
-            if(!$just_count) {
+            if (!$just_count) {
                 $limit = 10;
                 $start = $page*$limit;
                 $sql .= " LIMIT ".$start.", ".$limit;
             }
  
             $results = $this->db->query($sql, $params)->result_array();
-            if($just_count) {
+            if ($just_count) {
                 return $results[0]['count'];
             }
 
@@ -656,7 +656,7 @@
          * @param [string]  $secret  [The app secret]
          */
         public function sendRequest($url, $post, $data, $headers, $token, $secret) {
-            if($data) {
+            if ($data) {
                 $params = array_merge($data, $headers);
                 ksort($params);
             } else {
@@ -671,13 +671,13 @@
                         oauth_signature="'.$signature.'", 
                         oauth_signature_method="'.$this->hash.'", 
                         oauth_timestamp="'.$headers['oauth_timestamp'].'",';
-            if($token) {
+            if ($token) {
                 $authHeader .= 'oauth_token="'.$token.'", ';
             }
             $authHeader .= 'oauth_version="'.$this->version.'"';
             $header = [$authHeader];
             
-            if(!$post && $data) {
+            if (!$post && $data) {
                 $url .= '?'.http_build_query($data);
             }
 
@@ -686,9 +686,9 @@
             curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             
-            if($post) {
+            if ($post) {
                 curl_setopt($ch, CURLOPT_POST, true);
-                if(array_key_exists('status', $data)) {
+                if (array_key_exists('status', $data)) {
                     curl_setopt($ch, CURLOPT_POSTFIELDS, 'status='.$data['status']);
                 } else {
                     curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
@@ -706,7 +706,7 @@
          * @param  [string] $secret [description]
          * @return [type]         [description]
          */
-        public function verifyCredentials($token, $secret) {
+        public function verifyCredentials($token, $secret, $decode = true) {
             $nonce = $this->generateNonce();
             $headers = [
                 'oauth_consumer_key' => $this->appId,
@@ -716,6 +716,7 @@
                 'oauth_token' => $token,
                 'oauth_version' => $this->version,
             ];
-            return $this->sendRequest($this->verifyUrl, false, false, $headers, $token, $secret);
+            $info = $this->sendRequest($this->verifyUrl, false, false, $headers, $token, $secret);
+            return $decode ? @json_decode($info, true) : $info;
         }
     }

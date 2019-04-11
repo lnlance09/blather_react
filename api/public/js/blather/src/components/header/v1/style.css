@@ -35,6 +35,8 @@
     padding-right: 10px !important; }
     .pageHeader .menu.globalHeader .headerContainer .fallaciesLink:hover, .pageHeader .menu.globalHeader .headerContainer .discussionsLink:hover, .pageHeader .menu.globalHeader .headerContainer .signInLink:hover {
       color: #FFFFFF; }
+  .pageHeader .menu.globalHeader .headerContainer .imgAvatar {
+    margin-right: 10px; }
   .pageHeader .menu.globalHeader .headerContainer .dropDownMenu {
     font-size: 15px; }
     .pageHeader .menu.globalHeader .headerContainer .dropDownMenu .menu.visible {

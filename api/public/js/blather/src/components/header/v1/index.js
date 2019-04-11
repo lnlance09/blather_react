@@ -2,8 +2,18 @@ import "./style.css"
 import { logout } from "components/authentication/v1/actions"
 import { Provider, connect } from "react-redux"
 import { Link } from "react-router-dom"
-import { Button, Container, Dropdown, Icon, Menu, Responsive, Sidebar } from "semantic-ui-react"
+import {
+	Button,
+	Container,
+	Dropdown,
+	Icon,
+	Image,
+	Menu,
+	Responsive,
+	Sidebar
+} from "semantic-ui-react"
 import fallacies from "fallacies.json"
+import ImagePic from "images/image-square.png"
 import Logo from "./images/logo.svg"
 import NavSearch from "components/search/v1/"
 import PropTypes from "prop-types"
@@ -46,13 +56,21 @@ class Header extends Component {
 		))
 		const LoginButton = props => {
 			if (props.authenticated) {
+				const trigger = (
+					<span>
+						{props.data.img && (
+							<Image
+								avatar
+								className="imgAvatar"
+								onError={i => (i.target.src = ImagePic)}
+								src={props.data.img}
+							/>
+						)}{" "}
+						{props.data.name}
+					</span>
+				)
 				return (
-					<Dropdown
-						className="dropDownMenu right"
-						icon={false}
-						item
-						text={props.data.name}
-					>
+					<Dropdown className="dropDownMenu right" icon={false} item trigger={trigger}>
 						<Dropdown.Menu>
 							<Dropdown.Item
 								onClick={() => props.history.push(`/users/${props.data.username}`)}
@@ -70,10 +88,10 @@ class Header extends Component {
 				return (
 					<Menu.Item className="signInLink" direction="right" position="right">
 						<Button
-							color="green"
+							color="twitter"
 							compact
 							content="Sign In"
-							onClick={() => this.props.history.push("/signin")}
+							onClick={() => props.history.push("/signin")}
 						/>
 					</Menu.Item>
 				)
@@ -108,7 +126,7 @@ class Header extends Component {
 										name="sidebar"
 										onClick={() =>
 											this.setState({
-												visible: this.state.visible ? false : true
+												visible: !visible
 											})
 										}
 										size="large"

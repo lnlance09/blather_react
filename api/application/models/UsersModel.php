@@ -43,7 +43,7 @@
 		 * @return [boolean]       [TRUE if a row was inserted | FALSE if a row was not inserted]
 		 */
 		public function createUser($id, $type, $data) {
-			$networks = ['fb', 'twitter', 'youtube'];
+			$networks = ['twitter', 'youtube'];
 			if (in_array($type, $networks)) {
 				$table = $type.'_users';
 				$column = $table.'.'.$type.'_id';
@@ -69,7 +69,7 @@
 		public function generateBearerToken($data, $token = null) {
 			$this->load->library('firebasetoken');
 			$secret = 'secret';
-			if(!$token) {
+			if (!$token) {
 				return $this->firebasetoken->encode($data, $secret);
 			}
 			return $this->firebasetoken->decode($token, $secret);
@@ -167,7 +167,7 @@
 					AND (password = ? OR password_reset = ?)";
 			$params = [$id, sha1($password), sha1($password)];
 			$result = $this->db->query($sql, $params)->result_array();
-			if($result[0]['count'] == 1) {
+			if ($result[0]['count'] == 1) {
 				return true;
 			}
 			return false;
@@ -180,7 +180,7 @@
 		 */
 		public function getUserInfo($id, $select = '*') {
 			$this->db->select($select);
-			if(is_numeric($id)) {
+			if (is_numeric($id)) {
 				$this->db->where('u.id', $id);
 			} else {
 				$this->db->where('u.username', $id);
@@ -188,7 +188,7 @@
 			$this->db->join('twitter_users t', 'u.id=t.user_id', 'left');
 			$this->db->join('youtube_users y', 'u.id=y.user_id', 'left');
 			$query = $this->db->get('users u')->result_array();
-			if(empty($query)) {
+			if (empty($query)) {
 				return false;
 			}
 			return $query[0];
@@ -228,7 +228,11 @@
 		 */
 		public function register($data) {
 			$this->db->select('email, username');
-			$this->db->where('email', $data['email']);
+
+			if ($data['email']) {
+				$this->db->where('email', $data['email']);
+			}
+
 			$this->db->or_where('username', $data['username']);
 			$query = $this->db->get('users')->result_array();
 
@@ -238,13 +242,6 @@
 				$data['password'] = sha1($password);
 				$data['raw_password'] = $password;
 				$this->db->insert('users', $data);
-				
-				$token = $this->twitter->getRequestToken();
-				if ($token) {
-					$twitterOauthToken = $token['oauth_token'];
-					$twitterOauthSecret = $token['oauth_token_secret'];
-					$twitterUrl = $this->twitter->authorizeUrl.'?oauth_token='.$token['oauth_token'];
-				}
 
 				return [
 					'error' => false,
@@ -255,12 +252,8 @@
 						'id' => $this->db->insert_id(),
 						'img' => null,
 						'name' => $data['name'],
-						'twitterAccessSecret' => $twitterOauthSecret,
-						'twitterAccessToken' => $twitterOauthToken,
-						'twitterUrl' => $twitterUrl,
 						'username' => $data['username'],
-						'verificationCode' => $data['verification_code'],
-						'youtubeUrl' => $this->youtube->getTokenUrl()
+						'verificationCode' => $data['verification_code']
 					]
 				];
 			}
@@ -337,7 +330,7 @@
 			$this->db->where('user_id', $userId);
 			$query = $this->db->get('fb_users')->result();
 
-			if($query[0]->count == 0) {
+			if ($query[0]->count == 0) {
 				$this->db->insert('fb_users', $data);
 			} else {
 				$this->db->where('user_id', $data['user_id']);
@@ -359,7 +352,7 @@
 			$this->db->where('user_id', $userId);
 			$query = $this->db->get('twitter_users')->result();
 
-			if($query[0]->count == 0) {
+			if ($query[0]->count == 0) {
 				$this->db->insert('twitter_users', $data);
 			} else {
 				$this->db->where('user_id', $userId);
@@ -377,7 +370,7 @@
 			$this->db->where('user_id', $userId);
 			$query = $this->db->get('youtube_users')->result();
 
-			if($query[0]->count == 0) {
+			if ($query[0]->count == 0) {
 				$data['user_id'] = $userId;
 				$this->db->insert('youtube_users', $data);
 			} else {
@@ -438,14 +431,18 @@
 		 * @return [array|boolean]      [Either an array containing the user's first name or FALSE depending on whether or not a row was returned]
 		 */
 		public function userLookupByEmail($email) {
-			$this->db->select('name');
+			$this->db->select("bio, id, CONCAT('".$this->s3Path."', img) AS img, name");
 			$this->db->where('email', $email);
+			$this->db->or_where('username', $email);
 			$query = $this->db->get('users')->result_array();
 			if (empty($query)) {
 				return false;
 			}
 			return [
-				'name' => $query[0]['name'],
+				'bio' => $query[0]['bio'],
+				'id' => $query[0]['id'],
+				'img' => $query[0]['img'],
+				'name' => $query[0]['name']
 			];
 		}
 	}

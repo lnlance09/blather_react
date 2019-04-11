@@ -1,23 +1,25 @@
 @import '../../../css/colors.scss';
 
-.signInLogo {
-    display: inline;
-    fill: $blue;
-    height: 48px;
-    width: 48px;
-}
-
-.authSegment {
-    .error.message {
-        margin-bottom: 14px;
+.authComponent {
+    .signInLogo {
+        display: inline;
+        fill: $blue;
+        height: 48px;
+        width: 48px;
     }
-}
 
-.registerLink {
-    color: $blue;
-    cursor: pointer;
+    .authSegment {
+        .error.message {
+            margin-bottom: 14px;
+        }
+    }
 
-    &:hover {
-        text-decoration: underline;
+    .registerLink {
+        color: $blue;
+        cursor: pointer;
+
+        &:hover {
+            text-decoration: underline;
+        }
     }
 }
