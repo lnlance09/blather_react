@@ -28,7 +28,7 @@
                 $this->aws->upload($key, $file);
             }
 
-            if ($remove) {
+            if ($remove && file_exists($file)) {
                 unlink($file);
             }
 
