@@ -24,9 +24,6 @@
 .fallacyForm .buttons button {
   width: 50%; }
 
-.fallacyForm .button {
-  float: right; }
-
 .fallacyForm .commonMarkLink {
   margin: 0.2em 0.3em 0 !important; }
   .fallacyForm .commonMarkLink a {

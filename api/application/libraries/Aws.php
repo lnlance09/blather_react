@@ -61,17 +61,20 @@ class Aws {
 				// 'ThumbnailPattern' => 'string',
 				// 'ThumbnailEncryption' => $encryption,
 				'Rotate' => '0',
-				'PresetId' => '1554727984534-hosagq',
+				'PresetId' => '1554998959681-aukds6',
 				// 'SegmentDuration' => '00:00:12',
-				/*
 				'Watermarks' => [
 					[
-						'PresetWatermarkId' => 'string',
-						'InputKey' => 'string',
+						'PresetWatermarkId' => 'TopLeft',
+						'InputKey' => 'watermark.png',
+						// 'Encryption' => $this->encryption
+					],
+					[
+						'PresetWatermarkId' => 'TopRight',
+						'InputKey' => $output['watermark'],
 						// 'Encryption' => $this->encryption
 					]
 				],
-				*/
 				// 'Encryption' => $this->encryption
 			],
 			'UserMetadata' => [
