@@ -63,24 +63,26 @@ class Aws {
 				'Rotate' => '0',
 				'PresetId' => '1554998959681-aukds6',
 				// 'SegmentDuration' => '00:00:12',
-				'Watermarks' => [
-					[
-						'PresetWatermarkId' => 'TopLeft',
-						'InputKey' => 'watermark.png',
-						// 'Encryption' => $this->encryption
-					],
-					[
-						'PresetWatermarkId' => 'TopRight',
-						'InputKey' => $output['watermark'],
-						// 'Encryption' => $this->encryption
-					]
-				],
 				// 'Encryption' => $this->encryption
 			],
 			'UserMetadata' => [
 				// 'String' => 'string'
 			]
 		];
+		if (array_key_exists('watermark', $output)) {
+			$data['Watermarks'] = [
+				[
+					'PresetWatermarkId' => 'TopLeft',
+					'InputKey' => 'watermark.png',
+					// 'Encryption' => $this->encryption
+				],
+				[
+					'PresetWatermarkId' => 'TopRight',
+					'InputKey' => $output['watermark'],
+					// 'Encryption' => $this->encryption
+				]
+			];
+		}
 
 		if ($output['start_time'] && $output['duration']) {
 			$data['Output']['Composition'] = [
