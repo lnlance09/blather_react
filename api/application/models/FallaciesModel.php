@@ -162,6 +162,11 @@
 
                     $input = [
                         [
+                            'name' => 'intro.mp4',
+                            'start_time' => null,
+                            'duration' => null
+                        ],
+                        [
                             'name' => $screenshot,
                             'start_time' => null,
                             'duration' => null
@@ -196,6 +201,11 @@
 
                     $input = [
                         [
+                            'name' => 'intro.mp4',
+                            'start_time' => null,
+                            'duration' => null
+                        ],
+                        [
                             'name' => $text_obj['key'],
                             'start_time' => null,
                             'duration' => null
@@ -225,6 +235,11 @@
                     $this->media->addToS3('youtube_videos/'.$contradiction['id'].'.mp4', $video_two);
 
                     $input = [
+                        [
+                            'name' => 'intro.mp4',
+                            'start_time' => null,
+                            'duration' => null
+                        ],
                         [
                             'name' => 'youtube_videos/'.$original['id'].'.mp4',
                             'start_time' => gmdate('H:i:s', $original['startTime']),
@@ -261,6 +276,11 @@
 
                     $input = [
                         [
+                            'name' => 'intro.mp4',
+                            'start_time' => null,
+                            'duration' => null
+                        ],
+                        [
                             'name' => 'youtube_videos/'.$original['id'].'.mp4',
                             'start_time' => gmdate('H:i:s', $original['startTime']),
                             'duration' => gmdate('H:i:s', $original['endTime']-$original['startTime'])
@@ -296,6 +316,11 @@
 
                     $input = [
                         [
+                            'name' => 'intro.mp4',
+                            'start_time' => null,
+                            'duration' => null
+                        ],
+                        [
                             'name' => 'youtube_videos/'.$original['id'].'.mp4',
                             'start_time' => gmdate('H:i:s', $original['startTime']),
                             'duration' => gmdate('H:i:s', $original['endTime']-$original['startTime'])
@@ -330,7 +355,12 @@
                     $this->media->addToS3('youtube_videos/'.$contradiction['id'].'.mp4', $video);
 
                     $input = [
-                         [
+                        [
+                            'name' => 'intro.mp4',
+                            'start_time' => null,
+                            'duration' => null
+                        ],
+                        [
                             'name' => $screenshot,
                             'start_time' => null,
                             'duration' => null
