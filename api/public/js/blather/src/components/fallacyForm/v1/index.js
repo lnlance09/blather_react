@@ -40,11 +40,11 @@ class FallacyForm extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			beginTime: "0:00",
+			beginTime: "0",
 			changed: false,
-			contradictionBeginTime: "0:00",
-			contradictionEndTime: "0:00",
-			endTime: "",
+			contradictionBeginTime: "0",
+			contradictionEndTime: "0",
+			endTime: "0",
 			explanation: "",
 			formVisible: false,
 			highlightedText: "",
@@ -397,6 +397,7 @@ class FallacyForm extends Component {
 							publishedAt={video.date_created}
 							showStats={false}
 							showTimes
+							source="fallacy"
 							startTime={c.startTime}
 							title={video.title}
 						/>
