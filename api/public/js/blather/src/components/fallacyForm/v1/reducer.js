@@ -13,6 +13,7 @@ const initial = () => ({
 const fallacyForm = (state = initial(), action) => {
 	switch (action.type) {
 		case constants.ASSIGN_FALLACY:
+
 			if (action.payload.error) {
 				return {
 					...state,
@@ -42,15 +43,20 @@ const fallacyForm = (state = initial(), action) => {
 			}
 
 		case constants.CLEAR_CONTRADICTION:
+
 			return {
 				...state,
 				fallacy: {
 					...state.fallacy,
-					contradiction: {}
+					contradiction: {
+						endTime: "0",
+						startTime: "0"
+					}
 				}
 			}
 
 		case constants.PARSE_CONTRADICTION:
+
 			if (action.payload.error) {
 				return {
 					...state,
@@ -59,13 +65,13 @@ const fallacyForm = (state = initial(), action) => {
 						contradiction: {
 							commentId: "",
 							data: null,
-							endTime: 0,
+							endTime: "0",
 							error: true,
 							errorMsg: action.payload.error,
 							mediaId: null,
 							network: "",
 							pageId: "",
-							startTime: 0,
+							startTime: "0",
 							type: "",
 							username: ""
 						}
@@ -107,12 +113,14 @@ const fallacyForm = (state = initial(), action) => {
 			}
 
 		case constants.SELECT_ASSIGNEE:
+
 			return {
 				...state,
 				pageInfo: action.payload.page
 			}
 
 		case constants.SET_CONTRADICTION_BEGIN_TIME:
+
 			return {
 				...state,
 				fallacy: {
@@ -125,6 +133,7 @@ const fallacyForm = (state = initial(), action) => {
 			}
 
 		case constants.SET_CONTRADICTION_END_TIME:
+
 			return {
 				...state,
 				fallacy: {
@@ -137,6 +146,7 @@ const fallacyForm = (state = initial(), action) => {
 			}
 
 		case constants.SET_CONTRADICTION_HIGHLIGHT:
+
 			return {
 				...state,
 				fallacy: {
@@ -152,6 +162,7 @@ const fallacyForm = (state = initial(), action) => {
 			}
 
 		case constants.SET_CONTRADICTION_VIDEO_TIME:
+
 			return {
 				...state,
 				fallacy: {
@@ -167,6 +178,7 @@ const fallacyForm = (state = initial(), action) => {
 			}
 
 		case constants.TOGGLE_MODAL:
+
 			return {
 				...state,
 				modalOpen: !state.modalOpen

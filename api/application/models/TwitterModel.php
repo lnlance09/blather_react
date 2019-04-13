@@ -315,7 +315,7 @@
             return @json_decode($info, true);
         }
 
-        public function getTweetExtended($id, $auth, $token, $secret) {
+        public function getTweetExtended($id, $auth = false, $token = null, $secret = null) {
             if ($auth) {
                 $tweet = $this->getTweetInfo($id, $token, $secret);
                 if (array_key_exists('errors', $tweet)) {
