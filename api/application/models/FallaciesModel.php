@@ -96,7 +96,7 @@
             ]);
             $id = $this->db->insert_id();
 
-            if($contradiction) {
+            if ($contradiction) {
                 $this->assignContradiction($id, $contradiction);
             }
 
