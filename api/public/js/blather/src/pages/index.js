@@ -433,6 +433,7 @@ Page.defaultProps = {
 const mapStateToProps = (state, ownProps) => {
 	return {
 		...state.page,
+		...state.user,
 		...ownProps
 	}
 }
