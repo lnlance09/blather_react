@@ -1,6 +1,12 @@
 import * as constants from "./constants"
 
 const initial = () => ({
+	fallacy: {
+		contradiction: {
+			endTime: "0",
+			startTime: "0"
+		}
+	},
 	modalOpen: false
 })
 
@@ -53,12 +59,13 @@ const fallacyForm = (state = initial(), action) => {
 						contradiction: {
 							commentId: "",
 							data: null,
+							endTime: 0,
 							error: true,
 							errorMsg: action.payload.error,
 							mediaId: null,
 							network: "",
 							pageId: "",
-							startTime: "",
+							startTime: 0,
 							type: "",
 							username: ""
 						}
@@ -84,6 +91,7 @@ const fallacyForm = (state = initial(), action) => {
 				fallacy: {
 					...state.fallacy,
 					contradiction: {
+						...state.fallacy.contradiction,
 						commentId: action.payload.commentId,
 						data,
 						error: false,
@@ -91,7 +99,6 @@ const fallacyForm = (state = initial(), action) => {
 						mediaId: action.payload.mediaId,
 						network: action.payload.network,
 						pageId: action.payload.pageId,
-						startTime: action.payload.startTime,
 						type: action.payload.type,
 						username: action.payload.username
 					}
