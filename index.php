@@ -403,7 +403,7 @@
         <div id="root"></div>
     </body>
     <script src="/static/js/1.f26d3fe1.chunk.js"></script>
-    <script src="/static/js/main.53ff8030.chunk.js"></script>
+    <script src="/static/js/main.a415b68d.chunk.js"></script>
     <script src="/static/js/runtime~main.229c360f.js"></script>
 <?php
     if ($schema) {
