@@ -46,13 +46,23 @@
   margin-top: 0;
   padding: 0; }
 
-.youTubeVideo .archivesList .item span {
-  color: #1B1C1D; }
-  .youTubeVideo .archivesList .item span:hover {
-    text-decoration: underline; }
+.youTubeVideo .archivesList {
+  margin-top: 2px !important; }
+  .youTubeVideo .archivesList .archiveItem {
+    cursor: pointer;
+    padding: 9px 4px 6px 4px !important; }
+    .youTubeVideo .archivesList .archiveItem.selected {
+      background: #F9FAFB; }
+    .youTubeVideo .archivesList .archiveItem .extra .list {
+      margin: 0 !important; }
+      .youTubeVideo .archivesList .archiveItem .extra .list a {
+        color: #2185D0; }
+        .youTubeVideo .archivesList .archiveItem .extra .list a:hover {
+          color: #2185D0 !important;
+          text-decoration: underline; }
 
-.youTubeVideo .archivesList .item p {
-  margin-top: 10px; }
+.youTubeVideo .ui.divided.items > .item:first-child {
+  padding: 9px 4px 6px 4px !important; }
 
 .youTubeVideo .editVideoTimes {
   margin: 20px 0 0 0 !important; }

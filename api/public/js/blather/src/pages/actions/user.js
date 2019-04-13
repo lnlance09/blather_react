@@ -39,3 +39,10 @@ export const getArchives = ({ id, page, pageId, q }) => dispatch => {
 		}
 	)
 }
+
+export const toggleLoading = ({ loading }) => dispatch => {
+	dispatch({
+		type: constants.TOGGLE_LOADING,
+		loading
+	})
+}

@@ -25,6 +25,7 @@ import store from "store"
 class FallaciesList extends Component {
 	constructor(props) {
 		super(props)
+		const showFilter = this.props.source !== "fallacy"
 		this.state = {
 			assignedBy: null,
 			assignedTo: null,
@@ -36,16 +37,12 @@ class FallaciesList extends Component {
 			options: [],
 			q: "",
 			page: this.props.page,
-			showFilter: this.props.source !== "fallacy",
+			showFilter,
 			showTargets: false,
 			value: this.props.fallacies ? this.props.fallacies : ""
 		}
 
-		this.onChangeSearch = this.onChangeSearch.bind(this)
-	}
-
-	componentDidMount() {
-		if (this.state.showFilter) {
+		if (showFilter) {
 			this.fetchFallacies(this.props)
 		}
 		this.props.getFallacies({
@@ -61,6 +58,8 @@ class FallaciesList extends Component {
 		if (this.props.source === "users") {
 			this.props.getTargets({ id: this.props.assignedBy })
 		}
+
+		this.onChangeSearch = this.onChangeSearch.bind(this)
 	}
 
 	componentWillReceiveProps(props) {
@@ -72,17 +71,17 @@ class FallaciesList extends Component {
 		) {
 			this.fetchFallacies(props)
 			this.props.getFallacies({
-				assignedBy: props.assignedBy,
-				assignedTo: props.assignedTo,
-				commentId: props.commentId,
-				fallacies: props.fallacies,
-				fallacyId: props.fallacyId,
-				network: props.network,
-				objectId: props.objectId,
-				page: props.page
+				assignedBy: this.props.assignedBy,
+				assignedTo: this.props.assignedTo,
+				commentId: this.props.commentId,
+				fallacies: this.props.fallacies,
+				fallacyId: this.props.fallacyId,
+				network: this.props.network,
+				objectId: this.props.objectId,
+				page: this.props.page
 			})
 			if (props.source === "users") {
-				this.props.getTargets({ id: props.assignedBy })
+				this.props.getTargets({ id: this.props.assignedBy })
 			}
 		}
 	}

@@ -116,6 +116,8 @@ const post = (state = initial(), action) => {
 				}
 			}
 
+			let archives = payload.archives
+
 			if (payload.type === "tweet") {
 				info = payload.data
 				profileImg = payload.data.user.profile_image_url_https
@@ -131,12 +133,19 @@ const post = (state = initial(), action) => {
 				if (!payload.error) {
 					profileImg = payload.data.channel.img
 				}
+
+				if (action.a) {
+					archives = [
+						archives.find(item => item.id === action.a),
+						...archives.filter(item => item.id !== action.a)
+					]
+				}
 			}
 
 			return {
 				...state,
 				archive: payload.archive,
-				archives: payload.archives,
+				archives,
 				error: payload.error,
 				errorCode: payload.code,
 				existsOnYt,
@@ -148,9 +157,16 @@ const post = (state = initial(), action) => {
 			}
 
 		case constants.GET_VIDEO_ARCHIVES:
+			let myArchives = payload.archives
+			if (action.archiveId) {
+				myArchives = [
+					myArchives.find(item => item.id === action.archiveId),
+					...myArchives.filter(item => item.id !== action.archiveId)
+				]
+			}
 			return {
 				...state,
-				myArchives: payload.archives
+				myArchives
 			}
 
 		case constants.INSERT_COMMENT:

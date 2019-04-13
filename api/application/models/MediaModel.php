@@ -124,7 +124,8 @@
         }
 
         public function createVideo($input, $output) {
-            $this->aws->createJob($input, $output);
+            $video = $this->aws->createJob($input, $output);
+            return $video;
         }
 
         public function createVideoFromImg($input, $output) {

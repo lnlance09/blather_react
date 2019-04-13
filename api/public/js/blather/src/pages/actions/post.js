@@ -108,7 +108,7 @@ export const downloadVideo = ({ audio, id }) => dispatch => {
 	)
 }
 
-export const fetchPostData = ({ bearer, url }) => dispatch => {
+export const fetchPostData = ({ a, bearer, url }) => dispatch => {
 	request.get(
 		`${window.location.origin}/api/${url}`,
 		{
@@ -119,6 +119,7 @@ export const fetchPostData = ({ bearer, url }) => dispatch => {
 		},
 		function(err, response, body) {
 			dispatch({
+				a,
 				type: constants.GET_POST_DATA,
 				payload: body
 			})
@@ -149,7 +150,7 @@ export const fetchVideoComments = ({ bearer, id, nextPageToken, page }) => dispa
 	)
 }
 
-export const getVideoArchives = ({ id, userId }) => dispatch => {
+export const getVideoArchives = ({ archiveId, id, userId }) => dispatch => {
 	request.get(
 		`${window.location.origin}/api/youtube/getVideoArchives`,
 		{
@@ -161,6 +162,7 @@ export const getVideoArchives = ({ id, userId }) => dispatch => {
 		},
 		function(err, response, body) {
 			dispatch({
+				archiveId,
 				type: constants.GET_VIDEO_ARCHIVES,
 				payload: body
 			})

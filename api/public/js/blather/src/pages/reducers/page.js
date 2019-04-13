@@ -1,6 +1,8 @@
 import * as constants from "../constants"
 
-const initial = () => ({})
+const initial = () => ({
+	loading: false
+})
 
 const page = (state = initial(), action) => {
 	const payload = action.payload
@@ -62,7 +64,7 @@ const page = (state = initial(), action) => {
 					posts: {
 						...state.posts,
 						count: 0,
-						data: data,
+						data,
 						error: true,
 						errorMsg: payload.error,
 						errorType: payload.type,
@@ -77,7 +79,7 @@ const page = (state = initial(), action) => {
 				...state,
 				posts: {
 					count: payload.posts.count,
-					data: data,
+					data,
 					error: false,
 					errorMsg: "",
 					hasMore: payload.posts.hasMore,
@@ -91,6 +93,12 @@ const page = (state = initial(), action) => {
 			return {
 				...state,
 				fallacyCount: payload.count
+			}
+
+		case constants.TOGGLE_LOADING:
+			return {
+				...state,
+				loading: !action.loading
 			}
 
 		default:

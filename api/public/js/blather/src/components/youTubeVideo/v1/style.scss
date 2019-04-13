@@ -72,19 +72,35 @@
     }
 
     .archivesList {
-        .item {
-            span {
-                color: $black;
+        margin-top: 2px !important;
 
-                &:hover {
-                    text-decoration: underline;
+        .archiveItem {
+            cursor: pointer;
+            padding: 9px 4px 6px 4px !important;
+
+            &.selected {
+                background: $offWhite;
+            }
+
+            .extra {
+                .list {
+                    margin: 0 !important;
+
+                    a {
+                        color: $blue;
+
+                        &:hover {
+                            color: $blue !important;
+                            text-decoration: underline;
+                        }
+                    }
                 }
             }
-
-            p {
-                margin-top: 10px;
-            }
         }
+    }
+
+    .ui.divided.items > .item:first-child {
+        padding: 9px 4px 6px 4px !important;
     }
 
     .editVideoTimes {
