@@ -116,18 +116,28 @@
 
 			if ($this->user) {
 				switch ($network) {
-					case'twitter':
-						$token = $user->linkedTwitter ? $user->twitterAccessToken : null;
-						$secret = $user->linkedTwitter ? $user->twitterAccessSecret : null;
-						$tweet = $this->twitter->getTweetExtended($objectId, true, $token, $secret);
+					case 'twitter':
+						$tweet = $this->twitter->getTweetExtended($objectId);
+
 						if ($tweet['error']) {
-							$this->output->set_status_header($tweet['code']);
-							echo json_encode($tweet);
-							exit;
+							$token = $user->linkedTwitter ? $user->twitterAccessToken : null;
+							$secret = $user->linkedTwitter ? $user->twitterAccessSecret : null;
+							$tweet = $this->twitter->getTweetExtended($objectId, true, $token, $secret);
+
+							if ($tweet['error']) {
+								$this->output->set_status_header($tweet['code']);
+								echo json_encode($tweet);
+								exit;
+							}
 						}
 
 						$pageId = $tweet['data']['user']['id'];
 						break;
+
+					case 'youtube':
+
+						break;
+
 				}
 			}
 
