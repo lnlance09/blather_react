@@ -2,10 +2,7 @@ import * as constants from "./constants"
 
 const initial = () => ({
 	fallacy: {
-		contradiction: {
-			endTime: "0",
-			startTime: "0"
-		}
+		contradiction: {}
 	},
 	modalOpen: false
 })
@@ -48,10 +45,7 @@ const fallacyForm = (state = initial(), action) => {
 				...state,
 				fallacy: {
 					...state.fallacy,
-					contradiction: {
-						endTime: "0",
-						startTime: "0"
-					}
+					contradiction: {}
 				}
 			}
 

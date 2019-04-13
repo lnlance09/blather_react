@@ -82,8 +82,9 @@ class FallacyForm extends Component {
 			beingTime: "",
 			endTime: "",
 			explanation: "",
-			id: 1,
-			title: ""
+			id: "21",
+			title: "",
+			url: ""
 		})
 		this.props.toggleModal()
 		this.props.clearContradiction()
@@ -391,14 +392,14 @@ class FallacyForm extends Component {
 							channel={video.channel}
 							contradiction
 							dateCreated={video.date_created}
-							endTime={c.endTime}
+							endTime={c.endTime ? c.endTime : "0"}
 							id={c.mediaId}
 							placeholder={video.img}
 							publishedAt={video.date_created}
 							showStats={false}
 							showTimes
 							source="fallacy"
-							startTime={c.startTime}
+							startTime={c.startTime ? c.startTime : "0"}
 							title={video.title}
 						/>
 					)
