@@ -319,7 +319,7 @@
                 'key' => $this->apiKey,
                 'part' => 'id,contentDetails,contentOwnerDetails,statistics,status,snippet,invideoPromotion,brandingSettings,localizations'
             ];
-            if($username) {
+            if ($username) {
                 $data['forUsername'] = $username;
             } else {
                 $data['id'] = $id;
@@ -436,16 +436,16 @@
         }
 
         public function getVideoExtended($id, $auth = false, $token = null) {
-            if($auth) {
+            if ($auth) {
                 $video = $this->getVideoInfo($id, $token);
-                if(array_key_exists('error', $video)) {
+                if (array_key_exists('error', $video)) {
                     return [
                         'code' => 401,
                         'error' => 'Refresh token'
                     ];
                 }
 
-                if(count($video['items']) === 0) {
+                if (count($video['items']) === 0) {
                     return [
                         'code' => 404,
                         'error' => 'That video does not exist'
@@ -481,7 +481,7 @@
                 ]);
 
                 $channel = $this->getPageExtended($channelId, null, $auth, $token);
-                if($channel['error']) {
+                if ($channel['error']) {
                     return $channel;
                 }
 
@@ -513,7 +513,7 @@
                 ];
             } else {
                 $video = $this->getVideoFromDB($id);
-                if(!$video) {
+                if (!$video) {
                     return [
                         'code' => 404,
                         'error' => 'That video does not exist'
@@ -596,14 +596,14 @@
 
         public function getVideos($data, $token, $page = 0, $decode = false, $parse = false) {
             $results = $this->sendRequest($this->searchUrl, false, $data, $token, $decode);
-            if(array_key_exists('error', $results)) {
+            if (array_key_exists('error', $results)) {
                 return false;
             }
 
-            if($parse) {
+            if ($parse) {
                 $count = $results['pageInfo']['totalResults'];
                 $return = [];
-                for($i=0;$i<count($results['items']);$i++) {
+                for ($i=0;$i<count($results['items']);$i++) {
                     $item = $results['items'][$i];
                     $snippet = $item['snippet'];
                     $return[$i] = [
@@ -638,7 +638,7 @@
             $result = $query->result();
             $count = $result[0]->count;
 
-            if($count == 0) {
+            if ($count == 0) {
                 $this->db->insert('youtube_comments', $data);
             } else {
                 unset($data['video_id']);
@@ -652,26 +652,30 @@
          * @param  [array] $data [An array containing data about the page to update/insert]
          * @return [array]       [An array that is an updated version of the array that was provided as input]
          */
-        public function insertPage($data) {
+        public function insertPage($page) {
             $this->db->select('COUNT(*) AS count');
             $this->db->where([
-                'social_media_id' => $data['social_media_id'],
+                'social_media_id' => $page['social_media_id'],
                 'type' => 'youtube'
             ]);
             $query = $this->db->get('pages')->result();
 
-            if($query[0]->count == 0) {
-                $this->db->insert('pages', $data);
+            if ($query[0]->count == 0) {
+                $this->db->insert('pages', $page);
             } else {
                 $this->db->where([
-                    'social_media_id' => $data['social_media_id'],
+                    'social_media_id' => $page['social_media_id'],
                     'type' => 'youtube'
                 ]);
-                $this->db->update('pages', $data);
+                $this->db->update('pages', $page);
             }
 
-            $data['about'] = defaultPageAbout($data['about'], $data['name']);
-            return $data;
+            $this->db->select('id');
+            $this->db->where('social_media_id', $page['social_media_id']);
+            $row = $this->db->get('pages')->row();
+            $page['id'] = $row->id;
+            $page['about'] = defaultPageAbout($page['about'], $page['name']);
+            return $page;
         }
 
         /**
@@ -685,7 +689,7 @@
             $result = $query->result();
             $count = $result[0]->count;
 
-            if($count == 0) {
+            if ($count == 0) {
                 $this->db->insert('youtube_videos', $data);
             } else {
                 $this->db->where('video_id', $data['video_id']);
@@ -707,7 +711,7 @@
                 'refresh_token' => $refreshToken
             ];
             $request = $this->sendRequest($this->tokenUrl, true, $data, null);
-            if(array_key_exists('access_token', $request)) {
+            if (array_key_exists('access_token', $request)) {
                 $this->db->where('user_id', $userId);
                 $this->db->update('youtube_users', [
                     'youtube_access_token' => $request['access_token'],
@@ -733,14 +737,14 @@
          */
         public function searchPages($data, $token, $decode = false, $parse = false) {
             $results = $this->sendRequest($this->searchUrl, false, $data, $token, $decode);
-            if(array_key_exists('error', $results)) {
+            if (array_key_exists('error', $results)) {
                 return false;
             }
 
-            if($parse) {
+            if ($parse) {
                 $count = $results['pageInfo']['totalResults'];
                 $return = [];
-                for($i=0;$i<count($results['items']);$i++) {
+                for ($i=0;$i<count($results['items']);$i++) {
                     $item = $results['items'][$i];
                     $snippet = $item['snippet'];
                     $return[$i] = [
@@ -767,27 +771,27 @@
 
         public function searchPagesFromDb($q, $page = 0, $just_count = false) {
             $select = 'about, name, profile_pic, social_media_id, type, username';
-            if($just_count) {
+            if ($just_count) {
                 $select = 'COUNT(*) AS count';
             }
 
             $sql = "SELECT ".$select." FROM pages WHERE type = 'youtube' ";
             $params = [];
-            if($q) {
+            if ($q) {
                 $sql .= "AND (name LIKE ? OR username LIKE ? OR about LIKE ?)";
                 $params[] = '%'.$q.'%';
                 $params[] = '%'.$q.'%';
                 $params[] = '%'.$q.'%';
             }
 
-            if(!$just_count) {
+            if (!$just_count) {
                 $limit = 10;
                 $start = $page*$limit;
                 $sql .= " LIMIT ".$start.", ".$limit;
             }
 
             $results = $this->db->query($sql, $params)->result_array();
-            if($just_count) {
+            if ($just_count) {
                 return $results[0]['count'];
             }
 
@@ -803,12 +807,12 @@
          * @param [boolean]  $decode [Whether or not to decode the JSON response]
          */
         public function sendRequest($url, $post, $data, $token, $decode = true) {
-            if(!$post && $data) {
+            if (!$post && $data) {
                 $url .= '?'.http_build_query($data);
             }
 
             $headers = [];
-            if($token) {
+            if ($token) {
                 $headers = ['Authorization: Bearer '.$token];
             }
 
@@ -817,7 +821,7 @@
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_REFERER, 'http://localhost:8888/blather');
 
-            if($post) {
+            if ($post) {
                 $header = 'Content-Type: application/x-www-form-urlencoded';
                 array_push($headers, $header);
                 curl_setopt($ch, CURLOPT_POST, true);

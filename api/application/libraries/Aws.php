@@ -58,10 +58,10 @@ class Aws {
 			'PipelineId' => '1554521791877-sairfr',
 			'Output' => [
 				'Key' => $output['name'],
-				// 'ThumbnailPattern' => 'string',
-				// 'ThumbnailEncryption' => $encryption,
 				'Rotate' => '0',
 				'PresetId' => '1554998959681-aukds6',
+				// 'ThumbnailPattern' => 'string',
+				// 'ThumbnailEncryption' => $encryption,
 				// 'SegmentDuration' => '00:00:12',
 				// 'Encryption' => $this->encryption
 			],
@@ -69,6 +69,11 @@ class Aws {
 				// 'String' => 'string'
 			]
 		];
+
+		if ($output['thumbnail']) {
+			$data['Output']['ThumbnailPattern'] = 'thumbnails/'.$output['thumbnail'].'/thumbnails-{count}';
+		}
+
 		if (array_key_exists('watermark', $output)) {
 			$data['Output']['Watermarks'] = [
 				[

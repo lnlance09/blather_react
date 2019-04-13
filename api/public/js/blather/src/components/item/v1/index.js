@@ -9,8 +9,8 @@ import sanitizeHtml from "sanitize-html"
 import TextTruncate from "react-text-truncate"
 
 class ResultItem extends Component {
-	redirectToUrl = () => {
-		if (this.props.redirect) {
+	redirectToUrl = e => {
+		if (this.props.redirect && !e.metaKey) {
 			this.props.history.push(this.props.url)
 		} else {
 			window.open(this.props.url, "_blank").focus()

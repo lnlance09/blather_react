@@ -95,7 +95,8 @@
 			$output = [
 				'name' => $output_file,
 				'start_time' => null,
-				'duration' => null
+				'duration' => null,
+				'thumbnail' => false
 			];
 			$this->media->createVideo($input, $output);
 

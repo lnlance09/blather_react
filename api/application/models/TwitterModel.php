@@ -262,7 +262,7 @@
             $results = $this->db->query($sql, $params)->result_array();
             
             if ($just_count) {
-                return $results[0]['count'] == 0 ? false : true;
+                return $results[0]['count'] > 0;
             }
 
             if (empty($results)) {

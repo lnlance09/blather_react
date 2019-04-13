@@ -2,7 +2,7 @@ import "pages/css/index.css"
 import { changeProfilePic, updateAbout } from "components/authentication/v1/actions"
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { formatNumber } from "utils/textFunctions"
-import { fetchUserData } from "pages/actions/user"
+import { fetchUserData, toggleLoading } from "pages/actions/user"
 import { Provider, connect } from "react-redux"
 import {
 	Button,
@@ -67,23 +67,29 @@ class UserPage extends Component {
 		}
 
 		this.props.fetchUserData({
-			bearer: bearer,
-			username: username
+			bearer,
+			username
 		})
 
 		this.onDrop = this.onDrop.bind(this)
 		this.onChangeAbout = this.onChangeAbout.bind(this)
 		this.reloadAbout = this.reloadAbout.bind(this)
-	}
 
-	onChangeAbout = (e, { value }) => this.setState({ about: value })
+		this.props.toggleLoading({
+			loading: this.props.loading
+		})
+	}
 
 	componentWillReceiveProps(newProps) {
 		const username = newProps.match.params.username
 		if (this.state.username !== username) {
+			this.props.toggleLoading({
+				loading: this.props.loading
+			})
+
 			this.props.fetchUserData({
 				bearer: this.state.bearer,
-				username: username
+				username
 			})
 
 			const isMyProfile = username === this.state.myUsername
@@ -104,6 +110,10 @@ class UserPage extends Component {
 				const user = currentState.user
 				this.setState({ about: user.data.bio })
 			}
+
+			this.props.toggleLoading({
+				loading: this.props.loading
+			})
 		}
 	}
 
@@ -113,7 +123,10 @@ class UserPage extends Component {
 	}
 
 	handleHide = () => this.setState({ active: false })
+
 	handleShow = () => this.setState({ active: true })
+
+	onChangeAbout = (e, { value }) => this.setState({ about: value })
 
 	onDrop(files) {
 		this.setState({ files })
@@ -137,16 +150,17 @@ class UserPage extends Component {
 
 	render() {
 		const { about, active, activeItem, bearer, id, inverted, isMyProfile } = this.state
-		let pic = !this.props.user.img && !this.props.loading ? defaultImg : this.props.user.img
+		const { data, loading, user } = this.props
+		let pic = !user.img && !loading ? defaultImg : user.img
 		if (isMyProfile) {
-			pic = !this.props.data.img && !this.props.loading ? defaultImg : this.props.data.img
+			pic = !data.img && !loading ? defaultImg : data.img
 		}
 
 		const AboutSection = props => (
 			<AboutCard
 				bearer={bearer}
 				canEdit={isMyProfile}
-				description={isMyProfile ? about : props.user.bio}
+				description={isMyProfile ? about : user.bio}
 				handleReload={this.reloadAbout}
 				title="About"
 				type="user"
@@ -171,9 +185,7 @@ class UserPage extends Component {
 					<Dimmer.Dimmable
 						as={Image}
 						centered
-						className={`profilePic ${
-							!this.props.user.img && !this.props.loading ? "default" : ""
-						}`}
+						className={`profilePic ${!user.img && !props.loading ? "default" : ""}`}
 						dimmed={active}
 						dimmer={{ active, content, inverted }}
 						onError={i => (i.target.src = ImagePic)}
@@ -189,9 +201,7 @@ class UserPage extends Component {
 				<Image
 					bordered
 					centered
-					className={`profilePic ${
-						!this.props.user.img && !this.props.loading ? "default" : ""
-					}`}
+					className={`profilePic ${!user.img && !props.loading ? "default" : ""}`}
 					onError={i => (i.target.src = ImagePic)}
 					rounded
 					src={pic}
@@ -199,26 +209,29 @@ class UserPage extends Component {
 			)
 		}
 		const ShowContent = props => {
-			if (props.user.id) {
+			if (user.id) {
 				switch (activeItem) {
 					case "fallacies":
-						return (
-							<FallaciesList
-								assignedBy={props.user.id}
-								emptyMsgContent={`${props.user.name} hasn't assigned any fallacies`}
-								fallacyId={id}
-								history={props.history}
-								icon="sticky note"
-								name={props.user.name}
-								source="users"
-							/>
-						)
+						if (!props.loading) {
+							return (
+								<FallaciesList
+									assignedBy={user.id}
+									emptyMsgContent={`${user.name} hasn't assigned any fallacies`}
+									fallacyId={id}
+									history={props.history}
+									icon="sticky note"
+									name={user.name}
+									source="users"
+								/>
+							)
+						}
+						return null
 					case "archives":
 						return (
 							<ArchivesList
-								emptyMsgContent={`${props.user.name} hasn't archived anything yet`}
+								emptyMsgContent={`${user.name} hasn't archived anything yet`}
 								history={props.history}
-								id={props.user.id}
+								id={user.id}
 							/>
 						)
 					default:
@@ -234,8 +247,8 @@ class UserPage extends Component {
 					onClick={this.handleItemClick}
 				>
 					Fallacies{" "}
-					{props.user.fallacyCount > 0 && (
-						<Label color="blue">{formatNumber(props.user.fallacyCount)}</Label>
+					{user.fallacyCount > 0 && (
+						<Label color="blue">{formatNumber(user.fallacyCount)}</Label>
 					)}
 				</Menu.Item>
 				<Menu.Item
@@ -244,8 +257,8 @@ class UserPage extends Component {
 					onClick={this.handleItemClick}
 				>
 					Archives{" "}
-					{props.user.archiveCount > 0 && (
-						<Label color="blue">{formatNumber(props.user.archiveCount)}</Label>
+					{user.archiveCount > 0 && (
+						<Label color="blue">{formatNumber(user.archiveCount)}</Label>
 					)}
 				</Menu.Item>
 			</Menu>
@@ -263,8 +276,8 @@ class UserPage extends Component {
 									<Grid.Row>
 										<div>
 											<TitleHeader
-												subheader={`@${this.props.user.username}`}
-												title={this.props.user.name}
+												subheader={`@${user.username}`}
+												title={user.name}
 											/>
 										</div>
 									</Grid.Row>
@@ -294,8 +307,8 @@ class UserPage extends Component {
 
 									<Grid.Column width={12}>
 										<TitleHeader
-											subheader={`@${this.props.user.username}`}
-											title={this.props.user.name}
+											subheader={`@${user.username}`}
+											title={user.name}
 										/>
 										{UserMenu(this.props)}
 										<Container className="profileContentContainer">
@@ -325,6 +338,7 @@ UserPage.propTypes = {
 	error: PropTypes.bool,
 	fetchUserData: PropTypes.func,
 	loading: PropTypes.bool,
+	toggleLoading: PropTypes.func,
 	user: PropTypes.shape({
 		archiveCount: PropTypes.number,
 		bio: PropTypes.string,
@@ -344,6 +358,7 @@ UserPage.defaultProps = {
 	changeProfilePic,
 	fetchUserData,
 	loading: true,
+	toggleLoading,
 	user: {}
 }
 
@@ -360,6 +375,7 @@ export default connect(
 	{
 		changeProfilePic,
 		fetchUserData,
+		toggleLoading,
 		updateAbout
 	}
 )(UserPage)

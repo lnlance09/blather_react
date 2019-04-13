@@ -1,5 +1,6 @@
 import "pages/css/index.css"
 import { refreshYouTubeToken } from "components/authentication/v1/actions"
+import { formatTime } from "utils/dateFunctions"
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { downloadVideo, fetchPostData } from "pages/actions/post"
 import { Provider, connect } from "react-redux"
@@ -19,6 +20,7 @@ import PageFooter from "components/footer/v1/"
 import PageHeader from "components/header/v1/"
 import LazyLoad from "components/lazyLoad/v1/"
 import PropTypes from "prop-types"
+import queryString from "query-string"
 import React, { Component } from "react"
 import store from "store"
 import ThumbnailPic from "images/image.png"
@@ -30,9 +32,14 @@ class Post extends Component {
 	constructor(props) {
 		super(props)
 		const path = this.props.match.path
+		const qs = queryString.parse(this.props.location.search)
+		let a = ""
 		let id = this.props.match.params.id
 		if (id.substring(id.length - 1, id.length) === "&") {
 			id = id.slice(0, -1)
+		}
+		if (qs.a) {
+			a = qs.a
 		}
 
 		const currentState = store.getState()
@@ -40,16 +47,20 @@ class Post extends Component {
 		const bearer = currentState.user.bearer
 		const { network, type, url } = this.postType(id, path)
 		this.state = {
+			a,
 			authenticated,
 			bearer,
+			endTime: "00:00:00",
 			highlightedText: "",
 			id,
 			network,
+			startTime: "00:00:00",
 			submitted: false,
 			type
 		}
 
 		this.props.fetchPostData({
+			a,
 			bearer,
 			url
 		})
@@ -60,6 +71,7 @@ class Post extends Component {
 
 		this.handleHoverOn = this.handleHoverOn.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
+		this.setClip = this.setClip.bind(this)
 	}
 
 	componentWillReceiveProps(newProps) {
@@ -69,6 +81,11 @@ class Post extends Component {
 		}
 
 		if (this.state.id !== id) {
+			const qs = queryString.parse(newProps.location.search)
+			let a = ""
+			if (qs.a) {
+				a = qs.a
+			}
 			const path = newProps.match.path
 			const currentState = store.getState()
 			const authenticated = currentState.user.authenticated
@@ -83,6 +100,7 @@ class Post extends Component {
 			})
 
 			this.props.fetchPostData({
+				a,
 				bearer,
 				url
 			})
@@ -134,8 +152,26 @@ class Post extends Component {
 		}
 	}
 
+	setClip = (start, end) => {
+		this.setState({
+			endTime: formatTime(end),
+			startTime: formatTime(start)
+		})
+	}
+
 	render() {
-		const { authenticated, bearer, contextRef, highlightedText, id, network, type } = this.state
+		const {
+			a,
+			authenticated,
+			bearer,
+			contextRef,
+			endTime,
+			highlightedText,
+			id,
+			network,
+			startTime,
+			type
+		} = this.state
 		if (this.props.needToRefresh) {
 			this.props.refreshYouTubeToken({
 				bearer
@@ -277,11 +313,12 @@ class Post extends Component {
 						<FallaciesList
 							commentId={type === "comment" ? id : null}
 							emptyMsgContent={`No fallacies have been assigned to this ${type}`}
+							history={props.history}
 							icon={network}
 							network={network}
 							objectId={id}
+							page={0}
 							source="post"
-							{...props}
 						/>
 					</div>
 				)
@@ -294,6 +331,7 @@ class Post extends Component {
 					authenticated={authenticated}
 					bearer={bearer}
 					commentId={type === "comment" ? id : null}
+					endTime={endTime}
 					handleSubmit={this.handleSubmit}
 					highlightedText={highlightedText}
 					history={props.history}
@@ -301,6 +339,7 @@ class Post extends Component {
 					objectId={id}
 					pageInfo={pageInfo}
 					sendNotification={props.sendNotification}
+					startTime={startTime}
 					type={type}
 					user={user}
 				/>
@@ -382,6 +421,7 @@ class Post extends Component {
 						return (
 							<div>
 								<YouTubeVideo
+									archiveId={a}
 									bearer={bearer}
 									canArchive
 									channel={props.info.channel}
@@ -394,6 +434,7 @@ class Post extends Component {
 									playing
 									s3Link={props.info.s3_link}
 									sendNotification={props.sendNotification}
+									setClip={this.setClip}
 									showComments
 									showStats={false}
 									stats={props.info.stats}

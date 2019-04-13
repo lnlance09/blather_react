@@ -2,6 +2,7 @@ import "pages/css/index.css"
 import { refreshYouTubeToken } from "components/authentication/v1/actions"
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { fetchFallacyCount, fetchPageData } from "pages/actions/page"
+import { toggleLoading } from "pages/actions/user"
 import { Provider, connect } from "react-redux"
 import {
 	Button,
@@ -62,9 +63,13 @@ class Page extends Component {
 		}
 
 		this.props.fetchPageData({
-			bearer: this.state.bearer,
-			id: this.state.id,
-			type: this.state.network
+			bearer,
+			id,
+			type: network
+		})
+
+		this.props.toggleLoading({
+			loading: this.props.loading
 		})
 
 		this.setFallacyId = this.setFallacyId.bind(this)
@@ -77,6 +82,10 @@ class Page extends Component {
 		if (tab === undefined) {
 			tab = "breakdown"
 		}
+
+		this.props.toggleLoading({
+			loading: this.props.loading
+		})
 
 		if (this.state.id !== id) {
 			this.props.fetchPageData({
@@ -97,6 +106,10 @@ class Page extends Component {
 			activeItem: tab === "fallacies" || tab === "breakdown" ? tab : label,
 			itemsLabel: label,
 			updated: !this.state.updated
+		})
+
+		this.props.toggleLoading({
+			loading: this.props.loading
 		})
 	}
 
@@ -223,7 +236,6 @@ class Page extends Component {
 							history={props.history}
 							icon="sticky note"
 							network={network}
-							page={0}
 							setFallacyId={this.setFallacyId}
 							showPics={false}
 							source="pages"
@@ -374,6 +386,7 @@ Page.propTypes = {
 	id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 	img: PropTypes.string,
 	isVerified: PropTypes.bool,
+	loading: PropTypes.bool,
 	name: PropTypes.string,
 	network: PropTypes.string,
 	posts: PropTypes.oneOfType([
@@ -389,6 +402,7 @@ Page.propTypes = {
 		})
 	]),
 	sincerityTest: PropTypes.object,
+	toggleLoading: PropTypes.func,
 	turingTest: PropTypes.object,
 	refreshYouTubeToken: PropTypes.func,
 	username: PropTypes.string
@@ -404,6 +418,7 @@ Page.defaultProps = {
 	},
 	fetchPageData,
 	img: defaultImg,
+	loading: false,
 	posts: {
 		count: 0,
 		error: false,
@@ -411,13 +426,13 @@ Page.defaultProps = {
 	},
 	refreshYouTubeToken,
 	sincerityTest: {},
+	toggleLoading,
 	turingTest: {}
 }
 
 const mapStateToProps = (state, ownProps) => {
 	return {
 		...state.page,
-		...state.user,
 		...ownProps
 	}
 }
@@ -427,6 +442,7 @@ export default connect(
 	{
 		fetchFallacyCount,
 		fetchPageData,
-		refreshYouTubeToken
+		refreshYouTubeToken,
+		toggleLoading
 	}
 )(Page)

@@ -1,5 +1,6 @@
 import "./style.css"
-import { formatDuration, formatNumber, formatPlural } from "utils/textFunctions"
+import { formatTime } from "utils/dateFunctions"
+import { formatNumber, formatPlural } from "utils/textFunctions"
 import {
 	createVideoArchive,
 	deleteArchive,
@@ -18,9 +19,9 @@ import {
 	Divider,
 	Form,
 	Header,
-	Icon,
 	Image,
 	Input,
+	Item,
 	List,
 	Menu,
 	Message,
@@ -57,6 +58,7 @@ class YouTubeVideo extends Component {
 
 		if (auth && props.source === "post" && this.props.id !== undefined) {
 			this.props.getVideoArchives({
+				archiveId: this.props.archiveId,
 				id: this.props.id,
 				userId: user.id
 			})
@@ -88,6 +90,7 @@ class YouTubeVideo extends Component {
 			props.id !== undefined
 		) {
 			this.props.getVideoArchives({
+				archiveId: this.props.archiveId,
 				id: props.id,
 				userId: this.state.user.id
 			})
@@ -199,7 +202,7 @@ class YouTubeVideo extends Component {
 		)
 		const ArchivesList = props => {
 			const archives = activeItem === "All" ? props.archives : props.myArchives
-			if (!archives || archives === undefined) {
+			if (!archives || archives === undefined || props === undefined) {
 				return null
 			}
 			return (
@@ -226,53 +229,64 @@ class YouTubeVideo extends Component {
 						/>
 					) : (
 						<Transition animation="scale" duration={400} visible={archiveVisible}>
-							<List className="archivesList" divided relaxed selection>
+							<Item.Group className="archivesList" divided>
 								{archives.map((a, i) => {
 									return (
-										<List.Item
+										<Item
+											className={`archiveItem ${
+												props.archiveId === a.id ? "selected" : ""
+											}`}
 											key={`${a.start_time}_${a.end_time}`}
 											onClick={() => this.seekTo(a)}
 										>
-											{a.user_id === user.id && (
-												<List.Content floated="right">
-													<Icon
-														color="red"
-														name="delete"
-														onClick={e => {
-															e.stopPropagation()
-															this.deleteArchive(a.id)
-														}}
-														size="small"
-													/>
-												</List.Content>
-											)}
-											<List.Content>
-												<List.Header>
-													<Icon
-														color="blue"
-														name="download"
-														onClick={e => {
-															this.openDownloadLink(a.s3_link)
-														}}
-													/>
-													<span
-														onClick={e => {
-															e.stopPropagation()
-															this.openDownloadLink(a.s3_link)
-														}}
-													>
-														{formatDuration(a.start_time)} -{" "}
-														{formatDuration(a.end_time)}
-													</span>
-												</List.Header>
-												<List.Description as="p">
-													{a.description}
-												</List.Description>
-											</List.Content>
-										</List.Item>
+											<Item.Content>
+												<Item.Header>
+													{formatTime(a.start_time)} -{" "}
+													{formatTime(a.end_time)}
+												</Item.Header>
+												<Item.Description>{a.description}</Item.Description>
+												<Item.Extra>
+													<List bulleted horizontal link>
+														{a.user_id === user.id && (
+															<List.Item
+																as="a"
+																className="deleteArchive"
+																onClick={e => {
+																	e.stopPropagation()
+																	this.deleteArchive(a.id)
+																}}
+															>
+																Delete
+															</List.Item>
+														)}
+														<List.Item
+															as="a"
+															onClick={e => {
+																e.stopPropagation()
+																this.openDownloadLink(a.s3_link)
+															}}
+														>
+															Download
+														</List.Item>
+														<List.Item
+															as="a"
+															onClick={e => {
+																e.stopPropagation()
+																props.setClip(
+																	a.start_time,
+																	a.end_time
+																)
+															}}
+														>
+															Use
+														</List.Item>
+													</List>
+												</Item.Extra>
+											</Item.Content>
+										</Item>
 									)
 								})}
-							</List>
+							</Item.Group>
 						</Transition>
 					)}
 				</div>
@@ -411,7 +425,7 @@ class YouTubeVideo extends Component {
 											onChange={this.props.changeStartTime}
 											showSeconds
 											style={{ width: "100%", fontSize: 14 }}
-											value={formatDuration(this.props.startTime)}
+											value={formatTime(this.props.startTime)}
 										/>
 									</Form.Field>
 									<Form.Field>
@@ -425,7 +439,7 @@ class YouTubeVideo extends Component {
 											onChange={this.props.changeEndTime}
 											showSeconds
 											style={{ width: "100%", fontSize: 14 }}
-											value={formatDuration(this.props.endTime)}
+											value={formatTime(this.props.endTime)}
 										/>
 									</Form.Field>
 								</Form.Group>
@@ -450,6 +464,7 @@ YouTubeVideo.propTypes = {
 	archiveEndTime: PropTypes.string,
 	archiveError: PropTypes.bool,
 	archiveErrorMsg: PropTypes.string,
+	archiveId: PropTypes.string,
 	archives: PropTypes.array,
 	archiveStartTime: PropTypes.string,
 	canArchive: PropTypes.bool,
@@ -475,6 +490,7 @@ YouTubeVideo.propTypes = {
 	redirect: PropTypes.bool,
 	s3Link: PropTypes.string,
 	sendNotification: PropTypes.func,
+	setClip: PropTypes.func,
 	setContradictionVideoTime: PropTypes.func,
 	setCurrentVideoTime: PropTypes.func,
 	showDescription: PropTypes.bool,

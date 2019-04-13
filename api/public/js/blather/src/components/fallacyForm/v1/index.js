@@ -79,6 +79,8 @@ class FallacyForm extends Component {
 
 	closeModal = () => {
 		this.setState({
+			beingTime: "",
+			endTime: "",
 			explanation: "",
 			id: 1,
 			title: ""
@@ -90,6 +92,13 @@ class FallacyForm extends Component {
 
 	componentDidMount() {
 		this.setState({ formVisible: true })
+	}
+
+	componentWillReceiveProps(newProps) {
+		this.setState({
+			beginTime: newProps.startTime,
+			endTime: newProps.endTime
+		})
 	}
 
 	checkValidity = (c, type) => {
@@ -291,7 +300,6 @@ class FallacyForm extends Component {
 						<Input
 							className="contradictionInput"
 							icon="paperclip"
-							iconPosition="right"
 							onKeyUp={this.onChangeContradiction}
 							onPaste={this.onPaste}
 							placeholder="Link to contradiction"
@@ -598,6 +606,7 @@ FallacyForm.propTypes = {
 	bearer: PropTypes.string,
 	clearContradiction: PropTypes.func,
 	commentId: PropTypes.string,
+	endTime: PropTypes.string,
 	fallcyFormError: PropTypes.bool,
 	fallacyFormErrorCode: PropTypes.number,
 	fallacyFormErrorMsg: PropTypes.string,
@@ -640,6 +649,7 @@ FallacyForm.propTypes = {
 	setContradictionBeginTime: PropTypes.func,
 	setContradictionEndTime: PropTypes.func,
 	setContradictionHighlight: PropTypes.func,
+	startTime: PropTypes.string,
 	toggleModal: PropTypes.func
 }
 

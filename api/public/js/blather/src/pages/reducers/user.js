@@ -43,6 +43,12 @@ const pageUser = (state = initial(), action) => {
 				}
 			}
 
+		case constants.TOGGLE_LOADING:
+			return {
+				...state,
+				loading: !action.loading
+			}
+
 		default:
 			return state
 	}

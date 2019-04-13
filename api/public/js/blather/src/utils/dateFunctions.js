@@ -2,6 +2,7 @@ import React from "react"
 import Moment from "react-moment"
 
 const hoursOffset = new Date().getTimezoneOffset() / 60
+
 export const adjustTimezone = date => {
 	let dateStr = date
 	if (date !== undefined) {
@@ -9,6 +10,7 @@ export const adjustTimezone = date => {
 	}
 	return new Date(dateStr).getTime() - hoursOffset * 3600000
 }
+
 export const dateDifference = (dateOne, dateTwo) => (
 	<div>
 		<Moment from={adjustTimezone(dateOne)} ago>
@@ -17,6 +19,7 @@ export const dateDifference = (dateOne, dateTwo) => (
 		{new Date(dateOne) > new Date(dateTwo) ? "prior" : "later"}
 	</div>
 )
+
 export const formatTime = secs => {
 	secs = parseInt(secs, 10)
 	let hours = Math.floor(secs / 3600)

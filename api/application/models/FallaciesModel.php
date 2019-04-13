@@ -186,7 +186,8 @@
                         'name' => $output_file,
                         'start_time' => null,
                         'duration' => null,
-                        'watermark' => $watermark_key
+                        'watermark' => $watermark_key,
+                        'thumbnail' => false
                     ];
                     $this->media->createVideo($input, $output);
                     break;
@@ -220,7 +221,8 @@
                         'name' => $output_file,
                         'start_time' => null,
                         'duration' => null,
-                        'watermark' => $watermark_key
+                        'watermark' => $watermark_key,
+                        'thumbnail' => false
                     ];
                     $this->media->createVideo($input, $output);
                     break;
@@ -260,7 +262,8 @@
                         'name' => $output_file,
                         'start_time' => null,
                         'duration' => null,
-                        'watermark' => $watermark_key
+                        'watermark' => $watermark_key,
+                        'thumbnail' => false
                     ];
                     $this->media->createVideo($input, $output);
                     break;
@@ -300,7 +303,8 @@
                         'name' => $output_file,
                         'start_time' => null,
                         'duration' => null,
-                        'watermark' => $watermark_key
+                        'watermark' => $watermark_key,
+                        'thumbnail' => false
                     ];
                     $this->media->createVideo($input, $output);
                     break;
@@ -340,7 +344,8 @@
                         'name' => $output_file,
                         'start_time' => null,
                         'duration' => null,
-                        'watermark' => $watermark_key
+                        'watermark' => $watermark_key,
+                        'thumbnail' => false
                     ];
                     $this->media->createVideo($input, $output);
                     break;
@@ -380,7 +385,8 @@
                         'name' => $output_file,
                         'start_time' => null,
                         'duration' => null,
-                        'watermark' => $watermark_key
+                        'watermark' => $watermark_key,
+                        'thumbnail' => false
                     ];
                     $this->media->createVideo($input, $output);
                     break;

@@ -4,6 +4,7 @@ import { adjustTimezone } from "utils/dateFunctions"
 import { formatDuration } from "utils/textFunctions"
 import { connect } from "react-redux"
 import {
+	Button,
 	Divider,
 	Dropdown,
 	Form,
@@ -16,7 +17,6 @@ import {
 } from "semantic-ui-react"
 import LazyLoad from "components/lazyLoad/v1/"
 import Moment from "react-moment"
-import _ from "lodash"
 import PropTypes from "prop-types"
 import ResultItem from "components/item/v1/"
 import React, { Component } from "react"
@@ -29,16 +29,23 @@ class ArchivesList extends Component {
 			loadingMore: false,
 			options: [],
 			page: this.props.page,
-			q: ""
+			q: this.props.q
 		}
 	}
 
-	componentWillMount() {
+	componentDidMount() {
 		this.getArchivedUsers()
 		this.props.getArchives({
 			id: this.props.id,
-			page: this.props.page
+			page: this.props.page,
+			q: this.props.q
 		})
+	}
+
+	componentWillReceiveProps(newProps) {
+		if (this.props.q !== newProps.q) {
+			this.setState({ q: newProps.q })
+		}
 	}
 
 	getArchivedUsers() {
@@ -78,17 +85,6 @@ class ArchivesList extends Component {
 
 	onChangeInput = (e, { value }) => {
 		this.setState({ page: 0, q: value })
-		setTimeout(() => {
-			if (value.length < 3) {
-				return
-			}
-			this.props.getArchives({
-				id: this.props.id,
-				page: 0,
-				pageId: this.state.value,
-				q: value
-			})
-		}, 800)
 	}
 
 	onChangeSearch = (e, { value }) => {
@@ -97,6 +93,15 @@ class ArchivesList extends Component {
 			id: this.props.id,
 			page: 0,
 			pageId: value,
+			q: this.state.q
+		})
+	}
+
+	submitForm = () => {
+		this.props.getArchives({
+			id: this.props.id,
+			page: 0,
+			pageId: this.state.value,
 			q: this.state.q
 		})
 	}
@@ -125,7 +130,7 @@ class ArchivesList extends Component {
 							archive.end_time
 						)} - ${archive.description}`,
 						img: archive.profile_pic,
-						link: `/video/${archive.video_id}`,
+						link: `/video/${archive.video_id}?a=${archive.id}`,
 						title: archive.title
 					}
 				default:
@@ -201,15 +206,21 @@ class ArchivesList extends Component {
 				<Visibility className="archiveWrapper" continuous onBottomVisible={this.loadMore}>
 					<Form>
 						<Form.Group widths="equal">
-							<Form.Field
-								control={Input}
-								icon="search"
-								onChange={_.debounce(this.onChangeInput, 800, {
-									leading: true
-								})}
-								placeholder="Search"
-								value={q}
-							/>
+							<Form.Field>
+								<Input
+									action
+									onChange={this.onChangeInput}
+									placeholder="Search"
+									value={q}
+								>
+									<input />
+									<Button
+										color="blue"
+										content="Search"
+										onClick={() => this.submitForm()}
+									/>
+								</Input>
+							</Form.Field>
 							<Form.Field
 								clearable
 								control={Dropdown}
@@ -249,7 +260,9 @@ ArchivesList.propTypes = {
 	emptyMsgHeader: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
 	getArchives: PropTypes.func,
 	id: PropTypes.number,
-	page: PropTypes.number
+	page: PropTypes.number,
+	q: PropTypes.string,
+	submitted: PropTypes.bool
 }
 
 ArchivesList.defaultProps = {
@@ -257,7 +270,9 @@ ArchivesList.defaultProps = {
 	emptyMsgContent: "This user has not archived anything yet",
 	emptyMsgHeader: "No archives",
 	getArchives,
-	page: 0
+	page: 0,
+	q: "",
+	submitted: false
 }
 
 const mapStateToProps = (state, ownProps) => ({
