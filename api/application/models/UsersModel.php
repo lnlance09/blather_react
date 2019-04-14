@@ -93,6 +93,7 @@
 				unset($data['q']);
 			}
 
+			$params = [];
 			$select = 'a.code, a.comment_id, a.date_created, a.description, a.end_time, a.id, a.link, a.network, a.start_time, a.type';
 			if ($just_count) {
 				$select = 'COUNT(*) AS count';
@@ -104,40 +105,65 @@
 			}
 
 			if ($unique) {
-				$select = "p.id AS value, p.id AS key, CONCAT(p.name, ' (', COUNT(*), ')') AS text";
+				$select = "p.id AS `value`, p.id AS `key`, CONCAT(p.name, ' (', COUNT(*), ')') AS text";
 			}
-			
-			$this->db->select($select);
-			$this->db->join('pages p', 'a.page_id = p.id');
+
+			$sql = 'SELECT '.$select.' 
+					FROM archived_links a
+					INNER JOIN pages p ON a.page_id = p.id ';
 
 			if (!$post) {
-				$this->db->join('twitter_posts t', "a.object_id = t.tweet_id AND a.type = 'tweet'", 'left');
-				$this->db->join('youtube_videos ytv', "a.object_id = ytv.video_id AND a.type = 'video'", 'left');
-				$this->db->join('youtube_comments ytc', "a.comment_id = ytc.comment_id AND a.object_id = ytc.video_id AND a.type = 'comment'", 'left');
+				$sql .= 'LEFT JOIN  twitter_posts t ON a.object_id = t.tweet_id AND a.type = "tweet" 
+						LEFT JOIN youtube_videos ytv ON a.object_id = ytv.video_id AND a.type = "video"
+						LEFT JOIN youtube_comments ytc ON a.comment_id = ytc.comment_id AND a.object_id = ytc.video_id AND a.type = "comment" ';
 			}
 
-			$this->db->where($data);
+			if ($data) {
+				$sql .= ' WHERE ';
+			}
 
-			if ($q && !$post) {
-				$this->db->like('t.full_text', $q);
-				$this->db->or_like('a.description', $q);
-				$this->db->or_like('ytv.title', $q);
-				$this->db->or_like('ytc.message', $q);
+			$i = 0;
+			foreach ($data as $key => $val) {
+				$params[] = $val;
+				if ($i > 0) {
+					$sql .= ' AND ';
+				}
+
+				$sql .= $key.' = ? ';
+
+				$i++;
+			}
+
+			if (!empty($q) && !$post) {
+				if (!$data) {
+					$sql .= ' WHERE ';
+				} else {
+					$sql .= ' AND ';
+				}
+
+				$sql .= ' (t.full_text LIKE ?
+					OR a.description LIKE ?
+					OR ytv.title LIKE ?
+					OR ytc.message LIKE ?
+				) ';
+				$params[] = '%'.$q.'%';
+				$params[] = '%'.$q.'%';
+				$params[] = '%'.$q.'%"';
+				$params[] = '%'.$q.'%';
 			}
 
 			if (!$just_count && !$unique) {
 				$per_page = 10;
 				$start = $per_page*$page;
-				$this->db->limit($per_page, $start);
-				$this->db->order_by('date_created', 'DESC');
+				$sql .= ' ORDER BY date_created DESC LIMIT '.$start.', '.$per_page.' ';
 			}
 
 			if ($unique) {
-				$this->db->group_by('p.id');
-				$this->db->order_by('COUNT(*)', 'DESC');
+				$sql .= ' GROUP BY p.id ORDER BY COUNT(*) DESC ';
 			}
 
-			$results = $this->db->get('archived_links a')->result_array();
+			$results = $this->db->query($sql, $params)->result_array();
+
 			if ($just_count) {
 				return (int)$results[0]['count'];
 			}
