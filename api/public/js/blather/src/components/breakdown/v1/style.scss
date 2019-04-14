@@ -5,6 +5,10 @@
 
     .message {
         background: $white;
+
+        .icon {
+            color: $red;
+        }
     }
 
     .percentages {
@@ -22,15 +26,11 @@
                 margin-top: 0;
             }
 
-            &:hover {
-                background: $offWhite;
-            }
-
             .progress {
                 margin-bottom: 0;
 
                 .bar {
-                    background: $blue !important;
+                    background: $twitter !important;
 
                     .progress {
                         color: $white;
@@ -75,6 +75,6 @@
     }
 
     .createReview {
-        margin: 15px 4px !important;
+        margin: 15px 0 4px !important;
     }
 }

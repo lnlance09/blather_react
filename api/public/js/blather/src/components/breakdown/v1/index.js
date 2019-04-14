@@ -17,7 +17,9 @@ class Breakdown extends Component {
 	}
 
 	componentWillReceiveProps(props) {
-		this.fetchFallacies(props)
+		if (this.props.id !== props.id) {
+			this.fetchFallacies(props)
+		}
 	}
 
 	fetchFallacies(props) {
@@ -51,7 +53,7 @@ class Breakdown extends Component {
 							onClick={() => setFallacyId(result.value)}
 						>
 							<Header size="small">
-								{result.key} <Label size="mini">{result.count}</Label>
+								{result.key} <Label basic color="black" size="mini">{result.count}</Label>
 							</Header>
 							<Progress percent={percent} progress size="medium" />
 						</div>

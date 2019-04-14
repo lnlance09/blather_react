@@ -14,10 +14,8 @@ import {
 	Image,
 	Label,
 	Menu,
-	Responsive,
 	Segment
 } from "semantic-ui-react"
-import AboutCard from "components/aboutCard/v1/"
 import Breakdown from "components/breakdown/v1/"
 import defaultImg from "images/image-square.png"
 import FallaciesList from "components/fallaciesList/v1/"
@@ -46,11 +44,11 @@ class Page extends Component {
 		const userId = currentState.user.data.id
 
 		if (tab === undefined) {
-			tab = "breakdown"
+			tab = "fallacies"
 		}
 
 		this.state = {
-			activeItem: tab === "fallacies" || tab === "breakdown" ? tab : label,
+			activeItem: tab === "fallacies" ? tab : label,
 			authenticated,
 			bearer,
 			fallacyId,
@@ -80,7 +78,7 @@ class Page extends Component {
 		const network = props.match.params.network
 		let tab = props.match.params.tab
 		if (tab === undefined) {
-			tab = "breakdown"
+			tab = "fallacies"
 		}
 
 		this.props.toggleLoading({
@@ -103,7 +101,7 @@ class Page extends Component {
 
 		const label = this.determineItemsLabel(network)
 		this.setState({
-			activeItem: tab === "fallacies" || tab === "breakdown" ? tab : label,
+			activeItem: tab === "fallacies" ? tab : label,
 			itemsLabel: label,
 			updated: !this.state.updated
 		})
@@ -145,6 +143,7 @@ class Page extends Component {
 			network,
 			userId
 		} = this.state
+
 		if (this.props.error && this.props.errorCode !== 404 && network === "youtube") {
 			this.props.refreshYouTubeToken({
 				bearer
@@ -153,20 +152,25 @@ class Page extends Component {
 				window.location.reload()
 			}, 1000)
 		}
+
 		const DimmerMsg = ({ btn, msg, props }) => (
 			<Dimmer active>
 				<Header as="h2">{msg}</Header>
 				{btn}
 			</Dimmer>
 		)
+
 		const LazyLoadDefault = [{}, {}, {}, {}, {}].map((post, i) => {
 			let marginTop = i === 0 ? 0 : 15
 			return <LazyLoad key={`lazy_load_${i}`} style={{ marginTop: `${marginTop}px` }} />
 		})
+
 		const PageHeaderInfo = props => {
 			const subheader = (
 				<div>
-					{props.username && (
+					<Icon className={`${network}Icon`} name={network} />
+					{" "}
+					{props.username ? (
 						<a
 							className="externalUrl"
 							href={props.externalUrl}
@@ -174,19 +178,20 @@ class Page extends Component {
 						>
 							@{props.username}
 						</a>
-					)}{" "}
-					<Icon className={`${network}Icon`} name={network} />
+					) : (
+						<span>YouTube profile</span>
+					)}
 				</div>
 			)
-			return <TitleHeader subheader={subheader} title={props.name} />
+			return (
+				<div className="pageHeaderInfo">
+					<TitleHeader subheader={subheader} title={props.name} />
+				</div>
+			)
 		}
+
 		const PageMenu = props => (
-			<Menu className="socialMediaPageMenu" fluid stackable tabular>
-				<Menu.Item
-					active={activeItem === "breakdown"}
-					name="breakdown"
-					onClick={this.handleItemClick}
-				/>
+			<Menu className="socialMediaPageMenu" fluid pointing secondary stackable>
 				<Menu.Item
 					active={activeItem === itemsLabel}
 					name={itemsLabel}
@@ -206,26 +211,9 @@ class Page extends Component {
 				</Menu.Item>
 			</Menu>
 		)
+
 		const ShowContent = props => {
 			if (props.id) {
-				if (activeItem === "breakdown") {
-					return (
-						<Breakdown
-							authenticated={authenticated}
-							count={props.fallacyCount}
-							dbId={props.dbId}
-							id={props.id}
-							name={props.name}
-							network={network}
-							setFallacyId={this.setFallacyId}
-							sincerity={props.sincerity}
-							turingTest={props.turingTest}
-							userId={parseInt(userId, 10)}
-							username={props.username}
-						/>
-					)
-				}
-
 				if (activeItem === "fallacies") {
 					return (
 						<FallaciesList
@@ -311,55 +299,43 @@ class Page extends Component {
 					<PageHeader {...this.props} />
 					{this.props.exists ? (
 						<Container className="mainContainer" textAlign="left">
-							<Responsive maxWidth={1024}>
-								<Grid>
-									<Grid.Row>{PageHeaderInfo(this.props)}</Grid.Row>
-									<Grid.Row className="pageContentRow">
-										<Image
-											bordered
-											className="profilePic"
-											onError={i => (i.target.src = defaultImg)}
-											rounded
-											src={this.props.img}
+							<Grid>
+								<Grid.Column width={16}>
+									<Image
+										bordered
+										centered
+										circular
+										className="profilePic"
+										onError={i => (i.target.src = defaultImg)}
+										rounded
+										size="medium"
+										src={this.props.img}
+									/>
+									{PageHeaderInfo(this.props)}
+									<Header as="h2" dividing>
+										Breakdown
+									</Header>
+									{this.props.id && (
+										<Breakdown
+											authenticated={authenticated}
+											count={this.props.fallacyCount}
+											dbId={this.props.dbId}
+											id={this.props.id}
+											name={this.props.name}
+											network={network}
+											setFallacyId={this.setFallacyId}
+											sincerity={this.props.sincerity}
+											turingTest={this.props.turingTest}
+											userId={parseInt(userId, 10)}
+											username={this.props.username}
 										/>
-										<AboutCard
-											description={this.props.about}
-											linkify
-											title="About"
-										/>
-										{PageMenu(this.props)}
-										<Container className="profileContentContainer">
-											{ShowContent(this.props)}
-										</Container>
-									</Grid.Row>
-								</Grid>
-							</Responsive>
-							<Responsive minWidth={1025}>
-								<Grid>
-									<Grid.Column width={4}>
-										<Image
-											bordered
-											centered
-											className="profilePic"
-											onError={i => (i.target.src = defaultImg)}
-											rounded
-											src={this.props.img}
-										/>
-										<AboutCard
-											description={this.props.about}
-											linkify
-											title="About"
-										/>
-									</Grid.Column>
-									<Grid.Column width={12}>
-										{PageHeaderInfo(this.props)}
-										{PageMenu(this.props)}
-										<Container className="profileContentContainer">
-											{ShowContent(this.props)}
-										</Container>
-									</Grid.Column>
-								</Grid>
-							</Responsive>
+									)}
+									{PageMenu(this.props)}
+									<Container className="profileContentContainer">
+										{ShowContent(this.props)}
+									</Container>
+								</Grid.Column>
+							</Grid>
 						</Container>
 					) : (
 						<Container className="mainContainer" text textAlign="center">

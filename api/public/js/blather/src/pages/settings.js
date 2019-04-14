@@ -340,7 +340,7 @@ class SettingsPage extends Component {
 								<Grid.Row>{SettingsMenu(this.props)}</Grid.Row>
 								<Grid.Row>
 									<div className="settingsContent">
-										<Segment>{activeItemDiv(activeItem)}</Segment>
+										<Segment basic>{activeItemDiv(activeItem)}</Segment>
 									</div>
 								</Grid.Row>
 							</Grid>
@@ -350,7 +350,7 @@ class SettingsPage extends Component {
 								<Grid.Column width={4}>{SettingsMenu(this.props)}</Grid.Column>
 								<Grid.Column className="rightSide" width={12}>
 									<div className="settingsContent">
-										<Segment>{activeItemDiv(activeItem)}</Segment>
+										<Segment basic>{activeItemDiv(activeItem)}</Segment>
 									</div>
 								</Grid.Column>
 							</Grid>

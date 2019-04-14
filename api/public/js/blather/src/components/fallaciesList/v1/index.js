@@ -67,14 +67,15 @@ class FallaciesList extends Component {
 			this.props.assignedBy !== props.assignedBy ||
 			this.props.assignedTo !== props.assignedTo ||
 			this.props.commentId !== props.commentId ||
-			this.props.objectId !== props.objectId
+			this.props.objectId !== props.objectId ||
+			this.props.fallacies !== props.fallacies
 		) {
 			this.fetchFallacies(props)
 			this.props.getFallacies({
 				assignedBy: this.props.assignedBy,
 				assignedTo: this.props.assignedTo,
 				commentId: this.props.commentId,
-				fallacies: this.props.fallacies,
+				fallacies: props.fallacies,
 				fallacyId: this.props.fallacyId,
 				network: this.props.network,
 				objectId: this.props.objectId,
@@ -83,6 +84,7 @@ class FallaciesList extends Component {
 			if (props.source === "users") {
 				this.props.getTargets({ id: this.props.assignedBy })
 			}
+			this.setState({ value: props.fallacies })
 		}
 	}
 
@@ -161,6 +163,7 @@ class FallaciesList extends Component {
 
 	render() {
 		const { options, showFilter, showTargets, value } = this.state
+
 		const FilterSection = ({ props }) => {
 			const filterVisible = showFilter && !showTargets
 			return (
@@ -211,6 +214,7 @@ class FallaciesList extends Component {
 				</div>
 			)
 		}
+
 		const RenderFallacies = props => {
 			return props.results.map((result, i) => {
 				if (result.id) {
@@ -260,6 +264,7 @@ class FallaciesList extends Component {
 				}
 			})
 		}
+
 		const RenderTargets = props => {
 			return props.targets.results.map((result, i) => {
 				if (result.id) {

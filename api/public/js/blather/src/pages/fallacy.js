@@ -1,5 +1,4 @@
 import "pages/css/index.css"
-import { mapIdsToNames } from "utils/arrayFunctions"
 import { adjustTimezone } from "utils/dateFunctions"
 import { DisplayMetaTags } from "utils/metaFunctions"
 import {
@@ -40,7 +39,6 @@ import PropTypes from "prop-types"
 import React, { Component } from "react"
 import ReactPlayer from "react-player"
 import store from "store"
-import TagsCard from "components/tagsCard/v1/"
 import TitleHeader from "components/titleHeader/v1/"
 import TrumpImg from "images/trump-white.png"
 
@@ -244,6 +242,7 @@ class Fallacy extends Component {
 			id,
 			userId
 		} = this.state
+
 		const canEdit = this.props.createdBy ? this.props.createdBy.id === userId : false
 
 		const ContactUser = props => {
@@ -285,6 +284,7 @@ class Fallacy extends Component {
 			}
 			return null
 		}
+
 		const ExportSection = props => (
 			<div className="exportSection">
 				<Header as="h3" dividing>
@@ -358,8 +358,9 @@ class Fallacy extends Component {
 				)}
 			</div>
 		)
+
 		const FallacyMenu = props => (
-			<Menu className="fallacyMainMenu" fluid stackable tabular>
+			<Menu className="fallacyMainMenu" fluid pointing secondary stackable>
 				<Menu.Item
 					active={activeItem === "material"}
 					name="material"
@@ -396,6 +397,7 @@ class Fallacy extends Component {
 				/>
 			</Menu>
 		)
+
 		const FallacyTitle = ({ props }) => {
 			const subheader = (
 				<div>
@@ -426,6 +428,7 @@ class Fallacy extends Component {
 				/>
 			)
 		}
+
 		const MaterialRow = (
 			<div className="materialRow">
 				<Grid.Row>{ExportSection(this.props)}</Grid.Row>
@@ -433,6 +436,7 @@ class Fallacy extends Component {
 				<Grid.Row>{ContactUser(this.props)}</Grid.Row>
 			</div>
 		)
+
 		const ShowContent = props => {
 			switch (activeItem) {
 				case "material":
@@ -485,23 +489,6 @@ class Fallacy extends Component {
 					return null
 			}
 		}
-		const ShowTags = props => {
-			let tags = null
-			if (props.tag_ids) {
-				tags = mapIdsToNames(props.tag_ids, props.tag_names)
-			}
-
-			return (
-				<TagsCard
-					bearer={bearer}
-					canEdit={canEdit}
-					history={props.history}
-					id={id}
-					tags={tags ? tags : []}
-					type="fallacy"
-				/>
-			)
-		}
 
 		return (
 			<Provider store={store}>
@@ -518,21 +505,15 @@ class Fallacy extends Component {
 									<Grid.Row>{FallacyMenu(this.props)}</Grid.Row>
 									<Grid.Row>{ShowContent(this.props)}</Grid.Row>
 									{activeItem === "material" && MaterialRow}
-									{activeItem === "material" && (
-										<Grid.Row>{ShowTags(this.props)}</Grid.Row>
-									)}
 								</Grid>
 							</Responsive>
 							<Responsive minWidth={1025}>
 								<FallacyTitle props={this.props} />
 								{FallacyMenu(this.props)}
 								<Grid>
-									<Grid.Column className="leftSide" width={12}>
+									<Grid.Column className="leftSide" width={16}>
 										{ShowContent(this.props)}
 										{activeItem === "material" && MaterialRow}
-									</Grid.Column>
-									<Grid.Column className="rightSide" width={4}>
-										{ShowTags(this.props)}
 									</Grid.Column>
 								</Grid>
 							</Responsive>
