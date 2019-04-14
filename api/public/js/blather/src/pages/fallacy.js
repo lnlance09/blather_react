@@ -133,6 +133,7 @@ class Fallacy extends Component {
 		this.setState({ downloading: true })
 
 		html2canvas(document.getElementById(el), {
+			allowTaint: false,
 			scale,
 			useCORS: true
 		}).then(canvas => {
