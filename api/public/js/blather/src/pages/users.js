@@ -8,16 +8,13 @@ import {
 	Button,
 	Container,
 	Dimmer,
-	Grid,
 	Header,
 	Icon,
 	Image,
 	Label,
 	Menu,
-	Responsive,
 	Segment
 } from "semantic-ui-react"
-import AboutCard from "components/aboutCard/v1/"
 import defaultImg from "images/trump.svg"
 import ArchivesList from "components/archivesList/v1/"
 import Dropzone from "react-dropzone"
@@ -149,23 +146,14 @@ class UserPage extends Component {
 	}
 
 	render() {
-		const { about, active, activeItem, bearer, id, inverted, isMyProfile } = this.state
+		const { active, activeItem, id, inverted, isMyProfile } = this.state
 		const { data, loading, user } = this.props
+
 		let pic = !user.img && !loading ? defaultImg : user.img
 		if (isMyProfile) {
 			pic = !data.img && !loading ? defaultImg : data.img
 		}
 
-		const AboutSection = props => (
-			<AboutCard
-				bearer={bearer}
-				canEdit={isMyProfile}
-				description={isMyProfile ? about : user.bio}
-				handleReload={this.reloadAbout}
-				title="About"
-				type="user"
-			/>
-		)
 		const content = (
 			<Dropzone className="dropdown" onDrop={this.onDrop}>
 				{({ getRootProps, getInputProps }) => (
@@ -179,31 +167,33 @@ class UserPage extends Component {
 				)}
 			</Dropzone>
 		)
+
 		const ProfilePic = props => {
 			if (isMyProfile) {
 				return (
-					<Dimmer.Dimmable
-						as={Image}
-						centered
-						className={`profilePic ${!user.img && !props.loading ? "default" : ""}`}
-						dimmed={active}
-						dimmer={{ active, content, inverted }}
-						onError={i => (i.target.src = ImagePic)}
-						onMouseEnter={this.handleShow}
-						onMouseLeave={this.handleHide}
-						rounded
-						size="medium"
-						src={pic}
-					/>
+					<div className="profilePicContainer">
+						<Dimmer.Dimmable
+							as={Image}
+							centered
+							circular
+							className={`profilePic ${!user.img && !props.loading ? "default" : ""}`}
+							dimmed={active}
+							dimmer={{ active, content, inverted }}
+							onError={i => (i.target.src = ImagePic)}
+							onMouseEnter={this.handleShow}
+							onMouseLeave={this.handleHide}
+							size="medium"
+							src={pic}
+						/>
+					</div>
 				)
 			}
 			return (
 				<Image
-					bordered
 					centered
+					circular
 					className={`profilePic ${!user.img && !props.loading ? "default" : ""}`}
 					onError={i => (i.target.src = ImagePic)}
-					rounded
 					src={pic}
 				/>
 			)
@@ -229,7 +219,7 @@ class UserPage extends Component {
 					case "archives":
 						return (
 							<ArchivesList
-								emptyMsgContent={`${user.name} hasn't archived anything yet`}
+								emptyMsgContent="Nothing!"
 								history={props.history}
 								id={user.id}
 							/>
@@ -240,7 +230,7 @@ class UserPage extends Component {
 			}
 		}
 		const UserMenu = props => (
-			<Menu className="profileMenu" fluid stackable tabular>
+			<Menu className="profileMenu" fluid pointing secondary stackable>
 				<Menu.Item
 					active={activeItem === "fallacies"}
 					name="fallacies"
@@ -271,54 +261,20 @@ class UserPage extends Component {
 					<PageHeader {...this.props} />
 					{!this.props.error ? (
 						<Container className="mainContainer" textAlign="left">
-							<Responsive maxWidth={1024}>
-								<Grid>
-									<Grid.Row>
-										<div>
-											<TitleHeader
-												subheader={`@${user.username}`}
-												title={user.name}
-											/>
-										</div>
-									</Grid.Row>
-									<Grid.Row className="userContentRow">
-										{ProfilePic(this.props)}
-										{AboutSection(this.props)}
-										{UserMenu(this.props)}
-										<Container className="profileContentContainer">
-											<Segment
-												basic
-												className="profileContentSegment"
-												stacked
-											>
-												{ShowContent(this.props)}
-											</Segment>
-										</Container>
-									</Grid.Row>
-								</Grid>
-							</Responsive>
-
-							<Responsive minWidth={1025}>
-								<Grid>
-									<Grid.Column width={4}>
-										{ProfilePic(this.props)}
-										{AboutSection(this.props)}
-									</Grid.Column>
-
-									<Grid.Column width={12}>
-										<TitleHeader
-											subheader={`@${user.username}`}
-											title={user.name}
-										/>
-										{UserMenu(this.props)}
-										<Container className="profileContentContainer">
-											<Segment basic className="profileContentSegment">
-												{ShowContent(this.props)}
-											</Segment>
-										</Container>
-									</Grid.Column>
-								</Grid>
-							</Responsive>
+							{ProfilePic(this.props)}
+							<div className="userHeaderSection">
+								<TitleHeader
+									subheader={`@${user.username}`}
+									title={user.name}
+								/>
+							</div>
+							
+							{UserMenu(this.props)}
+							<Container className="profileContentContainer">
+								<Segment basic className="profileContentSegment">
+									{ShowContent(this.props)}
+								</Segment>
+							</Container>
 						</Container>
 					) : (
 						<Container className="mainContainer" text textAlign="center">

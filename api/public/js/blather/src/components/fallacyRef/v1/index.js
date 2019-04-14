@@ -16,10 +16,10 @@ class FallacyRef extends Component {
 		}
 	}
 
-	componentWillMount() {
+	componentDidMount() {
 		fallacies.map((fallacy, i) => {
 			if (parseInt(fallacy.id, 10) === this.props.id) {
-				this.setState({ fallacy: fallacy })
+				this.setState({ fallacy })
 			}
 			return true
 		})
@@ -27,7 +27,7 @@ class FallacyRef extends Component {
 
 	render() {
 		const { fallacy } = this.state
-		const fallacyConversation = dialogue =>
+		const FallacyConversation = dialogue =>
 			dialogue.map((item, i) => {
 				const pic = item.name === "Blathering Bill" ? BillPic : RobPic
 				return (
@@ -52,7 +52,7 @@ class FallacyRef extends Component {
 						)}
 						<p>{fallacy.description}</p>
 						{this.props.showDialogue && (
-							<Comment.Group>{fallacyConversation(fallacy.dialogue)}</Comment.Group>
+							<Comment.Group>{FallacyConversation(fallacy.dialogue)}</Comment.Group>
 						)}
 					</Segment>
 				)}

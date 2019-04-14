@@ -111,6 +111,7 @@ a {
 .dropzone {
     border: none;
     height: 100%;
+    text-align: center;
     width: 100%;
 }
 
@@ -530,7 +531,7 @@ a {
 /* Pages page */
 .socialMediaPage {
     .menu.socialMediaPageMenu {
-        margin-top: 40px !important;
+        margin-top: 20px !important;
     }
 
     @media only screen and (max-width: 1025px) {
@@ -539,11 +540,25 @@ a {
         }
 
         .image.profilePic {
-            height: 225px;
+            height: 220px;
         }
 
         .pageContentRow {
             padding-top: 0 !important;
+        }
+    }
+
+    .image.profilePic {
+        height: 220px;
+        width: 220px;
+    }
+
+    .pageHeaderInfo {
+        margin-top: 10px;
+        text-align: center;
+
+        p {
+            margin-top: 15px;
         }
     }
 
@@ -821,6 +836,15 @@ a {
         margin-top: 40px !important;
     }
 
+    .userHeaderSection {
+        margin-top: 10px;
+        text-align: center;
+
+        p {
+            margin-top: 15px;
+        }
+    }
+
     @media only screen and (max-width: 1025px) {
         .menu.profileMenu {
             margin-top: 0px !important;
@@ -842,10 +866,24 @@ a {
         }
     }
 
+    .profilePicContainer {
+        text-align: center;
+    }
+
     .profilePic {
+        width: auto !important;
+
+        img {
+            height: 220px;
+            text-align: center;
+            width: 220px;
+        }
+
         &.default {
             background: $white;
+            height: 220px;
             padding: 7px;
+            width: 220px;
         }
     }
 

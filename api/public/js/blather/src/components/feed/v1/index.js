@@ -48,7 +48,7 @@ class FeedComponent extends Component {
 	}
 
 	render() {
-		const RenderFeed = props => {
+		const RenderFeed = ({ props }) => {
 			return props.results.map((result, i) => {
 				const userLink = `/pages/${result.page_type}/${
 					result.page_type === "twitter" ? result.page_username : result.page_id
@@ -96,7 +96,7 @@ class FeedComponent extends Component {
 
 		return (
 			<Visibility className="feedWrapper" continuous onBottomVisible={this.loadMore}>
-				<Feed size={this.props.size}>{RenderFeed(this.props)}</Feed>
+				<Feed size={this.props.size}><RenderFeed props={this.props} /></Feed>
 			</Visibility>
 		)
 	}

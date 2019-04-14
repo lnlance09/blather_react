@@ -18,6 +18,7 @@ class TitleHeader extends Component {
 	}
 
 	onChangeTitle = (e, { value }) => this.setState({ value })
+
 	updateHeader = () => {
 		this.setState({ editing: false })
 		if (this.props.type === "fallacy") {
@@ -39,6 +40,7 @@ class TitleHeader extends Component {
 
 	render() {
 		const { editing, value } = this.state
+
 		const EditIcon = props => {
 			if (props.canEdit) {
 				return (
@@ -52,6 +54,7 @@ class TitleHeader extends Component {
 			}
 			return null
 		}
+
 		return (
 			<div className="titleHeader">
 				{this.props.title && (

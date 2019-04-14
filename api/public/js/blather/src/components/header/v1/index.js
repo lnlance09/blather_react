@@ -7,13 +7,11 @@ import {
 	Container,
 	Dropdown,
 	Icon,
-	Image,
 	Menu,
 	Responsive,
 	Sidebar
 } from "semantic-ui-react"
 import fallacies from "fallacies.json"
-import ImagePic from "images/image-square.png"
 import Logo from "./images/logo.svg"
 import NavSearch from "components/search/v1/"
 import PropTypes from "prop-types"
@@ -58,19 +56,16 @@ class Header extends Component {
 			if (props.authenticated) {
 				const trigger = (
 					<span>
-						{props.data.img && (
-							<Image
-								avatar
-								className="imgAvatar"
-								onError={i => (i.target.src = ImagePic)}
-								src={props.data.img}
-							/>
-						)}{" "}
 						{props.data.name}
 					</span>
 				)
 				return (
-					<Dropdown className="dropDownMenu right" icon={false} item trigger={trigger}>
+					<Dropdown
+						className="dropDownMenu right"
+						icon={false}
+						item
+						trigger={trigger}
+					>
 						<Dropdown.Menu>
 							<Dropdown.Item
 								onClick={() => props.history.push(`/users/${props.data.username}`)}
