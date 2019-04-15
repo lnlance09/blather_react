@@ -797,6 +797,7 @@
         public function pageExists($id) {
             $this->db->select('COUNT(*) AS count');
             $this->db->where('id', $id);
+            $this->db->or_where('social_media_id', $id);
             $query = $this->db->get('pages')->result();
             if($query[0]->count == 0) {
                 return false;

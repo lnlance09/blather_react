@@ -2,7 +2,7 @@ import * as constants from "./constants"
 
 const initial = () => ({})
 
-const test = (state = initial(), action) => {
+const fallacies = (state = initial(), action) => {
 	switch (action.type) {
 		case constants.GET_FALLACIES:
 			const results =
@@ -41,4 +41,4 @@ const test = (state = initial(), action) => {
 	}
 }
 
-export default test
+export default fallacies

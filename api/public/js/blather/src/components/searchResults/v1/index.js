@@ -20,7 +20,6 @@ class SearchResults extends Component {
 		super(props)
 		this.state = {
 			data: this.props.data,
-			loading: true,
 			page: 0
 		}
 		this.loadMore = _.debounce(this.loadMore.bind(this), 200)
@@ -41,7 +40,6 @@ class SearchResults extends Component {
 			newProps.type !== this.props.type ||
 			newProps.fallacies !== this.props.fallacies
 		) {
-			this.setState({ loading: false })
 			this.props.fetchSearchResults({
 				bearer: newProps.bearer,
 				fallacies: newProps.fallacies,
@@ -50,6 +48,7 @@ class SearchResults extends Component {
 			})
 		}
 	}
+
 	loadMore = () => {
 		if (this.props.hasMore) {
 			const newPage = parseInt(this.state.page + 1, 10)
@@ -70,6 +69,7 @@ class SearchResults extends Component {
 
 	render() {
 		const { loadingMore } = this.state
+
 		if (this.props.error && this.props.type === "youtube") {
 			this.props.refreshYouTubeToken({
 				bearer: this.props.bearer
@@ -78,7 +78,8 @@ class SearchResults extends Component {
 				window.location.reload()
 			}, 1000)
 		}
-		const formatData = result => {
+
+		const FormatData = result => {
 			switch (this.props.type) {
 				case "fallacies":
 					let dateCreated = (
@@ -155,13 +156,15 @@ class SearchResults extends Component {
 					return {}
 			}
 		}
-		const lazyLoadMore = props => {
+
+		const LazyLoadMore = props => {
 			if (props.hasMore && loadingMore) {
 				return <LazyLoad />
 			}
 			return null
 		}
-		const linkAccountMsg = props => {
+
+		const LinkAccountMsg = props => {
 			if (props.authenticated && props.type === "twitter" && !props.linkedTwitter) {
 				return (
 					<Message className="linkAccountMsg" icon>
@@ -169,7 +172,7 @@ class SearchResults extends Component {
 						<Message.Content>
 							<Message.Header>Link your Twitter</Message.Header>
 							You can search live results after you{" "}
-							<Link to={`/settings/twitter`}>link</Link> your account
+							<Link to="/settings/twitter">link</Link> your account
 						</Message.Content>
 					</Message>
 				)
@@ -182,7 +185,7 @@ class SearchResults extends Component {
 						<Message.Content>
 							<Message.Header>Link your YouTube</Message.Header>
 							You can search live results after you{" "}
-							<Link to={`/settings/youtube`}>link</Link> your account
+							<Link to="/settings/youtube">link</Link> your account
 						</Message.Content>
 					</Message>
 				)
@@ -190,20 +193,27 @@ class SearchResults extends Component {
 
 			return null
 		}
+
 		const lazyLoad = this.props.data.map((result, i) => <LazyLoad key={`search_result_${i}`} />)
-		const resultsHeader = count => (
+
+		const ResultsHeader = count => (
 			<Statistic size="tiny">
 				<Statistic.Value>{formatNumber(count)}</Statistic.Value>
 				<Statistic.Label>{formatPlural(count, "result")}</Statistic.Label>
 			</Statistic>
 		)
-		const resultItems = props => {
+
+		const ResultItems = ({ props }) => {
 			if (props.loading) {
 				return <Item.Group divided>{lazyLoad}</Item.Group>
 			}
 
 			if (props.count > 0) {
-				return <Item.Group divided>{searchResults}</Item.Group>
+				return (
+					<Item.Group divided>
+						<SearchResults props={props} />
+					</Item.Group>
+				)
 			}
 
 			return (
@@ -216,41 +226,44 @@ class SearchResults extends Component {
 				/>
 			)
 		}
-		const searchResults = this.props.data.map((result, i) => {
-			let itemData = formatData(result)
-			return (
-				<ResultItem
-					description={itemData.description}
-					extra={itemData.extra}
-					highlight={this.props.q !== "" && this.props.type === "fallacies"}
-					highlightText={this.props.q}
-					history={this.props.history}
-					id={`${this.props.type}_${i}`}
-					img={itemData.img}
-					key={`${this.props.type}_${i}`}
-					meta={itemData.meta}
-					sanitize
-					tags={itemData.tags}
-					title={itemData.title}
-					truncate={false}
-					type={this.props.type}
-					url={itemData.url}
-				/>
-			)
-		})
+
+		const SearchResults = ({ props }) => {
+			return props.data.map((result, i) => {
+				let itemData = FormatData(result)
+				return (
+					<ResultItem
+						description={itemData.description}
+						extra={itemData.extra}
+						highlight={props.q !== "" && props.type === "fallacies"}
+						highlightText={props.q}
+						history={props.history}
+						id={`${props.type}_${i}`}
+						img={itemData.img}
+						key={`${props.type}_${i}`}
+						meta={itemData.meta}
+						sanitize
+						tags={itemData.tags}
+						title={itemData.title}
+						truncate={false}
+						type={props.type}
+						url={itemData.url}
+					/>
+				)
+			})
+		}
 
 		return (
 			<Provider store={store}>
 				<div className="searchResults">
 					<div>
-						<div className="resultsCount">{resultsHeader(this.props.count)}</div>
+						<div className="resultsCount">{ResultsHeader(this.props.count)}</div>
 						<div className="clearfix" />
 					</div>
-					{linkAccountMsg(this.props)}
+					{LinkAccountMsg(this.props)}
 					<Container className="searchContentContainer">
 						<Visibility continuous offset={[50, 50]} onBottomVisible={this.loadMore}>
-							{resultItems(this.props)}
-							{lazyLoadMore(this.props)}
+							<ResultItems props={this.props} />
+							{LazyLoadMore(this.props)}
 						</Visibility>
 					</Container>
 				</div>

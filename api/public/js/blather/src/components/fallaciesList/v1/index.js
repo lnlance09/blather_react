@@ -42,7 +42,11 @@ class FallaciesList extends Component {
 			value: this.props.fallacies ? this.props.fallacies : ""
 		}
 
-		if (showFilter) {
+		this.onChangeSearch = this.onChangeSearch.bind(this)
+	}
+
+	componentDidMount() {
+		if (this.props.source !== "fallacy") {
 			this.fetchFallacies(this.props)
 		}
 		this.props.getFallacies({
@@ -53,38 +57,10 @@ class FallaciesList extends Component {
 			fallacyId: this.props.fallacyId,
 			network: this.props.network,
 			objectId: this.props.objectId,
-			page: this.state.page
+			page: 0
 		})
 		if (this.props.source === "users") {
 			this.props.getTargets({ id: this.props.assignedBy })
-		}
-
-		this.onChangeSearch = this.onChangeSearch.bind(this)
-	}
-
-	componentWillReceiveProps(props) {
-		if (
-			this.props.assignedBy !== props.assignedBy ||
-			this.props.assignedTo !== props.assignedTo ||
-			this.props.commentId !== props.commentId ||
-			this.props.objectId !== props.objectId ||
-			this.props.fallacies !== props.fallacies
-		) {
-			this.fetchFallacies(props)
-			this.props.getFallacies({
-				assignedBy: this.props.assignedBy,
-				assignedTo: this.props.assignedTo,
-				commentId: this.props.commentId,
-				fallacies: props.fallacies,
-				fallacyId: this.props.fallacyId,
-				network: this.props.network,
-				objectId: this.props.objectId,
-				page: this.props.page
-			})
-			if (props.source === "users") {
-				this.props.getTargets({ id: this.props.assignedBy })
-			}
-			this.setState({ value: props.fallacies })
 		}
 	}
 
@@ -104,6 +80,7 @@ class FallaciesList extends Component {
 			default:
 				id = ""
 		}
+
 		let qs = `?id=${id}&type=${props.source}&network=${props.network}`
 		if (props.source && props.assignedBy) {
 			qs += `&assignedBy=${props.assignedBy}`
@@ -207,7 +184,7 @@ class FallaciesList extends Component {
 								/>
 							</Form>
 							<Divider />
-							<FallacyRef id={parseInt(value, 10)} />
+							<FallacyRef className="fallacyRef" id={parseInt(value, 10)} />
 							<Divider />
 						</div>
 					)}
@@ -215,7 +192,7 @@ class FallaciesList extends Component {
 			)
 		}
 
-		const RenderFallacies = props => {
+		const RenderFallacies = ({ props }) => {
 			return props.results.map((result, i) => {
 				if (result.id) {
 					let img =
@@ -313,26 +290,23 @@ class FallaciesList extends Component {
 									</div>
 								) : (
 									<Item.Group className="fallacyItems" divided>
-										{RenderFallacies(this.props)}
+										<RenderFallacies props={this.props} />
 									</Item.Group>
 								)}
 							</Visibility>
 						</div>
 					) : (
 						<div className="emptyFallaciesContainer">
-							{this.props.source === "post" ? (
-								<Segment placeholder>
-									<Header icon>
-										<Icon
-											className={`${this.props.icon}Icon`}
-											name={this.props.icon}
-										/>
-										{this.props.emptyMsgContent}
-									</Header>
-								</Segment>
-							) : (
-								<Message>{this.props.emptyMsgContent}</Message>
-							)}
+							<Segment placeholder>
+								<Header icon>
+									<Icon
+										className={`${this.props.icon}Icon`}
+										color="blue"
+										name={this.props.icon}
+									/>
+									{this.props.emptyMsgContent}
+								</Header>
+							</Segment>
 						</div>
 					)}
 				</div>

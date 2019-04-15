@@ -53,52 +53,10 @@ const page = (state = initial(), action) => {
 				username: payload.data.username
 			}
 
-		case constants.GET_PAGE_POSTS:
-			if (payload.error) {
-				let data = []
-				if (payload.type === 101) {
-					data = [{}, {}, {}, {}, {}]
-				}
-				return {
-					...state,
-					posts: {
-						...state.posts,
-						count: 0,
-						data,
-						error: true,
-						errorMsg: payload.error,
-						errorType: payload.type,
-						loading: false
-					}
-				}
-			}
-
-			const data =
-				payload.page > 0 ? [...state.posts.data, ...payload.posts.data] : payload.posts.data
-			return {
-				...state,
-				posts: {
-					count: payload.posts.count,
-					data,
-					error: false,
-					errorMsg: "",
-					hasMore: payload.posts.hasMore,
-					loading: false,
-					lastId: payload.posts.lastId,
-					nextPageToken: payload.posts.nextPageToken
-				}
-			}
-
 		case constants.SET_FALLACY_COUNT:
 			return {
 				...state,
 				fallacyCount: payload.count
-			}
-
-		case constants.TOGGLE_LOADING:
-			return {
-				...state,
-				loading: !action.loading
 			}
 
 		default:

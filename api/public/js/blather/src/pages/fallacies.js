@@ -51,7 +51,8 @@ class Fallacies extends Component {
 
 	render() {
 		const { activeItem } = this.state
-		const fallaciesConversation = dialogue =>
+
+		const FallaciesConversation = dialogue =>
 			dialogue.map((item, i) => {
 				const pic = item.name === "Blathering Bill" ? BillPic : RobPic
 				return (
@@ -64,7 +65,8 @@ class Fallacies extends Component {
 					</Comment>
 				)
 			})
-		const fallaciesMain = fallacies.map((fallacy, i) => {
+
+		const FallaciesMain = fallacies.map((fallacy, i) => {
 			if (fallacy.name.toLowerCase() === activeItem) {
 				return (
 					<div className="mainFallacy active" key={fallacy.id}>
@@ -73,7 +75,7 @@ class Fallacies extends Component {
 								{fallacy.name}
 							</Header>
 							<p>{fallacy.description}</p>
-							<Comment.Group>{fallaciesConversation(fallacy.dialogue)}</Comment.Group>
+							<Comment.Group>{FallaciesConversation(fallacy.dialogue)}</Comment.Group>
 							<Link to={`/search/fallacies?fallacies=${fallacy.id}`}>
 								view real examples
 							</Link>
@@ -83,7 +85,8 @@ class Fallacies extends Component {
 			}
 			return null
 		})
-		const fallaciesSidebar = fallacies.map(fallacy => (
+
+		const FallaciesSidebar = fallacies.map(fallacy => (
 			<Menu.Item
 				active={activeItem === fallacy.name.toLowerCase()}
 				key={fallacy.id}
@@ -109,23 +112,23 @@ class Fallacies extends Component {
 							<Header.Subheader>Plus a few other things...</Header.Subheader>
 						</Header>
 
-						<Responsive maxWidth={1024}>{fallaciesMain}</Responsive>
+						<Responsive maxWidth={1024}>{FallaciesMain}</Responsive>
 
 						<Responsive minWidth={1025}>
 							<Grid>
 								<Grid.Column width={4}>
 									<Menu
 										borderless
-										secondary
 										className="fallaciesMenu"
 										fluid
+										secondary
 										vertical
 									>
-										{fallaciesSidebar}
+										{FallaciesSidebar}
 									</Menu>
 								</Grid.Column>
 								<Grid.Column className="rightSide" width={12}>
-									{fallaciesMain}
+									{FallaciesMain}
 								</Grid.Column>
 							</Grid>
 						</Responsive>

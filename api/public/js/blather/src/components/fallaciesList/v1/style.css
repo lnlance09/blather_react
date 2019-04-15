@@ -12,7 +12,6 @@
   .fallaciesList .targetMsg .icon.crosshairs {
     color: #DB2828; }
   .fallaciesList .targetMsg .viewAllTargets {
-    color: #2185D0;
     cursor: pointer; }
     .fallaciesList .targetMsg .viewAllTargets:hover {
       text-decoration: underline; }

@@ -30,8 +30,6 @@
                 margin-bottom: 0;
 
                 .bar {
-                    background: $twitter !important;
-
                     .progress {
                         color: $white;
                     }
@@ -40,6 +38,18 @@
                 .label {
                     background: $offWhite;
                     color: $lightBlack;
+                }
+            }
+
+            &.twitter {
+                .progress .bar {
+                    background: $twitter !important;
+                }
+            }
+
+            &.youtube {
+                .progress .bar {
+                    background: $youtube !important;
                 }
             }
         }
@@ -69,12 +79,16 @@
         }
     }
 
+    .honestyHeader {
+        margin-top: 0;
+    }
+
     .stats {
         margin: 0 !important;
         padding: 0;
     }
 
     .createReview {
-        margin: 15px 0 4px !important;
+        margin: 10px 0 4px !important;
     }
 }

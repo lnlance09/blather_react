@@ -114,6 +114,15 @@
 				exit;
 			}
 
+			if (!$this->fallacies->pageExists($pageId)) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'code' => 104,
+					'error' => 'You must assign this to someone'
+				]);
+				exit;
+			}
+
 			if ($this->user) {
 				switch ($network) {
 					case 'twitter':
@@ -405,6 +414,7 @@
 						'username' => null
 					]);
 					break;
+
 				default:
 					$this->output->set_status_header(400);
 					echo json_encode([

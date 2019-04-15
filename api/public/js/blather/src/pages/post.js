@@ -31,6 +31,7 @@ import YouTubeVideo from "components/youTubeVideo/v1/"
 class Post extends Component {
 	constructor(props) {
 		super(props)
+
 		const path = this.props.match.path
 		const qs = queryString.parse(this.props.location.search)
 		let a = ""
@@ -43,12 +44,12 @@ class Post extends Component {
 		}
 
 		const currentState = store.getState()
-		const authenticated = currentState.user.authenticated
+		const auth = currentState.user.authenticated
 		const bearer = currentState.user.bearer
 		const { network, type, url } = this.postType(id, path)
 		this.state = {
 			a,
-			authenticated,
+			auth,
 			bearer,
 			endTime: "00:00:00",
 			highlightedText: "",
@@ -74,6 +75,8 @@ class Post extends Component {
 		this.setClip = this.setClip.bind(this)
 	}
 
+	componentDidMount() {}
+
 	componentWillReceiveProps(newProps) {
 		let id = newProps.match.params.id
 		if (id.substring(id.length - 1, id.length) === "&") {
@@ -88,11 +91,11 @@ class Post extends Component {
 			}
 			const path = newProps.match.path
 			const currentState = store.getState()
-			const authenticated = currentState.user.authenticated
+			const auth = currentState.user.authenticated
 			const bearer = currentState.user.bearer
 			const { network, type, url } = this.postType(id, path)
 			this.setState({
-				authenticated,
+				auth,
 				bearer,
 				id,
 				network,
@@ -110,8 +113,6 @@ class Post extends Component {
 			}
 		}
 	}
-
-	handleContextRef = contextRef => this.setState({ contextRef })
 
 	handleHoverOn = e => {
 		let text = ""
@@ -162,9 +163,8 @@ class Post extends Component {
 	render() {
 		const {
 			a,
-			authenticated,
+			auth,
 			bearer,
-			contextRef,
 			endTime,
 			highlightedText,
 			id,
@@ -303,7 +303,8 @@ class Post extends Component {
 			}
 			return null
 		}
-		const DisplayFallacies = props => {
+
+		const DisplayFallacies = ({ props }) => {
 			if (props.info) {
 				return (
 					<div className="fallaciesWrapper">
@@ -325,10 +326,19 @@ class Post extends Component {
 			}
 			return null
 		}
+
+		const pageInfo = user
+			? {
+					id: `${network === "twitter" ? user.id_str : user.id}`,
+					name: network === "youtube" ? user.title : user.name,
+					type: network,
+					username: network === "youtube" ? null : user.screen_name
+			  }
+			: null
 		const DisplayFallacyForm = props => (
 			<div className="fallacyFormWrapper">
 				<FallacyForm
-					authenticated={authenticated}
+					authenticated={auth}
 					bearer={bearer}
 					commentId={type === "comment" ? id : null}
 					endTime={endTime}
@@ -345,6 +355,7 @@ class Post extends Component {
 				/>
 			</div>
 		)
+
 		const DisplayPost = props => {
 			switch (type) {
 				case "comment":
@@ -353,7 +364,7 @@ class Post extends Component {
 							<div>
 								<YouTubeCommentsSection
 									archive={props.archive}
-									auth={authenticated}
+									auth={auth}
 									bearer={bearer}
 									comment={props.info.comment}
 									handleHoverOn={this.handleHoverOn}
@@ -421,6 +432,7 @@ class Post extends Component {
 						return (
 							<div>
 								<YouTubeVideo
+									archives={props.archives}
 									archiveId={a}
 									bearer={bearer}
 									canArchive
@@ -441,20 +453,6 @@ class Post extends Component {
 									title={props.info.title}
 								/>
 								{DisplayFallacyForm(props)}
-								<YouTubeCommentsSection
-									archive={props.archive}
-									auth={authenticated}
-									bearer={bearer}
-									comments={props.comments}
-									handleHoverOn={this.handleHoverOn}
-									highlightedText={highlightedText}
-									history={props.history}
-									sendNotification={props.sendNotification}
-									showComment={false}
-									showComments
-									source="post"
-									videoId={props.info.id}
-								/>
 							</div>
 						)
 					} else {
@@ -470,14 +468,6 @@ class Post extends Component {
 					return null
 			}
 		}
-		const pageInfo = user
-			? {
-					id: `${network === "twitter" ? user.id_str : user.id}`,
-					name: network === "youtube" ? user.title : user.name,
-					type: network,
-					username: network === "youtube" ? null : user.screen_name
-			  }
-			: null
 
 		return (
 			<Provider store={store}>
@@ -485,7 +475,7 @@ class Post extends Component {
 					<DisplayMetaTags page="post" props={this.props} state={this.state} />
 					<PageHeader {...this.props} />
 					{this.props.info && (
-						<Sticky className="sticky" context={contextRef}>
+						<Sticky className="sticky">
 							<div className="breadcrumbContainer">
 								<Container>{Breadcrumbs(this.props)}</Container>
 							</div>
@@ -496,7 +486,11 @@ class Post extends Component {
 						{DisplayPost(this.props)}
 						{!tweetExists && <Message content="This tweet does not exist" error />}
 						{!videoExists && <Message content="This video does not exist" error />}
-						{!this.props.error && <div>{DisplayFallacies(this.props)}</div>}
+						{!this.props.error && (
+							<div>
+								<DisplayFallacies props={this.props} />
+							</div>
+						)}
 					</Container>
 					<PageFooter />
 				</div>
@@ -523,6 +517,7 @@ Post.propTypes = {
 	fallacyCount: PropTypes.number,
 	myArchives: PropTypes.array,
 	needToRefresh: PropTypes.bool,
+	pageInfo: PropTypes.object,
 	profileImg: PropTypes.string,
 	refreshYouTubeToken: PropTypes.func,
 	sendNotification: PropTypes.func,

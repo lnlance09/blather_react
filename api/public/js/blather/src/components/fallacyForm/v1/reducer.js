@@ -10,7 +10,6 @@ const initial = () => ({
 const fallacyForm = (state = initial(), action) => {
 	switch (action.type) {
 		case constants.ASSIGN_FALLACY:
-
 			if (action.payload.error) {
 				return {
 					...state,
@@ -24,6 +23,7 @@ const fallacyForm = (state = initial(), action) => {
 			const fallacy = action.payload.fallacy
 			return {
 				...state,
+				endTime: "0",
 				fallacyFormError: false,
 				fallacyFormErrorCode: 0,
 				fallacyFormErrorMsg: "",
@@ -36,11 +36,11 @@ const fallacyForm = (state = initial(), action) => {
 					title: fallacy.title
 				},
 				pageId: fallacy.page_id,
-				objectId: fallacy.tweet_id
+				objectId: fallacy.tweet_id,
+				startTime: "0"
 			}
 
 		case constants.CLEAR_CONTRADICTION:
-
 			return {
 				...state,
 				fallacy: {
@@ -50,7 +50,6 @@ const fallacyForm = (state = initial(), action) => {
 			}
 
 		case constants.PARSE_CONTRADICTION:
-
 			if (action.payload.error) {
 				return {
 					...state,
@@ -107,14 +106,18 @@ const fallacyForm = (state = initial(), action) => {
 			}
 
 		case constants.SELECT_ASSIGNEE:
-
 			return {
 				...state,
 				pageInfo: action.payload.page
 			}
 
-		case constants.SET_CONTRADICTION_BEGIN_TIME:
+		case constants.SET_BEGIN_TIME:
+			return {
+				...state,
+				startTime: action.payload.value.value
+			}
 
+		case constants.SET_CONTRADICTION_BEGIN_TIME:
 			return {
 				...state,
 				fallacy: {
@@ -127,7 +130,6 @@ const fallacyForm = (state = initial(), action) => {
 			}
 
 		case constants.SET_CONTRADICTION_END_TIME:
-
 			return {
 				...state,
 				fallacy: {
@@ -140,7 +142,6 @@ const fallacyForm = (state = initial(), action) => {
 			}
 
 		case constants.SET_CONTRADICTION_HIGHLIGHT:
-
 			return {
 				...state,
 				fallacy: {
@@ -156,7 +157,6 @@ const fallacyForm = (state = initial(), action) => {
 			}
 
 		case constants.SET_CONTRADICTION_VIDEO_TIME:
-
 			return {
 				...state,
 				fallacy: {
@@ -171,8 +171,13 @@ const fallacyForm = (state = initial(), action) => {
 				}
 			}
 
-		case constants.TOGGLE_MODAL:
+		case constants.SET_END_TIME:
+			return {
+				...state,
+				endTime: action.payload.value.value
+			}
 
+		case constants.TOGGLE_MODAL:
 			return {
 				...state,
 				modalOpen: !state.modalOpen

@@ -1,5 +1,5 @@
 import "./style.css"
-import { fetchPagePosts } from "pages/actions/page"
+import { fetchPagePosts } from "./actions"
 import { connect } from "react-redux"
 import { Item, Message, Visibility } from "semantic-ui-react"
 import _ from "lodash"
@@ -54,6 +54,7 @@ class TweetList extends Component {
 
 	render() {
 		const { loading } = this.state
+
 		const EmptyMsg = props => {
 			if (!props.posts.loading && props.posts.count === 0) {
 				return (
@@ -64,6 +65,7 @@ class TweetList extends Component {
 			}
 			return null
 		}
+
 		const RenderTweets = this.props.posts.data.map((post, i) => {
 			let marginTop = i === 0 ? 0 : 12
 			if (post.id) {
@@ -93,10 +95,10 @@ class TweetList extends Component {
 								retweet_count: post.retweet_count
 							}}
 							user={{
-								id: this.props.id,
-								name: this.props.name,
-								profile_image_url_https: this.props.img,
-								screen_name: this.props.username
+								id: post.user.id,
+								name: post.user.name,
+								profile_image_url_https: post.user.profile_image_url_https,
+								screen_name: post.user.screen_name
 							}}
 							{...this.props.history}
 						/>
@@ -106,6 +108,7 @@ class TweetList extends Component {
 				return <LazyLoad key={`tweet_${i}`} style={{ marginTop: `${marginTop}px` }} />
 			}
 		})
+
 		const lazyLoadMore = props => {
 			if (loading && props.posts.hasMore) {
 				return <LazyLoad />
@@ -157,7 +160,7 @@ TweetList.defaultProps = {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-	...state.page,
+	...state.tweetList,
 	...ownProps
 })
 

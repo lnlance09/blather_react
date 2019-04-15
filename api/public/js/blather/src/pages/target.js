@@ -97,7 +97,7 @@ class Target extends Component {
 		const { error, page, user } = this.props
 		const readonly = userId !== myId
 		const showMessage = (userId === myId && this.props.fallacyCount < 5) || !exists
-		const DisplayFallacies = props => (
+		const DisplayFallacies = ({ props }) => (
 			<div className="fallaciesWrapper">
 				<Header dividing size="medium">
 					Fallacies
@@ -342,7 +342,11 @@ class Target extends Component {
 								) : (
 									<div>{ShowAnswers(this.props)}</div>
 								)}
-								{page.id && <div>{DisplayFallacies(this.props)}</div>}
+								{page.id && (
+									<div>
+										<DisplayFallacies props={this.props} />
+									</div>
+								)}
 							</div>
 						)}
 					</Container>

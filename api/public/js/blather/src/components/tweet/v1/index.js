@@ -74,6 +74,7 @@ class Tweet extends Component {
 			}
 			return false
 		}
+
 		const ArchiveInfo = props => {
 			if (props.archive && props.canArchive) {
 				const archiveDate = adjustTimezone(props.archive.date_created)
@@ -94,6 +95,7 @@ class Tweet extends Component {
 				)
 			}
 		}
+
 		const CardHeader = props => {
 			let profileImg = props.useLocalProfilePic
 				? props.profileImg
@@ -115,8 +117,8 @@ class Tweet extends Component {
 					<Image
 						circular
 						className="tweetUserImg"
-						onError={i => (i.target.src = ItemPic)}
 						floated="left"
+						onError={i => (i.target.src = ItemPic)}
 						src={profileImg === undefined ? null : profileImg.replace("_normal", "")}
 					/>
 					<Card.Header className="tweetUserName">{name}</Card.Header>
@@ -129,6 +131,7 @@ class Tweet extends Component {
 				</div>
 			)
 		}
+
 		const ParseMedia = ({ props }) => {
 			if (props.extended_entities.media) {
 				return props.extended_entities.media.map((item, i) => {
@@ -152,6 +155,7 @@ class Tweet extends Component {
 				})
 			}
 		}
+
 		const QuotedTweet = props => {
 			if (props.is_quote_status) {
 				let quotedName = props.quoted_status.user.name
@@ -185,6 +189,7 @@ class Tweet extends Component {
 			}
 			return null
 		}
+
 		const RetweetedText = props => {
 			let retweetedText = ""
 			if (props.retweeted_status) {
@@ -198,6 +203,7 @@ class Tweet extends Component {
 			}
 			return false
 		}
+
 		const StatsBar = ({ favoriteCount, retweetCount }) => {
 			return (
 				<List floated="left" horizontal>
@@ -224,9 +230,11 @@ class Tweet extends Component {
 				</List>
 			)
 		}
+
 		const TweetText = Parser(
 			retweeted_status ? retweeted_status.full_text : this.props.full_text
 		)
+
 		const LinkifiedTweet = (
 			<Linkify
 				properties={{
@@ -431,7 +439,7 @@ Tweet.defaultProps = {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-	...state.post,
+	...state.tweet,
 	...ownProps
 })
 

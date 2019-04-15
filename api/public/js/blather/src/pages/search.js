@@ -18,13 +18,13 @@ class SearchPage extends Component {
 		const type = this.props.match.params.type
 		const currentState = store.getState()
 		const bearer = currentState.user.bearer
-		const authenticated = currentState.user.authenticated
+		const auth = currentState.user.authenticated
 		const types = ["fallacies", "twitter", "users", "youtube"]
 
 		this.state = {
 			activeIndex: 0,
 			activeItem: types.indexOf(type) === -1 ? "twitter" : type,
-			authenticated,
+			auth,
 			bearer,
 			fallacies: query.fallacies ? query.fallacies.split(",") : [],
 			types,
@@ -52,6 +52,7 @@ class SearchPage extends Component {
 			activeItem: name,
 			page: 0
 		})
+
 		const value =
 			this.state.value === undefined || this.state.value === null ? "" : this.state.value
 		this.props.history.push(`/search/${name}?q=${value}`)
@@ -65,6 +66,7 @@ class SearchPage extends Component {
 		} else {
 			fallacies = this.state.fallacies.filter(i => i !== value)
 		}
+
 		this.setState({
 			activeItem: "fallacies",
 			fallacies,
@@ -82,6 +84,7 @@ class SearchPage extends Component {
 			page: 0,
 			value
 		})
+
 		if (value !== undefined) {
 			const item = this.state.activeItem
 			let fallaciesString = ""
@@ -96,17 +99,9 @@ class SearchPage extends Component {
 	}
 
 	render() {
-		const {
-			activeIndex,
-			activeItem,
-			authenticated,
-			bearer,
-			fallacies,
-			page,
-			value,
-			user
-		} = this.state
-		const fallacyItem = rawFallacies.map((item, i) => (
+		const { activeIndex, activeItem, auth, bearer, fallacies, page, value, user } = this.state
+
+		const FallacyItem = rawFallacies.map((item, i) => (
 			<Form.Checkbox
 				checked={fallacies.indexOf(item.id.toString()) !== -1}
 				key={`fallacy_${i}`}
@@ -116,11 +111,13 @@ class SearchPage extends Component {
 				value={item.id}
 			/>
 		))
-		const fallacyForm = (
+
+		const FallacyForm = (
 			<Form>
-				<Form.Group grouped>{fallacyItem}</Form.Group>
+				<Form.Group grouped>{FallacyItem}</Form.Group>
 			</Form>
 		)
+
 		const SearchMenu = props => (
 			<Accordion as={Menu} className="searchMenu" borderless fluid vertical>
 				<Menu.Item className="searchItem">
@@ -176,7 +173,7 @@ class SearchPage extends Component {
 						onClick={this.handleClick}
 					/>
 					{activeItem === "fallacies" && (
-						<Accordion.Content active={activeIndex === 0} content={fallacyForm} />
+						<Accordion.Content active={activeIndex === 0} content={FallacyForm} />
 					)}
 				</Menu.Item>
 			</Accordion>
@@ -193,12 +190,12 @@ class SearchPage extends Component {
 								<Grid.Row>{SearchMenu(this.props)}</Grid.Row>
 								<Grid.Row>
 									<SearchResults
-										authenticated={authenticated}
+										authenticated={auth}
 										bearer={bearer}
 										fallacies={fallacies.join(",")}
 										history={this.props.history}
-										linkedTwitter={authenticated ? user.linkedTwitter : false}
-										linkedYoutube={authenticated ? user.linkedYoutube : false}
+										linkedTwitter={auth ? user.linkedTwitter : false}
+										linkedYoutube={auth ? user.linkedYoutube : false}
 										page={page}
 										q={value}
 										type={activeItem}
@@ -206,17 +203,18 @@ class SearchPage extends Component {
 								</Grid.Row>
 							</Grid>
 						</Responsive>
+
 						<Responsive minWidth={901}>
 							<Grid>
 								<Grid.Column width={5}>{SearchMenu(this.props)}</Grid.Column>
 								<Grid.Column className="rightSide" width={11}>
 									<SearchResults
-										authenticated={authenticated}
+										authenticated={auth}
 										bearer={bearer}
 										fallacies={fallacies.join(",")}
 										history={this.props.history}
-										linkedTwitter={authenticated ? user.linkedTwitter : false}
-										linkedYoutube={authenticated ? user.linkedYoutube : false}
+										linkedTwitter={auth ? user.linkedTwitter : false}
+										linkedYoutube={auth ? user.linkedYoutube : false}
 										page={page}
 										q={value}
 										type={activeItem}
@@ -242,7 +240,7 @@ SearchPage.defaultProps = {
 
 const mapStateToProps = (state, ownProps) => {
 	return {
-		...state.page,
+		...state.search,
 		...ownProps
 	}
 }

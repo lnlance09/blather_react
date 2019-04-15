@@ -438,25 +438,11 @@ class Fallacy extends Component {
 			</div>
 		)
 
-		const ShowContent = props => {
+		const ShowContent = ({ props }) => {
 			switch (activeItem) {
-				case "material":
-					return (
-						<div className="materialWrapper">
-							<FallacyExample
-								bearer={bearer}
-								canEdit={props.createdBy ? props.createdBy.id === userId : false}
-								downloading={downloading}
-								exportOpt={exportOpt}
-								history={props.history}
-								id={id}
-							/>
-							<canvas id="materialCanvas" />
-						</div>
-					)
 				case "comments":
 					return (
-						<Segment className="commentsContent" stacked>
+						<Segment basic className="commentsContent">
 							<Comments
 								authenticated={auth}
 								bearer={bearer}
@@ -491,6 +477,25 @@ class Fallacy extends Component {
 			}
 		}
 
+		const ShowMaterial = props => {
+			if (activeItem === "material") {
+				return (
+					<div className="materialWrapper">
+						<FallacyExample
+							bearer={bearer}
+							canEdit={props.createdBy ? props.createdBy.id === userId : false}
+							downloading={downloading}
+							exportOpt={exportOpt}
+							history={props.history}
+							id={id}
+						/>
+						<canvas id="materialCanvas" />
+					</div>
+				)
+			}
+			return null
+		}
+
 		return (
 			<Provider store={store}>
 				<div className="fallacyPage">
@@ -504,16 +509,21 @@ class Fallacy extends Component {
 										<FallacyTitle props={this.props} />
 									</Grid.Row>
 									<Grid.Row>{FallacyMenu(this.props)}</Grid.Row>
-									<Grid.Row>{ShowContent(this.props)}</Grid.Row>
+									<Grid.Row>
+										{ShowMaterial(this.props)}
+										<ShowContent props={this.props} />
+									</Grid.Row>
 									{activeItem === "material" && MaterialRow}
 								</Grid>
 							</Responsive>
+
 							<Responsive minWidth={1025}>
 								<FallacyTitle props={this.props} />
 								{FallacyMenu(this.props)}
 								<Grid>
 									<Grid.Column className="leftSide" width={16}>
-										{ShowContent(this.props)}
+										{ShowMaterial(this.props)}
+										<ShowContent props={this.props} />
 										{activeItem === "material" && MaterialRow}
 									</Grid.Column>
 								</Grid>

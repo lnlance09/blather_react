@@ -4,9 +4,11 @@ import {
 	clearContradiction,
 	parseContradiction,
 	selectAssignee,
+	setBeginTime,
 	setContradictionBeginTime,
 	setContradictionEndTime,
 	setContradictionHighlight,
+	setEndTime,
 	toggleModal
 } from "./actions"
 import { refreshYouTubeToken } from "components/authentication/v1/actions"
@@ -40,11 +42,9 @@ class FallacyForm extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			beginTime: "0",
 			changed: false,
 			contradictionBeginTime: "0",
 			contradictionEndTime: "0",
-			endTime: "0",
 			explanation: "",
 			formVisible: false,
 			highlightedText: "",
@@ -93,13 +93,6 @@ class FallacyForm extends Component {
 
 	componentDidMount() {
 		this.setState({ formVisible: true })
-	}
-
-	componentWillReceiveProps(newProps) {
-		this.setState({
-			beginTime: newProps.startTime,
-			endTime: newProps.endTime
-		})
 	}
 
 	checkValidity = (c, type) => {
@@ -175,7 +168,9 @@ class FallacyForm extends Component {
 		}
 	}
 
-	onChangeEndTime = time => this.setState({ endTime: time })
+	onChangeEndTime = time => {
+		this.props.setEndTime({ value: time })
+	}
 
 	onChangeExplanation = (e, { value }) => this.setState({ explanation: value })
 
@@ -184,7 +179,9 @@ class FallacyForm extends Component {
 		this.setState({ id: value })
 	}
 
-	onChangeStartTime = time => this.setState({ beginTime: time })
+	onChangeStartTime = time => {
+		this.props.setBeginTime({ value: time })
+	}
 
 	onChangeTitle = (e, { value }) => this.setState({ title: value })
 
@@ -219,16 +216,14 @@ class FallacyForm extends Component {
 			bearer: this.props.bearer,
 			contradiction,
 			commentId: this.props.commentId,
-			endTime: convertTimeToSeconds(this.state.endTime),
+			endTime: convertTimeToSeconds(this.props.endTime),
 			explanation: this.state.explanation,
 			fallacyId: this.state.id,
 			highlightedText: this.props.highlightedText,
 			network: this.props.network,
 			objectId: this.props.objectId,
 			pageId: page.id,
-			startTime: this.state.beginTime
-				? convertTimeToSeconds(this.state.beginTime)
-				: this.props.info.currentTime,
+			startTime: convertTimeToSeconds(this.props.startTime),
 			title: this.state.title
 		})
 
@@ -262,7 +257,7 @@ class FallacyForm extends Component {
 	}
 
 	render() {
-		const { beginTime, endTime, explanation, highlightedText, id, title, url } = this.state
+		const { explanation, highlightedText, id, title, url } = this.state
 		const { bearer, fallacy, info } = this.props
 		let type = this.props.type
 		if (type === "video" && info !== undefined && info.comment) {
@@ -438,7 +433,7 @@ class FallacyForm extends Component {
 								onChange={this.onChangeStartTime}
 								showSeconds
 								style={{ width: "100%", fontSize: 14 }}
-								value={beginTime}
+								value={props.startTime}
 							/>
 						</Form.Field>
 						<Form.Field>
@@ -453,7 +448,7 @@ class FallacyForm extends Component {
 								onChange={this.onChangeEndTime}
 								showSeconds
 								style={{ width: "100%", fontSize: 14 }}
-								value={endTime}
+								value={props.endTime}
 							/>
 						</Form.Field>
 					</Form.Group>
@@ -659,6 +654,7 @@ FallacyForm.defaultProps = {
 	assignFallacy,
 	clearContradiction,
 	commentId: null,
+	endTime: "0",
 	fallacies,
 	fallacyFormError: null,
 	fallacy: {
@@ -669,6 +665,7 @@ FallacyForm.defaultProps = {
 	setContradictionBeginTime,
 	setContradictionEndTime,
 	setContradictionHighlight,
+	startTime: "0",
 	toggleModal
 }
 
@@ -686,9 +683,11 @@ export default connect(
 		parseContradiction,
 		refreshYouTubeToken,
 		selectAssignee,
+		setBeginTime,
 		setContradictionBeginTime,
 		setContradictionEndTime,
 		setContradictionHighlight,
+		setEndTime,
 		toggleModal
 	}
 )(FallacyForm)
