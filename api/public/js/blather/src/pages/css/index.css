@@ -506,9 +506,10 @@ a {
   text-align: center; }
 
 .usersPage .profilePic {
-  width: auto !important; }
+  height: 220px;
+  width: auto !important;
+  width: 220px; }
   .usersPage .profilePic img {
-    height: 220px;
     text-align: center;
     width: 220px; }
   .usersPage .profilePic.default {

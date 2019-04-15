@@ -1,5 +1,5 @@
 import "./style.css"
-import { getArchives } from "pages/actions/user"
+import { getArchives } from "./actions"
 import { adjustTimezone } from "utils/dateFunctions"
 import { formatDuration } from "utils/textFunctions"
 import { connect } from "react-redux"
@@ -37,7 +37,7 @@ class ArchivesList extends Component {
 		this.getArchivedUsers()
 		this.props.getArchives({
 			id: this.props.id,
-			page: this.props.page,
+			page: 0,
 			q: this.props.q
 		})
 	}
@@ -108,6 +108,7 @@ class ArchivesList extends Component {
 
 	render() {
 		const { options, q, value } = this.state
+
 		const ParseArchiveInfo = archive => {
 			switch (archive.type) {
 				case "comment":
@@ -242,7 +243,7 @@ class ArchivesList extends Component {
 						<div className="emptyArchiveContainer">
 							<Segment placeholder>
 								<Header icon>
-									<Icon color="red" name="save" />
+									<Icon color="blue" name="save" />
 									{this.props.emptyMsgContent}
 								</Header>
 							</Segment>
@@ -276,7 +277,7 @@ ArchivesList.defaultProps = {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-	...state.pageUser,
+	...state.archives,
 	...ownProps
 })
 

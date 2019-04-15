@@ -5,18 +5,6 @@ const initial = () => ({})
 const pageUser = (state = initial(), action) => {
 	const payload = action.payload
 	switch (action.type) {
-		case constants.GET_ARCHIVED_LINKS:
-			const archives =
-				payload.pagination.page > 0 ? [...state.archives, ...payload.links] : payload.links
-			return {
-				...state,
-				archives,
-				count: payload.count,
-				hasMore: payload.pagination.hasMore,
-				loadingMore: false,
-				page: payload.pagination.page
-			}
-
 		case constants.GET_USER_DATA:
 			if (payload.error) {
 				return {
@@ -24,6 +12,7 @@ const pageUser = (state = initial(), action) => {
 					error: true
 				}
 			}
+
 			return {
 				...state,
 				error: false,
@@ -41,12 +30,6 @@ const pageUser = (state = initial(), action) => {
 					name: payload.user.name,
 					username: payload.user.username
 				}
-			}
-
-		case constants.TOGGLE_LOADING:
-			return {
-				...state,
-				loading: !action.loading
 			}
 
 		default:

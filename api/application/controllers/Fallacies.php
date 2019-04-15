@@ -398,6 +398,7 @@
 						'username' => null
 					]);
 					break;
+
 				default:
 					$this->output->set_status_header(400);
 					echo json_encode([

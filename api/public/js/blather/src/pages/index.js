@@ -2,7 +2,6 @@ import "pages/css/index.css"
 import { refreshYouTubeToken } from "components/authentication/v1/actions"
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { fetchFallacyCount, fetchPageData } from "pages/actions/page"
-import { toggleLoading } from "pages/actions/user"
 import { Provider, connect } from "react-redux"
 import {
 	Button,
@@ -66,10 +65,6 @@ class Page extends Component {
 			type: network
 		})
 
-		this.props.toggleLoading({
-			loading: this.props.loading
-		})
-
 		this.setFallacyId = this.setFallacyId.bind(this)
 	}
 
@@ -80,10 +75,6 @@ class Page extends Component {
 		if (tab === undefined) {
 			tab = "fallacies"
 		}
-
-		this.props.toggleLoading({
-			loading: this.props.loading
-		})
 
 		if (this.state.id !== id) {
 			this.props.fetchPageData({
@@ -105,10 +96,6 @@ class Page extends Component {
 			itemsLabel: label,
 			updated: !this.state.updated
 		})
-
-		this.props.toggleLoading({
-			loading: this.props.loading
-		})
 	}
 
 	determineItemsLabel(network) {
@@ -127,7 +114,13 @@ class Page extends Component {
 		this.props.history.push(`/pages/${this.state.network}/${this.state.id}/${name}`)
 	}
 
+	scrollToTop(id) {
+		const element = document.getElementsByClassName("socialMediaPageMenu")
+		element[0].scrollIntoView({ behavior: "smooth" })
+	}
+
 	setFallacyId = id => {
+		this.scrollToTop(id)
 		this.setState({ activeItem: "fallacies", fallacyId: id })
 		this.props.history.push(`/pages/${this.state.network}/${this.state.id}/fallacies/${id}`)
 	}
@@ -168,8 +161,7 @@ class Page extends Component {
 		const PageHeaderInfo = props => {
 			const subheader = (
 				<div>
-					<Icon className={`${network}Icon`} name={network} />
-					{" "}
+					<Icon className={`${network}Icon`} name={network} />{" "}
 					{props.username ? (
 						<a
 							className="externalUrl"
@@ -212,7 +204,7 @@ class Page extends Component {
 			</Menu>
 		)
 
-		const ShowContent = props => {
+		const ShowContent = ({ props }) => {
 			if (props.id) {
 				if (activeItem === "fallacies") {
 					return (
@@ -290,6 +282,7 @@ class Page extends Component {
 					</Dimmer.Dimmable>
 				)
 			}
+			return null
 		}
 
 		return (
@@ -332,7 +325,7 @@ class Page extends Component {
 									)}
 									{PageMenu(this.props)}
 									<Container className="profileContentContainer">
-										{ShowContent(this.props)}
+										<ShowContent props={this.props} />
 									</Container>
 								</Grid.Column>
 							</Grid>
@@ -362,7 +355,6 @@ Page.propTypes = {
 	id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 	img: PropTypes.string,
 	isVerified: PropTypes.bool,
-	loading: PropTypes.bool,
 	name: PropTypes.string,
 	network: PropTypes.string,
 	posts: PropTypes.oneOfType([
@@ -378,7 +370,6 @@ Page.propTypes = {
 		})
 	]),
 	sincerityTest: PropTypes.object,
-	toggleLoading: PropTypes.func,
 	turingTest: PropTypes.object,
 	refreshYouTubeToken: PropTypes.func,
 	username: PropTypes.string
@@ -394,7 +385,6 @@ Page.defaultProps = {
 	},
 	fetchPageData,
 	img: defaultImg,
-	loading: false,
 	posts: {
 		count: 0,
 		error: false,
@@ -402,7 +392,6 @@ Page.defaultProps = {
 	},
 	refreshYouTubeToken,
 	sincerityTest: {},
-	toggleLoading,
 	turingTest: {}
 }
 
@@ -419,7 +408,6 @@ export default connect(
 	{
 		fetchFallacyCount,
 		fetchPageData,
-		refreshYouTubeToken,
-		toggleLoading
+		refreshYouTubeToken
 	}
 )(Page)

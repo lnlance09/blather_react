@@ -96,7 +96,9 @@ class FeedComponent extends Component {
 
 		return (
 			<Visibility className="feedWrapper" continuous onBottomVisible={this.loadMore}>
-				<Feed size={this.props.size}><RenderFeed props={this.props} /></Feed>
+				<Feed size={this.props.size}>
+					<RenderFeed props={this.props} />
+				</Feed>
 			</Visibility>
 		)
 	}

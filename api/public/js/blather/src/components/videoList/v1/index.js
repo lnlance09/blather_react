@@ -1,5 +1,5 @@
 import "./style.css"
-import { fetchPagePosts } from "pages/actions/page"
+import { fetchPagePosts } from "./actions"
 import { Provider, connect } from "react-redux"
 import { Header, Icon, Item, Segment, Visibility } from "semantic-ui-react"
 import _ from "lodash"
@@ -130,7 +130,7 @@ VideoList.defaultProps = {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-	...state.page,
+	...state.videoList,
 	...ownProps
 })
 

@@ -42,18 +42,22 @@ class Breakdown extends Component {
 	render() {
 		const { options } = this.state
 		const { authenticated, dbId, setFallacyId, sincerity, turingTest, userId } = this.props
+
 		const RenderFallacies = () => {
 			return options.map((result, i) => {
 				if (result.key) {
 					const percent = parseInt((result.count / this.props.count) * 100, 10)
 					return (
 						<div
-							className="fallacyPercentage"
+							className={`fallacyPercentage ${this.props.network}`}
 							key={`breakdownResult${i}`}
 							onClick={() => setFallacyId(result.value)}
 						>
 							<Header size="small">
-								{result.key} <Label basic color="black" size="mini">{result.count}</Label>
+								{result.key}{" "}
+								<Label basic circular>
+									{result.count}
+								</Label>
 							</Header>
 							<Progress percent={percent} progress size="medium" />
 						</div>
@@ -62,6 +66,7 @@ class Breakdown extends Component {
 				return null
 			})
 		}
+
 		const Stats = props =>
 			props.count === 0 ? (
 				"Nobody answered"
@@ -88,13 +93,16 @@ class Breakdown extends Component {
 					<Message content="No fallacies have been assigned" />
 				)}
 
-				<Segment>
+				<Header attached="top" className="honestyHeader">
+					Grifter or Lazy Thinker?
+				</Header>
+				<Segment attached>
 					<Header className="statHeader first" size="small">
 						Can pass an{" "}
 						<a
 							href="https://www.econlib.org/archives/2011/06/the_ideological.html"
-							target="_blank"
 							rel="noopener noreferrer"
+							target="_blank"
 						>
 							Ideological Turing Test
 						</a>

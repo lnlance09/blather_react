@@ -73,6 +73,7 @@ class YouTubeVideo extends Component {
 	changeArchiveDescription = (e, { value }) => {
 		this.props.updateArchiveDescription(value)
 	}
+
 	changeArchiveEndTime = time => {
 		this.props.updateArchiveEndTime(time)
 	}
@@ -127,6 +128,7 @@ class YouTubeVideo extends Component {
 	}
 	seekTo = a => {
 		this.player.seekTo(a.start_time)
+		window.scroll(0, 0)
 		this.setState({
 			archiveEndTime: a.end_time,
 			playing: true
@@ -207,7 +209,7 @@ class YouTubeVideo extends Component {
 			}
 			return (
 				<div>
-					<Menu secondary>
+					<Menu pointing secondary>
 						{auth && (
 							<Menu.Item
 								active={activeItem === "Mine"}

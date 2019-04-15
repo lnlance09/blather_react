@@ -438,7 +438,7 @@ class Fallacy extends Component {
 			</div>
 		)
 
-		const ShowContent = props => {
+		const ShowContent = ({ props }) => {
 			switch (activeItem) {
 				case "material":
 					return (
@@ -504,16 +504,19 @@ class Fallacy extends Component {
 										<FallacyTitle props={this.props} />
 									</Grid.Row>
 									<Grid.Row>{FallacyMenu(this.props)}</Grid.Row>
-									<Grid.Row>{ShowContent(this.props)}</Grid.Row>
+									<Grid.Row>
+										<ShowContent props={this.props} />
+									</Grid.Row>
 									{activeItem === "material" && MaterialRow}
 								</Grid>
 							</Responsive>
+
 							<Responsive minWidth={1025}>
 								<FallacyTitle props={this.props} />
 								{FallacyMenu(this.props)}
 								<Grid>
 									<Grid.Column className="leftSide" width={16}>
-										{ShowContent(this.props)}
+										<ShowContent props={this.props} />
 										{activeItem === "material" && MaterialRow}
 									</Grid.Column>
 								</Grid>

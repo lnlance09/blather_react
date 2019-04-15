@@ -2,15 +2,7 @@ import "./style.css"
 import { logout } from "components/authentication/v1/actions"
 import { Provider, connect } from "react-redux"
 import { Link } from "react-router-dom"
-import {
-	Button,
-	Container,
-	Dropdown,
-	Icon,
-	Menu,
-	Responsive,
-	Sidebar
-} from "semantic-ui-react"
+import { Button, Container, Dropdown, Icon, Menu, Responsive, Sidebar } from "semantic-ui-react"
 import fallacies from "fallacies.json"
 import Logo from "./images/logo.svg"
 import NavSearch from "components/search/v1/"
@@ -54,18 +46,9 @@ class Header extends Component {
 		))
 		const LoginButton = props => {
 			if (props.authenticated) {
-				const trigger = (
-					<span>
-						{props.data.name}
-					</span>
-				)
+				const trigger = <span>{props.data.name}</span>
 				return (
-					<Dropdown
-						className="dropDownMenu right"
-						icon={false}
-						item
-						trigger={trigger}
-					>
+					<Dropdown className="dropDownMenu right" icon={false} item trigger={trigger}>
 						<Dropdown.Menu>
 							<Dropdown.Item
 								onClick={() => props.history.push(`/users/${props.data.username}`)}

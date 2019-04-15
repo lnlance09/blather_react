@@ -4,6 +4,7 @@ const initial = () => ({})
 
 const tag = (state = initial(), action) => {
 	const payload = action.payload
+
 	switch (action.type) {
 		case constants.CHANGE_TAG_PIC:
 			if (!payload.error) {
@@ -18,6 +19,7 @@ const tag = (state = initial(), action) => {
 				...state,
 				error: true
 			}
+
 		case constants.FETCH_TAG_INFO:
 			if (payload.error) {
 				return {
@@ -45,21 +47,25 @@ const tag = (state = initial(), action) => {
 				loading: false,
 				name: payload.tag.tag_name
 			}
+
 		case constants.FETCH_TAG_HISTORY:
 			return {
 				...state,
 				editHistory: payload.history
 			}
+
 		case constants.UPDATE_TAG:
 			return {
 				...state,
 				description: payload.tag.description
 			}
+
 		case constants.UPDATE_TAG_DESCRIPTION:
 			return {
 				...state,
 				description: payload === null ? "" : payload
 			}
+
 		default:
 			return state
 	}

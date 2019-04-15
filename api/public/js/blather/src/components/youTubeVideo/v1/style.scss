@@ -76,7 +76,7 @@
 
         .archiveItem {
             cursor: pointer;
-            padding: 9px 4px 6px 4px !important;
+            padding: 9px 7px 6px 7px !important;
 
             &.selected {
                 background: $offWhite;
@@ -100,7 +100,7 @@
     }
 
     .ui.divided.items > .item:first-child {
-        padding: 9px 4px 6px 4px !important;
+        padding: 9px 7px 6px 7px !important;
     }
 
     .editVideoTimes {

@@ -2,7 +2,7 @@ import "pages/css/index.css"
 import { changeProfilePic, updateAbout } from "components/authentication/v1/actions"
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { formatNumber } from "utils/textFunctions"
-import { fetchUserData, toggleLoading } from "pages/actions/user"
+import { fetchUserData } from "pages/actions/user"
 import { Provider, connect } from "react-redux"
 import {
 	Button,
@@ -71,19 +71,11 @@ class UserPage extends Component {
 		this.onDrop = this.onDrop.bind(this)
 		this.onChangeAbout = this.onChangeAbout.bind(this)
 		this.reloadAbout = this.reloadAbout.bind(this)
-
-		this.props.toggleLoading({
-			loading: this.props.loading
-		})
 	}
 
 	componentWillReceiveProps(newProps) {
 		const username = newProps.match.params.username
 		if (this.state.username !== username) {
-			this.props.toggleLoading({
-				loading: this.props.loading
-			})
-
 			this.props.fetchUserData({
 				bearer: this.state.bearer,
 				username
@@ -107,10 +99,6 @@ class UserPage extends Component {
 				const user = currentState.user
 				this.setState({ about: user.data.bio })
 			}
-
-			this.props.toggleLoading({
-				loading: this.props.loading
-			})
 		}
 	}
 
@@ -147,11 +135,11 @@ class UserPage extends Component {
 
 	render() {
 		const { active, activeItem, id, inverted, isMyProfile } = this.state
-		const { data, loading, user } = this.props
+		const { data, user } = this.props
 
-		let pic = !user.img && !loading ? defaultImg : user.img
+		let pic = !user.img ? defaultImg : user.img
 		if (isMyProfile) {
-			pic = !data.img && !loading ? defaultImg : data.img
+			pic = !data.img ? defaultImg : data.img
 		}
 
 		const content = (
@@ -176,7 +164,7 @@ class UserPage extends Component {
 							as={Image}
 							centered
 							circular
-							className={`profilePic ${!user.img && !props.loading ? "default" : ""}`}
+							className={`profilePic ${!user.img ? "default" : ""}`}
 							dimmed={active}
 							dimmer={{ active, content, inverted }}
 							onError={i => (i.target.src = ImagePic)}
@@ -192,43 +180,45 @@ class UserPage extends Component {
 				<Image
 					centered
 					circular
-					className={`profilePic ${!user.img && !props.loading ? "default" : ""}`}
+					className={`profilePic ${!user.img ? "default" : ""}`}
 					onError={i => (i.target.src = ImagePic)}
 					src={pic}
 				/>
 			)
 		}
-		const ShowContent = props => {
-			if (user.id) {
+
+		const ShowContent = ({ props }) => {
+			if (props.user.id) {
 				switch (activeItem) {
 					case "fallacies":
-						if (!props.loading) {
-							return (
-								<FallaciesList
-									assignedBy={user.id}
-									emptyMsgContent={`${user.name} hasn't assigned any fallacies`}
-									fallacyId={id}
-									history={props.history}
-									icon="sticky note"
-									name={user.name}
-									source="users"
-								/>
-							)
-						}
-						return null
+						return (
+							<FallaciesList
+								assignedBy={props.user.id}
+								emptyMsgContent={`${props.user.name} hasn't assigned any fallacies`}
+								fallacyId={id}
+								history={props.history}
+								icon="sticky note"
+								name={props.user.name}
+								source="users"
+							/>
+						)
+
 					case "archives":
 						return (
 							<ArchivesList
 								emptyMsgContent="Nothing!"
 								history={props.history}
-								id={user.id}
+								id={props.user.id}
 							/>
 						)
+
 					default:
 						return null
 				}
 			}
+			return null
 		}
+
 		const UserMenu = props => (
 			<Menu className="profileMenu" fluid pointing secondary stackable>
 				<Menu.Item
@@ -263,16 +253,13 @@ class UserPage extends Component {
 						<Container className="mainContainer" textAlign="left">
 							{ProfilePic(this.props)}
 							<div className="userHeaderSection">
-								<TitleHeader
-									subheader={`@${user.username}`}
-									title={user.name}
-								/>
+								<TitleHeader subheader={`@${user.username}`} title={user.name} />
 							</div>
-							
+
 							{UserMenu(this.props)}
 							<Container className="profileContentContainer">
 								<Segment basic className="profileContentSegment">
-									{ShowContent(this.props)}
+									<ShowContent props={this.props} />
 								</Segment>
 							</Container>
 						</Container>
@@ -293,8 +280,6 @@ UserPage.propTypes = {
 	changeProfilePic: PropTypes.func,
 	error: PropTypes.bool,
 	fetchUserData: PropTypes.func,
-	loading: PropTypes.bool,
-	toggleLoading: PropTypes.func,
 	user: PropTypes.shape({
 		archiveCount: PropTypes.number,
 		bio: PropTypes.string,
@@ -313,8 +298,6 @@ UserPage.propTypes = {
 UserPage.defaultProps = {
 	changeProfilePic,
 	fetchUserData,
-	loading: true,
-	toggleLoading,
 	user: {}
 }
 
@@ -331,7 +314,6 @@ export default connect(
 	{
 		changeProfilePic,
 		fetchUserData,
-		toggleLoading,
 		updateAbout
 	}
 )(UserPage)
