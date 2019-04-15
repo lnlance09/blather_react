@@ -162,6 +162,7 @@ class UserPage extends Component {
 					<div className="profilePicContainer">
 						<Dimmer.Dimmable
 							as={Image}
+							bordered
 							centered
 							circular
 							className={`profilePic ${!user.img ? "default" : ""}`}
@@ -178,6 +179,7 @@ class UserPage extends Component {
 			}
 			return (
 				<Image
+					bordered
 					centered
 					circular
 					className={`profilePic ${!user.img ? "default" : ""}`}

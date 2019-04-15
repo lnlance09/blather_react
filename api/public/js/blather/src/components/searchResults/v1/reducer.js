@@ -5,7 +5,6 @@ const initial = () => ({})
 const searchResults = (state = initial(), action) => {
 	switch (action.type) {
 		case constants.GET_SEARCH_RESULTS:
-
 			const data =
 				action.payload.page > 0
 					? [...state.data, ...action.payload.results]
@@ -24,7 +23,6 @@ const searchResults = (state = initial(), action) => {
 			}
 
 		case constants.REFRESH_YOUTUBE_TOKEN:
-
 			return {
 				...state,
 				bearer: action.payload.bearer,

@@ -7,7 +7,6 @@ const videoList = (state = initial(), action) => {
 
 	switch (action.type) {
 		case constants.GET_PAGE_POSTS:
-
 			if (payload.error) {
 				let data = []
 				if (payload.type === 101) {

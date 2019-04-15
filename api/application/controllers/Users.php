@@ -112,10 +112,23 @@
 			$data = $this->upload->data();
 			$file = $data['file_name'];
 			$path = $data['full_path'];
+
+			if ($data['image_width'] !== $data['image_height']) {
+				$config['height'] = 220;
+				$config['maintain_ratio'] = false;
+				$config['new_image'] = $path;
+				$config['source_image'] = $path;
+				$config['width'] = 220;
+
+				$this->load->library('image_lib', $config);
+				$this->image_lib->resize();
+				$this->image_lib->clear();
+			}
+
 			$s3Path = 'users/'.$user->id.'_'.$file;
 			$s3Link = $this->media->addToS3($s3Path, $path);
 
-			$this->users->updateUser($this->user->id, [
+			$this->users->updateUser($user->id, [
 				'img' => $s3Path
 			]);
 			echo json_encode([

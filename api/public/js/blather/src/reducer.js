@@ -13,8 +13,10 @@ import search from "pages/reducers/search"
 import searchResults from "components/searchResults/v1/reducer"
 import tag from "pages/reducers/tag"
 import target from "pages/reducers/target"
+import tweet from "components/tweet/v1/reducer"
 import tweetList from "components/tweetList/v1/reducer"
 import user from "components/authentication/v1/reducer"
+import video from "components/youTubeVideo/v1/reducer"
 import videoList from "components/videoList/v1/reducer"
 
 export default combineReducers({
@@ -32,7 +34,9 @@ export default combineReducers({
 	searchResults,
 	tag,
 	target,
+	tweet,
 	tweetList,
 	user,
+	video,
 	videoList
 })

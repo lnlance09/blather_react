@@ -439,7 +439,7 @@ Tweet.defaultProps = {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-	...state.post,
+	...state.tweet,
 	...ownProps
 })
 

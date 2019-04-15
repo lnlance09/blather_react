@@ -327,6 +327,14 @@ class Post extends Component {
 			return null
 		}
 
+		const pageInfo = user
+			? {
+					id: `${network === "twitter" ? user.id_str : user.id}`,
+					name: network === "youtube" ? user.title : user.name,
+					type: network,
+					username: network === "youtube" ? null : user.screen_name
+			  }
+			: null
 		const DisplayFallacyForm = props => (
 			<div className="fallacyFormWrapper">
 				<FallacyForm
@@ -424,6 +432,7 @@ class Post extends Component {
 						return (
 							<div>
 								<YouTubeVideo
+									archives={props.archives}
 									archiveId={a}
 									bearer={bearer}
 									canArchive
@@ -444,20 +453,6 @@ class Post extends Component {
 									title={props.info.title}
 								/>
 								{DisplayFallacyForm(props)}
-								<YouTubeCommentsSection
-									archive={props.archive}
-									auth={auth}
-									bearer={bearer}
-									comments={props.comments}
-									handleHoverOn={this.handleHoverOn}
-									highlightedText={highlightedText}
-									history={props.history}
-									sendNotification={props.sendNotification}
-									showComment={false}
-									showComments
-									source="post"
-									videoId={props.info.id}
-								/>
 							</div>
 						)
 					} else {
@@ -473,15 +468,6 @@ class Post extends Component {
 					return null
 			}
 		}
-
-		const pageInfo = user
-			? {
-					id: `${network === "twitter" ? user.id_str : user.id}`,
-					name: network === "youtube" ? user.title : user.name,
-					type: network,
-					username: network === "youtube" ? null : user.screen_name
-			  }
-			: null
 
 		return (
 			<Provider store={store}>
@@ -531,6 +517,7 @@ Post.propTypes = {
 	fallacyCount: PropTypes.number,
 	myArchives: PropTypes.array,
 	needToRefresh: PropTypes.bool,
+	pageInfo: PropTypes.object,
 	profileImg: PropTypes.string,
 	refreshYouTubeToken: PropTypes.func,
 	sendNotification: PropTypes.func,

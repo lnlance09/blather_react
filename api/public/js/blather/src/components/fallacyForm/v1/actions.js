@@ -93,6 +93,15 @@ export const selectAssignee = ({ id, name, type, username }) => dispatch => {
 	})
 }
 
+export const setBeginTime = value => dispatch => {
+	dispatch({
+		type: constants.SET_BEGIN_TIME,
+		payload: {
+			value
+		}
+	})
+}
+
 export const setContradictionBeginTime = value => dispatch => {
 	dispatch({
 		type: constants.SET_CONTRADICTION_BEGIN_TIME,
@@ -123,6 +132,15 @@ export const setContradictionVideoTime = time => dispatch => {
 		type: constants.SET_CONTRADICTION_VIDEO_TIME,
 		payload: {
 			time
+		}
+	})
+}
+
+export const setEndTime = value => dispatch => {
+	dispatch({
+		type: constants.SET_END_TIME,
+		payload: {
+			value
 		}
 	})
 }

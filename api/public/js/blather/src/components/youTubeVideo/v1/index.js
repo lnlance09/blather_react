@@ -10,8 +10,8 @@ import {
 	updateArchiveDescription,
 	updateArchiveEndTime,
 	updateArchiveStartTime
-} from "pages/actions/post"
-import { clearContradiction, setContradictionVideoTime } from "components/fallacyForm/v1/actions"
+} from "./actions"
+import { setContradictionVideoTime } from "components/fallacyForm/v1/actions"
 import { connect } from "react-redux"
 import { Link } from "react-router-dom"
 import {
@@ -477,7 +477,6 @@ YouTubeVideo.propTypes = {
 	}),
 	changeEndTime: PropTypes.func,
 	changeStartTime: PropTypes.func,
-	clearContradiction: PropTypes.func,
 	contradiction: PropTypes.bool,
 	createVideoArchive: PropTypes.func,
 	currentTime: PropTypes.number,
@@ -524,7 +523,6 @@ YouTubeVideo.defaultProps = {
 	archiveStartTime: "00:00:00",
 	canArchive: false,
 	channel: {},
-	clearContradiction,
 	contradiction: false,
 	createVideoArchive,
 	deleteArchive,
@@ -549,14 +547,13 @@ YouTubeVideo.defaultProps = {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-	...state.post,
+	...state.video,
 	...ownProps
 })
 
 export default connect(
 	mapStateToProps,
 	{
-		clearContradiction,
 		createVideoArchive,
 		deleteArchive,
 		getVideoArchives,

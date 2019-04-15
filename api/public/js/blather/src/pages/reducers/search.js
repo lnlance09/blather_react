@@ -1,5 +1,3 @@
-import * as constants from "../constants"
-
 const initial = () => ({
 	loading: true
 })

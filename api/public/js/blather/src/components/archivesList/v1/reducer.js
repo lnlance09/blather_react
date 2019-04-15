@@ -7,7 +7,6 @@ const archives = (state = initial(), action) => {
 
 	switch (action.type) {
 		case constants.GET_ARCHIVED_LINKS:
-
 			const archives =
 				payload.pagination.page > 0 ? [...state.archives, ...payload.links] : payload.links
 			return {
