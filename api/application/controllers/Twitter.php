@@ -7,6 +7,7 @@
 
 			$this->load->helper('common_helper');
 			$this->load->model('TwitterModel', 'twitter');
+			$this->load->model('YoutubeModel', 'youtube');
 		}
 
 		public function getCredentials() {
@@ -54,16 +55,17 @@
 					exit;
 				}
 
-				// FormatArray($userInfo);
 				$name = $userInfo['name'];
 				$username = $userInfo['screen_name'];
 				$bio = $userInfo['description'];
 				$exists = $this->users->userLookupByEmail($username);
 
 				if ($exists) {
+					$date_created = $exists['date_created'];
 					$user_id = $exists['id'];
 					$bio = $exists['bio'];
 					$img = $exists['img'];
+					$linkedYoutube = (int)$exists['linked_youtube'];
 				} else {
 					$register = $this->users->register([
 						'bio' => $bio,
@@ -73,6 +75,7 @@
 						'username' => $username,
 						'verification_code' => null
 					]);
+
 					if ($register['error']) {
 						$this->output->set_status_header(401);
 						echo json_encode([
@@ -80,10 +83,13 @@
 						]);
 						exit;
 					}
+
+					$date_created = $register['user']['dateCreated'];
 					$user_id = $register['user']['id'];
 					$img = null;
 				}
 
+				$linkedYoutube = false;
 				$linkedTwitter = true;
 				$data['id'] = $user_id;
 				$data['bio'] = $bio;
@@ -92,12 +98,17 @@
 				$data['username'] = $username;
 			}
 
+			$data['dateCreated'] = $date_created;
+			$data['email'] = null;
+			$data['emailVerified'] = true;
+			$data['linkedYoutube'] = $linkedYoutube;
 			$data['linkedTwitter'] = $linkedTwitter;
 			$data['twitterAccessSecret'] = $oauthSecret;
 			$data['twitterAccessToken'] = $oauthToken;
 			$data['twitterDate'] = $twitterDate;
 			$data['twitterId'] = $twitterId;
 			$data['twitterUsername'] = $twitterUsername;
+			$data['youtubeUrl'] = $this->youtube->getTokenUrl();
 
 			$this->users->updateUser($user_id, [
 				'linked_twitter' => $linkedTwitter,

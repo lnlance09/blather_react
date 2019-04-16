@@ -313,7 +313,7 @@
 			$user['twitterOauthSecret'] = null;
 			$user['twitterOauthToken'] = null;
 			$user['twitterUrl'] = null;
-			$user['youtubeUrl'] = null;
+			$user['youtubeUrl'] = $this->youtube->getTokenUrl();
 
 			if (!$user['linkedTwitter']) {
 				$token = $this->twitter->getRequestToken();

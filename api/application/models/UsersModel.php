@@ -273,6 +273,7 @@
 					'error' => false,
 					'user' => [
 						'bio' => null,
+						'dateCreated' => $data['date_created'],
 						'email' => $data['email'],
 						'emailVerified' => false,
 						'id' => $this->db->insert_id(),
@@ -457,7 +458,7 @@
 		 * @return [array|boolean]      [Either an array containing the user's first name or FALSE depending on whether or not a row was returned]
 		 */
 		public function userLookupByEmail($email) {
-			$this->db->select("bio, id, CONCAT('".$this->s3Path."', img) AS img, name");
+			$this->db->select("bio, date_created, id, CONCAT('".$this->s3Path."', img) AS img, linked_youtube, name");
 			$this->db->where('email', $email);
 			$this->db->or_where('username', $email);
 			$query = $this->db->get('users')->result_array();
@@ -466,8 +467,10 @@
 			}
 			return [
 				'bio' => $query[0]['bio'],
+				'date_created' => $query[0]['date_created'],
 				'id' => $query[0]['id'],
 				'img' => $query[0]['img'],
+				'linked_youtube' => $query[0]['linked_youtube'],
 				'name' => $query[0]['name']
 			];
 		}

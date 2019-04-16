@@ -208,7 +208,6 @@ class UserPage extends Component {
 					case "archives":
 						return (
 							<ArchivesList
-								emptyMsgContent="Nothing!"
 								history={props.history}
 								id={props.user.id}
 							/>

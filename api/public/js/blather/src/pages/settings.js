@@ -400,8 +400,12 @@ SettingsPage.propTypes = {
 
 SettingsPage.defaultProps = {
 	changePassword,
+	linkTwitter,
+	linkYouTube,
 	removeTwitter,
-	removeYouTube
+	removeYouTube,
+	resetPasswordProps,
+	twitterRequestToken
 }
 
 const mapStateToProps = (state, ownProps) => {

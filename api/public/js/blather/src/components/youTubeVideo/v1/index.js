@@ -223,7 +223,7 @@ class YouTubeVideo extends Component {
 							onClick={this.handleItemClick}
 						/>
 					</Menu>
-					{props.archives.length === 0 ? (
+					{archives.length === 0 ? (
 						<Message
 							content={`${
 								activeItem === "Mine" ? "You haven't " : "There aren't any "
@@ -233,60 +233,63 @@ class YouTubeVideo extends Component {
 						<Transition animation="scale" duration={400} visible={archiveVisible}>
 							<Item.Group className="archivesList" divided>
 								{archives.map((a, i) => {
-									return (
-										<Item
-											className={`archiveItem ${
-												props.archiveId === a.id ? "selected" : ""
-											}`}
-											key={`${a.start_time}_${a.end_time}`}
-											onClick={() => this.seekTo(a)}
-										>
-											<Item.Content>
-												<Item.Header>
-													{formatTime(a.start_time)} -{" "}
-													{formatTime(a.end_time)}
-												</Item.Header>
-												<Item.Description>{a.description}</Item.Description>
-												<Item.Extra>
-													<List bulleted horizontal link>
-														{a.user_id === user.id && (
+									if (a !== undefined) {
+										return (
+											<Item
+												className={`archiveItem ${
+													props.archiveId === a.id ? "selected" : ""
+												}`}
+												key={`${a.start_time}_${a.end_time}`}
+												onClick={() => this.seekTo(a)}
+											>
+												<Item.Content>
+													<Item.Header>
+														{formatTime(a.start_time)} -{" "}
+														{formatTime(a.end_time)}
+													</Item.Header>
+													<Item.Description>{a.description}</Item.Description>
+													<Item.Extra>
+														<List bulleted horizontal link>
+															{a.user_id === user.id && (
+																<List.Item
+																	as="a"
+																	className="deleteArchive"
+																	onClick={e => {
+																		e.stopPropagation()
+																		this.deleteArchive(a.id)
+																	}}
+																>
+																	Delete
+																</List.Item>
+															)}
 															<List.Item
 																as="a"
-																className="deleteArchive"
 																onClick={e => {
 																	e.stopPropagation()
-																	this.deleteArchive(a.id)
+																	this.openDownloadLink(a.s3_link)
 																}}
 															>
-																Delete
+																Download
 															</List.Item>
-														)}
-														<List.Item
-															as="a"
-															onClick={e => {
-																e.stopPropagation()
-																this.openDownloadLink(a.s3_link)
-															}}
-														>
-															Download
-														</List.Item>
-														<List.Item
-															as="a"
-															onClick={e => {
-																e.stopPropagation()
-																props.setClip(
-																	a.start_time,
-																	a.end_time
-																)
-															}}
-														>
-															Use
-														</List.Item>
-													</List>
-												</Item.Extra>
-											</Item.Content>
-										</Item>
-									)
+															<List.Item
+																as="a"
+																onClick={e => {
+																	e.stopPropagation()
+																	props.setClip(
+																		a.start_time,
+																		a.end_time
+																	)
+																}}
+															>
+																Use
+															</List.Item>
+														</List>
+													</Item.Extra>
+												</Item.Content>
+											</Item>
+										)
+									}
+									return null
 								})}
 							</Item.Group>
 						</Transition>
