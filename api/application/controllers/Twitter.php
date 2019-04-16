@@ -7,7 +7,7 @@
 
 			$this->load->helper('common_helper');
 			$this->load->model('TwitterModel', 'twitter');
-			$this->load->model('YoutubeModel', 'youtube');
+			$this->load->model('YouTubeModel', 'youtube');
 		}
 
 		public function getCredentials() {
