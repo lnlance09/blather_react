@@ -189,7 +189,7 @@ class UserPage extends Component {
 			)
 		}
 
-		const ShowContent = ({ props }) => {
+		const ShowContent = props => {
 			if (props.user.id) {
 				switch (activeItem) {
 					case "fallacies":
@@ -260,7 +260,7 @@ class UserPage extends Component {
 							{UserMenu(this.props)}
 							<Container className="profileContentContainer">
 								<Segment basic className="profileContentSegment">
-									<ShowContent props={this.props} />
+									{ShowContent(this.props)}
 								</Segment>
 							</Container>
 						</Container>
