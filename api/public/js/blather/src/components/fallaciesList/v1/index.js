@@ -301,7 +301,6 @@ class FallaciesList extends Component {
 								<Header icon>
 									<Icon
 										className={`${this.props.icon}Icon`}
-										color="blue"
 										name={this.props.icon}
 									/>
 									{this.props.emptyMsgContent}
