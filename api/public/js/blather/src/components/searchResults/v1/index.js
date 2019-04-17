@@ -165,7 +165,7 @@ class SearchResults extends Component {
 					return {
 						description: result.description,
 						extra: null,
-						img: result.img.replace("default", "hqdefault"),
+						img: result.img ? result.img.replace("default", "hqdefault") : null,
 						meta: (
 							<div>
 								<p>
