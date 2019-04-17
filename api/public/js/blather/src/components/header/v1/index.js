@@ -2,7 +2,16 @@ import "./style.css"
 import { logout } from "components/authentication/v1/actions"
 import { Provider, connect } from "react-redux"
 import { Link } from "react-router-dom"
-import { Button, Container, Dropdown, Icon, Menu, Responsive, Sidebar } from "semantic-ui-react"
+import {
+	Button,
+	Container,
+	Dropdown,
+	Icon,
+	Input,
+	Menu,
+	Responsive,
+	Sidebar
+} from "semantic-ui-react"
 import fallacies from "fallacies.json"
 import Logo from "./images/logo.svg"
 import NavSearch from "components/search/v1/"
@@ -16,6 +25,7 @@ class Header extends Component {
 		super(props)
 		this.state = {
 			activeItem: "",
+			value: "",
 			visible: false
 		}
 		this.onLogout = this.onLogout.bind(this)
@@ -26,6 +36,10 @@ class Header extends Component {
 		this.props.history.push(`/fallacies/${name.split(" ").join("_")}`)
 	}
 
+	onChangeSearch = (e, { value }) => {
+		this.setState({ value })
+	}
+
 	onLogout() {
 		this.props.logout()
 		this.setState({ authenticated: false })
@@ -33,8 +47,8 @@ class Header extends Component {
 	}
 
 	render() {
-		const { activeItem, visible } = this.state
-		const fallaciesSidebar = fallacies.map(fallacy => (
+		const { activeItem, value, visible } = this.state
+		const FallaciesSidebar = fallacies.map(fallacy => (
 			<Menu.Item
 				active={activeItem === fallacy.name.toLowerCase()}
 				key={fallacy.id}
@@ -140,6 +154,21 @@ class Header extends Component {
 						visible={visible}
 						width="wide"
 					>
+						<Menu.Item as="div" name="search">
+							<Input
+								icon="search"
+								onChange={this.onChangeSearch}
+								placeholder="Search..."
+								value={value}
+							/>
+							<Button
+								className="sidebarSearch"
+								color="green"
+								content="Search"
+								fluid
+								onClick={() => this.props.history.push(`/search?q=${value}`)}
+							/>
+						</Menu.Item>
 						{!this.props.authenticated ? (
 							<Menu.Item onClick={() => this.props.history.push("/signin")}>
 								<Button content="Sign In" fluid primary />
@@ -150,7 +179,7 @@ class Header extends Component {
 						<Menu.Item name="fallacies">
 							<b>Fallacies</b>
 						</Menu.Item>
-						{fallaciesSidebar}
+						{FallaciesSidebar}
 					</Sidebar>
 				</div>
 			</Provider>

@@ -53,10 +53,6 @@
                 }
             }
 
-            .imgAvatar {
-                margin-right: 10px;
-            }
-
             .dropDownMenu {
                 font-size: 15px;
                 
@@ -75,5 +71,9 @@
 
     .sidebar {
         top: 72px !important;
+    }
+
+    .ui.labeled.icon.menu .item > .icon:not(.dropdown) {
+        height: auto;
     }
 }
