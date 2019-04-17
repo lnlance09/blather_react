@@ -164,16 +164,19 @@ class Header extends Component {
 							/>
 							<Button
 								className="sidebarSearchBtn"
-								color="green"
+								color="blue"
 								content="Search"
 								fluid
 								icon="search"
-								onClick={() => this.props.history.push(`/search?q=${value}`)}
+								onClick={() => {
+									this.setState({ visible: false })
+									this.props.history.push(`/search?q=${value}`)
+								}}
 							/>
 						</Menu.Item>
 						{!this.props.authenticated ? (
 							<Menu.Item onClick={() => this.props.history.push("/signin")}>
-								<Button content="Sign In" fluid primary />
+								<Button color="green" content="Sign In" fluid icon="sign in" />
 							</Menu.Item>
 						) : (
 							<Menu.Item onClick={this.onLogout}>Sign Out</Menu.Item>
