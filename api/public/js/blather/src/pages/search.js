@@ -37,6 +37,14 @@ class SearchPage extends Component {
 		this.props.setValue({ value: query.q })
 	}
 
+	componentWillReceiveProps(props) {
+		const _query = qs.parse(this.props.location.search)
+		const query = qs.parse(props.location.search)
+		if (_query.q !== query.q) {
+			this.props.setValue({ value: query.q })
+		}
+	}
+
 	handleItemClick = (e, { name }) => {
 		this.setState({
 			activeItem: name,
