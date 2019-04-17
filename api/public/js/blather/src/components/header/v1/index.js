@@ -156,16 +156,18 @@ class Header extends Component {
 					>
 						<Menu.Item as="div" name="search">
 							<Input
-								icon="search"
+								className="sidebarSearch"
 								onChange={this.onChangeSearch}
 								placeholder="Search..."
+								size="large"
 								value={value}
 							/>
 							<Button
-								className="sidebarSearch"
+								className="sidebarSearchBtn"
 								color="green"
 								content="Search"
 								fluid
+								icon="search"
 								onClick={() => this.props.history.push(`/search?q=${value}`)}
 							/>
 						</Menu.Item>

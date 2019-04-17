@@ -44,6 +44,5 @@
 
 .pageHeader .sidebar {
   top: 72px !important; }
-
-.pageHeader .ui.labeled.icon.menu .item > .icon:not(.dropdown) {
-  height: auto; }
+  .pageHeader .sidebar .sidebarSearchBtn {
+    margin-top: 8px; }
