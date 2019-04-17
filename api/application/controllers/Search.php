@@ -21,6 +21,7 @@
             $q = $this->input->get('q');
             $type = $this->input->get('type');
 
+            $user = $this->user;
             $hasMore = false;
             $is_live_search = false;
             $q = trim($q);
@@ -31,47 +32,11 @@
             $start = $page*$limit;
 
             switch ($type) {
-                case 'facebook':
+                case 'channels':
 
-                    if($this->user ? $this->user->linkedFb : false) {
+                    if ($user ? $user->linkedYoutube : false) {
                         $is_live_search = true;
-                        $results = $this->fb->searchPages($q, $this->user->fbAccessToken);
-                        FormatArray($results);
-                    } else {
-                        $count = $this->database->searchPages($q, 'fb', true, $page);
-                        $results = $this->database->searchPages($q, 'fb', false, $page);
-                    }
-                    break;
-
-                case 'twitter':
-
-                    if ($this->user ? $this->user->linkedTwitter && !empty($q) : false) {
-                        $is_live_search = true;
-                        $token = $this->user->twitterAccessToken;
-                        $secret = $this->user->twitterAccessSecret;
-                        $results = $this->twitter->search([
-                            'count' => 10,
-                            'page' => $page+1,
-                            'q' => rawurlencode($q)
-                        ], $token, $secret, true);
-                        $count = count($results);
-                        $hasMore = $count === $limit;
-                        
-                        if (!$results) {
-                            $error = true;
-                            $results = [];
-                        }
-                    } else {
-                        $count = $this->twitter->searchPagesFromDb($q, $page, true);
-                        $results = $this->twitter->searchPagesFromDb($q, $page, false);
-                    }
-                    break;
-
-                case 'youtube':
-
-                    if ($this->user ? $this->user->linkedYoutube : false) {
-                        $is_live_search = true;
-                        $token = $this->user->youtubeAccessToken;
+                        $token = $user->youtubeAccessToken;
                         $pages = $this->youtube->searchPages([
                             'maxResults' => 10,
                             'order' => 'relevance',
@@ -98,12 +63,6 @@
                     }
                     break;
 
-                case'users':
-
-                    $count = $this->users->searchUsers($q, $page, true);
-                    $results = $this->users->searchUsers($q, $page);
-                    break;
-
                 case'fallacies':
 
                     $fallacies = $fallacies ? array_map('intval', explode(',', $fallacies)) : null;
@@ -120,6 +79,60 @@
                     ];
                     $count = $this->fallacies->search($params, true);
                     $results = $this->fallacies->search($params, false);
+                    break;
+
+                case 'facebook':
+
+                    if($user ? $user->linkedFb : false) {
+                        $is_live_search = true;
+                        $results = $this->fb->searchPages($q, $this->user->fbAccessToken);
+                        FormatArray($results);
+                    } else {
+                        $count = $this->database->searchPages($q, 'fb', true, $page);
+                        $results = $this->database->searchPages($q, 'fb', false, $page);
+                    }
+                    break;
+
+                case 'profiles':
+
+                    if ($user ? $user->linkedTwitter && !empty($q) : false) {
+                        $is_live_search = true;
+                        $token = $user->twitterAccessToken;
+                        $secret = $user->twitterAccessSecret;
+                        $results = $this->twitter->search([
+                            'count' => 10,
+                            'page' => $page+1,
+                            'q' => rawurlencode($q)
+                        ], $token, $secret, true);
+                        $count = count($results);
+                        $hasMore = $count === $limit;
+                        
+                        if (!$results) {
+                            $error = true;
+                            $results = [];
+                        }
+                    } else {
+                        $count = $this->twitter->searchPagesFromDb($q, $page, true);
+                        $results = $this->twitter->searchPagesFromDb($q, $page, false);
+                    }
+                    break;
+
+                case 'tweets':
+
+                    $count = $this->twitter->searchTweets($q, $page, true);
+                    $results = $this->twitter->searchTweets($q, $page);
+                    break;
+
+                case'users':
+
+                    $count = $this->users->searchUsers($q, $page, true);
+                    $results = $this->users->searchUsers($q, $page);
+                    break;
+
+                case 'videos':
+
+                    $count = $this->youtube->searchVideos($q, $page, true);
+                    $results = $this->youtube->searchVideos($q, $page);
                     break;
             }
 

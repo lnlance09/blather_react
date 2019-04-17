@@ -206,12 +206,7 @@ class UserPage extends Component {
 						)
 
 					case "archives":
-						return (
-							<ArchivesList
-								history={props.history}
-								id={props.user.id}
-							/>
-						)
+						return <ArchivesList history={props.history} id={props.user.id} />
 
 					default:
 						return null

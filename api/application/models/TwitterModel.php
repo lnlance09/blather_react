@@ -646,6 +646,29 @@
             return $results;
         }
 
+        public function searchTweets($q, $page, $just_count = false) {
+            $select = 'tweet_json';
+            if ($just_count) {
+                $select = 'COUNT(*) AS count';
+            }
+
+            $this->db->select($select);
+            $this->db->like('full_text', $q);
+
+            if (!$just_count) {
+                $limit = 10;
+                $start = $page*$limit;
+                $this->db->limit($limit, $start);
+            }
+
+            $results = $this->db->get('twitter_posts')->result_array();
+            if ($just_count) {
+                return $results[0]['count'];
+            }
+
+            return $results;
+        }
+
         /**
          * Send a request to Twitter's API
          * @param [string]  $url     [The URL to send a request to]

@@ -798,6 +798,30 @@
             return empty($results) ? false : $results;
         }
 
+        public function searchVideos($q, $page, $just_count = false) {
+            $select = 'date_created, description, img, title, video_id';
+            if ($just_count) {
+                $select = 'COUNT(*) AS count';
+            }
+
+            $this->db->select($select);
+            $this->db->like('title', $q);
+            $this->db->or_like('description', $q);
+
+            if (!$just_count) {
+                $limit = 10;
+                $start = $page*$limit;
+                $this->db->limit($limit, $start);
+            }
+
+            $results = $this->db->get('youtube_videos')->result_array();
+            if ($just_count) {
+                return $results[0]['count'];
+            }
+
+            return $results;
+        }
+
         /**
          * Send a request to YouTube's API
          * @param [string]   $url    [The URL to send a request to]

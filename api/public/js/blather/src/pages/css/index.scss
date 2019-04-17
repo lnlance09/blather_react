@@ -20,8 +20,8 @@
         font-weight: normal !important;
 
         &.active {
-            background: $lightBlue !important;
-            color: $white;
+            background: $blue !important;
+            color: $white !important;
             font-weight: bold !important;
 
             &:hover {
@@ -873,7 +873,6 @@ a {
     .profilePic {
         height: 220px;
         width: auto !important;
-        width: 220px;
 
         img {
             text-align: center;

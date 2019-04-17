@@ -23,6 +23,7 @@
     "query-string": "^6.2.0",
     "react": "^16.7.0",
     "react-copy-to-clipboard": "^5.0.1",
+    "react-debounce-input": "^3.2.0",
     "react-dom": "^16.7.0",
     "react-dropzone": "^8.0.3",
     "react-ga": "^2.5.6",
