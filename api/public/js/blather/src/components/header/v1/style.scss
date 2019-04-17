@@ -71,9 +71,9 @@
 
     .sidebar {
         top: 72px !important;
-    }
 
-    .ui.labeled.icon.menu .item > .icon:not(.dropdown) {
-        height: auto;
+        .sidebarSearchBtn {
+            margin-top: 8px;
+        }
     }
 }
