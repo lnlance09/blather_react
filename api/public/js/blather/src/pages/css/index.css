@@ -17,8 +17,8 @@
 .ui.vertical.menu .item {
   font-weight: normal !important; }
   .ui.vertical.menu .item.active {
-    background: #54C8FF !important;
-    color: #FFFFFF;
+    background: #2185D0 !important;
+    color: #FFFFFF !important;
     font-weight: bold !important; }
     .ui.vertical.menu .item.active:hover {
       color: #FFFFFF; }
@@ -507,8 +507,7 @@ a {
 
 .usersPage .profilePic {
   height: 220px;
-  width: auto !important;
-  width: 220px; }
+  width: auto !important; }
   .usersPage .profilePic img {
     text-align: center;
     width: 220px; }

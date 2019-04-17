@@ -1,7 +1,7 @@
 <?php
-if(!defined('BASEPATH')) exit('No direct script access allowed');
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Firebasetoken { 
+class Firebasetoken {
 	function __construct($permissions = false) {
 		require_once('php-jwt/vendor/autoload.php');
 		require_once('php-jwt/start.php');

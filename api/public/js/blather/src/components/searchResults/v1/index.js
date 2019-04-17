@@ -13,6 +13,7 @@ import Moment from "react-moment"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import ResultItem from "components/item/v1/"
+import Tweet from "components/tweet/v1/"
 import store from "store"
 
 class SearchResults extends Component {
@@ -81,6 +82,25 @@ class SearchResults extends Component {
 
 		const FormatData = result => {
 			switch (this.props.type) {
+				case "channels":
+					let extra = null
+					if (result.like_count) {
+						extra = {
+							count: result.like_count,
+							term: "subscriber"
+						}
+					}
+					return {
+						description: result.about,
+						extra: extra,
+						img: result.profile_pic,
+						meta: result.username,
+						tags: [],
+						title: result.name,
+						truncate: false,
+						url: `/pages/youtube/${result.social_media_id}`
+					}
+
 				case "fallacies":
 					let dateCreated = (
 						<div>
@@ -104,9 +124,11 @@ class SearchResults extends Component {
 						meta: dateCreated,
 						tags: [`${result.fallacy_name}`],
 						title: result.title,
+						truncate: false,
 						url: `/fallacies/${result.id}`
 					}
-				case "twitter":
+
+				case "profiles":
 					return {
 						description: result.about,
 						extra: {
@@ -117,8 +139,10 @@ class SearchResults extends Component {
 						meta: `@${result.username}`,
 						tags: [],
 						title: result.name,
+						truncate: false,
 						url: `/pages/twitter/${result.username}`
 					}
+
 				case "users":
 					return {
 						description: result.about,
@@ -133,25 +157,29 @@ class SearchResults extends Component {
 						meta: `@${result.username}`,
 						tags: [],
 						title: result.name,
+						truncate: true,
 						url: `/users/${result.username}`
 					}
-				case "youtube":
-					let extra = null
-					if (result.like_count) {
-						extra = {
-							count: result.like_count,
-							term: "subscriber"
-						}
-					}
+
+				case "videos":
 					return {
-						description: result.about,
-						extra: extra,
-						img: result.profile_pic,
-						meta: result.username,
+						description: result.description,
+						extra: null,
+						img: result.img.replace("default", "hqdefault"),
+						meta: (
+							<div>
+								<p>
+									<Icon name="clock outline" />
+									<Moment date={adjustTimezone(result.date_created)} fromNow />
+								</p>
+							</div>
+						),
 						tags: [],
-						title: result.name,
-						url: `/pages/youtube/${result.social_media_id}`
+						title: result.title,
+						truncate: true,
+						url: `/video/${result.video_id}`
 					}
+
 				default:
 					return {}
 			}
@@ -165,7 +193,7 @@ class SearchResults extends Component {
 		}
 
 		const LinkAccountMsg = props => {
-			if (props.authenticated && props.type === "twitter" && !props.linkedTwitter) {
+			if (props.authenticated && props.type === "profiles" && !props.linkedTwitter) {
 				return (
 					<Message className="linkAccountMsg" icon>
 						<Icon className="twitterIcon" name="twitter" />
@@ -178,7 +206,7 @@ class SearchResults extends Component {
 				)
 			}
 
-			if (props.authenticated && props.type === "youtube" && !props.linkedYoutube) {
+			if (props.authenticated && props.type === "channels" && !props.linkedYoutube) {
 				return (
 					<Message className="linkAccountMsg" icon>
 						<Icon className="youtubeIcon" name="youtube" />
@@ -229,6 +257,50 @@ class SearchResults extends Component {
 
 		const SearchResults = ({ props }) => {
 			return props.data.map((result, i) => {
+				if (props.type === "tweets" && result.tweet_json) {
+					let marginTop = i === 0 ? 0 : 12
+					let tweet = JSON.parse(result.tweet_json)
+					return (
+						<div key={`tweet_${i}`} style={{ marginTop: `${marginTop}px` }}>
+							<Tweet
+								created_at={tweet.created_at}
+								extended_entities={tweet.extended_entities}
+								full_text={tweet.full_text}
+								highlight={true}
+								highlightedText={props.q}
+								id={tweet.id_str}
+								imageSize="medium"
+								key={`tweet_key_${i}`}
+								is_quote_status={tweet.is_quote_status}
+								quoted_status={
+									tweet.quoted_status === undefined && tweet.is_quote_status
+										? tweet.retweeted_status
+										: tweet.quoted_status
+								}
+								quoted_status_id_str={tweet.quoted_status_id_str}
+								quoted_status_permalink={tweet.quoted_status_permalink}
+								redirect
+								retweeted_status={
+									tweet.retweeted_status === undefined
+										? false
+										: tweet.retweeted_status
+								}
+								stats={{
+									favorite_count: tweet.favorite_count,
+									retweet_count: tweet.retweet_count
+								}}
+								user={{
+									id: tweet.user.id,
+									name: tweet.user.name,
+									profile_image_url_https: tweet.user.profile_image_url_https,
+									screen_name: tweet.user.screen_name
+								}}
+								{...this.props.history}
+							/>
+						</div>
+					)
+				}
+
 				let itemData = FormatData(result)
 				return (
 					<ResultItem
@@ -244,7 +316,7 @@ class SearchResults extends Component {
 						sanitize
 						tags={itemData.tags}
 						title={itemData.title}
-						truncate={false}
+						truncate={itemData.truncate}
 						type={props.type}
 						url={itemData.url}
 					/>
@@ -279,6 +351,7 @@ SearchResults.propTypes = {
 	error: PropTypes.bool,
 	fetchSearchResults: PropTypes.func,
 	hasMore: PropTypes.bool,
+	history: PropTypes.object,
 	linkedTwitter: PropTypes.bool,
 	linkedYoutube: PropTypes.bool,
 	loading: PropTypes.bool,
@@ -300,7 +373,7 @@ SearchResults.defaultProps = {
 	page: 0,
 	q: "",
 	refreshYouTubeToken,
-	type: "twitter"
+	type: "profiles"
 }
 
 const mapStateToProps = (state, ownProps) => ({

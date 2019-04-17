@@ -926,7 +926,7 @@
             $this->db->where('id', $id);
             $this->db->update('fallacy_entries', $data);
 
-            if($tags) {
+            if ($tags) {
                 $this->tags->insertTags($id, $tags, 'fallacy', $userId);
             }
         }

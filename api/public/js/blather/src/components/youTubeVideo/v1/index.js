@@ -247,7 +247,9 @@ class YouTubeVideo extends Component {
 														{formatTime(a.start_time)} -{" "}
 														{formatTime(a.end_time)}
 													</Item.Header>
-													<Item.Description>{a.description}</Item.Description>
+													<Item.Description>
+														{a.description}
+													</Item.Description>
 													<Item.Extra>
 														<List bulleted horizontal link>
 															{a.user_id === user.id && (

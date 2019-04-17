@@ -443,9 +443,15 @@ const fallacy = (state = initial(), action) => {
 				}
 			}
 
+			canMakeVideo =
+				validOriginalLength &&
+				validContradictionLength &&
+				(payload.fallacy.network === "youtube" ||
+					payload.fallacy.contradiction_network === "youtube")
+
 			return {
 				...state,
-				canMakeVideo: validOriginalLength && validContradictionLength,
+				canMakeVideo,
 				contradiction,
 				contradictionPayload,
 				endTime: payload.fallacy.end_time,

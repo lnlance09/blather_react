@@ -1,7 +1,9 @@
 import "pages/css/index.css"
 import { DisplayMetaTags } from "utils/metaFunctions"
+import { setValue } from "pages/actions/search"
 import { connect, Provider } from "react-redux"
-import { Accordion, Container, Form, Grid, Icon, Input, Menu, Responsive } from "semantic-ui-react"
+import { DebounceInput } from "react-debounce-input"
+import { Accordion, Container, Form, Grid, Icon, Menu, Responsive } from "semantic-ui-react"
 import PageFooter from "components/footer/v1/"
 import PageHeader from "components/header/v1/"
 import PropTypes from "prop-types"
@@ -19,32 +21,20 @@ class SearchPage extends Component {
 		const currentState = store.getState()
 		const bearer = currentState.user.bearer
 		const auth = currentState.user.authenticated
-		const types = ["fallacies", "twitter", "users", "youtube"]
+		const types = ["channels", "fallacies", "profiles", "tweets", "users", "videos"]
+		const fallacies = query.fallacies ? query.fallacies.split(",") : []
+		const activeItem = types.indexOf(type) === -1 ? "profiles" : type
 
 		this.state = {
-			activeIndex: 0,
-			activeItem: types.indexOf(type) === -1 ? "twitter" : type,
+			activeItem,
 			auth,
 			bearer,
-			fallacies: query.fallacies ? query.fallacies.split(",") : [],
+			fallacies,
 			types,
-			user: currentState.user.data,
-			value: query.q ? query.q.trim() : ""
+			user: currentState.user.data
 		}
 
-		this.onChangeSearchValue = this.onChangeSearchValue.bind(this)
-	}
-
-	componentWillReceiveProps(props) {
-		const query = qs.parse(props.location.search)
-		this.setState({ value: query.q ? query.q.trim() : "" })
-	}
-
-	handleClick = (e, titleProps) => {
-		const { index } = titleProps
-		const { activeIndex } = this.state
-		const newIndex = activeIndex === index ? 0 : index
-		this.setState({ activeIndex: newIndex, activeItem: "fallacies" })
+		this.props.setValue({ value: query.q })
 	}
 
 	handleItemClick = (e, { name }) => {
@@ -53,14 +43,14 @@ class SearchPage extends Component {
 			page: 0
 		})
 
-		const value =
-			this.state.value === undefined || this.state.value === null ? "" : this.state.value
+		let itemVal = this.props.q
+		let value = itemVal === undefined || itemVal === null ? "" : itemVal
 		this.props.history.push(`/search/${name}?q=${value}`)
 	}
 
 	handleRadioClick = (e, { value }) => {
-		let fallacies = [...this.state.fallacies]
 		const index = this.state.fallacies.indexOf(value)
+		let fallacies = [...this.state.fallacies]
 		if (index === -1) {
 			fallacies = [...this.state.fallacies, value]
 		} else {
@@ -73,33 +63,29 @@ class SearchPage extends Component {
 			page: 0
 		})
 
-		const fallaciesString = fallacies.join(",")
-		const val =
-			this.state.value === undefined || this.state.value === null ? "" : this.state.value
-		this.props.history.push(`/search/fallacies?q=${val}&fallacies=${fallaciesString}`)
+		let radioVal = this.props.q
+		let radioValue = radioVal === undefined || radioVal === null ? "" : radioVal
+		let fallacyStr = fallacies.join(",")
+		this.props.history.push(`/search/fallacies?q=${radioValue}&fallacies=${fallacyStr}`)
 	}
 
-	onChangeSearchValue = (e, { value }) => {
-		this.setState({
-			page: 0,
-			value
-		})
+	onChangeSearchValue = value => {
+		this.setState({ page: 0 })
+		this.props.setValue({ value })
 
 		if (value !== undefined) {
-			const item = this.state.activeItem
-			let fallaciesString = ""
-			if (item === "fallacies") {
-				fallaciesString =
-					this.state.fallacies.length > 0
-						? `&fallacies=${this.state.fallacies.join(",")}`
-						: ""
+			let { activeItem, fallacies } = this.state
+			let fallacyStr = ""
+			if (activeItem === "fallacies") {
+				fallacyStr = fallacies.length > 0 ? `&fallacies=${fallacies.join(",")}` : ""
 			}
-			this.props.history.push(`/search/${item}?q=${value}${fallaciesString}`)
+			this.props.history.push(`/search/${activeItem}?q=${value}${fallacyStr}`)
 		}
 	}
 
 	render() {
-		const { activeIndex, activeItem, auth, bearer, fallacies, page, value, user } = this.state
+		const { activeItem, auth, bearer, fallacies, page, user } = this.state
+		const { q } = this.props
 
 		const FallacyItem = rawFallacies.map((item, i) => (
 			<Form.Checkbox
@@ -118,39 +104,65 @@ class SearchPage extends Component {
 			</Form>
 		)
 
+		const SearchItems = () => (
+			<SearchResults
+				authenticated={auth}
+				bearer={bearer}
+				fallacies={fallacies.join(",")}
+				history={this.props.history}
+				linkedTwitter={auth ? user.linkedTwitter : false}
+				linkedYoutube={auth ? user.linkedYoutube : false}
+				page={page}
+				q={q}
+				type={activeItem}
+			/>
+		)
+
 		const SearchMenu = props => (
-			<Accordion as={Menu} className="searchMenu" borderless fluid vertical>
+			<Accordion as={Menu} borderless className="searchMenu" fluid vertical>
 				<Menu.Item className="searchItem">
-					<Input
-						icon="search"
-						onChange={this.onChangeSearchValue}
-						placeholder="Search..."
-						value={value}
-					/>
+					<div className="ui icon input">
+						<DebounceInput
+							debounceTimeout={300}
+							minLength={2}
+							onChange={e => this.onChangeSearchValue(e.target.value)}
+							placeholder="Search..."
+							value={q}
+						/>
+						<i aria-hidden="true" className="search icon" />
+					</div>
 				</Menu.Item>
-				<Menu.Item
-					active={activeItem === "twitter"}
-					name="twitter"
-					onClick={this.handleItemClick}
-				>
-					Profiles
-					<Icon
-						className="twitterIcon"
-						inverted={activeItem === "twitter"}
-						name="twitter"
-					/>
+				<Menu.Item>
+					Twitter
+					<Icon className="twitterIcon" name="twitter" />
+					<Menu.Menu>
+						<Menu.Item
+							active={activeItem === "profiles"}
+							name="profiles"
+							onClick={this.handleItemClick}
+						/>
+						<Menu.Item
+							active={activeItem === "tweets"}
+							name="tweets"
+							onClick={this.handleItemClick}
+						/>
+					</Menu.Menu>
 				</Menu.Item>
-				<Menu.Item
-					active={activeItem === "youtube"}
-					name="youtube"
-					onClick={this.handleItemClick}
-				>
-					Channels
-					<Icon
-						className="youtubeIcon"
-						inverted={activeItem === "youtube"}
-						name="youtube"
-					/>
+				<Menu.Item>
+					YouTube
+					<Icon className="youtubeIcon" name="youtube" />
+					<Menu.Menu>
+						<Menu.Item
+							active={activeItem === "channels"}
+							name="channels"
+							onClick={this.handleItemClick}
+						/>
+						<Menu.Item
+							active={activeItem === "videos"}
+							name="videos"
+							onClick={this.handleItemClick}
+						/>
+					</Menu.Menu>
 				</Menu.Item>
 				<Menu.Item
 					active={activeItem === "users"}
@@ -165,16 +177,8 @@ class SearchPage extends Component {
 					/>
 				</Menu.Item>
 				<Menu.Item>
-					<Accordion.Title
-						active={activeIndex === 0}
-						content="Fallacies"
-						index={0}
-						name="fallacies"
-						onClick={this.handleClick}
-					/>
-					{activeItem === "fallacies" && (
-						<Accordion.Content active={activeIndex === 0} content={FallacyForm} />
-					)}
+					<Accordion.Title active content="Fallacies" index={0} name="fallacies" />
+					<Accordion.Content active content={FallacyForm} />
 				</Menu.Item>
 			</Accordion>
 		)
@@ -188,19 +192,7 @@ class SearchPage extends Component {
 						<Responsive maxWidth={900}>
 							<Grid>
 								<Grid.Row>{SearchMenu(this.props)}</Grid.Row>
-								<Grid.Row>
-									<SearchResults
-										authenticated={auth}
-										bearer={bearer}
-										fallacies={fallacies.join(",")}
-										history={this.props.history}
-										linkedTwitter={auth ? user.linkedTwitter : false}
-										linkedYoutube={auth ? user.linkedYoutube : false}
-										page={page}
-										q={value}
-										type={activeItem}
-									/>
-								</Grid.Row>
+								<Grid.Row>{SearchItems()}</Grid.Row>
 							</Grid>
 						</Responsive>
 
@@ -208,17 +200,7 @@ class SearchPage extends Component {
 							<Grid>
 								<Grid.Column width={5}>{SearchMenu(this.props)}</Grid.Column>
 								<Grid.Column className="rightSide" width={11}>
-									<SearchResults
-										authenticated={auth}
-										bearer={bearer}
-										fallacies={fallacies.join(",")}
-										history={this.props.history}
-										linkedTwitter={auth ? user.linkedTwitter : false}
-										linkedYoutube={auth ? user.linkedYoutube : false}
-										page={page}
-										q={value}
-										type={activeItem}
-									/>
+									{SearchItems()}
 								</Grid.Column>
 							</Grid>
 						</Responsive>
@@ -231,11 +213,15 @@ class SearchPage extends Component {
 }
 
 SearchPage.propTypes = {
-	pageType: PropTypes.string
+	pageType: PropTypes.string,
+	q: PropTypes.string,
+	setValue: PropTypes.func
 }
 
 SearchPage.defaultProps = {
-	pageType: "search"
+	pageType: "search",
+	q: "",
+	setValue
 }
 
 const mapStateToProps = (state, ownProps) => {
@@ -247,5 +233,7 @@ const mapStateToProps = (state, ownProps) => {
 
 export default connect(
 	mapStateToProps,
-	{}
+	{
+		setValue
+	}
 )(SearchPage)

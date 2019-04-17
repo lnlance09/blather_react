@@ -115,7 +115,7 @@ export const DisplayMetaTags = ({ page, props, state }) => {
 				description: "",
 				img,
 				title: `Search results for '${
-					state.value === undefined || state.value === null ? "" : state.value
+					props.q === undefined || props.q === null ? "" : props.q
 				}'`
 			}
 			break
