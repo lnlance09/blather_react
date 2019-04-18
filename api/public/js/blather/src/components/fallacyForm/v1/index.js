@@ -69,6 +69,16 @@ class FallacyForm extends Component {
 		this.onSubmitForm = this.onSubmitForm.bind(this)
 	}
 
+	componentWillUpdate(newProps) {
+		if (this.props.startTime !== newProps.startTime) {
+			this.props.setBeginTime({ value: newProps.startTime })
+		}
+
+		if (this.props.endTime !== newProps.endTime) {
+			this.props.setEndTime({ value: newProps.endTime })
+		}
+	}
+
 	changeContradictionBeginTime = time => this.props.setContradictionBeginTime({ value: time })
 
 	changeContradictionEndTime = time => this.props.setContradictionEndTime({ value: time })
