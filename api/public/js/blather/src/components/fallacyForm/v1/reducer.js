@@ -2,10 +2,12 @@ import * as constants from "./constants"
 import { formatTime } from "utils/dateFunctions"
 
 const initial = () => ({
+	endTime: "0",
 	fallacy: {
 		contradiction: {}
 	},
-	modalOpen: false
+	modalOpen: false,
+	startTime: "0"
 })
 
 const fallacyForm = (state = initial(), action) => {
