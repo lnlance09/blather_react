@@ -1,9 +1,9 @@
 {
-  "main.css": "/static/css/main.1e199753.chunk.css",
-  "main.js": "/static/js/main.a8a5d0c1.chunk.js",
-  "main.js.map": "/static/js/main.a8a5d0c1.chunk.js.map",
-  "static/js/1.883ce92f.chunk.js": "/static/js/1.883ce92f.chunk.js",
-  "static/js/1.883ce92f.chunk.js.map": "/static/js/1.883ce92f.chunk.js.map",
+  "main.css": "/static/css/main.dba150ab.chunk.css",
+  "main.js": "/static/js/main.487efad2.chunk.js",
+  "main.js.map": "/static/js/main.487efad2.chunk.js.map",
+  "static/js/1.fb71e9a7.chunk.js": "/static/js/1.fb71e9a7.chunk.js",
+  "static/js/1.fb71e9a7.chunk.js.map": "/static/js/1.fb71e9a7.chunk.js.map",
   "runtime~main.js": "/static/js/runtime~main.229c360f.js",
   "runtime~main.js.map": "/static/js/runtime~main.229c360f.js.map",
   "static/media/trump-white.png": "/static/media/trump-white.b65f57d1.png",
@@ -12,8 +12,8 @@
   "static/media/sound.mp3": "/static/media/sound.ec792557.mp3",
   "static/media/sound.ogg": "/static/media/sound.b8da6d65.ogg",
   "static/media/semantic.min.css": "/static/media/brand-icons.a1a749e8.svg",
-  "static/css/main.1e199753.chunk.css.map": "/static/css/main.1e199753.chunk.css.map",
+  "static/css/main.dba150ab.chunk.css.map": "/static/css/main.dba150ab.chunk.css.map",
   "index.html": "/index.html",
-  "precache-manifest.eefaa50128a56446df43adfd95eeadfa.js": "/precache-manifest.eefaa50128a56446df43adfd95eeadfa.js",
+  "precache-manifest.0f4d8b9c733f0aa0515caf289fd4f23b.js": "/precache-manifest.0f4d8b9c733f0aa0515caf289fd4f23b.js",
   "service-worker.js": "/service-worker.js"
 }
