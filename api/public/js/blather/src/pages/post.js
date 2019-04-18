@@ -34,6 +34,7 @@ class Post extends Component {
 
 		const path = this.props.match.path
 		const qs = queryString.parse(this.props.location.search)
+
 		let a = ""
 		let id = this.props.match.params.id
 		if (id.substring(id.length - 1, id.length) === "&") {
@@ -78,18 +79,19 @@ class Post extends Component {
 	componentDidMount() {}
 
 	componentWillReceiveProps(newProps) {
+		const qs = queryString.parse(newProps.location.search)
+		const path = newProps.match.path
 		let id = newProps.match.params.id
 		if (id.substring(id.length - 1, id.length) === "&") {
 			id = id.slice(0, -1)
 		}
 
+		let a = ""
+		if (qs.a) {
+			a = qs.a
+		}
+
 		if (this.state.id !== id) {
-			const qs = queryString.parse(newProps.location.search)
-			let a = ""
-			if (qs.a) {
-				a = qs.a
-			}
-			const path = newProps.match.path
 			const currentState = store.getState()
 			const auth = currentState.user.authenticated
 			const bearer = currentState.user.bearer
@@ -111,6 +113,10 @@ class Post extends Component {
 			if (type === "video" && newProps.existsOnYt) {
 				this.props.downloadVideo({ audio: 0, id })
 			}
+		}
+
+		if (this.state.a !== a) {
+			this.setState({ a })
 		}
 	}
 

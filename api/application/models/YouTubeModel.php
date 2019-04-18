@@ -393,6 +393,19 @@
             return $this->loginUrl.'?'.http_build_query($data);
         }
 
+        public function getVideoArchive($id) {
+            $this->db->select('end_time, start_time');
+            $this->db->where([
+                'network' => 'youtube',
+                'id' => $id
+            ]);
+            $results = $this->db->get('archived_links')->result_array();
+            if (empty($results)) {
+                return false;
+            }
+            return $results[0];
+        }
+
         public function getVideoArchives($id, $user_id = null) {
             $select = 'a.description, a.end_time, a.id, CONCAT("'.$this->s3Path.'", a.s3_link) AS s3_link, a.start_time, CONCAT("'.$this->s3Path.'", u.img) AS img, u.id AS user_id';
             $data = [

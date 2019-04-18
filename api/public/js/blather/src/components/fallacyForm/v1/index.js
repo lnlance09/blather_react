@@ -69,18 +69,12 @@ class FallacyForm extends Component {
 		this.onSubmitForm = this.onSubmitForm.bind(this)
 	}
 
-	changeContradictionBeginTime = time => {
-		this.props.setContradictionBeginTime({ value: time })
-	}
+	changeContradictionBeginTime = time => this.props.setContradictionBeginTime({ value: time })
 
-	changeContradictionEndTime = time => {
-		this.props.setContradictionEndTime({ value: time })
-	}
+	changeContradictionEndTime = time => this.props.setContradictionEndTime({ value: time })
 
 	closeModal = () => {
 		this.setState({
-			beingTime: "",
-			endTime: "",
 			explanation: "",
 			id: "21",
 			title: "",
@@ -168,9 +162,7 @@ class FallacyForm extends Component {
 		}
 	}
 
-	onChangeEndTime = time => {
-		this.props.setEndTime({ value: time })
-	}
+	onChangeEndTime = time => this.props.setEndTime({ value: time })
 
 	onChangeExplanation = (e, { value }) => this.setState({ explanation: value })
 
@@ -179,9 +171,7 @@ class FallacyForm extends Component {
 		this.setState({ id: value })
 	}
 
-	onChangeStartTime = time => {
-		this.props.setBeginTime({ value: time })
-	}
+	onChangeStartTime = time => this.props.setBeginTime({ value: time })
 
 	onChangeTitle = (e, { value }) => this.setState({ title: value })
 
@@ -212,18 +202,19 @@ class FallacyForm extends Component {
 			}
 		}
 
+		const _state = store.getState()
 		this.props.assignFallacy({
 			bearer: this.props.bearer,
 			contradiction,
 			commentId: this.props.commentId,
-			endTime: convertTimeToSeconds(this.props.endTime),
+			endTime: convertTimeToSeconds(_state.fallacyForm.endTime),
 			explanation: this.state.explanation,
 			fallacyId: this.state.id,
 			highlightedText: this.props.highlightedText,
 			network: this.props.network,
 			objectId: this.props.objectId,
 			pageId: page.id,
-			startTime: convertTimeToSeconds(this.props.startTime),
+			startTime: convertTimeToSeconds(_state.fallacyForm.startTime),
 			title: this.state.title
 		})
 
@@ -258,11 +249,12 @@ class FallacyForm extends Component {
 
 	render() {
 		const { explanation, highlightedText, id, title, url } = this.state
-		const { bearer, fallacy, info } = this.props
-		let type = this.props.type
+		let { bearer, fallacy, info, type } = this.props
+
 		if (type === "video" && info !== undefined && info.comment) {
 			type = "comment"
 		}
+
 		const page = this.whichPage()
 		const canAssign = type === "video"
 
@@ -352,6 +344,7 @@ class FallacyForm extends Component {
 							user={tweet.user}
 						/>
 					)
+
 				case "youtube":
 					let video = c.data
 					let comment = null
@@ -412,7 +405,7 @@ class FallacyForm extends Component {
 			<SearchForm
 				defaultValue={page ? page.name : null}
 				onChangeAssignee={this.onChangeAssignee}
-				placeholder="Who in this video should the fallacy be assigned to?"
+				placeholder="Who should this fallacy be assigned to?"
 				source="fallacyForm"
 				width={"100%"}
 			/>
@@ -425,7 +418,7 @@ class FallacyForm extends Component {
 							<TimeField
 								input={
 									<Input
-										className={c ? "contradictionStartTime" : "startTime"}
+										className="startTime"
 										icon="hourglass start"
 										placeholder="Start time"
 									/>
@@ -440,7 +433,7 @@ class FallacyForm extends Component {
 							<TimeField
 								input={
 									<Input
-										className={c ? "contradictionEndTime" : "endTime"}
+										className="endTime"
 										icon="hourglass end"
 										placeholder="End time"
 									/>
@@ -515,11 +508,10 @@ class FallacyForm extends Component {
 		return (
 			<Provider store={store}>
 				<div className="fallacyForm">
-					<Header size="large">
+					<Header dividing size="large">
 						Does this make sense?
 						<Header.Subheader>Assign a fallacy</Header.Subheader>
 					</Header>
-					<Divider />
 					<Form
 						className="form basic segment"
 						error={this.props.fallacyFormError || cError || !cValid}

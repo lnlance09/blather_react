@@ -8,6 +8,9 @@
 
 .fallacyForm .segment.basic {
   padding: 0; }
+  @media only screen and (max-width: 1025px) {
+    .fallacyForm .segment.basic .equal.width.fields .field {
+      width: 49% !important; } }
 
 .fallacyForm .field.startTime, .fallacyForm .field.contradictionStartTime {
   padding-left: 0 !important;
