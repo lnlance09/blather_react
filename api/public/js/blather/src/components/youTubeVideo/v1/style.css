@@ -45,13 +45,18 @@
 .youTubeVideo .archiveForm .form {
   margin-top: 0;
   padding: 0; }
+  @media only screen and (max-width: 1025px) {
+    .youTubeVideo .archiveForm .form .equal.width.fields .field {
+      width: 49% !important; }
+      .youTubeVideo .archiveForm .form .equal.width.fields .field input {
+        width: 100% !important; } }
 
 .youTubeVideo .archivesList {
   margin-top: 2px !important; }
   .youTubeVideo .archivesList .archiveItem {
     cursor: pointer;
     padding: 9px 7px 6px 7px !important; }
-    .youTubeVideo .archivesList .archiveItem.selected {
+    .youTubeVideo .archivesList .archiveItem.selected, .youTubeVideo .archivesList .archiveItem:hover {
       background: #F9FAFB; }
     .youTubeVideo .archivesList .archiveItem .extra .list {
       margin: 0 !important; }

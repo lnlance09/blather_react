@@ -7,6 +7,14 @@
 
     .segment.basic {
         padding: 0;
+
+        @media only screen and (max-width: 1025px) {
+            .equal.width.fields {
+                .field {
+                    width: 49% !important;
+                }
+            }
+        }
     }
 
     .field.startTime, .field.contradictionStartTime {

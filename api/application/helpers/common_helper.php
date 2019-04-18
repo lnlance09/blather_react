@@ -150,6 +150,7 @@
 
 	function parseUrl($url) {
 		$parse = parse_url($url);
+		$a = null;
 		$network = null;
 		$username = null;
 		$object_id = null;
@@ -244,11 +245,17 @@
 				if ($type == 'video') {
 					$network = 'youtube';
 				}
+
+				if (array_key_exists('query', $parse)) {
+					parse_str($parse['query'], $query);
+					$a = array_key_exists('a', $query) ? $query['a'] : null;
+				}
 			}
 		}
 
 		if ($network) {
 			return [
+				'a' => $a,
 				'comment_id' => $comment_id,
 				'end_time' => $end_time,
 				'network' => $network,

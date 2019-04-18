@@ -375,10 +375,13 @@
 
 				case 'youtube':
 				case 'youtu.be':
+
 					$auth = $user ? $user->linkedYoutube : false;
 					$token = $auth ? $user->youtubeAccessToken : null;
 					$commentId = $parse['comment_id'];
 					$videoId = $parse['object_id'];
+					$startTime = $parse['start_time'];
+					$endTime = $parse['end_time'];
 
 					if ($commentId) {
 						$type = 'comment';
@@ -394,15 +397,23 @@
 						exit;
 					}
 
+					if ($parse['a']) {
+						$archive = $this->youtube->getVideoArchive($parse['a']);
+						if ($archive) {
+							$endTime = $archive['end_time'];
+							$startTime = $archive['start_time'];
+						}
+					}
+
 					echo json_encode([
 						'commentId' => $commentId,
 						'data' => $object['data'],
 						'error' => $object['error'],
-						'endTime' => $parse['end_time'],
+						'endTime' => $endTime,
 						'mediaId' => $videoId,
 						'network' => 'youtube',
 						'pageId' => $type === 'comment' ? $object['data']['commenter']['id'] : $object['data']['channel']['id'],
-						'startTime' => $parse['start_time'],
+						'startTime' => $startTime,
 						'type' => $type,
 						'username' => null
 					]);

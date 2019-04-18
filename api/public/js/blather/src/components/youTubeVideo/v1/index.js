@@ -70,19 +70,10 @@ class YouTubeVideo extends Component {
 		this.setTime = this.setTime.bind(this)
 	}
 
-	changeArchiveDescription = (e, { value }) => {
-		this.props.updateArchiveDescription(value)
-	}
-
-	changeArchiveEndTime = time => {
-		this.props.updateArchiveEndTime(time)
-	}
-	changeArchiveStartTime = time => {
-		this.props.updateArchiveStartTime(time)
-	}
 	componentDidMount() {
 		this.setState({ archiveVisible: !this.props.archive })
 	}
+
 	componentWillReceiveProps(props) {
 		if (
 			this.state.auth &&
@@ -97,12 +88,17 @@ class YouTubeVideo extends Component {
 			})
 		}
 	}
-	deleteArchive = id => {
-		this.props.deleteArchive({ bearer: this.props.bearer, id })
-	}
-	handleItemClick = (e, { name }) => {
-		this.setState({ activeItem: name })
-	}
+
+	changeArchiveDescription = (e, { value }) => this.props.updateArchiveDescription(value)
+
+	changeArchiveEndTime = time => this.props.updateArchiveEndTime(time)
+
+	changeArchiveStartTime = time => this.props.updateArchiveStartTime(time)
+
+	deleteArchive = id => this.props.deleteArchive({ bearer: this.props.bearer, id })
+
+	handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+
 	openDownloadLink = link => {
 		if (link) {
 			const a = document.createElement("a")
@@ -114,6 +110,7 @@ class YouTubeVideo extends Component {
 			document.body.removeChild(a)
 		}
 	}
+
 	onSubmitArchive = () => {
 		this.props.createVideoArchive({
 			bearer: this.props.bearer,
@@ -123,22 +120,29 @@ class YouTubeVideo extends Component {
 			startTime: this.props.archiveStartTime
 		})
 	}
-	ref = player => {
-		this.player = player
+
+	ref = player => (this.player = player)
+
+	scrollToTop() {
+		const element = document.getElementsByClassName("fallacyForm")
+		element[0].scrollIntoView({ behavior: "smooth" })
 	}
+
 	seekTo = a => {
 		this.player.seekTo(a.start_time)
-		window.scroll(0, 0)
 		this.setState({
 			archiveEndTime: a.end_time,
 			playing: true
 		})
+		this.props.history.push(`/video/${this.props.id}?a=${a.id}`)
+		window.scroll(0, 0)
 	}
+
 	setTime = e => {
-		const time = e.playedSeconds
 		if (this.props.contradiction) {
-			this.props.setContradictionVideoTime(time)
+			return null
 		}
+		const time = e.playedSeconds
 		this.props.setCurrentVideoTime(time)
 		this.setState({
 			currentTime: time,
@@ -156,38 +160,34 @@ class YouTubeVideo extends Component {
 					onSubmit={this.onSubmitArchive}
 				>
 					<Form.Group widths="equal">
-						<Form.Field>
-							<TimeField
-								input={
-									<Form.Input
-										fluid
-										icon="hourglass end"
-										placeholder="Start time"
-										type="text"
-									/>
-								}
-								onChange={this.changeArchiveStartTime}
-								showSeconds
-								style={{ width: "100%", fontSize: 14 }}
-								value={props.archiveStartTime}
-							/>
-						</Form.Field>
-						<Form.Field>
-							<TimeField
-								input={
-									<Form.Input
-										fluid
-										icon="hourglass end"
-										placeholder="End time"
-										type="text"
-									/>
-								}
-								onChange={this.changeArchiveEndTime}
-								showSeconds
-								style={{ width: "100%", fontSize: 14 }}
-								value={props.archiveEndTime}
-							/>
-						</Form.Field>
+						<TimeField
+							input={
+								<Form.Input
+									fluid
+									icon="hourglass end"
+									placeholder="Start time"
+									type="text"
+								/>
+							}
+							onChange={this.changeArchiveStartTime}
+							showSeconds
+							style={{ width: "100%", fontSize: 14 }}
+							value={props.archiveStartTime}
+						/>
+						<TimeField
+							input={
+								<Form.Input
+									fluid
+									icon="hourglass end"
+									placeholder="End time"
+									type="text"
+								/>
+							}
+							onChange={this.changeArchiveEndTime}
+							showSeconds
+							style={{ width: "100%", fontSize: 14 }}
+							value={props.archiveEndTime}
+						/>
 					</Form.Group>
 					<Form.TextArea
 						maxLength={250}
@@ -281,6 +281,7 @@ class YouTubeVideo extends Component {
 																		a.start_time,
 																		a.end_time
 																	)
+																	this.scrollToTop()
 																}}
 															>
 																Use
@@ -432,7 +433,7 @@ class YouTubeVideo extends Component {
 											onChange={this.props.changeStartTime}
 											showSeconds
 											style={{ width: "100%", fontSize: 14 }}
-											value={formatTime(this.props.startTime)}
+											value={this.props.startTime}
 										/>
 									</Form.Field>
 									<Form.Field>
@@ -446,7 +447,7 @@ class YouTubeVideo extends Component {
 											onChange={this.props.changeEndTime}
 											showSeconds
 											style={{ width: "100%", fontSize: 14 }}
-											value={formatTime(this.props.endTime)}
+											value={this.props.endTime}
 										/>
 									</Form.Field>
 								</Form.Group>

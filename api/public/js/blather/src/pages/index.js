@@ -114,13 +114,13 @@ class Page extends Component {
 		this.props.history.push(`/pages/${this.state.network}/${this.state.id}/${name}`)
 	}
 
-	scrollToTop(id) {
+	scrollToTop() {
 		const element = document.getElementsByClassName("socialMediaPageMenu")
 		element[0].scrollIntoView({ behavior: "smooth" })
 	}
 
 	setFallacyId = id => {
-		this.scrollToTop(id)
+		this.scrollToTop()
 		this.setState({ activeItem: "fallacies", fallacyId: id })
 		this.props.history.push(`/pages/${this.state.network}/${this.state.id}/fallacies/${id}`)
 	}

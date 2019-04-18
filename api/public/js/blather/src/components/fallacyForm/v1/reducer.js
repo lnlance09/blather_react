@@ -1,4 +1,5 @@
 import * as constants from "./constants"
+import { formatTime } from "utils/dateFunctions"
 
 const initial = () => ({
 	fallacy: {
@@ -93,11 +94,17 @@ const fallacyForm = (state = initial(), action) => {
 						...state.fallacy.contradiction,
 						commentId: action.payload.commentId,
 						data,
+						endTime:
+							action.payload.endTime > 0 ? formatTime(action.payload.endTime) : "0",
 						error: false,
 						errorMsg: "",
 						mediaId: action.payload.mediaId,
 						network: action.payload.network,
 						pageId: action.payload.pageId,
+						startTime:
+							action.payload.startTime > 0
+								? formatTime(action.payload.startTime)
+								: "0",
 						type: action.payload.type,
 						username: action.payload.username
 					}

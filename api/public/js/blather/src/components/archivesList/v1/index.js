@@ -3,18 +3,8 @@ import { getArchives } from "./actions"
 import { adjustTimezone } from "utils/dateFunctions"
 import { formatDuration } from "utils/textFunctions"
 import { connect } from "react-redux"
-import {
-	Button,
-	Divider,
-	Dropdown,
-	Form,
-	Header,
-	Icon,
-	Input,
-	Item,
-	Segment,
-	Visibility
-} from "semantic-ui-react"
+import { DebounceInput } from "react-debounce-input"
+import { Divider, Dropdown, Form, Header, Icon, Item, Segment, Visibility } from "semantic-ui-react"
 import LazyLoad from "components/lazyLoad/v1/"
 import Moment from "react-moment"
 import PropTypes from "prop-types"
@@ -83,8 +73,14 @@ class ArchivesList extends Component {
 		}
 	}
 
-	onChangeInput = (e, { value }) => {
+	onChangeInput = value => {
 		this.setState({ page: 0, q: value })
+		this.props.getArchives({
+			id: this.props.id,
+			page: 0,
+			pageId: this.state.value,
+			q: this.state.q
+		})
 	}
 
 	onChangeSearch = (e, { value }) => {
@@ -93,15 +89,6 @@ class ArchivesList extends Component {
 			id: this.props.id,
 			page: 0,
 			pageId: value,
-			q: this.state.q
-		})
-	}
-
-	submitForm = () => {
-		this.props.getArchives({
-			id: this.props.id,
-			page: 0,
-			pageId: this.state.value,
 			q: this.state.q
 		})
 	}
@@ -208,19 +195,16 @@ class ArchivesList extends Component {
 					<Form>
 						<Form.Group widths="equal">
 							<Form.Field>
-								<Input
-									action
-									onChange={this.onChangeInput}
-									placeholder="Search"
-									value={q}
-								>
-									<input />
-									<Button
-										color="blue"
-										content="Search"
-										onClick={() => this.submitForm()}
+								<div className="ui icon input">
+									<DebounceInput
+										debounceTimeout={300}
+										minLength={2}
+										onChange={e => this.onChangeInput(e.target.value)}
+										placeholder="Search..."
+										value={q}
 									/>
-								</Input>
+									<i aria-hidden="true" className="search icon" />
+								</div>
 							</Form.Field>
 							<Form.Field
 								clearable
