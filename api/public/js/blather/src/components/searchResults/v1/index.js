@@ -98,7 +98,8 @@ class SearchResults extends Component {
 						tags: [],
 						title: result.name,
 						truncate: false,
-						url: `/pages/youtube/${result.social_media_id}`
+						url: `/pages/youtube/${result.social_media_id}`,
+						useMarked: false
 					}
 
 				case "fallacies":
@@ -125,7 +126,8 @@ class SearchResults extends Component {
 						tags: [`${result.fallacy_name}`],
 						title: result.title,
 						truncate: false,
-						url: `/fallacies/${result.id}`
+						url: `/fallacies/${result.id}`,
+						useMarked: true
 					}
 
 				case "profiles":
@@ -140,7 +142,8 @@ class SearchResults extends Component {
 						tags: [],
 						title: result.name,
 						truncate: false,
-						url: `/pages/twitter/${result.username}`
+						url: `/pages/twitter/${result.username}`,
+						useMarked: false
 					}
 
 				case "users":
@@ -158,7 +161,8 @@ class SearchResults extends Component {
 						tags: [],
 						title: result.name,
 						truncate: true,
-						url: `/users/${result.username}`
+						url: `/users/${result.username}`,
+						useMarked: false
 					}
 
 				case "videos":
@@ -177,7 +181,8 @@ class SearchResults extends Component {
 						tags: [],
 						title: result.title,
 						truncate: true,
-						url: `/video/${result.video_id}`
+						url: `/video/${result.video_id}`,
+						useMarked: false
 					}
 
 				default:
@@ -319,6 +324,7 @@ class SearchResults extends Component {
 						truncate={itemData.truncate}
 						type={props.type}
 						url={itemData.url}
+						useMarked={itemData.useMarked}
 					/>
 				)
 			})

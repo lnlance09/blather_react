@@ -738,16 +738,16 @@
             $this->db->select("f.id AS value, f.name AS key, CONCAT(f.name, ' (', COUNT(*), ')') AS text, COUNT(*) AS count");
             $this->db->join('fallacies f', 'fe.fallacy_id = f.id');
             
-            if($type === 'pages') {
+            if ($type === 'pages') {
                 $this->db->where('fe.page_id', $network === 'twitter' ? (int)$id : $id);
             } 
-            if($type === 'post') {
+            if ($type === 'post') {
                 $this->db->where('fe.media_id', $network === 'twitter' ? (int)$id : $id);
             }
-            if($type === 'users') {
+            if ($type === 'users') {
                 $this->db->where('fe.assigned_by', $id);
             }
-            if($type === 'targets') {
+            if ($type === 'targets') {
                 $this->db->where([
                     'fe.page_id' => $id,
                     'fe.assigned_by' => $assigned_by
@@ -762,7 +762,7 @@
         public function insertFallacyRefs() {
             $file = file_get_contents(getcwd().'/public/js/blather/src/fallacies.json');
             $json = @json_decode($file, true);
-            for($i=0;$i<count($json);$i++) {
+            for ($i=0;$i<count($json);$i++) {
                 $this->db->insert('fallacies', [
                     'description' => $json[$i]['description'],
                     'name' => $json[$i]['name']
@@ -799,7 +799,7 @@
             $this->db->where('id', $id);
             $this->db->or_where('social_media_id', $id);
             $query = $this->db->get('pages')->result();
-            if($query[0]->count == 0) {
+            if ($query[0]->count == 0) {
                 return false;
             }
             return true;

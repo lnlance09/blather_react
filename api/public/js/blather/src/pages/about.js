@@ -208,7 +208,7 @@ class About extends Component {
 								/>
 								Blather
 								<Header.Subheader>
-									It's not what you think; it's how you think
+									It's not what you think. It's how you think
 								</Header.Subheader>
 							</Header>
 						</Segment>
@@ -229,7 +229,7 @@ class About extends Component {
 								onClick={this.handleItemClick}
 							/>
 						</Menu>
-						<Container>{showContent(this.props)}</Container>
+						<Container className="aboutContainer">{showContent(this.props)}</Container>
 					</Container>
 					<PageFooter />
 				</div>

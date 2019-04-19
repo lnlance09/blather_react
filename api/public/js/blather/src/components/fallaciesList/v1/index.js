@@ -234,6 +234,7 @@ class FallaciesList extends Component {
 							title={result.title}
 							type="fallacy"
 							url={`/fallacies/${result.id}`}
+							useMarked
 						/>
 					)
 				} else {

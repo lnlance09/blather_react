@@ -105,7 +105,7 @@
 			}
 
 			if ($unique) {
-				$select = "p.id AS `value`, p.id AS `key`, CONCAT(p.name, ' (', COUNT(*), ')') AS text";
+				$select = "p.id AS `value`, p.id AS `key`, CONCAT(p.name, ' (', COUNT(*), ')') AS text, p.social_media_id";
 			}
 
 			$sql = 'SELECT '.$select.' 
@@ -166,6 +166,16 @@
 
 			if ($just_count) {
 				return (int)$results[0]['count'];
+			}
+
+			if ($unique) {
+				for ($i=0;$i<count($results);$i++) {
+					$id = $results[$i]['social_media_id'];
+					$results[$i]['image'] = [
+						'avatar' => true,
+						'src' => $this->s3Path.'pages/twitter/'.$id.'.jpg'
+					];
+				}
 			}
 
 			if ($post) {
@@ -430,7 +440,7 @@
 			$this->db->select('COUNT(*) AS count');
 			$this->db->where('id', $id);
 			$query = $this->db->get('users')->result();
-			if($query[0]->count == 0) {
+			if ($query[0]->count == 0) {
 				return false;
 			}
 			return true;

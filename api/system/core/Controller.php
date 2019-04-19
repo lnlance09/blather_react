@@ -82,11 +82,11 @@ class CI_Controller {
 		$auth = $this->input->get_request_header('Authorization');
 		$this->user = null;
 
-		if($auth) {
+		if ($auth) {
 			$data = $this->users->generateBearerToken(null, $auth);
 
-			if(is_object($data)) {
-				if($data->exp > time()) { 
+			if (is_object($data)) {
+				if ($data->exp > time()) {
 					$this->user = $data->data;
 				} else {
 					$date = new \DateTime('now', new \DateTimeZone('America/New_York'));
