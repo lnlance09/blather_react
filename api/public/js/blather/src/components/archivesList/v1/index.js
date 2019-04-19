@@ -49,7 +49,7 @@ class ArchivesList extends Component {
 			.then(response => {
 				if (response.ok) {
 					response.json().then(data => {
-						data.links.map(a => a.image.onError = i => i.target.src = ItemPic)
+						data.links.map(a => (a.image.onError = i => (i.target.src = ItemPic)))
 						this.setState({ options: data.links })
 					})
 				}
