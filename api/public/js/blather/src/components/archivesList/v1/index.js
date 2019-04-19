@@ -5,6 +5,7 @@ import { formatDuration } from "utils/textFunctions"
 import { connect } from "react-redux"
 import { DebounceInput } from "react-debounce-input"
 import { Divider, Dropdown, Form, Header, Icon, Item, Segment, Visibility } from "semantic-ui-react"
+import ItemPic from "images/square-image.png"
 import LazyLoad from "components/lazyLoad/v1/"
 import Moment from "react-moment"
 import PropTypes from "prop-types"
@@ -48,6 +49,7 @@ class ArchivesList extends Component {
 			.then(response => {
 				if (response.ok) {
 					response.json().then(data => {
+						data.links.map(a => a.image.onError = i => i.target.src = ItemPic)
 						this.setState({ options: data.links })
 					})
 				}

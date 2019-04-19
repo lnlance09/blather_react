@@ -3,6 +3,7 @@ import { formatNumber, formatPlural, getHighlightedText } from "utils/textFuncti
 import { Item, Label, List } from "semantic-ui-react"
 import ImagePic from "images/image-square.png"
 import LazyLoad from "components/lazyLoad/v1/"
+import Marked from "marked"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import sanitizeHtml from "sanitize-html"
@@ -96,37 +97,45 @@ class ResultItem extends Component {
 						{props.menu ? props.menu : null}
 					</Item.Header>
 					{props.meta && <Item.Meta>{props.meta}</Item.Meta>}
-					<Item.Description>
-						{validDescription && (
-							<div>
-								{props.truncate ? (
-									<TextTruncate
-										line={3}
-										text={
-											props.sanitize
-												? this.sanitizeHtml(props.description)
-												: props.description
-										}
-										truncateText="..."
-									/>
-								) : (
-									<div>
-										{props.highlight ? (
-											<span>
-												{getHighlightedText(
-													props.description,
-													props.highlightText,
-													props.id
-												)}
-											</span>
-										) : (
-											<span>{props.description}</span>
-										)}
-									</div>
-								)}
-							</div>
-						)}
-					</Item.Description>
+					{props.useMarked ? (
+						<Item.Description
+							dangerouslySetInnerHTML={{
+								__html: Marked(props.description)
+							}}
+						/>
+					) : (
+						<Item.Description>
+							{validDescription && (
+								<div>
+									{props.truncate ? (
+										<TextTruncate
+											line={3}
+											text={
+												props.sanitize
+													? this.sanitizeHtml(props.description)
+													: props.description
+											}
+											truncateText="..."
+										/>
+									) : (
+										<div>
+											{props.highlight ? (
+												<span>
+													{getHighlightedText(
+														props.description,
+														props.highlightText,
+														props.id
+													)}
+												</span>
+											) : (
+												<span>{props.description}</span>
+											)}
+										</div>
+									)}
+								</div>
+							)}
+						</Item.Description>
+					)}
 					{props.extra && <Item.Extra>{ItemExtra(props)}</Item.Extra>}
 					{props.tags && (
 						<Item.Extra>
@@ -169,14 +178,16 @@ ResultItem.propTypes = {
 	title: PropTypes.string,
 	type: PropTypes.string,
 	truncate: PropTypes.bool,
-	url: PropTypes.string
+	url: PropTypes.string,
+	useMarked: PropTypes.bool
 }
 
 ResultItem.defaultProps = {
 	highlight: false,
 	menu: false,
 	redirect: true,
-	truncate: true
+	truncate: true,
+	useMarked: false
 }
 
 export default ResultItem

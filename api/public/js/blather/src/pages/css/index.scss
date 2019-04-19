@@ -166,6 +166,10 @@ a {
             float: right;
         }
     }
+
+    .aboutContainer {
+        margin: 0 !important;
+    }
 }
 
 
@@ -450,6 +454,7 @@ a {
     }
 
     .commentsContent {
+        padding: 0;
         width: 100%;
     }
 

@@ -111,6 +111,9 @@ a {
 .aboutPage .contactForm button {
   float: right; }
 
+.aboutPage .aboutContainer {
+  margin: 0 !important; }
+
 .botPage .singleButtons {
   margin-top: 18px; }
 
@@ -262,6 +265,7 @@ a {
   margin-top: 10px; }
 
 .fallacyPage .commentsContent {
+  padding: 0;
   width: 100%; }
 
 .fallacyPage .exportSection {

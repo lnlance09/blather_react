@@ -17,6 +17,7 @@ class VideoList extends Component {
 			loading: false,
 			page: 0
 		}
+
 		this.loadMoreItems = _.debounce(this.loadMoreItems.bind(this), 200)
 	}
 
@@ -69,7 +70,7 @@ class VideoList extends Component {
 					key={`video_${i}`}
 					meta={dateCreated}
 					sanitize={false}
-					title={post.title}
+					title={_.unescape(post.title)}
 					type={post.id ? "video" : "lazyLoad"}
 					url={`/video/${post.id}`}
 				/>
