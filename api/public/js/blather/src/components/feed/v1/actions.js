@@ -3,7 +3,7 @@ import request from "request"
 
 export const getFeed = ({ page }) => dispatch => {
 	request.get(
-		`${window.location.origin}/api/fallacies/search`,
+		`${window.location.origin}/api/home/feed`,
 		{
 			json: true,
 			qs: {

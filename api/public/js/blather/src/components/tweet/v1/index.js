@@ -115,6 +115,7 @@ class Tweet extends Component {
 			return (
 				<div>
 					<Image
+						bordered
 						circular
 						className="tweetUserImg"
 						floated="left"
