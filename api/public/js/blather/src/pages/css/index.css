@@ -300,7 +300,10 @@ a {
     margin-left: 0 !important;
     margin-right: 0 !important; }
     .feedPage .grid .feedRow {
-      word-break: break-word; } }
+      overflow-x: hidden;
+      word-break: break-word; }
+      .feedPage .grid .feedRow .tweet {
+        max-width: 300px; } }
 
 .feedPage .mostFallacious .feedEvent .meta {
   margin-top: 0 !important; }
