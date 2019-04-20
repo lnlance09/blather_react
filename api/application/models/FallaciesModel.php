@@ -825,17 +825,19 @@
                 p.type AS page_type,
                 p.username AS page_username,
 
-                u.name AS user_name, 
-                u.username AS user_username, 
-                CONCAT('".$this->s3Path."', u.img) AS user_img, 
+                u.name AS user_name,
+                u.username AS user_username,
+                CONCAT('".$this->s3Path."', u.img) AS user_img,
                 u.id AS user_id,
 
                 a.code AS archive_code,
                 a.object_id AS archive_object_id,
                 a.date_created AS archive_date_created,
 
-                GROUP_CONCAT(DISTINCT t.id SEPARATOR ', ') tag_ids, 
-                GROUP_CONCAT(DISTINCT t.value SEPARATOR ', ') AS tag_names, ";
+                GROUP_CONCAT(DISTINCT t.id SEPARATOR ', ') tag_ids,
+                GROUP_CONCAT(DISTINCT t.value SEPARATOR ', ') AS tag_names,
+
+                'fallacy' AS item_type ";
 
             if ($just_count) {
                 $select = 'COUNT(DISTINCT(fe.id)) AS count';

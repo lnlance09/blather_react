@@ -6,3 +6,7 @@
 
 .feed .content .extra p {
   cursor: pointer; }
+
+.feed .content .extra .videoImg {
+  cursor: pointer;
+  width: 200px !important; }

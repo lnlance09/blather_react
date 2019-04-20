@@ -94,13 +94,14 @@
 			}
 
 			$params = [];
-			$select = 'a.code, a.comment_id, a.date_created, a.description, a.end_time, a.id, a.link, a.network, a.start_time, a.type';
+			$select = 'a.code, a.comment_id, a.date_created, a.description, a.end_time, a.id, a.link, a.network, a.start_time, a.type, u.id AS user_id, u.name AS user_name, CONCAT("'.$this->s3Path.'", u.img) AS user_img, "archive" AS item_type ';
+
 			if ($just_count) {
 				$select = 'COUNT(*) AS count';
 			}
 
 			if (!$just_count && !$post) {
-				$select .= ', t.full_text, t.tweet_id, ytv.title, ytc.message, ytv.video_id, ytc.comment_id,
+				$select .= ', t.full_text, t.tweet_id, t.tweet_json, ytv.video_id, ytv.title, ytv.img AS video_img, ytc.comment_id, ytc.message,
 					p.name AS page_name';
 			}
 
@@ -110,10 +111,11 @@
 
 			$sql = 'SELECT '.$select.' 
 					FROM archived_links a
-					INNER JOIN pages p ON a.page_id = p.id ';
+					INNER JOIN pages p ON a.page_id = p.id
+					INNER JOIN users u ON a.user_id = u.id ';
 
 			if (!$post) {
-				$sql .= 'LEFT JOIN  twitter_posts t ON a.object_id = t.tweet_id AND a.type = "tweet" 
+				$sql .= ' LEFT JOIN  twitter_posts t ON a.object_id = t.tweet_id AND a.type = "tweet" 
 						LEFT JOIN youtube_videos ytv ON a.object_id = ytv.video_id AND a.type = "video"
 						LEFT JOIN youtube_comments ytc ON a.comment_id = ytc.comment_id AND a.object_id = ytc.video_id AND a.type = "comment" ';
 			}

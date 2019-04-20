@@ -1,16 +1,17 @@
 import "./style.css"
 import { getFeed } from "./actions"
-import { adjustTimezone } from "utils/dateFunctions"
+import { adjustTimezone, formatTime } from "utils/dateFunctions"
 import { formatGrammar } from "utils/textFunctions"
 import { connect } from "react-redux"
 import { Link } from "react-router-dom"
-import { Feed, Visibility } from "semantic-ui-react"
+import { Feed, Image, Visibility } from "semantic-ui-react"
 import ImagePic from "images/image-square.png"
 import LazyLoad from "components/lazyLoad/v1/"
 import Marked from "marked"
 import Moment from "react-moment"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
+import Tweet from "components/tweet/v1/"
 
 class FeedComponent extends Component {
 	constructor(props) {
@@ -50,10 +51,10 @@ class FeedComponent extends Component {
 	render() {
 		const RenderFeed = ({ props }) => {
 			return props.results.map((result, i) => {
-				const userLink = `/pages/${result.page_type}/${
-					result.page_type === "twitter" ? result.page_username : result.page_id
-				}`
-				if (result.id) {
+				if (result.id && result.item_type === "fallacy") {
+					let userLink = `/pages/${result.page_type}/${
+						result.page_type === "twitter" ? result.page_username : result.page_id
+					}`
 					return (
 						<Feed.Event key={`feed_${i}`}>
 							<Feed.Label
@@ -88,9 +89,119 @@ class FeedComponent extends Component {
 							</Feed.Content>
 						</Feed.Event>
 					)
-				} else {
-					return <LazyLoad key={`feed_${i}`} />
 				}
+
+				if (result.id && result.item_type === "archive") {
+					let tweet = result.type === "tweet" ? JSON.parse(result.tweet_json) : null
+					return (
+						<Feed.Event key={`feed_${i}`}>
+							<Feed.Label
+								image={result.user_img}
+								onClick={() => null}
+								onError={i => (i.target.src = ImagePic)}
+							/>
+							<Feed.Content>
+								<Feed.Summary>
+									<Link to={`/users/${result.user_id}`}>{result.user_name}</Link>{" "}
+									archived{" "}
+									{result.type === "video" && (
+										<span>
+											<Link
+												to={`/${result.type}/${result.video_id}?a=${
+													result.id
+												}`}
+											>
+												{formatTime(result.start_time)} -{" "}
+												{formatTime(result.end_time)}
+											</Link>{" "}
+											of{" "}
+											<Link to={`/${result.type}/${result.video_id}`}>
+												{result.title}
+											</Link>
+										</span>
+									)}
+									{result.type === "tweet" && (
+										<span>
+											a{" "}
+											<Link to={`/${result.type}/${result.tweet_id}`}>
+												{result.type}
+											</Link>
+										</span>
+									)}
+									<Feed.Date>
+										<Moment
+											date={adjustTimezone(result.date_created)}
+											fromNow
+										/>
+									</Feed.Date>
+								</Feed.Summary>
+								{result.type === "video" && (
+									<Feed.Extra images>
+										<Image
+											className="videoImg"
+											onClick={() =>
+												this.props.history.push(
+													`/video/${result.video_id}?a=${result.id}`
+												)
+											}
+											onError={i => (i.target.src = ImagePic)}
+											size="big"
+											src={
+												result.video_img
+													? result.video_img.replace(
+															"default",
+															"hqdefault"
+													  )
+													: null
+											}
+										/>
+									</Feed.Extra>
+								)}
+								{result.type === "tweet" && (
+									<Feed.Extra text>
+										<Tweet
+											created_at={tweet.created_at}
+											extended_entities={tweet.extended_entities}
+											full_text={tweet.full_text}
+											id={tweet.id_str}
+											imageSize="medium"
+											key={`tweet_key_${i}`}
+											is_quote_status={tweet.is_quote_status}
+											quoted_status={
+												tweet.quoted_status === undefined &&
+												tweet.is_quote_status
+													? tweet.retweeted_status
+													: tweet.quoted_status
+											}
+											quoted_status_id_str={tweet.quoted_status_id_str}
+											quoted_status_permalink={tweet.quoted_status_permalink}
+											redirect
+											retweeted_status={
+												tweet.retweeted_status === undefined
+													? false
+													: tweet.retweeted_status
+											}
+											stats={{
+												favorite_count: tweet.favorite_count,
+												retweet_count: tweet.retweet_count
+											}}
+											user={{
+												id: tweet.user.id,
+												name: tweet.user.name,
+												profile_image_url_https:
+													tweet.user.profile_image_url_https,
+												screen_name: tweet.user.screen_name
+											}}
+											{...this.props.history}
+										/>
+									</Feed.Extra>
+								)}
+							</Feed.Content>
+						</Feed.Event>
+					)
+				}
+
+				return <LazyLoad key={`feed_${i}`} />
 			})
 		}
 

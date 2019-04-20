@@ -12,12 +12,12 @@ export const adjustTimezone = date => {
 }
 
 export const dateDifference = (dateOne, dateTwo) => (
-	<div>
-		<Moment from={adjustTimezone(dateOne)} ago>
+	<span>
+		<Moment ago from={adjustTimezone(dateOne)}>
 			{adjustTimezone(dateTwo)}
 		</Moment>{" "}
 		{new Date(dateOne) > new Date(dateTwo) ? "prior" : "later"}
-	</div>
+	</span>
 )
 
 export const formatTime = secs => {
