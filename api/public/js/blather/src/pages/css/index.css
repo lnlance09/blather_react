@@ -300,7 +300,6 @@ a {
     margin-left: 0 !important;
     margin-right: 0 !important; }
     .feedPage .grid .feedRow {
-      overflow-x: hidden;
       word-break: break-word; } }
 
 .feedPage .mostFallacious .feedEvent .meta {
