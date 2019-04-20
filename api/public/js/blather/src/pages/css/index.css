@@ -303,7 +303,7 @@ a {
       overflow-x: hidden;
       word-break: break-word; }
       .feedPage .grid .feedRow .tweet {
-        max-width: 270px; } }
+        max-width: 290px !important; } }
 
 .feedPage .mostFallacious .feedEvent .meta {
   margin-top: 0 !important; }
