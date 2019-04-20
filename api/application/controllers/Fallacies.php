@@ -448,13 +448,21 @@
 				exit;
 			}
 
-			$data = [
+			if (empty($msg)) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'Your comment cannot be blank'
+				]);
+				exit;
+			}
+
+			$this->fallacies->createComment([
 				'created_at' => date('Y-m-d H:i:s'),
 				'fallacy_id' => $id,
 				'message' => strip_tags($msg),
 				'user_id' => $user->id
-			];
-			$this->fallacies->createComment($data);
+			]);
+
 			echo json_encode([
 				'comment' => [
 					'created_at' => date('Y-m-d H:i:s'),

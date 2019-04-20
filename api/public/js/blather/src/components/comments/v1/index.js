@@ -1,5 +1,5 @@
 import "./style.css"
-import { fetchComments, postComment } from "pages/actions/fallacy"
+import { fetchComments, postComment } from "./actions"
 import { adjustTimezone } from "utils/dateFunctions"
 import { connect } from "react-redux"
 import { Button, Comment, Form, Message } from "semantic-ui-react"
@@ -15,11 +15,12 @@ class CommentsSection extends Component {
 		this.state = {
 			message: ""
 		}
+
 		this.onChangeMessage = this.onChangeMessage.bind(this)
 		this.onSubmitForm = this.onSubmitForm.bind(this)
 	}
 
-	componentWillMount() {
+	componentDidMount() {
 		this.props.fetchComments({
 			id: this.props.id,
 			page: 0
@@ -43,6 +44,7 @@ class CommentsSection extends Component {
 		const { message } = this.state
 		const placeholder =
 			this.props.comments.count === 0 ? "Be the first to comment..." : "Add a comment..."
+
 		const RenderComments = props => {
 			if (props.comments.count > 0) {
 				return props.comments.results.map((comment, i) => {
@@ -124,7 +126,7 @@ CommentsSection.defaultProps = {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-	...state.fallacy,
+	...state.fallacyComments,
 	...ownProps
 })
 

@@ -4,6 +4,7 @@ const initial = () => ({})
 
 const fallacy = (state = initial(), action) => {
 	const payload = action.payload
+
 	switch (action.type) {
 		case constants.CREATE_FALLACY_VIDEO:
 			return {
@@ -305,15 +306,6 @@ const fallacy = (state = initial(), action) => {
 				explanation: payload.explanation
 			}
 
-		case constants.GET_COMMENTS:
-			return {
-				...state,
-				comments: {
-					count: payload.count,
-					results: payload.comments
-				}
-			}
-
 		case constants.GET_FALLACY_COMMENT_COUNT:
 			return {
 				...state,
@@ -325,18 +317,6 @@ const fallacy = (state = initial(), action) => {
 				...state,
 				conversation: payload.conversation,
 				convoLoading: false
-			}
-
-		case constants.POST_COMMENT:
-			const comments = state.comments.results
-				? [payload.comment, ...state.comments.results]
-				: payload.comment
-			return {
-				...state,
-				comments: {
-					count: state.comments.count + 1,
-					results: comments
-				}
 			}
 
 		case constants.REMOVE_FALLACY_TAG:

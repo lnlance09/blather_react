@@ -2,6 +2,7 @@ import { combineReducers } from "redux"
 import about from "pages/reducers/about"
 import archives from "components/archivesList/v1/reducer"
 import fallacy from "pages/reducers/fallacy"
+import fallacyComments from "components/comments/v1/reducer"
 import fallacyForm from "components/fallacyForm/v1/reducer"
 import fallacies from "components/fallaciesList/v1/reducer"
 import feed from "components/feed/v1/reducer"
@@ -24,6 +25,7 @@ export default combineReducers({
 	archives,
 	fallacies,
 	fallacy,
+	fallacyComments,
 	fallacyForm,
 	feed,
 	newsFeed,
