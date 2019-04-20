@@ -511,7 +511,12 @@ a {
             margin-right: 0 !important;
 
             .feedRow {
+                overflow-x: hidden;
                 word-break: break-word;
+
+                .tweet {
+                    max-width: 300px;
+                }
             }
         }
     }
