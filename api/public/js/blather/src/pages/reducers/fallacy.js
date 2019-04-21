@@ -286,6 +286,7 @@ const fallacy = (state = initial(), action) => {
 				originalPayload,
 				pageTitle,
 				refId,
+				retracted: fallacy.retracted,
 				s3Link: fallacy.s3_link,
 				screenshotEl,
 				status: parseInt(fallacy.status, 10),
@@ -331,6 +332,12 @@ const fallacy = (state = initial(), action) => {
 				...state,
 				tag_ids: tagIds.join(","),
 				tag_names: tagNames.join(",")
+			}
+
+		case constants.RETRACT_LOGIC:
+			return {
+				...state,
+				retracted: true
 			}
 
 		case constants.SET_FALLACY_TAGS:

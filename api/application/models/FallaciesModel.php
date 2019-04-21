@@ -103,6 +103,21 @@
             return $id;
         }
 
+        public function canRetract($fallacy_id, $page_id) {
+            $this->db->select('page_id');
+            $this->db->where('id', $fallacy_id);
+            $result = $this->db->get('fallacy_entries')->result_array();
+            if (count($result) === 0) {
+                return false;
+            }
+
+            if ($result[0]['page_id'] == $page_id) {
+                return true;
+            }
+
+            return false;
+        }
+
         public function contradictionExists($id) {
             $this->db->select('id');
             $this->db->where('fallacy_entry_id', $id);
@@ -413,14 +428,14 @@
          */
         public function getComments($id, $page = null, $just_count = false) {
             $select = "f.created_at, f.message, f.user_id, CONCAT('".$this->s3Path."', u.img) AS img, u.name, u.username";
-            if($just_count) {
+            if ($just_count) {
                 $select = 'COUNT(*) AS count';
             }
 
             $this->db->select($select);
             $this->db->join('users u', 'f.user_id=u.id');
             $this->db->where('fallacy_id', $id);
-            if(!$just_count) {
+            if (!$just_count) {
                 $this->db->order_by('created_at', 'DESC');
                 if($page !== null) {
                     $perPage = 10;
@@ -429,7 +444,7 @@
             }
 
             $query = $this->db->get('fallacy_comments f');
-            if($just_count) {
+            if ($just_count) {
                 $result = $query->result_array();
                 return $result[0]['count'];
             }
@@ -461,6 +476,7 @@
                 fe.highlighted_text,
                 fe.media_id,
                 fe.network,
+                fe.retracted,
                 CONCAT('".$this->s3Path."', fe.s3_link) AS s3_link,
                 fe.start_time,
                 fe.status,

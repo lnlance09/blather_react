@@ -127,6 +127,29 @@ export const removeFallacyTag = ({ bearer, id, tagId, tagName }) => dispatch => 
 	)
 }
 
+export const retractLogic = ({ bearer, id, type }) => dispatch => {
+	request.post(
+		`${window.location.origin}/api/fallacies/retractLogic`,
+		{
+			form: {
+				id,
+				type
+			},
+			headers: {
+				Authorization: bearer
+			},
+			json: true
+		},
+		function(err, response, body) {
+			if (!body.error) {
+				dispatch({
+					type: constants.RETRACT_LOGIC
+				})
+			}
+		}
+	)
+}
+
 export const setTags = ({ value, text }) => dispatch => {
 	dispatch({
 		type: constants.SET_FALLACY_TAGS,

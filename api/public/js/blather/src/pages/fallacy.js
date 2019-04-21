@@ -5,6 +5,7 @@ import {
 	createVideoFallacy,
 	fetchCommentCount,
 	fetchFallacy,
+	retractLogic,
 	toggleCreateMode,
 	updateFallacy
 } from "pages/actions/fallacy"
@@ -32,6 +33,7 @@ import FallacyExample from "components/fallacyExample/v1/"
 import FallaciesList from "components/fallaciesList/v1/"
 import FallacyRef from "components/fallacyRef/v1/"
 import html2canvas from "html2canvas"
+import ImagePic from "images/image-square.png"
 import Moment from "react-moment"
 import PageFooter from "components/footer/v1/"
 import PageHeader from "components/header/v1/"
@@ -51,7 +53,9 @@ class Fallacy extends Component {
 		const currentState = store.getState()
 		const auth = currentState.user.authenticated
 		const bearer = currentState.user.bearer
+		const twitterId = currentState.user.data.twitterId
 		const userId = parseInt(currentState.user.data.id, 10)
+		const youtubeId = currentState.user.data.youtubeId
 
 		if (!tabs.includes(tab)) {
 			tab = "material"
@@ -68,8 +72,10 @@ class Fallacy extends Component {
 			id,
 			show: false,
 			tabs,
+			twitterId,
 			userId,
-			value: ""
+			value: "",
+			youtubeId
 		}
 
 		this.captureScreenshot = this.captureScreenshot.bind(this)
@@ -230,6 +236,14 @@ class Fallacy extends Component {
 		}
 	}
 
+	retractLogic = () => {
+		this.props.retractLogic({
+			bearer: this.state.bearer,
+			id: this.state.id,
+			type: this.props.user.type
+		})
+	}
+
 	showImage = () => this.setState({ show: true })
 
 	render() {
@@ -241,16 +255,20 @@ class Fallacy extends Component {
 			exportArticle,
 			exportOpt,
 			id,
-			userId
+			twitterId,
+			userId,
+			youtubeId
 		} = this.state
+		const { createdBy, user } = this.props
+		const canEdit = createdBy ? createdBy.id === userId : false
 
-		const canEdit = this.props.createdBy ? this.props.createdBy.id === userId : false
+		let userLink = ""
+		if (user) {
+			userLink = `/pages/${user.type}/${user.type === "twitter" ? user.username : user.id}`
+		}
 
 		const ContactUser = props => {
 			if (props.user) {
-				const userLink = `/pages/${props.user.type}/${
-					props.user.type === "twitter" ? props.user.username : props.user.id
-				}`
 				return (
 					<div className="statusActionSegment">
 						<Header size="tiny">
@@ -305,8 +323,8 @@ class Fallacy extends Component {
 											<Radio
 												checked={exportOpt === "screenshot"}
 												label={`Screenshot just the ${exportArticle}(s)`}
-												onChange={this.handleExportChange}
 												name="exportOption"
+												onChange={this.handleExportChange}
 												value="screenshot"
 											/>
 										</Form.Field>
@@ -314,8 +332,8 @@ class Fallacy extends Component {
 											<Radio
 												checked={exportOpt === "screenshotAll"}
 												label={`Screenshot the ${exportArticle}(s) plus the explanation`}
-												onChange={this.handleExportChange}
 												name="exportOption"
+												onChange={this.handleExportChange}
 												value="screenshotAll"
 											/>
 										</Form.Field>
@@ -328,8 +346,8 @@ class Fallacy extends Component {
 													checked={exportOpt === "video"}
 													disabled={!props.canMakeVideo}
 													label="Download a video"
-													onChange={this.handleExportChange}
 													name="exportOption"
+													onChange={this.handleExportChange}
 													value="video"
 												/>
 											</Form.Field>
@@ -430,11 +448,78 @@ class Fallacy extends Component {
 			)
 		}
 
+		const RetractionSegment = props => (
+			<div className="">
+				{props.user && (
+					<Container>
+						{props.retracted ? (
+							<div>
+								<Message
+									content={`${
+										props.user.name
+									} has admitted that this is poor reasoning.`}
+									header={`Nice job, ${props.user.name}!`}
+									icon="thumbs up"
+									success
+								/>
+							</div>
+						) : (
+							<div>
+								{props.user.id === twitterId || props.user.id === youtubeId ? (
+									<div>
+										<Message
+											content="You have an opportunity to show your followers that you care enough about intellectual honesty to admit you were wrong."
+											header={`Congratulation, ${props.user.name}!`}
+										/>
+										<Button
+											color="green"
+											content="Yes, I admit this was poor reasoning."
+											fluid
+											icon="check"
+											onClick={this.retractLogic}
+										/>
+									</div>
+								) : (
+									<div>
+										<Message
+											content="How they respond to being called out should tell you everything you need to know."
+											header={`Is ${
+												props.user.name
+											} a grifter or just naive?`}
+										/>
+										<p>
+											<Image
+												avatar
+												bordered
+												circular
+												onError={i => (i.target.src = ImagePic)}
+												src={props.user.img}
+											/>{" "}
+											<b>
+												<Link to={userLink}>{props.user.name}</Link> still
+												hasn't admitted that they've used erroneous logic.
+											</b>
+										</p>
+									</div>
+								)}
+							</div>
+						)}
+					</Container>
+				)}
+			</div>
+		)
+
 		const MaterialRow = (
 			<div className="materialRow">
 				<Grid.Row>{ExportSection(this.props)}</Grid.Row>
 				<Divider className="seperator" />
-				<Grid.Row>{ContactUser(this.props)}</Grid.Row>
+				<Grid.Row>{RetractionSegment(this.props)}</Grid.Row>
+				{!this.props.retracted && (
+					<div>
+						<Divider className="seperator" />
+						<Grid.Row>{ContactUser(this.props)}</Grid.Row>
+					</div>
+				)}
 			</div>
 		)
 
@@ -588,6 +673,8 @@ Fallacy.propTypes = {
 	}),
 	pageTitle: PropTypes.string,
 	refId: PropTypes.number,
+	retracted: PropTypes.bool,
+	retractLogic: PropTypes.func,
 	s3Link: PropTypes.string,
 	status: PropTypes.number,
 	screenshotEl: PropTypes.string,
@@ -615,6 +702,7 @@ Fallacy.defaultProps = {
 	fallacyCount: 0,
 	fetchCommentCount,
 	fetchFallacy,
+	retractLogic,
 	toggleCreateMode
 }
 
@@ -631,6 +719,7 @@ export default connect(
 		createVideoFallacy,
 		fetchCommentCount,
 		fetchFallacy,
+		retractLogic,
 		toggleCreateMode,
 		updateFallacy
 	}
