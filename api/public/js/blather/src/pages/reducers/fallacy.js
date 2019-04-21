@@ -278,7 +278,7 @@ const fallacy = (state = initial(), action) => {
 				},
 				endTime: fallacy.end_time,
 				error: false,
-				explanation: fallacy.explanation,
+				explanation: parseInt(fallacy.explanation, 10),
 				fallacyId: parseInt(fallacy.fallacy_id, 10),
 				fallacyName: fallacy.fallacy_name,
 				highlightedText: fallacy.highlighted_text === "" ? null : fallacy.highlighted_text,
