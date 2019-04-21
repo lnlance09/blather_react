@@ -520,6 +520,10 @@ a {
         }
     }
 
+    .ui.feed > .event > .content .meta {
+        margin-top: 0;
+    }
+
     .mostFallacious {
         .feedEvent .meta {
             margin-top: 0 !important;
