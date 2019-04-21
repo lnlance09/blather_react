@@ -100,7 +100,10 @@ class ResultItem extends Component {
 					{props.useMarked ? (
 						<Item.Description
 							dangerouslySetInnerHTML={{
-								__html: Marked(props.description)
+								__html:
+									props.description !== undefined && props.description !== null
+										? Marked(props.description)
+										: null
 							}}
 						/>
 					) : (
