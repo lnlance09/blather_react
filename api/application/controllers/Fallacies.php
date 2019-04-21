@@ -508,6 +508,47 @@
 			]);
 		}
 
+		public function retractLogic() {
+			$id = $this->input->post('id');
+			$type = $this->input->post('type');
+
+			$user = $this->user;
+			if (!$user) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'You must be logged in'
+				]);
+				exit;
+			}
+
+			if (empty($id)) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'You must include a fallacy ID'
+				]);
+				exit;
+			}
+
+			$page_id = $type == 'twitter' ? $user->twitterId : $user->youtubeId;
+			$can_retract = $this->fallacies->canRetract($id, $page_id);
+
+			if (!$can_retract) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'You do not have permission to retract this logic'
+				]);
+				exit;
+			}
+
+			$this->fallacies->update($id, [
+				'retracted' => 1
+			]);
+
+			echo json_encode([
+				'error' => false
+			]);
+		}
+
 		public function search() {
 			$page = $this->input->get('page');
 			$results = null;
