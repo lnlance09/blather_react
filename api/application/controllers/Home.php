@@ -44,7 +44,7 @@
 			$pages = ceil($count/$limit);
 
 			usort($results, function($a, $b) {
-				return $a['date_created'] <=> $b['date_created'];
+				return $b['date_created'] <=> $a['date_created'];
 			});
 
 			echo json_encode([
