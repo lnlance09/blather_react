@@ -164,7 +164,6 @@ class FeedComponent extends Component {
 											extended_entities={tweet.extended_entities}
 											full_text={tweet.full_text}
 											id={tweet.id_str}
-											imageSize="medium"
 											key={`tweet_key_${i}`}
 											is_quote_status={tweet.is_quote_status}
 											quoted_status={

@@ -304,6 +304,9 @@ a {
       .feedPage .grid .feedRow .tweet {
         max-width: 300px !important; } }
 
+.feedPage .ui.feed > .event > .content .meta {
+  margin-top: 0; }
+
 .feedPage .mostFallacious .feedEvent .meta {
   margin-top: 0 !important; }
 
