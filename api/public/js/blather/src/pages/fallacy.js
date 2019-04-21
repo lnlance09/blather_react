@@ -449,9 +449,9 @@ class Fallacy extends Component {
 		}
 
 		const RetractionSegment = props => (
-			<div className="">
+			<div>
 				{props.user && (
-					<Container>
+					<Container className="retractionContainer">
 						{props.retracted ? (
 							<div>
 								<Message

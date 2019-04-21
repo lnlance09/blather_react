@@ -293,7 +293,9 @@ a {
   .fallacyPage .statusActionSegment .twitterButton, .fallacyPage .statusActionSegment .youtubeButton {
     font-size: 12px; }
   .fallacyPage .row {
-    padding-bottom: 0 !important; } }
+    padding-bottom: 0 !important; }
+  .fallacyPage .retractionContainer {
+    margin: 0 !important; } }
 
 @media only screen and (max-width: 1025px) {
   .feedPage .grid {
