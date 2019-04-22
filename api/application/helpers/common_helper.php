@@ -145,6 +145,12 @@
 		if (count($matches) > 1) {
 			return ($matches[1]*3600)+($matches[2]*60);
 		}
+
+		preg_match("/PT(\d+)S/", $duration, $matches);
+		if (count($matches) > 1) {
+			return $matches[1];
+		}
+
 		return null;
 	}
 
