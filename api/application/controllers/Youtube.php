@@ -85,21 +85,6 @@
 			$error = false;
 
 			$output_file = 'youtube_videos/'.$id.'_'.$start_time.'_'.$end_time.'.mp4';
-			$input = [
-				[
-					'name' => 'youtube_videos/'.$id.'.mp4',
-					'start_time' => gmdate('H:i:s', $start_time),
-					'duration' => gmdate('H:i:s', $end_time-$start_time)
-				]
-			];
-			$output = [
-				'name' => $output_file,
-				'start_time' => null,
-				'duration' => null,
-				'thumbnail' => false
-			];
-			$this->media->createVideo($input, $output);
-
 			$data = [
 				'code' => null,
 				'description' => $description,

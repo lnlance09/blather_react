@@ -519,7 +519,7 @@ class FallacyForm extends Component {
 			<Provider store={store}>
 				<Card className="fallacyForm" fluid raised>
 					<Card.Content>
-						<Card.Header>Does this make sense?</Card.Header>
+						<Card.Header className="formHeader">Does this make sense?</Card.Header>
 						<Card.Meta>Assign a fallacy</Card.Meta>
 					</Card.Content>
 					<Card.Content>
@@ -571,6 +571,7 @@ class FallacyForm extends Component {
 							{this.props.authenticated ? (
 								<Button
 									color={this.props.network}
+									compact
 									content="Assign a fallacy"
 									fluid
 									type="submit"
@@ -578,6 +579,7 @@ class FallacyForm extends Component {
 							) : (
 								<Button
 									color="blue"
+									compact
 									content="Sign in"
 									fluid
 									icon="sign in"

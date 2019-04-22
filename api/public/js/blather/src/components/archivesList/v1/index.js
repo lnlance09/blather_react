@@ -120,7 +120,7 @@ class ArchivesList extends Component {
 							archive.end_time
 						)} - ${archive.description}`,
 						img: archive.profile_pic,
-						link: `/video/${archive.video_id}?a=${archive.id}`,
+						link: `/video/${archive.video_id}?a=${archive.id}&x=${archive.start_time}&y=${archive.end_time}`,
 						title: archive.title
 					}
 				default:

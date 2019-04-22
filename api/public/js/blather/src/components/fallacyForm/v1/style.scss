@@ -2,19 +2,7 @@
 
 .fallacyForm {
     .formHeader {
-        font-size: 24px !important;
-    }
-
-    .segment.basic {
-        padding: 0;
-
-        @media only screen and (max-width: 1025px) {
-            .equal.width.fields {
-                .field {
-                    width: 49% !important;
-                }
-            }
-        }
+        font-size: 18px !important;
     }
 
     .field.startTime, .field.contradictionStartTime {
