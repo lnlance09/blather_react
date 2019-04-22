@@ -109,7 +109,7 @@ class FeedComponent extends Component {
 											<Link
 												to={`/${result.type}/${result.video_id}?a=${
 													result.id
-												}`}
+												}&x=${result.start_time}&y=${result.end_time}`}
 											>
 												{formatTime(result.start_time)} -{" "}
 												{formatTime(result.end_time)}
@@ -141,7 +141,7 @@ class FeedComponent extends Component {
 											className="videoImg"
 											onClick={() =>
 												this.props.history.push(
-													`/video/${result.video_id}?a=${result.id}`
+													`/video/${result.video_id}?a=${result.id}&x=${result.start_time}&y=${result.end_time}`
 												)
 											}
 											onError={i => (i.target.src = ImagePic)}

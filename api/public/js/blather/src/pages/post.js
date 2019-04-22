@@ -35,13 +35,24 @@ class Post extends Component {
 		const path = this.props.match.path
 		const qs = queryString.parse(this.props.location.search)
 
-		let a = ""
 		let id = this.props.match.params.id
 		if (id.substring(id.length - 1, id.length) === "&") {
 			id = id.slice(0, -1)
 		}
+
+		let a = ""
 		if (qs.a) {
 			a = qs.a
+		}
+
+		let startTime = "00:00:00"
+		if (qs.x) {
+			startTime = qs.x
+		}
+
+		let endTime = "00:00:00"
+		if (qs.y) {
+			endTime = qs.y
 		}
 
 		const currentState = store.getState()
@@ -52,11 +63,11 @@ class Post extends Component {
 			a,
 			auth,
 			bearer,
-			endTime: "00:00:00",
+			endTime,
 			highlightedText: "",
 			id,
 			network,
-			startTime: "00:00:00",
+			startTime,
 			submitted: false,
 			type
 		}
@@ -91,6 +102,16 @@ class Post extends Component {
 			a = qs.a
 		}
 
+		let startTime = "00:00:00"
+		if (qs.x) {
+			startTime = qs.x
+		}
+
+		let endTime = "00:00:00"
+		if (qs.y) {
+			endTime = qs.y
+		}
+
 		if (this.state.id !== id) {
 			const currentState = store.getState()
 			const auth = currentState.user.authenticated
@@ -99,8 +120,10 @@ class Post extends Component {
 			this.setState({
 				auth,
 				bearer,
+				endTime,
 				id,
 				network,
+				startTime,
 				type
 			})
 
@@ -434,6 +457,7 @@ class Post extends Component {
 						return <LazyLoad />
 					}
 				case "video":
+					console.log(startTime)
 					if (props.info && videoExists) {
 						return (
 							<div>
@@ -445,6 +469,7 @@ class Post extends Component {
 									channel={props.info.channel}
 									dateCreated={props.info.date_created}
 									description={props.info.description}
+									endTime={endTime}
 									existsOnYt={props.existsOnYt}
 									history={props.history}
 									id={props.info.id}
@@ -455,6 +480,7 @@ class Post extends Component {
 									setClip={this.setClip}
 									showComments
 									showStats={false}
+									startTime={startTime}
 									stats={props.info.stats}
 									title={props.info.title}
 								/>

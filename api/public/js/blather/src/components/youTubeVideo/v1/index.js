@@ -51,7 +51,7 @@ class YouTubeVideo extends Component {
 			archiveVisible: false,
 			auth,
 			currentState,
-			currentTime: 0,
+			currentTime: this.props.startTime,
 			playing: true,
 			user
 		}
@@ -72,6 +72,7 @@ class YouTubeVideo extends Component {
 
 	componentDidMount() {
 		this.setState({ archiveVisible: !this.props.archive })
+		// this.player.seekTo(this.props.st)
 	}
 
 	componentWillReceiveProps(props) {
