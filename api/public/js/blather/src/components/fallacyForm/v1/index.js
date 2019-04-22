@@ -576,21 +576,14 @@ class FallacyForm extends Component {
 									type="submit"
 								/>
 							) : (
-								<Button.Group fluid>
-									<Button
-										content="Assign anonymously"
-										icon="spy"
-										secondary
-										type="submit"
-									/>
-									<Button.Or />
-									<Button
-										content="Sign up"
-										icon="sign in"
-										primary
-										onClick={() => this.props.history.push("/signin")}
-									/>
-								</Button.Group>
+								<Button
+									color="blue"
+									content="Sign in"
+									fluid
+									icon="sign in"
+									onClick={() => this.props.history.push("/signin")}
+									primary
+								/>
 							)}
 							<div className="clearfix" />
 						</Form>
