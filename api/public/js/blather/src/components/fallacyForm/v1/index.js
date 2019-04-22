@@ -15,6 +15,7 @@ import { refreshYouTubeToken } from "components/authentication/v1/actions"
 import { connect, Provider } from "react-redux"
 import {
 	Button,
+	Card,
 	Divider,
 	Dropdown,
 	Form,
@@ -48,7 +49,7 @@ class FallacyForm extends Component {
 			explanation: "",
 			formVisible: false,
 			highlightedText: "",
-			id: "21",
+			id: "1",
 			title: "",
 			url: "",
 			visible: true
@@ -86,7 +87,7 @@ class FallacyForm extends Component {
 	closeModal = () => {
 		this.setState({
 			explanation: "",
-			id: "21",
+			id: "1",
 			title: "",
 			url: ""
 		})
@@ -517,83 +518,86 @@ class FallacyForm extends Component {
 
 		return (
 			<Provider store={store}>
-				<div className="fallacyForm">
-					<Header dividing size="large">
-						Does this make sense?
-						<Header.Subheader>Assign a fallacy</Header.Subheader>
-					</Header>
-					<Form
-						className="form basic segment"
-						error={this.props.fallacyFormError || cError || !cValid}
-						onSubmit={this.onSubmitForm}
-					>
-						{canAssign && (
-							<div>
-								{StartTime(this.props)}
-								<div className="selectAssignee">{SelectAssignee(this.props)}</div>
-							</div>
-						)}
-						<Form.Field>
-							<Dropdown
-								className="fallacyDropdown"
-								defaultValue={id}
-								fluid
-								onChange={this.onChangeFallacy}
-								options={fallacyDropdownOptions}
-								placeholder="Select a fallacy"
-								search
-								selection
-							/>
-						</Form.Field>
-						{ContradictionInput(this.props)}
-						<Divider />
-						<Form.Field>
-							<Input
-								className="titleField"
-								fluid
-								onChange={this.onChangeTitle}
-								placeholder="Title"
-								value={title}
-							/>
-						</Form.Field>
-						<Form.Field className="explanationField">
-							<TextArea
-								autoHeight
-								onChange={this.onChangeExplanation}
-								placeholder="Explain how this is a fallacy"
-								rows={5}
-								value={explanation}
-							/>
-						</Form.Field>
-						<ErrorMsg props={this.props} />
-						{this.props.authenticated ? (
-							<Button
-								color={this.props.network}
-								content="Assign a fallacy"
-								fluid
-								type="submit"
-							/>
-						) : (
-							<Button.Group fluid>
+				<Card className="fallacyForm" fluid raised>
+					<Card.Content>
+						<Card.Header>
+							Does this make sense?
+						</Card.Header>
+						<Card.Meta>Assign a fallacy</Card.Meta>
+					</Card.Content>
+					<Card.Content>
+						<Form
+							error={this.props.fallacyFormError || cError || !cValid}
+							onSubmit={this.onSubmitForm}
+						>
+							{canAssign && (
+								<div>
+									{StartTime(this.props)}
+									<div className="selectAssignee">{SelectAssignee(this.props)}</div>
+								</div>
+							)}
+							<Form.Field>
+								<Dropdown
+									className="fallacyDropdown"
+									defaultValue={id}
+									fluid
+									onChange={this.onChangeFallacy}
+									options={fallacyDropdownOptions}
+									placeholder="Select a fallacy"
+									search
+									selection
+								/>
+							</Form.Field>
+							{ContradictionInput(this.props)}
+							<Divider />
+							<Form.Field>
+								<Input
+									className="titleField"
+									fluid
+									onChange={this.onChangeTitle}
+									placeholder="Title"
+									value={title}
+								/>
+							</Form.Field>
+							<Form.Field className="explanationField">
+								<TextArea
+									autoHeight
+									onChange={this.onChangeExplanation}
+									placeholder="Explain how this is a fallacy"
+									rows={5}
+									value={explanation}
+								/>
+							</Form.Field>
+							<ErrorMsg props={this.props} />
+							{this.props.authenticated ? (
 								<Button
-									content="Assign anonymously"
-									icon="spy"
-									secondary
+									color={this.props.network}
+									content="Assign a fallacy"
+									fluid
 									type="submit"
 								/>
-								<Button.Or />
-								<Button
-									content="Sign up"
-									icon="sign in"
-									primary
-									onClick={() => this.props.history.push("/signin")}
-								/>
-							</Button.Group>
-						)}
-						<div className="clearfix" />
-					</Form>
-					<div>{SuccessModal(this.props)}</div>
-				</div>
+							) : (
+								<Button.Group fluid>
+									<Button
+										content="Assign anonymously"
+										icon="spy"
+										secondary
+										type="submit"
+									/>
+									<Button.Or />
+									<Button
+										content="Sign up"
+										icon="sign in"
+										primary
+										onClick={() => this.props.history.push("/signin")}
+									/>
+								</Button.Group>
+							)}
+							<div className="clearfix" />
+						</Form>
+					</Card.Content>
+				</Card>
+				<div>{SuccessModal(this.props)}</div>
 			</Provider>
 		)
 	}

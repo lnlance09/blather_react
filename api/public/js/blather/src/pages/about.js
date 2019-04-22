@@ -152,22 +152,6 @@ class About extends Component {
 				</p>
 
 				<Header as="p" size="small">
-					Discussions
-				</Header>
-				<p>
-					Discussions happen in a format that helps facilitate a genuine understanding of
-					what the opposing side has to say instead of just hurling insults and buzz
-					words. Only one respone at a time can be made. Discussions cannot be edited.
-					This is done to prevent people from moving the goal posts. If someone is
-					genuinely interested in hearing what you have to say and they're aren't trying
-					to catch you in a "gotcha" moment then they should grant you opportunity to
-					clarify your position. Discussions don't always work well and sometimes the
-					evidence presented isn't enough to genuinely convince someone and that is
-					perfectly fine. But, an honest attempt to understand the opposing side's point
-					of view is a must.
-				</p>
-
-				<Header as="p" size="small">
 					Fallacies
 				</Header>
 				<p>
