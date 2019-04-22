@@ -19,7 +19,6 @@ import {
 	Divider,
 	Dropdown,
 	Form,
-	Header,
 	Icon,
 	Input,
 	Message,
@@ -520,9 +519,7 @@ class FallacyForm extends Component {
 			<Provider store={store}>
 				<Card className="fallacyForm" fluid raised>
 					<Card.Content>
-						<Card.Header>
-							Does this make sense?
-						</Card.Header>
+						<Card.Header>Does this make sense?</Card.Header>
 						<Card.Meta>Assign a fallacy</Card.Meta>
 					</Card.Content>
 					<Card.Content>
@@ -533,7 +530,9 @@ class FallacyForm extends Component {
 							{canAssign && (
 								<div>
 									{StartTime(this.props)}
-									<div className="selectAssignee">{SelectAssignee(this.props)}</div>
+									<div className="selectAssignee">
+										{SelectAssignee(this.props)}
+									</div>
 								</div>
 							)}
 							<Form.Field>
