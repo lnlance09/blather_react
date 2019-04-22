@@ -268,15 +268,6 @@ class YouTubeVideo extends Component {
 																as="a"
 																onClick={e => {
 																	e.stopPropagation()
-																	this.openDownloadLink(a.s3_link)
-																}}
-															>
-																Download
-															</List.Item>
-															<List.Item
-																as="a"
-																onClick={e => {
-																	e.stopPropagation()
 																	props.setClip(
 																		a.start_time,
 																		a.end_time
