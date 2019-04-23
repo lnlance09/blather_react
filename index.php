@@ -208,7 +208,7 @@
                             ],
                             "datePublished" => $createdAt,
                             "headline" => $fallacyTitle,
-                            "image" => "",
+                            "image" => $img,
                             "isBasedOn" => $isBasedOn,
                             "name" => $title,
                             "text" => $explanation,
@@ -243,7 +243,7 @@
                             "itemListElement" => [
                                 [
                                     "@type" => "ListItem",
-                                    "item" => $base_url,
+                                    "item" => $base_url."fallacies",
                                     "name" => "Fallacies",
                                     "position" => 1
                                 ],
@@ -429,6 +429,7 @@
                             "url" => "https://blather.io/pages/twitter/".$username
                         ],
                         "headline" => $title,
+                        "image" => $img,
                         "sameAs" => "https://twitter.com/".$username."/status/".$id,
                         "text" => $fullText
                     ];
