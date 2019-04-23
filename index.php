@@ -219,7 +219,8 @@
                                 "@type" => "VideoObject",
                                 "description" => $explanation,
                                 "name" => $title,
-                                "thumbnail" => $s3Path."thumbnail.jpg",
+                                "uploadDate" => $createdAt,
+                                "thumbnailUrl" => $s3Path."thumbnail.jpg",
                                 "url" => $s3Path.$s3Link
                             ];
                         }
