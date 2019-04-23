@@ -59,7 +59,7 @@ class Aws {
 			'Output' => [
 				'Key' => $output['name'],
 				'Rotate' => '0',
-				'PresetId' => '1554998959681-aukds6',
+				'PresetId' => '1556047671318-ockbm9',
 				// 'ThumbnailPattern' => 'string',
 				// 'ThumbnailEncryption' => $encryption,
 				// 'SegmentDuration' => '00:00:12',
@@ -76,11 +76,6 @@ class Aws {
 
 		if (array_key_exists('watermark', $output)) {
 			$data['Output']['Watermarks'] = [
-				[
-					'PresetWatermarkId' => 'TopLeft',
-					'InputKey' => 'watermark.png',
-					// 'Encryption' => $this->encryption
-				],
 				[
 					'PresetWatermarkId' => 'TopRight',
 					'InputKey' => $output['watermark'],

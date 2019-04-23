@@ -155,10 +155,10 @@
                 $id.'.png',
                 'blather.io/fallacies/'.$id,
                 600,
-                60,
+                50,
                 [255, 255, 255],
                 [255, 255, 255],
-                24,
+                18,
                 true,
                 false,
                 'public/fonts/Courier-BoldRegular.ttf'

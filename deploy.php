@@ -9,7 +9,7 @@
     $new_media_files = array_slice(scandir($js_dir.'media/'), 2);
     $file = file_get_contents('index.php');
 
-    for($i=0;$i<count($new_css_files);$i++) {
+    for ($i=0;$i<count($new_css_files);$i++) {
         $content = file_get_contents($js_dir.'css/'.$new_css_files[$i]);
         file_put_contents('static/css/'.$new_css_files[$i], $content);
         if ($css_files[$i] !== $new_css_files[$i]) {
@@ -18,7 +18,7 @@
         $file = str_replace($css_files[$i], $new_css_files[$i], $file);
     }
 
-    for($i=0;$i<count($new_js_files);$i++) {
+    for ($i=0;$i<count($new_js_files);$i++) {
         $content = file_get_contents($js_dir.'js/'.$new_js_files[$i]);
         file_put_contents('static/js/'.$new_js_files[$i], $content);
         if ($js_files[$i] !== $new_js_files[$i]) {
@@ -27,7 +27,7 @@
         $file = str_replace($js_files[$i], $new_js_files[$i], $file);
     }
 
-    for($i=0;$i<count($new_media_files);$i++) {
+    for ($i=0;$i<count($new_media_files);$i++) {
         $content = file_get_contents($js_dir.'media/'.$new_media_files[$i]);
         file_put_contents('static/media/'.$new_media_files[$i], $content);
         if ($media_files[$i] !== $new_media_files[$i] && !empty($media_files[$i])) {
