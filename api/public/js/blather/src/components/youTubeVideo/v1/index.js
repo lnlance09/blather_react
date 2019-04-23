@@ -365,7 +365,8 @@ class YouTubeVideo extends Component {
 						<div>
 							<ReactPlayer
 								className="videoPlayer"
-								controls
+								controls={this.props.controls}
+								loop={this.props.loop}
 								onDuration={e => this.props.setDuration({ duration: e })}
 								onError={this.showBackupMsg}
 								onProgress={this.setTime}
@@ -476,6 +477,7 @@ YouTubeVideo.propTypes = {
 	changeEndTime: PropTypes.func,
 	changeStartTime: PropTypes.func,
 	contradiction: PropTypes.bool,
+	controls: PropTypes.bool,
 	createVideoArchive: PropTypes.func,
 	currentTime: PropTypes.number,
 	dateCreated: PropTypes.string,
@@ -484,6 +486,7 @@ YouTubeVideo.propTypes = {
 	endTime: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 	existsOnYt: PropTypes.bool,
 	id: PropTypes.string,
+	loop: PropTypes.bool,
 	myArchives: PropTypes.array,
 	playing: PropTypes.bool,
 	redirect: PropTypes.bool,
@@ -522,10 +525,12 @@ YouTubeVideo.defaultProps = {
 	canArchive: false,
 	channel: {},
 	contradiction: false,
+	controls: true,
 	createVideoArchive,
 	deleteArchive,
 	existsOnYt: true,
 	getVideoArchives,
+	loop: false,
 	myArchives: [],
 	playing: false,
 	s3Link: null,

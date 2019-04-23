@@ -58,12 +58,12 @@
             $text,
             $img_width = 1920,
             $img_height = 1080,
-            $color = [211, 7, 100],
+            $color = [25, 25, 112],
             $text_color = [255, 255, 255],
-            $font_size = 36,
+            $font_size = 48,
             $background_transparent = false,
             $center_text = true,
-            $font = 'public/fonts/ViceCitySans.otf'
+            $font = 'public/fonts/LaPresse.ttf'
         ) {
             $file = $path.$file_name;
             if (!file_exists($file)) {
@@ -129,7 +129,7 @@
         }
 
         public function createVideoFromImg($input, $output) {
-            $command = $this->ffmpeg.' -loop 1 -framerate 25 -t 5 -i '.$input.' \
+            $command = $this->ffmpeg.' -loop 1 -framerate 20 -t 4 -i '.$input.' \
                     -f lavfi -t 1 -i anullsrc '.$output;
             exec($command);
         }

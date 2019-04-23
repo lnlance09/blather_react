@@ -9,6 +9,8 @@
 		<changefreq>hourly</changefreq>
 		<priority>1.0</priority>
 	</url>
+
+
 <?php
 	// Fallacies
 	for ($i=0;$i<count($fallacies);$i++) {
@@ -83,21 +85,6 @@
 	}
 ?>
 
-<?php
-	// Tags
-	for ($i=0;$i<count($tags);$i++) {
-		$id = $tags[$i]['id'];
-		$url = $base_url.'tags/'.$id;
-?>
-	<url>
-		<loc><?php echo $url; ?></loc>
-		<changefreq>daily</changefreq>
-		<priority>0.5</priority>
-	</url>
-<?php
-	}
-?>
-
 
 <?php
 	// Tweets
@@ -141,6 +128,8 @@
 <?php
 	}
 ?>
+
+
 	<url>
 		<loc><?php echo $base_url; ?>about</loc>
 		<changefreq>never</changefreq>

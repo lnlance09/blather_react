@@ -313,7 +313,12 @@ class Fallacy extends Component {
 					<div>
 						{props.s3Link ? (
 							<div>
-								<ReactPlayer className="exportEmbed" controls url={props.s3Link} />
+								<ReactPlayer
+									className="exportEmbed"
+									controls
+									thumbnail={props.thumbnailImg}
+									url={props.s3Link}
+								/>
 							</div>
 						) : (
 							<div>
@@ -680,6 +685,7 @@ Fallacy.propTypes = {
 	screenshotEl: PropTypes.string,
 	tag_ids: PropTypes.string,
 	tag_names: PropTypes.string,
+	thumbnailImg: PropTypes.string,
 	title: PropTypes.string,
 	toggleCreateMode: PropTypes.func,
 	tweet: PropTypes.object,
@@ -703,6 +709,7 @@ Fallacy.defaultProps = {
 	fetchCommentCount,
 	fetchFallacy,
 	retractLogic,
+	thumbnailImg: "https://s3.amazonaws.com/blather22/thumbnail.jpg",
 	toggleCreateMode
 }
 
