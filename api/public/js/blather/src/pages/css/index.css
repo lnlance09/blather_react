@@ -273,7 +273,6 @@ a {
   .fallacyPage .exportSection .downloadBtn {
     margin-top: 16px; }
   .fallacyPage .exportSection .exportEmbed {
-    display: inline;
     text-align: center; }
   .fallacyPage .exportSection .downloadDimmer {
     cursor: pointer;

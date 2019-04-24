@@ -331,14 +331,11 @@ class Fallacy extends Component {
 				{props.id && (
 					<div>
 						{props.s3Link && props.canMakeVideo ? (
-							<div>
-								<ReactPlayer
-									className="exportEmbed"
-									controls
-									thumbnail={props.thumbnailImg}
-									url={props.s3Link}
-								/>
-							</div>
+							<ReactPlayer
+								className="exportEmbed"
+								controls
+								url={props.s3Link}
+							/>
 						) : (
 							<div>
 								{props.canScreenshot ? (
