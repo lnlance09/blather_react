@@ -545,7 +545,7 @@
         <meta property="og:url" content="https://blather.io<?php echo $uri; ?>">
 
         <meta name="description" content="<?php echo htmlentities($description); ?>">
-        <meta name="keywords" content="political partisanship,logical fallacies,platitudes,talking points,debunked">
+        <meta name="keywords" content="partisanship,logical fallacies,fallacy,hypocrisy,platitudes,talking points,debunked,contradiction">
 <?php
     if ($author) {
 ?>
