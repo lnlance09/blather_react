@@ -215,7 +215,7 @@
                         ];
 
                         if ($s3Link) {
-                            if (strpos($s3Link), "screenshots") !== false) {
+                            if (strpos($s3Link, "screenshots") !== false) {
                                 $schema["image"] = $s3Path.$s3Link;
                             } else {
                                 $schema["subjectOf"] = [
