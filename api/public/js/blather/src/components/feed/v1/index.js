@@ -1,7 +1,7 @@
 import "./style.css"
 import { getFeed } from "./actions"
-import { adjustTimezone, formatTime } from "utils/dateFunctions"
-import { formatGrammar } from "utils/textFunctions"
+import { adjustTimezone } from "utils/dateFunctions"
+import { formatGrammar, formatPlural } from "utils/textFunctions"
 import { connect } from "react-redux"
 import { Link } from "react-router-dom"
 import { Feed, Image, Visibility } from "semantic-ui-react"
@@ -93,6 +93,7 @@ class FeedComponent extends Component {
 
 				if (result.id && result.item_type === "archive") {
 					let tweet = result.type === "tweet" ? JSON.parse(result.tweet_json) : null
+					let duration = result.end_time - result.start_time
 					return (
 						<Feed.Event key={`feed_${i}`}>
 							<Feed.Label
@@ -111,8 +112,7 @@ class FeedComponent extends Component {
 													result.id
 												}&x=${result.start_time}&y=${result.end_time}`}
 											>
-												{formatTime(result.start_time)} -{" "}
-												{formatTime(result.end_time)}
+												{duration} {formatPlural(duration, "second")}
 											</Link>{" "}
 											of{" "}
 											<Link to={`/${result.type}/${result.video_id}`}>
@@ -136,26 +136,35 @@ class FeedComponent extends Component {
 									</Feed.Date>
 								</Feed.Summary>
 								{result.type === "video" && (
-									<Feed.Extra images>
-										<Image
-											className="videoImg"
-											onClick={() =>
-												this.props.history.push(
-													`/video/${result.video_id}?a=${result.id}&x=${result.start_time}&y=${result.end_time}`
-												)
-											}
-											onError={i => (i.target.src = ImagePic)}
-											size="big"
-											src={
-												result.video_img
-													? result.video_img.replace(
-															"default",
-															"hqdefault"
-													  )
-													: null
-											}
-										/>
-									</Feed.Extra>
+									<div>
+										<Feed.Extra images>
+											<Image
+												className="videoImg"
+												onClick={() =>
+													this.props.history.push(
+														`/video/${result.video_id}?a=${
+															result.id
+														}&x=${result.start_time}&y=${
+															result.end_time
+														}`
+													)
+												}
+												onError={i => (i.target.src = ImagePic)}
+												size="big"
+												src={
+													result.video_img
+														? result.video_img.replace(
+																"default",
+																"hqdefault"
+														  )
+														: null
+												}
+											/>
+										</Feed.Extra>
+										<Feed.Extra text>
+											<i>{result.description}</i>
+										</Feed.Extra>
+									</div>
 								)}
 								{result.type === "tweet" && (
 									<Feed.Extra text>

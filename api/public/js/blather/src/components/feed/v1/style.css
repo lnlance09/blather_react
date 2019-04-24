@@ -10,3 +10,6 @@
 .feed .content .extra .videoImg {
   cursor: pointer;
   width: 200px !important; }
+
+.feed .extra.images {
+  margin: 12px 0 !important; }
