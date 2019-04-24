@@ -332,30 +332,14 @@ class Fallacy extends Component {
 				</Header>
 				{props.id && (
 					<div>
-						{props.s3Link ? (
+						{props.s3Link && props.canMakeVideo ? (
 							<div>
-								{props.canScreenshot ? (
-									<Dimmer.Dimmable
-										as={Image}
-										bordered
-										className="downloadDimmer"
-										dimmed={active}
-										dimmer={{ active, content }}
-										onClick={() => window.open(props.s3Link, "_blank")}
-										onMouseEnter={this.handleShow}
-										onMouseLeave={this.handleHide}
-										rounded
-										size="big"
-										src={props.s3Link}
-									/>
-								) : (
-									<ReactPlayer
-										className="exportEmbed"
-										controls
-										thumbnail={props.thumbnailImg}
-										url={props.s3Link}
-									/>
-								)}
+								<ReactPlayer
+									className="exportEmbed"
+									controls
+									thumbnail={props.thumbnailImg}
+									url={props.s3Link}
+								/>
 							</div>
 						) : (
 							<div>
@@ -407,11 +391,30 @@ class Fallacy extends Component {
 										className="downloadBtn"
 										color="green"
 										compact
-										content="Download"
-										icon="download"
+										content={`Create ${
+											props.canMakeVideo ? "video" : "screenshot"
+										}`}
+										icon={props.canMakeVideo ? "film" : "camera"}
 										loading={props.creating}
 										onClick={this.captureScreenshot}
 									/>
+								) : null}
+								{props.s3Link && props.canScreenshot ? (
+									<div>
+										<Dimmer.Dimmable
+											as={Image}
+											bordered
+											className="downloadDimmer"
+											dimmed={active}
+											dimmer={{ active, content }}
+											onClick={() => window.open(props.s3Link, "_blank")}
+											onMouseEnter={this.handleShow}
+											onMouseLeave={this.handleHide}
+											rounded
+											size="big"
+											src={props.s3Link}
+										/>
+									</div>
 								) : null}
 							</div>
 						)}

@@ -276,7 +276,8 @@ a {
     display: inline;
     text-align: center; }
   .fallacyPage .exportSection .downloadDimmer {
-    cursor: pointer; }
+    cursor: pointer;
+    margin-top: 16px; }
 
 .fallacyPage .similarFallaciesSegment {
   padding: 0 !important;
