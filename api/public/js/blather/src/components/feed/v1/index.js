@@ -137,7 +137,7 @@ class FeedComponent extends Component {
 								</Feed.Summary>
 								{result.type === "video" && (
 									<div>
-										<Feed.Extra images>
+										<Feed.Extra className="archiveExtra" images>
 											<Image
 												className="videoImg"
 												onClick={() =>
@@ -167,12 +167,13 @@ class FeedComponent extends Component {
 									</div>
 								)}
 								{result.type === "tweet" && (
-									<Feed.Extra text>
+									<Feed.Extra className="archiveExtra" text>
 										<Tweet
 											created_at={tweet.created_at}
 											extended_entities={tweet.extended_entities}
 											full_text={tweet.full_text}
 											id={tweet.id_str}
+											imageSize="medium"
 											key={`tweet_key_${i}`}
 											is_quote_status={tweet.is_quote_status}
 											quoted_status={
