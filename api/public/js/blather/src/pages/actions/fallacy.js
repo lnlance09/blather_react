@@ -152,7 +152,7 @@ export const retractLogic = ({ bearer, id, type }) => dispatch => {
 
 export const saveScreenshot = ({ id, img }) => dispatch => {
 	request.post(
-		`${window.location.origin}/api/fallacies/saveScreenshot`,
+		"https://media.blather.io/api/fallacies/saveScreenshot",
 		{
 			form: {
 				id,

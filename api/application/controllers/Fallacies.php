@@ -6,7 +6,7 @@
 			parent:: __construct();
 			
 			$this->baseUrl = $this->config->base_url();
-			$this->basePath = '/Applications/MAMP/htdocs/blather/api/';
+			$this->basePath = '/var/www/html/api/';
 			$this->imgUrl = $this->baseUrl.'api/public/img/';
 			$this->screenshotPath = $this->basePath.'public/img/screenshots/';
 
