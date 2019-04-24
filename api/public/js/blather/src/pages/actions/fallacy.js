@@ -150,6 +150,25 @@ export const retractLogic = ({ bearer, id, type }) => dispatch => {
 	)
 }
 
+export const saveScreenshot = ({ id, img }) => dispatch => {
+	request.post(
+		`${window.location.origin}/api/fallacies/saveScreenshot`,
+		{
+			form: {
+				id,
+				img
+			},
+			json: true
+		},
+		function(err, response, body) {
+			dispatch({
+				type: constants.SAVE_SCREENSHOT,
+				payload: body
+			})
+		}
+	)
+}
+
 export const setTags = ({ value, text }) => dispatch => {
 	dispatch({
 		type: constants.SET_FALLACY_TAGS,

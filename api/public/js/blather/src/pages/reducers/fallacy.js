@@ -340,6 +340,12 @@ const fallacy = (state = initial(), action) => {
 				retracted: true
 			}
 
+		case constants.SAVE_SCREENSHOT:
+			return {
+				...state,
+				s3Link: action.payload.s3Link
+			}
+
 		case constants.SET_FALLACY_TAGS:
 			return {
 				...state,
