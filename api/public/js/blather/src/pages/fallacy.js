@@ -151,12 +151,10 @@ class Fallacy extends Component {
 				ctx.globalAlpha = 1
 				let img = canvas.toDataURL("image/png")
 
-				if (this.state.exportOpt === "screenshot") {
-					this.props.saveScreenshot({
-						id: this.props.id,
-						img
-					})
-				}
+				this.props.saveScreenshot({
+					id: this.props.id,
+					img
+				})
 
 				let link = document.createElement("a")
 				link.download =
