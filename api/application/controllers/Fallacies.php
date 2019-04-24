@@ -6,7 +6,9 @@
 			parent:: __construct();
 			
 			$this->baseUrl = $this->config->base_url();
+			$this->basePath = '/Applications/MAMP/htdocs/blather/api/';
 			$this->imgUrl = $this->baseUrl.'api/public/img/';
+			$this->screenshotPath = $this->basePath.'public/img/screenshots/';
 
 			$this->load->model('FallaciesModel', 'fallacies');
 			$this->load->model('MediaModel', 'media');
@@ -553,6 +555,25 @@
 
 			echo json_encode([
 				'error' => false
+			]);
+		}
+
+		public function saveScreenshot() {
+			$id = $this->input->post('id');
+			$img = $this->input->post('img');
+
+			$img_file = $id.'.png';
+			$key = 'screenshots/'.$img_file;
+
+			$this->media->createPicFromData($img_file, $this->screenshotPath, $img);
+			$this->media->addToS3($key, $this->screenshotPath.$img_file);
+			$this->fallacies->update($id, [
+				's3_link' => $key
+			]);
+
+			echo json_encode([
+				'error' => false,
+				's3Link' => $key
 			]);
 		}
 

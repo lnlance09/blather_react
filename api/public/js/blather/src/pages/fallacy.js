@@ -6,6 +6,7 @@ import {
 	fetchCommentCount,
 	fetchFallacy,
 	retractLogic,
+	saveScreenshot,
 	toggleCreateMode,
 	updateFallacy
 } from "pages/actions/fallacy"
@@ -15,6 +16,7 @@ import { TwitterShareButton } from "react-share"
 import {
 	Button,
 	Container,
+	Dimmer,
 	Divider,
 	Form,
 	Grid,
@@ -62,6 +64,7 @@ class Fallacy extends Component {
 		}
 
 		this.state = {
+			active: false,
 			activeItem: tab,
 			auth,
 			bearer,
@@ -147,6 +150,14 @@ class Fallacy extends Component {
 				const ctx = canvas.getContext("2d")
 				ctx.globalAlpha = 1
 				let img = canvas.toDataURL("image/png")
+
+				if (this.state.exportOpt === "screenshot") {
+					this.props.saveScreenshot({
+						id: this.props.id,
+						img
+					})
+				}
+
 				let link = document.createElement("a")
 				link.download =
 					filename
@@ -248,6 +259,7 @@ class Fallacy extends Component {
 
 	render() {
 		const {
+			active,
 			activeItem,
 			auth,
 			bearer,
@@ -304,6 +316,15 @@ class Fallacy extends Component {
 			return null
 		}
 
+		const content = (
+			<div>
+				<Header as="h2" inverted>
+					Screenshot
+				</Header>
+				<Icon color="green" name="download" size="big" />
+			</div>
+		)
+
 		const ExportSection = props => (
 			<div className="exportSection">
 				<Header as="h3" dividing>
@@ -313,12 +334,28 @@ class Fallacy extends Component {
 					<div>
 						{props.s3Link ? (
 							<div>
-								<ReactPlayer
-									className="exportEmbed"
-									controls
-									thumbnail={props.thumbnailImg}
-									url={props.s3Link}
-								/>
+								{props.canScreenshot ? (
+									<Dimmer.Dimmable
+										as={Image}
+										bordered
+										className="downloadDimmer"
+										dimmed={active}
+										dimmer={{ active, content }}
+										onClick={() => window.open(props.s3Link, "_blank")}
+										onMouseEnter={this.handleShow}
+										onMouseLeave={this.handleHide}
+										rounded
+										size="big"
+										src={props.s3Link}
+									/>
+								) : (
+									<ReactPlayer
+										className="exportEmbed"
+										controls
+										thumbnail={props.thumbnailImg}
+										url={props.s3Link}
+									/>
+								)}
 							</div>
 						) : (
 							<div>
@@ -681,6 +718,7 @@ Fallacy.propTypes = {
 	retracted: PropTypes.bool,
 	retractLogic: PropTypes.func,
 	s3Link: PropTypes.string,
+	saveScreenshot: PropTypes.func,
 	status: PropTypes.number,
 	screenshotEl: PropTypes.string,
 	tag_ids: PropTypes.string,
@@ -709,6 +747,7 @@ Fallacy.defaultProps = {
 	fetchCommentCount,
 	fetchFallacy,
 	retractLogic,
+	saveScreenshot,
 	thumbnailImg: "https://s3.amazonaws.com/blather22/thumbnail.jpg",
 	toggleCreateMode
 }
@@ -727,6 +766,7 @@ export default connect(
 		fetchCommentCount,
 		fetchFallacy,
 		retractLogic,
+		saveScreenshot,
 		toggleCreateMode,
 		updateFallacy
 	}

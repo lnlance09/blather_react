@@ -215,14 +215,18 @@
                         ];
 
                         if ($s3Link) {
-                            $schema["subjectOf"] = [
-                                "@type" => "VideoObject",
-                                "description" => $explanation,
-                                "name" => $title,
-                                "uploadDate" => $createdAt,
-                                "thumbnailUrl" => $s3Path."thumbnail.jpg",
-                                "url" => $s3Path.$s3Link
-                            ];
+                            if (strpos($s3Link), "screenshots") !== false) {
+                                $schema["image"] = $s3Path.$s3Link;
+                            } else {
+                                $schema["subjectOf"] = [
+                                    "@type" => "VideoObject",
+                                    "description" => $explanation,
+                                    "name" => $title,
+                                    "uploadDate" => $createdAt,
+                                    "thumbnailUrl" => $s3Path."thumbnail.jpg",
+                                    "url" => $s3Path.$s3Link
+                                ];
+                            }
                         }
                     }
                 } else {

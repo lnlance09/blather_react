@@ -7,6 +7,7 @@ export const DisplayMetaTags = ({ page, props, state }) => {
 		"Blather is an educational tool that allows users to analyze and pinpoint the accuracy of claims made on social media."
 	const img = ""
 	let metaTags = {}
+
 	switch (page) {
 		case "about":
 			metaTags = {
@@ -82,6 +83,20 @@ export const DisplayMetaTags = ({ page, props, state }) => {
 			}
 			break
 		case "post":
+			metaTags = {
+				description: "",
+				img,
+				title: ""
+			}
+
+			if (props.error) {
+				metaTags = {
+					description: "This post does not exist",
+					img,
+					title: "Not found"
+				}
+			}
+
 			if (props.info) {
 				let title = ""
 				if (props.type === "comment") {
@@ -102,12 +117,6 @@ export const DisplayMetaTags = ({ page, props, state }) => {
 					img,
 					title: title
 				}
-			} else {
-				metaTags = {
-					description: "This post does not exist",
-					img,
-					title: "Not found"
-				}
 			}
 			break
 		case "search":
@@ -123,7 +132,7 @@ export const DisplayMetaTags = ({ page, props, state }) => {
 			metaTags = {
 				description: "",
 				img,
-				title: `Settings`
+				title: "Settings"
 			}
 			break
 		case "signin":
