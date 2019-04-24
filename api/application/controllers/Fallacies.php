@@ -123,7 +123,7 @@
 				exit;
 			}
 
-			if ($this->user) {
+			if ($user) {
 				switch ($network) {
 					case 'twitter':
 						$tweet = $this->twitter->getTweetExtended($objectId);
