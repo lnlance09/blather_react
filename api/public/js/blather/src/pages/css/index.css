@@ -298,7 +298,9 @@ a {
   .fallacyPage .row {
     padding-bottom: 0 !important; }
   .fallacyPage .retractionContainer {
-    margin: 0 !important; } }
+    margin: 0 !important; }
+  .fallacyPage .downloadBtn {
+    display: none; } }
 
 @media only screen and (max-width: 1025px) {
   .feedPage .grid {
