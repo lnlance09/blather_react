@@ -4,6 +4,7 @@
 /*---   Misc  ---*/
 /*---   Social colors  ---*/
 .tweet {
+  line-height: 1.4;
   width: 100%; }
   .tweet.clickable {
     cursor: pointer; }
