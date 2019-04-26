@@ -16,7 +16,7 @@ class Fallacies extends Component {
 	constructor(props) {
 		super(props)
 		const name = this.props.match.params.id
-		const parsedName = name ? name.split("_").join(" ") : false
+		const parsedName = name ? name.split("-").join(" ") : false
 		this.state = {
 			activeItem: parsedName ? parsedName : "ad hominem abusive",
 			intervalId: 0
@@ -25,7 +25,7 @@ class Fallacies extends Component {
 
 	componentWillReceiveProps(props) {
 		const name = props.match.params.id
-		const parsedName = name ? name.split("_").join(" ") : false
+		const parsedName = name ? name.split("-").join(" ") : false
 		this.setState({ activeItem: parsedName ? parsedName : "ad hominem abusive" })
 	}
 
@@ -46,7 +46,7 @@ class Fallacies extends Component {
 	handleItemClick = (e, { name }) => {
 		this.scrollToTop()
 		this.setState({ activeItem: name })
-		this.props.history.push(`/fallacies/${name.split(" ").join("_")}`)
+		this.props.history.push(`/fallacies/${name.split(" ").join("-")}`)
 	}
 
 	render() {

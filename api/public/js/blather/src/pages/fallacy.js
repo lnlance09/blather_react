@@ -49,9 +49,16 @@ import TrumpImg from "images/trump-white.png"
 class Fallacy extends Component {
 	constructor(props) {
 		super(props)
+
 		const tabs = ["material", "comments", "similar", "reference"]
-		const id = parseInt(this.props.match.params.id, 10)
-		let tab = this.props.match.params.tab
+		const params = this.props.match.params
+		let { id, tab } = params
+
+		if (isNaN(id)) {
+			const split = id.split("-")
+			id = split[split.length - 1]
+		}
+
 		const currentState = store.getState()
 		const auth = currentState.user.authenticated
 		const bearer = currentState.user.bearer
@@ -206,7 +213,12 @@ class Fallacy extends Component {
 	}
 
 	componentWillReceiveProps(newProps) {
-		const newId = parseInt(newProps.match.params.id, 10)
+		let newId = newProps.match.params.id
+		if (isNaN(newId)) {
+			const split = newId.split("-")
+			newId = split[split.length - 1]
+		}
+
 		if (newId !== this.state.id) {
 			this.props.fetchCommentCount({ id: newId })
 			this.props.fetchFallacy({
@@ -331,11 +343,7 @@ class Fallacy extends Component {
 				{props.id && (
 					<div>
 						{props.s3Link && props.canMakeVideo ? (
-							<ReactPlayer
-								className="exportEmbed"
-								controls
-								url={props.s3Link}
-							/>
+							<ReactPlayer className="exportEmbed" controls url={props.s3Link} />
 						) : (
 							<div>
 								{props.canScreenshot ? (
@@ -462,7 +470,7 @@ class Fallacy extends Component {
 				<div>
 					{props.createdBy && (
 						<div>
-							Created{" "}
+							<Icon name="clock outline" />{" "}
 							<Moment
 								date={adjustTimezone(props.createdAt)}
 								fromNow
@@ -703,7 +711,7 @@ Fallacy.propTypes = {
 	fetchCommentCount: PropTypes.func,
 	fetchFallacy: PropTypes.func,
 	highlightedText: PropTypes.string,
-	id: PropTypes.number,
+	id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 	originalPayload: PropTypes.shape({
 		date: PropTypes.string,
 		endTime: PropTypes.number,
@@ -717,6 +725,7 @@ Fallacy.propTypes = {
 	retractLogic: PropTypes.func,
 	s3Link: PropTypes.string,
 	saveScreenshot: PropTypes.func,
+	slug: PropTypes.string,
 	status: PropTypes.number,
 	screenshotEl: PropTypes.string,
 	tag_ids: PropTypes.string,

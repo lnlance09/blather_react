@@ -14,8 +14,8 @@
 <?php
 	// Fallacies
 	for ($i=0;$i<count($fallacies);$i++) {
-		$id = $fallacies[$i]['id'];
-		$url = $base_url.'fallacies/'.$id;
+		$slug = $fallacies[$i]['slug'];
+		$url = $base_url.'fallacies/'.$slug;
 ?>
 	<url>
 		<loc><?php echo $url; ?></loc>
@@ -117,7 +117,7 @@
 <?php
 	// Fallacy types
 	for ($i=0;$i<count($fallacyTypes);$i++) {
-		$replace = str_replace(' ', '_', $fallacyTypes[$i]['name']);
+		$replace = str_replace(' ', '-', $fallacyTypes[$i]['name']);
 		$name = strtolower(str_replace("'", '', $replace));
 ?>
 	<url>

@@ -457,7 +457,6 @@ class Post extends Component {
 						return <LazyLoad />
 					}
 				case "video":
-					console.log(startTime)
 					if (props.info && videoExists) {
 						return (
 							<div>

@@ -39,7 +39,6 @@
             $network = $decode['network'];
             $pageId = $decode['pageId'];
 
-
             $exists = $this->contradictionExists($id);
             if ($exists) {
                 $this->db->where('id', $id);
@@ -95,6 +94,9 @@
                 'title' => $title
             ]);
             $id = $this->db->insert_id();
+            $this->update($id, [
+                'slug' => slugify($title).'-'.$id,
+            ]);
 
             if ($contradiction) {
                 $this->assignContradiction($id, $contradiction);
@@ -414,10 +416,13 @@
         }
 
         public function fallacyTypeExists($id) {
-            $this->db->select('COUNT(*) AS count');
+            $this->db->select('name');
             $this->db->where('id', $id);
             $result = $this->db->get('fallacies')->result_array();
-            return $result[0]['count'] == 1;
+            if (count($result) === 0) {
+                return false;
+            }
+            return $result[0]['name'];
         }
 
         /**
@@ -435,6 +440,7 @@
             $this->db->select($select);
             $this->db->join('users u', 'f.user_id=u.id');
             $this->db->where('fallacy_id', $id);
+
             if (!$just_count) {
                 $this->db->order_by('created_at', 'DESC');
                 if($page !== null) {
@@ -580,6 +586,7 @@
             }
 
             $this->db->where('fe.id', $id);
+            $this->db->or_where('fe.slug', $id);
             $result = $this->db->get('fallacy_entries fe')->result_array();
 
             if (empty($result)) {
@@ -639,15 +646,17 @@
                 $tweet = @json_decode($fallacy['tweet_json'], true);
                 $fallacy['tweet_json'] = $twitter->parseExtendedEntities($tweet);
                 $user_id = $tweet['user']['id'];
+                $user_name = $tweet['user']['name'];
                 $user_img = $fallacy['page_profile_pic'];
-                $profile_pic = $twitter->saveUserPic($user_id, $user_img);
+                $profile_pic = $twitter->saveUserPic($user_id, $user_name, $user_img);
                 $fallacy['page_profile_pic'] = $profile_pic;
 
                 if (array_key_exists('retweeted_status', $tweet)) {
                     $retweet = $tweet['retweeted_status'];
                     $user_id = $retweet['user']['id'];
+                    $user_name = $retweet['user']['name'];
                     $user_img = $retweet['user']['profile_image_url_https'];
-                    $profile_pic = $twitter->saveUserPic($user_id, $user_img);
+                    $profile_pic = $twitter->saveUserPic($user_id, $user_name, $user_img);
                     $fallacy['page_profile_pic'] = $profile_pic;
                 }
             }
@@ -656,15 +665,17 @@
                 $tweet = @json_decode($fallacy['contradiction_tweet_json'], true);
                 $fallacy['contradiction_tweet_json'] = $twitter->parseExtendedEntities($tweet);
                 $user_id = $tweet['user']['id'];
+                $user_name = $tweet['user']['name'];
                 $user_img = $fallacy['contradiction_page_profile_pic'];
-                $profile_pic = $twitter->saveUserPic($user_id, $user_img);
+                $profile_pic = $twitter->saveUserPic($user_id, $user_name, $user_img);
                 $fallacy['contradiction_page_profile_pic'] = $profile_pic;
 
                 if (array_key_exists('retweeted_status', $tweet)) {
                     $retweet = $tweet['retweeted_status'];
                     $user_id = $retweet['user']['id'];
+                    $user_name = $retweet['user']['name'];
                     $user_img = $retweet['user']['profile_image_url_https'];
-                    $profile_pic = $twitter->saveUserPic($user_id, $user_img);
+                    $profile_pic = $twitter->saveUserPic($user_id, $user_name, $user_img);
                     $fallacy['contradiction_page_profile_pic'] = $profile_pic;
                 }
 
@@ -673,15 +684,17 @@
             $youtube = $this->youtube;
             if (in_array($ref_id, [9, 10, 11])) {
                 $pic = $fallacy['page_profile_pic'];
+                $channel_name = $fallacy['page_name'];
                 $channel_id = $fallacy['comment_channel_id'];
-                $channel_pic = $youtube->saveChannelPic($channel_id, $pic);
+                $channel_pic = $youtube->saveChannelPic($channel_id, $channel_name, $pic);
                 $fallacy['page_profile_pic'] = $channel_pic;
             }
 
             if (in_array($ref_id, [7, 10])) {
                 $pic = $fallacy['contradiction_page_profile_pic'];
+                $channel_name = $fallacy['contradiction_page_name'];
                 $channel_id = $fallacy['contradiction_comment_channel_id'];
-                $channel_pic = $youtube->saveChannelPic($channel_id, $pic);
+                $channel_pic = $youtube->saveChannelPic($channel_id, $channel_name, $pic);
                 $fallacy['contradiction_page_profile_pic'] = $channel_pic;
             }
 
@@ -710,9 +723,11 @@
                 $this->db->where('c.id', $id);
             } else {
                 $where = [];
+
                 if ($user_id) {
                     $where['user_id'] = $user_id;
                 }
+
                 if ($page_id) {
                     $where['page_id'] = $page_id;
                 }
@@ -756,13 +771,16 @@
             
             if ($type === 'pages') {
                 $this->db->where('fe.page_id', $network === 'twitter' ? (int)$id : $id);
-            } 
+            }
+
             if ($type === 'post') {
                 $this->db->where('fe.media_id', $network === 'twitter' ? (int)$id : $id);
             }
+
             if ($type === 'users') {
                 $this->db->where('fe.assigned_by', $id);
             }
+
             if ($type === 'targets') {
                 $this->db->where([
                     'fe.page_id' => $id,
@@ -830,6 +848,7 @@
                 fe.explanation,
                 fe.fallacy_id,
                 fe.network,
+                fe.slug,
                 fe.start_time,
                 fe.status,
                 fe.title,

@@ -233,7 +233,7 @@ class FallaciesList extends Component {
 							tags={[result.fallacy_name]}
 							title={result.title}
 							type="fallacy"
-							url={`/fallacies/${result.id}`}
+							url={`/fallacies/${result.slug}`}
 							useMarked
 						/>
 					)

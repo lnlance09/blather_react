@@ -429,6 +429,7 @@
 					break;
 
 				default:
+
 					$this->output->set_status_header(400);
 					echo json_encode([
 						'error' => 'Please link to a Tweet or a comment or a video on YouTube'
@@ -719,7 +720,8 @@
 			$tags = $this->input->post('tags');
 			$title = $this->input->post('title');
 
-			if (!$this->user) {
+			$user = $this->user;
+			if (!$user) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You are not logged in'
@@ -736,7 +738,7 @@
 				exit;
 			}
 
-			if ($fallacy['assigned_by'] !== $this->user->id) {
+			if ($fallacy['assigned_by'] !== $user->id) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You do not have permission to edit this fallacy'
@@ -744,7 +746,8 @@
 				exit;
 			}
 
-			$fallacyId = !$this->fallacies->fallacyTypeExists($fallacyId) ? $fallacy['fallacy_id'] : $fallacyId;
+			$fallacyName = $this->fallacies->fallacyTypeExists($fallacyId);
+			$fallacyId = !$fallacyName ? $fallacy['fallacy_id'] : $fallacyId;
 			$title = empty($title) ? $fallacy['title'] : $title; 
 			$explanation = empty($explanation) ? $fallacy['explanation'] : $explanation;
 			$startTime = empty($startTime) ? $fallacy['start_time'] : $startTime;
@@ -757,13 +760,14 @@
 				'explanation' => $explanation,
 				'fallacy_id' => $fallacyId,
 				'last_updated' => date('Y-m-d H:i:s'),
+				'slug' => slugify($title).'-'.$id,
 				'start_time' => $startTime,
 				'title' => $title
 			];
 			$this->fallacies->update(
 				$id,
 				$data,
-				$this->user->id,
+				$user->id,
 				$tags
 			);
 
@@ -772,10 +776,10 @@
 				'start_time' => $contradictionStartTime
 			]);
 
-			$fallacy = $this->fallacies->getFallacy($id);
+			$data['fallacy_name'] = $fallacyName;
 			echo json_encode([
 				'error' => false,
-				'fallacy' => $fallacy
+				'fallacy' => $data
 			]);
 		}
 
