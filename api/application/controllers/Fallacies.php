@@ -562,8 +562,9 @@
 		public function saveScreenshot() {
 			$id = $this->input->post('id');
 			$img = $this->input->post('img');
+			$slug = $this->input->post('slug');
 
-			$img_file = $id.'.png';
+			$img_file = $slug.'.png';
 			$key = 'screenshots/'.$img_file;
 
 			$this->media->createPicFromData($img_file, $this->screenshotPath, $img);
