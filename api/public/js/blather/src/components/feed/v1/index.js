@@ -66,7 +66,7 @@ class FeedComponent extends Component {
 								<Feed.Summary>
 									<Link to={userLink}>{result.page_name}</Link> has been charged
 									with {formatGrammar(result.fallacy_name)}{" "}
-									<Link to={`/fallacies/${result.id}`}>
+									<Link to={`/fallacies/${result.slug}`}>
 										{result.fallacy_name}
 									</Link>
 									<Feed.Date>

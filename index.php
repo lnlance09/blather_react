@@ -1,11 +1,14 @@
 <?php
     $uri = $_SERVER['REQUEST_URI'];
     $paths = explode('/', $uri);
-    array_splice($paths, 0, 1);
+    array_splice($paths, 0, 2);
 
+    $dir = "/blather/";
     $base_url = "https://blather.io/";
     $title = "Home";
     $description = "Blather is a website that lets users assign fallacies and analyze the logic and reasoning of claims made on social media. It is meant to combat partisanship.";
+    $keywords = "partisanship,logical fallacies,fallacy,hypocrisy,platitudes,talking points,debunked,contradiction";
+    $html = "";
 
     $s3Path = "https://s3.amazonaws.com/blather22/";
     $img = $base_url."images/icons/icon-100x100.png";
@@ -13,6 +16,7 @@
 
     $set = false;
     $author = false;
+    $authorUrl = "";
 
     $schema = [
         "@context" => "https://schema.org",
@@ -47,17 +51,6 @@
             $set = true;
             break;
 
-        case "/discussion/create":
-            $title = "Create a discussion";
-            $description = "Start a discussion where everyone plays by the same set of rules and intellectually dishonest debate tactics are called out. Change your mind if the evidence is compelling.";
-            $set = true;
-            break;
-
-        case "/discussions":
-            $title = "Discussions";
-            $set = true;
-            break;
-
         case "/fallacies":
             $title = "Fallacies";
             $set = true;
@@ -77,11 +70,6 @@
             $title = "Sign In";
             $set = true;
             break;
-
-        case "/tags/create":
-            $title = "Create a Tag";
-            $set = true;
-            break;
     }
 
     if (!$set) {
@@ -94,23 +82,62 @@
         $id = $paths[1];
 
         switch ($paths[0]) {
-            case "discussions":
+            case "fallacies":
 
-                $sql = "SELECT description, title
-                        FROM discussions 
-                        WHERE id = '".$mysqli->real_escape_string($id)."'";
-                if ($result = $mysqli->query($sql)) {
+                $name = ucwords(str_replace('-', ' ', $id));
+                $sql = "SELECT description, id, name
+                        FROM fallacies
+                        WHERE name = '".$mysqli->real_escape_string($name)."'";
+                $result = $mysqli->query($sql);
+
+                if ($result->num_rows === 1) {
                     while ($row = $result->fetch_assoc()) {
-                        $title = $row['title'];
+                        $fallacyId = $row['id'];
+                        $title = $row['name'];
                         $description = $row['description'];
                     }
                     $result->close();
-                }
-                break;
 
-            case "fallacies":
+                    $schema = [
+                        "@context" => "https://schema.org",
+                        "@type" => "BreadcrumbList",
+                        "itemListElement" => [
+                            [
+                                "@type" => "ListItem",
+                                "item" => $base_url."fallacies",
+                                "name" => "Fallacies",
+                                "position" => 1
+                            ],
+                            [
+                                "@type" => "ListItem",
+                                "description" => $description,
+                                "item" => $base_url."fallacies/".$id,
+                                "name" => $name,
+                                "position" => 2
+                            ]
+                        ]
+                    ];
 
-                if (is_numeric($id)) {
+                    $html = '<div>
+                                <h1>'.$title.'</h1>
+                                <p>'.$description.'</p>';
+
+                    $sql = "SELECT slug, title
+                            FROM fallacy_entries
+                            WHERE fallacy_id = '".$mysqli->real_escape_string($fallacyId)."'";
+                    $result = $mysqli->query($sql);
+                    if ($result) {
+                        while ($row = $result->fetch_assoc()) {
+                            $html .= '<a href="'.$base_url.'fallacies/'.$row['slug'].'">'.$row['title'].'</a>';
+                        }
+                        $result->close();
+                    }
+
+                    $html .= '</div>';
+                } else {
+                    $exp = explode('-', $id);
+                    $id = end($exp);
+
                     $sql = "SELECT
                                 c.media_id AS c_media_id,
                                 c.network AS c_network,
@@ -126,14 +153,15 @@
                                 fe.title,
 
                                 p.name AS page_name,
-                                p.profile_pic, p.type AS page_type,
+                                p.type AS page_type,
+                                p.s3_pic AS page_pic,
                                 p.social_media_id,
-                                p.username,
+                                p.username AS page_username,
 
                                 u.id AS user_id,
                                 u.img AS user_profile_pic,
-                                u.name AS user_name
-
+                                u.name AS user_name,
+                                u.username
                             FROM fallacy_entries fe
                             INNER JOIN fallacies f ON fe.fallacy_id = f.id
                             INNER JOIN pages p ON fe.page_id = p.social_media_id
@@ -143,7 +171,7 @@
                             WHERE fe.id = '".$mysqli->real_escape_string((int)$id)."'";
                     $result = $mysqli->query($sql);
 
-                    if ($result) {
+                    if ($result->num_rows === 1) {
                         while ($row = $result->fetch_assoc()) {
                             $cMediaId = $row['c_media_id'];
                             $cNetwork = $row['c_network'];
@@ -159,23 +187,30 @@
                             $fallacyTitle = $row['title'];
 
                             $pageName = $row['page_name'];
+                            $pagePic = $row['page_pic'];
                             $pageType = $row['page_type'];
                             $pageId = $row['social_media_id'];
-                            $username = $row['username'];
+                            $pageUsername = $row['page_username'];
 
                             $userId = $row['user_id'];
                             $userName = $row['user_name'];
                             $userPic = $row['user_profile_pic'];
+                            $userUsername = $row['username'];
                         }
                         $result->close();
 
-                        $title = $fallacyName.' by '.$pageName;
-                        $description = substr($explanation, 0, 160);
-                        $img = $s3Path.$userPic;
+                        $title = $fallacyTitle;
+                        $pageTitle = $fallacyName.' by '.$pageName;
+                        $description = $pageTitle.' '.substr($explanation, 0, 120);
+                        $img = $s3Path.$pagePic;
+
+                        if (strpos($s3Link, "screenshots") !== false) {
+                            $img = $s3Path.$s3Link;
+                        }
 
                         $item_one = "https://www.youtube.com/watch?v=".$mediaId;
                         if ($network == "twitter") {
-                            $item_one = "https://twitter.com/".$username."/status/".$mediaId;
+                            $item_one = "https://twitter.com/".$pageUsername."/status/".$mediaId;
                         }
                         $isBasedOn = $item_one;
 
@@ -196,6 +231,8 @@
                         }
 
                         $author = $userName;
+                        $authorUrl = $base_url.'users/'.$userUsername;
+
                         $schema = [
                             "@context" => "http://schema.org",
                             "@type" => "SocialMediaPosting",
@@ -214,7 +251,7 @@
                             "text" => $explanation,
                         ];
 
-                        if ($s3Link) {
+                        if (!empty($s3Link)) {
                             if (strpos($s3Link, "screenshots") !== false) {
                                 $schema["image"] = $s3Path.$s3Link;
                             } else {
@@ -228,38 +265,29 @@
                                 ];
                             }
                         }
-                    }
-                } else {
-                    $name = ucwords(str_replace('_', ' ', $id));
-                    $sql = "SELECT description, name
-                            FROM fallacies
-                            WHERE name = '".$mysqli->real_escape_string($name)."'";
-                    if ($result = $mysqli->query($sql)) {
-                        while ($row = $result->fetch_assoc()) {
-                            $title = $row['name'];
-                            $description = $row['description'];
-                        }
-                        $result->close();
 
-                        $schema = [
-                            "@context" => "https://schema.org",
-                            "@type" => "BreadcrumbList",
-                            "itemListElement" => [
-                                [
-                                    "@type" => "ListItem",
-                                    "item" => $base_url."fallacies",
-                                    "name" => "Fallacies",
-                                    "position" => 1
-                                ],
-                                [
-                                    "@type" => "ListItem",
-                                    "description" => $description,
-                                    "item" => $base_url."fallacies/".$id,
-                                    "name" => $name,
-                                    "position" => 2
-                                ]
-                            ]
-                        ];
+                        $html = '<div>
+                                    <h1>
+                                        '.$fallacyTitle.' - <a href="'.$base_url.'fallacies/'.str_replace(' ', '-', strtolower($fallacyName)).'">'.$fallacyName.'</a> by <a href="'.$base_url.'pages/'.$network.'/'.$pageId.'">'.$pageName.'</a>
+                                    </h1>
+                                    <p>'.$explanation.'</p>';
+
+                        if (strpos($s3Link, "screenshots") !== false) {
+                            $html .= '<img src="'.$s3Path.$s3Link.'" alt="'.htmlentities($pageTitle).'"/>';
+                        }
+
+                        $sql = "SELECT slug, title
+                                FROM fallacy_entries
+                                WHERE page_id = '".$mysqli->real_escape_string($pageId)."'";
+                        $result = $mysqli->query($sql);
+                        if ($result) {
+                            while ($row = $result->fetch_assoc()) {
+                                $html .= '<a href="'.$base_url.'fallacies/'.$row['slug'].'">'.$row['title'].'</a>';
+                            }
+                            $result->close();
+                        }
+
+                        $html .= '</div>';
                     }
                 }
                 break;
@@ -271,6 +299,7 @@
                         FROM pages
                         WHERE social_media_id = '".$mysqli->real_escape_string($id)."'
                         OR username = '".$mysqli->real_escape_string($id)."'";
+
                 if ($result = $mysqli->query($sql)) {
                     while ($row = $result->fetch_assoc()) {
                         $pageId = $row['social_media_id'];
@@ -284,7 +313,7 @@
                     $ext = $type === "twitter" ? "jpg" : "png";
                     $img = $s3Path."pages/".$type."/".$pageId.".".$ext;
 
-                     $schema = [
+                    $schema = [
                         "@context" => "https://schema.org",
                         "@type" => "BreadcrumbList",
                         "itemListElement" => [
@@ -318,25 +347,6 @@
                 $title = 'Search results';
                 if (!empty($_GET['q'])) {
                     $title .= ' for '.trim($_GET['q']);
-                }
-                break;
-
-            case "tags":
-
-                $sql = "SELECT
-                            t.value,
-                            tv.description,
-                            tv.img
-                        FROM tags
-                        INNER JOIN tag_versions tv ON t.id = tv.tag_id
-                        WHERE id = '".$mysqli->real_escape_string($id)."'";
-                if ($result = $mysqli->query($sql)) {
-                    while ($row = $result->fetch_assoc()) {
-                        $title = $row['value'];
-                        $description = $row['description'];
-                        $img = 'https://blather.io/api/public/img/tag_pics/'.$row['img'];
-                    }
-                    $result->close();
                 }
                 break;
 
@@ -544,12 +554,25 @@
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://blather.io<?php echo $uri; ?>">
 
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:site" content="@blatherio">
+        <meta name="twitter:creator" content="@blatherio">
+        <meta name="twitter:title" content="<?php echo htmlentities($title); ?>">
+        <meta name="twitter:description" content="<?php echo htmlentities($description); ?>">
+        <meta name="twitter:image" content="<?php echo $img; ?>">
+
         <meta name="description" content="<?php echo htmlentities($description); ?>">
-        <meta name="keywords" content="partisanship,logical fallacies,fallacy,hypocrisy,platitudes,talking points,debunked,contradiction">
+        <meta name="keywords" content="<?php echo $keywords; ?>">
+        <meta name="title" content="<?php echo $title; ?>">
 <?php
     if ($author) {
 ?>
+        <meta property="article:publisher" content="<?php echo $author; ?>">
+        <meta property="article:author" content="<?php echo $author; ?>">
         <meta name="author" content="<?php echo $author; ?>">
+
+        <link rel="publisher" href="<?php echo $base_url; ?>">
+        <link rel="author" href="<?php echo $authorUrl; ?>">
 <?php
     }
 ?>
@@ -560,24 +583,6 @@
         <link rel="apple-touch-icon" sizes="128x128" href="/favicon.ico?v=3">
 
         <title><?php echo $title; ?> - Blather</title>
-
-        <!-- Facebook Pixel Code -->
-        <script>
-            !function(f,b,e,v,n,t,s)
-            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-            n.queue=[];t=b.createElement(e);t.async=!0;
-            t.src=v;s=b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t,s)}(window, document,'script',
-            'https://connect.facebook.net/en_US/fbevents.js');
-            fbq('init', '363202504450429');
-            fbq('track', 'PageView');
-        </script>
-        <noscript><img height="1" width="1" style="display:none"
-        src="https://www.facebook.com/tr?id=363202504450429&ev=PageView&noscript=1"
-        /></noscript>
-        <!-- End Facebook Pixel Code -->
     </head>
 
     <body>
@@ -585,9 +590,13 @@
             You need to enable JavaScript to run this app.
         </noscript>
         <div id="root"></div>
+        <div style="display: none;">
+            <?php echo $html; ?>
+        </div>
     </body>
 
     <script src="static/js/main.c3e74a8e.js"></script>
+
 <?php
     if ($schema) {
 ?>
@@ -597,6 +606,7 @@
 <?php
     }
 ?>
+
     <script>
         var sc_project=11316702;
         var sc_invisible=1;

@@ -168,6 +168,14 @@
             return $this->aws->exist($file);
         }
 
+        public function renameS3Object($src, $target, $delete = false) {
+            $this->aws->copyFile($src, $target);
+
+            if ($delete) {
+                $this->aws->del($src);
+            }
+        }
+
         public function saveScreenshot($id, $path, $img, $folder) {
             $img_file = $id.'.png';
             $mp4_file = $id.'.mp4';

@@ -191,16 +191,21 @@
                     ];
                 }
 
+                $page_id = $page['id_str'];
+                $page_name = $page['name'];
+                $page_pic = $page['profile_image_url_https'];
                 $page = $this->insertPage([
                     'about' => $page['description'],
                     'is_verified' => $page['verified'],
                     'name' => $page['name'],
-                    'profile_pic' => str_replace('_normal', '', $page['profile_image_url_https']),
-                    'social_media_id' => $page['id_str'],
+                    'profile_pic' => str_replace('_normal', '', $page_pic),
+                    'social_media_id' => $page_id,
                     'type' => 'twitter',
                     'username' => $page['screen_name']
                 ]);
                 $page['external_url'] = 'https://www.twitter.com/'.$page['username'];
+                $page['profile_pic'] = $this->saveUserPic($page_id, $page_name, $page_pic);
+
                 return [
                     'data' => $page,
                     'error' => false
@@ -591,11 +596,24 @@
             $info = $this->sendRequest('https://api.twitter.com/oauth/authenticate', false, $data, $headers, false, false);
         }
 
-        public function saveUserPic($id, string $pic) {
+        public function saveUserPic($id, $name, string $pic) {
             $pic = str_replace('_normal', '', $pic);
             $path = 'public/img/pages/twitter/'.$id.'.jpg';
+            $name = preg_replace("/[^A-Za-z0-9 ]/", '', $name);
+            $name = str_replace(' ', '-', $name);
             savePic($pic, $path);
-            $s3Link = $this->media->addToS3('pages/twitter/'.$id.'.jpg', $path);
+
+            $key = 'pages/twitter/'.$name.'-'.$id.'.jpg';
+            $s3Link = $this->media->addToS3($key, $path);
+
+            $this->db->where([
+                'social_media_id' => $id,
+                'type' => 'twitter'
+            ]);
+            $this->db->update('pages', [
+                's3_pic' => $key
+            ]);
+
             return $s3Link;
         }
 

@@ -1,22 +1,23 @@
 import "css/app.css"
 import "semantic/dist/semantic.min.css"
-import React, { Component } from "react"
-import SoundFile from "./sound.mp3"
-import SoundFileAlt from "./sound.ogg"
-import Logo from "./images/icons/icon-100x100.png"
 import { Provider } from "react-redux"
+import React, { Component } from "react"
 import { Route, Router, Switch } from "react-router-dom"
 import history from "history.js"
 import About from "pages/about"
 import Bot from "pages/bot"
 import Fallacy from "pages/fallacy"
 import Fallacies from "pages/fallacies"
+import FallaciesJSON from "fallacies.json"
+import Logo from "./images/icons/icon-100x100.png"
 import NewsFeed from "pages/newsFeed"
 import Page from "pages/"
 import Post from "pages/post"
 import SearchPage from "pages/search"
 import Settings from "pages/settings"
 import SignIn from "pages/signIn"
+import SoundFile from "./sound.mp3"
+import SoundFileAlt from "./sound.ogg"
 import store from "store"
 import Tags from "pages/tags"
 import Target from "pages/target"
@@ -34,32 +35,32 @@ class App extends Component {
 		// this.sendNotification = this.sendNotification.bind(this)
 	}
 
-	handlePermissionGranted() {
-		this.setState({ ignore: false })
-	}
-
-	handlePermissionDenied() {
-		this.setState({ ignore: true })
-	}
-
-	handleNotSupported() {
-		this.setState({ ignore: true })
-	}
-
 	handleNotificationOnClick(e, tag) {
 		window.location.href = e.currentTarget.data.url
-	}
-
-	handleNotificationOnError(e, tag) {
-
 	}
 
 	handleNotificationOnClose(e, tag) {
 
 	}
 
+	handleNotificationOnError(e, tag) {
+
+	}
+
 	handleNotificationOnShow(e, tag) {
 		// this.playSound()
+	}
+
+	handleNotSupported() {
+		this.setState({ ignore: true })
+	}
+
+	handlePermissionDenied() {
+		this.setState({ ignore: true })
+	}
+
+	handlePermissionGranted() {
+		this.setState({ ignore: false })
 	}
 
 	playSound(filename) {
@@ -131,7 +132,9 @@ class App extends Component {
 								path="/fallacies/:id"
 								render={props => {
 									const id = props.match.params.id
-									if (Number.isInteger(parseInt(id, 10))) {
+									const idSlug = id.split("-").join(" ")
+									const inArray = FallaciesJSON.filter(f => f.name.toLowerCase() === idSlug)
+									if (inArray.length === 0) {
 										return <Fallacy {...props} />
 									}
 									return <Fallacies {...props} />
@@ -142,7 +145,9 @@ class App extends Component {
 								path="/fallacies/:id/:tab"
 								render={props => {
 									const id = props.match.params.id
-									if (Number.isInteger(parseInt(id, 10))) {
+									const idSlug = id.split("-").join(" ")
+									const inArray = FallaciesJSON.filter(f => f.name.toLowerCase() === idSlug)
+									if (inArray.length === 0) {
 										return <Fallacy {...props} />
 									}
 									return <Fallacies {...props} />
@@ -223,15 +228,15 @@ class App extends Component {
 				<Notification
 					ignore={ignore && title !== ""}
 					notSupported={this.handleNotSupported.bind(this)}
-					onPermissionGranted={this.handlePermissionGranted.bind(this)}
-					onPermissionDenied={this.handlePermissionDenied.bind(this)}
-					onShow={this.handleNotificationOnShow.bind(this)}
 					onClick={this.handleNotificationOnClick.bind(this)}
 					onClose={this.handleNotificationOnClose.bind(this)}
 					onError={this.handleNotificationOnError.bind(this)}
+					onPermissionDenied={this.handlePermissionDenied.bind(this)}
+					onPermissionGranted={this.handlePermissionGranted.bind(this)}
+					onShow={this.handleNotificationOnShow.bind(this)}
+					options={options}
 					timeout={5000}
 					title={title}
-					options={options}
 				/>
 				<audio id="sound" preload="auto">
 					<source src={SoundFile} type="audio/mpeg" />

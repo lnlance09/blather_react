@@ -283,7 +283,7 @@
                     'type' => 'youtube',
                     'username' => array_key_exists('customUrl', $snippet) ? $snippet['customUrl'] : null
                 ]);
-                $page['profile_pic'] = $this->saveChannelPic($id, $channelImg);
+                $page['profile_pic'] = $this->saveChannelPic($id, $channelTitle, $channelImg);
                 $page['external_url'] = 'https://www.youtube.com/channel/'.$id;
                 return [
                     'data' => $page,
@@ -734,10 +734,23 @@
             return false;
         }
 
-        public function saveChannelPic(string $id, string $pic) {
+        public function saveChannelPic(string $id, string $name, string $pic) {
             $path = 'public/img/pages/youtube/'.$id.'.png';
+            $name = preg_replace("/[^A-Za-z0-9 ]/", '', $name);
+            $name = str_replace(' ', '-', $name);
             savePic($pic, $path);
-            $s3Link = $this->media->addToS3('pages/youtube/'.$id.'.png', $path);
+
+            $key = 'pages/youtube/'.$name.'-'.$id.'.png';
+            $s3Link = $this->media->addToS3($key, $path);
+
+            $this->db->where([
+                'social_media_id' => $id,
+                'type' => 'youtube'
+            ]);
+            $this->db->update('pages', [
+                's3_pic' => $key
+            ]);
+
             return $s3Link;
         }
 

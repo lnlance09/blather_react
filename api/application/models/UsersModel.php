@@ -106,7 +106,7 @@
 			}
 
 			if ($unique) {
-				$select = "p.id AS `value`, p.id AS `key`, CONCAT(p.name, ' (', COUNT(*), ')') AS text, p.social_media_id, p.type AS page_type";
+				$select = "p.id AS `value`, p.id AS `key`, CONCAT(p.name, ' (', COUNT(*), ')') AS text, p.social_media_id, p.type AS page_type, CONCAT('".$this->s3Path."', p.s3_pic) AS page_pic";
 			}
 
 			$sql = 'SELECT '.$select.' 
@@ -174,10 +174,10 @@
 				for ($i=0;$i<count($results);$i++) {
 					$id = $results[$i]['social_media_id'];
 					$type = $results[$i]['page_type'];
-					$ext = $type === 'twitter' ? 'jpg' : 'png';
+					
 					$results[$i]['image'] = [
 						'avatar' => true,
-						'src' => $this->s3Path.'pages/'.$type.'/'.$id.'.'.$ext
+						'src' => $results[$i]['page_pic']
 					];
 				}
 			}

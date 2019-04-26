@@ -156,7 +156,7 @@ class Aws {
 		$info = $this->s3hd->copyObject([
 			'Bucket' => $bucket,
 			'CopySource' => $bucket.'/'.$src,
-			'Key' => $target,
+			'Key' => $target
 		]);
 		return $info;
 	}
@@ -167,7 +167,7 @@ class Aws {
 		}
 		$info = $this->s3hd->deleteObject([
 			'Bucket' => $bucket,
-			'Key' => $name,
+			'Key' => $name
 		]);
 		return $info;
 	}
@@ -188,7 +188,7 @@ class Aws {
 		}
 		$info = $this->s3hd->getObject([
 			'Bucket' => $bucket,
-			'Key' => $name,
+			'Key' => $name
 		]);
 		return $info['Body'];
 	}
@@ -203,7 +203,7 @@ class Aws {
 				'Bucket' => $bucket,
 				'Key' => $name,
 				'SourceFile' => $file,
-				'StorageClass' => 'REDUCED_REDUNDANCY',
+				'StorageClass' => 'REDUCED_REDUNDANCY'
 			]);
 		} catch (S3Exception $e) {
 			echo $e->getMessage();
@@ -211,7 +211,7 @@ class Aws {
 
 		$this->s3hd->waitUntil('ObjectExists', [
 			'Bucket' => $bucket,
-			'Key' => $name,
+			'Key' => $name
 		]);
 		return $result;
 	}
@@ -228,7 +228,7 @@ class Aws {
 
 		$this->s3hd->waitUntil('ObjectExists', [
 			'Bucket' => $bucket,
-			'Key' => $name,
+			'Key' => $name
 		]);
 		return $result;
 	}
