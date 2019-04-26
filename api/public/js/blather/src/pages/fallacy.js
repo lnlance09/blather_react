@@ -160,7 +160,8 @@ class Fallacy extends Component {
 
 				this.props.saveScreenshot({
 					id: this.props.id,
-					img
+					img,
+					slug: this.props.slug
 				})
 
 				let link = document.createElement("a")
