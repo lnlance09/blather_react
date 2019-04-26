@@ -241,7 +241,7 @@
                                 "@type" => "Person",
                                 "image" => $img,
                                 "name" => $userName,
-                                "url" => "https://blather.io/users/".$userId
+                                "url" => $authorUrl
                             ],
                             "datePublished" => $createdAt,
                             "headline" => $fallacyTitle,
@@ -268,9 +268,12 @@
 
                         $html = '<div>
                                     <h1>
-                                        '.$fallacyTitle.' - <a href="'.$base_url.'fallacies/'.str_replace(' ', '-', strtolower($fallacyName)).'">'.$fallacyName.'</a> by <a href="'.$base_url.'pages/'.$network.'/'.$pageId.'">'.$pageName.'</a>
+                                        '.$fallacyTitle.' - '.$fallacyName.' by '.$pageName.'
                                     </h1>
-                                    <p>'.$explanation.'</p>';
+                                    <p>'.$explanation.'</p>
+                                    <a href="'.$base_url.'fallacies/'.str_replace(' ', '-', strtolower($fallacyName)).'">'.$fallacyName.'</a>
+                                    <a href="'.$base_url.'pages/'.$network.'/'.$pageId.'">'.$pageName.'</a>
+                                    <img src="'.$s3Path.$pagePic.'" alt="'.$pageName.'"/>';
 
                         if (strpos($s3Link, "screenshots") !== false) {
                             $html .= '<img src="'.$s3Path.$s3Link.'" alt="'.htmlentities($pageTitle).'"/>';
