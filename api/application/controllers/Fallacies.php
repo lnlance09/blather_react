@@ -740,8 +740,8 @@
 				exit;
 			}
 
-			$fallacyName = $this->fallacies->fallacyTypeExists($fallacyId);
 			$fallacyId = !$fallacyName ? $fallacy['fallacy_id'] : $fallacyId;
+			$fallacyName = $this->fallacies->fallacyTypeExists($fallacyId);
 			$title = empty($title) ? $fallacy['title'] : $title; 
 			$explanation = empty($explanation) ? $fallacy['explanation'] : $explanation;
 			$startTime = empty($startTime) ? $fallacy['start_time'] : $startTime;
