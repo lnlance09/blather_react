@@ -1,7 +1,7 @@
 <?php
     $uri = $_SERVER['REQUEST_URI'];
     $paths = explode('/', $uri);
-    array_splice($paths, 0, 2);
+    array_splice($paths, 0, 1);
 
     $dir = "/blather/";
     $base_url = "https://blather.io/";
