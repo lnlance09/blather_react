@@ -545,6 +545,7 @@
     <head>
         <meta charset="utf8mb4">
         <meta name="google-site-verification" content="bTDbvvxwQikYB9zsfufDiaqgVHMRi4DZ0311nJpngi8" />
+        <meta name="msvalidate.01" content="66D65FA622461FB6866BB3F58EBD4CE9" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
         <meta name="theme-color" content="#000000">
 
