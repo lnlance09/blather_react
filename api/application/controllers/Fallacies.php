@@ -774,10 +774,11 @@
 				'start_time' => $contradictionStartTime
 			]);
 
-			$data['fallacy_name'] = $fallacyName;
+			$fallacy = $this->fallacies->getFallacy($id);
+
 			echo json_encode([
 				'error' => false,
-				'fallacy' => $data
+				'fallacy' => $fallacy
 			]);
 		}
 
