@@ -33,7 +33,7 @@ class Header extends Component {
 
 	handleItemClick = (e, { name }) => {
 		this.setState({ activeItem: name, visible: false })
-		this.props.history.push(`/fallacies/${name.split(" ").join("_")}`)
+		this.props.history.push(`/fallacies/${name.split(" ").join("-")}`)
 	}
 
 	onChangeSearch = (e, { value }) => {
