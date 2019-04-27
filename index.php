@@ -599,7 +599,7 @@
     </body>
 
     <script src="/static/js/1.63a53413.chunk.js"></script>
-    <script src="/static/js/main.c52f957d.chunk.js"></script>
+    <script src="/static/js/main.4980d501.chunk.js"></script>
     <script src="/static/js/runtime~main.229c360f.js"></script>
 
 <?php
