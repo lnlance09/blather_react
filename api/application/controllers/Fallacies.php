@@ -561,14 +561,14 @@
 			$key = 'screenshots/'.$img_file;
 
 			$this->media->createPicFromData($img_file, $this->screenshotPath, $img);
-			$this->media->addToS3($key, $this->screenshotPath.$img_file);
+			$s3Link = $this->media->addToS3($key, $this->screenshotPath.$img_file);
 			$this->fallacies->update($id, [
 				's3_link' => $key
 			]);
 
 			echo json_encode([
 				'error' => false,
-				's3Link' => $key
+				's3Link' => $s3Link
 			]);
 		}
 
