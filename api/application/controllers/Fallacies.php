@@ -560,6 +560,10 @@
 		}
 
 		public function saveScreenshot() {
+			header("Access-Control-Allow-Origin: *");
+			header("Access-Control-Allow-Headers: origin, content-type, accept, authorization");
+			header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS, HEAD");
+
 			$id = $this->input->post('id');
 			$img = $this->input->post('img');
 			$slug = $this->input->post('slug');
