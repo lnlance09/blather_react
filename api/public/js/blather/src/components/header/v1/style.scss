@@ -24,10 +24,6 @@
                     margin-right: 12px;
                     vertical-align: middle;
                     width: 36px;
-
-                    &:hover {
-                        fill: $lightBlue;
-                    }
                 }
             }
 
@@ -41,16 +37,9 @@
                 }
             }
 
-            .fallaciesLink, .discussionsLink, .signInLink {
-                color: $offWhite;
+            .fallaciesLink a {
                 font-size: 15px !important;
                 font-weight: 500 !important;
-                padding-left: 10px !important;
-                padding-right: 10px !important;
-
-                &:hover {
-                    color: $white;
-                }
             }
 
             .dropDownMenu {

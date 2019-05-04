@@ -80,9 +80,10 @@ class Header extends Component {
 				return (
 					<Menu.Item className="signInLink" direction="right" position="right">
 						<Button
-							color="twitter"
+							basic
 							compact
 							content="Sign In"
+							inverted
 							onClick={() => props.history.push("/signin")}
 						/>
 					</Menu.Item>
