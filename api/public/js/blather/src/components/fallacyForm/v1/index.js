@@ -517,7 +517,7 @@ class FallacyForm extends Component {
 
 		return (
 			<Provider store={store}>
-				<Card className="fallacyForm" fluid raised>
+				<Card className="fallacyForm" fluid>
 					<Card.Content>
 						<Card.Header className="formHeader">Does this make sense?</Card.Header>
 						<Card.Meta>Assign a fallacy</Card.Meta>

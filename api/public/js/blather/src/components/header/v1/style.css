@@ -21,20 +21,13 @@
       margin-right: 12px;
       vertical-align: middle;
       width: 36px; }
-      .pageHeader .menu.globalHeader .headerContainer .headerMenuItem .headerLogo:hover {
-        fill: #54C8FF; }
   .pageHeader .menu.globalHeader .headerContainer .sidebarItem .icon {
     cursor: pointer; }
     .pageHeader .menu.globalHeader .headerContainer .sidebarItem .icon:hover {
       color: #2185D0; }
-  .pageHeader .menu.globalHeader .headerContainer .fallaciesLink, .pageHeader .menu.globalHeader .headerContainer .discussionsLink, .pageHeader .menu.globalHeader .headerContainer .signInLink {
-    color: #F9FAFB;
+  .pageHeader .menu.globalHeader .headerContainer .fallaciesLink a {
     font-size: 15px !important;
-    font-weight: 500 !important;
-    padding-left: 10px !important;
-    padding-right: 10px !important; }
-    .pageHeader .menu.globalHeader .headerContainer .fallaciesLink:hover, .pageHeader .menu.globalHeader .headerContainer .discussionsLink:hover, .pageHeader .menu.globalHeader .headerContainer .signInLink:hover {
-      color: #FFFFFF; }
+    font-weight: 500 !important; }
   .pageHeader .menu.globalHeader .headerContainer .dropDownMenu {
     font-size: 15px; }
     .pageHeader .menu.globalHeader .headerContainer .dropDownMenu .menu.visible {
