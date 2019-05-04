@@ -619,4 +619,14 @@
         var sc_security="b7d7f089";
     </script>
     <script src="https://www.statcounter.com/counter/counter.js" async></script>
+
+    <!-- Start Alexa Certify Javascript -->
+    <script>
+        _atrk_opts = { atrk_acct:"r9gPs1KAfD20Cs", domain:"blather.io",dynamic: true};
+        (function() { var as = document.createElement('script'); as.type = 'text/javascript'; as.async = true; as.src = "https://certify-js.alexametrics.com/atrk.js"; var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(as, s); })();
+    </script>
+    <noscript>
+        <img src="https://certify.alexametrics.com/atrk.gif?account=r9gPs1KAfD20Cs" style="display:none" height="1" width="1" alt="" />
+    </noscript>
+    <!-- End Alexa Certify Javascript -->
 </html>
