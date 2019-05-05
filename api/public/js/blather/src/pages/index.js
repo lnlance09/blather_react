@@ -305,9 +305,6 @@ class Page extends Component {
 										src={this.props.img}
 									/>
 									{PageHeaderInfo(this.props)}
-									<Header as="h2" dividing>
-										Breakdown
-									</Header>
 									{this.props.id && (
 										<Breakdown
 											authenticated={authenticated}

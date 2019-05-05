@@ -570,7 +570,7 @@ class FallacyForm extends Component {
 							<ErrorMsg props={this.props} />
 							{this.props.authenticated ? (
 								<Button
-									color={this.props.network}
+									color="blue"
 									compact
 									content="Assign a fallacy"
 									fluid

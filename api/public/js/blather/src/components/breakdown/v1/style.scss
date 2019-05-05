@@ -1,7 +1,7 @@
 @import '../../../css/colors.scss';
 
 .breakdown {
-    background: $offWhite !important;
+    margin-top: 25px !important;
 
     .message {
         background: $white;
@@ -11,84 +11,60 @@
         }
     }
 
-    .percentages {
-        background: $white;
+    .breakdownSegment {
+        background: $offWhite;
 
-        .ui.header.small {
-            margin-bottom: 7px !important;
-        }
+        .percentages {
+            background: $offWhite;
+            padding: 0 !important;
 
-        .fallacyPercentage {
-            cursor: pointer;
-            margin-top: 12px;
-
-            &:first-of-type {
-                margin-top: 0;
+            .ui.header.small {
+                margin-bottom: 7px !important;
             }
 
-            .progress {
-                margin-bottom: 0;
+            .fallacyPercentage {
+                cursor: pointer;
+                margin-top: 12px;
 
-                .bar {
-                    .progress {
-                        color: $white;
+                &:first-of-type {
+                    margin-top: 0;
+                }
+
+                .progress {
+                    margin-bottom: 0;
+
+                    .bar {
+                        .progress {
+                            color: $white;
+                        }
+                    }
+
+                    .label {
+                        background: $offWhite;
+                        color: $lightBlack;
                     }
                 }
 
-                .label {
-                    background: $offWhite;
-                    color: $lightBlack;
+                &.twitter {
+                    .progress .bar {
+                        background: $twitter !important;
+                    }
                 }
-            }
 
-            &.twitter {
-                .progress .bar {
-                    background: $twitter !important;
-                }
-            }
-
-            &.youtube {
-                .progress .bar {
-                    background: $youtube !important;
+                &.youtube {
+                    .progress .bar {
+                        background: $youtube !important;
+                    }
                 }
             }
         }
-    }
-
-    .statHeader {
-        &.first-of-type {
-            margin: 0 !important;
-        }
-
-        margin-top: 15px;
     }
 
     @media only screen and (max-width: 1025px) {
-        .ui.header.medium {
-            font-size: 15px !important;
-        }
-
         .fallacyPercentage {
             .ui.header.small {
                 font-size: 14px !important;
             }
         }
-
-        .statHeader {
-            font-size: 14px !important;
-        }
-    }
-
-    .honestyHeader {
-        margin-top: 0;
-    }
-
-    .stats {
-        margin: 0 !important;
-        padding: 0;
-    }
-
-    .createReview {
-        margin: 10px 0 4px !important;
     }
 }
