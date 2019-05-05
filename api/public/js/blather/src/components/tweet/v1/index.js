@@ -80,7 +80,7 @@ class Tweet extends Component {
 				const archiveDate = adjustTimezone(props.archive.date_created)
 				return (
 					<Transition animation={animation} duration={duration} visible={visible}>
-						<Message className="archiveMsg">
+						<Message className="archiveMsg" data-html2canvas-ignore>
 							<Icon color="green" name="checkmark" /> Archived this{" "}
 							<a
 								href={`http://archive.is/${props.archive.code}`}
