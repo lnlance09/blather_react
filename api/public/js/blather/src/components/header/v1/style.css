@@ -30,10 +30,12 @@
     font-weight: 500 !important; }
   .pageHeader .menu.globalHeader .headerContainer .dropDownMenu {
     font-size: 15px; }
+    .pageHeader .menu.globalHeader .headerContainer .dropDownMenu button {
+      margin-right: 0; }
     .pageHeader .menu.globalHeader .headerContainer .dropDownMenu .menu.visible {
+      margin-top: 17px;
+      width: 100%;
       z-index: 1001; }
-      .pageHeader .menu.globalHeader .headerContainer .dropDownMenu .menu.visible .item a {
-        color: rgba(0, 0, 0, 0.8) !important; }
 
 .pageHeader .sidebar {
   top: 72px !important; }

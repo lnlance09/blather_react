@@ -9,11 +9,13 @@ import {
 	Container,
 	Divider,
 	Header,
+	Icon,
 	Image,
 	Message,
 	Segment,
 	Sticky
 } from "semantic-ui-react"
+import html2canvas from "html2canvas"
 import FallacyForm from "components/fallacyForm/v1/"
 import FallaciesList from "components/fallaciesList/v1/"
 import PageFooter from "components/footer/v1/"
@@ -82,6 +84,7 @@ class Post extends Component {
 			this.props.downloadVideo({ audio: 0, id })
 		}
 
+		this.captureScreenshot = this.captureScreenshot.bind(this)
 		this.handleHoverOn = this.handleHoverOn.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
 		this.setClip = this.setClip.bind(this)
@@ -141,6 +144,41 @@ class Post extends Component {
 		if (this.state.a !== a) {
 			this.setState({ a })
 		}
+	}
+
+	adjustHighlightBlocks(add) {
+		const elements = document.getElementsByClassName("linkifyTweet")
+		for (let i = 0; i < elements.length; i++) {
+			if (add) {
+				elements[i].classList.add("downloading")
+			} else {
+				elements[i].classList.remove("downloading")
+			}
+		}
+	}
+
+	captureScreenshot() {
+		const filename = "test"
+		this.adjustHighlightBlocks(true)
+
+		html2canvas(document.getElementById("captureTweet"), {
+			allowTaint: false,
+			scale: 2,
+			useCORS: true
+		}).then(canvas => {
+			const ctx = canvas.getContext("2d")
+			ctx.globalAlpha = 1
+			let img = canvas.toDataURL("image/png")
+			let link = document.createElement("a")
+			link.download =
+				filename
+					.toLowerCase()
+					.split(" ")
+					.join("-") + ".png"
+			link.href = img
+			link.click()
+			this.adjustHighlightBlocks(false)
+		})
 	}
 
 	handleHoverOn = e => {
@@ -414,42 +452,48 @@ class Post extends Component {
 					if (props.info) {
 						return (
 							<div>
-								<Tweet
-									archive={props.archive}
-									archives={props.archives}
-									bearer={bearer}
-									canArchive
-									created_at={props.info.created_at}
-									extended_entities={props.info.extended_entities}
-									externalLink
-									highlight={highlightedText !== ""}
-									highlightedText={highlightedText}
-									full_text={props.info.full_text}
-									handleHoverOn={this.handleHoverOn}
-									id={props.info.id_str}
-									imageSize="medium"
-									is_quote_status={props.info.is_quote_status}
-									profileImg={props.profileImg}
-									quoted_status={
-										props.info.quoted_status === undefined &&
-										props.info.is_quote_status
-											? props.info.retweeted_status
-											: props.info.quoted_status
-									}
-									quoted_status_id_str={props.info.quoted_status_id_str}
-									quoted_status_permalink={props.info.quoted_status_permalink}
-									retweeted_status={
-										props.info.retweeted_status === undefined
-											? false
-											: props.info.retweeted_status
-									}
-									stats={{
-										favorite_count: props.info.favorite_count,
-										retweet_count: props.info.retweet_count
-									}}
-									useLocalProfilePic
-									user={props.info.user}
-								/>
+								<div id="captureTweet">
+									<Tweet
+										archive={props.archive}
+										archives={props.archives}
+										bearer={bearer}
+										canArchive
+										created_at={props.info.created_at}
+										extended_entities={props.info.extended_entities}
+										externalLink
+										highlight={highlightedText !== ""}
+										highlightedText={highlightedText}
+										full_text={props.info.full_text}
+										handleHoverOn={this.handleHoverOn}
+										id={props.info.id_str}
+										imageSize="medium"
+										is_quote_status={props.info.is_quote_status}
+										profileImg={props.profileImg}
+										quoted_status={
+											props.info.quoted_status === undefined &&
+											props.info.is_quote_status
+												? props.info.retweeted_status
+												: props.info.quoted_status
+										}
+										quoted_status_id_str={props.info.quoted_status_id_str}
+										quoted_status_permalink={props.info.quoted_status_permalink}
+										retweeted_status={
+											props.info.retweeted_status === undefined
+												? false
+												: props.info.retweeted_status
+										}
+										stats={{
+											favorite_count: props.info.favorite_count,
+											retweet_count: props.info.retweet_count
+										}}
+										useLocalProfilePic
+										user={props.info.user}
+									/>
+								</div>
+								<Message className="screenshotMsg">
+									<Icon name="camera" />
+									<span onClick={this.captureScreenshot}>Capture screenshot</span>
+								</Message>
 								{DisplayFallacyForm(props)}
 							</div>
 						)

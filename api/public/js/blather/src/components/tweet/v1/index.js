@@ -46,7 +46,7 @@ class Tweet extends Component {
 	render() {
 		const { animation, duration, visible } = this.state
 		const { highlight, retweeted_status } = this.props
-		const className = `tweet ${this.props.redirect ? " clickable" : ""}`
+		const className = `tweet${this.props.redirect ? " clickable" : ""}`
 
 		const ArchiveIcon = props => {
 			if (props.canArchive && !props.archive) {

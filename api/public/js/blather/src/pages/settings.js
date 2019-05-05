@@ -17,13 +17,11 @@ import {
 	Button,
 	Container,
 	Form,
-	Grid,
 	Header,
 	Icon,
 	Input,
 	Menu,
 	Message,
-	Responsive,
 	Segment
 } from "semantic-ui-react"
 import Moment from "react-moment"
@@ -143,7 +141,7 @@ class SettingsPage extends Component {
 
 	render() {
 		const { activeItem, confirmPassword, loading, newPassword, password } = this.state
-		const activeItemDiv = activeItem => {
+		const ActiveItemDiv = activeItem => {
 			if (activeItem === "basic") {
 				const joinDate = adjustTimezone(this.props.data.dateCreated)
 				return (
@@ -290,7 +288,7 @@ class SettingsPage extends Component {
 			}
 		}
 		const SettingsMenu = props => (
-			<Menu borderless className="settingsMenu" fluid secondary stackable vertical>
+			<Menu className="settingsMenu" fluid pointing secondary stackable>
 				<Menu.Item
 					key="basic"
 					name="basic"
@@ -304,11 +302,6 @@ class SettingsPage extends Component {
 					onClick={this.handleItemClick}
 				>
 					Twitter
-					<Icon
-						className="twitterIcon"
-						inverted={activeItem === "twitter"}
-						name="twitter"
-					/>
 				</Menu.Item>
 				<Menu.Item
 					key="youtube"
@@ -317,11 +310,6 @@ class SettingsPage extends Component {
 					onClick={this.handleItemClick}
 				>
 					YouTube
-					<Icon
-						className="youtubeIcon"
-						inverted={activeItem === "youtube"}
-						name="youtube"
-					/>
 				</Menu.Item>
 			</Menu>
 		)
@@ -335,26 +323,10 @@ class SettingsPage extends Component {
 					<PageHeader {...this.props} />
 					<Container className="mainContainer" textAlign="left">
 						<Header as="h1">Settings</Header>
-						<Responsive maxWidth={1024}>
-							<Grid>
-								<Grid.Row>{SettingsMenu(this.props)}</Grid.Row>
-								<Grid.Row>
-									<div className="settingsContent">
-										<Segment basic>{activeItemDiv(activeItem)}</Segment>
-									</div>
-								</Grid.Row>
-							</Grid>
-						</Responsive>
-						<Responsive minWidth={1025}>
-							<Grid>
-								<Grid.Column width={4}>{SettingsMenu(this.props)}</Grid.Column>
-								<Grid.Column className="rightSide" width={12}>
-									<div className="settingsContent">
-										<Segment basic>{activeItemDiv(activeItem)}</Segment>
-									</div>
-								</Grid.Column>
-							</Grid>
-						</Responsive>
+						<div className="settingsContent">
+							{SettingsMenu(this.props)}
+							<Segment basic>{ActiveItemDiv(activeItem)}</Segment>
+						</div>
 					</Container>
 					<PageFooter />
 				</div>

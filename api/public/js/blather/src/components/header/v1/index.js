@@ -60,21 +60,29 @@ class Header extends Component {
 		))
 		const LoginButton = props => {
 			if (props.authenticated) {
-				const trigger = <span>{props.data.name}</span>
+				const trigger = (
+					<Button basic inverted>
+						{props.data.name}
+					</Button>
+				)
 				return (
-					<Dropdown className="dropDownMenu right" icon={false} item trigger={trigger}>
-						<Dropdown.Menu>
-							<Dropdown.Item
-								onClick={() => props.history.push(`/users/${props.data.username}`)}
-							>
-								Profile
-							</Dropdown.Item>
-							<Dropdown.Item onClick={() => props.history.push(`/settings`)}>
-								Settings
-							</Dropdown.Item>
-							<Dropdown.Item onClick={this.onLogout}>Log out</Dropdown.Item>
-						</Dropdown.Menu>
-					</Dropdown>
+					<Menu.Item direction="right" position="right">
+						<Dropdown className="dropDownMenu" fluid icon={false} trigger={trigger}>
+							<Dropdown.Menu>
+								<Dropdown.Item
+									onClick={() =>
+										props.history.push(`/users/${props.data.username}`)
+									}
+								>
+									Profile
+								</Dropdown.Item>
+								<Dropdown.Item onClick={() => props.history.push(`/settings`)}>
+									Settings
+								</Dropdown.Item>
+								<Dropdown.Item onClick={this.onLogout}>Log out</Dropdown.Item>
+							</Dropdown.Menu>
+						</Dropdown>
+					</Menu.Item>
 				)
 			} else {
 				return (
@@ -140,7 +148,7 @@ class Header extends Component {
 									<NavSearch history={this.props.history} />
 								</Menu.Item>
 								<Menu.Item className="fallaciesLink">
-									<Link to="/fallacies">Fallacies</Link>
+									<Link to="/fallacies">Reference</Link>
 								</Menu.Item>
 								{LoginButton(this.props)}
 							</Responsive>

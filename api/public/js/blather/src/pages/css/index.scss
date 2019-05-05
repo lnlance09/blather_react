@@ -629,6 +629,16 @@ a {
         .placeholderContainer {
             text-align: center;
         }
+
+        .screenshotMsg {
+            span {
+                cursor: pointer;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
     }
 
     .sticky {
@@ -694,11 +704,18 @@ a {
 
 /* Settings page */
 .settingsPage {
+    .settingsMenu {
+        margin-bottom: 0;
+    }
+
     .settingsContent {
         width: 100%;
 
-        .segment {
+        .segment.basic {
+            margin-top: 0;
             min-height: 400px;
+            padding-left: 0;
+            padding-right: 0;
 
             .contentWrapper {
                 text-align: center;
