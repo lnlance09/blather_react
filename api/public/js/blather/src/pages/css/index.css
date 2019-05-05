@@ -369,6 +369,10 @@ a {
     margin: 30px 0; }
   .postPage .ui.text.container.mainContainer .placeholderContainer {
     text-align: center; }
+  .postPage .ui.text.container.mainContainer .screenshotMsg span {
+    cursor: pointer; }
+    .postPage .ui.text.container.mainContainer .screenshotMsg span:hover {
+      text-decoration: underline; }
 
 .postPage .sticky div {
   z-index: 1000; }
@@ -408,13 +412,19 @@ a {
   width: 100%; }
 
 /* Settings page */
+.settingsPage .settingsMenu {
+  margin-bottom: 0; }
+
 .settingsPage .settingsContent {
   width: 100%; }
-  .settingsPage .settingsContent .segment {
-    min-height: 400px; }
-    .settingsPage .settingsContent .segment .contentWrapper {
+  .settingsPage .settingsContent .segment.basic {
+    margin-top: 0;
+    min-height: 400px;
+    padding-left: 0;
+    padding-right: 0; }
+    .settingsPage .settingsContent .segment.basic .contentWrapper {
       text-align: center; }
-    .settingsPage .settingsContent .segment .changePasswordBox .button {
+    .settingsPage .settingsContent .segment.basic .changePasswordBox .button {
       float: right; }
   .settingsPage .settingsContent .firstParagraph {
     text-align: center; }

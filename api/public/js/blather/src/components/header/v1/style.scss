@@ -44,15 +44,15 @@
 
             .dropDownMenu {
                 font-size: 15px;
-                
-                .menu.visible {
-                    z-index: 1001;
 
-                    .item {
-                        a {
-                            color: rgba(0,0,0,0.8) !important;
-                        }
-                    }
+                button {
+                    margin-right: 0;
+                }
+
+                .menu.visible {
+                    margin-top: 17px;
+                    width: 100%;
+                    z-index: 1001;
                 }
             }
         }
