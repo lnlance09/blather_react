@@ -158,9 +158,8 @@ class Post extends Component {
 	}
 
 	captureScreenshot() {
-		const filename = "test"
+		const filename = "blather-tweet-screenshot"
 		this.adjustHighlightBlocks(true)
-
 		html2canvas(document.getElementById("captureTweet"), {
 			allowTaint: false,
 			scale: 2,
