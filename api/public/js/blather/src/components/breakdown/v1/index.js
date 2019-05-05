@@ -78,50 +78,57 @@ class Breakdown extends Component {
 			)
 
 		return (
-			<Segment className="breakdown">
-				<Message
-					content={`A measure of ${
-						this.props.name
-					}'s level of partisanship, logical consistency, and intellectual honesty.`}
-					header="How reputable is this source?"
-					icon="question"
-				/>
-
-				{options.length > 0 ? (
-					<Segment className="percentages">{RenderFallacies()}</Segment>
-				) : (
-					<Message content="No fallacies have been assigned" />
-				)}
-
-				<Header attached="top" className="honestyHeader">
-					Grifter or Lazy Thinker?
-				</Header>
-				<Segment attached>
-					<Header className="statHeader first" size="small">
-						Can pass an{" "}
-						<a
-							href="https://www.econlib.org/archives/2011/06/the_ideological.html"
-							rel="noopener noreferrer"
-							target="_blank"
-						>
-							Ideological Turing Test
-						</a>
-						?<Header.Subheader>{Stats(turingTest)}</Header.Subheader>
+			<div className="breakdown">
+				<div>
+					<Header as="h2" attached="top">
+						Breakdown
 					</Header>
+					<Segment attached className="breakdownSegment">
+						<Message
+							content={`A measure of ${
+								this.props.name
+							}'s level of partisanship, logical consistency, and intellectual honesty.`}
+							header="How reputable is this source?"
+							icon="question"
+						/>
 
-					<Header className="statHeader" size="small">
-						Believes most of what they talk about?
-						<Header.Subheader>{Stats(sincerity)}</Header.Subheader>
+						{options.length > 0 ? (
+							<Segment basic className="percentages">{RenderFallacies()}</Segment>
+						) : (
+							<Message content="No fallacies have been assigned" />
+						)}
+					</Segment>
+				
+					<Header as="h3" attached>
+						Grifter or Lazy Thinker?
 					</Header>
-				</Segment>
+					<Segment attached>
+						<Header as="p" className="first" size="small">
+							Can pass an{" "}
+							<a
+								href="https://www.econlib.org/archives/2011/06/the_ideological.html"
+								rel="noopener noreferrer"
+								target="_blank"
+							>
+								Ideological Turing Test
+							</a>
+							?<Header.Subheader>{Stats(turingTest)}</Header.Subheader>
+						</Header>
 
-				<p className="createReview">
-					<Icon color="yellow" name="star" />{" "}
-					<Link to={`/targets/${authenticated ? userId : "create"}/${dbId}`}>
-						Create a review
-					</Link>
-				</p>
-			</Segment>
+						<Header as="p" size="small">
+							Believes most of what they talk about?
+							<Header.Subheader>{Stats(sincerity)}</Header.Subheader>
+						</Header>
+
+						<p className="createReview">
+							<Icon color="yellow" name="star" />{" "}
+							<Link to={`/targets/${authenticated ? userId : "create"}/${dbId}`}>
+								Create a review
+							</Link>
+						</p>
+					</Segment>
+				</div>
+			</div>
 		)
 	}
 }
