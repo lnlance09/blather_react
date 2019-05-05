@@ -51,7 +51,7 @@ class Tweet extends Component {
 		const ArchiveIcon = props => {
 			if (props.canArchive && !props.archive) {
 				return (
-					<List.Item className="archiveListItem">
+					<List.Item className="archiveListItem" data-html2canvas-ignore>
 						<Popup
 							className="archivePopup"
 							content="Archive"
