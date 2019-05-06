@@ -17,6 +17,7 @@ class FeedComponent extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
+			loadingMore: false,
 			page: 0
 		}
 
@@ -42,13 +43,19 @@ class FeedComponent extends Component {
 		if (this.props.hasMore) {
 			const newPage = parseInt(this.props.page + 1, 10)
 			if (newPage > this.state.page) {
-				this.setState({ page: newPage })
+				this.setState({ loadingMore: true, page: newPage })
 				this.props.getFeed({ page: newPage })
 			}
 		}
 	}
 
 	render() {
+		const { loadingMore } = this.state
+		const LazyLoadMore = props => {
+			if (loadingMore && props.hasMore) {
+				return <LazyLoad />
+			}
+		}
 		const RenderFeed = ({ props }) => {
 			return props.results.map((result, i) => {
 				if (result.id && result.item_type === "fallacy") {
@@ -218,6 +225,7 @@ class FeedComponent extends Component {
 			<Visibility className="feedWrapper" continuous onBottomVisible={this.loadMore}>
 				<Feed size={this.props.size}>
 					<RenderFeed props={this.props} />
+					{LazyLoadMore(this.props)}
 				</Feed>
 			</Visibility>
 		)

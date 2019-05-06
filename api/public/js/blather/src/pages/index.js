@@ -1,7 +1,7 @@
 import "pages/css/index.css"
 import { refreshYouTubeToken } from "components/authentication/v1/actions"
 import { DisplayMetaTags } from "utils/metaFunctions"
-import { fetchFallacyCount, fetchPageData } from "pages/actions/page"
+import { fetchFallacyCount, fetchPageData, reset } from "pages/actions/page"
 import { Provider, connect } from "react-redux"
 import {
 	Button,
@@ -13,6 +13,7 @@ import {
 	Image,
 	Label,
 	Menu,
+	Placeholder,
 	Segment
 } from "semantic-ui-react"
 import Breakdown from "components/breakdown/v1/"
@@ -59,6 +60,7 @@ class Page extends Component {
 			userId
 		}
 
+		this.props.reset()
 		this.props.fetchPageData({
 			bearer,
 			id,
@@ -77,6 +79,7 @@ class Page extends Component {
 		}
 
 		if (this.state.id !== id) {
+			this.props.reset()
 			this.props.fetchPageData({
 				bearer: this.state.bearer,
 				id,
@@ -294,32 +297,38 @@ class Page extends Component {
 						<Container className="mainContainer" textAlign="left">
 							<Grid>
 								<Grid.Column width={16}>
-									<Image
-										bordered
-										centered
-										circular
-										className="profilePic"
-										onError={i => (i.target.src = defaultImg)}
-										rounded
-										size="medium"
-										src={this.props.img}
-									/>
-									{PageHeaderInfo(this.props)}
-									{this.props.id && (
-										<Breakdown
-											authenticated={authenticated}
-											count={this.props.fallacyCount}
-											dbId={this.props.dbId}
-											id={this.props.id}
-											name={this.props.name}
-											network={network}
-											setFallacyId={this.setFallacyId}
-											sincerity={this.props.sincerity}
-											turingTest={this.props.turingTest}
-											userId={parseInt(userId, 10)}
-											username={this.props.username}
+									{this.props.id ? (
+										<Image
+											bordered
+											centered
+											circular
+											className="profilePic"
+											onError={i => (i.target.src = defaultImg)}
+											rounded
+											size="medium"
+											src={this.props.img}
 										/>
+									) : (
+										<Container textAlign="center">
+											<Placeholder className="profilePicPlaceholder">
+												<Placeholder.Image square />
+											</Placeholder>
+										</Container>
 									)}
+									{PageHeaderInfo(this.props)}
+									<Breakdown
+										authenticated={authenticated}
+										count={this.props.fallacyCount}
+										dbId={this.props.dbId}
+										id={this.props.id}
+										name={this.props.name}
+										network={network}
+										setFallacyId={this.setFallacyId}
+										sincerity={this.props.sincerity}
+										turingTest={this.props.turingTest}
+										userId={parseInt(userId, 10)}
+										username={this.props.username}
+									/>
 									{PageMenu(this.props)}
 									<Container className="profileContentContainer">
 										<ShowContent props={this.props} />
@@ -366,6 +375,7 @@ Page.propTypes = {
 			loading: true
 		})
 	]),
+	reset: PropTypes.func,
 	sincerityTest: PropTypes.object,
 	turingTest: PropTypes.object,
 	refreshYouTubeToken: PropTypes.func,
@@ -388,6 +398,7 @@ Page.defaultProps = {
 		data: [{}, {}, {}, {}, {}]
 	},
 	refreshYouTubeToken,
+	reset,
 	sincerityTest: {},
 	turingTest: {}
 }
@@ -405,6 +416,7 @@ export default connect(
 	{
 		fetchFallacyCount,
 		fetchPageData,
-		refreshYouTubeToken
+		refreshYouTubeToken,
+		reset
 	}
 )(Page)

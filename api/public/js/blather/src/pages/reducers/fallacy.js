@@ -1,6 +1,12 @@
 import * as constants from "../constants"
 
-const initial = () => ({})
+const initial = () => ({
+	creating: false,
+	convoLoading: true,
+	error: false,
+	fallacyCount: 0,
+	thumbnailImg: "https://s3.amazonaws.com/blather22/thumbnail.jpg",
+})
 
 const fallacy = (state = initial(), action) => {
 	const payload = action.payload
@@ -333,6 +339,11 @@ const fallacy = (state = initial(), action) => {
 				...state,
 				tag_ids: tagIds.join(","),
 				tag_names: tagNames.join(",")
+			}
+
+		case constants.RESET_FALLACY_TO_INITIAL:
+			return {
+				state
 			}
 
 		case constants.RETRACT_LOGIC:

@@ -578,6 +578,18 @@ a {
         width: 220px;
     }
 
+    .profilePicPlaceholder {
+        border-radius: 50%;
+        display: inline-block;
+        max-width: none;
+        text-align: center;
+
+        .square {
+            height: 220px;
+            width: 220px;
+        }
+    }
+
     .pageHeaderInfo {
         margin-top: 10px;
         text-align: center;

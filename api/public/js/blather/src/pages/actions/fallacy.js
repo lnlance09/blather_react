@@ -249,3 +249,9 @@ export const updateFallacy = ({
 		}
 	)
 }
+
+export const reset = () => dispatch => {
+	dispatch({
+		type: constants.RESET_FALLACY_TO_INITIAL
+	})
+}

@@ -1,7 +1,21 @@
 import * as constants from "../constants"
 
 const initial = () => ({
-	loading: false
+	error: false,
+	exists: true,
+	fallacies: {
+		count: 0,
+		error: false,
+		data: [{}, {}, {}, {}, {}]
+	},
+	loading: false,
+	posts: {
+		count: 0,
+		error: false,
+		data: [{}, {}, {}, {}, {}]
+	},
+	sincerityTest: {},
+	turingTest: {}
 })
 
 const page = (state = initial(), action) => {
@@ -51,6 +65,11 @@ const page = (state = initial(), action) => {
 					no: turingTestNo
 				},
 				username: payload.data.username
+			}
+
+		case constants.RESET_PAGE_TO_INITIAL:
+			return {
+				state
 			}
 
 		case constants.SET_FALLACY_COUNT:

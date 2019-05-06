@@ -32,6 +32,8 @@
           background: #0084b4 !important; }
         .breakdown .breakdownSegment .percentages .fallacyPercentage.youtube .progress .bar {
           background: #ff0000 !important; }
+  .breakdown .questionnaire .ui.header.small {
+    margin-top: 0; }
   @media only screen and (max-width: 1025px) {
     .breakdown .ui.header.small {
       font-size: 14px !important; } }
