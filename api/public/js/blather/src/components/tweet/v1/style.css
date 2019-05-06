@@ -27,9 +27,9 @@
       .tweet .card .content .description span {
         color: #1B1C1D; }
         .tweet .card .content .description span b {
-          background: #ffff00; }
-      .tweet .card .content .description.downloading span b {
-        display: inline-block; }
+          text-decoration-color: #DB2828;
+          text-decoration-line: underline;
+          text-decoration-style: double; }
     .tweet .card .content.extra {
       cursor: default;
       padding: 1px 3px !important; }
