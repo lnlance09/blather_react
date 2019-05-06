@@ -70,8 +70,8 @@ class UserPage extends Component {
 			username
 		})
 
-		this.onDrop = this.onDrop.bind(this)
 		this.onChangeAbout = this.onChangeAbout.bind(this)
+		this.onDrop = this.onDrop.bind(this)
 		this.reloadAbout = this.reloadAbout.bind(this)
 	}
 
@@ -192,9 +192,12 @@ class UserPage extends Component {
 			)
 		}
 
-		const ShowContent = props => {
+		const ShowContent = ({ props }) => {
 			if (props.user.id) {
 				switch (activeItem) {
+					case "archives":
+						return <ArchivesList history={props.history} id={props.user.id} />
+
 					case "fallacies":
 						return (
 							<FallaciesList
@@ -207,9 +210,6 @@ class UserPage extends Component {
 								source="users"
 							/>
 						)
-
-					case "archives":
-						return <ArchivesList history={props.history} id={props.user.id} />
 
 					default:
 						return null
@@ -266,7 +266,7 @@ class UserPage extends Component {
 							{UserMenu(this.props)}
 							<Container className="profileContentContainer">
 								<Segment basic className="profileContentSegment">
-									{ShowContent(this.props)}
+									<ShowContent props={this.props} />
 								</Segment>
 							</Container>
 						</Container>
