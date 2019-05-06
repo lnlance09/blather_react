@@ -385,6 +385,15 @@ a {
                 margin-bottom: 5px;
             }
 
+            .captureScreenshot {
+                cursor: pointer;
+                float: left;
+
+                + a {
+                    float: right;
+                }
+            }
+
             @media only screen and (max-width: 1025px) {
                 .header {
                     font-size: 16px !important;
@@ -491,6 +500,10 @@ a {
     .similarFallaciesSegment {
         padding: 0 !important;
         width: 100%;
+    }
+
+    .captureScreenshot {
+        cursor: pointer;
     }
 
     canvas {

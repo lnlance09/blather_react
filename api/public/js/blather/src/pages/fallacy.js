@@ -622,7 +622,7 @@ class Fallacy extends Component {
 				case "reference":
 					return (
 						<div className="fallacyContent">
-							<FallacyRef id={props.fallacyId} stacked />
+							<FallacyRef id={props.fallacyId} />
 						</div>
 					)
 				default:

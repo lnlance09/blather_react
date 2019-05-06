@@ -230,6 +230,11 @@ a {
     margin-bottom: 12px !important; }
   .fallaciesPage .mainFallacy .segment .header {
     margin-bottom: 5px; }
+  .fallaciesPage .mainFallacy .segment .captureScreenshot {
+    cursor: pointer;
+    float: left; }
+    .fallaciesPage .mainFallacy .segment .captureScreenshot + a {
+      float: right; }
   @media only screen and (max-width: 1025px) {
     .fallaciesPage .mainFallacy .segment .header {
       font-size: 16px !important; }
@@ -291,6 +296,9 @@ a {
 .fallacyPage .similarFallaciesSegment {
   padding: 0 !important;
   width: 100%; }
+
+.fallacyPage .captureScreenshot {
+  cursor: pointer; }
 
 .fallacyPage canvas {
   display: none;

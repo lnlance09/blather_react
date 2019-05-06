@@ -2,9 +2,19 @@ import "pages/css/index.css"
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { Provider } from "react-redux"
 import { Link } from "react-router-dom"
-import { Comment, Container, Grid, Header, Menu, Responsive, Segment } from "semantic-ui-react"
+import {
+	Comment,
+	Container,
+	Grid,
+	Header,
+	Icon,
+	Menu,
+	Responsive,
+	Segment
+} from "semantic-ui-react"
 import BillPic from "images/avatar/small/mark.png"
 import fallacies from "fallacies.json"
+import html2canvas from "html2canvas"
 import PageFooter from "components/footer/v1/"
 import PageHeader from "components/header/v1/"
 import PropTypes from "prop-types"
@@ -15,6 +25,7 @@ import store from "store"
 class Fallacies extends Component {
 	constructor(props) {
 		super(props)
+
 		const name = this.props.match.params.id
 		const parsedName = name ? name.split("-").join(" ") : false
 		this.state = {
@@ -29,6 +40,30 @@ class Fallacies extends Component {
 		this.setState({ activeItem: parsedName ? parsedName : "ad hominem abusive" })
 	}
 
+	captureScreenshot(id, filename) {
+		html2canvas(document.getElementById(id), {
+			scale: 2
+		}).then(canvas => {
+			const ctx = canvas.getContext("2d")
+			ctx.globalAlpha = 1
+			let img = canvas.toDataURL("image/png")
+			let link = document.createElement("a")
+			link.download =
+				filename
+					.toLowerCase()
+					.split(" ")
+					.join("-") + ".png"
+			link.href = img
+			link.click()
+		})
+	}
+
+	handleItemClick = (e, { name }) => {
+		this.scrollToTop()
+		this.setState({ activeItem: name })
+		this.props.history.push(`/fallacies/${name.split(" ").join("-")}`)
+	}
+
 	scrollStep() {
 		if (this.props.match.path === "/fallacies/:id") {
 			if (window.pageYOffset === 0) {
@@ -41,12 +76,6 @@ class Fallacies extends Component {
 	scrollToTop() {
 		let intervalId = setInterval(this.scrollStep.bind(this), "16.66")
 		this.setState({ intervalId })
-	}
-
-	handleItemClick = (e, { name }) => {
-		this.scrollToTop()
-		this.setState({ activeItem: name })
-		this.props.history.push(`/fallacies/${name.split(" ").join("-")}`)
 	}
 
 	render() {
@@ -69,16 +98,27 @@ class Fallacies extends Component {
 		const FallaciesMain = fallacies.map((fallacy, i) => {
 			if (fallacy.name.toLowerCase() === activeItem) {
 				return (
-					<div className="mainFallacy active" key={fallacy.id}>
+					<div className="mainFallacy active" id={fallacy.id} key={fallacy.id}>
 						<Segment stacked>
 							<Header as="p" size="medium">
 								{fallacy.name}
 							</Header>
 							<p>{fallacy.description}</p>
 							<Comment.Group>{FallaciesConversation(fallacy.dialogue)}</Comment.Group>
-							<Link to={`/search/fallacies?fallacies=${fallacy.id}`}>
+							<span
+								className="captureScreenshot"
+								data-html2canvas-ignore
+								onClick={() => this.captureScreenshot(fallacy.id, fallacy.name)}
+							>
+								<Icon name="camera" /> capture screenshot
+							</span>
+							<Link
+								data-html2canvas-ignore
+								to={`/search/fallacies?fallacies=${fallacy.id}`}
+							>
 								view real examples
 							</Link>
+							<div className="clearfix" />
 						</Segment>
 					</div>
 				)
