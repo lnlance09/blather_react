@@ -41,14 +41,12 @@
             $content,
             $remove = false
         ) {
-            if (!file_exists($path.$file)) {
-                list($type, $data) = explode(';', $content);
-                list(, $data) = explode(',', $data);
-                file_put_contents($path.$file, base64_decode($data));
+            list($type, $data) = explode(';', $content);
+            list(, $data) = explode(',', $data);
+            file_put_contents($path.$file, base64_decode($data));
 
-                if ($remove) {
-                    unlink($path.$file);
-                }
+            if ($remove) {
+                unlink($path.$file);
             }
         }
 

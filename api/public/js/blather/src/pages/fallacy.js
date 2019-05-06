@@ -94,17 +94,6 @@ class Fallacy extends Component {
 		this.handleExportChange = this.handleExportChange.bind(this)
 	}
 
-	adjustHighlightBlocks(add) {
-		const elements = document.getElementsByClassName("linkifyTweet")
-		for (let i = 0; i < elements.length; i++) {
-			if (add) {
-				elements[i].classList.add("downloading")
-			} else {
-				elements[i].classList.remove("downloading")
-			}
-		}
-	}
-
 	captureScreenshot() {
 		const { createdAt, fallacyName, refId, user } = this.props
 		const filename = `${fallacyName}-by-${user.name}-${createdAt}`
@@ -147,7 +136,6 @@ class Fallacy extends Component {
 			scale = 1.5
 		}
 
-		this.adjustHighlightBlocks(true)
 		this.setState({ downloading: true })
 
 		html2canvas(document.getElementById(el), {
@@ -202,8 +190,6 @@ class Fallacy extends Component {
 					refId
 				})
 			}
-
-			this.adjustHighlightBlocks(false)
 		})
 	}
 
@@ -433,7 +419,7 @@ class Fallacy extends Component {
 		)
 
 		const FallacyMenu = props => (
-			<Menu className="fallacyMainMenu" fluid pointing secondary stackable>
+			<Menu className="fallacyMainMenu" fluid stackable>
 				<Menu.Item
 					active={activeItem === "material"}
 					name="material"
@@ -446,7 +432,7 @@ class Fallacy extends Component {
 				>
 					Similar {""}
 					{props.similarCount > 0 && (
-						<Label color="blue" size="small">
+						<Label color="blue" floating size="small">
 							{props.similarCount}
 						</Label>
 					)}
@@ -458,7 +444,7 @@ class Fallacy extends Component {
 				>
 					Comments {""}
 					{props.commentCount > 0 && (
-						<Label color="blue" size="small">
+						<Label color="blue" floating size="small">
 							{props.commentCount}
 						</Label>
 					)}

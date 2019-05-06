@@ -39,15 +39,9 @@
                     color: $black;
 
                     b {
-                        background: $higlighterYellow;
-                    }
-                }
-
-                &.downloading {
-                    span {
-                        b {
-                            display: inline-block;
-                        }
+                        text-decoration-color: $red;
+                        text-decoration-line: underline;
+                        text-decoration-style: double;
                     }
                 }
             }

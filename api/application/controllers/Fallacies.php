@@ -9,6 +9,7 @@
 			$this->basePath = '/var/www/html/api/';
 			$this->imgUrl = $this->baseUrl.'api/public/img/';
 			$this->screenshotPath = $this->basePath.'public/img/screenshots/';
+			$this->s3Path = 'https://s3.amazonaws.com/blather22/';
 
 			$this->load->model('FallaciesModel', 'fallacies');
 			$this->load->model('MediaModel', 'media');
@@ -564,6 +565,8 @@
 			header("Access-Control-Allow-Headers: origin, content-type, accept, authorization");
 			header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS, HEAD");
 
+			$this->load->library('aws');
+
 			$id = $this->input->post('id');
 			$img = $this->input->post('img');
 			$slug = $this->input->post('slug');
@@ -572,7 +575,9 @@
 			$key = 'screenshots/'.$img_file;
 
 			$this->media->createPicFromData($img_file, $this->screenshotPath, $img);
-			$s3Link = $this->media->addToS3($key, $this->screenshotPath.$img_file);
+			$this->aws->upload($key, $this->screenshotPath.$img_file);
+			$s3Link = $this->s3Path.$key;
+
 			$this->fallacies->update($id, [
 				's3_link' => $key
 			]);

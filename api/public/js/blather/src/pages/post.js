@@ -146,17 +146,6 @@ class Post extends Component {
 		}
 	}
 
-	adjustHighlightBlocks(add) {
-		const elements = document.getElementsByClassName("linkifyTweet")
-		for (let i = 0; i < elements.length; i++) {
-			if (add) {
-				elements[i].classList.add("downloading")
-			} else {
-				elements[i].classList.remove("downloading")
-			}
-		}
-	}
-
 	captureScreenshot() {
 		const filename = "blather-tweet-screenshot"
 		this.adjustHighlightBlocks(true)
@@ -176,7 +165,6 @@ class Post extends Component {
 					.join("-") + ".png"
 			link.href = img
 			link.click()
-			this.adjustHighlightBlocks(false)
 		})
 	}
 
