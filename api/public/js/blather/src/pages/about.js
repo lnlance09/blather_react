@@ -192,7 +192,7 @@ class About extends Component {
 								/>
 								Blather
 								<Header.Subheader>
-									It's not what you think. It's how you think
+									It's not what you think. It's how you think.
 								</Header.Subheader>
 							</Header>
 						</Segment>

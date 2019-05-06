@@ -3,11 +3,6 @@ import * as constants from "../constants"
 const initial = () => ({
 	error: false,
 	exists: true,
-	fallacies: {
-		count: 0,
-		error: false,
-		data: [{}, {}, {}, {}, {}]
-	},
 	loading: false,
 	posts: {
 		count: 0,

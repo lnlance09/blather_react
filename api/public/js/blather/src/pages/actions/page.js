@@ -1,5 +1,6 @@
 import * as constants from "../constants"
 import request from "request"
+import { showLoading, hideLoading } from "react-redux-loading-bar"
 
 export const fetchFallacyCount = ({ id }) => dispatch => {
 	request.get(
@@ -20,6 +21,8 @@ export const fetchFallacyCount = ({ id }) => dispatch => {
 }
 
 export const fetchPageData = ({ bearer, id, type }) => dispatch => {
+	dispatch(showLoading())
+
 	request.get(
 		`${window.location.origin}/api/pages`,
 		{
@@ -41,6 +44,7 @@ export const fetchPageData = ({ bearer, id, type }) => dispatch => {
 			if (!body.error) {
 				dispatch(fetchFallacyCount({ id: body.data.social_media_id }))
 			}
+			dispatch(hideLoading())
 		}
 	)
 }

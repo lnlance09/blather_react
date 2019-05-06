@@ -96,6 +96,7 @@ class FallacyRef extends Component {
 }
 
 FallacyRef.propTypes = {
+	canScreenshot: PropTypes.bool,
 	id: PropTypes.number,
 	includeHeader: PropTypes.bool,
 	stacked: PropTypes.bool,
@@ -103,6 +104,7 @@ FallacyRef.propTypes = {
 }
 
 FallacyRef.defaultProps = {
+	canScreenshot: true,
 	includeHeader: true,
 	showDialogue: true,
 	stacked: false

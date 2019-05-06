@@ -1,6 +1,13 @@
 @import '../../../css/colors.scss';
 
 .pageHeader {
+    .loadingBar {
+        background: $blue;
+        height: 5px;
+        margin-top: 72px;
+        position: absolute;
+    }
+
     .menu.globalHeader {
         background: $black !important;
         height: 72px;

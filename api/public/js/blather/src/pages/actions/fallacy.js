@@ -1,5 +1,6 @@
 import * as constants from "../constants"
 import request from "request"
+import { showLoading, hideLoading } from "react-redux-loading-bar"
 
 export const createVideoFallacy = ({
 	contradiction,
@@ -82,6 +83,8 @@ export const fetchFallacyConversation = ({ bearer, id }) => dispatch => {
 }
 
 export const fetchFallacy = ({ bearer, id }) => dispatch => {
+	dispatch(showLoading())
+
 	request.get(
 		`${window.location.origin}/api/fallacies`,
 		{
@@ -98,6 +101,7 @@ export const fetchFallacy = ({ bearer, id }) => dispatch => {
 				type: constants.GET_FALLACY,
 				payload: body
 			})
+			dispatch(hideLoading())
 		}
 	)
 }

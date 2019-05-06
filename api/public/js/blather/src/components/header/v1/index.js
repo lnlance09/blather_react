@@ -13,6 +13,7 @@ import {
 	Sidebar
 } from "semantic-ui-react"
 import fallacies from "fallacies.json"
+import LoadingBar from "react-redux-loading-bar"
 import Logo from "./images/logo.svg"
 import NavSearch from "components/search/v1/"
 import PropTypes from "prop-types"
@@ -154,6 +155,7 @@ class Header extends Component {
 							</Responsive>
 						</Container>
 					</Menu>
+					<LoadingBar className="loadingBar" />
 					<Sidebar
 						as={Menu}
 						animation="overlay"
