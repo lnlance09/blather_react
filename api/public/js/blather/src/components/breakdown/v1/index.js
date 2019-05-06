@@ -94,7 +94,9 @@ class Breakdown extends Component {
 							/>
 
 							{options.length > 0 ? (
-								<Segment basic className="percentages">{RenderFallacies()}</Segment>
+								<Segment basic className="percentages">
+									{RenderFallacies()}
+								</Segment>
 							) : (
 								<Message content="No fallacies have been assigned" />
 							)}
@@ -119,7 +121,7 @@ class Breakdown extends Component {
 							</Placeholder>
 						</Segment>
 					)}
-				
+
 					<Header as="h3" attached>
 						Grifter or Lazy Thinker?
 					</Header>
@@ -132,7 +134,8 @@ class Breakdown extends Component {
 								target="_blank"
 							>
 								Ideological Turing Test
-							</a>?
+							</a>
+							?
 							{this.props.id > 0 && (
 								<Header.Subheader>{Stats(turingTest)}</Header.Subheader>
 							)}
@@ -146,7 +149,12 @@ class Breakdown extends Component {
 						</Header>
 
 						<Header size="small">
-							<Icon color="yellow" name="star" size="small" style={{ display: "inline-block" }} />{" "}
+							<Icon
+								color="yellow"
+								name="star"
+								size="small"
+								style={{ display: "inline-block" }}
+							/>{" "}
 							<Link to={`/targets/${authenticated ? userId : "create"}/${dbId}`}>
 								Create a review
 							</Link>

@@ -18,3 +18,9 @@ export const fetchUserData = ({ bearer, username }) => dispatch => {
 		}
 	)
 }
+
+export const reset = () => dispatch => {
+	dispatch({
+		type: constants.RESET_USER_TO_INITIAL
+	})
+}
