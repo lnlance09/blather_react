@@ -188,7 +188,6 @@ class FallaciesList extends Component {
 								canScreenshot={false}
 								className="fallacyRef"
 								id={parseInt(value, 10)}
-								canScreenshot={false}
 							/>
 							<Divider />
 						</div>
