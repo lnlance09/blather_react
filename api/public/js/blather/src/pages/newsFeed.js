@@ -85,9 +85,6 @@ class NewsFeed extends Component {
 						</Responsive>
 
 						<Responsive minWidth={1025}>
-							<Header as="h1" dividing>
-								Activity
-							</Header>
 							<Grid>
 								<Grid.Column width={12}>
 									<FeedComponent history={this.props.history} />

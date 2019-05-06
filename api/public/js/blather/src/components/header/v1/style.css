@@ -3,6 +3,12 @@
 /*---   Neutrals  ---*/
 /*---   Misc  ---*/
 /*---   Social colors  ---*/
+.pageHeader .loadingBar {
+  background: #2185D0;
+  height: 5px;
+  margin-top: 72px;
+  position: absolute; }
+
 .pageHeader .menu.globalHeader {
   background: #1B1C1D !important;
   height: 72px;

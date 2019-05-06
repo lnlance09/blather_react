@@ -1,5 +1,6 @@
 import * as constants from "./constants"
 import request from "request"
+import { showLoading, hideLoading } from "react-redux-loading-bar"
 
 export const fetchSearchResults = ({
 	bearer,
@@ -10,6 +11,8 @@ export const fetchSearchResults = ({
 	q,
 	type
 }) => dispatch => {
+	dispatch(showLoading())
+
 	request.get(
 		`${window.location.origin}/api/search/advanced`,
 		{
@@ -31,6 +34,8 @@ export const fetchSearchResults = ({
 				type: constants.GET_SEARCH_RESULTS,
 				payload: body
 			})
+
+			dispatch(hideLoading())
 		}
 	)
 }

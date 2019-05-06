@@ -1,4 +1,5 @@
 import { combineReducers } from "redux"
+import { loadingBarReducer } from "react-redux-loading-bar"
 import about from "pages/reducers/about"
 import archives from "components/archivesList/v1/reducer"
 import fallacy from "pages/reducers/fallacy"
@@ -28,6 +29,7 @@ export default combineReducers({
 	fallacyComments,
 	fallacyForm,
 	feed,
+	loadingBar: loadingBarReducer,
 	newsFeed,
 	page,
 	pageUser,

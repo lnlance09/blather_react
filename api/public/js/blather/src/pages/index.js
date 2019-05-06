@@ -385,11 +385,6 @@ Page.propTypes = {
 Page.defaultProps = {
 	error: false,
 	exists: true,
-	fallacies: {
-		count: 0,
-		error: false,
-		data: [{}, {}, {}, {}, {}]
-	},
 	fetchPageData,
 	img: defaultImg,
 	posts: {

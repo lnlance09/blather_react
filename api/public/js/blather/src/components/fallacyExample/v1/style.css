@@ -4,8 +4,8 @@
 /*---   Misc  ---*/
 /*---   Social colors  ---*/
 .fallacyExample {
-  background: #F9FAFB !important;
-  overflow: hidden; }
+  overflow: hidden;
+  padding: 2px !important; }
   .fallacyExample .fallacyHeader .editButton {
     color: #2185D0;
     cursor: pointer;

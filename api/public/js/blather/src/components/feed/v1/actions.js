@@ -1,7 +1,10 @@
 import * as constants from "./constants"
 import request from "request"
+import { showLoading, hideLoading } from "react-redux-loading-bar"
 
 export const getFeed = ({ page }) => dispatch => {
+	dispatch(showLoading())
+
 	request.get(
 		`${window.location.origin}/api/home/feed`,
 		{
@@ -15,6 +18,8 @@ export const getFeed = ({ page }) => dispatch => {
 				type: constants.GET_FEED,
 				payload: body
 			})
+
+			dispatch(hideLoading())
 		}
 	)
 }

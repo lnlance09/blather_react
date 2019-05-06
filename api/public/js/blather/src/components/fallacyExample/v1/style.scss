@@ -1,8 +1,8 @@
 @import '../../../css/colors.scss';
 
 .fallacyExample {
-    background: $offWhite !important;
     overflow: hidden;
+    padding: 2px !important;
 
     .fallacyHeader {
         .editButton {

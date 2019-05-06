@@ -1,5 +1,6 @@
 import * as constants from "../constants"
 import request from "request"
+import { showLoading, hideLoading } from "react-redux-loading-bar"
 
 export const createArchive = ({ bearer, url }) => dispatch => {
 	request.post(
@@ -88,6 +89,8 @@ export const downloadVideo = ({ audio, id }) => dispatch => {
 }
 
 export const fetchPostData = ({ a, bearer, url }) => dispatch => {
+	dispatch(showLoading())
+
 	request.get(
 		`${window.location.origin}/api/${url}`,
 		{
@@ -102,6 +105,8 @@ export const fetchPostData = ({ a, bearer, url }) => dispatch => {
 				type: constants.GET_POST_DATA,
 				payload: body
 			})
+
+			dispatch(hideLoading())
 		}
 	)
 }
