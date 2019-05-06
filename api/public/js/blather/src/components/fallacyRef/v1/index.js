@@ -1,9 +1,10 @@
 import "./style.css"
 import { formatGrammar } from "utils/textFunctions"
 import { connect } from "react-redux"
-import { Comment, Header, Segment } from "semantic-ui-react"
+import { Comment, Header, Icon, Segment } from "semantic-ui-react"
 import BillPic from "images/avatar/small/mark.png"
 import fallacies from "fallacies.json"
+import html2canvas from "html2canvas"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import RobPic from "images/avatar/small/matthew.png"
@@ -22,6 +23,24 @@ class FallacyRef extends Component {
 				this.setState({ fallacy })
 			}
 			return true
+		})
+	}
+
+	captureScreenshot(filename) {
+		html2canvas(document.getElementById("fallacySegment"), {
+			scale: 2
+		}).then(canvas => {
+			const ctx = canvas.getContext("2d")
+			ctx.globalAlpha = 1
+			let img = canvas.toDataURL("image/png")
+			let link = document.createElement("a")
+			link.download =
+				filename
+					.toLowerCase()
+					.split(" ")
+					.join("-") + ".png"
+			link.href = img
+			link.click()
 		})
 	}
 
@@ -44,17 +63,32 @@ class FallacyRef extends Component {
 		return (
 			<div className="fallacyRef">
 				{fallacy && (
-					<Segment className="fallacySegment" stacked={this.props.stacked}>
-						{this.props.includeHeader && (
-							<Header as="p" size="medium">
-								What is {formatGrammar(fallacy.name)} <i>{fallacy.name}</i>?
-							</Header>
-						)}
-						<p>{fallacy.description}</p>
-						{this.props.showDialogue && (
-							<Comment.Group>{FallacyConversation(fallacy.dialogue)}</Comment.Group>
-						)}
-					</Segment>
+					<div>
+						<Segment
+							className="fallacySegment"
+							id="fallacySegment"
+							stacked={this.props.stacked}
+						>
+							{this.props.includeHeader && (
+								<Header as="p" size="medium">
+									What is {formatGrammar(fallacy.name)} <i>{fallacy.name}</i>?
+								</Header>
+							)}
+							<p>{fallacy.description}</p>
+							{this.props.showDialogue && (
+								<Comment.Group>
+									{FallacyConversation(fallacy.dialogue)}
+								</Comment.Group>
+							)}
+						</Segment>
+						<span
+							className="captureScreenshot"
+							data-html2canvas-ignore
+							onClick={() => this.captureScreenshot(fallacy.name)}
+						>
+							<Icon name="camera" /> capture screenshot
+						</span>
+					</div>
 				)}
 			</div>
 		)
