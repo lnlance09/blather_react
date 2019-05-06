@@ -109,7 +109,7 @@ class TweetList extends Component {
 			}
 		})
 
-		const lazyLoadMore = props => {
+		const LazyLoadMore = props => {
 			if (loading && props.posts.hasMore) {
 				return <LazyLoad />
 			}
@@ -119,7 +119,7 @@ class TweetList extends Component {
 			<div className="tweetList">
 				<Visibility continuous offset={[50, 50]} onBottomVisible={this.loadMoreItems}>
 					<Item.Group>{RenderTweets}</Item.Group>
-					{lazyLoadMore(this.props)}
+					{LazyLoadMore(this.props)}
 				</Visibility>
 				{EmptyMsg(this.props)}
 			</div>

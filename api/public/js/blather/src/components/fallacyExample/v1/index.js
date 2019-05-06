@@ -290,7 +290,7 @@ class FallacyExample extends Component {
 								)}
 							</div>
 						) : (
-							<LazyLoad />
+							<LazyLoad header={false} segment={false} />
 						)}
 					</Segment>
 				)

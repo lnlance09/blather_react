@@ -96,8 +96,13 @@ class ArchivesList extends Component {
 	}
 
 	render() {
-		const { options, q, value } = this.state
+		const { loadingMore, options, q, value } = this.state
 
+		const LazyLoadMore = props => {
+			if (loadingMore && props.hasMore) {
+				return <LazyLoad />
+			}
+		}
 		const ParseArchiveInfo = archive => {
 			switch (archive.type) {
 				case "comment":
@@ -224,9 +229,12 @@ class ArchivesList extends Component {
 					</Form>
 					<Divider />
 					{this.props.archives.length > 0 ? (
-						<Item.Group className="fallacyItems" divided>
-							{RenderArchives(this.props)}
-						</Item.Group>
+						<div>
+							<Item.Group className="fallacyItems" divided>
+								{RenderArchives(this.props)}
+							</Item.Group>
+							{LazyLoadMore(this.props)}
+						</div>
 					) : (
 						<div className="emptyArchiveContainer">
 							<Segment placeholder>
@@ -249,6 +257,7 @@ ArchivesList.propTypes = {
 	emptyMsgHeader: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
 	getArchives: PropTypes.func,
 	id: PropTypes.number,
+	hasMore: PropTypes.bool,
 	page: PropTypes.number,
 	q: PropTypes.string,
 	submitted: PropTypes.bool

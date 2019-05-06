@@ -1,5 +1,5 @@
 import "./style.css"
-import { Header, Icon, Label, Message, Progress, Segment } from "semantic-ui-react"
+import { Header, Icon, Label, Message, Placeholder, Progress, Segment } from "semantic-ui-react"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import { Link } from "react-router-dom"
@@ -83,27 +83,48 @@ class Breakdown extends Component {
 					<Header as="h2" attached="top">
 						Breakdown
 					</Header>
-					<Segment attached className="breakdownSegment">
-						<Message
-							content={`A measure of ${
-								this.props.name
-							}'s level of partisanship, logical consistency, and intellectual honesty.`}
-							header="How reputable is this source?"
-							icon="question"
-						/>
+					{this.props.id ? (
+						<Segment attached className="breakdownSegment">
+							<Message
+								content={`A measure of ${
+									this.props.name
+								}'s level of partisanship, logical consistency, and intellectual honesty.`}
+								header="How reputable is this source?"
+								icon="question"
+							/>
 
-						{options.length > 0 ? (
-							<Segment basic className="percentages">{RenderFallacies()}</Segment>
-						) : (
-							<Message content="No fallacies have been assigned" />
-						)}
-					</Segment>
+							{options.length > 0 ? (
+								<Segment basic className="percentages">{RenderFallacies()}</Segment>
+							) : (
+								<Message content="No fallacies have been assigned" />
+							)}
+						</Segment>
+					) : (
+						<Segment attached>
+							<Placeholder fluid>
+								<Placeholder.Paragraph>
+									<Placeholder.Line length="full" />
+									<Placeholder.Line length="full" />
+									<Placeholder.Line length="full" />
+									<Placeholder.Line length="full" />
+									<Placeholder.Line length="full" />
+									<Placeholder.Line length="full" />
+									<Placeholder.Line length="full" />
+									<Placeholder.Line length="full" />
+									<Placeholder.Line length="full" />
+									<Placeholder.Line length="full" />
+									<Placeholder.Line length="full" />
+									<Placeholder.Line length="full" />
+								</Placeholder.Paragraph>
+							</Placeholder>
+						</Segment>
+					)}
 				
 					<Header as="h3" attached>
 						Grifter or Lazy Thinker?
 					</Header>
-					<Segment attached>
-						<Header as="p" className="first" size="small">
+					<Segment attached className="questionnaire">
+						<Header className="first" size="small">
 							Can pass an{" "}
 							<a
 								href="https://www.econlib.org/archives/2011/06/the_ideological.html"
@@ -111,21 +132,25 @@ class Breakdown extends Component {
 								target="_blank"
 							>
 								Ideological Turing Test
-							</a>
-							?<Header.Subheader>{Stats(turingTest)}</Header.Subheader>
+							</a>?
+							{this.props.id > 0 && (
+								<Header.Subheader>{Stats(turingTest)}</Header.Subheader>
+							)}
 						</Header>
 
-						<Header as="p" size="small">
+						<Header size="small">
 							Believes most of what they talk about?
-							<Header.Subheader>{Stats(sincerity)}</Header.Subheader>
+							{this.props.id > 0 && (
+								<Header.Subheader>{Stats(sincerity)}</Header.Subheader>
+							)}
 						</Header>
 
-						<p className="createReview">
-							<Icon color="yellow" name="star" />{" "}
+						<Header size="small">
+							<Icon color="yellow" name="star" size="small" style={{ display: "inline-block" }} />{" "}
 							<Link to={`/targets/${authenticated ? userId : "create"}/${dbId}`}>
 								Create a review
 							</Link>
-						</p>
+						</Header>
 					</Segment>
 				</div>
 			</div>
@@ -148,6 +173,7 @@ Breakdown.propTypes = {
 }
 
 Breakdown.defaultProps = {
+	id: 0,
 	sincerity: {},
 	turingTest: {}
 }

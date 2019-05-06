@@ -44,3 +44,9 @@ export const fetchPageData = ({ bearer, id, type }) => dispatch => {
 		}
 	)
 }
+
+export const reset = () => dispatch => {
+	dispatch({
+		type: constants.RESET_PAGE_TO_INITIAL
+	})
+}

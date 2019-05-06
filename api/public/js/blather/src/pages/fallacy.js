@@ -5,6 +5,7 @@ import {
 	createVideoFallacy,
 	fetchCommentCount,
 	fetchFallacy,
+	reset,
 	retractLogic,
 	saveScreenshot,
 	toggleCreateMode,
@@ -26,6 +27,7 @@ import {
 	Label,
 	Menu,
 	Message,
+	Placeholder,
 	Radio,
 	Responsive,
 	Segment
@@ -206,6 +208,7 @@ class Fallacy extends Component {
 	}
 
 	componentDidMount() {
+		this.props.reset()
 		this.props.fetchCommentCount({ id: this.state.id })
 		this.props.fetchFallacy({
 			bearer: this.state.bearer,
@@ -221,6 +224,7 @@ class Fallacy extends Component {
 		}
 
 		if (newId !== this.state.id) {
+			this.props.reset()
 			this.props.fetchCommentCount({ id: newId })
 			this.props.fetchFallacy({
 				bearer: this.state.bearer,
@@ -386,6 +390,7 @@ class Fallacy extends Component {
 											<Message
 												content="A time frame in the video(s) must be specified that is 60 seconds or less"
 												header="This clip is too large to make a video"
+												warning
 											/>
 										)}
 									</div>
@@ -467,33 +472,43 @@ class Fallacy extends Component {
 		)
 
 		const FallacyTitle = ({ props }) => {
-			const subheader = (
-				<div>
-					{props.createdBy && (
-						<div>
-							<Icon name="clock outline" />{" "}
-							<Moment
-								date={adjustTimezone(props.createdAt)}
-								fromNow
-								interval={60000}
-							/>{" "}
-							by{" "}
-							<Link to={`/users/${props.createdBy.username}`}>
-								{props.createdBy.name}
-							</Link>
-						</div>
-					)}
-				</div>
-			)
+			if (props.id) {
+				const subheader = (
+					<div>
+						{props.createdBy && (
+							<div>
+								<Icon name="clock outline" />{" "}
+								<Moment
+									date={adjustTimezone(props.createdAt)}
+									fromNow
+									interval={60000}
+								/>{" "}
+								by{" "}
+								<Link to={`/users/${props.createdBy.username}`}>
+									{props.createdBy.name}
+								</Link>
+							</div>
+						)}
+					</div>
+				)
+				return (
+					<TitleHeader
+						bearer={bearer}
+						canEdit={canEdit}
+						id={id}
+						subheader={subheader}
+						title={props.title}
+						type="fallacy"
+					/>
+				)
+			}
 			return (
-				<TitleHeader
-					bearer={bearer}
-					canEdit={canEdit}
-					id={id}
-					subheader={subheader}
-					title={props.title}
-					type="fallacy"
-				/>
+				<Placeholder fluid>
+					<Placeholder.Header>
+						<Placeholder.Line />
+						<Placeholder.Line />
+					</Placeholder.Header>
+				</Placeholder>
 			)
 		}
 
@@ -560,13 +575,17 @@ class Fallacy extends Component {
 
 		const MaterialRow = (
 			<div className="materialRow">
-				<Grid.Row>{ExportSection(this.props)}</Grid.Row>
-				<Divider className="seperator" />
-				<Grid.Row>{RetractionSegment(this.props)}</Grid.Row>
-				{!this.props.retracted && (
+				{this.props.id && (
 					<div>
+						<Grid.Row>{ExportSection(this.props)}</Grid.Row>
 						<Divider className="seperator" />
-						<Grid.Row>{ContactUser(this.props)}</Grid.Row>
+						<Grid.Row>{RetractionSegment(this.props)}</Grid.Row>
+						{!this.props.retracted && (
+							<div>
+								<Divider className="seperator" />
+								<Grid.Row>{ContactUser(this.props)}</Grid.Row>
+							</div>
+						)}
 					</div>
 				)}
 			</div>
@@ -722,6 +741,7 @@ Fallacy.propTypes = {
 	}),
 	pageTitle: PropTypes.string,
 	refId: PropTypes.number,
+	reset: PropTypes.func,
 	retracted: PropTypes.bool,
 	retractLogic: PropTypes.func,
 	s3Link: PropTypes.string,
@@ -754,6 +774,7 @@ Fallacy.defaultProps = {
 	fallacyCount: 0,
 	fetchCommentCount,
 	fetchFallacy,
+	reset,
 	retractLogic,
 	saveScreenshot,
 	thumbnailImg: "https://s3.amazonaws.com/blather22/thumbnail.jpg",
@@ -773,6 +794,7 @@ export default connect(
 		createVideoFallacy,
 		fetchCommentCount,
 		fetchFallacy,
+		reset,
 		retractLogic,
 		saveScreenshot,
 		toggleCreateMode,
