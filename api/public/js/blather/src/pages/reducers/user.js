@@ -1,6 +1,8 @@
 import * as constants from "../constants"
 
-const initial = () => ({})
+const initial = () => ({
+	user: {}
+})
 
 const pageUser = (state = initial(), action) => {
 	const payload = action.payload
@@ -30,6 +32,11 @@ const pageUser = (state = initial(), action) => {
 					name: payload.user.name,
 					username: payload.user.username
 				}
+			}
+
+		case constants.RESET_USER_TO_INITIAL:
+			return {
+				state
 			}
 
 		default:

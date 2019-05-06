@@ -5,7 +5,7 @@ const initial = () => ({
 	convoLoading: true,
 	error: false,
 	fallacyCount: 0,
-	thumbnailImg: "https://s3.amazonaws.com/blather22/thumbnail.jpg",
+	thumbnailImg: "https://s3.amazonaws.com/blather22/thumbnail.jpg"
 })
 
 const fallacy = (state = initial(), action) => {

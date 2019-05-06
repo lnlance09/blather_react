@@ -53,6 +53,18 @@
     }
 }
 
+.profilePicPlaceholder {
+    border-radius: 50%;
+    display: inline-block;
+    max-width: none;
+    text-align: center;
+
+    .square {
+        height: 220px;
+        width: 220px;
+    }
+}
+
 a {
     color: $blue;
 }
@@ -576,18 +588,6 @@ a {
     .image.profilePic {
         height: 220px;
         width: 220px;
-    }
-
-    .profilePicPlaceholder {
-        border-radius: 50%;
-        display: inline-block;
-        max-width: none;
-        text-align: center;
-
-        .square {
-            height: 220px;
-            width: 220px;
-        }
     }
 
     .pageHeaderInfo {

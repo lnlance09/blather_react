@@ -36,6 +36,15 @@
   .externalUrl:hover {
     color: #2d92de; }
 
+.profilePicPlaceholder {
+  border-radius: 50%;
+  display: inline-block;
+  max-width: none;
+  text-align: center; }
+  .profilePicPlaceholder .square {
+    height: 220px;
+    width: 220px; }
+
 a {
   color: #2185D0; }
 
@@ -337,15 +346,6 @@ a {
 .socialMediaPage .image.profilePic {
   height: 220px;
   width: 220px; }
-
-.socialMediaPage .profilePicPlaceholder {
-  border-radius: 50%;
-  display: inline-block;
-  max-width: none;
-  text-align: center; }
-  .socialMediaPage .profilePicPlaceholder .square {
-    height: 220px;
-    width: 220px; }
 
 .socialMediaPage .pageHeaderInfo {
   margin-top: 10px;

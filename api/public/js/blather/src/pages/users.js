@@ -2,7 +2,7 @@ import "pages/css/index.css"
 import { changeProfilePic, updateAbout } from "components/authentication/v1/actions"
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { formatNumber } from "utils/textFunctions"
-import { fetchUserData } from "pages/actions/user"
+import { fetchUserData, reset } from "pages/actions/user"
 import { Provider, connect } from "react-redux"
 import {
 	Button,
@@ -13,6 +13,7 @@ import {
 	Image,
 	Label,
 	Menu,
+	Placeholder,
 	Segment
 } from "semantic-ui-react"
 import defaultImg from "images/trump.svg"
@@ -63,6 +64,7 @@ class UserPage extends Component {
 			username
 		}
 
+		this.props.reset()
 		this.props.fetchUserData({
 			bearer,
 			username
@@ -76,6 +78,7 @@ class UserPage extends Component {
 	componentWillReceiveProps(newProps) {
 		const username = newProps.match.params.username
 		if (this.state.username !== username) {
+			this.props.reset()
 			this.props.fetchUserData({
 				bearer: this.state.bearer,
 				username
@@ -247,7 +250,15 @@ class UserPage extends Component {
 					<PageHeader {...this.props} />
 					{!this.props.error ? (
 						<Container className="mainContainer" textAlign="left">
-							{ProfilePic(this.props)}
+							{this.props.user.id ? (
+								<div>{ProfilePic(this.props)}</div>
+							) : (
+								<Container textAlign="center">
+									<Placeholder className="profilePicPlaceholder">
+										<Placeholder.Image square />
+									</Placeholder>
+								</Container>
+							)}
 							<div className="userHeaderSection">
 								<TitleHeader subheader={`@${user.username}`} title={user.name} />
 							</div>
@@ -276,6 +287,7 @@ UserPage.propTypes = {
 	changeProfilePic: PropTypes.func,
 	error: PropTypes.bool,
 	fetchUserData: PropTypes.func,
+	reset: PropTypes.func,
 	user: PropTypes.shape({
 		archiveCount: PropTypes.number,
 		bio: PropTypes.string,
@@ -294,6 +306,7 @@ UserPage.propTypes = {
 UserPage.defaultProps = {
 	changeProfilePic,
 	fetchUserData,
+	reset,
 	user: {}
 }
 
@@ -310,6 +323,7 @@ export default connect(
 	{
 		changeProfilePic,
 		fetchUserData,
+		reset,
 		updateAbout
 	}
 )(UserPage)
