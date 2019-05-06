@@ -600,7 +600,7 @@
     </body>
 
     <script src="/static/js/1.fd4f737d.chunk.js"></script>
-    <script src="/static/js/main.b4f9cd0a.chunk.js"></script>
+    <script src="/static/js/main.3480c200.chunk.js"></script>
     <script src="/static/js/runtime~main.229c360f.js"></script>
 
 <?php
