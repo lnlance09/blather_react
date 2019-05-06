@@ -81,13 +81,15 @@ class FallacyRef extends Component {
 								</Comment.Group>
 							)}
 						</Segment>
-						<span
-							className="captureScreenshot"
-							data-html2canvas-ignore
-							onClick={() => this.captureScreenshot(fallacy.name)}
-						>
-							<Icon name="camera" /> capture screenshot
-						</span>
+						{this.props.canScreenshot && (
+							<span
+								className="captureScreenshot"
+								data-html2canvas-ignore
+								onClick={() => this.captureScreenshot(fallacy.name)}
+							>
+								<Icon name="camera" /> capture screenshot
+							</span>
+						)}
 					</div>
 				)}
 			</div>
