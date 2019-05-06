@@ -962,6 +962,7 @@
 
         public function update($id, $data, $userId = null, $tags = null) {
             $this->db->where('id', $id);
+            $this->db->or_where('slug', $id);
             $this->db->update('fallacy_entries', $data);
 
             if ($tags) {
