@@ -432,7 +432,7 @@ class Fallacy extends Component {
 				>
 					Similar {""}
 					{props.similarCount > 0 && (
-						<Label color="blue" floating size="small">
+						<Label color="red" horizontal>
 							{props.similarCount}
 						</Label>
 					)}
@@ -444,7 +444,7 @@ class Fallacy extends Component {
 				>
 					Comments {""}
 					{props.commentCount > 0 && (
-						<Label color="blue" floating size="small">
+						<Label color="red" horizontal>
 							{props.commentCount}
 						</Label>
 					)}
