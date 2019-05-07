@@ -325,7 +325,7 @@ class Target extends Component {
 							</Container>
 						) : (
 							<div>
-								{page.id ? (
+								{page.pic ? (
 									<Image
 										bordered
 										centered
