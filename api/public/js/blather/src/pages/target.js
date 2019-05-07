@@ -12,7 +12,16 @@ import {
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { connect, Provider } from "react-redux"
 import { Link } from "react-router-dom"
-import { Button, Container, Form, Header, Icon, Image, Message } from "semantic-ui-react"
+import {
+	Button,
+	Container,
+	Form,
+	Header,
+	Icon,
+	Image,
+	Message,
+	Placeholder
+} from "semantic-ui-react"
 import FallaciesList from "components/fallaciesList/v1/"
 import ImagePic from "images/image-square.png"
 import LazyLoad from "components/lazyLoad/v1/"
@@ -32,9 +41,11 @@ class Target extends Component {
 		const pageId = this.props.match.params.pageId
 		const currentState = store.getState()
 		const bearer = currentState.user.bearer
+		const auth = currentState.user.authenticated
 		const myId = currentState.user.data.id
 
 		this.state = {
+			auth,
 			bearer,
 			editing: false,
 			exists,
@@ -93,7 +104,7 @@ class Target extends Component {
 	}
 
 	render() {
-		const { editing, exists, loading, myId, userId } = this.state
+		const { auth, editing, exists, loading, myId, userId } = this.state
 		const { error, page, user } = this.props
 		const readonly = userId !== myId
 		const showMessage = (userId === myId && this.props.fallacyCount < 5) || !exists
@@ -314,19 +325,34 @@ class Target extends Component {
 							</Container>
 						) : (
 							<div>
-								<Image
-									centered
-									circular
-									className="targetImg"
-									onClick={() => this.props.history.push(page.link)}
-									onError={i => (i.target.src = ImagePic)}
-									size="small"
-									src={page.pic}
-								/>
+								{page.id ? (
+									<Image
+										bordered
+										centered
+										circular
+										className="targetImg"
+										onClick={() => this.props.history.push(page.link)}
+										onError={i => (i.target.src = ImagePic)}
+										size="small"
+										src={page.pic}
+									/>
+								) : (
+									<Container textAlign="center">
+										<Placeholder className="profilePicPlaceholder">
+											<Placeholder.Image square />
+										</Placeholder>
+									</Container>
+								)}
+
 								<Header as="h1" size="medium" textAlign="center">
 									{page.name}
 									<Header.Subheader>
-										Review by <Link to={`/users/${user.id}`}>{user.name}</Link>
+										Review by{" "}
+										{auth ? (
+											<Link to={`/users/${user.id}`}>{user.name}</Link>
+										) : (
+											<Link to={`/signin`}>You</Link>
+										)}
 									</Header.Subheader>
 								</Header>
 								{showMessage && (
