@@ -23,15 +23,13 @@
           margin-top: 0; }
         .breakdown .breakdownSegment .percentages .fallacyPercentage .progress {
           margin-bottom: 0; }
-          .breakdown .breakdownSegment .percentages .fallacyPercentage .progress .bar .progress {
-            color: #FFFFFF; }
+          .breakdown .breakdownSegment .percentages .fallacyPercentage .progress .bar {
+            background: #2185D0; }
+            .breakdown .breakdownSegment .percentages .fallacyPercentage .progress .bar .progress {
+              color: #FFFFFF; }
           .breakdown .breakdownSegment .percentages .fallacyPercentage .progress .label {
             background: #F9FAFB;
             color: #545454; }
-        .breakdown .breakdownSegment .percentages .fallacyPercentage.twitter .progress .bar {
-          background: #0084b4 !important; }
-        .breakdown .breakdownSegment .percentages .fallacyPercentage.youtube .progress .bar {
-          background: #ff0000 !important; }
   .breakdown .questionnaire .ui.header.small {
     margin-top: 0; }
   @media only screen and (max-width: 1025px) {

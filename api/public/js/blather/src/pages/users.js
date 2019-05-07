@@ -219,7 +219,7 @@ class UserPage extends Component {
 		}
 
 		const UserMenu = props => (
-			<Menu className="profileMenu" fluid pointing secondary stackable>
+			<Menu className="profileMenu" fluid stackable>
 				<Menu.Item
 					active={activeItem === "fallacies"}
 					name="fallacies"
@@ -227,7 +227,7 @@ class UserPage extends Component {
 				>
 					Fallacies{" "}
 					{user.fallacyCount > 0 && (
-						<Label color="blue">{formatNumber(user.fallacyCount)}</Label>
+						<Label color="blue" horizontal>{formatNumber(user.fallacyCount)}</Label>
 					)}
 				</Menu.Item>
 				<Menu.Item
@@ -237,7 +237,7 @@ class UserPage extends Component {
 				>
 					Archives{" "}
 					{user.archiveCount > 0 && (
-						<Label color="blue">{formatNumber(user.archiveCount)}</Label>
+						<Label color="blue" horizontal>{formatNumber(user.archiveCount)}</Label>
 					)}
 				</Menu.Item>
 			</Menu>

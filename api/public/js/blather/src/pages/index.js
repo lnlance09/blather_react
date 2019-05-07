@@ -186,7 +186,7 @@ class Page extends Component {
 		}
 
 		const PageMenu = props => (
-			<Menu className="socialMediaPageMenu" fluid pointing secondary stackable>
+			<Menu className="socialMediaPageMenu" fluid stackable>
 				<Menu.Item
 					active={activeItem === itemsLabel}
 					name={itemsLabel}
@@ -199,7 +199,7 @@ class Page extends Component {
 				>
 					Fallacies{" "}
 					{props.fallacyCount > 0 && (
-						<Label color="red" size="small">
+						<Label color="red" horizontal>
 							{props.fallacyCount}
 						</Label>
 					)}
