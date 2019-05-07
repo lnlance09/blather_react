@@ -5,7 +5,8 @@
         background: $blue;
         height: 5px;
         margin-top: 72px;
-        position: absolute;
+        position: fixed;
+        z-index: 9999;
     }
 
     .menu.globalHeader {
