@@ -1,5 +1,6 @@
 import * as constants from "../constants"
 import request from "request"
+import { showLoading, hideLoading } from "react-redux-loading-bar"
 
 export const changeSincerity = ({ value }) => dispatch => {
 	dispatch({
@@ -37,6 +38,8 @@ export const changeTuringExplanation = ({ value }) => dispatch => {
 }
 
 export const fetchPage = id => dispatch => {
+	dispatch(showLoading())
+
 	request.get(
 		`${window.location.origin}/api/pages/getPageByDbId`,
 		{
@@ -50,11 +53,15 @@ export const fetchPage = id => dispatch => {
 				type: constants.FETCH_PAGE,
 				payload: body
 			})
+
+			dispatch(hideLoading())
 		}
 	)
 }
 
 export const fetchReview = ({ pageId, userId }) => dispatch => {
+	dispatch(showLoading())
+
 	request.get(
 		`${window.location.origin}/api/fallacies/getReview`,
 		{
@@ -69,6 +76,8 @@ export const fetchReview = ({ pageId, userId }) => dispatch => {
 				type: constants.FETCH_REVIEW,
 				payload: body
 			})
+
+			dispatch(hideLoading())
 		}
 	)
 }

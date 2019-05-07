@@ -227,7 +227,9 @@ class UserPage extends Component {
 				>
 					Fallacies{" "}
 					{user.fallacyCount > 0 && (
-						<Label color="blue" horizontal>{formatNumber(user.fallacyCount)}</Label>
+						<Label color="blue" horizontal>
+							{formatNumber(user.fallacyCount)}
+						</Label>
 					)}
 				</Menu.Item>
 				<Menu.Item
@@ -237,7 +239,9 @@ class UserPage extends Component {
 				>
 					Archives{" "}
 					{user.archiveCount > 0 && (
-						<Label color="blue" horizontal>{formatNumber(user.archiveCount)}</Label>
+						<Label color="blue" horizontal>
+							{formatNumber(user.archiveCount)}
+						</Label>
 					)}
 				</Menu.Item>
 			</Menu>

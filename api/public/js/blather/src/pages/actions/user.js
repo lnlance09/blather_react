@@ -1,7 +1,10 @@
 import * as constants from "../constants"
 import request from "request"
+import { showLoading, hideLoading } from "react-redux-loading-bar"
 
 export const fetchUserData = ({ bearer, username }) => dispatch => {
+	dispatch(showLoading())
+
 	request.get(
 		`${window.location.origin}/api/users/getInfo?username=${username}`,
 		{
@@ -15,6 +18,8 @@ export const fetchUserData = ({ bearer, username }) => dispatch => {
 				type: constants.GET_USER_DATA,
 				payload: body
 			})
+
+			dispatch(hideLoading())
 		}
 	)
 }
