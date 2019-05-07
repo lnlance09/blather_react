@@ -55,7 +55,7 @@ class Breakdown extends Component {
 						>
 							<Header size="small">
 								{result.key}{" "}
-								<Label basic circular>
+								<Label basic horizontal>
 									{result.count}
 								</Label>
 							</Header>
