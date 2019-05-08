@@ -34,18 +34,23 @@
 				'q' => null
 			];
 			$fallacies = $this->fallacies->search($params);
-			$fallacy_count = $this->fallacies->search($params, true);
+			$count = $this->fallacies->search($params, true);
 
+			/*
 			$archives = $this->users->getArchivedLinks([], false, $page);
 			$fallacy_count = $this->users->getArchivedLinks([], false, 0, true);
 
 			$results = array_merge($fallacies, $archives);
 			$count = $fallacy_count+$fallacy_count;
+			*/
+
 			$pages = ceil($count/$limit);
 
+			/*
 			usort($results, function($a, $b) {
 				return $b['date_created'] <=> $a['date_created'];
 			});
+			*/
 
 			echo json_encode([
 				'count' => $count,
@@ -53,7 +58,7 @@
 				'hasMore' => $page+1 < $pages,
 				'page' => (int)$page,
 				'pages' => $pages,
-				'results' => !$results ? [] : $results
+				'results' => !$fallacies ? [] : $fallacies
 			]);
 		}
 	}
