@@ -481,7 +481,7 @@ class FallacyExample extends Component {
 		)
 
 		return (
-			<Segment className="fallacyExample" id="fallacyExample">
+			<Segment className="fallacyExample" id="fallacyExample" raised>
 				{Explanation(this.props)}
 				{Material(this.props)}
 			</Segment>
