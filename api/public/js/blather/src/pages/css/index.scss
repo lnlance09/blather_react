@@ -402,6 +402,10 @@ a {
                 .comment {
                     font-size: 12px;
                 }
+
+                .captureScreenshot {
+                    display: none;
+                }
             }
         }
 
@@ -502,10 +506,6 @@ a {
         width: 100%;
     }
 
-    .captureScreenshot {
-        cursor: pointer;
-    }
-
     canvas {
         display: none;
         height: 720px;
@@ -536,6 +536,10 @@ a {
         }
 
         .downloadBtn {
+            display: none;
+        }
+
+        .captureScreenshot {
             display: none;
         }
     }

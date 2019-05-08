@@ -12,3 +12,10 @@
 @media only screen and (max-width: 1025px) {
   .fallacyRef .segment .header {
     font-size: 18px !important; } }
+
+.fallacyRef .captureScreenshot {
+  cursor: pointer; }
+
+@media only screen and (max-width: 1025px) {
+  .fallacyRef .captureScreenshot {
+    display: none !important; } }
