@@ -239,7 +239,9 @@ a {
     .fallaciesPage .mainFallacy .segment .header {
       font-size: 16px !important; }
     .fallaciesPage .mainFallacy .segment .comment {
-      font-size: 12px; } }
+      font-size: 12px; }
+    .fallaciesPage .mainFallacy .segment .captureScreenshot {
+      display: none; } }
   .fallaciesPage .mainFallacy.active {
     display: block; }
 
@@ -297,9 +299,6 @@ a {
   padding: 0 !important;
   width: 100%; }
 
-.fallacyPage .captureScreenshot {
-  cursor: pointer; }
-
 .fallacyPage canvas {
   display: none;
   height: 720px;
@@ -317,6 +316,8 @@ a {
   .fallacyPage .retractionContainer {
     margin: 0 !important; }
   .fallacyPage .downloadBtn {
+    display: none; }
+  .fallacyPage .captureScreenshot {
     display: none; } }
 
 @media only screen and (max-width: 1025px) {
