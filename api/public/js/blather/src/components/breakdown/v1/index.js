@@ -5,7 +5,6 @@ import {
 	Divider,
 	Header,
 	Icon,
-	Image,
 	Label,
 	Message,
 	Placeholder,
@@ -149,7 +148,7 @@ class Breakdown extends Component {
 						{placeholder.id && (
 							<div>
 								<Header className="first" size="small">
-									<Image avatar bordered src={placeholder.user_img} /> Here's how{" "}
+									Here's how{" "}
 									<Link to={`/users/${placeholder.user_id}`}>
 										{placeholder.user_name}
 									</Link>{" "}
