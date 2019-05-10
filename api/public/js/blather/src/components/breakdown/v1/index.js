@@ -1,8 +1,20 @@
 import "./style.css"
-import { Header, Icon, Label, Message, Placeholder, Progress, Segment } from "semantic-ui-react"
+import { Link } from "react-router-dom"
+import { sanitizeText } from "utils/textFunctions"
+import {
+	Divider,
+	Header,
+	Icon,
+	Image,
+	Label,
+	Message,
+	Placeholder,
+	Progress,
+	Segment
+} from "semantic-ui-react"
+import Marked from "marked"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
-import { Link } from "react-router-dom"
 
 class Breakdown extends Component {
 	constructor(props) {
@@ -41,7 +53,15 @@ class Breakdown extends Component {
 
 	render() {
 		const { options } = this.state
-		const { authenticated, dbId, setFallacyId, sincerity, turingTest, userId } = this.props
+		const {
+			authenticated,
+			dbId,
+			placeholder,
+			setFallacyId,
+			sincerity,
+			turingTest,
+			userId
+		} = this.props
 
 		const RenderFallacies = () => {
 			return options.map((result, i) => {
@@ -126,7 +146,31 @@ class Breakdown extends Component {
 						Grifter or Lazy Thinker?
 					</Header>
 					<Segment attached className="questionnaire">
-						<Header className="first" size="small">
+						{placeholder.id && (
+							<div>
+								<Header className="first" size="small">
+									<Image avatar bordered src={placeholder.user_img} /> Here's how{" "}
+									<Link to={`/users/${placeholder.user_id}`}>
+										{placeholder.user_name}
+									</Link>{" "}
+									has described this source.
+								</Header>
+								<Icon name="quote left" />
+								<blockquote
+									cite={`https://blather.io/targets/${userId}/${dbId}`}
+									className="placeholderDiv"
+									dangerouslySetInnerHTML={{
+										__html: sanitizeText(Marked(placeholder.summary))
+									}}
+								/>
+								<Icon name="quote right" />
+								<p className="fullReview">
+									<Link to={`/targets/${userId}/${dbId}`}>See full review</Link>
+								</p>
+								<Divider />
+							</div>
+						)}
+						<Header size="small">
 							Can pass an{" "}
 							<a
 								href="https://www.econlib.org/archives/2011/06/the_ideological.html"
@@ -135,17 +179,12 @@ class Breakdown extends Component {
 							>
 								Ideological Turing Test
 							</a>
-							?
-							{this.props.id > 0 && (
-								<Header.Subheader>{Stats(turingTest)}</Header.Subheader>
-							)}
+							?<Header.Subheader>{Stats(turingTest)}</Header.Subheader>
 						</Header>
 
 						<Header size="small">
 							Believes most of what they talk about?
-							{this.props.id > 0 && (
-								<Header.Subheader>{Stats(sincerity)}</Header.Subheader>
-							)}
+							<Header.Subheader>{Stats(sincerity)}</Header.Subheader>
 						</Header>
 
 						<Header size="small">
@@ -173,6 +212,13 @@ Breakdown.propTypes = {
 	id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 	name: PropTypes.string,
 	network: PropTypes.string,
+	placeholder: PropTypes.shape({
+		id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+		summary: PropTypes.string,
+		user_id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+		user_img: PropTypes.string,
+		user_name: PropTypes.string
+	}),
 	setFallacyId: PropTypes.func,
 	sincerity: PropTypes.object,
 	turingTest: PropTypes.object,
@@ -182,6 +228,7 @@ Breakdown.propTypes = {
 
 Breakdown.defaultProps = {
 	id: 0,
+	placeholder: {},
 	sincerity: {},
 	turingTest: {}
 }

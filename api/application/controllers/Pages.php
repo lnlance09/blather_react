@@ -48,9 +48,14 @@
 			$review = null;
 			if (!$page['error']) {
 				$review = $this->fallacies->getReviewStats($page['data']['social_media_id']);
+				$review_placeholder = $this->fallacies->getReviewPlaceholder($page['data']['id']);
+				if (!$review_placeholder) {
+					$review_placeholder = [];
+				}
 			}
 
 			$page['review'] = $review;
+			$page['review_placeholder'] = $review_placeholder;
 			echo json_encode($page);
 		}
 

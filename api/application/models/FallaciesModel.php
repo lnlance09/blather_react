@@ -740,6 +740,21 @@
             return $this->db->get('criticisms c')->result_array();
         }
 
+        public function getReviewPlaceholder($page_id) {
+            $this->db->select("u.id AS user_id, CONCAT('".$this->s3Path."', u.img) AS user_img, u.name AS user_name, c.id, c.summary");
+            $this->db->join('users u', 'c.user_id = u.id');
+            $this->db->where('page_id', $page_id);
+            $this->db->where('summary != ""');
+            $this->db->where('summary IS NOT NULL');
+            $results = $this->db->get('criticisms c')->result_array();
+
+            if (count($results) > 0) {
+                return $results[0];
+            }
+
+            return false;
+        }
+
         public function getReviews() {
             $this->db->select("p.name AS page_name, p.id AS page_id, p.profile_pic AS page_profile_pic, u.id AS user_id, u.name AS user_name");
             $this->db->join('pages p', 'c.page_id = p.id');

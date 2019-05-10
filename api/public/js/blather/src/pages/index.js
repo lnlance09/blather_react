@@ -323,6 +323,7 @@ class Page extends Component {
 										id={this.props.id}
 										name={this.props.name}
 										network={network}
+										placeholder={this.props.placeholder}
 										setFallacyId={this.setFallacyId}
 										sincerity={this.props.sincerity}
 										turingTest={this.props.turingTest}
@@ -363,6 +364,13 @@ Page.propTypes = {
 	isVerified: PropTypes.bool,
 	name: PropTypes.string,
 	network: PropTypes.string,
+	placeholder: PropTypes.shape({
+		id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+		summary: PropTypes.string,
+		user_id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+		user_img: PropTypes.string,
+		user_name: PropTypes.string
+	}),
 	posts: PropTypes.oneOfType([
 		PropTypes.object,
 		PropTypes.shape({
@@ -387,6 +395,7 @@ Page.defaultProps = {
 	exists: true,
 	fetchPageData,
 	img: defaultImg,
+	placeholder: {},
 	posts: {
 		count: 0,
 		error: false,
