@@ -26,6 +26,7 @@ const page = (state = initial(), action) => {
 				}
 			}
 
+			const placeholder = payload.review_placeholder
 			const review = payload.review
 			const reviewCount = parseInt(review.count, 10)
 			const sincerityNo = review.sincerity_no === null ? 0 : parseInt(review.sincerity_no, 10)
@@ -49,6 +50,7 @@ const page = (state = initial(), action) => {
 				img: payload.data.profile_pic,
 				name: payload.data.name,
 				network: payload.data.type,
+				placeholder,
 				sincerity: {
 					count: reviewCount,
 					yes: sincerityYes,
