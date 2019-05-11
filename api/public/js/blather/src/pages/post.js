@@ -278,7 +278,7 @@ class Post extends Component {
 								<Breadcrumb>
 									<Breadcrumb.Section
 										link
-										onClick={() => props.history.push("/search/twitter")}
+										onClick={() => props.history.push("/search/profiles")}
 									>
 										Twitter profiles
 									</Breadcrumb.Section>
@@ -318,7 +318,7 @@ class Post extends Component {
 								<Breadcrumb>
 									<Breadcrumb.Section
 										link
-										onClick={() => props.history.push("/search/youtube")}
+										onClick={() => props.history.push("/search/channels")}
 									>
 										YouTube channels
 									</Breadcrumb.Section>
