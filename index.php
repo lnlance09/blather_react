@@ -307,6 +307,7 @@
                     while ($row = $result->fetch_assoc()) {
                         $pageId = $row['social_media_id'];
                         $title = $row['name'];
+                        $s3Pic = $row['s3_pic'];
                         $username = $row['username'];
                         $description = $title."'s logical fallacies catalogued on Blather. A measure of ".$title."'s level of partisanship, logical consistency, and intellectual honesty.";
                         $type = $row['type'];
@@ -314,7 +315,7 @@
                     $result->close();
 
                     $ext = $type === "twitter" ? "jpg" : "png";
-                    $img = $s3Path."pages/".$type."/".$pageId.".".$ext;
+                    $img = $s3Path.$s3Pic;
 
                     $schema = [
                         "@context" => "https://schema.org",
