@@ -298,7 +298,7 @@
             case "pages":
 
                 $id = $paths[2];
-                $sql = "SELECT about, name, social_media_id, type, username
+                $sql = "SELECT about, name, s3_pic, social_media_id, type, username
                         FROM pages
                         WHERE social_media_id = '".$mysqli->real_escape_string($id)."'
                         OR username = '".$mysqli->real_escape_string($id)."'";
