@@ -555,20 +555,20 @@
         <meta property="og:image:height" content="<?php echo $height; ?>">
         <meta property="og:image:width" content="<?php echo $width; ?>">
         <meta property="og:site_name" content="Blather" />
-        <meta property="og:title" content="<?php echo htmlentities($title); ?>">
+        <meta property="og:title" content="<?php echo htmlentities($title); ?> - Blather">
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://blather.io<?php echo $uri; ?>">
 
         <meta name="twitter:card" content="summary_large_image">
         <meta name="twitter:site" content="@blatherio">
         <meta name="twitter:creator" content="@blatherio">
-        <meta name="twitter:title" content="<?php echo htmlentities($title); ?>">
+        <meta name="twitter:title" content="<?php echo htmlentities($title); ?> - Blather">
         <meta name="twitter:description" content="<?php echo htmlentities($description); ?>">
         <meta name="twitter:image" content="<?php echo $img; ?>">
 
         <meta name="description" content="<?php echo htmlentities($description); ?>">
         <meta name="keywords" content="<?php echo $keywords; ?>">
-        <meta name="title" content="<?php echo $title; ?>">
+        <meta name="title" content="<?php echo htmlentities($title); ?> - Blather">
 <?php
     if ($author) {
 ?>
