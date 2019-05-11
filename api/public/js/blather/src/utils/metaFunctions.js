@@ -123,9 +123,10 @@ export const DisplayMetaTags = ({ page, props, state }) => {
 			metaTags = {
 				description: "",
 				img,
-				title: `Search results for '${
-					props.q === undefined || props.q === null ? "" : props.q
-				}'`
+				title:
+					props.q === undefined || props.q === null || props.q === ""
+						? "Search"
+						: `Search results for "${props.q}"`
 			}
 			break
 		case "settings":

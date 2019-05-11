@@ -211,13 +211,16 @@ Breakdown.propTypes = {
 	id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 	name: PropTypes.string,
 	network: PropTypes.string,
-	placeholder: PropTypes.shape({
-		id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-		summary: PropTypes.string,
-		user_id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-		user_img: PropTypes.string,
-		user_name: PropTypes.string
-	}),
+	placeholder: PropTypes.oneOfType([
+		PropTypes.bool,
+		PropTypes.shape({
+			id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+			summary: PropTypes.string,
+			user_id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+			user_img: PropTypes.string,
+			user_name: PropTypes.string
+		})
+	]),
 	setFallacyId: PropTypes.func,
 	sincerity: PropTypes.object,
 	turingTest: PropTypes.object,
