@@ -186,7 +186,7 @@ class Page extends Component {
 		}
 
 		const PageMenu = props => (
-			<Menu className="socialMediaPageMenu" fluid secondary stackable>
+			<Menu className="socialMediaPageMenu" fluid pointing secondary stackable>
 				<Menu.Item
 					active={activeItem === itemsLabel}
 					name={itemsLabel}
