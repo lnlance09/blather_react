@@ -110,7 +110,7 @@ class Target extends Component {
 		const showMessage = (userId === myId && this.props.fallacyCount < 5) || !exists
 		const DisplayFallacies = ({ props }) => (
 			<div className="fallaciesWrapper">
-				<Header dividing size="medium">
+				<Header dividing size="large">
 					Fallacies
 				</Header>
 				<FallaciesList
