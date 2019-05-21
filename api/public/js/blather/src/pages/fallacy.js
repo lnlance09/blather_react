@@ -622,7 +622,7 @@ class Fallacy extends Component {
 					<div className="materialWrapper">
 						<FallacyExample
 							bearer={bearer}
-							canEdit={props.createdBy ? props.createdBy.id === userId : false}
+							canEdit={canEdit}
 							downloading={downloading}
 							exportOpt={exportOpt}
 							history={props.history}
