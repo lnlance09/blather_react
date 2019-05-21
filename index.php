@@ -201,7 +201,7 @@
 
                         $title = $fallacyTitle;
                         $pageTitle = $fallacyName.' by '.$pageName;
-                        $description = $pageTitle.' '.substr($explanation, 0, 120);
+                        $description = $pageTitle.' - '.substr($explanation, 0, 120);
                         $img = $s3Path.$pagePic;
 
                         if (strpos($s3Link, "screenshots") !== false) {
@@ -550,7 +550,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
         <meta name="theme-color" content="#000000">
 
-        <meta property="fb:app_id" content="305800173184455">
+        <meta property="fb:app_id" content="498572440350555">
         <meta property="og:description" content="<?php echo htmlentities($description); ?>">
         <meta property="og:image" content="<?php echo $img; ?>">
         <meta property="og:image:height" content="<?php echo $height; ?>">
