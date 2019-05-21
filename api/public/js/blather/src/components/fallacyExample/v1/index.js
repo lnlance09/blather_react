@@ -394,12 +394,13 @@ class FallacyExample extends Component {
 					</div>
 				)
 			}
+
 			if (material.video) {
 				return (
 					<div>
 						<YouTubeVideo
 							channel={material.video.channel}
-							controls={props.canEdit}
+							controls
 							dateCreated={material.video.dateCreated}
 							description={material.video.description}
 							endTime={material.video.endTime}
