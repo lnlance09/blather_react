@@ -99,9 +99,6 @@ class Breakdown extends Component {
 		return (
 			<div className="breakdown">
 				<div>
-					<Header as="h2" attached="top">
-						Breakdown
-					</Header>
 					{this.props.id ? (
 						<Segment attached className="breakdownSegment">
 							<Message
@@ -187,12 +184,7 @@ class Breakdown extends Component {
 						</Header>
 
 						<Header size="small">
-							<Icon
-								color="yellow"
-								name="star"
-								size="small"
-								style={{ display: "inline-block" }}
-							/>{" "}
+							<Icon color="yellow" name="star" style={{ display: "inline-block" }} />{" "}
 							<Link to={`/targets/${authenticated ? userId : "create"}/${dbId}`}>
 								Create a review
 							</Link>

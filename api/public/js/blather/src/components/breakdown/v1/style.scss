@@ -51,8 +51,15 @@
     }
 
     .questionnaire {
+        background: $offWhite;
+
         .ui.header.small {
             margin-top: 0;
+
+            .icon.star {
+                font-size: 16px;
+                line-height: 15px;
+            }
         }
     }
 

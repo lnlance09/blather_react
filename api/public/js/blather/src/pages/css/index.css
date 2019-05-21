@@ -45,6 +45,14 @@
     height: 220px;
     width: 220px; }
 
+.pageHeaderPlaceholder {
+  display: inline-block;
+  margin-top: 30px;
+  text-align: center;
+  width: 360px; }
+  .pageHeaderPlaceholder .placeholder {
+    text-align: center; }
+
 a {
   color: #2185D0; }
 
@@ -359,6 +367,8 @@ a {
   text-align: center; }
   .socialMediaPage .pageHeaderInfo p {
     margin-top: 15px; }
+  .socialMediaPage .pageHeaderInfo .twitterIcon, .socialMediaPage .pageHeaderInfo .youtubeIcon {
+    margin-top: 8px; }
 
 .socialMediaPage .profileContentContainer {
   margin: 0 !important;
