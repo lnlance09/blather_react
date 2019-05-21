@@ -30,8 +30,13 @@
           .breakdown .breakdownSegment .percentages .fallacyPercentage .progress .label {
             background: #F9FAFB;
             color: #545454; }
-  .breakdown .questionnaire .ui.header.small {
-    margin-top: 0; }
+  .breakdown .questionnaire {
+    background: #F9FAFB; }
+    .breakdown .questionnaire .ui.header.small {
+      margin-top: 0; }
+      .breakdown .questionnaire .ui.header.small .icon.star {
+        font-size: 16px;
+        line-height: 15px; }
   .breakdown .placeholderDiv {
     font-style: italic;
     margin-bottom: 12px; }

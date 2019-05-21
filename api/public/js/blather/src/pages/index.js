@@ -164,18 +164,18 @@ class Page extends Component {
 		const PageHeaderInfo = props => {
 			const subheader = (
 				<div>
-					<Icon className={`${network}Icon`} name={network} />{" "}
-					{props.username ? (
-						<a
-							className="externalUrl"
-							href={props.externalUrl}
-							onClick={() => window.open(props.externalUrl, "_blank")}
-						>
-							@{props.username}
-						</a>
-					) : (
-						<span>YouTube profile</span>
-					)}
+					<div>
+						{props.username && (
+							<a
+								className="externalUrl"
+								href={props.externalUrl}
+								onClick={() => window.open(props.externalUrl, "_blank")}
+							>
+								@{props.username}
+							</a>
+						)}
+					</div>
+					<Icon className={`${network}Icon`} name={network} size="large" />
 				</div>
 			)
 			return (
@@ -186,7 +186,7 @@ class Page extends Component {
 		}
 
 		const PageMenu = props => (
-			<Menu className="socialMediaPageMenu" fluid pointing secondary stackable>
+			<Menu borderless className="socialMediaPageMenu" fluid pointing secondary stackable>
 				<Menu.Item
 					active={activeItem === itemsLabel}
 					name={itemsLabel}
@@ -199,7 +199,7 @@ class Page extends Component {
 				>
 					Fallacies{" "}
 					{props.fallacyCount > 0 && (
-						<Label color="red" horizontal>
+						<Label color="blue" horizontal>
 							{props.fallacyCount}
 						</Label>
 					)}
@@ -298,24 +298,35 @@ class Page extends Component {
 							<Grid>
 								<Grid.Column width={16}>
 									{this.props.id ? (
-										<Image
-											bordered
-											centered
-											circular
-											className="profilePic"
-											onError={i => (i.target.src = defaultImg)}
-											rounded
-											size="medium"
-											src={this.props.img}
-										/>
+										<div>
+											<Image
+												bordered
+												centered
+												circular
+												className="profilePic"
+												onError={i => (i.target.src = defaultImg)}
+												rounded
+												size="medium"
+												src={this.props.img}
+											/>
+											{PageHeaderInfo(this.props)}
+										</div>
 									) : (
 										<Container textAlign="center">
 											<Placeholder className="profilePicPlaceholder">
 												<Placeholder.Image square />
 											</Placeholder>
+											<br />
+											<div className="pageHeaderPlaceholder">
+												<Placeholder>
+													<Placeholder.Header>
+														<Placeholder.Line length="full" />
+														<Placeholder.Line length="full" />
+													</Placeholder.Header>
+												</Placeholder>
+											</div>
 										</Container>
 									)}
-									{PageHeaderInfo(this.props)}
 									<Breakdown
 										authenticated={authenticated}
 										count={this.props.fallacyCount}

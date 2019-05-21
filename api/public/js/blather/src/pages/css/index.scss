@@ -65,6 +65,17 @@
     }
 }
 
+.pageHeaderPlaceholder {
+    display: inline-block;
+    margin-top: 30px;
+    text-align: center;
+    width: 360px;
+
+    .placeholder {
+        text-align: center;
+    }
+}
+
 a {
     color: $blue;
 }
@@ -609,6 +620,10 @@ a {
 
         p {
             margin-top: 15px;
+        }
+
+        .twitterIcon, .youtubeIcon {
+            margin-top: 8px;
         }
     }
 
