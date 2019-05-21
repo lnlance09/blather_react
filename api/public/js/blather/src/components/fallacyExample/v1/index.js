@@ -399,7 +399,7 @@ class FallacyExample extends Component {
 					<div>
 						<YouTubeVideo
 							channel={material.video.channel}
-							controls
+							controls={props.canEdit}
 							dateCreated={material.video.dateCreated}
 							description={material.video.description}
 							endTime={material.video.endTime}
