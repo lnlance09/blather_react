@@ -399,13 +399,12 @@ class FallacyExample extends Component {
 					<div>
 						<YouTubeVideo
 							channel={material.video.channel}
-							controls={false}
+							controls
 							dateCreated={material.video.dateCreated}
 							description={material.video.description}
 							endTime={material.video.endTime}
 							history={props.history}
 							id={material.video.id}
-							loop={true}
 							redirect
 							showChannel={false}
 							showStats={false}
