@@ -217,7 +217,7 @@ class Page extends Component {
 							emptyMsgContent={`No fallacies have been assigned to ${props.name}`}
 							fallacies={fallacyId}
 							history={props.history}
-							icon="sticky note"
+							icon="warning sign"
 							network={network}
 							setFallacyId={this.setFallacyId}
 							showPics={false}
