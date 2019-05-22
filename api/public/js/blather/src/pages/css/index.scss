@@ -76,6 +76,12 @@
     }
 }
 
+@media only screen and (max-width: 1025px) {
+    .pageHeaderPlaceholder {
+        width: 250px;
+    }
+}
+
 a {
     color: $blue;
 }
@@ -106,6 +112,10 @@ a {
 
 .sticky.noteIcon {
     color: $yellow;
+}
+
+.warning.sign {
+    color: $red;
 }
 
 .modals.dimmer .ui.scrolling.modal {
@@ -557,6 +567,7 @@ a {
 }
 
 
+/* Feed page */
 .feedPage {
     @media only screen and (max-width: 1025px) {
         .grid {
@@ -606,6 +617,16 @@ a {
 
         .pageContentRow {
             padding-top: 0 !important;
+        }
+
+        .titleHeader {
+            .ui.header {
+                font-size: 24px !important;
+
+                .sub.header {
+                    font-size: 16px !important;
+                }
+            }
         }
     }
 

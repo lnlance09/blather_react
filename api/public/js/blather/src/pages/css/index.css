@@ -53,6 +53,10 @@
   .pageHeaderPlaceholder .placeholder {
     text-align: center; }
 
+@media only screen and (max-width: 1025px) {
+  .pageHeaderPlaceholder {
+    width: 250px; } }
+
 a {
   color: #2185D0; }
 
@@ -75,6 +79,9 @@ a {
 
 .sticky.noteIcon {
   color: #FBBD08; }
+
+.warning.sign {
+  color: #DB2828; }
 
 .modals.dimmer .ui.scrolling.modal {
   margin: 60px 0 70px 0 !important; }
@@ -328,6 +335,7 @@ a {
   .fallacyPage .captureScreenshot {
     display: none; } }
 
+/* Feed page */
 @media only screen and (max-width: 1025px) {
   .feedPage .grid {
     margin-left: 0 !important;
@@ -356,7 +364,11 @@ a {
   .socialMediaPage .image.profilePic {
     height: 220px; }
   .socialMediaPage .pageContentRow {
-    padding-top: 0 !important; } }
+    padding-top: 0 !important; }
+  .socialMediaPage .titleHeader .ui.header {
+    font-size: 24px !important; }
+    .socialMediaPage .titleHeader .ui.header .sub.header {
+      font-size: 16px !important; } }
 
 .socialMediaPage .image.profilePic {
   height: 220px;

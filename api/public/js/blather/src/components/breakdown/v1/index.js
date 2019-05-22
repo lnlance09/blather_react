@@ -138,9 +138,6 @@ class Breakdown extends Component {
 						</Segment>
 					)}
 
-					<Header as="h3" attached>
-						Grifter or Fool?
-					</Header>
 					<Segment attached className="questionnaire">
 						{placeholder.id && (
 							<div>
