@@ -41,4 +41,4 @@
     .breakdown .ui.header.small {
       font-size: 14px !important; }
     .breakdown .breakdownSegment .question.icon {
-      display: none; } }
+      display: none !important; } }

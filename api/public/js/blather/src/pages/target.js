@@ -120,7 +120,7 @@ class Target extends Component {
 						props.page.name
 					}`}
 					history={props.history}
-					icon="sticky note"
+					icon="warning sign"
 					network={props.page.network}
 					showPics={false}
 					source="targets"

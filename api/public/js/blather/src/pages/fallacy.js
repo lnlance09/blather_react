@@ -598,7 +598,7 @@ class Fallacy extends Component {
 									emptyMsgContent="There are no similar fallacies"
 									fallacyId={props.fallacyId}
 									history={props.history}
-									icon="sticky note"
+									icon="warning sign"
 									source="fallacy"
 								/>
 							</Segment>
