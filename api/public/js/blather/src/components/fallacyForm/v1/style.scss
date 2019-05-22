@@ -44,6 +44,20 @@
             display: block;
         }
     }
+
+    @media only screen and (max-width: 1025px) {
+        .equal.width.fields {
+            margin-bottom: 15px;
+
+            .field {
+                width: 49% !important;
+
+                input {
+                    width: 100% !important;
+                }
+            }
+        }
+    }
 }
 
 .successModal {
