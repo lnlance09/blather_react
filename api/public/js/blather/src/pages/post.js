@@ -280,7 +280,7 @@ class Post extends Component {
 										link
 										onClick={() => props.history.push("/search/profiles")}
 									>
-										Twitter profiles
+										Pages
 									</Breadcrumb.Section>
 									<Breadcrumb.Divider icon="right chevron" />
 									<Breadcrumb.Section
@@ -320,7 +320,7 @@ class Post extends Component {
 										link
 										onClick={() => props.history.push("/search/channels")}
 									>
-										YouTube channels
+										Channels
 									</Breadcrumb.Section>
 									<Breadcrumb.Divider icon="right chevron" />
 									<Breadcrumb.Section

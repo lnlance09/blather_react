@@ -31,6 +31,14 @@
   .fallacyForm .commonMarkLink .clearfix {
     display: block; }
 
+@media only screen and (max-width: 1025px) {
+  .fallacyForm .equal.width.fields {
+    margin-bottom: 15px; }
+    .fallacyForm .equal.width.fields .field {
+      width: 49% !important; }
+      .fallacyForm .equal.width.fields .field input {
+        width: 100% !important; } }
+
 .successModal a {
   cursor: pointer; }
 

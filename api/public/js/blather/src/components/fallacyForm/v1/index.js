@@ -526,6 +526,7 @@ class FallacyForm extends Component {
 						<Form
 							error={this.props.fallacyFormError || cError || !cValid}
 							onSubmit={this.onSubmitForm}
+							unstackable
 						>
 							{canAssign && (
 								<div>

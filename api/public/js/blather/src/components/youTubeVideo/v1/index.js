@@ -226,9 +226,11 @@ class YouTubeVideo extends Component {
 					</Menu>
 					{archives.length === 0 ? (
 						<Message
-							content={`${
-								activeItem === "Mine" ? "You haven't " : "There aren't any "
-							} archived any clips yet`}
+							content={
+								activeItem === "Mine"
+									? "You haven't archived any clips yet"
+									: "There aren't any archived clips yet"
+							}
 						/>
 					) : (
 						<Transition animation="scale" duration={400} visible={archiveVisible}>
