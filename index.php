@@ -11,7 +11,7 @@
     $html = "";
 
     $s3Path = "https://s3.amazonaws.com/blather22/";
-    $img = $base_url."images/icons/icon-100x100.png";
+    $img = $base_url."images/icons/icon-512x512.png";
     $appleIcon = $base_url."images/icons/icon-128x128.png";
 
     $set = false;
