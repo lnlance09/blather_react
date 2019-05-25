@@ -604,7 +604,7 @@
             savePic($pic, $path);
 
             $key = 'pages/twitter/'.$name.'-'.$id.'.jpg';
-            $s3Link = $this->media->addToS3($key, $path);
+            $s3Link = $this->media->addToS3($key, $path, true, true);
 
             $this->db->where([
                 'social_media_id' => $id,
