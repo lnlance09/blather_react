@@ -26,6 +26,8 @@
         public function addToS3($key, $file, $remove = true) {
             if (!$this->existsInS3($key)) {
                 $this->aws->upload($key, $file);
+            } else {
+                $this->renameS3Object($key, $file, false);
             }
 
             if ($remove && file_exists($file)) {
