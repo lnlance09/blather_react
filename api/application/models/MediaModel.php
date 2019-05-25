@@ -23,10 +23,13 @@
          * @param [string] $key         The path/name of the file that will be stored in s3
          * @param [string] $file        The path to the file on the local server
          */
-        public function addToS3($key, $file, $remove = true) {
-            if (!$this->existsInS3($key)) {
+        public function addToS3($key, $file, $remove = true, $update = false) {
+            $exists = $this->existsInS3($key);
+            if (!$exists) {
                 $this->aws->upload($key, $file);
-            } else {
+            }
+
+            if ($update && $exists) {
                 $this->renameS3Object($key, $file, false);
             }
 
