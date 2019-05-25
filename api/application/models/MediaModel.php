@@ -29,8 +29,9 @@
                 $this->aws->upload($key, $file);
             }
 
-            if ($update && $exists) {
-                $this->renameS3Object($key, $file, false);
+            if ($exists && $update) {
+                $this->aws->del($key);
+                $this->aws->upload($key, $file);
             }
 
             if ($remove && file_exists($file)) {
