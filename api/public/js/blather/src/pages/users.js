@@ -219,7 +219,7 @@ class UserPage extends Component {
 		}
 
 		const UserMenu = props => (
-			<Menu borderless className="profileMenu" fluid stackable>
+			<Menu className="profileMenu" fluid pointing secondary stackable>
 				<Menu.Item
 					active={activeItem === "fallacies"}
 					name="fallacies"
