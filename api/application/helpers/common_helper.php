@@ -166,6 +166,7 @@
 		$type = 'tweet';
 
 		$host = $parse['host'];
+
 		switch ($host) {
 			case 'www.facebook.com':
 			case 'facebook.com':
@@ -183,13 +184,14 @@
 				}
 				break;
 
+			case 'mobile.twitter.com':
 			case 'www.twitter.com':
 			case 'twitter.com':
 
 				$network = 'twitter';
 				$exp = explode('/', $parse['path']);
 				array_shift($exp);
-				if (count($exp) === 3) {
+				if (count($exp) >= 3) {
 					$username = $exp[0];
 					$object_id = $exp[2];
 					$type = 'tweet';
