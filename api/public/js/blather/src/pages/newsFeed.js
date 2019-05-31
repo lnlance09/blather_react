@@ -85,7 +85,7 @@ class NewsFeed extends Component {
 						</Responsive>
 
 						<Responsive minWidth={1025}>
-							<Header as="h1" dividing size="big">
+							<Header as="h1" dividing size="large">
 								Activity
 							</Header>
 							<Grid>

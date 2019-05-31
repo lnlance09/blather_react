@@ -569,25 +569,7 @@ class FallacyForm extends Component {
 								/>
 							</Form.Field>
 							<ErrorMsg props={this.props} />
-							{this.props.authenticated ? (
-								<Button
-									color="blue"
-									compact
-									content="Assign a fallacy"
-									fluid
-									type="submit"
-								/>
-							) : (
-								<Button
-									color="blue"
-									compact
-									content="Sign in"
-									fluid
-									icon="sign in"
-									onClick={() => this.props.history.push("/signin")}
-									primary
-								/>
-							)}
+							<Button color="blue" content="Assign a fallacy" fluid type="submit" />
 							<div className="clearfix" />
 						</Form>
 					</Card.Content>

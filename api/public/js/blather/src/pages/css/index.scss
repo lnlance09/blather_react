@@ -1,5 +1,9 @@
 @import '../../css/colors.scss';
 
+*:not(.icon) {
+    // font-family: 'Merriweather', serif !important;
+}
+
 .rightSide {
     margin-left: 0;
     padding-left: 0 !important;
@@ -148,6 +152,10 @@ a {
     width: 100%;
 }
 
+.postContainer {
+    margin-top: 12px;
+}
+
 @media only screen and (max-width: 1025px) {
     .titleHeader {
         width: 100%;
@@ -159,6 +167,33 @@ a {
 
     .sub.header {
         font-size: 13px !important;
+    }
+}
+
+.heroLogo {
+    display: inline;
+    fill: $blue;
+    height: 120px;
+    line-height: 4;
+    margin-top: 15px;
+    text-align: center;
+    vertical-align: middle;
+    width: 120px;
+}
+
+.heroHeader {
+    margin-top: 8px !important;
+}
+
+.heroInput {
+    margin-top: 20px;
+
+    .icon.twitter {
+        color: $twitter;
+    }
+
+    .icon.youtube {
+        color: $youtube;
     }
 }
 
@@ -716,12 +751,21 @@ a {
 
             .breadcrumb {
                 line-height: 20px;
-                margin-left: auto !important;
-                margin-right: auto !important;
+                margin-left: 15px !important;
+                margin-right: 15px !important;
                 padding: 0;
             }
+        }
 
-            @media only screen and (max-width: 1025px) {
+        @media only screen and (max-width: 1025px) {
+            .breadcrumbContainer {
+                padding: 8px 15px;
+
+                .breadcrumb {
+                    margin-left: auto !important;
+                    margin-right: auto !important;
+                }
+
                 .container {
                     margin-left: 0 !important;
                     margin-right: 0 !important;
@@ -988,9 +1032,10 @@ a {
 
         &.default {
             background: $white;
-            height: 220px;
+            height: 220px !important;
+            overflow: hidden;
             padding: 7px;
-            width: 220px;
+            width: 220px !important;
         }
     }
 

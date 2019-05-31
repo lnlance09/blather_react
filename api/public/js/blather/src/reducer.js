@@ -7,6 +7,7 @@ import fallacyComments from "components/comments/v1/reducer"
 import fallacyForm from "components/fallacyForm/v1/reducer"
 import fallacies from "components/fallaciesList/v1/reducer"
 import feed from "components/feed/v1/reducer"
+import home from "pages/reducers/home"
 import newsFeed from "pages/reducers/feed"
 import page from "pages/reducers/page"
 import pageUser from "pages/reducers/user"
@@ -29,6 +30,7 @@ export default combineReducers({
 	fallacyComments,
 	fallacyForm,
 	feed,
+	home,
 	loadingBar: loadingBarReducer,
 	newsFeed,
 	page,

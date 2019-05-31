@@ -61,11 +61,7 @@ class Header extends Component {
 		))
 		const LoginButton = props => {
 			if (props.authenticated) {
-				const trigger = (
-					<Button basic inverted>
-						{props.data.name}
-					</Button>
-				)
+				const trigger = <Button color="red">{props.data.name}</Button>
 				return (
 					<Menu.Item direction="right" position="right">
 						<Dropdown className="dropDownMenu" fluid icon={false} trigger={trigger}>
@@ -89,10 +85,9 @@ class Header extends Component {
 				return (
 					<Menu.Item className="signInLink" direction="right" position="right">
 						<Button
-							basic
+							color="red"
 							compact
 							content="Sign In"
-							inverted
 							onClick={() => props.history.push("/signin")}
 						/>
 					</Menu.Item>
@@ -147,6 +142,9 @@ class Header extends Component {
 										svgClassName="svgHeaderLogo"
 									/>
 									<NavSearch history={this.props.history} />
+								</Menu.Item>
+								<Menu.Item className="fallaciesLink">
+									<Link to="/activity">Activity</Link>
 								</Menu.Item>
 								<Menu.Item className="fallaciesLink">
 									<Link to="/fallacies">Reference</Link>

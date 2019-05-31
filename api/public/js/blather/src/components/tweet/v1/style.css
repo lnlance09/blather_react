@@ -27,9 +27,7 @@
       .tweet .card .content .description span {
         color: #1B1C1D; }
         .tweet .card .content .description span b {
-          text-decoration-color: #DB2828;
-          text-decoration-line: underline;
-          text-decoration-style: double; }
+          border-bottom: solid 2px #DB2828; }
     .tweet .card .content.extra {
       cursor: default;
       padding: 1px 3px !important; }
