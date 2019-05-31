@@ -97,7 +97,7 @@ class Home extends Component {
 								iconPosition="left"
 								onKeyUp={this.onKeyUp}
 								onPaste={this.onPaste}
-								placeholder="Paste a link to Tweet"
+								placeholder="Paste a link to a Tweet"
 								size="large"
 								value={url}
 							/>
