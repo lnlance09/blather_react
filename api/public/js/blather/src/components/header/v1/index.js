@@ -190,6 +190,14 @@ class Header extends Component {
 						) : (
 							<Menu.Item onClick={this.onLogout}>Sign Out</Menu.Item>
 						)}
+						<Menu.Item
+							name="activity"
+							onClick={() => {
+								this.props.history.push(`/activity`)
+							}}
+						>
+							Activity
+						</Menu.Item>
 						<Menu.Item name="fallacies">
 							<b>Fallacies</b>
 						</Menu.Item>
