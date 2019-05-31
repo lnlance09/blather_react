@@ -1,5 +1,10 @@
 @import './colors.scss';
 
+@font-face {
+    font-family: merriweather;
+    src: url("fonts/merriweather/Merriweather-Regular.otf");
+}
+
 body {
     height: 100%;
     margin: 0;

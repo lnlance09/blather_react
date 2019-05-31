@@ -403,6 +403,7 @@
 					
 					if ($object['error']) {
 						$this->output->set_status_header($object['code']);
+						$object['type'] = $type;
 						echo json_encode($object);
 						exit;
 					}

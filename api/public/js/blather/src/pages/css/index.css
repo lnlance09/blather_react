@@ -105,6 +105,9 @@ a {
   text-align: center;
   width: 100%; }
 
+.postContainer {
+  margin-top: 12px; }
+
 @media only screen and (max-width: 1025px) {
   .titleHeader {
     width: 100%; }
@@ -112,6 +115,26 @@ a {
     font-size: 20px !important; }
   .sub.header {
     font-size: 13px !important; } }
+
+.heroLogo {
+  display: inline;
+  fill: #2185D0;
+  height: 120px;
+  line-height: 4;
+  margin-top: 15px;
+  text-align: center;
+  vertical-align: middle;
+  width: 120px; }
+
+.heroHeader {
+  margin-top: 8px !important; }
+
+.heroInput {
+  margin-top: 20px; }
+  .heroInput .icon.twitter {
+    color: #0084b4; }
+  .heroInput .icon.youtube {
+    color: #ff0000; }
 
 /* About page */
 .aboutPage .logoContainer {
@@ -423,10 +446,16 @@ a {
   width: 100%; }
   .postPage .sticky .breadcrumbContainer .breadcrumb {
     line-height: 20px;
-    margin-left: auto !important;
-    margin-right: auto !important;
+    margin-left: 15px !important;
+    margin-right: 15px !important;
     padding: 0; }
-  @media only screen and (max-width: 1025px) {
+
+@media only screen and (max-width: 1025px) {
+  .postPage .sticky .breadcrumbContainer {
+    padding: 8px 15px; }
+    .postPage .sticky .breadcrumbContainer .breadcrumb {
+      margin-left: auto !important;
+      margin-right: auto !important; }
     .postPage .sticky .breadcrumbContainer .container {
       margin-left: 0 !important;
       margin-right: 0 !important; } }
@@ -579,9 +608,10 @@ a {
     width: 220px; }
   .usersPage .profilePic.default {
     background: #FFFFFF;
-    height: 220px;
+    height: 220px !important;
+    overflow: hidden;
     padding: 7px;
-    width: 220px; }
+    width: 220px !important; }
 
 @media only screen and (max-width: 1025px) {
   .usersPage .profilePic {

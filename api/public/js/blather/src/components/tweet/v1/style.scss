@@ -39,9 +39,7 @@
                     color: $black;
 
                     b {
-                        text-decoration-color: $red;
-                        text-decoration-line: underline;
-                        text-decoration-style: double;
+                        border-bottom: solid 2px $red;
                     }
                 }
             }

@@ -35,6 +35,8 @@
   .breakdown .placeholderDiv {
     font-style: italic;
     margin-bottom: 12px; }
+    .breakdown .placeholderDiv p {
+      line-height: 1.6; }
   .breakdown .fullReview {
     margin-top: 10px; }
   @media only screen and (max-width: 1025px) {

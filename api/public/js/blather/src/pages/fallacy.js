@@ -385,7 +385,6 @@ class Fallacy extends Component {
 									<Button
 										className="downloadBtn"
 										color="green"
-										compact
 										content={`Create ${
 											props.canMakeVideo ? "video" : "screenshot"
 										}`}

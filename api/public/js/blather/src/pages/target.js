@@ -225,7 +225,7 @@ class Target extends Component {
 			<div>
 				{props.hasLoaded ? (
 					<div className="answers">
-						<Header as="h2" className="summaryHeader" size="small">
+						<Header as="h2" className="summaryHeader" size="medium">
 							Summary
 							{userId === myId && (
 								<Icon
@@ -251,7 +251,7 @@ class Target extends Component {
 							</div>
 						)}
 
-						<Header as="h2" size="small">
+						<Header as="h2" size="medium">
 							Does {props.page.name} sincerely believe most of what they talks about?
 							{props.sincerity !== null && (
 								<Header.Subheader>
@@ -272,7 +272,7 @@ class Target extends Component {
 							<LazyLoad header={false} segment={false} />
 						)}
 
-						<Header as="h2" size="small">
+						<Header as="h2" size="medium">
 							Can {props.page.name} pass an{" "}
 							<a
 								href="https://www.econlib.org/archives/2011/06/the_ideological.html"

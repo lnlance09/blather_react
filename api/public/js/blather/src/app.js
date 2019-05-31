@@ -9,6 +9,7 @@ import Bot from "pages/bot"
 import Fallacy from "pages/fallacy"
 import Fallacies from "pages/fallacies"
 import FallaciesJSON from "fallacies.json"
+import Home from "pages/home"
 import Logo from "./images/icons/icon-100x100.png"
 import NewsFeed from "pages/newsFeed"
 import Page from "pages/"
@@ -98,7 +99,15 @@ class App extends Component {
 			<div className="app">
 				<Provider store={store}>
 					<Router history={history}>
-						<Route component={NewsFeed} exact path="/" />
+						<Route
+							exact
+							path="/"
+							render={props => (
+								<Home key={window.location.pathname} {...props} />
+							)}
+						/>
+
+						<Route component={NewsFeed} exact path="/activity" />
 
 						<Route component={Bot} path="/bot" />
 
@@ -225,6 +234,7 @@ class App extends Component {
 						</Switch>
 					</Router>
 				</Provider>
+
 				<Notification
 					ignore={ignore && title !== ""}
 					notSupported={this.handleNotSupported.bind(this)}
@@ -238,6 +248,7 @@ class App extends Component {
 					timeout={5000}
 					title={title}
 				/>
+
 				<audio id="sound" preload="auto">
 					<source src={SoundFile} type="audio/mpeg" />
 					<source src={SoundFileAlt} type="audio/ogg" />

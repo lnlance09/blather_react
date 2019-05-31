@@ -587,7 +587,6 @@ Post.propTypes = {
 
 Post.defaultProps = {
 	archives: [],
-	data: null,
 	downloadVideo,
 	existsOnYt: true,
 	myArchives: [],

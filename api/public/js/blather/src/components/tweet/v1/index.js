@@ -51,7 +51,7 @@ class Tweet extends Component {
 		const ArchiveIcon = props => {
 			if (props.canArchive && !props.archive) {
 				return (
-					<List.Item className="archiveListItem" data-html2canvas-ignore>
+					<List.Item className="archiveListItem">
 						<Popup
 							className="archivePopup"
 							content="Archive"
@@ -272,7 +272,7 @@ class Tweet extends Component {
 							{QuotedTweet(this.props)}
 						</Card.Content>
 						{this.props.showStats && (
-							<Card.Content extra>
+							<Card.Content data-html2canvas-ignore extra>
 								<StatsBar
 									favoriteCount={
 										retweeted_status
