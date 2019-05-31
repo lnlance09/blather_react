@@ -190,7 +190,7 @@
 
 		public function getDefaultTwitterTokens() {
 			$this->db->select('twitter_access_token, twitter_access_secret');
-			$this->db->where('twitter_id', '1230606690');
+			$this->db->where('twitter_id', '758108534802374657');
 			return $this->db->get('twitter_users')->row();
 		}
 
