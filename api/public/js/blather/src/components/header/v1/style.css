@@ -11,7 +11,7 @@
   z-index: 9999; }
 
 .pageHeader .menu.globalHeader {
-  background: #1B1C1D !important;
+  background: #F9FAFB;
   height: 72px;
   z-index: 1001 !important; }
   .pageHeader .menu.globalHeader .headerContainer .responsive {
@@ -33,6 +33,7 @@
     .pageHeader .menu.globalHeader .headerContainer .sidebarItem .icon:hover {
       color: #2185D0; }
   .pageHeader .menu.globalHeader .headerContainer .fallaciesLink a {
+    color: #1B1C1D;
     font-size: 15px !important;
     font-weight: 500 !important; }
   .pageHeader .menu.globalHeader .headerContainer .dropDownMenu {

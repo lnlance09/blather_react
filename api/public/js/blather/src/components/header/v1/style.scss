@@ -10,7 +10,7 @@
     }
 
     .menu.globalHeader {
-        background: $black !important;
+        background: $offWhite;
         height: 72px;
         z-index: 1001 !important;
 
@@ -46,6 +46,7 @@
             }
 
             .fallaciesLink a {
+                color: $black;
                 font-size: 15px !important;
                 font-weight: 500 !important;
             }

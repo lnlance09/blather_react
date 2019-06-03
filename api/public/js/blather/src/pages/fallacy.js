@@ -418,7 +418,7 @@ class Fallacy extends Component {
 		)
 
 		const FallacyMenu = props => (
-			<Menu borderless className="fallacyMainMenu" fluid stackable>
+			<Menu className="fallacyMainMenu" fluid pointing secondary stackable>
 				<Menu.Item
 					active={activeItem === "material"}
 					name="material"
