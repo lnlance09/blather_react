@@ -76,7 +76,7 @@
     font-size: 18px !important;
     height: auto !important; }
     .tweet .tweetUserName a {
-      color: #1B1C1D; }
+      color: rgba(0, 0, 0, 0.85); }
       .tweet .tweetUserName a:hover {
         text-decoration: underline !important; }
   .tweet .tweetUserScreenName {
