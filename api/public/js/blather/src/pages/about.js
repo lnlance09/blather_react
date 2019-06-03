@@ -3,6 +3,7 @@ import { DisplayMetaTags } from "utils/metaFunctions"
 import { sendContactMsg } from "pages/actions/about"
 import { connect, Provider } from "react-redux"
 import { Link } from "react-router-dom"
+import { Follow } from "react-twitter-widgets"
 import {
 	Button,
 	Container,
@@ -91,6 +92,7 @@ class About extends Component {
 					in honest, fact-based discussions. In essence, Blather is about restoring what
 					it means to have a discussion; which is to change minds.
 				</p>
+				<Follow className="twitterFollowButton" username="blatherio" />
 			</div>
 		)
 		const ContactSection = props => (

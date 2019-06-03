@@ -135,6 +135,14 @@
     .tweetUserName {
         font-size: 18px !important;
         height: auto !important;
+
+        a {
+            color: $black;
+
+            &:hover {
+                text-decoration: underline !important;
+            }
+        }
     }
 
     .tweetUserScreenName {

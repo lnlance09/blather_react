@@ -1,9 +1,9 @@
 @import '../../../css/colors.scss';
 
 .ui.bottom.attached.segment.footerSegment {
-    background: $white !important;
+    background: $darkWhite !important;
     border-bottom: none;
-    border-top: solid 1px $darkWhite;
+    border-top: solid 1px $lightGrey;
     box-shadow: none !important;
     margin-top: 5.5em !important;
     padding: 1em 0em !important;
@@ -15,25 +15,16 @@
     }
 
     .ui.inverted.list .item a:not(.ui) {
-        color: $black !important;
+        color: $grey !important;
 
         &:hover {
-            color: $black;
+            color: $grey;
         }
     }
 
     p {
-        color: $black !important;
+        color: $grey !important;
         font-size: 12px;
         margin-bottom: 7px;
-    }
-
-    .socialFooterContainer {
-        background: $black;
-        width: 100%;
-
-        .twitterFollowButton {
-            margin: 5px 0;
-        }
     }
 }

@@ -425,15 +425,23 @@ a {
 /* Post page */
 .postPage .ui.text.container.mainContainer {
   font-size: 13px;
+  margin-top: 100px;
   padding: 0 !important; }
   .postPage .ui.text.container.mainContainer .fallacyFormWrapper {
-    margin: 30px 0; }
+    margin: 20px 0; }
   .postPage .ui.text.container.mainContainer .placeholderContainer {
     text-align: center; }
-  .postPage .ui.text.container.mainContainer .screenshotMsg span {
-    cursor: pointer; }
-    .postPage .ui.text.container.mainContainer .screenshotMsg span:hover {
-      text-decoration: underline; }
+  .postPage .ui.text.container.mainContainer .screenshotMsg {
+    margin-top: 12px; }
+    .postPage .ui.text.container.mainContainer .screenshotMsg .icon.camera {
+      font-size: 16px; }
+    .postPage .ui.text.container.mainContainer .screenshotMsg span {
+      cursor: pointer;
+      font-size: 14px;
+      line-height: 16px;
+      margin-left: 4px; }
+      .postPage .ui.text.container.mainContainer .screenshotMsg span:hover {
+        text-decoration: underline; }
 
 .postPage .sticky div {
   z-index: 1000; }
