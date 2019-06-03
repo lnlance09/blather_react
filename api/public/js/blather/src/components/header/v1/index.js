@@ -61,7 +61,7 @@ class Header extends Component {
 		))
 		const LoginButton = props => {
 			if (props.authenticated) {
-				const trigger = <Button color="red">{props.data.name}</Button>
+				const trigger = <Button basic>{props.data.name}</Button>
 				return (
 					<Menu.Item direction="right" position="right">
 						<Dropdown className="dropDownMenu" fluid icon={false} trigger={trigger}>
@@ -85,7 +85,7 @@ class Header extends Component {
 				return (
 					<Menu.Item className="signInLink" direction="right" position="right">
 						<Button
-							color="red"
+							color="green"
 							compact
 							content="Sign In"
 							onClick={() => props.history.push("/signin")}
@@ -98,13 +98,7 @@ class Header extends Component {
 		return (
 			<Provider store={store}>
 				<div className="pageHeader">
-					<Menu
-						borderless
-						className="globalHeader"
-						fitted="vertically"
-						fixed="top"
-						inverted
-					>
+					<Menu borderless className="globalHeader" fitted="vertically" fixed="top">
 						<Container className="headerContainer">
 							<Responsive className="responsive" maxWidth={1024}>
 								<Menu.Item className="headerMenuItem">
@@ -158,7 +152,6 @@ class Header extends Component {
 						as={Menu}
 						animation="overlay"
 						icon="labeled"
-						inverted
 						vertical
 						visible={visible}
 						width="wide"
@@ -197,9 +190,6 @@ class Header extends Component {
 							}}
 						>
 							Activity
-						</Menu.Item>
-						<Menu.Item name="fallacies">
-							<b>Fallacies</b>
 						</Menu.Item>
 						{FallaciesSidebar}
 					</Sidebar>

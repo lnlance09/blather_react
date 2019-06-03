@@ -119,12 +119,12 @@ a {
 .heroLogo {
   display: inline;
   fill: #2185D0;
-  height: 120px;
+  height: 85px;
   line-height: 4;
   margin-top: 15px;
   text-align: center;
   vertical-align: middle;
-  width: 120px; }
+  width: 85px; }
 
 .heroHeader {
   margin-top: 8px !important; }
@@ -316,7 +316,7 @@ a {
     margin-top: 10px; }
 
 .fallacyPage .fallacyMainMenu {
-  margin-top: 18px; }
+  margin-top: 12px; }
 
 .fallacyPage .commentsContent {
   padding: 0;

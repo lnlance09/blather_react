@@ -148,7 +148,7 @@ NavSearch.propTypes = {
 
 NavSearch.defaultProps = {
 	disabled: false,
-	placeholder: "Search pages",
+	placeholder: "Search",
 	source: "header",
 	width: "360px"
 }
