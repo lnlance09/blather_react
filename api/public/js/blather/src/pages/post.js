@@ -4,17 +4,7 @@ import { formatTime } from "utils/dateFunctions"
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { downloadVideo, fetchPostData } from "pages/actions/post"
 import { Provider, connect } from "react-redux"
-import {
-	Breadcrumb,
-	Container,
-	Divider,
-	Header,
-	Icon,
-	Image,
-	Message,
-	Segment,
-	Sticky
-} from "semantic-ui-react"
+import { Container, Divider, Header, Icon, Image, Message, Segment } from "semantic-ui-react"
 import html2canvas from "html2canvas"
 import FallacyForm from "components/fallacyForm/v1/"
 import FallaciesList from "components/fallaciesList/v1/"
@@ -240,123 +230,6 @@ class Post extends Component {
 		const videoExists = error && errorCode === 404 && network === "youtube" ? false : true
 		const user = info ? (network === "twitter" ? info.user : info.channel) : null
 
-		const Breadcrumbs = props => {
-			if (props.info) {
-				switch (type) {
-					case "comment":
-						if (info.comment !== undefined && info.comment.user) {
-							return (
-								<Breadcrumb>
-									<Breadcrumb.Section
-										link
-										onClick={() => props.history.push("/search/youtube")}
-									>
-										YouTube comments
-									</Breadcrumb.Section>
-									<Breadcrumb.Divider icon="right chevron" />
-									<Breadcrumb.Section
-										link
-										onClick={() =>
-											props.history.push(
-												`/pages/youtube/${props.info.comment.user.id}`
-											)
-										}
-									>
-										{props.info.comment.user.title}
-									</Breadcrumb.Section>
-									<Breadcrumb.Divider icon="right chevron" />
-									<Breadcrumb.Section active>
-										{props.info.comment.id}
-									</Breadcrumb.Section>
-								</Breadcrumb>
-							)
-						}
-						return null
-					case "tweet":
-						if (props.info.user) {
-							return (
-								<Breadcrumb>
-									<Breadcrumb.Section
-										link
-										onClick={() => props.history.push("/search/profiles")}
-									>
-										Pages
-									</Breadcrumb.Section>
-									<Breadcrumb.Divider icon="right chevron" />
-									<Breadcrumb.Section
-										link
-										onClick={() =>
-											props.history.push(
-												`/pages/twitter/${props.info.user.screen_name}`
-											)
-										}
-									>
-										{props.info.user.name}
-									</Breadcrumb.Section>
-									<Breadcrumb.Divider icon="right chevron" />
-									<Breadcrumb.Section
-										link
-										onClick={() =>
-											props.history.push(
-												`/pages/twitter/${
-													props.info.user.screen_name
-												}/tweets`
-											)
-										}
-									>
-										Tweets
-									</Breadcrumb.Section>
-									<Breadcrumb.Divider icon="right chevron" />
-									<Breadcrumb.Section active>{props.info.id}</Breadcrumb.Section>
-								</Breadcrumb>
-							)
-						}
-						return null
-					case "video":
-						if (props.info.channel) {
-							return (
-								<Breadcrumb>
-									<Breadcrumb.Section
-										link
-										onClick={() => props.history.push("/search/channels")}
-									>
-										Channels
-									</Breadcrumb.Section>
-									<Breadcrumb.Divider icon="right chevron" />
-									<Breadcrumb.Section
-										link
-										onClick={() =>
-											props.history.push(
-												`/pages/youtube/${props.info.channel.id}`
-											)
-										}
-									>
-										{props.info.channel.title}
-									</Breadcrumb.Section>
-									<Breadcrumb.Divider icon="right chevron" />
-									<Breadcrumb.Section
-										link
-										onClick={() =>
-											props.history.push(
-												`/pages/youtube/${props.info.channel.id}/videos`
-											)
-										}
-									>
-										Videos
-									</Breadcrumb.Section>
-									<Breadcrumb.Divider icon="right chevron" />
-									<Breadcrumb.Section active>{props.info.id}</Breadcrumb.Section>
-								</Breadcrumb>
-							)
-						}
-						return null
-					default:
-						return null
-				}
-			}
-			return null
-		}
-
 		const DisplayFallacies = ({ props }) => {
 			if (props.info) {
 				return (
@@ -476,10 +349,10 @@ class Post extends Component {
 										user={props.info.user}
 									/>
 								</div>
-								<Message className="screenshotMsg">
+								<div className="screenshotMsg">
 									<Icon name="camera" />
 									<span onClick={this.captureScreenshot}>Capture screenshot</span>
-								</Message>
+								</div>
 								{DisplayFallacyForm(props)}
 							</div>
 						)
@@ -535,14 +408,6 @@ class Post extends Component {
 				<div className="postPage">
 					<DisplayMetaTags page="post" props={this.props} state={this.state} />
 					<PageHeader {...this.props} />
-					{this.props.info && (
-						<Sticky className="sticky">
-							<div className="breadcrumbContainer">
-								<Container>{Breadcrumbs(this.props)}</Container>
-							</div>
-						</Sticky>
-					)}
-
 					<Container className={containerClassName} text>
 						{DisplayPost(this.props)}
 						{!tweetExists && <Message content="This tweet does not exist" error />}

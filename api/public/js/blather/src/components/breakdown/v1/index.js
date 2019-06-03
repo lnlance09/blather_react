@@ -139,7 +139,9 @@ class Breakdown extends Component {
 										/>
 										<Icon name="quote right" />
 										<p className="fullReview">
-											<Link to={`/targets/${userId}/${dbId}`}>See full review</Link>
+											<Link to={`/targets/${userId}/${dbId}`}>
+												See full review
+											</Link>
 										</p>
 										<Divider />
 									</div>
@@ -162,8 +164,14 @@ class Breakdown extends Component {
 								</Header>
 
 								<Header size="small">
-									<Icon color="yellow" name="star" style={{ display: "inline-block" }} />{" "}
-									<Link to={`/targets/${authenticated ? userId : "create"}/${dbId}`}>
+									<Icon
+										color="yellow"
+										name="star"
+										style={{ display: "inline-block" }}
+									/>{" "}
+									<Link
+										to={`/targets/${authenticated ? userId : "create"}/${dbId}`}
+									>
 										Create a review
 									</Link>
 								</Header>

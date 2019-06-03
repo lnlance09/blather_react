@@ -4,9 +4,9 @@
 /*---   Misc  ---*/
 /*---   Social colors  ---*/
 .ui.bottom.attached.segment.footerSegment {
-  background: #FFFFFF !important;
+  background: #F3F4F5 !important;
   border-bottom: none;
-  border-top: solid 1px #F3F4F5;
+  border-top: solid 1px #DCDDDE;
   box-shadow: none !important;
   margin-top: 5.5em !important;
   padding: 1em 0em !important;
@@ -15,15 +15,10 @@
     padding-left: 30px;
     padding-right: 30px; }
   .ui.bottom.attached.segment.footerSegment .ui.inverted.list .item a:not(.ui) {
-    color: #1B1C1D !important; }
+    color: #767676 !important; }
     .ui.bottom.attached.segment.footerSegment .ui.inverted.list .item a:not(.ui):hover {
-      color: #1B1C1D; }
+      color: #767676; }
   .ui.bottom.attached.segment.footerSegment p {
-    color: #1B1C1D !important;
+    color: #767676 !important;
     font-size: 12px;
     margin-bottom: 7px; }
-  .ui.bottom.attached.segment.footerSegment .socialFooterContainer {
-    background: #1B1C1D;
-    width: 100%; }
-    .ui.bottom.attached.segment.footerSegment .socialFooterContainer .twitterFollowButton {
-      margin: 5px 0; }

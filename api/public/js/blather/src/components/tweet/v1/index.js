@@ -4,6 +4,7 @@ import { adjustTimezone } from "utils/dateFunctions"
 import { getHighlightedText } from "utils/textFunctions"
 import { linkHashtags, linkMentions } from "utils/linkifyAdditions"
 import { Provider, connect } from "react-redux"
+import { Link } from "react-router-dom"
 import { Card, Icon, Image, Label, List, Message, Popup, Transition } from "semantic-ui-react"
 import ItemPic from "images/square-image.png"
 import Linkify from "react-linkify"
@@ -23,6 +24,7 @@ class Tweet extends Component {
 			highlight: "",
 			visible: false
 		}
+
 		linkMentions("twitter")
 		linkHashtags("https://www.twitter.com/hashtag/")
 		this.onClickArchive = this.onClickArchive.bind(this)
@@ -122,7 +124,9 @@ class Tweet extends Component {
 						onError={i => (i.target.src = ItemPic)}
 						src={profileImg === undefined ? null : profileImg.replace("_normal", "")}
 					/>
-					<Card.Header className="tweetUserName">{name}</Card.Header>
+					<Card.Header className="tweetUserName">
+						<Link to={`/pages/twitter/${screenName}`}>{name}</Link>
+					</Card.Header>
 					<Card.Meta className="tweetUserScreenName">
 						@{screenName} •
 						<span className="tweetTime">
