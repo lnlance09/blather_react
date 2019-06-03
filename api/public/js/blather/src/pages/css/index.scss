@@ -991,6 +991,12 @@ a {
             .header.sub {
                 margin-top: 5px;
             }
+
+            @media only screen and (max-width: 1025px) {
+                .header {
+                    font-size: 16px !important;
+                }
+            }
         }
     }
 }
