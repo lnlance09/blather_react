@@ -338,7 +338,7 @@ class Page extends Component {
 										setFallacyId={this.setFallacyId}
 										sincerity={this.props.sincerity}
 										turingTest={this.props.turingTest}
-										userId={parseInt(userId, 10)}
+										userId={userId}
 										username={this.props.username}
 									/>
 									{PageMenu(this.props)}

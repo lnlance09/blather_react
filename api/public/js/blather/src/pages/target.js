@@ -104,7 +104,7 @@ class Target extends Component {
 	}
 
 	render() {
-		const { auth, editing, exists, loading, myId, userId } = this.state
+		const { editing, exists, loading, myId, userId } = this.state
 		const { error, page, user } = this.props
 		const readonly = userId !== myId
 		const showMessage = (userId === myId && this.props.fallacyCount < 5) || !exists

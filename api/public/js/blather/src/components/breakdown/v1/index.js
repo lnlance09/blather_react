@@ -131,7 +131,7 @@ class Breakdown extends Component {
 										</Header>
 										<Icon name="quote left" />
 										<blockquote
-											cite={`https://blather.io/targets/${userId}/${dbId}`}
+											cite={`https://blather.io/targets/${placeholder.user_id}/${dbId}`}
 											className="placeholderDiv"
 											dangerouslySetInnerHTML={{
 												__html: sanitizeText(Marked(placeholder.summary))
@@ -139,7 +139,7 @@ class Breakdown extends Component {
 										/>
 										<Icon name="quote right" />
 										<p className="fullReview">
-											<Link to={`/targets/${userId}/${dbId}`}>
+											<Link to={`/targets/${placeholder.user_id}/${dbId}`}>
 												See full review
 											</Link>
 										</p>
@@ -223,7 +223,7 @@ Breakdown.propTypes = {
 	setFallacyId: PropTypes.func,
 	sincerity: PropTypes.object,
 	turingTest: PropTypes.object,
-	userId: PropTypes.number,
+	userId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 	username: PropTypes.string
 }
 
