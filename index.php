@@ -602,7 +602,7 @@
     </body>
 
     <script src="/static/js/1.ef29e6ef.chunk.js"></script>
-    <script src="/static/js/main.bb0fc8bf.chunk.js"></script>
+    <script src="/static/js/main.24e139df.chunk.js"></script>
     <script src="/static/js/runtime~main.229c360f.js"></script>
 
 <?php
