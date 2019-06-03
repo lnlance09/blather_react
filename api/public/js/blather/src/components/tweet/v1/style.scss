@@ -137,7 +137,7 @@
         height: auto !important;
 
         a {
-            color: $card-header;
+            color: $card-header !important;
 
             &:hover {
                 text-decoration: underline !important;
