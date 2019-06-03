@@ -125,7 +125,11 @@ class Tweet extends Component {
 						src={profileImg === undefined ? null : profileImg.replace("_normal", "")}
 					/>
 					<Card.Header className="tweetUserName">
-						<Link to={`/pages/twitter/${screenName}`}>{name}</Link>
+						{props.externalLink ? (
+							<Link to={`/pages/twitter/${screenName}`}>{name}</Link>
+						) : (
+							name
+						)}
 					</Card.Header>
 					<Card.Meta className="tweetUserScreenName">
 						@{screenName} •
