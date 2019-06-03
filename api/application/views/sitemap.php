@@ -6,7 +6,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 	<url>
 		<loc><?php echo $base_url; ?></loc> 
-		<changefreq>hourly</changefreq>
+		<changefreq>never</changefreq>
+		<priority>1.0</priority>
+	</url>
+
+	<url>
+		<loc><?php echo $base_url; ?>activity</loc> 
+		<changefreq>never</changefreq>
 		<priority>1.0</priority>
 	</url>
 
@@ -20,7 +26,7 @@
 	<url>
 		<loc><?php echo $url; ?></loc>
 		<changefreq>daily</changefreq>
-		<priority>1.0</priority>
+		<priority>0.9</priority>
 	</url>
 <?php
 	}
@@ -33,7 +39,7 @@
 	<url>
 		<loc><?php echo $base_url.'targets/'.$reviews[$i]['user_id'].'/'.$reviews[$i]['page_id']; ?></loc>
 		<changefreq>daily</changefreq>
-		<priority>0.9</priority>
+		<priority>0.8</priority>
 	</url>
 <?php
 	}
@@ -79,7 +85,7 @@
 	<url>
 		<loc><?php echo $url; ?></loc>
 		<changefreq>daily</changefreq>
-		<priority>0.6</priority>
+		<priority>0.7</priority>
 	</url>
 <?php
 	}

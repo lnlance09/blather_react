@@ -5,7 +5,7 @@
 
     $dir = "/blather/";
     $base_url = "https://blather.io/";
-    $title = "Home";
+    $title = "Assign a Logical Fallacy";
     $description = "Blather is a website that lets users assign logical fallacies and analyze the logic and reasoning of claims made on social media. It is meant to combat partisanship.";
     $keywords = "partisanship,logical fallacies,fallacy,hypocrisy,platitudes,talking points,debunked,contradiction";
     $html = "";
@@ -32,6 +32,11 @@
     switch ($uri) {
         case "/about":
             $title = "About";
+            $set = true;
+            break;
+
+        case "/activity":
+            $title = "Activity";
             $set = true;
             break;
 
