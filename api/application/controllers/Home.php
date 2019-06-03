@@ -19,7 +19,7 @@
 			$page = $this->input->get('page');
 
 			$results = null;
-			$limit = 20;
+			$limit = 10;
 			$start = $page*$limit;
 
 			$params = [
