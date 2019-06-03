@@ -5,33 +5,35 @@
 /*---   Social colors  ---*/
 .breakdown {
   margin-top: 20px !important; }
-  .breakdown .message {
-    background: #FFFFFF; }
-    .breakdown .message .icon {
-      color: #DB2828; }
-  .breakdown .breakdownSegment .percentages {
+  .breakdown .message .icon {
+    color: #DB2828; }
+  .breakdown .breakdownSegment {
     padding: 0 !important; }
-    .breakdown .breakdownSegment .percentages .ui.header.small {
-      margin-bottom: 7px !important; }
-    .breakdown .breakdownSegment .percentages .fallacyPercentage {
-      cursor: pointer;
-      margin-top: 12px; }
-      .breakdown .breakdownSegment .percentages .fallacyPercentage:first-of-type {
-        margin-top: 0; }
-      .breakdown .breakdownSegment .percentages .fallacyPercentage .progress {
-        margin-bottom: 0; }
-        .breakdown .breakdownSegment .percentages .fallacyPercentage .progress .bar {
-          background: #2185D0; }
-          .breakdown .breakdownSegment .percentages .fallacyPercentage .progress .bar .progress {
-            color: #FFFFFF; }
-        .breakdown .breakdownSegment .percentages .fallacyPercentage .progress .label {
-          background: #F9FAFB;
-          color: #545454; }
-  .breakdown .questionnaire .ui.header.small {
-    margin-top: 0; }
-    .breakdown .questionnaire .ui.header.small .icon.star {
-      font-size: 16px;
-      line-height: 15px; }
+    .breakdown .breakdownSegment .percentages {
+      padding: 0 !important; }
+      .breakdown .breakdownSegment .percentages .ui.header.small {
+        margin-bottom: 7px !important; }
+      .breakdown .breakdownSegment .percentages .fallacyPercentage {
+        cursor: pointer;
+        margin-top: 12px; }
+        .breakdown .breakdownSegment .percentages .fallacyPercentage:first-of-type {
+          margin-top: 0; }
+        .breakdown .breakdownSegment .percentages .fallacyPercentage .progress {
+          margin-bottom: 0; }
+          .breakdown .breakdownSegment .percentages .fallacyPercentage .progress .bar {
+            background: #2185D0; }
+            .breakdown .breakdownSegment .percentages .fallacyPercentage .progress .bar .progress {
+              color: #FFFFFF; }
+          .breakdown .breakdownSegment .percentages .fallacyPercentage .progress .label {
+            background: #F9FAFB;
+            color: #545454; }
+  .breakdown .questionnaire {
+    padding: 0 !important; }
+    .breakdown .questionnaire .ui.header.small {
+      margin-top: 0; }
+      .breakdown .questionnaire .ui.header.small .icon.star {
+        font-size: 16px;
+        line-height: 15px; }
   .breakdown .placeholderDiv {
     font-style: italic;
     margin-bottom: 12px; }
