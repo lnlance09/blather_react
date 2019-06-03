@@ -100,25 +100,77 @@ class Breakdown extends Component {
 			<div className="breakdown">
 				<div>
 					{this.props.id ? (
-						<Segment attached className="breakdownSegment">
-							<Message
-								content={`A measure of ${
-									this.props.name
-								}'s level of partisanship, logical consistency, and intellectual honesty.`}
-								header="How reputable is this source?"
-								icon="question"
-							/>
+						<div>
+							<Segment basic className="breakdownSegment">
+								<Message
+									content={`A measure of ${
+										this.props.name
+									}'s level of partisanship, logical consistency, and intellectual honesty.`}
+									header="How reputable is this source?"
+									icon="question"
+								/>
 
-							{options.length > 0 ? (
-								<Segment basic className="percentages">
-									{RenderFallacies()}
-								</Segment>
-							) : (
-								<Message content="No fallacies have been assigned" />
-							)}
-						</Segment>
+								{options.length > 0 ? (
+									<Segment basic className="percentages">
+										{RenderFallacies()}
+									</Segment>
+								) : (
+									<Message content="No fallacies have been assigned" />
+								)}
+							</Segment>
+
+							<Segment basic className="questionnaire">
+								{placeholder.id && (
+									<div>
+										<Header className="first" size="small">
+											Here's how{" "}
+											<Link to={`/users/${placeholder.user_id}`}>
+												{placeholder.user_name}
+											</Link>{" "}
+											has described this source.
+										</Header>
+										<Icon name="quote left" />
+										<blockquote
+											cite={`https://blather.io/targets/${userId}/${dbId}`}
+											className="placeholderDiv"
+											dangerouslySetInnerHTML={{
+												__html: sanitizeText(Marked(placeholder.summary))
+											}}
+										/>
+										<Icon name="quote right" />
+										<p className="fullReview">
+											<Link to={`/targets/${userId}/${dbId}`}>See full review</Link>
+										</p>
+										<Divider />
+									</div>
+								)}
+								<Header size="small">
+									Can pass an{" "}
+									<a
+										href="https://www.econlib.org/archives/2011/06/the_ideological.html"
+										rel="noopener noreferrer"
+										target="_blank"
+									>
+										Ideological Turing Test
+									</a>
+									?<Header.Subheader>{Stats(turingTest)}</Header.Subheader>
+								</Header>
+
+								<Header size="small">
+									Believes most of what they talk about?
+									<Header.Subheader>{Stats(sincerity)}</Header.Subheader>
+								</Header>
+
+								<Header size="small">
+									<Icon color="yellow" name="star" style={{ display: "inline-block" }} />{" "}
+									<Link to={`/targets/${authenticated ? userId : "create"}/${dbId}`}>
+										Create a review
+									</Link>
+								</Header>
+							</Segment>
+						</div>
 					) : (
-						<Segment attached>
+						<Segment basic>
 							<Placeholder fluid>
 								<Placeholder.Paragraph>
 									<Placeholder.Line length="full" />
@@ -137,56 +189,6 @@ class Breakdown extends Component {
 							</Placeholder>
 						</Segment>
 					)}
-
-					<Segment attached className="questionnaire">
-						{placeholder.id && (
-							<div>
-								<Header className="first" size="small">
-									Here's how{" "}
-									<Link to={`/users/${placeholder.user_id}`}>
-										{placeholder.user_name}
-									</Link>{" "}
-									has described this source.
-								</Header>
-								<Icon name="quote left" />
-								<blockquote
-									cite={`https://blather.io/targets/${userId}/${dbId}`}
-									className="placeholderDiv"
-									dangerouslySetInnerHTML={{
-										__html: sanitizeText(Marked(placeholder.summary))
-									}}
-								/>
-								<Icon name="quote right" />
-								<p className="fullReview">
-									<Link to={`/targets/${userId}/${dbId}`}>See full review</Link>
-								</p>
-								<Divider />
-							</div>
-						)}
-						<Header size="small">
-							Can pass an{" "}
-							<a
-								href="https://www.econlib.org/archives/2011/06/the_ideological.html"
-								rel="noopener noreferrer"
-								target="_blank"
-							>
-								Ideological Turing Test
-							</a>
-							?<Header.Subheader>{Stats(turingTest)}</Header.Subheader>
-						</Header>
-
-						<Header size="small">
-							Believes most of what they talk about?
-							<Header.Subheader>{Stats(sincerity)}</Header.Subheader>
-						</Header>
-
-						<Header size="small">
-							<Icon color="yellow" name="star" style={{ display: "inline-block" }} />{" "}
-							<Link to={`/targets/${authenticated ? userId : "create"}/${dbId}`}>
-								Create a review
-							</Link>
-						</Header>
-					</Segment>
 				</div>
 			</div>
 		)

@@ -4,14 +4,14 @@
     margin-top: 20px !important;
 
     .message {
-        background: $white;
-
         .icon {
             color: $red;
         }
     }
 
     .breakdownSegment {
+        padding: 0 !important;
+
         .percentages {
             padding: 0 !important;
 
@@ -48,6 +48,8 @@
     }
 
     .questionnaire {
+        padding: 0 !important;
+
         .ui.header.small {
             margin-top: 0;
 
