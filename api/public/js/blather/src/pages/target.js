@@ -348,7 +348,7 @@ class Target extends Component {
 									{page.name}
 									<Header.Subheader>
 										Review by{" "}
-										{auth ? (
+										{user.id ? (
 											<Link to={`/users/${user.id}`}>{user.name}</Link>
 										) : (
 											<Link to={`/signin`}>You</Link>

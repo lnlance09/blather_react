@@ -536,6 +536,7 @@ class Fallacy extends Component {
 												props.user.name
 											} a grifter or just naive?`}
 										/>
+										<Divider />
 										<p>
 											<Image
 												avatar
@@ -546,7 +547,7 @@ class Fallacy extends Component {
 											/>{" "}
 											<b>
 												<Link to={userLink}>{props.user.name}</Link> still
-												hasn't admitted that they've used erroneous logic.
+												hasn't admitted to using erroneous logic
 											</b>
 										</p>
 									</div>
