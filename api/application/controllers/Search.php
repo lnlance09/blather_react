@@ -163,6 +163,7 @@
             }
 
             $merge = array_merge($youtubeResults, $twitterResults);
+            $merge = array_slice($merge, 0, 7);
             for ($i=0;$i<count($merge);$i++) {
                 $merge[$i]['description'] = $merge[$i]['about'];
                 $merge[$i]['image'] = $merge[$i]['profile_pic'];

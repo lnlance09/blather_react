@@ -12,15 +12,15 @@ body {
   margin: 0;
   padding: 0; }
 
-.App {
-  width: 90%;
-  margin: auto; }
+.app {
+  background: #F9FAFB !important; }
 
 .mainContainer {
   min-height: 100vh;
-  margin-top: 6.1em;
+  margin-top: 5.0em;
   padding-left: 15px;
-  padding-right: 15px; }
+  padding-right: 15px;
+  padding-top: 15px; }
   .mainContainer.bc {
     margin-top: 2.4em; }
   .mainContainer.forText {

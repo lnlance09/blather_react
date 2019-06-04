@@ -4,7 +4,7 @@ import { connect, Provider } from "react-redux"
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { Container, Header, Input, Message } from "semantic-ui-react"
 import FallacyForm from "components/fallacyForm/v1/"
-import Logo from "components/header/v1/images/logo.svg"
+import Logo from "images/trump.svg"
 import PageFooter from "components/footer/v1/"
 import PageHeader from "components/header/v1/"
 import PropTypes from "prop-types"
@@ -87,13 +87,13 @@ class Home extends Component {
 								svgClassName="heroLogo"
 							/>
 							<Header as="h1" className="heroHeader" textAlign="center">
-								Blather
-								<Header.Subheader>Call out fallacious reasoning</Header.Subheader>
+								Pick a Tweet. Any Tweet.
+								<Header.Subheader>Assign a Logical Fallacy</Header.Subheader>
 							</Header>
 							<Input
 								className="heroInput"
 								fluid
-								icon="linkify"
+								icon="twitter"
 								iconPosition="left"
 								onKeyUp={this.onKeyUp}
 								onPaste={this.onPaste}

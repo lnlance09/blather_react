@@ -136,11 +136,11 @@
         font-size: 18px !important;
         height: auto !important;
 
-        a {
-            color: $card-header !important;
+        &.link {
+            cursor: pointer;
 
             &:hover {
-                text-decoration: underline !important;
+                text-decoration: underline;
             }
         }
     }

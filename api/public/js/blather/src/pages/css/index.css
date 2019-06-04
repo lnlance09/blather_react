@@ -118,23 +118,21 @@ a {
 
 .heroLogo {
   display: inline;
-  fill: #2185D0;
-  height: 85px;
+  fill: #1B1C1D;
+  height: 140px;
   line-height: 4;
   margin-top: 15px;
   text-align: center;
-  vertical-align: middle;
-  width: 85px; }
+  vertical-align: middle; }
 
 .heroHeader {
-  margin-top: 8px !important; }
+  margin-top: 5px !important; }
 
-.heroInput {
-  margin-top: 20px; }
-  .heroInput .icon.twitter {
-    color: #0084b4; }
-  .heroInput .icon.youtube {
-    color: #ff0000; }
+.heroInput .icon.twitter {
+  color: #0084b4; }
+
+.heroInput .icon.youtube {
+  color: #ff0000; }
 
 /* About page */
 .aboutPage .logoContainer {
@@ -425,8 +423,8 @@ a {
 /* Post page */
 .postPage .ui.text.container.mainContainer {
   font-size: 13px;
-  margin-top: 100px;
-  padding: 0 !important; }
+  margin-top: 70px;
+  padding: 25px 0 0 0 !important; }
   .postPage .ui.text.container.mainContainer .fallacyFormWrapper {
     margin: 20px 0; }
   .postPage .ui.text.container.mainContainer .placeholderContainer {

@@ -228,7 +228,7 @@ class FallacyExample extends Component {
 			)
 		}
 		const Explanation = props => {
-			if (props.showExplanation) {
+			if (props.showExplanation && props.explanation) {
 				return (
 					<Segment basic className="fallacyExplanation">
 						<Header as="h2" className="fallacyHeader" size="medium">
@@ -237,65 +237,61 @@ class FallacyExample extends Component {
 								? WatermarkLabel(props)
 								: null}
 						</Header>
-						{props.explanation ? (
-							<div>
-								{editing ? (
-									<Form onSubmit={this.updateFallacy}>
-										<Form.Field>
-											<Dropdown
-												className="fallacyDropdown"
-												defaultValue={`${props.fallacyId}`}
-												onChange={this.onChangeFallacy}
-												options={fallacyDropdownOptions}
-												placeholder="Select a fallacy"
-												search
-												selection
-											/>
-										</Form.Field>
-										<Form.Field className="explanationField">
-											<TextArea
-												autoHeight
-												onChange={this.onChangeExplanation}
-												placeholder="Why is this a fallacy?"
-												rows={10}
-												value={explanation}
-											/>
-										</Form.Field>
-										<Button
-											className="updateBtn"
-											color="blue"
-											compact
-											content="Update"
-											fluid
-											type="submit"
+						<div>
+							{editing ? (
+								<Form onSubmit={this.updateFallacy}>
+									<Form.Field>
+										<Dropdown
+											className="fallacyDropdown"
+											defaultValue={`${props.fallacyId}`}
+											onChange={this.onChangeFallacy}
+											options={fallacyDropdownOptions}
+											placeholder="Select a fallacy"
+											search
+											selection
 										/>
-										<p className="commonMarkLink">
-											<a
-												href="https://spec.commonmark.org/0.28/"
-												rel="noopener noreferrer"
-												target="_blank"
-											>
-												view commonmark specs
-											</a>
-											<span className="clearfix" />
-										</p>
-									</Form>
-								) : (
-									<div
-										className="explanation"
-										dangerouslySetInnerHTML={{
-											__html: sanitizeText(Marked(props.explanation))
-										}}
+									</Form.Field>
+									<Form.Field className="explanationField">
+										<TextArea
+											autoHeight
+											onChange={this.onChangeExplanation}
+											placeholder="Why is this a fallacy?"
+											rows={10}
+											value={explanation}
+										/>
+									</Form.Field>
+									<Button
+										className="updateBtn"
+										color="blue"
+										compact
+										content="Update"
+										fluid
+										type="submit"
 									/>
-								)}
-							</div>
-						) : (
-							<LazyLoad header={false} segment={false} />
-						)}
+									<p className="commonMarkLink">
+										<a
+											href="https://spec.commonmark.org/0.28/"
+											rel="noopener noreferrer"
+											target="_blank"
+										>
+											view commonmark specs
+										</a>
+										<span className="clearfix" />
+									</p>
+								</Form>
+							) : (
+								<div
+									className="explanation"
+									dangerouslySetInnerHTML={{
+										__html: sanitizeText(Marked(props.explanation))
+									}}
+								/>
+							)}
+						</div>
 					</Segment>
 				)
 			}
-			return null
+			return <LazyLoad header={false} />
 		}
 		const FeaturedInVideo = (video, props) => {
 			if (video.channel.id !== props.user.id && !video.comment) {

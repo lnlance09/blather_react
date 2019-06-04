@@ -4,7 +4,6 @@ import { adjustTimezone } from "utils/dateFunctions"
 import { getHighlightedText } from "utils/textFunctions"
 import { linkHashtags, linkMentions } from "utils/linkifyAdditions"
 import { Provider, connect } from "react-redux"
-import { Link } from "react-router-dom"
 import { Card, Icon, Image, Label, List, Message, Popup, Transition } from "semantic-ui-react"
 import ItemPic from "images/square-image.png"
 import Linkify from "react-linkify"
@@ -124,12 +123,15 @@ class Tweet extends Component {
 						onError={i => (i.target.src = ItemPic)}
 						src={profileImg === undefined ? null : profileImg.replace("_normal", "")}
 					/>
-					<Card.Header className="tweetUserName">
-						{props.externalLink ? (
-							<Link to={`/pages/twitter/${screenName}`}>{name}</Link>
-						) : (
-							name
-						)}
+					<Card.Header
+						className={`tweetUserName ${props.externalLink ? "link" : ""}`}
+						onClick={() => {
+							if (props.externalLink) {
+								props.history.push(`/pages/twitter/${screenName}`)
+							}
+						}}
+					>
+						{name}
 					</Card.Header>
 					<Card.Meta className="tweetUserScreenName">
 						@{screenName} •
