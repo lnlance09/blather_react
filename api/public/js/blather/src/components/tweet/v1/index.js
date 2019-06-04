@@ -125,8 +125,9 @@ class Tweet extends Component {
 					/>
 					<Card.Header
 						className={`tweetUserName ${props.externalLink ? "link" : ""}`}
-						onClick={() => {
+						onClick={e => {
 							if (props.externalLink) {
+								e.stopPropagation()
 								props.history.push(`/pages/twitter/${screenName}`)
 							}
 						}}
@@ -265,8 +266,9 @@ class Tweet extends Component {
 					<Card color={this.props.color} fluid raised={this.props.raised}>
 						{RetweetedText(this.props)}
 						<Card.Content
-							onClick={() => {
+							onClick={e => {
 								if (this.props.redirect) {
+									e.stopPropagation()
 									this.props.push(`/tweet/${this.props.id}`)
 								}
 							}}

@@ -361,6 +361,7 @@ class FallacyExample extends Component {
 							highlightedText={
 								material.highlightedText ? material.highlightedText.trim() : ""
 							}
+							history={props.history}
 							id={material.tweet.id_str}
 							imageSize="medium"
 							is_quote_status={material.tweet.is_quote_status}
