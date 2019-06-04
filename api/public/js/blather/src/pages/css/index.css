@@ -569,7 +569,7 @@ a {
     line-height: 19.5px; }
   .targetsPage .ui.text.container .targetImg {
     cursor: pointer;
-    margin-top: 95px;
+    margin-top: 15px;
     width: 220px; }
     .targetsPage .ui.text.container .targetImg + .header.medium {
       margin-top: 8px; }
