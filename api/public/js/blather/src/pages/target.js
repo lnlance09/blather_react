@@ -140,7 +140,7 @@ class Target extends Component {
 				/>
 				<Form.Field disabled={props.fallacyCount < 5}>
 					<label>
-						Does {props.page.name} sincerely believe most of what they talks about?
+						Does {props.page.name} sincerely believe most of what they talk about?
 					</label>
 				</Form.Field>
 				<Form.Group inline>
