@@ -73,6 +73,7 @@
     margin-right: 9px !important;
     width: 48px; }
   .tweet .tweetUserName {
+    display: inline;
     font-size: 18px !important;
     height: auto !important; }
     .tweet .tweetUserName.link {

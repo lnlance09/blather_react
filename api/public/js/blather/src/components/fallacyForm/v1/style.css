@@ -18,6 +18,9 @@
   .fallacyForm .contradictionWrapper.active {
     padding: 0; }
 
+.fallacyForm .fallacyRef {
+  margin-top: 12px; }
+
 .fallacyForm .buttons button {
   width: 50%; }
 
