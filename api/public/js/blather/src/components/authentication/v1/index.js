@@ -8,7 +8,7 @@ import {
 } from "./actions"
 import { Provider, connect } from "react-redux"
 import { Redirect } from "react-router-dom"
-import { Button, Form, Header, Input, Message, Segment } from "semantic-ui-react"
+import { Button, Divider, Form, Header, Input, Message, Segment } from "semantic-ui-react"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import store from "store"
@@ -192,6 +192,14 @@ class Authentication extends Component {
 							/>
 						</Form.Field>
 						<Button color="blue" content="Login" fluid type="submit" />
+						<Divider horizontal>Or</Divider>
+						<Button
+							color="twitter"
+							content="Sign in with Twitter"
+							fluid
+							icon="twitter"
+							onClick={() => this.redirectToUrl(props.data.twitterUrl)}
+						/>
 					</Form>
 				)
 			}
@@ -233,23 +241,20 @@ class Authentication extends Component {
 							/>
 						</Form.Field>
 						<Button color="blue" content="Create an account" fluid type="submit" />
+						<Divider horizontal>Or</Divider>
+						<Button
+							color="twitter"
+							content="Sign Up with Twitter"
+							fluid
+							icon="twitter"
+							onClick={() => this.redirectToUrl(props.data.twitterUrl)}
+						/>
 					</Form>
 				)
 			}
 		}
 		const RegisterButton = () => (login ? "Create an account" : "Sign in")
 		const RegisterText = () => (login ? "New to Blather?" : "Already have an account?")
-		const SocialMediaSegment = props => (
-			<Segment className="socialMediaSegment">
-				<Button
-					color="twitter"
-					content="Sign in with Twitter"
-					fluid
-					icon="twitter"
-					onClick={() => this.redirectToUrl(props.data.twitterUrl)}
-				/>
-			</Segment>
-		)
 
 		return this.props.data.emailVerified ? (
 			<Redirect to="/" />
@@ -262,9 +267,6 @@ class Authentication extends Component {
 						{ErrorMsg(this.props)}
 						{EmailVerificationForm(this.props)}
 					</Segment>
-					{login && !this.props.verify ? (
-						<div>{SocialMediaSegment(this.props)}</div>
-					) : null}
 					{InfoBox(this.props)}
 				</div>
 			</Provider>

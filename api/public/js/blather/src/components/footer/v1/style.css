@@ -4,7 +4,7 @@
 /*---   Misc  ---*/
 /*---   Social colors  ---*/
 .ui.bottom.attached.segment.footerSegment {
-  background: #F3F4F5 !important;
+  background: #FFFFFF !important;
   border-bottom: none;
   border-top: solid 1px #DCDDDE;
   box-shadow: none !important;
@@ -15,9 +15,10 @@
     padding-left: 30px;
     padding-right: 30px; }
   .ui.bottom.attached.segment.footerSegment .ui.inverted.list .item a:not(.ui) {
-    color: #767676 !important; }
+    color: #545454 !important;
+    font-weight: bold; }
     .ui.bottom.attached.segment.footerSegment .ui.inverted.list .item a:not(.ui):hover {
-      color: #767676; }
+      color: #545454; }
   .ui.bottom.attached.segment.footerSegment p {
     color: #767676 !important;
     font-size: 12px;

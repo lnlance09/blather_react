@@ -322,6 +322,7 @@ class Post extends Component {
 										externalLink
 										highlight={highlightedText !== ""}
 										highlightedText={highlightedText}
+										history={props.history}
 										full_text={props.info.full_text}
 										handleHoverOn={this.handleHoverOn}
 										id={props.info.id_str}

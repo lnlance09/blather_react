@@ -316,15 +316,6 @@ class Page extends Component {
 											<Placeholder className="profilePicPlaceholder">
 												<Placeholder.Image square />
 											</Placeholder>
-											<br />
-											<div className="pageHeaderPlaceholder">
-												<Placeholder>
-													<Placeholder.Header>
-														<Placeholder.Line length="full" />
-														<Placeholder.Line length="full" />
-													</Placeholder.Header>
-												</Placeholder>
-											</div>
 										</Container>
 									)}
 									<Breakdown

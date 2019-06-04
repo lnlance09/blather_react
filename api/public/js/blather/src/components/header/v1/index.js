@@ -67,16 +67,22 @@ class Header extends Component {
 						<Dropdown className="dropDownMenu" fluid icon={false} trigger={trigger}>
 							<Dropdown.Menu>
 								<Dropdown.Item
+									icon="user"
 									onClick={() =>
 										props.history.push(`/users/${props.data.username}`)
 									}
-								>
-									Profile
-								</Dropdown.Item>
-								<Dropdown.Item onClick={() => props.history.push(`/settings`)}>
-									Settings
-								</Dropdown.Item>
-								<Dropdown.Item onClick={this.onLogout}>Log out</Dropdown.Item>
+									text="Profile"
+								/>
+								<Dropdown.Item
+									icon="settings"
+									onClick={() => props.history.push(`/settings`)}
+									text="Settings"
+								/>
+								<Dropdown.Item
+									icon="sign out"
+									onClick={this.onLogout}
+									text="Log out"
+								/>
 							</Dropdown.Menu>
 						</Dropdown>
 					</Menu.Item>

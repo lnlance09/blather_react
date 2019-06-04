@@ -27,7 +27,6 @@ import {
 	Label,
 	Menu,
 	Message,
-	Placeholder,
 	Radio,
 	Responsive,
 	Segment
@@ -487,14 +486,7 @@ class Fallacy extends Component {
 					/>
 				)
 			}
-			return (
-				<Placeholder fluid>
-					<Placeholder.Header>
-						<Placeholder.Line />
-						<Placeholder.Line />
-					</Placeholder.Header>
-				</Placeholder>
-			)
+			return null
 		}
 
 		const RetractionSegment = props => (

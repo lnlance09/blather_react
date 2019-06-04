@@ -131,7 +131,9 @@ class Breakdown extends Component {
 										</Header>
 										<Icon name="quote left" />
 										<blockquote
-											cite={`https://blather.io/targets/${placeholder.user_id}/${dbId}`}
+											cite={`https://blather.io/targets/${
+												placeholder.user_id
+											}/${dbId}`}
 											className="placeholderDiv"
 											dangerouslySetInnerHTML={{
 												__html: sanitizeText(Marked(placeholder.summary))
@@ -178,7 +180,7 @@ class Breakdown extends Component {
 							</Segment>
 						</div>
 					) : (
-						<Segment basic>
+						<Segment>
 							<Placeholder fluid>
 								<Placeholder.Paragraph>
 									<Placeholder.Line length="full" />
