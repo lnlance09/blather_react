@@ -29,6 +29,7 @@ import { fallacyDropdownOptions } from "utils/fallacyFunctions"
 import { convertTimeToSeconds } from "utils/textFunctions"
 import _ from "lodash"
 import fallacies from "fallacies.json"
+import FallacyRef from "components/fallacyRef/v1/"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import SearchForm from "components/search/v1/"
@@ -546,6 +547,11 @@ class FallacyForm extends Component {
 									placeholder="Select a fallacy"
 									search
 									selection
+								/>
+								<FallacyRef
+									canScreenshot={false}
+									className="fallacyRef"
+									id={parseInt(id, 10)}
 								/>
 							</Form.Field>
 							{ContradictionInput(this.props)}

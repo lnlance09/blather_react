@@ -26,6 +26,17 @@ class FallacyRef extends Component {
 		})
 	}
 
+	componentWillUpdate(newProps) {
+		if (this.props.id !== newProps.id) {
+			fallacies.map((fallacy, i) => {
+				if (parseInt(fallacy.id, 10) === newProps.id) {
+					this.setState({ fallacy })
+				}
+				return true
+			})
+		}
+	}
+
 	captureScreenshot(filename) {
 		html2canvas(document.getElementById("fallacySegment"), {
 			scale: 2
