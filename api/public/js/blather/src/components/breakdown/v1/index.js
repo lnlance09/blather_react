@@ -105,7 +105,7 @@ class Breakdown extends Component {
 								<Message
 									content={`A measure of ${
 										this.props.name
-									}'s level of partisanship, logical consistency, and intellectual honesty.`}
+									}'s partisanship, logical consistency, and intellectual honesty.`}
 									header="How reputable is this source?"
 									icon="question"
 								/>
