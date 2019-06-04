@@ -3,12 +3,6 @@
 .breakdown {
     margin-top: 20px !important;
 
-    .message {
-        .icon {
-            color: $red;
-        }
-    }
-
     .breakdownSegment {
         padding: 0 !important;
 
@@ -77,12 +71,6 @@
     @media only screen and (max-width: 1025px) {
         .ui.header.small {
             font-size: 14px !important;
-        }
-
-        .breakdownSegment {
-            .question.icon {
-                display: none !important;
-            }
         }
     }
 }
