@@ -246,8 +246,7 @@ class Target extends Component {
 							/>
 						) : (
 							<div>
-								<LazyLoad header={false} segment={false} />
-								<LazyLoad header={false} segment={false} />
+								<LazyLoad header={false} />
 							</div>
 						)}
 
@@ -269,7 +268,7 @@ class Target extends Component {
 								}}
 							/>
 						) : (
-							<LazyLoad header={false} segment={false} />
+							<LazyLoad header={false} />
 						)}
 
 						<Header as="h2" size="medium">
@@ -298,7 +297,7 @@ class Target extends Component {
 								}}
 							/>
 						) : (
-							<LazyLoad header={false} segment={false} />
+							<LazyLoad header={false} />
 						)}
 					</div>
 				) : (

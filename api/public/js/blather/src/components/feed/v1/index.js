@@ -35,8 +35,10 @@ class FeedComponent extends Component {
 		})
 	}
 
-	componentWillMount() {
-		this.props.getFeed({ page: 0 })
+	componentDidMount() {
+		if (this.props.count === 0) {
+			this.props.getFeed({ page: 0 })
+		}
 	}
 
 	loadMore = () => {
@@ -233,14 +235,18 @@ class FeedComponent extends Component {
 }
 
 FeedComponent.propTypes = {
+	count: PropTypes.number,
 	getFeed: PropTypes.func,
 	hasMore: PropTypes.bool,
+	loadingMore: PropTypes.bool,
 	page: PropTypes.number,
+	pages: PropTypes.number,
 	results: PropTypes.array,
 	size: PropTypes.string
 }
 
 FeedComponent.defaultProps = {
+	count: 0,
 	getFeed,
 	page: 0,
 	results: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}],

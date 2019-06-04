@@ -3,7 +3,9 @@ import request from "request"
 import { showLoading, hideLoading } from "react-redux-loading-bar"
 
 export const getFeed = ({ page }) => dispatch => {
-	dispatch(showLoading())
+	if (page === 0) {
+		dispatch(showLoading())
+	}
 
 	request.get(
 		`${window.location.origin}/api/home/feed`,
@@ -19,7 +21,9 @@ export const getFeed = ({ page }) => dispatch => {
 				payload: body
 			})
 
-			dispatch(hideLoading())
+			if (page === 0) {
+				dispatch(hideLoading())
+			}
 		}
 	)
 }
