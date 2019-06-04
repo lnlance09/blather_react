@@ -107,7 +107,6 @@ class Breakdown extends Component {
 										this.props.name
 									}'s partisanship, logical consistency, and intellectual honesty.`}
 									header="How reputable is this source?"
-									icon="question"
 								/>
 
 								{options.length > 0 ? (
