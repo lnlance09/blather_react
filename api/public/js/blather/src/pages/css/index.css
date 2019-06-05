@@ -256,6 +256,11 @@ a {
   margin-top: 20px; }
 
 /* Fallacies page */
+@media only screen and (max-width: 1025px) {
+  .fallaciesPage .ui.container.mainContainer {
+    padding-left: 0 !important;
+    padding-right: 0 !important; } }
+
 .fallaciesPage .sub.header .icon.sidebar {
   cursor: pointer;
   float: left; }
