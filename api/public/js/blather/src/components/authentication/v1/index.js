@@ -244,7 +244,7 @@ class Authentication extends Component {
 						<Divider horizontal>Or</Divider>
 						<Button
 							color="twitter"
-							content="Sign Up with Twitter"
+							content="Sign up with Twitter"
 							fluid
 							icon="twitter"
 							onClick={() => this.redirectToUrl(props.data.twitterUrl)}
