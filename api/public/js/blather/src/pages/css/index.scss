@@ -419,6 +419,13 @@ a {
 
 /* Fallacies page */
 .fallaciesPage {
+    @media only screen and (max-width: 1025px) {
+        .ui.container.mainContainer {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
+    }
+
     .sub.header {
         .icon.sidebar {
             cursor: pointer;
@@ -726,7 +733,6 @@ a {
 
         .screenshotMsg {
             margin-top: 10px;
-            padding-left: 5px;
 
             .icon.camera {
                 font-size: 15px;
