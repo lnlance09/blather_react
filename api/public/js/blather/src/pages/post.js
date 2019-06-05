@@ -350,10 +350,10 @@ class Post extends Component {
 										user={props.info.user}
 									/>
 								</div>
-								<div className="screenshotMsg">
+								<Message className="screenshotMsg">
 									<Icon name="camera" />
 									<span onClick={this.captureScreenshot}>Capture screenshot</span>
-								</div>
+								</Message>
 								{DisplayFallacyForm(props)}
 							</div>
 						)

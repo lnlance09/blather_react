@@ -435,8 +435,7 @@ a {
   .postPage .ui.text.container.mainContainer .placeholderContainer {
     text-align: center; }
   .postPage .ui.text.container.mainContainer .screenshotMsg {
-    margin-top: 10px;
-    padding-left: 5px; }
+    margin-top: 10px; }
     .postPage .ui.text.container.mainContainer .screenshotMsg .icon.camera {
       font-size: 15px; }
     .postPage .ui.text.container.mainContainer .screenshotMsg span {
