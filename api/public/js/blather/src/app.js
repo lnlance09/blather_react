@@ -94,7 +94,7 @@ class App extends Component {
 	}
 
 	render() {
-		const { ignore, options, title } = this.state
+		const { options, title } = this.state
 		return (
 			<div className="app">
 				<Provider store={store}>
@@ -235,8 +235,9 @@ class App extends Component {
 					</Router>
 				</Provider>
 
+				/*
 				<Notification
-					ignore={ignore && title !== ""}
+					ignore={true}
 					notSupported={this.handleNotSupported.bind(this)}
 					onClick={this.handleNotificationOnClick.bind(this)}
 					onClose={this.handleNotificationOnClose.bind(this)}
@@ -248,6 +249,7 @@ class App extends Component {
 					timeout={5000}
 					title={title}
 				/>
+				*/
 
 				<audio id="sound" preload="auto">
 					<source src={SoundFile} type="audio/mpeg" />
