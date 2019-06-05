@@ -23,7 +23,6 @@ import store from "store"
 import Tags from "pages/tags"
 import Target from "pages/target"
 import Users from "pages/users"
-import Notification from "./Notification"
 
 class App extends Component {
 	constructor(props) {
@@ -94,7 +93,6 @@ class App extends Component {
 	}
 
 	render() {
-		const { options, title } = this.state
 		return (
 			<div className="app">
 				<Provider store={store}>
@@ -234,22 +232,6 @@ class App extends Component {
 						</Switch>
 					</Router>
 				</Provider>
-
-				/*
-				<Notification
-					ignore={true}
-					notSupported={this.handleNotSupported.bind(this)}
-					onClick={this.handleNotificationOnClick.bind(this)}
-					onClose={this.handleNotificationOnClose.bind(this)}
-					onError={this.handleNotificationOnError.bind(this)}
-					onPermissionDenied={this.handlePermissionDenied.bind(this)}
-					onPermissionGranted={this.handlePermissionGranted.bind(this)}
-					onShow={this.handleNotificationOnShow.bind(this)}
-					options={options}
-					timeout={5000}
-					title={title}
-				/>
-				*/
 
 				<audio id="sound" preload="auto">
 					<source src={SoundFile} type="audio/mpeg" />
