@@ -232,7 +232,7 @@
                             "alternativeHeadline" => $pageTitle,
                             "dateCreated" => $createdAt,
                             "datePublished" => $createdAt,
-                            "dateModified" => $lastUpdated,
+                            "dateModified" => empty($lastUpdated) ? $createdAt : $lastUpdated,
                             "inLanguage" => "en-US",
                             "author" => [
                                 "@type" => "Person",
