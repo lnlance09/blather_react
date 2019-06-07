@@ -20,12 +20,16 @@
 
     $schema = [
         "@context" => "https://schema.org",
-        "@type" => "WebSite",
+        "@type" => "Organization",
+        "name" => "Blather",
         "url" => $base_url,
         "potentialAction" => [
             "@type" => "SearchAction",
             "target" => $base_url."api/search/advanced?q={search_term_string}&type=fallacies",
             "query-input" => "required name=search_term_string"
+        ],
+        "sameAs" => [
+            "https://twitter.com/blatherIO"
         ]
     ];
 
@@ -152,9 +156,11 @@
 
                                 fe.date_created,
                                 fe.explanation,
+                                fe.last_updated,
                                 fe.media_id,
                                 fe.network,
                                 fe.s3_link,
+                                fe.slug,
                                 fe.title,
 
                                 p.name AS page_name,
@@ -186,9 +192,11 @@
 
                             $createdAt = $row['date_created'];
                             $explanation = preg_replace("/\r|\n/", " ", $row['explanation']);
+                            $lastUpdated = $row['last_updated'];
                             $mediaId = $row['media_id'];
                             $network = $row['network'];
                             $s3Link = $row['s3_link'];
+                            $slug = $row['slug'];
                             $fallacyTitle = $row['title'];
 
                             $pageName = $row['page_name'];
@@ -208,68 +216,56 @@
                         $pageTitle = $fallacyName.' by '.$pageName;
                         $description = $pageTitle.' - '.substr($explanation, 0, 120);
                         $img = $s3Path.$pagePic;
+                        $author = $userName;
+                        $authorUrl = $base_url.'users/'.$userUsername;
 
                         if (strpos($s3Link, "screenshots") !== false) {
                             $img = $s3Path.$s3Link;
                         }
 
-                        $item_one = "https://www.youtube.com/watch?v=".$mediaId;
-                        if ($network == "twitter") {
-                            $item_one = "https://twitter.com/".$pageUsername."/status/".$mediaId;
-                        }
-                        $isBasedOn = $item_one;
-
-                        if (!empty($cMediaId)) {
-                            if ($cNetwork == "twitter") {
-                                $isBasedOn = [
-                                    $item_one,
-                                    "https://twitter.com/".$cUsername."/status/".$cMediaId
-                                ];
-                            }
-
-                            if ($cNetwork == "youtube") {
-                                $isBasedOn = [
-                                    $item_one,
-                                    "https://www.youtube.com/watch?v=".$cMediaId
-                                ];
-                            }
-                        }
-
-                        $author = $userName;
-                        $authorUrl = $base_url.'users/'.$userUsername;
-
                         $schema = [
                             "@context" => "http://schema.org",
-                            "@type" => "SocialMediaPosting",
-                            "@id" => $base_url."fallacies/".$id,
+                            "@type" => "BlogPosting",
+                            "image" => $img,
+                            "url" => $base_url."fallacies/".$slug,
+                            "headline" => $title,
+                            "alternativeHeadline" => $pageTitle,
+                            "dateCreated" => $createdAt,
+                            "datePublished" => $createdAt,
+                            "dateModified" => $lastUpdated,
+                            "inLanguage" => "en-US",
                             "author" => [
                                 "@type" => "Person",
-                                "image" => $img,
-                                "name" => $userName,
+                                "name" => $author,
                                 "url" => $authorUrl
                             ],
-                            "datePublished" => $createdAt,
-                            "headline" => $fallacyTitle,
-                            "image" => $img,
-                            "isBasedOn" => $isBasedOn,
-                            "name" => $title,
-                            "text" => $explanation,
+                            "creator" => [
+                                "@type" => "Person",
+                                "name" => $author,
+                                "url" => $authorUrl
+                            ],
+                            "publisher" => [
+                                "@type" => "Organization",
+                                "name" => "Blather",
+                                "url" => "https://blather.io",
+                                "logo" => [
+                                    "@type" => "ImageObject",
+                                    "url" => $base_url."images/icons/icon-512x512.png",
+                                    "width" => "512",
+                                    "height" => "512"
+                                ]
+                            ],
+                            "mainEntityOfPage" => "True",
+                            "keywords" =>  [
+                                $fallacyName,
+                                "Logic",
+                                "Fallacy",
+                                $pageName
+                            ],
+                            "genre" => ["SEO","JSON-LD"],
+                            "articleSection" => "Logical Fallacies",
+                            "articleBody" => $explanation
                         ];
-
-                        if (!empty($s3Link)) {
-                            if (strpos($s3Link, "screenshots") !== false) {
-                                $schema["image"] = $s3Path.$s3Link;
-                            } else {
-                                $schema["subjectOf"] = [
-                                    "@type" => "VideoObject",
-                                    "description" => $explanation,
-                                    "name" => $title,
-                                    "uploadDate" => $createdAt,
-                                    "thumbnailUrl" => $s3Path."thumbnail.jpg",
-                                    "url" => $s3Path.$s3Link
-                                ];
-                            }
-                        }
 
                         $html = '<div>
                                     <h1>
@@ -314,7 +310,7 @@
                         $title = $row['name'];
                         $s3Pic = $row['s3_pic'];
                         $username = $row['username'];
-                        $description = $title."'s logical fallacies catalogued on Blather. A measure of ".$title."'s partisanship, logical consistency, and intellectual honesty.";
+                        $description = "How much credibility does ".$title." have? ".$title."'s logical fallacies catalogued on Blather. A measure of ".$title."'s partisanship, logical consistency, and intellectual honesty.";
                         $type = $row['type'];
                     }
                     $result->close();
@@ -324,28 +320,11 @@
 
                     $schema = [
                         "@context" => "https://schema.org",
-                        "@type" => "BreadcrumbList",
-                        "itemListElement" => [
-                            [
-                                "@type" => "ListItem",
-                                "item" => $base_url,
-                                "name" => "Pages",
-                                "position" => 1
-                            ],
-                            [
-                                "@type" => "ListItem",
-                                "item" => $base_url."search/".($type === "twitter" ? "profiles" : "channels"),
-                                "name" => $type,
-                                "position" => 2
-                            ],
-                            [
-                                "@type" => "ListItem",
-                                "description" => $description,
-                                "image" => $img,
-                                "item" => $base_url."pages/".$type."/".($type === "twitter" ? $username : $pageId),
-                                "name" => $title,
-                                "position" => 3
-                            ]
+                        "@type" => "Person",
+                        "name" => $title,
+                        "url" => $base_url."pages/".$type."/".($type === "twitter" ? $username : $pageId),
+                        "sameAs" => [
+                            $type === "twitter" ? "https://twitter.com/".$username : "https://www.youtube.com/channel/".$pageId
                         ]
                     ];
                 }
@@ -425,8 +404,6 @@
                                 ]
                             ]
                         ];
-                    } else {
-                        $schema = null;
                     }
                 }
                 break;
@@ -492,23 +469,9 @@
 
                     $schema = [
                         "@context" => "https://schema.org",
-                        "@type" => "BreadcrumbList",
-                        "itemListElement" => [
-                            [
-                                "@type" => "ListItem",
-                                "item" => $base_url."search/users",
-                                "name" => "Users",
-                                "position" => 1
-                            ],
-                            [
-                                "@type" => "ListItem",
-                                "description" => $description,
-                                "image" => $img,
-                                "item" => $base_url."users/".$username,
-                                "name" => $title,
-                                "position" => 2
-                            ]
-                        ]
+                        "@type" => "Person",
+                        "name" => $title,
+                        "url" => $base_url."users/".$username
                     ];
                 }
                 break;
