@@ -5,6 +5,10 @@
 .feed .content .extra.text {
   max-width: 750px !important; }
 
+@media only screen and (max-width: 1200px) {
+  .feed .content .extra.text {
+    max-width: 600px !important; } }
+
 .feed .content .extra p {
   cursor: pointer; }
 

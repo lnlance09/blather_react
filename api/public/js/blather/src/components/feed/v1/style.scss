@@ -11,6 +11,12 @@
             max-width: 750px !important;
         }
 
+        @media only screen and (max-width: 1200px) {
+            &.text {
+                max-width: 600px !important;
+            }
+        }
+
         p {
             cursor: pointer;
         }
