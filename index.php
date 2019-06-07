@@ -622,7 +622,7 @@
     </body>
 
     <script src="/static/js/1.245a468b.chunk.js"></script>
-    <script src="/static/js/main.46a67d43.chunk.js"></script>
+    <script src="/static/js/main.50a6641a.chunk.js"></script>
     <script src="/static/js/runtime~main.229c360f.js"></script>
 
 <?php
