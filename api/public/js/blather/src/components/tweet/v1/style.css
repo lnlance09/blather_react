@@ -28,7 +28,8 @@
       .tweet .card .content .description span {
         color: #1B1C1D; }
         .tweet .card .content .description span b {
-          border-bottom: solid 2px #DB2828; }
+          border-bottom: solid 2px #DB2828;
+          display: inline-block; }
     .tweet .card .content.extra {
       cursor: default;
       padding: 1px 3px !important; }
