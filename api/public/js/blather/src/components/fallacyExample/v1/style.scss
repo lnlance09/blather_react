@@ -4,6 +4,10 @@
     padding: 1px !important;
     overflow: hidden;
 
+    &.downloading {
+        padding-top: 5px;
+    }
+
     .fallacyHeader {
         .editButton {
             color: $blue;

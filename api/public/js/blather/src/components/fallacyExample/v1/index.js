@@ -323,7 +323,7 @@ class FallacyExample extends Component {
 			}
 		}
 		const Material = props => (
-			<div className="fallacyMaterial" id="fallacyMaterial">
+			<div className={`fallacyMaterial ${props.downloading ? "downloading" : ""}`} id="fallacyMaterial">
 				{props.user ? (
 					<div>
 						{props.downloading && props.exportOpt === "screenshot"

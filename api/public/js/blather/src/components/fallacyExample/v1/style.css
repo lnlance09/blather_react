@@ -6,6 +6,8 @@
 .fallacyExample {
   padding: 1px !important;
   overflow: hidden; }
+  .fallacyExample.downloading {
+    padding-top: 5px; }
   .fallacyExample .fallacyHeader .editButton {
     color: #2185D0;
     cursor: pointer;
