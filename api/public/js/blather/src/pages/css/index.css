@@ -290,9 +290,11 @@ a {
 .fallacyPage .ui.grid {
   margin-top: 0 !important; }
   .fallacyPage .ui.grid .leftSide, .fallacyPage .ui.grid .rightSide {
-    padding: 0 14px; }
+    padding: 0 12px; }
   .fallacyPage .ui.grid .materialWrapper {
     width: 100%; }
+    .fallacyPage .ui.grid .materialWrapper .fallacyExample {
+      padding-top: 7px !important; }
   .fallacyPage .ui.grid .row:first-of-type {
     padding-top: 0; }
   .fallacyPage .ui.grid .materialRow {
@@ -319,6 +321,7 @@ a {
     margin-top: 10px; }
 
 .fallacyPage .fallacyMainMenu {
+  margin-bottom: 5px;
   margin-top: 12px; }
 
 .fallacyPage .commentsContent {
