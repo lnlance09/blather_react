@@ -362,33 +362,30 @@
             case "targets":
 
                 $pageId = count($paths) >= 3 ? $paths[2] : null;
-                $sql = "SELECT
-                            c.summary,
-                            p.name AS page_name,
-                            p.profile_pic ";
 
-                if ($id != "create") {
-                    $sql .= ", u.name AS user_name, u.username ";
-                }
-
-                $sql .= " FROM criticisms c
-                        INNER JOIN pages p ON c.page_id = p.id ";
-
-                if ($id != "create") {
-                    $sql .= " INNER JOIN users u ON c.user_id = u.id ";
-                }
-
-                $sql .= " WHERE page_id = '".$mysqli->real_escape_string((int)$pageId)."' ";
-
-                if ($id != "create") {
-                    $sql .= " AND user_id = '".$mysqli->real_escape_string((int)$id)."'";
+                if ($id == "create") {
+                    $sql = "SELECT name AS page_name, profile_pic
+                            FROM pages
+                            WHERE id = '".$mysqli->real_escape_string((int)$pageId)."'";
+                } else {
+                    $sql = "SELECT
+                                c.summary,
+                                p.name AS page_name,
+                                p.profile_pic,
+                                u.name AS user_name,
+                                u.username
+                            FROM criticisms c
+                            INNER JOIN pages p ON c.page_id = p.id
+                            INNER JOIN users u ON c.user_id = u.id
+                            WHERE page_id = '".$mysqli->real_escape_string((int)$pageId)."'
+                            AND user_id = '".$mysqli->real_escape_string((int)$id)."'";
                 }
 
                 if ($result = $mysqli->query($sql)) {
                     while ($row = $result->fetch_assoc()) {
-                        $summary = preg_replace("/\r|\n/", " ", $row['summary']);
                         $pageName = $row['page_name'];
                         $img = $row['profile_pic'];
+                        $summary = $id != "create" ? preg_replace("/\r|\n/", " ", $row['summary']) : null;
                         $userName = $id != "create" ? $row['user_name'] : null;
                         $username = $id != "create" ? $row['username'] : null;
                     }
