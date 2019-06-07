@@ -364,55 +364,73 @@
                 $pageId = count($paths) >= 3 ? $paths[2] : null;
                 $sql = "SELECT
                             c.summary,
-
                             p.name AS page_name,
-                            p.profile_pic,
+                            p.profile_pic ";
 
-                            u.name AS user_name,
-                            u.username
-                        FROM criticisms c
-                        INNER JOIN pages p ON c.page_id = p.id
-                        INNER JOIN users u ON c.user_id = u.id
-                        WHERE user_id = '".$mysqli->real_escape_string((int)$id)."'
-                        AND page_id = '".$mysqli->real_escape_string((int)$pageId)."'";
+                if ($id != "create") {
+                    $sql .= ", u.name AS user_name, u.username ";
+                }
+
+                $sql .= " FROM criticisms c
+                        INNER JOIN pages p ON c.page_id = p.id ";
+
+                if ($id != "create") {
+                    $sql .= " INNER JOIN users u ON c.user_id = u.id ";
+                }
+
+                $sql .= " WHERE page_id = '".$mysqli->real_escape_string((int)$pageId)."' ";
+
+                if ($id != "create") {
+                    $sql .= " AND user_id = '".$mysqli->real_escape_string((int)$id)."'";
+                }
+
                 if ($result = $mysqli->query($sql)) {
                     while ($row = $result->fetch_assoc()) {
                         $summary = preg_replace("/\r|\n/", " ", $row['summary']);
                         $pageName = $row['page_name'];
-                        $userName = $row['user_name'];
                         $img = $row['profile_pic'];
-                        $username = $row['username'];
+                        $userName = $id != "create" ? $row['user_name'] : null;
+                        $username = $id != "create" ? $row['username'] : null;
                     }
                     $result->close();
 
-                    $title = $userName."'s review of ".$pageName;
+                    if ($id != "create") {
+                        $title = $userName."'s review of ".$pageName;
+                    } else {
+                        $title = "Create a review of ".$pageName;
+                    }
+
                     $description = substr($summary, 0, 160);
 
-                    $schema = [
-                        "@context" => "https://schema.org",
-                        "@type" => "BreadcrumbList",
-                        "itemListElement" => [
-                            [
-                                "@type" => "ListItem",
-                                "item" => $base_url."users/".$username,
-                                "name" => $userName,
-                                "position" => 1
-                            ],
-                            [
-                                "@type" => "ListItem",
-                                "item" => $base_url,
-                                "name" => "targets",
-                                "position" => 2
-                            ],
-                            [
-                                "@type" => "ListItem",
-                                "description" => $title,
-                                "item" => $base_url."targets/".$id."/".$pageId,
-                                "name" => $pageName,
-                                "position" => 3
+                    if ($id != "create") {
+                        $schema = [
+                            "@context" => "https://schema.org",
+                            "@type" => "BreadcrumbList",
+                            "itemListElement" => [
+                                [
+                                    "@type" => "ListItem",
+                                    "item" => $base_url."users/".$username,
+                                    "name" => $userName,
+                                    "position" => 1
+                                ],
+                                [
+                                    "@type" => "ListItem",
+                                    "item" => $base_url,
+                                    "name" => "targets",
+                                    "position" => 2
+                                ],
+                                [
+                                    "@type" => "ListItem",
+                                    "description" => $title,
+                                    "item" => $base_url."targets/".$id."/".$pageId,
+                                    "name" => $pageName,
+                                    "position" => 3
+                                ]
                             ]
-                        ]
-                    ];
+                        ];
+                    } else {
+                        $schema = null;
+                    }
                 }
                 break;
 
