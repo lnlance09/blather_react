@@ -3,7 +3,7 @@
   cursor: pointer; }
 
 .feed .content .extra.text {
-  max-width: none !important; }
+  max-width: 750px !important; }
 
 .feed .content .extra p {
   cursor: pointer; }
