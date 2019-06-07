@@ -161,7 +161,9 @@ export const DisplayMetaTags = ({ page, props, state }) => {
 			metaTags = {
 				description: `${props.user.name}'s criticisms of ${props.page.name}`,
 				img,
-				title: `${props.user.name}'s review of ${props.page.name}`
+				title: `${props.user.name === "You" ? "Your" : `${props.user.name}'s`} review of ${
+					props.page.name
+				}`
 			}
 			break
 		case "users":
