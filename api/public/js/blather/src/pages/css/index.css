@@ -317,6 +317,10 @@ a {
         background: #00719b; }
   .fallacyPage .ui.grid .callToSignUp {
     margin-top: 10px; }
+  .fallacyPage .ui.grid .shareList {
+    margin-top: 30px;
+    text-align: center;
+    width: 100%; }
 
 .fallacyPage .fallacyMainMenu {
   margin-top: 12px; }

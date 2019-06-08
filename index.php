@@ -7,7 +7,12 @@
     $base_url = "https://blather.io/";
     $title = "Assign a Logical Fallacy";
     $description = "Blather is a website that lets users assign logical fallacies and analyze the logic and reasoning of claims made on social media. It is meant to combat partisanship.";
-    $keywords = "partisanship,logical fallacies,fallacy,hypocrisy,platitudes,talking points,debunked,contradiction";
+    $keywords = [
+        "logical fallacy",
+        "awful reasoning",
+        "logic",
+        "talking points"
+    ];
     $html = "";
 
     $s3Path = "https://s3.amazonaws.com/blather22/";
@@ -267,6 +272,15 @@
                             "articleBody" => $explanation
                         ];
 
+                        $keywords[] = $fallacyName;
+                        $keywords[] = $pageName;
+                        $implode = implode(",", $title);
+                        for ($i=0;$i<count($implode);$i++) {
+                            if (strlen($implode[$i]) > 3) {
+                                $keywords[] = str_replace(['\'', '"'], '', $implode[$i]);
+                            }
+                        }
+
                         $html = '<div>
                                     <h1>
                                         '.$fallacyTitle.' - '.$fallacyName.' by '.$pageName.'
@@ -327,6 +341,12 @@
                             $type === "twitter" ? "https://twitter.com/".$username : "https://www.youtube.com/channel/".$pageId
                         ]
                     ];
+
+                    $keywords[] = $title;
+                    $keywords[] = "profile";
+                    $keywords[] = "credibility";
+                    $keywords[] = "partisanship";
+                    $keywords[] = "consistency";
                 }
                 break;
 
@@ -404,6 +424,9 @@
                                 ]
                             ]
                         ];
+                        $keywords[] = $userName;
+                        $keywords[] = $pageName;
+                        $keywords[] = "review";
                     }
                 }
                 break;
@@ -551,7 +574,7 @@
         <meta name="twitter:image" content="<?php echo $img; ?>">
 
         <meta name="description" content="<?php echo htmlentities($description); ?>">
-        <meta name="keywords" content="<?php echo $keywords; ?>">
+        <meta name="keywords" content="<?php echo array_unique($keywords); ?>">
         <meta name="title" content="<?php echo htmlentities($title); ?> - Blather">
 <?php
     if ($author) {

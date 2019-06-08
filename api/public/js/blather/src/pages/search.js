@@ -27,6 +27,7 @@ class SearchPage extends Component {
 
 		this.state = {
 			activeItem,
+			all: false,
 			auth,
 			bearer,
 			fallacies,
@@ -43,6 +44,32 @@ class SearchPage extends Component {
 		if (_query.q !== query.q) {
 			this.props.setValue({ value: query.q })
 		}
+	}
+
+	changeUrl = fallacies => {
+		let radioVal = this.props.q
+		let radioValue = radioVal === undefined || radioVal === null ? "" : radioVal
+		let fallacyStr = fallacies.join(",")
+		this.props.history.push(`/search/fallacies?q=${radioValue}&fallacies=${fallacyStr}`)
+	}
+
+	checkAll = () => {
+		let fallacies = []
+		const all = this.state.all
+		if (!all) {
+			for (let i = 0; i < rawFallacies.length; i++) {
+				fallacies[i] = rawFallacies[i].id
+			}
+		}
+
+		this.setState({
+			activeItem: "fallacies",
+			all: !all,
+			fallacies,
+			page: 0
+		})
+
+		this.changeUrl(fallacies)
 	}
 
 	handleItemClick = (e, { name }) => {
@@ -71,10 +98,7 @@ class SearchPage extends Component {
 			page: 0
 		})
 
-		let radioVal = this.props.q
-		let radioValue = radioVal === undefined || radioVal === null ? "" : radioVal
-		let fallacyStr = fallacies.join(",")
-		this.props.history.push(`/search/fallacies?q=${radioValue}&fallacies=${fallacyStr}`)
+		this.changeUrl(fallacies)
 	}
 
 	onChangeSearchValue = value => {
@@ -92,7 +116,7 @@ class SearchPage extends Component {
 	}
 
 	render() {
-		const { activeItem, auth, bearer, fallacies, page, user } = this.state
+		const { activeItem, all, auth, bearer, fallacies, page, user } = this.state
 		const { q } = this.props
 
 		const FallacyItem = rawFallacies.map((item, i) => (
@@ -108,7 +132,17 @@ class SearchPage extends Component {
 
 		const FallacyForm = (
 			<Form>
-				<Form.Group grouped>{FallacyItem}</Form.Group>
+				<Form.Group grouped>
+					<Form.Checkbox
+						checked={all}
+						key="all"
+						label={`${this.state.all ? "Uncheck" : "Check"} All`}
+						name="fallacies"
+						onChange={this.checkAll}
+						value="all"
+					/>
+					{FallacyItem}
+				</Form.Group>
 			</Form>
 		)
 
