@@ -4,6 +4,10 @@
     padding: 1px !important;
     overflow: hidden;
 
+    &.downloading {
+        padding-top: 3px;
+    }
+
     .fallacyHeader {
         .editButton {
             color: $blue;
@@ -29,8 +33,6 @@
         margin-top: 15px;
 
         &.downloading {
-            padding-top: 3px;
-
             .tweet {
                 .card .content .description span b {
                     white-space: pre !important;

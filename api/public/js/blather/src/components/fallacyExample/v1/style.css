@@ -6,6 +6,8 @@
 .fallacyExample {
   padding: 1px !important;
   overflow: hidden; }
+  .fallacyExample.downloading {
+    padding-top: 3px; }
   .fallacyExample .fallacyHeader .editButton {
     color: #2185D0;
     cursor: pointer;
@@ -19,10 +21,8 @@
     display: inline !important; }
   .fallacyExample .fallacyMaterial {
     margin-top: 15px; }
-    .fallacyExample .fallacyMaterial.downloading {
-      padding-top: 3px; }
-      .fallacyExample .fallacyMaterial.downloading .tweet .card .content .description span b {
-        white-space: pre !important; }
+    .fallacyExample .fallacyMaterial.downloading .tweet .card .content .description span b {
+      white-space: pre !important; }
   .fallacyExample .fallacyExplanation {
     margin: 0;
     padding: 4px 8px 0 8px;
