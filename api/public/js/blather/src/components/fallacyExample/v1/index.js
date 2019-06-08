@@ -230,7 +230,10 @@ class FallacyExample extends Component {
 		const Explanation = props => {
 			if (props.showExplanation && props.explanation) {
 				return (
-					<Segment basic className={`fallacyExplanation ${props.downloading ? "downloading" : ""}`}>
+					<Segment
+						basic
+						className={`fallacyExplanation ${props.downloading ? "downloading" : ""}`}
+					>
 						<Header as="h2" className="fallacyHeader" size="medium">
 							{props.fallacyName} <EditButton props={props} />
 							{props.downloading && props.exportOpt === "screenshotAll"
