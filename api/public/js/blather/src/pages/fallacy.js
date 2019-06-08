@@ -13,7 +13,13 @@ import {
 } from "pages/actions/fallacy"
 import { connect, Provider } from "react-redux"
 import { Link } from "react-router-dom"
-import { TwitterShareButton } from "react-share"
+import {
+	FacebookIcon,
+	FacebookShareButton,
+	RedditIcon,
+	RedditShareButton,
+	TwitterShareButton
+} from "react-share"
 import {
 	Button,
 	Container,
@@ -25,6 +31,7 @@ import {
 	Icon,
 	Image,
 	Label,
+	List,
 	Menu,
 	Message,
 	Radio,
@@ -551,6 +558,21 @@ class Fallacy extends Component {
 			</div>
 		)
 
+		const ShareButtons = (
+			<List className="shareList" horizontal>
+				<List.Item>
+					<FacebookShareButton url={`${window.location.origin}/fallacies/${id}`}>
+						<FacebookIcon round size="35" />
+					</FacebookShareButton>
+				</List.Item>
+				<List.Item>
+					<RedditShareButton url={`${window.location.origin}/fallacies/${id}`}>
+						<RedditIcon round size="35" />
+					</RedditShareButton>
+				</List.Item>
+			</List>
+		)
+
 		const MaterialRow = (
 			<div className="materialRow">
 				{this.props.id && (
@@ -562,6 +584,7 @@ class Fallacy extends Component {
 							<div>
 								<Divider className="seperator" />
 								<Grid.Row>{ContactUser(this.props)}</Grid.Row>
+								{ShareButtons}
 							</div>
 						)}
 					</div>
