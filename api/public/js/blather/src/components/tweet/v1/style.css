@@ -29,7 +29,7 @@
         color: #1B1C1D; }
         .tweet .card .content .description span b {
           border-bottom: solid 2px #DB2828;
-          display: inline-block; }
+          white-space: pre; }
     .tweet .card .content.extra {
       cursor: default;
       padding: 1px 3px !important; }
