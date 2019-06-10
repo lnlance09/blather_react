@@ -8,7 +8,7 @@
     $title = "Assign a Logical Fallacy";
     $description = "Blather is a website that lets users assign logical fallacies and analyze the logic and reasoning of claims made on social media. It is meant to combat partisanship.";
     $keywords = [
-        "logical fallacy",
+        "logical fallacies",
         "awful reasoning",
         "logic",
         "talking points"
@@ -324,7 +324,7 @@
                         $title = $row['name'];
                         $s3Pic = $row['s3_pic'];
                         $username = $row['username'];
-                        $description = "How much credibility does ".$title." have? ".$title."'s logical fallacies catalogued on Blather. A measure of ".$title."'s partisanship, logical consistency, and intellectual honesty.";
+                        $description = "How much credibility does ".$title." have? How strong is ".$title."'s bias? ".$title."'s list of logical fallacies on Blather. A measure of ".$title."'s partisanship, logical consistency, and intellectual honesty.";
                         $type = $row['type'];
                     }
                     $result->close();
@@ -343,10 +343,11 @@
                     ];
 
                     $keywords[] = $title;
-                    $keywords[] = "profile";
                     $keywords[] = "credibility";
+                    $keywords[] = "intellectual honesty";
                     $keywords[] = "partisanship";
                     $keywords[] = "consistency";
+                    $keywords[] = "bias";
                 }
                 break;
 
