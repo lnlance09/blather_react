@@ -219,6 +219,14 @@ class Authentication extends Component {
 						</Form.Field>
 						<Form.Field>
 							<Input
+								onChange={this.onRegChangePassword}
+								value={regPassword}
+								placeholder="Password"
+								type="password"
+							/>
+						</Form.Field>
+						<Form.Field>
+							<Input
 								autoComplete="off"
 								onChange={this.onRegChangeName}
 								placeholder="Full name"
@@ -230,14 +238,6 @@ class Authentication extends Component {
 								onChange={this.onRegChangeUsername}
 								placeholder="Username"
 								value={username}
-							/>
-						</Form.Field>
-						<Form.Field>
-							<Input
-								onChange={this.onRegChangePassword}
-								value={regPassword}
-								placeholder="Password"
-								type="password"
 							/>
 						</Form.Field>
 						<Button color="blue" content="Create an account" fluid type="submit" />
