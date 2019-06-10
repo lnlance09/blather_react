@@ -223,7 +223,7 @@ class FallacyExample extends Component {
 							/>
 						</Form.Field>
 					</Form.Group>
-					{open && <Button color="blue" compact content="Update times" fluid />}
+					{open && <Button color="blue" content="Update times" fluid />}
 				</Form>
 			)
 		}
