@@ -324,7 +324,7 @@
                         $title = $row['name'];
                         $s3Pic = $row['s3_pic'];
                         $username = $row['username'];
-                        $description = "How much credibility does ".$title." have? How strong is ".$title."'s bias? ".$title."'s list of logical fallacies on Blather. A measure of ".$title."'s partisanship, logical consistency, and intellectual honesty.";
+                        $description = "How much credibility does ".$title." have? Is ".$title." a grifter or delusional? ".$title."'s list of contradictions and logical fallacies on Blather. A measure of ".$title."'s partisanship, logical consistency, and intellectual honesty.";
                         $type = $row['type'];
                     }
                     $result->close();
@@ -344,10 +344,12 @@
 
                     $keywords[] = $title;
                     $keywords[] = "credibility";
+                    $keywords[] = "delusional";
+                    $keywords[] = "grifter";
+                    $keywords[] = "contradictions";
                     $keywords[] = "intellectual honesty";
                     $keywords[] = "partisanship";
                     $keywords[] = "consistency";
-                    $keywords[] = "bias";
                 }
                 break;
 
