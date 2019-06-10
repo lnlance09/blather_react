@@ -609,7 +609,7 @@
     </body>
 
     <script src="/static/js/1.bd3a459c.chunk.js"></script>
-    <script src="/static/js/main.343b5b68.chunk.js"></script>
+    <script src="/static/js/main.6b203372.chunk.js"></script>
     <script src="/static/js/runtime~main.229c360f.js"></script>
 
 <?php
