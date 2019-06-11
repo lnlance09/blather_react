@@ -482,7 +482,7 @@ a {
         margin-top: 0 !important;
 
         .leftSide, .rightSide {
-            padding: 0 12px;
+            padding: 0 12px !important;
         }
 
         .materialWrapper {
@@ -501,7 +501,7 @@ a {
         }
 
         .divider.seperator {
-            margin: 1rem 0;
+            margin: 1rem 0 !important;
         }
 
         .statusActionSegment {

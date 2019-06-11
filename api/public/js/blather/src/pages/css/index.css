@@ -290,7 +290,7 @@ a {
 .fallacyPage .fallacyGrid {
   margin-top: 0 !important; }
   .fallacyPage .fallacyGrid .leftSide, .fallacyPage .fallacyGrid .rightSide {
-    padding: 0 12px; }
+    padding: 0 12px !important; }
   .fallacyPage .fallacyGrid .materialWrapper {
     width: 100%; }
   .fallacyPage .fallacyGrid .row:first-of-type {
@@ -299,7 +299,7 @@ a {
     padding: 0 !important;
     width: 100%; }
   .fallacyPage .fallacyGrid .divider.seperator {
-    margin: 1rem 0; }
+    margin: 1rem 0 !important; }
   .fallacyPage .fallacyGrid .statusActionSegment {
     text-align: center; }
     .fallacyPage .fallacyGrid .statusActionSegment .youtubeButton {
