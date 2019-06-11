@@ -53,6 +53,10 @@
             .signInLink {
                 text-align: right;
 
+                .ui.grid.relaxed {
+                    margin-right: -1.7rem;
+                }
+
                 a {
                     color: $lightBlack;
                     font-size: 15px !important;

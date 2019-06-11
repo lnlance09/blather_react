@@ -37,6 +37,8 @@
     font-weight: bold !important; }
   .pageHeader .menu.globalHeader .headerContainer .signInLink {
     text-align: right; }
+    .pageHeader .menu.globalHeader .headerContainer .signInLink .ui.grid.relaxed {
+      margin-right: -1.7rem; }
     .pageHeader .menu.globalHeader .headerContainer .signInLink a {
       color: #545454;
       font-size: 15px !important;
