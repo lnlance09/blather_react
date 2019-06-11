@@ -530,6 +530,7 @@ a {
   .loginContainer .signInPageHeader {
     background: #FFFFFF;
     border-bottom: solid 1px #DCDDDE;
+    margin: 0 !important;
     padding: 10px;
     width: 100%; }
     .loginContainer .signInPageHeader .svgMainLogo, .loginContainer .signInPageHeader .mainLogo {
