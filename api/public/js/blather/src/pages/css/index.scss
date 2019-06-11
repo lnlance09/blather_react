@@ -478,7 +478,7 @@ a {
 
 /* Fallacy page */
 .fallacyPage {
-    .ui.grid {
+    .fallacyGrid {
         margin-top: 0 !important;
 
         .leftSide, .rightSide {
@@ -579,6 +579,8 @@ a {
     }
 
     @media only screen and (max-width: 1025px) {
+        padding: 0 15px;
+
         .ui.header {
             font-size: 16px;
         }
@@ -658,6 +660,10 @@ a {
     @media only screen and (max-width: 1025px) {
         .image.profilePic {
             height: 220px;
+        }
+
+        .grid.column {
+            padding: 0;
         }
 
         .pageContentRow {
@@ -798,6 +804,10 @@ a {
 
 /* Search page */
 .searchPage {
+    @media only screen and (max-width: 1025px) {
+        padding: 0 15px;
+    }
+
     .searchMenu {
         .item {
             &.searchItem {

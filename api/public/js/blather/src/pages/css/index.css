@@ -287,37 +287,37 @@ a {
     display: block; }
 
 /* Fallacy page */
-.fallacyPage .ui.grid {
+.fallacyPage .fallacyGrid {
   margin-top: 0 !important; }
-  .fallacyPage .ui.grid .leftSide, .fallacyPage .ui.grid .rightSide {
+  .fallacyPage .fallacyGrid .leftSide, .fallacyPage .fallacyGrid .rightSide {
     padding: 0 12px; }
-  .fallacyPage .ui.grid .materialWrapper {
+  .fallacyPage .fallacyGrid .materialWrapper {
     width: 100%; }
-  .fallacyPage .ui.grid .row:first-of-type {
+  .fallacyPage .fallacyGrid .row:first-of-type {
     padding-top: 0; }
-  .fallacyPage .ui.grid .materialRow {
+  .fallacyPage .fallacyGrid .materialRow {
     padding: 0 !important;
     width: 100%; }
-  .fallacyPage .ui.grid .divider.seperator {
+  .fallacyPage .fallacyGrid .divider.seperator {
     margin: 1rem 0; }
-  .fallacyPage .ui.grid .statusActionSegment {
+  .fallacyPage .fallacyGrid .statusActionSegment {
     text-align: center; }
-    .fallacyPage .ui.grid .statusActionSegment .youtubeButton {
+    .fallacyPage .fallacyGrid .statusActionSegment .youtubeButton {
       background: #ff0000 !important;
       color: #FFFFFF;
       margin-top: 0 !important;
       text-shadow: none; }
-      .fallacyPage .ui.grid .statusActionSegment .youtubeButton:hover {
+      .fallacyPage .fallacyGrid .statusActionSegment .youtubeButton:hover {
         background: #e60000 !important; }
-    .fallacyPage .ui.grid .statusActionSegment .twitterButton {
+    .fallacyPage .fallacyGrid .statusActionSegment .twitterButton {
       background: #0084b4;
       color: #FFFFFF;
       text-shadow: none; }
-      .fallacyPage .ui.grid .statusActionSegment .twitterButton:hover {
+      .fallacyPage .fallacyGrid .statusActionSegment .twitterButton:hover {
         background: #00719b; }
-  .fallacyPage .ui.grid .callToSignUp {
+  .fallacyPage .fallacyGrid .callToSignUp {
     margin-top: 10px; }
-  .fallacyPage .ui.grid .shareList {
+  .fallacyPage .fallacyGrid .shareList {
     margin-top: 30px;
     text-align: center;
     width: 100%; }
@@ -350,20 +350,22 @@ a {
   width: 1280px; }
 
 @media only screen and (max-width: 1025px) {
-  .fallacyPage .ui.header {
-    font-size: 16px; }
-  .fallacyPage .statusActionSegment .header {
-    font-size: 14px !important; }
-  .fallacyPage .statusActionSegment .twitterButton, .fallacyPage .statusActionSegment .youtubeButton {
-    font-size: 12px; }
-  .fallacyPage .row {
-    padding-bottom: 0 !important; }
-  .fallacyPage .retractionContainer {
-    margin: 0 !important; }
-  .fallacyPage .downloadBtn {
-    display: none; }
-  .fallacyPage .captureScreenshot {
-    display: none; } }
+  .fallacyPage {
+    padding: 0 15px; }
+    .fallacyPage .ui.header {
+      font-size: 16px; }
+    .fallacyPage .statusActionSegment .header {
+      font-size: 14px !important; }
+    .fallacyPage .statusActionSegment .twitterButton, .fallacyPage .statusActionSegment .youtubeButton {
+      font-size: 12px; }
+    .fallacyPage .row {
+      padding-bottom: 0 !important; }
+    .fallacyPage .retractionContainer {
+      margin: 0 !important; }
+    .fallacyPage .downloadBtn {
+      display: none; }
+    .fallacyPage .captureScreenshot {
+      display: none; } }
 
 /* Feed page */
 @media only screen and (max-width: 1025px) {
@@ -393,6 +395,8 @@ a {
 @media only screen and (max-width: 1025px) {
   .socialMediaPage .image.profilePic {
     height: 220px; }
+  .socialMediaPage .grid.column {
+    padding: 0; }
   .socialMediaPage .pageContentRow {
     padding-top: 0 !important; }
   .socialMediaPage .titleHeader .ui.header {
@@ -476,6 +480,10 @@ a {
       margin-right: 0 !important; } }
 
 /* Search page */
+@media only screen and (max-width: 1025px) {
+  .searchPage {
+    padding: 0 15px; } }
+
 .searchPage .searchMenu .item.searchItem {
   padding: 17.5px 0 17.5px 18px; }
   .searchPage .searchMenu .item.searchItem input {
