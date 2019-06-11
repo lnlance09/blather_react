@@ -658,7 +658,7 @@ class Fallacy extends Component {
 					{!this.props.error ? (
 						<Container className="mainContainer" textAlign="left">
 							<Responsive maxWidth={1024}>
-								<Grid>
+								<Grid className="fallacyGrid">
 									<Grid.Row>
 										<FallacyTitle props={this.props} />
 									</Grid.Row>
@@ -674,7 +674,7 @@ class Fallacy extends Component {
 							<Responsive minWidth={1025}>
 								<FallacyTitle props={this.props} />
 								{FallacyMenu(this.props)}
-								<Grid>
+								<Grid className="fallacyGrid">
 									<Grid.Column className="leftSide" width={16}>
 										{ShowMaterial(this.props)}
 										<ShowContent props={this.props} />
