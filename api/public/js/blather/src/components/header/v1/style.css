@@ -38,9 +38,9 @@
   .pageHeader .menu.globalHeader .headerContainer .signInLink {
     text-align: right; }
     .pageHeader .menu.globalHeader .headerContainer .signInLink .ui.grid.relaxed {
-      margin-right: -1.5rem; }
+      margin-right: -1.4rem; }
       .pageHeader .menu.globalHeader .headerContainer .signInLink .ui.grid.relaxed .column:first-of-type {
-        padding-right: 1.5rem; }
+        padding-right: 1.4rem; }
     .pageHeader .menu.globalHeader .headerContainer .signInLink a {
       color: #545454;
       font-size: 15px !important;
