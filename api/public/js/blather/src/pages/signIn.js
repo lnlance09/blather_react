@@ -28,7 +28,6 @@ class SignInPage extends Component {
 
 	render() {
 		const { type } = this.state
-		console.log(type)
 
 		return (
 			<Provider store={store}>
