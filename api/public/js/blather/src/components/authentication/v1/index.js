@@ -20,7 +20,7 @@ class Authentication extends Component {
 			email: "",
 			loadingLogin: false,
 			loadingRegistration: false,
-			login: true,
+			login: this.props.type === "signin",
 			loginError: false,
 			name: "",
 			password: "",
@@ -313,6 +313,7 @@ Authentication.propTypes = {
 	submitRegistrationForm: PropTypes.func.isRequired,
 	switchTab: PropTypes.func.isRequired,
 	twitterRequestToken: PropTypes.func,
+	type: PropTypes.string,
 	verificationCode: PropTypes.string,
 	verify: PropTypes.bool,
 	verifyEmail: PropTypes.func
