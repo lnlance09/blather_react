@@ -54,7 +54,11 @@
                 text-align: right;
 
                 .ui.grid.relaxed {
-                    margin-right: -1.7rem;
+                    margin-right: -1.5rem;
+
+                    .column:first-of-type {
+                        padding-right: 1.5rem;
+                    }
                 }
 
                 a {
