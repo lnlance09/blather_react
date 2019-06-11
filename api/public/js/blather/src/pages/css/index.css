@@ -350,22 +350,22 @@ a {
   width: 1280px; }
 
 @media only screen and (max-width: 1025px) {
-  .fallacyPage {
-    padding: 0 15px; }
-    .fallacyPage .ui.header {
-      font-size: 16px; }
-    .fallacyPage .statusActionSegment .header {
-      font-size: 14px !important; }
-    .fallacyPage .statusActionSegment .twitterButton, .fallacyPage .statusActionSegment .youtubeButton {
-      font-size: 12px; }
-    .fallacyPage .row {
-      padding-bottom: 0 !important; }
-    .fallacyPage .retractionContainer {
-      margin: 0 !important; }
-    .fallacyPage .downloadBtn {
-      display: none; }
-    .fallacyPage .captureScreenshot {
-      display: none; } }
+  .fallacyPage .mainContainer .ui.grid {
+    margin: 0 !important; }
+  .fallacyPage .ui.header {
+    font-size: 16px; }
+  .fallacyPage .statusActionSegment .header {
+    font-size: 14px !important; }
+  .fallacyPage .statusActionSegment .twitterButton, .fallacyPage .statusActionSegment .youtubeButton {
+    font-size: 12px; }
+  .fallacyPage .row {
+    padding-bottom: 0 !important; }
+  .fallacyPage .retractionContainer {
+    margin: 0 !important; }
+  .fallacyPage .downloadBtn {
+    display: none; }
+  .fallacyPage .captureScreenshot {
+    display: none; } }
 
 /* Feed page */
 @media only screen and (max-width: 1025px) {
@@ -481,8 +481,10 @@ a {
 
 /* Search page */
 @media only screen and (max-width: 1025px) {
-  .searchPage {
-    padding: 0 15px; } }
+  .searchPage .mainContainer {
+    padding-top: 0; }
+    .searchPage .mainContainer .ui.grid {
+      margin: 0 !important; } }
 
 .searchPage .searchMenu .item.searchItem {
   padding: 17.5px 0 17.5px 18px; }
