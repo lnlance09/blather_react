@@ -25,7 +25,7 @@
       white-space: pre !important; }
   .fallacyExample .fallacyExplanation {
     margin: 0;
-    padding: 4px 8px 0 8px;
+    padding: 0;
     width: 100%; }
   .fallacyExample span.clearfix {
     display: block; }

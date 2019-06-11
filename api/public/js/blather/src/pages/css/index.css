@@ -323,7 +323,7 @@ a {
     width: 100%; }
 
 .fallacyPage .fallacyMainMenu {
-  margin-top: 12px; }
+  margin: 6px 0 10px 0; }
 
 .fallacyPage .commentsContent {
   padding: 0;
