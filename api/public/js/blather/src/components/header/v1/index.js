@@ -5,7 +5,9 @@ import { Link } from "react-router-dom"
 import {
 	Button,
 	Container,
+	Divider,
 	Dropdown,
+	Grid,
 	Icon,
 	Input,
 	Menu,
@@ -90,12 +92,21 @@ class Header extends Component {
 			} else {
 				return (
 					<Menu.Item className="signInLink" direction="right" position="right">
-						<Button
-							color="blue"
-							compact
-							content="Sign In"
-							onClick={() => props.history.push("/signin")}
-						/>
+						<Grid columns={2} relaxed="very">
+							<Grid.Column>
+								<Link to="/signin?type=signin">Sign In</Link>
+							</Grid.Column>
+							<Grid.Column>
+								<Button
+									color="green"
+									content="Join"
+									onClick={() => props.history.push("/signin?type=join")}
+								/>
+							</Grid.Column>
+						</Grid>
+						<Divider fitted vertical>
+							or
+						</Divider>
 					</Menu.Item>
 				)
 			}
@@ -171,6 +182,7 @@ class Header extends Component {
 								value={value}
 							/>
 							<Button
+								basic
 								className="sidebarSearchBtn"
 								color="blue"
 								content="Search"
@@ -183,8 +195,22 @@ class Header extends Component {
 							/>
 						</Menu.Item>
 						{!this.props.authenticated ? (
-							<Menu.Item onClick={() => this.props.history.push("/signin")}>
-								<Button color="green" content="Sign In" fluid icon="sign in" />
+							<Menu.Item>
+								<Button.Group fluid>
+									<Button
+										color="blue"
+										content="Sign In"
+										onClick={() =>
+											this.props.history.push("/signin?type=signin")
+										}
+									/>
+									<Button.Or />
+									<Button
+										color="green"
+										content="Join"
+										onClick={() => this.props.history.push("/signin?type=join")}
+									/>
+								</Button.Group>
 							</Menu.Item>
 						) : (
 							<Menu.Item onClick={this.onLogout}>Sign Out</Menu.Item>

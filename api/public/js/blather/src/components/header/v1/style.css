@@ -35,6 +35,11 @@
     color: #545454;
     font-size: 15px !important;
     font-weight: bold !important; }
+  .pageHeader .menu.globalHeader .headerContainer .signInLink a {
+    color: #545454;
+    font-size: 15px !important;
+    font-weight: bold !important;
+    line-height: 35.5px; }
   .pageHeader .menu.globalHeader .headerContainer .dropDownMenu {
     font-size: 15px; }
     .pageHeader .menu.globalHeader .headerContainer .dropDownMenu button {

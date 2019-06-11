@@ -50,6 +50,15 @@
                 font-weight: bold !important;
             }
 
+            .signInLink {
+                a {
+                    color: $lightBlack;
+                    font-size: 15px !important;
+                    font-weight: bold !important;
+                    line-height: 35.5px;
+                }
+            }
+
             .dropDownMenu {
                 font-size: 15px;
 

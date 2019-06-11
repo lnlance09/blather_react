@@ -4,6 +4,7 @@ import { Provider } from "react-redux"
 import { Container, Grid } from "semantic-ui-react"
 import Authentication from "components/authentication/v1/"
 import Logo from "components/header/v1/images/logo.svg"
+import queryString from "query-string"
 import React, { Component } from "react"
 import ReactSVG from "react-svg"
 import store from "store"
@@ -11,6 +12,7 @@ import store from "store"
 class SignInPage extends Component {
 	constructor(props) {
 		super(props)
+		const qs = queryString.parse(this.props.location.search)
 		const currentState = store.getState()
 		if (
 			currentState.user.authenticated &&
@@ -19,10 +21,15 @@ class SignInPage extends Component {
 			this.props.history.push("/")
 		}
 
-		this.state = {}
+		this.state = {
+			type: qs.type
+		}
 	}
 
 	render() {
+		const { type } = this.state
+		console.log(type)
+
 		return (
 			<Provider store={store}>
 				<div className="loginContainer">
@@ -42,7 +49,7 @@ class SignInPage extends Component {
 						<div className="loginForm">
 							<Grid textAlign="center" verticalAlign="middle">
 								<Grid.Column>
-									<Authentication />
+									<Authentication type={type} />
 								</Grid.Column>
 							</Grid>
 						</div>
