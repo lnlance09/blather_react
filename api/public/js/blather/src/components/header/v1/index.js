@@ -198,6 +198,7 @@ class Header extends Component {
 							<Menu.Item>
 								<Button.Group fluid>
 									<Button
+										basic
 										color="blue"
 										content="Sign In"
 										onClick={() =>
@@ -206,6 +207,7 @@ class Header extends Component {
 									/>
 									<Button.Or />
 									<Button
+										basic
 										color="green"
 										content="Join"
 										onClick={() => this.props.history.push("/signin?type=join")}
