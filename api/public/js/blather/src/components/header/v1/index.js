@@ -182,7 +182,6 @@ class Header extends Component {
 								value={value}
 							/>
 							<Button
-								basic
 								className="sidebarSearchBtn"
 								color="blue"
 								content="Search"
@@ -198,19 +197,19 @@ class Header extends Component {
 							<Menu.Item>
 								<Button.Group fluid>
 									<Button
-										basic
 										color="blue"
 										content="Sign In"
 										onClick={() =>
 											this.props.history.push("/signin?type=signin")
 										}
+										primary
 									/>
 									<Button.Or />
 									<Button
-										basic
 										color="green"
 										content="Join"
 										onClick={() => this.props.history.push("/signin?type=join")}
+										secondary
 									/>
 								</Button.Group>
 							</Menu.Item>
