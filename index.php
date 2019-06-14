@@ -324,7 +324,7 @@
                         $title = $row['name'];
                         $s3Pic = $row['s3_pic'];
                         $username = $row['username'];
-                        $description = "How much credibility does ".$title." have? Is ".$title." a grifter or delusional? ".$title."'s list of contradictions and logical fallacies on Blather. A measure of ".$title."'s partisanship, logical consistency, and intellectual honesty.";
+                        $description = "How strong is ".$title."'s commitment to truth? Is ".$title." a grifter or delusional? ".$title."'s list of contradictions and logical fallacies on Blather. A measure of ".$title."'s partisanship, logical consistency, and intellectual honesty.";
                         $type = $row['type'];
                     }
                     $result->close();
