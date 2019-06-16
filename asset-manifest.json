@@ -1,9 +1,9 @@
 {
-  "main.css": "/static/css/main.e6ceabc9.chunk.css",
-  "main.js": "/static/js/main.ab0b6a28.chunk.js",
-  "main.js.map": "/static/js/main.ab0b6a28.chunk.js.map",
-  "static/js/1.9f84367b.chunk.js": "/static/js/1.9f84367b.chunk.js",
-  "static/js/1.9f84367b.chunk.js.map": "/static/js/1.9f84367b.chunk.js.map",
+  "main.css": "/static/css/main.de118ad5.chunk.css",
+  "main.js": "/static/js/main.e265fc91.chunk.js",
+  "main.js.map": "/static/js/main.e265fc91.chunk.js.map",
+  "static/js/1.2180e8b7.chunk.js": "/static/js/1.2180e8b7.chunk.js",
+  "static/js/1.2180e8b7.chunk.js.map": "/static/js/1.2180e8b7.chunk.js.map",
   "runtime~main.js": "/static/js/runtime~main.229c360f.js",
   "runtime~main.js.map": "/static/js/runtime~main.229c360f.js.map",
   "static/media/logo.svg": "/static/media/logo.014d7d9d.svg",
@@ -13,8 +13,8 @@
   "static/media/sound.ogg": "/static/media/sound.b8da6d65.ogg",
   "static/media/app.css": "/static/media/Merriweather-Regular.202792c4.otf",
   "static/media/semantic.min.css": "/static/media/brand-icons.a1a749e8.svg",
-  "static/css/main.e6ceabc9.chunk.css.map": "/static/css/main.e6ceabc9.chunk.css.map",
+  "static/css/main.de118ad5.chunk.css.map": "/static/css/main.de118ad5.chunk.css.map",
   "index.html": "/index.html",
-  "precache-manifest.12f78da3b68701ba65773bcda14c81e3.js": "/precache-manifest.12f78da3b68701ba65773bcda14c81e3.js",
+  "precache-manifest.4649cda6746540a67d568fbb67e1483a.js": "/precache-manifest.4649cda6746540a67d568fbb67e1483a.js",
   "service-worker.js": "/service-worker.js"
 }
