@@ -3,7 +3,6 @@ import { adjustTimezone } from "utils/dateFunctions"
 import { DisplayMetaTags } from "utils/metaFunctions"
 import {
 	createVideoFallacy,
-	fetchCommentCount,
 	fetchFallacy,
 	reset,
 	retractLogic,
@@ -38,7 +37,7 @@ import {
 	Responsive,
 	Segment
 } from "semantic-ui-react"
-import Comments from "components/comments/v1/"
+import Disqus from "disqus-react"
 import FallacyExample from "components/fallacyExample/v1/"
 import FallaciesList from "components/fallaciesList/v1/"
 import FallacyRef from "components/fallacyRef/v1/"
@@ -201,7 +200,6 @@ class Fallacy extends Component {
 
 	componentDidMount() {
 		this.props.reset()
-		this.props.fetchCommentCount({ id: this.state.id })
 		this.props.fetchFallacy({
 			bearer: this.state.bearer,
 			id: this.state.id
@@ -217,7 +215,6 @@ class Fallacy extends Component {
 
 		if (newId !== this.state.id) {
 			this.props.reset()
-			this.props.fetchCommentCount({ id: newId })
 			this.props.fetchFallacy({
 				bearer: this.state.bearer,
 				id: newId
@@ -268,7 +265,6 @@ class Fallacy extends Component {
 		const {
 			active,
 			activeItem,
-			auth,
 			bearer,
 			downloading,
 			exportArticle,
@@ -447,12 +443,7 @@ class Fallacy extends Component {
 					name="comments"
 					onClick={this.handleItemClick}
 				>
-					Comments {""}
-					{props.commentCount > 0 && (
-						<Label color="red" horizontal>
-							{props.commentCount}
-						</Label>
-					)}
+					Comments
 				</Menu.Item>
 				<Menu.Item
 					active={activeItem === "reference"}
@@ -592,17 +583,18 @@ class Fallacy extends Component {
 			</div>
 		)
 
+		const DisqusConfig = {
+			identifier: this.props.id,
+			title: this.props.title,
+			url: `https://blather.io/fallacies/${this.props.slug}`
+		}
+
 		const ShowContent = ({ props }) => {
 			switch (activeItem) {
 				case "comments":
 					return (
 						<Segment basic className="commentsContent">
-							<Comments
-								authenticated={auth}
-								bearer={bearer}
-								history={props.history}
-								id={id}
-							/>
+							<Disqus.DiscussionEmbed config={DisqusConfig} shortname="blather-1" />
 						</Segment>
 					)
 				case "similar":
@@ -699,7 +691,6 @@ class Fallacy extends Component {
 Fallacy.propTypes = {
 	canMakeVideo: PropTypes.bool,
 	canScreenshot: PropTypes.bool,
-	commentCount: PropTypes.number,
 	comments: PropTypes.shape({
 		count: PropTypes.number,
 		results: PropTypes.array
@@ -729,7 +720,6 @@ Fallacy.propTypes = {
 	fallacyCount: PropTypes.number,
 	fallacyId: PropTypes.number,
 	fallacyName: PropTypes.string,
-	fetchCommentCount: PropTypes.func,
 	fetchFallacy: PropTypes.func,
 	highlightedText: PropTypes.string,
 	id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -773,7 +763,6 @@ Fallacy.defaultProps = {
 	createVideoFallacy,
 	error: false,
 	fallacyCount: 0,
-	fetchCommentCount,
 	fetchFallacy,
 	reset,
 	retractLogic,
@@ -793,7 +782,6 @@ export default connect(
 	mapStateToProps,
 	{
 		createVideoFallacy,
-		fetchCommentCount,
 		fetchFallacy,
 		reset,
 		retractLogic,
