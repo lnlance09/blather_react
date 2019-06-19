@@ -560,7 +560,7 @@
                 cyc.video_id AS contradiction_comment_video_id";
 
             if ($just_count) {
-                $select = "assigned_by, page_id AS assigned_to, explanation, fallacy_id, status, title";
+                $select = "fe.id AS id, assigned_by, page_id AS assigned_to, explanation, fallacy_id, status, title";
             }
 
             $this->db->select($select);
