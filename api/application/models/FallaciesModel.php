@@ -589,12 +589,12 @@
             $this->db->where('fe.id', $id);
             $this->db->or_where('fe.slug', $id);
             $result = $this->db->get('fallacy_entries fe')->result_array();
+            $fallacy = $result[0];
 
-            if (empty($result)) {
+            if ($fallacy['id'] === null) {
                 return false;
             }
 
-            $fallacy = $result[0];
             $ref_id = 0;
             if ($fallacy['tweet_json'] !== null) {
                 // Tweet only
