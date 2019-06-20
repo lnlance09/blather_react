@@ -64,7 +64,7 @@ class FallacyRef extends Component {
 					<Comment key={`${item.name}_${i}`}>
 						<Comment.Avatar src={pic} />
 						<Comment.Content>
-							<Comment.Author as="a">{item.name}</Comment.Author>
+							<Comment.Author>{item.name}</Comment.Author>
 							<Comment.Text>{item.message}</Comment.Text>
 						</Comment.Content>
 					</Comment>
