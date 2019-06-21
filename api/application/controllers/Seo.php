@@ -29,11 +29,8 @@
 				'fallacies' => $fallacies,
 				'fallacyTypes' => $fallacyTypes,
 				'reviews' => $reviews,
-				'tags' => $tags,
-				'tweets' => $tweets,
 				'twitterPages' => $twitterPages,
 				'users' => $users,
-				'videos' => $videos,
 				'youtubePages' => $youtubePages
 			]);
 		}

@@ -93,34 +93,6 @@
 
 
 <?php
-	// Tweets
-	for ($i=0;$i<count($tweets);$i++) {
-?>
-	<url>
-		<loc><?php echo $base_url.'tweet/'.$tweets[$i]['tweet_id']; ?></loc>
-		<changefreq>daily</changefreq>
-		<priority>0.5</priority>
-	</url>
-<?php
-	}
-?>
-
-
-<?php
-	// Videos
-	for ($i=0;$i<count($videos);$i++) {
-?>
-	<url>
-		<loc><?php echo $base_url.'video/'.$videos[$i]['video_id']; ?></loc>
-		<changefreq>daily</changefreq>
-		<priority>0.5</priority>
-	</url>
-<?php
-	}
-?>
-
-
-<?php
 	// Fallacy types
 	for ($i=0;$i<count($fallacyTypes);$i++) {
 		$replace = str_replace(' ', '-', $fallacyTypes[$i]['name']);
