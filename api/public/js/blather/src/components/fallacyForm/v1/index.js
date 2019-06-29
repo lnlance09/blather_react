@@ -346,7 +346,7 @@ class FallacyForm extends Component {
 							retweeted_status={
 								tweet.retweeted_status === undefined
 									? false
-									: props.post.data.retweeted_status
+									: tweet.retweeted_status
 							}
 							stats={{
 								favorite_count: tweet.favorite_count,
