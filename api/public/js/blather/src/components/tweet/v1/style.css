@@ -20,6 +20,8 @@
     color: #545454;
     font-size: 13px;
     padding: 6px 10px; }
+    .tweet .retweetedText .icon {
+      margin-right: 5px; }
   .tweet .card .content {
     white-space: pre-line; }
     .tweet .card .content .description {
