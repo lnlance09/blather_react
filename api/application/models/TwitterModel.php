@@ -604,7 +604,7 @@
             savePic($pic, $path);
 
             if (filesize($path) == 0) {
-                return false;
+                return $path;
             }
 
             $key = 'pages/twitter/'.$name.'-'.$id.'.jpg';

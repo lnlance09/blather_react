@@ -100,7 +100,7 @@ class Tweet extends Component {
 		const CardHeader = props => {
 			let profileImg = props.useLocalProfilePic
 				? props.profileImg
-				: props.user.profile_image_url_https
+				: props.user.profile_image_url_https.replace("_normal", "")
 			let name = props.user.name
 			let screenName = props.user.screen_name
 			let createdAt = new Date(props.created_at)
@@ -121,7 +121,7 @@ class Tweet extends Component {
 						className="tweetUserImg"
 						floated="left"
 						onError={i => (i.target.src = ItemPic)}
-						src={profileImg === undefined ? null : profileImg.replace("_normal", "")}
+						src={profileImg}
 					/>
 					<Card.Header
 						className={`tweetUserName ${props.externalLink ? "link" : ""}`}
