@@ -603,6 +603,10 @@
             $name = str_replace(' ', '-', $name);
             savePic($pic, $path);
 
+            if (filesize($path) == 0) {
+                return false;
+            }
+
             $key = 'pages/twitter/'.$name.'-'.$id.'.jpg';
             $s3Link = $this->media->addToS3($key, $path, true, true);
 
