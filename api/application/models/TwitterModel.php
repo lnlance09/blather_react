@@ -603,11 +603,12 @@
             $name = str_replace(' ', '-', $name);
             savePic($pic, $path);
 
+            $key = 'pages/twitter/'.$name.'-'.$id.'.jpg';
+
             if (filesize($path) == 0) {
-                return $path;
+                return 'https://s3.amazonaws.com/blather22/'.$key;
             }
 
-            $key = 'pages/twitter/'.$name.'-'.$id.'.jpg';
             $s3Link = $this->media->addToS3($key, $path, true, true);
 
             $this->db->where([
