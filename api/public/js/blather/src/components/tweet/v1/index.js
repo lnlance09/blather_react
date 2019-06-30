@@ -148,7 +148,7 @@ class Tweet extends Component {
 			const extEntities = retweeted_status
 				? retweeted_status.extended_entities
 				: props.extended_entities
-			if (extEntities.media) {
+			if (extEntities) {
 				return extEntities.media.map((item, i) => {
 					if (item.type === "photo" || item.type === "video") {
 						return (
@@ -169,6 +169,7 @@ class Tweet extends Component {
 					return null
 				})
 			}
+			return null
 		}
 
 		const QuotedTweet = props => {
