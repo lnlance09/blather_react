@@ -145,8 +145,11 @@ class Tweet extends Component {
 		}
 
 		const ParseMedia = ({ props }) => {
-			if (props.extended_entities.media) {
-				return props.extended_entities.media.map((item, i) => {
+			const extEntities = retweeted_status
+				? retweeted_status.extended_entities
+				: props.extended_entities
+			if (extEntities.media) {
+				return extEntities.media.map((item, i) => {
 					if (item.type === "photo" || item.type === "video") {
 						return (
 							<div className="mediaPic" key={`embed_${i}`}>
