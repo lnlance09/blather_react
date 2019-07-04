@@ -63,6 +63,7 @@
 
         .description {
             white-space: pre-line;
+            word-break: break-all;
 
             span {
                 color: $black;

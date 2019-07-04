@@ -37,7 +37,8 @@
       .resultItem .content .header .archiveItemMenu .icon.sticky.note {
         color: #FBBD08; }
   .resultItem .content .description {
-    white-space: pre-line; }
+    white-space: pre-line;
+    word-break: break-all; }
     .resultItem .content .description span {
       color: #1B1C1D; }
       .resultItem .content .description span b {

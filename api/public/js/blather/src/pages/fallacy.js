@@ -611,11 +611,6 @@ class Fallacy extends Component {
 								<Grid className="fallacyGrid">
 									<Grid.Row>{MaterialSection(this.props)}</Grid.Row>
 									<Grid.Row>{SourcesSection(this.props)}</Grid.Row>
-									{this.props.id && (
-										<Grid.Row>
-											<Grid.Row>{RetractionSegment(this.props)}</Grid.Row>
-										</Grid.Row>
-									)}
 									<Grid.Row>{ReferenceSection}</Grid.Row>
 									<Grid.Row>
 										{ShareSection(true)}
