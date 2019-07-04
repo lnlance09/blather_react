@@ -207,6 +207,7 @@ class Fallacy extends Component {
 		}
 
 		if (newId !== this.state.id) {
+			window.scrollTo({ top: 0, behavior: 'smooth' })
 			this.props.reset()
 			this.props.fetchFallacy({
 				bearer: this.state.bearer,
