@@ -1,8 +1,8 @@
 @import '../../../css/colors.scss';
 
 .fallacyExample {
-    padding: 1px !important;
     overflow: hidden;
+    padding: 1px !important;
 
     &.downloading {
         padding-top: 3px;
@@ -30,8 +30,6 @@
     }
 
     .fallacyMaterial {
-        margin-top: 15px;
-
         &.downloading {
             .tweet {
                 .card .content .description span b {
@@ -39,11 +37,16 @@
                 }
             }
         }
+
+        .sourceList {
+            .item {
+                margin-bottom: 8px;
+            }
+        }
     }
 
     .fallacyExplanation {
-        margin: 0;
-        padding: 0;
+        padding: 5px;
         width: 100%;
     }
 

@@ -479,7 +479,7 @@ a {
 /* Fallacy page */
 .fallacyPage {
     .fallacyGrid {
-        margin-top: 0 !important;
+        margin-top: 20px !important;
 
         .leftSide, .rightSide {
             padding: 0 12px !important;
@@ -504,49 +504,18 @@ a {
             margin: 1rem 0 !important;
         }
 
-        .statusActionSegment {
-            text-align: center;
-
-            .youtubeButton {
-                background: $youtube !important;
-                color: $white;
-                margin-top: 0 !important;
-                text-shadow: none;
-
-                &:hover {
-                    background: darken($youtube, 5%) !important;
-                }
-            }
-
-            .twitterButton {
-                background: $twitter;
-                color: $white;
-                text-shadow: none;
-
-                &:hover {
-                    background: darken($twitter, 5%);
-                }
-            }
-        }
-
         .callToSignUp {
             margin-top: 10px;
         }
 
         .shareList {
-            margin-top: 30px;
-            text-align: center;
             width: 100%;
         }
     }
 
-    .fallacyMainMenu {
-        margin: 6px 0 10px 0;
-    }
-
-    .commentsContent {
-        padding: 0;
-        width: 100%;
+    .exportEmbed {
+        display: inline;
+        text-align: center;
     }
 
     .exportSection {
@@ -556,20 +525,44 @@ a {
             margin-top: 16px;
         }
 
-        .exportEmbed {
-            display: inline;
-            text-align: center;
-        }
-
         .downloadDimmer {
             cursor: pointer;
             margin-top: 16px;
         }
     }
 
-    .similarFallaciesSegment {
-        padding: 0 !important;
+    .exportContainer {
+        .exportSection {
+            margin-top: 0;
+        }
+    }
+
+    .shareContent {
         width: 100%;
+    }
+
+    .sourcesContent {
+        margin-top: 30px;
+        width: 100%;
+    }
+
+    .fallacyContent {
+        margin-top: 30px;
+        width: 100%;
+    }
+
+    .similarContent {
+        margin-top: 30px;
+        width: 100%;
+    }
+
+    .commentsContent {
+        margin-top: 15px;
+        width: 100%;
+
+        .comment-policy {
+            margin-top: 0 !important;
+        }
     }
 
     canvas {
@@ -581,12 +574,8 @@ a {
     @media only screen and (max-width: 1025px) {
         .mainContainer {
             .ui.grid {
-                margin: 0 !important;
+                margin: 10px 0 !important;
             }
-        }
-
-        .ui.header {
-            font-size: 16px;
         }
 
         .statusActionSegment {

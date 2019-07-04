@@ -4,8 +4,8 @@
 /*---   Misc  ---*/
 /*---   Social colors  ---*/
 .fallacyExample {
-  padding: 1px !important;
-  overflow: hidden; }
+  overflow: hidden;
+  padding: 1px !important; }
   .fallacyExample.downloading {
     padding-top: 3px; }
   .fallacyExample .fallacyHeader .editButton {
@@ -19,13 +19,12 @@
       color: #FF695E; }
   .fallacyExample .fallacyHeader:hover .editButton {
     display: inline !important; }
-  .fallacyExample .fallacyMaterial {
-    margin-top: 15px; }
-    .fallacyExample .fallacyMaterial.downloading .tweet .card .content .description span b {
-      white-space: pre !important; }
+  .fallacyExample .fallacyMaterial.downloading .tweet .card .content .description span b {
+    white-space: pre !important; }
+  .fallacyExample .fallacyMaterial .sourceList .item {
+    margin-bottom: 8px; }
   .fallacyExample .fallacyExplanation {
-    margin: 0;
-    padding: 0;
+    padding: 5px;
     width: 100%; }
   .fallacyExample span.clearfix {
     display: block; }

@@ -623,7 +623,7 @@
                 if ($fallacy['contradiction_comment_id'] !== null) {
                     $ref_id = 7;
                 }
-                // Video with a tweet
+                // Video with a tweet as a contradiction
                 if ($fallacy['contradiction_tweet_json'] !== null) {
                     $ref_id = 8;
                 }
