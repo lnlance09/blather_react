@@ -943,7 +943,7 @@
    {
       "id":"43",
       "description":"The arguer tries to convince others that one action will lead to a series of events that will eventually lead to an ultimate, usually unwanted, consequence. This is fallacious if it is unlikely that each intermediate step will necessarily follow the preceding one.",
-      "name":"Slippery Slope Fallacy",
+      "name":"Slippery Slope",
       "dialogue": [
          {
             "name": "Blathering Bill",

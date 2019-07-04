@@ -17,25 +17,24 @@ import {
 	FacebookShareButton,
 	RedditIcon,
 	RedditShareButton,
+	TwitterIcon,
 	TwitterShareButton
 } from "react-share"
 import {
 	Button,
 	Container,
 	Dimmer,
-	Divider,
 	Form,
 	Grid,
 	Header,
 	Icon,
 	Image,
-	Label,
 	List,
-	Menu,
 	Message,
 	Radio,
 	Responsive,
-	Segment
+	Segment,
+	Statistic
 } from "semantic-ui-react"
 import Disqus from "disqus-react"
 import FallacyExample from "components/fallacyExample/v1/"
@@ -43,6 +42,7 @@ import FallaciesList from "components/fallaciesList/v1/"
 import FallacyRef from "components/fallacyRef/v1/"
 import html2canvas from "html2canvas"
 import ImagePic from "images/image-square.png"
+import LazyLoad from "components/lazyLoad/v1/"
 import Moment from "react-moment"
 import PageFooter from "components/footer/v1/"
 import PageHeader from "components/header/v1/"
@@ -57,9 +57,8 @@ class Fallacy extends Component {
 	constructor(props) {
 		super(props)
 
-		const tabs = ["material", "comments", "similar", "reference"]
 		const params = this.props.match.params
-		let { id, tab } = params
+		let { id } = params
 
 		if (isNaN(id)) {
 			const split = id.split("-")
@@ -73,13 +72,8 @@ class Fallacy extends Component {
 		const userId = parseInt(currentState.user.data.id, 10)
 		const youtubeId = currentState.user.data.youtubeId
 
-		if (!tabs.includes(tab)) {
-			tab = "material"
-		}
-
 		this.state = {
 			active: false,
-			activeItem: tab,
 			auth,
 			bearer,
 			downloading: false,
@@ -88,7 +82,6 @@ class Fallacy extends Component {
 			exportOpt: "screenshot",
 			id,
 			show: false,
-			tabs,
 			twitterId,
 			userId,
 			value: "",
@@ -100,7 +93,7 @@ class Fallacy extends Component {
 	}
 
 	captureScreenshot() {
-		const { createdAt, fallacyName, refId, user } = this.props
+		const { createdAt, fallacyName, id, refId, user } = this.props
 		const filename = `${fallacyName}-by-${user.name}-${createdAt}`
 		let duration = ""
 		let scale = 2
@@ -109,7 +102,7 @@ class Fallacy extends Component {
 			this.props.toggleCreateMode()
 			this.props.createVideoFallacy({
 				fallacyName: this.props.fallacyName,
-				id: this.props.id,
+				id,
 				original: this.props.originalPayload,
 				refId
 			})
@@ -122,7 +115,7 @@ class Fallacy extends Component {
 			this.props.createVideoFallacy({
 				contradiction: this.props.contradictionPayload,
 				duration,
-				id: this.props.id,
+				id,
 				img: "",
 				original: this.props.originalPayload,
 				refId
@@ -154,7 +147,7 @@ class Fallacy extends Component {
 				let img = canvas.toDataURL("image/png")
 
 				this.props.saveScreenshot({
-					id: this.props.id,
+					id,
 					img,
 					slug: this.props.slug
 				})
@@ -189,7 +182,7 @@ class Fallacy extends Component {
 				this.props.createVideoFallacy({
 					contradiction: this.props.contradictionPayload,
 					duration,
-					id: this.props.id,
+					id,
 					img: newImg,
 					original: this.props.originalPayload,
 					refId
@@ -222,12 +215,7 @@ class Fallacy extends Component {
 			this.setState({ id: newId })
 		}
 
-		let tab = newProps.match.params.tab
-		if (!this.state.tabs.includes(tab)) {
-			tab = "material"
-		}
 		this.setState({
-			activeItem: tab,
 			exportArticle: newProps.refId > 8 ? "comment" : "tweet",
 			exportOpt: newProps.canMakeVideo ? "video" : "screenshot"
 		})
@@ -236,11 +224,6 @@ class Fallacy extends Component {
 	handleExportChange = (e, { value }) => this.setState({ exportOpt: value })
 
 	handleHide = () => this.setState({ active: false })
-
-	handleItemClick = (e, { name }) => {
-		this.setState({ activeItem: name })
-		this.props.history.push(`/fallacies/${this.state.id}/${name}`)
-	}
 
 	handleShow = () => this.setState({ active: true })
 
@@ -264,7 +247,6 @@ class Fallacy extends Component {
 	render() {
 		const {
 			active,
-			activeItem,
 			bearer,
 			downloading,
 			exportArticle,
@@ -282,176 +264,120 @@ class Fallacy extends Component {
 			userLink = `/pages/${user.type}/${user.type === "twitter" ? user.username : user.id}`
 		}
 
-		const ContactUser = props => {
-			if (props.user) {
-				return (
-					<div className="statusActionSegment">
-						<Header size="tiny">
-							Let <Link to={userLink}>{props.user.name}</Link> know that this
-							reasoning doesn't make sense
-						</Header>
-						{props.user.type === "twitter" && (
-							<TwitterShareButton
-								className="twitterButton ui icon button"
-								title={props.pageTitle}
-								url={`${window.location.origin}/fallacies/${id}`}
-							>
-								<Icon name="twitter" /> Tweet @{props.user.username}
-							</TwitterShareButton>
-						)}
-						{props.user.type === "youtube" && (
-							<Button
-								className="youtubeButton"
-								icon
-								onClick={() =>
-									window.open(
-										`https://youtube.com/channel/${props.user.id}`,
-										"_blank"
-									)
-								}
-							>
-								<Icon name="youtube" /> {props.user.name}
-							</Button>
-						)}
-					</div>
-				)
+		const CommentsSection = props => {
+			const DisqusConfig = {
+				identifier: props.id,
+				title: props.title,
+				url: `https://blather.io/fallacies/${props.slug}`
 			}
-			return null
+			return (
+				<div className="commentsContent">
+					<Header dividing size="large">
+						Comments
+					</Header>
+					<Disqus.DiscussionEmbed config={DisqusConfig} shortname="blather-1" />
+				</div>
+			)
 		}
 
-		const content = (
-			<div>
-				<Header as="h2" inverted>
-					Screenshot
-				</Header>
-				<Icon color="green" name="download" size="big" />
-			</div>
-		)
-
-		const ExportSection = props => (
-			<div className="exportSection">
-				<Header as="h3" dividing>
-					Export Options
-				</Header>
-				{props.id && (
-					<div>
-						{props.s3Link && props.canMakeVideo ? (
-							<ReactPlayer className="exportEmbed" controls url={props.s3Link} />
-						) : (
-							<div>
-								{props.canScreenshot ? (
+		const ExportSection = (props, side) => {
+			const content = (
+				<div>
+					<Header as="h2" inverted>
+						Screenshot
+					</Header>
+					<Icon color="green" name="download" size="big" />
+				</div>
+			)
+			return (
+				<div className="exportSection">
+					{side === "left" && (
+						<Header dividing size="large">
+							Export Options
+						</Header>
+					)}
+					{props.id && (
+						<div>
+							{props.canScreenshot ? (
+								<Form>
+									<Form.Field>
+										<Radio
+											checked={exportOpt === "screenshot"}
+											label={`Screenshot just the ${exportArticle}(s)`}
+											name="exportOption"
+											onChange={this.handleExportChange}
+											value="screenshot"
+										/>
+									</Form.Field>
+									<Form.Field>
+										<Radio
+											checked={exportOpt === "screenshotAll"}
+											label={`Screenshot the ${exportArticle}(s) plus the explanation`}
+											name="exportOption"
+											onChange={this.handleExportChange}
+											value="screenshotAll"
+										/>
+									</Form.Field>
+								</Form>
+							) : (
+								<div>
 									<Form>
 										<Form.Field>
 											<Radio
-												checked={exportOpt === "screenshot"}
-												label={`Screenshot just the ${exportArticle}(s)`}
+												checked={exportOpt === "video"}
+												disabled={!props.canMakeVideo}
+												label="Download a video"
 												name="exportOption"
 												onChange={this.handleExportChange}
-												value="screenshot"
-											/>
-										</Form.Field>
-										<Form.Field>
-											<Radio
-												checked={exportOpt === "screenshotAll"}
-												label={`Screenshot the ${exportArticle}(s) plus the explanation`}
-												name="exportOption"
-												onChange={this.handleExportChange}
-												value="screenshotAll"
+												value="video"
 											/>
 										</Form.Field>
 									</Form>
-								) : (
-									<div>
-										<Form>
-											<Form.Field>
-												<Radio
-													checked={exportOpt === "video"}
-													disabled={!props.canMakeVideo}
-													label="Download a video"
-													name="exportOption"
-													onChange={this.handleExportChange}
-													value="video"
-												/>
-											</Form.Field>
-										</Form>
-										{!props.canMakeVideo && (
-											<Message
-												content="A time frame in the video(s) must be specified that is 60 seconds or less"
-												header="This clip is too large to make a video"
-												warning
-											/>
-										)}
-									</div>
-								)}
-								{props.canMakeVideo || props.canScreenshot ? (
-									<Button
-										className="downloadBtn"
-										color="green"
-										content={`Create ${
-											props.canMakeVideo ? "video" : "screenshot"
-										}`}
-										icon={props.canMakeVideo ? "film" : "camera"}
-										loading={props.creating}
-										onClick={this.captureScreenshot}
-									/>
-								) : null}
-								{props.s3Link && props.canScreenshot ? (
-									<div>
-										<Dimmer.Dimmable
-											as={Image}
-											bordered
-											className="downloadDimmer"
-											dimmed={active}
-											dimmer={{ active, content }}
-											onClick={() => window.open(props.s3Link, "_blank")}
-											onMouseEnter={this.handleShow}
-											onMouseLeave={this.handleHide}
-											rounded
-											size="big"
-											src={props.s3Link}
+									{!props.canMakeVideo && (
+										<Message
+											content="A time frame in the video(s) must be specified that is 60 seconds or less"
+											header="This clip is too large to make a video"
+											warning
 										/>
-									</div>
-								) : null}
-							</div>
-						)}
-					</div>
-				)}
-			</div>
-		)
+									)}
+								</div>
+							)}
 
-		const FallacyMenu = props => (
-			<Menu className="fallacyMainMenu" fluid pointing secondary stackable>
-				<Menu.Item
-					active={activeItem === "material"}
-					name="material"
-					onClick={this.handleItemClick}
-				/>
-				<Menu.Item
-					active={activeItem === "similar"}
-					name="similar"
-					onClick={this.handleItemClick}
-				>
-					Similar {""}
-					{props.similarCount > 0 && (
-						<Label color="blue" horizontal>
-							{props.similarCount}
-						</Label>
+							{props.canMakeVideo || props.canScreenshot ? (
+								<Button
+									className="downloadBtn"
+									color="green"
+									content={`Create ${
+										props.canMakeVideo ? "video" : "screenshot"
+									}`}
+									fluid={side === "right"}
+									icon={props.canMakeVideo ? "film" : "camera"}
+									loading={props.creating}
+									onClick={this.captureScreenshot}
+								/>
+							) : null}
+							{props.s3Link && props.canScreenshot ? (
+								<div>
+									<Dimmer.Dimmable
+										as={Image}
+										bordered
+										className="downloadDimmer"
+										dimmed={active}
+										dimmer={{ active, content }}
+										onClick={() => window.open(props.s3Link, "_blank")}
+										onMouseEnter={this.handleShow}
+										onMouseLeave={this.handleHide}
+										rounded
+										size="big"
+										src={props.s3Link}
+									/>
+								</div>
+							) : null}
+						</div>
 					)}
-				</Menu.Item>
-				<Menu.Item
-					active={activeItem === "comments"}
-					name="comments"
-					onClick={this.handleItemClick}
-				>
-					Comments
-				</Menu.Item>
-				<Menu.Item
-					active={activeItem === "reference"}
-					name="reference"
-					onClick={this.handleItemClick}
-				/>
-			</Menu>
-		)
+				</div>
+			)
+		}
 
 		const FallacyTitle = ({ props }) => {
 			if (props.id) {
@@ -459,7 +385,7 @@ class Fallacy extends Component {
 					<div>
 						{props.createdBy && (
 							<div>
-								<Icon name="clock outline" />{" "}
+								Created{" "}
 								<Moment
 									date={adjustTimezone(props.createdAt)}
 									fromNow
@@ -477,6 +403,7 @@ class Fallacy extends Component {
 					<TitleHeader
 						bearer={bearer}
 						canEdit={canEdit}
+						dividing
 						id={id}
 						subheader={subheader}
 						title={props.title}
@@ -486,6 +413,59 @@ class Fallacy extends Component {
 			}
 			return null
 		}
+
+		const MaterialSection = props => {
+			return (
+				<div className="materialWrapper">
+					{props.id ? (
+						<div>
+							{props.canScreenshot ? (
+								<FallacyExample
+									bearer={bearer}
+									canEdit={canEdit}
+									downloading={downloading}
+									exportOpt={exportOpt}
+									history={props.history}
+									id={id}
+								/>
+							) : (
+								<div>
+									{props.id && (
+										<div>
+											{props.s3Link && props.canMakeVideo ? (
+												<ReactPlayer
+													className="exportEmbed"
+													controls
+													url={props.s3Link}
+												/>
+											) : (
+												<Image centered size="large" src={ImagePic} />
+											)}
+										</div>
+									)}
+								</div>
+							)}
+							<canvas id="materialCanvas" />
+						</div>
+					) : (
+						<LazyLoad header={false} />
+					)}
+				</div>
+			)
+		}
+
+		const ReferenceSection = (
+			<div className="fallacyContent">
+				<Header dividing size="large">
+					Reference
+				</Header>
+				{this.props.id ? (
+					<FallacyRef canScreenshot={false} id={this.props.fallacyId} />
+				) : (
+					<LazyLoad header={false} />
+				)}
+			</div>
+		)
 
 		const RetractionSegment = props => (
 			<div>
@@ -526,15 +506,7 @@ class Fallacy extends Component {
 												props.user.name
 											} a grifter or just naive?`}
 										/>
-										<Divider />
 										<p>
-											<Image
-												avatar
-												bordered
-												circular
-												onError={i => (i.target.src = ImagePic)}
-												src={props.user.img}
-											/>{" "}
 											<b>
 												<Link to={userLink}>{props.user.name}</Link> still
 												hasn't admitted to using erroneous logic
@@ -549,97 +521,82 @@ class Fallacy extends Component {
 			</div>
 		)
 
-		const ShareButtons = (
-			<List className="shareList" horizontal>
-				<List.Item>
-					<FacebookShareButton url={`${window.location.origin}/fallacies/${id}`}>
-						<FacebookIcon round size="35" />
-					</FacebookShareButton>
-				</List.Item>
-				<List.Item>
-					<RedditShareButton url={`${window.location.origin}/fallacies/${id}`}>
-						<RedditIcon round size="35" />
-					</RedditShareButton>
-				</List.Item>
-			</List>
-		)
+		const ShareSection = useHeader => {
+			return (
+				<div className="shareContent">
+					{useHeader && (
+						<Header dividing size="large">
+							Share
+						</Header>
+					)}
+					{this.props.id ? (
+						<List className="shareList" horizontal>
+							<List.Item>
+								<TwitterShareButton
+									title={this.props.pageTitle}
+									url={`${window.location.origin}/fallacies/${id}`}
+								>
+									<TwitterIcon round size={35} />
+								</TwitterShareButton>
+							</List.Item>
+							<List.Item>
+								<FacebookShareButton
+									url={`${window.location.origin}/fallacies/${id}`}
+								>
+									<FacebookIcon round size={35} />
+								</FacebookShareButton>
+							</List.Item>
+							<List.Item>
+								<RedditShareButton
+									url={`${window.location.origin}/fallacies/${id}`}
+								>
+									<RedditIcon round size={35} />
+								</RedditShareButton>
+							</List.Item>
+						</List>
+					) : (
+						<LazyLoad header={false} />
+					)}
+				</div>
+			)
+		}
 
-		const MaterialRow = (
-			<div className="materialRow">
-				{this.props.id && (
-					<div>
-						<Grid.Row>{ExportSection(this.props)}</Grid.Row>
-						<Divider className="seperator" />
-						<Grid.Row>{RetractionSegment(this.props)}</Grid.Row>
-						{!this.props.retracted && (
-							<div>
-								<Divider className="seperator" />
-								<Grid.Row>{ContactUser(this.props)}</Grid.Row>
-								{ShareButtons}
-							</div>
-						)}
-					</div>
-				)}
+		const SimilarSection = (
+			<div className="similarContent">
+				<Header dividing size="large">
+					Similar
+				</Header>
+				<FallaciesList
+					emptyMsgContent="There are no similar fallacies"
+					fallacyId={this.props.fallacyId}
+					history={this.props.history}
+					icon="warning sign"
+					source="fallacy"
+					useCards
+				/>
 			</div>
 		)
 
-		const DisqusConfig = {
-			identifier: this.props.id,
-			title: this.props.title,
-			url: `https://blather.io/fallacies/${this.props.slug}`
-		}
-
-		const ShowContent = ({ props }) => {
-			switch (activeItem) {
-				case "comments":
-					return (
-						<Segment basic className="commentsContent">
-							<Disqus.DiscussionEmbed config={DisqusConfig} shortname="blather-1" />
-						</Segment>
-					)
-				case "similar":
-					if (props.fallacyId) {
-						return (
-							<Segment basic className="similarFallaciesSegment">
-								<FallaciesList
-									emptyMsgContent="There are no similar fallacies"
-									fallacyId={props.fallacyId}
-									history={props.history}
-									icon="warning sign"
-									source="fallacy"
-								/>
-							</Segment>
-						)
-					}
-					return null
-				case "reference":
-					return (
-						<div className="fallacyContent">
-							<FallacyRef id={props.fallacyId} />
-						</div>
-					)
-				default:
-					return null
-			}
-		}
-
-		const ShowMaterial = props => {
-			if (activeItem === "material") {
-				return (
-					<div className="materialWrapper">
-						<FallacyExample
-							bearer={bearer}
-							canEdit={canEdit}
-							downloading={downloading}
-							exportOpt={exportOpt}
-							history={props.history}
-							id={id}
-						/>
-						<canvas id="materialCanvas" />
-					</div>
-				)
-			}
-			return null
+		const SourcesSection = props => {
+			const refId = props.refId
+			const rawSources = refId === 3 || refId === 6 || refId === 8
+			return (
+				<div className="sourcesContent">
+					<Header dividing size="large">
+						Sources
+					</Header>
+					<FallacyExample
+						bearer={bearer}
+						canEdit={canEdit}
+						downloading={downloading}
+						exportOpt={exportOpt}
+						history={this.props.history}
+						id={id}
+						rawSources={!rawSources}
+						showExplanation={false}
+					/>
+				</div>
+			)
 		}
 
 		return (
@@ -649,28 +606,56 @@ class Fallacy extends Component {
 					<PageHeader {...this.props} />
 					{!this.props.error ? (
 						<Container className="mainContainer" textAlign="left">
+							<FallacyTitle props={this.props} />
 							<Responsive maxWidth={1024}>
 								<Grid className="fallacyGrid">
+									<Grid.Row>{MaterialSection(this.props)}</Grid.Row>
+									<Grid.Row>{SourcesSection(this.props)}</Grid.Row>
+									{this.props.id && (
+										<Grid.Row>
+											<Grid.Row>{RetractionSegment(this.props)}</Grid.Row>
+										</Grid.Row>
+									)}
+									<Grid.Row>{ReferenceSection}</Grid.Row>
 									<Grid.Row>
-										<FallacyTitle props={this.props} />
+										{ShareSection(true)}
+										<Statistic
+											horizontal
+											label="Views"
+											value={this.props.viewCount}
+										/>
 									</Grid.Row>
-									<Grid.Row>{FallacyMenu(this.props)}</Grid.Row>
-									<Grid.Row>
-										{ShowMaterial(this.props)}
-										<ShowContent props={this.props} />
-									</Grid.Row>
-									{activeItem === "material" && MaterialRow}
+									<Grid.Row>{CommentsSection(this.props)}</Grid.Row>
+									<Grid.Row>{SimilarSection}</Grid.Row>
 								</Grid>
 							</Responsive>
 
 							<Responsive minWidth={1025}>
-								<FallacyTitle props={this.props} />
-								{FallacyMenu(this.props)}
 								<Grid className="fallacyGrid">
-									<Grid.Column className="leftSide" width={16}>
-										{ShowMaterial(this.props)}
-										<ShowContent props={this.props} />
-										{activeItem === "material" && MaterialRow}
+									<Grid.Column className="leftSide" width={12}>
+										{MaterialSection(this.props)}
+										{SourcesSection(this.props)}
+										{ReferenceSection}
+										{CommentsSection(this.props)}
+										{SimilarSection}
+									</Grid.Column>
+									<Grid.Column className="rightSide" width={4}>
+										{this.props.id ? (
+											<div>
+												<Segment className="exportContainer">
+													{ExportSection(this.props, "right")}
+												</Segment>
+												{RetractionSegment(this.props)}
+												<Statistic
+													horizontal
+													label="Views"
+													value={this.props.viewCount}
+												/>
+												{ShareSection(false)}
+											</div>
+										) : (
+											<LazyLoad header={false} />
+										)}
 									</Grid.Column>
 								</Grid>
 							</Responsive>

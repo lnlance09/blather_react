@@ -294,6 +294,11 @@ class FallacyExample extends Component {
 					</Segment>
 				)
 			}
+
+			if (!props.showExplanation) {
+				return false
+			}
+
 			return <LazyLoad header={false} />
 		}
 		const FeaturedInVideo = (video, props) => {
@@ -332,19 +337,28 @@ class FallacyExample extends Component {
 			>
 				{props.user ? (
 					<div>
-						{props.downloading && props.exportOpt === "screenshot"
-							? WatermarkLabel(props)
-							: null}
-						{ParseMaterial(props)}
-						{props.contradiction && (
+						{props.rawSources && !props.canEdit ? (
+							<List className="sourceList">
+								{ParseMaterial(props)}
+								{props.contradiction && ParseMaterial(props, true)}
+							</List>
+						) : (
 							<div>
-								{ShowDateDifference(props)}
-								{ParseMaterial(props, true)}
+								{props.downloading && props.exportOpt === "screenshot"
+									? WatermarkLabel(props)
+									: null}
+								{ParseMaterial(props)}
+								{props.contradiction && (
+									<div>
+										{ShowDateDifference(props)}
+										{ParseMaterial(props, true)}
+									</div>
+								)}
 							</div>
 						)}
 					</div>
 				) : (
-					<LazyLoad />
+					<LazyLoad header={!props.rawSources} />
 				)}
 			</div>
 		)
@@ -354,6 +368,21 @@ class FallacyExample extends Component {
 				material = props.contradiction
 			}
 			if (material.tweet) {
+				if (props.rawSources && !props.canEdit) {
+					const tweetLink = `https://twitter.com/${
+						material.tweet.user.screen_name
+					}/status/${material.tweet.id_str}`
+					return (
+						<List.Item>
+							<List.Icon className="twitterIcon" name="twitter" />
+							<List.Content>
+								<a href={tweetLink} rel="noopener noreferrer" target="_blank">
+									{tweetLink}
+								</a>
+							</List.Content>
+						</List.Item>
+					)
+				}
 				return (
 					<div id={`tweet${contradiction ? "Contradiction" : "Original"}`}>
 						<Tweet
@@ -399,6 +428,19 @@ class FallacyExample extends Component {
 			}
 
 			if (material.video) {
+				if (props.rawSources && !props.canEdit) {
+					const videoLink = `https://www.youtube.com/watch?v=${material.video.id}`
+					return (
+						<List.Item>
+							<List.Icon className="youtubeIcon" name="youtube" />
+							<List.Content>
+								<a href={videoLink} rel="noopener noreferrer" target="_blank">
+									{videoLink}
+								</a>
+							</List.Content>
+						</List.Item>
+					)
+				}
 				return (
 					<div>
 						<YouTubeVideo
@@ -485,8 +527,8 @@ class FallacyExample extends Component {
 
 		return (
 			<Segment basic className="fallacyExample" id="fallacyExample">
-				{Explanation(this.props)}
 				{Material(this.props)}
+				{Explanation(this.props)}
 			</Segment>
 		)
 	}
@@ -498,6 +540,7 @@ FallacyExample.propTypes = {
 	downloading: PropTypes.bool,
 	editExplanation: PropTypes.func,
 	exportOpt: PropTypes.string,
+	rawSources: PropTypes.bool,
 	showExplanation: PropTypes.bool
 }
 
@@ -505,6 +548,7 @@ FallacyExample.defaultProps = {
 	canEdit: false,
 	downloading: false,
 	editExplanation,
+	rawSources: false,
 	showExplanation: true
 }
 

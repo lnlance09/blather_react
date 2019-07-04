@@ -288,7 +288,7 @@ a {
 
 /* Fallacy page */
 .fallacyPage .fallacyGrid {
-  margin-top: 0 !important; }
+  margin-top: 20px !important; }
   .fallacyPage .fallacyGrid .leftSide, .fallacyPage .fallacyGrid .rightSide {
     padding: 0 12px !important; }
   .fallacyPage .fallacyGrid .materialWrapper {
@@ -300,49 +300,46 @@ a {
     width: 100%; }
   .fallacyPage .fallacyGrid .divider.seperator {
     margin: 1rem 0 !important; }
-  .fallacyPage .fallacyGrid .statusActionSegment {
-    text-align: center; }
-    .fallacyPage .fallacyGrid .statusActionSegment .youtubeButton {
-      background: #ff0000 !important;
-      color: #FFFFFF;
-      margin-top: 0 !important;
-      text-shadow: none; }
-      .fallacyPage .fallacyGrid .statusActionSegment .youtubeButton:hover {
-        background: #e60000 !important; }
-    .fallacyPage .fallacyGrid .statusActionSegment .twitterButton {
-      background: #0084b4;
-      color: #FFFFFF;
-      text-shadow: none; }
-      .fallacyPage .fallacyGrid .statusActionSegment .twitterButton:hover {
-        background: #00719b; }
   .fallacyPage .fallacyGrid .callToSignUp {
     margin-top: 10px; }
   .fallacyPage .fallacyGrid .shareList {
-    margin-top: 30px;
-    text-align: center;
     width: 100%; }
 
-.fallacyPage .fallacyMainMenu {
-  margin: 6px 0 10px 0; }
-
-.fallacyPage .commentsContent {
-  padding: 0;
-  width: 100%; }
+.fallacyPage .exportEmbed {
+  display: inline;
+  text-align: center; }
 
 .fallacyPage .exportSection {
   margin-top: 16px; }
   .fallacyPage .exportSection .downloadBtn {
     margin-top: 16px; }
-  .fallacyPage .exportSection .exportEmbed {
-    display: inline;
-    text-align: center; }
   .fallacyPage .exportSection .downloadDimmer {
     cursor: pointer;
     margin-top: 16px; }
 
-.fallacyPage .similarFallaciesSegment {
-  padding: 0 !important;
+.fallacyPage .exportContainer .exportSection {
+  margin-top: 0; }
+
+.fallacyPage .shareContent {
   width: 100%; }
+
+.fallacyPage .sourcesContent {
+  margin-top: 30px;
+  width: 100%; }
+
+.fallacyPage .fallacyContent {
+  margin-top: 30px;
+  width: 100%; }
+
+.fallacyPage .similarContent {
+  margin-top: 30px;
+  width: 100%; }
+
+.fallacyPage .commentsContent {
+  margin-top: 15px;
+  width: 100%; }
+  .fallacyPage .commentsContent .comment-policy {
+    margin-top: 0 !important; }
 
 .fallacyPage canvas {
   display: none;
@@ -351,9 +348,7 @@ a {
 
 @media only screen and (max-width: 1025px) {
   .fallacyPage .mainContainer .ui.grid {
-    margin: 0 !important; }
-  .fallacyPage .ui.header {
-    font-size: 16px; }
+    margin: 10px 0 !important; }
   .fallacyPage .statusActionSegment .header {
     font-size: 14px !important; }
   .fallacyPage .statusActionSegment .twitterButton, .fallacyPage .statusActionSegment .youtubeButton {
