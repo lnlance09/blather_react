@@ -21,25 +21,28 @@ class Home extends Component {
 		const user = currentState.user
 		const auth = user.authenticated
 		const bearer = user.bearer
+		const url = "https://twitter.com/realDonaldTrump/status/425115530325131264"
 
 		this.state = {
 			auth,
 			bearer,
 			endTime: "",
+			formVisible: true,
 			highlightedText: "",
 			startTime: "",
 			type: null,
-			url: "",
+			url,
 			user
 		}
+
+		this.props.getPostFromUrl({
+			bearer: this.state.bearer,
+			url
+		})
 
 		this.handleHoverOn = this.handleHoverOn.bind(this)
 		this.onKeyUp = this.onKeyUp.bind(this)
 		this.onPaste = this.onPaste.bind(this)
-	}
-
-	componentDidMount() {
-		this.setState({ formVisible: true })
 	}
 
 	handleHoverOn = e => {
