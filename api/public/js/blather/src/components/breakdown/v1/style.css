@@ -19,7 +19,8 @@
         .breakdown .breakdownSegment .percentages .fallacyPercentage .progress {
           margin-bottom: 0; }
           .breakdown .breakdownSegment .percentages .fallacyPercentage .progress .bar {
-            background: #2185D0; }
+            background: #2185D0;
+            min-width: 50px; }
             .breakdown .breakdownSegment .percentages .fallacyPercentage .progress .bar .progress {
               color: #FFFFFF; }
           .breakdown .breakdownSegment .percentages .fallacyPercentage .progress .label {
