@@ -172,10 +172,11 @@ a {
 
 .heroLogo {
     display: inline;
-    fill: $red;
+    fill: $blue;
     height: 140px;
     line-height: 4;
     margin-top: 15px;
+    opacity: 0.7;
     text-align: center;
     vertical-align: middle;
 }

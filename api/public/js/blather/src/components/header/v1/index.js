@@ -183,7 +183,7 @@ class Header extends Component {
 							/>
 							<Button
 								className="sidebarSearchBtn"
-								color="blue"
+								color="green"
 								content="Search"
 								fluid
 								icon="search"
