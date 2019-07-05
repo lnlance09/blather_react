@@ -163,9 +163,9 @@ const fallacy = (state = initial(), action) => {
 				type: fallacy.page_type,
 				username: fallacy.page_username
 			}
-			const pageTitle = `@${user.username} ${fallacy.title} - ${fallacy.fallacy_name} by ${
-				user.name
-			}`
+			const pageTitle = `${fallacy.page_type === "twitter" ? `@${user.username} ` : ""}${
+				fallacy.title
+			} - ${fallacy.fallacy_name} by ${user.name}`
 
 			/* Determine what kind of export can be made */
 			const refId = fallacy.ref_id
