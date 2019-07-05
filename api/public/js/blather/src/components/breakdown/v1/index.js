@@ -65,7 +65,7 @@ class Breakdown extends Component {
 		const RenderFallacies = () => {
 			return options.map((result, i) => {
 				if (result.key) {
-					const percent = parseInt((result.count / this.props.count) * 100, 10)
+					const percent = ((result.count / this.props.count) * 100).toPrecision(2)
 					return (
 						<div
 							className={`fallacyPercentage ${this.props.network}`}
