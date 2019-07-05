@@ -183,7 +183,6 @@ class Header extends Component {
 							/>
 							<Button
 								className="sidebarSearchBtn"
-								color="green"
 								content="Search"
 								fluid
 								icon="search"
@@ -191,6 +190,7 @@ class Header extends Component {
 									this.setState({ visible: false })
 									this.props.history.push(`/search?q=${value}`)
 								}}
+								secondary
 							/>
 						</Menu.Item>
 						{!this.props.authenticated ? (
@@ -202,14 +202,12 @@ class Header extends Component {
 										onClick={() =>
 											this.props.history.push("/signin?type=signin")
 										}
-										primary
 									/>
 									<Button.Or />
 									<Button
 										color="green"
 										content="Join"
 										onClick={() => this.props.history.push("/signin?type=join")}
-										secondary
 									/>
 								</Button.Group>
 							</Menu.Item>
