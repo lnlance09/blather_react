@@ -107,7 +107,10 @@ class Breakdown extends Component {
 										this.props.name
 									}'s partisanship, logical consistency, and intellectual honesty`}
 									header="How reputable is this source?"
+									icon="question"
 								/>
+
+								<Divider />
 
 								{options.length > 0 ? (
 									<Segment basic className="percentages">
@@ -117,6 +120,8 @@ class Breakdown extends Component {
 									<Message content="No fallacies have been assigned" />
 								)}
 							</Segment>
+
+							<Divider />
 
 							<Segment basic className="questionnaire">
 								{placeholder.id && (
