@@ -527,7 +527,7 @@ class FallacyExample extends Component {
 
 		return (
 			<Segment basic className="fallacyExample" id="fallacyExample">
-				{Material(this.props)}
+				{this.props.showMaterial && Material(this.props)}
 				{Explanation(this.props)}
 			</Segment>
 		)
@@ -541,7 +541,8 @@ FallacyExample.propTypes = {
 	editExplanation: PropTypes.func,
 	exportOpt: PropTypes.string,
 	rawSources: PropTypes.bool,
-	showExplanation: PropTypes.bool
+	showExplanation: PropTypes.bool,
+	showMaterial: PropTypes.bool
 }
 
 FallacyExample.defaultProps = {
@@ -549,7 +550,8 @@ FallacyExample.defaultProps = {
 	downloading: false,
 	editExplanation,
 	rawSources: false,
-	showExplanation: true
+	showExplanation: true,
+	showMaterial: true
 }
 
 const mapStateToProps = (state, ownProps) => ({
