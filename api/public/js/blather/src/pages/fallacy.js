@@ -574,21 +574,26 @@ class Fallacy extends Component {
 			)
 		}
 
-		const SimilarSection = (
-			<div className="similarContent">
-				<Header dividing size="large">
-					Similar
-				</Header>
-				<FallaciesList
-					emptyMsgContent="There are no similar fallacies"
-					fallacyId={this.props.fallacyId}
-					history={this.props.history}
-					icon="warning sign"
-					source="fallacy"
-					useCards
-				/>
-			</div>
-		)
+		const SimilarSection = props => {
+			if (props.id) {
+				return (
+					<div className="similarContent">
+						<Header dividing size="large">
+							More examples of <i>{props.fallacyName}</i>
+						</Header>
+						<FallaciesList
+							emptyMsgContent="There are no similar fallacies"
+							fallacyId={props.fallacyId}
+							history={props.history}
+							icon="warning sign"
+							source="fallacy"
+							useCards
+						/>
+					</div>
+				)
+			}
+			return null
+		}
 
 		const SourcesSection = props => {
 			const refId = props.refId
@@ -634,7 +639,7 @@ class Fallacy extends Component {
 										/>
 									</Grid.Row>
 									<Grid.Row>{CommentsSection(this.props)}</Grid.Row>
-									<Grid.Row>{SimilarSection}</Grid.Row>
+									<Grid.Row>{SimilarSection(this.props)}</Grid.Row>
 								</Grid>
 							</Responsive>
 
@@ -645,7 +650,7 @@ class Fallacy extends Component {
 										{SourcesSection(this.props)}
 										{ReferenceSection}
 										{CommentsSection(this.props)}
-										{SimilarSection}
+										{SimilarSection(this.props)}
 									</Grid.Column>
 									<Grid.Column className="rightSide" width={4}>
 										{this.props.id ? (
