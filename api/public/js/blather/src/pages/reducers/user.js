@@ -22,6 +22,7 @@ const pageUser = (state = initial(), action) => {
 				user: {
 					archiveCount: payload.user.archive_count,
 					bio: payload.user.bio,
+					dateCreated: payload.user.date_created,
 					discussionCount: payload.user.discussion_count,
 					emailVerified: payload.user.emailVerified === "1",
 					fallacyCount: payload.user.fallacy_count,

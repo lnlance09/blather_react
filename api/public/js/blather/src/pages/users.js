@@ -21,6 +21,7 @@ import ArchivesList from "components/archivesList/v1/"
 import Dropzone from "react-dropzone"
 import FallaciesList from "components/fallaciesList/v1/"
 import ImagePic from "images/image-square.png"
+import Moment from "react-moment"
 import PageFooter from "components/footer/v1/"
 import PageHeader from "components/header/v1/"
 import PropTypes from "prop-types"
@@ -265,6 +266,11 @@ class UserPage extends Component {
 							)}
 							<div className="userHeaderSection">
 								<TitleHeader subheader={`@${user.username}`} title={user.name} />
+								{this.props.user.id && (
+									<span className="joinDate">
+										Joined <Moment date={user.dateCreated} fromNow />
+									</span>
+								)}
 							</div>
 
 							{UserMenu(this.props)}
@@ -295,6 +301,7 @@ UserPage.propTypes = {
 	user: PropTypes.shape({
 		archiveCount: PropTypes.number,
 		bio: PropTypes.string,
+		dateCreated: PropTypes.string,
 		discussionCount: PropTypes.number,
 		emailVerified: PropTypes.bool,
 		fallacyCount: PropTypes.number,

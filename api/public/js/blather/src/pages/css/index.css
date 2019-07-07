@@ -609,6 +609,10 @@ a {
   text-align: center; }
   .usersPage .userHeaderSection p {
     margin-top: 15px; }
+  .usersPage .userHeaderSection .joinDate {
+    color: #767676;
+    display: inline-block;
+    margin-top: 5px; }
 
 @media only screen and (max-width: 1025px) {
   .usersPage .userContentRow {
@@ -629,6 +633,7 @@ a {
   height: 220px;
   width: auto !important; }
   .usersPage .profilePic img {
+    height: 220px;
     text-align: center;
     width: 220px; }
   .usersPage .profilePic.default {
