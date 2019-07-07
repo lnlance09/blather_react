@@ -237,7 +237,7 @@
 
 		public function getInfo() {
 			$username = $this->input->get('username');
-			$select = "bio, email_verified AS emailVerified, u.id AS id, CONCAT('".$this->s3Path."', u.img) AS img, linked_twitter AS linkedTwitter, linked_youtube AS linkedYoutube, name, username";
+			$select = "bio, date_created, email_verified AS emailVerified, u.id AS id, CONCAT('".$this->s3Path."', u.img) AS img, linked_twitter AS linkedTwitter, linked_youtube AS linkedYoutube, name, username";
 			$info = $this->users->getUserInfo($username, $select);
 
 			if (!$info) {
