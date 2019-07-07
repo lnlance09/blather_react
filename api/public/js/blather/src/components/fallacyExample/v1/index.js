@@ -229,11 +229,8 @@ class FallacyExample extends Component {
 		}
 		const Explanation = props => {
 			if (props.showExplanation && props.explanation) {
-				return (
-					<Segment
-						basic
-						className={`fallacyExplanation ${props.downloading ? "downloading" : ""}`}
-					>
+				const explanationEl = (
+					<div>
 						<Header as="h2" className="fallacyHeader" size="medium">
 							{props.fallacyName} <EditButton props={props} />
 							{props.downloading && props.exportOpt === "screenshotAll"
@@ -291,6 +288,29 @@ class FallacyExample extends Component {
 								/>
 							)}
 						</div>
+					</div>
+				)
+
+				if (props.exportOpt !== "screenshotAll") {
+					return (
+						<Segment
+							basic
+							className={`fallacyExplanation ${
+								props.downloading ? "downloading" : ""
+							}`}
+							data-html2canvas-ignore
+						>
+							{explanationEl}
+						</Segment>
+					)
+				}
+
+				return (
+					<Segment
+						basic
+						className={`fallacyExplanation ${props.downloading ? "downloading" : ""}`}
+					>
+						{explanationEl}
 					</Segment>
 				)
 			}
@@ -344,7 +364,9 @@ class FallacyExample extends Component {
 							</List>
 						) : (
 							<div>
-								{props.downloading && props.exportOpt === "screenshot"
+								{props.downloading &&
+								(props.exportOpt === "screenshot" ||
+									props.exportOpt === "screenshotAndRef")
 									? WatermarkLabel(props)
 									: null}
 								{ParseMaterial(props)}
