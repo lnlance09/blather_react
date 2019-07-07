@@ -592,7 +592,7 @@
     }
 ?>
 
-        <link rel="stylesheet" type="text/css" href="/static/css/main.b40c66df.chunk.css">
+        <link rel="stylesheet" type="text/css" href="/static/css/main.61d96d3e.chunk.css">
         <link rel="manifest" href="/manifest.json">
         <link rel="shortcut icon" href="/favicon.ico?v=3">
         <link rel="apple-touch-icon" sizes="128x128" href="/favicon.ico?v=3">
@@ -610,8 +610,8 @@
         </div>
     </body>
 
-    <script src="/static/js/1.5aef5b1a.chunk.js"></script>
-    <script src="/static/js/main.3350b511.chunk.js"></script>
+    <script src="/static/js/1.a3aee6ac.chunk.js"></script>
+    <script src="/static/js/main.ed6231ca.chunk.js"></script>
     <script src="/static/js/runtime~main.229c360f.js"></script>
 
 <?php
