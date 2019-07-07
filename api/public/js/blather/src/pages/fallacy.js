@@ -123,11 +123,7 @@ class Fallacy extends Component {
 			return
 		}
 
-		let el = "fallacyMaterial"
-		if (this.state.exportOpt === "screenshotAll") {
-			el = "fallacyExample"
-		}
-
+		let el = "materialWrapper"
 		if (this.props.canMakeVideo) {
 			duration = document.getElementById("fallacyDateDiff").textContent
 			el = this.props.screenshotEl
@@ -320,6 +316,15 @@ class Fallacy extends Component {
 											value="screenshotAll"
 										/>
 									</Form.Field>
+									<Form.Field>
+										<Radio
+											checked={exportOpt === "screenshotAndRef"}
+											label={`Screenshot the ${exportArticle}(s) plus the reference`}
+											name="exportOption"
+											onChange={this.handleExportChange}
+											value="screenshotAndRef"
+										/>
+									</Form.Field>
 								</Form>
 							) : (
 								<div>
@@ -418,18 +423,21 @@ class Fallacy extends Component {
 
 		const MaterialSection = props => {
 			return (
-				<div className="materialWrapper">
+				<div className="materialWrapper" id="materialWrapper">
 					{props.id ? (
 						<div>
 							{props.canScreenshot ? (
-								<FallacyExample
-									bearer={bearer}
-									canEdit={canEdit}
-									downloading={downloading}
-									exportOpt={exportOpt}
-									history={props.history}
-									id={id}
-								/>
+								<div>
+									<FallacyExample
+										bearer={bearer}
+										canEdit={canEdit}
+										downloading={downloading}
+										exportOpt={exportOpt}
+										history={props.history}
+										id={id}
+									/>
+									{ReferenceSection}
+								</div>
 							) : (
 								<div>
 									{props.id && (
@@ -469,11 +477,21 @@ class Fallacy extends Component {
 
 		const ReferenceSection = (
 			<div className="fallacyContent">
-				<Header dividing size="large">
+				<Header dividing size="large" data-html2canvas-ignore>
 					Reference
 				</Header>
 				{this.props.id ? (
-					<FallacyRef canScreenshot={false} id={this.props.fallacyId} />
+					<div>
+						{exportOpt !== "screenshotAndRef" ? (
+							<div data-html2canvas-ignore>
+								<FallacyRef canScreenshot={false} id={this.props.fallacyId} />
+							</div>
+						) : (
+							<div>
+								<FallacyRef canScreenshot={false} id={this.props.fallacyId} />
+							</div>
+						)}
+					</div>
 				) : (
 					<LazyLoad header={false} />
 				)}
@@ -629,7 +647,6 @@ class Fallacy extends Component {
 								<Grid className="fallacyGrid">
 									<Grid.Row>{MaterialSection(this.props)}</Grid.Row>
 									<Grid.Row>{SourcesSection(this.props)}</Grid.Row>
-									<Grid.Row>{ReferenceSection}</Grid.Row>
 									<Grid.Row>
 										{ShareSection(true)}
 										<Statistic
@@ -648,7 +665,6 @@ class Fallacy extends Component {
 									<Grid.Column className="leftSide" width={12}>
 										{MaterialSection(this.props)}
 										{SourcesSection(this.props)}
-										{ReferenceSection}
 										{CommentsSection(this.props)}
 										{SimilarSection(this.props)}
 									</Grid.Column>

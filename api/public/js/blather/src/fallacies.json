@@ -234,6 +234,25 @@
       ]
    },
    {
+      "id":"70",
+      "description":"A personal favorite amongst miserable people of all stripes, it is when one assumes that something is bad because it reduces suffering. Basically, I had to suffer so other people should have to suffer too.",
+      "name":"Appeal to Suffering",
+      "dialogue": [
+         {
+            "name": "Blathering Bill",
+            "message": "People who use vaccines need to be punished!"
+         },
+         {
+            "name": "Rational Rob",
+            "message": "I didn't know that you were an anti-vaxxer."
+         },
+         {
+            "name": "Blathering Bill",
+            "message": "Oh, I'm not. Vaccines work really well and that's the problem. My grandfather contracted polio as a kid and we both have nothing but disdain for these kids today who cheat biology by using vaccines. Kids today never had to suffer like my grandpa did so they can't appreciate what it's truly like to be healthy."
+         }
+      ]
+   },
+   {
       "id":"8",
       "description":"This form of argument tries to persaude the listener that an idea must be true because it has been believed or practiced for a long time.",
       "name":"Appeal to Tradition",
