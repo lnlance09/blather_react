@@ -449,19 +449,20 @@ class Fallacy extends Component {
 														controls
 														url={props.s3Link}
 													/>
-													<FallacyExample
-														bearer={bearer}
-														canEdit={canEdit}
-														downloading={downloading}
-														exportOpt={exportOpt}
-														history={this.props.history}
-														id={id}
-														showMaterial={false}
-													/>
 												</div>
 											) : (
 												<Image centered size="large" src={ImagePic} />
 											)}
+											<FallacyExample
+												bearer={bearer}
+												canEdit={canEdit}
+												downloading={downloading}
+												exportOpt={exportOpt}
+												history={props.history}
+												id={id}
+												showMaterial={false}
+											/>
+											{ReferenceSection}
 										</div>
 									)}
 								</div>
