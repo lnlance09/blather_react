@@ -71,7 +71,7 @@ export const DisplayMetaTags = ({ page, props, state }) => {
 			metaTags = {
 				description: "",
 				img,
-				title: "Call out bad reasoning"
+				title: "Assign a Logical Fallacy"
 			}
 			break
 		case "pages":
@@ -177,7 +177,7 @@ export const DisplayMetaTags = ({ page, props, state }) => {
 			break
 		default:
 			metaTags = {
-				description: description,
+				description,
 				img,
 				title: ""
 			}
