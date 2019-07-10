@@ -322,12 +322,8 @@
       "name":"Black or White",
       "dialogue": [
          {
-            "name": "Rational Rob",
-            "message": "I'm really converned that the new tax increases imposed by the federal government will make it harder for me to make ends meet."
-         },
-         {
             "name": "Blathering Bill",
-            "message": "America was built on the rule of law. If you don't like the new tax hikes then you can pack your bags and get the fuck out!"
+            "message": "There are two kinds of people in this world: people who recognize Nickelback as the greatest band to ever exist, and people who can't appreciate good music because they're low IQ scum fucks!"
          }
       ]
    },
