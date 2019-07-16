@@ -21,14 +21,15 @@ class Home extends Component {
 		const user = currentState.user
 		const auth = user.authenticated
 		const bearer = user.bearer
-		const url = "https://twitter.com/realDonaldTrump/status/425115530325131264"
+		const url = "https://twitter.com/realDonaldTrump/status/1150874781744607232"
 
 		this.state = {
 			auth,
 			bearer,
 			endTime: "",
+			fallacyId: "56",
 			formVisible: true,
-			highlightedText: "",
+			highlightedText: "IF YOU ARE NOT HAPPY HERE, YOU CAN LEAVE!",
 			startTime: "",
 			type: null,
 			url,
@@ -72,7 +73,7 @@ class Home extends Component {
 	}
 
 	render() {
-		const { auth, bearer, endTime, highlightedText, id, startTime, url, user } = this.state
+		const { auth, bearer, endTime, fallacyId, highlightedText, id, startTime, url, user } = this.state
 		const { info, mediaId, page, type } = this.props
 		const validPost = type === "tweet"
 
@@ -154,6 +155,7 @@ class Home extends Component {
 									bearer={bearer}
 									commentId={type === "comment" ? id : null}
 									endTime={endTime}
+									fallacyId={fallacyId}
 									handleSubmit={this.handleSubmit}
 									highlightedText={highlightedText}
 									history={this.props.history}

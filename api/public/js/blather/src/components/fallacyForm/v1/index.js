@@ -49,7 +49,7 @@ class FallacyForm extends Component {
 			explanation: "",
 			formVisible: false,
 			highlightedText: "",
-			id: "1",
+			id: this.props.fallacyId,
 			title: "",
 			url: "",
 			visible: true
@@ -619,6 +619,7 @@ FallacyForm.propTypes = {
 		id: PropTypes.number,
 		title: PropTypes.string
 	}),
+	fallacyId: PropTypes.string,
 	handleSubmit: PropTypes.func,
 	highlightedText: PropTypes.string,
 	modalOpen: PropTypes.bool,
@@ -649,6 +650,7 @@ FallacyForm.defaultProps = {
 	fallacy: {
 		contradiction: {}
 	},
+	fallacyId: "1",
 	handleSubmit: () => null,
 	modalOpen: false,
 	setContradictionBeginTime,
