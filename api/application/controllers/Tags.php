@@ -64,11 +64,11 @@
 
 			/*
 			if ($data['image_width'] !== $data['image_height']) {
-				$config['height'] = 220;
+				$config['height'] = 250;
 				$config['maintain_ratio'] = false;
 				$config['new_image'] = $path;
 				$config['source_image'] = $path;
-				$config['width'] = 220;
+				$config['width'] = 250;
 
 				$this->load->library('image_lib', $config);
 				$this->image_lib->resize();
