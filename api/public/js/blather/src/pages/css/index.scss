@@ -958,24 +958,24 @@ a {
 
     .profilePicContainer {
         text-align: center;
+    }
 
-        .profilePic {
+    .profilePic {
+        height: 250px;
+        margin-bottom: 12px;
+        width: auto !important;
+
+        img {
             height: 250px;
-            margin-bottom: 12px;
-            width: auto !important;
+            text-align: center;
+        }
 
-            img {
-                height: 250px;
-                text-align: center;
-            }
-
-            &.default {
-                background: $white;
-                height: 250px !important;
-                overflow: hidden;
-                padding: 7px;
-                width: 250px !important;
-            }
+        &.default {
+            background: $white;
+            height: 250px !important;
+            overflow: hidden;
+            padding: 7px;
+            width: 250px !important;
         }
     }
 
