@@ -265,7 +265,11 @@ class UserPage extends Component {
 								</Container>
 							)}
 							<div className="userHeaderSection">
-								<TitleHeader subheader={`@${user.username}`} title={user.name} />
+								<TitleHeader
+									subheader={`@${user.username}`}
+									textAlign="center"
+									title={user.name}
+								/>
 								{this.props.user.id && (
 									<span className="joinDate">
 										Joined <Moment date={user.dateCreated} fromNow />

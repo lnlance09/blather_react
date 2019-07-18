@@ -9,15 +9,19 @@ import { Link } from "react-router-dom"
 import {
 	Button,
 	Container,
+	Dimmer,
 	Form,
 	Header,
 	Icon,
 	Image,
 	List,
 	Menu,
+	Placeholder,
 	Segment,
 	TextArea
 } from "semantic-ui-react"
+import Dropzone from "react-dropzone"
+import ImagePic from "images/image-square.png"
 import Marked from "marked"
 import LazyLoad from "components/lazyLoad/v1/"
 import PageFooter from "components/footer/v1/"
@@ -28,7 +32,7 @@ import store from "store"
 import TitleHeader from "components/titleHeader/v1/"
 import TrumpImg from "images/trump-white.png"
 
-class Tags extends Component {
+class Tag extends Component {
 	constructor(props) {
 		super(props)
 		const id = parseInt(this.props.match.params.id, 10)
@@ -36,13 +40,16 @@ class Tags extends Component {
 		const authenticated = currentState.user.authenticated
 		const bearer = currentState.user.bearer
 		const userId = parseInt(currentState.user.data.id, 10)
+
 		this.state = {
+			active: false,
 			activeItem: "article",
 			authenticated,
 			bearer,
 			description: "",
 			editing: false,
 			id,
+			inverted: true,
 			files: [],
 			userId
 		}
@@ -63,9 +70,12 @@ class Tags extends Component {
 		this.props.fetchTagInfo({ id })
 		this.onChangeDescription = this.onChangeDescription.bind(this)
 		this.onClickEdit = this.onClickEdit.bind(this)
+		this.onDrop = this.onDrop.bind(this)
 		this.setVersion = this.setVersion.bind(this)
 		this.updateTag = this.updateTag.bind(this)
 	}
+
+	handleHide = () => this.setState({ active: false })
 
 	handleItemClick = (e, { name }) => {
 		this.setState({ activeItem: name })
@@ -73,13 +83,30 @@ class Tags extends Component {
 			this.props.fetchHistory({ id: this.props.id })
 		}
 	}
+
+	handleShow = () => this.setState({ active: true })
+
 	onChangeDescription = (e, { value }) => this.setState({ description: value })
+
 	onClickEdit = () => {
 		this.setState({
 			description: this.props.description,
 			editing: this.state.editing === false
 		})
 	}
+
+	onDrop(files) {
+		this.setState({ files })
+		if (files.length > 0) {
+			console.log(this.props)
+			this.props.changePic({
+				bearer: this.state.bearer,
+				file: files[0],
+				id: this.props.id
+			})
+		}
+	}
+
 	setVersion = edit => {
 		this.setState({
 			activeItem: "article",
@@ -88,6 +115,7 @@ class Tags extends Component {
 		})
 		this.props.updateDescription({ description: edit.description })
 	}
+
 	updateTag = () => {
 		this.setState({ editing: false })
 		this.props.updateTag({
@@ -98,7 +126,18 @@ class Tags extends Component {
 	}
 
 	render() {
-		const { activeItem, authenticated, bearer, description, editing, id, version } = this.state
+		const {
+			active,
+			activeItem,
+			authenticated,
+			bearer,
+			description,
+			editing,
+			id,
+			inverted,
+			version
+		} = this.state
+
 		const ArticleSection = props => {
 			if (editing) {
 				return (
@@ -122,6 +161,7 @@ class Tags extends Component {
 				/>
 			)
 		}
+
 		const EditButton = ({ props }) => {
 			if (!props.loading) {
 				if (authenticated) {
@@ -138,6 +178,7 @@ class Tags extends Component {
 			}
 			return null
 		}
+
 		const HistorySection = props => {
 			return props.editHistory.map((edit, i) => {
 				return (
@@ -146,7 +187,11 @@ class Tags extends Component {
 						key={`editHistory${i}`}
 						onClick={() => this.setVersion(edit)}
 					>
-						<Image size="mini" src={edit.user_img} />
+						<Image
+							size="mini"
+							onError={i => (i.target.src = ImagePic)}
+							src={edit.user_img}
+						/>
 						<List.Content>
 							<List.Header as="a">{edit.user_name}</List.Header>
 							<List.Description>
@@ -157,8 +202,55 @@ class Tags extends Component {
 				)
 			})
 		}
+
+		const ProfilePic = props => {
+			const content = (
+				<Dropzone className="dropdown" onDrop={this.onDrop}>
+					{({ getRootProps, getInputProps }) => (
+						<div {...getRootProps()}>
+							<input {...getInputProps()} />
+							<Header as="h2">Change pic</Header>
+							<Button className="changePicBtn" color="blue" icon>
+								<Icon name="image" />
+							</Button>
+						</div>
+					)}
+				</Dropzone>
+			)
+
+			if (authenticated) {
+				return (
+					<div className="profilePicContainer">
+						<Dimmer.Dimmable
+							as={Image}
+							bordered
+							centered
+							className={`profilePic ${!props.img ? "default" : ""}`}
+							dimmed={active}
+							dimmer={{ active, content, inverted }}
+							onError={i => (i.target.src = ImagePic)}
+							onMouseEnter={this.handleShow}
+							onMouseLeave={this.handleHide}
+							size="medium"
+							src={props.img}
+						/>
+					</div>
+				)
+			}
+			return (
+				<Image
+					bordered
+					centered
+					circular
+					className={`profilePic ${!props.img ? "default" : ""}`}
+					onError={i => (i.target.src = ImagePic)}
+					src={props.img}
+				/>
+			)
+		}
+
 		const TagMenu = props => (
-			<Menu className="tagMenu" fluid stackable tabular>
+			<Menu attached='top' className="tagMenu">
 				<Menu.Item
 					name="article"
 					active={activeItem === "article"}
@@ -169,14 +261,22 @@ class Tags extends Component {
 					active={activeItem === "history"}
 					onClick={this.handleItemClick}
 				/>
+				{activeItem === "article" && (
+					<Menu.Menu position='right'>
+						<Menu.Item>
+							<EditButton props={this.props} />
+						</Menu.Item>
+					</Menu.Menu>
+				)}
 			</Menu>
 		)
+
 		const TagTitle = ({ props }) => {
 			const subheader = (
 				<div className="subHeader">
 					{props.createdBy && (
 						<div>
-							<Icon className="tag" name="tag" /> Created{" "}
+							Created{" "}
 							<Moment
 								date={adjustTimezone(props.dateCreated)}
 								fromNow
@@ -196,6 +296,7 @@ class Tags extends Component {
 					canEdit={false}
 					id={id}
 					subheader={subheader}
+					textAlign="center"
 					title={props.name}
 					type="tag"
 				/>
@@ -209,6 +310,15 @@ class Tags extends Component {
 					<PageHeader {...this.props} />
 					{!this.props.error ? (
 						<Container className="mainContainer" textAlign="left">
+							{this.props.loading ? (
+								<Container textAlign="center">
+									<Placeholder className="profilePicPlaceholder">
+										<Placeholder.Image square />
+									</Placeholder>
+								</Container>
+							) : (
+								<div>{ProfilePic(this.props)}</div>
+							)}
 							<TagTitle props={this.props} />
 							{this.props.loading ? (
 								<div>
@@ -218,10 +328,9 @@ class Tags extends Component {
 							) : (
 								<div className="tagsWrapper">
 									{TagMenu(this.props)}
-									<Segment stacked>
+									<Segment attached='top'>
 										{activeItem === "article" && (
 											<div>
-												<EditButton props={this.props} />
 												{ArticleSection(this.props)}
 											</div>
 										)}
@@ -245,7 +354,7 @@ class Tags extends Component {
 	}
 }
 
-Tags.propTypes = {
+Tag.propTypes = {
 	changePic: PropTypes.func,
 	createdBy: PropTypes.shape({
 		id: PropTypes.number,
@@ -267,7 +376,7 @@ Tags.propTypes = {
 	updateTag: PropTypes.func
 }
 
-Tags.defaultProps = {
+Tag.defaultProps = {
 	changePic,
 	editHistory: [],
 	fetchHistory,
@@ -293,4 +402,4 @@ export default connect(
 		updateDescription,
 		updateTag
 	}
-)(Tags)
+)(Tag)

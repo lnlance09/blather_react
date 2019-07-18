@@ -1,4 +1,5 @@
 import "pages/css/index.css"
+import { mapIdsToNames } from "utils/arrayFunctions"
 import { adjustTimezone } from "utils/dateFunctions"
 import { DisplayMetaTags } from "utils/metaFunctions"
 import {
@@ -50,6 +51,7 @@ import PropTypes from "prop-types"
 import React, { Component } from "react"
 import ReactPlayer from "react-player"
 import store from "store"
+import TagsCard from "components/tagsCard/v1/"
 import TitleHeader from "components/titleHeader/v1/"
 import TrumpImg from "images/trump-white.png"
 
@@ -636,6 +638,13 @@ class Fallacy extends Component {
 			)
 		}
 
+		const tags = () => {
+			if (this.props.tag_ids === null || this.props.tag_names === null) {
+				return []
+			}
+			return mapIdsToNames(this.props.tag_ids, this.props.tag_names)
+		}
+
 		return (
 			<Provider store={store}>
 				<div className="fallacyPage">
@@ -654,6 +663,16 @@ class Fallacy extends Component {
 											horizontal
 											label="Views"
 											value={this.props.viewCount}
+										/>
+									</Grid.Row>
+									<Grid.Row>
+										<TagsCard
+											bearer={bearer}
+											canEdit={canEdit}
+											history={this.props.history}
+											id={this.props.id}
+											tags={tags()}
+											type="fallacy"
 										/>
 									</Grid.Row>
 									<Grid.Row>{CommentsSection(this.props)}</Grid.Row>
@@ -682,6 +701,14 @@ class Fallacy extends Component {
 													value={this.props.viewCount}
 												/>
 												{ShareSection(false)}
+												<TagsCard
+													bearer={bearer}
+													canEdit={canEdit}
+													history={this.props.history}
+													id={this.props.id}
+													tags={tags()}
+													type="fallacy"
+												/>
 											</div>
 										) : (
 											<LazyLoad header={false} />
@@ -782,6 +809,8 @@ Fallacy.defaultProps = {
 	reset,
 	retractLogic,
 	saveScreenshot,
+	tag_ids: "",
+	tag_names: "",
 	thumbnailImg: "https://s3.amazonaws.com/blather22/thumbnail.jpg",
 	toggleCreateMode
 }
