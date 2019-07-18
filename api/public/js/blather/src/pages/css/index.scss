@@ -960,21 +960,21 @@ a {
         text-align: center;
 
         .profilePic {
-            height: 220px;
+            height: 250px;
             margin-bottom: 12px;
             width: auto !important;
 
             img {
-                height: 220px;
+                height: 250px;
                 text-align: center;
             }
 
             &.default {
                 background: $white;
-                height: 220px !important;
+                height: 250px !important;
                 overflow: hidden;
                 padding: 7px;
-                width: 220px !important;
+                width: 250px !important;
             }
         }
     }

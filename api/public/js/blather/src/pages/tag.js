@@ -241,7 +241,6 @@ class Tag extends Component {
 				<Image
 					bordered
 					centered
-					circular
 					className={`profilePic ${!props.img ? "default" : ""}`}
 					onError={i => (i.target.src = ImagePic)}
 					src={props.img}
