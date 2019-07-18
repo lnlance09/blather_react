@@ -180,7 +180,7 @@ class Page extends Component {
 			)
 			return (
 				<div className="pageHeaderInfo">
-					<TitleHeader subheader={subheader} title={props.name} />
+					<TitleHeader subheader={subheader} textAlign="center" title={props.name} />
 				</div>
 			)
 		}
