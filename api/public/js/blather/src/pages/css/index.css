@@ -342,6 +342,9 @@ a {
   .fallacyPage .commentsContent .comment-policy {
     margin-top: 0 !important; }
 
+.fallacyPage .tagsCard {
+  margin-top: 15px; }
+
 .fallacyPage canvas {
   display: none;
   height: 720px;
@@ -556,18 +559,29 @@ a {
       cursor: pointer; }
       .tagsPage .tagsWrapper .menu.tagMenu .list .item.selected {
         background: #FFFFFF; }
-  .tagsPage .tagsWrapper .segment.stacked {
+  .tagsPage .tagsWrapper .editButtonWrapper .editButton {
+    display: inline !important;
+    font-size: 16px !important; }
+  .tagsPage .tagsWrapper .segment {
     overflow: hidden; }
-    .tagsPage .tagsWrapper .segment.stacked:hover .editButton {
-      display: inline !important; }
-    .tagsPage .tagsWrapper .segment.stacked .editButtonWrapper {
-      height: 25px; }
-      .tagsPage .tagsWrapper .segment.stacked .editButtonWrapper .editButton {
-        display: inline !important;
-        font-size: 16px !important;
-        margin-bottom: 10px; }
-    .tagsPage .tagsWrapper .segment.stacked img {
+    .tagsPage .tagsWrapper .segment img {
       max-width: 400px; }
+
+.tagsPage .profilePicContainer {
+  text-align: center; }
+  .tagsPage .profilePicContainer .profilePic {
+    height: 220px;
+    margin-bottom: 12px;
+    width: auto !important; }
+    .tagsPage .profilePicContainer .profilePic img {
+      height: 220px;
+      text-align: center; }
+    .tagsPage .profilePicContainer .profilePic.default {
+      background: #FFFFFF;
+      height: 220px !important;
+      overflow: hidden;
+      padding: 7px;
+      width: 220px !important; }
 
 @media only screen and (max-width: 1025px) {
   .tagsPage .tagsWrapper .segment.stacked img {

@@ -43,7 +43,7 @@ const tag = (state = initial(), action) => {
 						? "There is no article for this tag yet..."
 						: payload.tag.description,
 				id: parseInt(payload.tag.tag_id, 10),
-				img: payload.tag.tag_img,
+				img: payload.tag.tag_img === null ? "" : payload.tag.tag_img,
 				loading: false,
 				name: payload.tag.tag_name
 			}

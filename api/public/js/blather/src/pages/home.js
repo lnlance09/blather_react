@@ -73,7 +73,17 @@ class Home extends Component {
 	}
 
 	render() {
-		const { auth, bearer, endTime, fallacyId, highlightedText, id, startTime, url, user } = this.state
+		const {
+			auth,
+			bearer,
+			endTime,
+			fallacyId,
+			highlightedText,
+			id,
+			startTime,
+			url,
+			user
+		} = this.state
 		const { info, mediaId, page, type } = this.props
 		const validPost = type === "tweet"
 

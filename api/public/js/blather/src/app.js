@@ -20,7 +20,7 @@ import SignIn from "pages/signIn"
 import SoundFile from "./sound.mp3"
 import SoundFileAlt from "./sound.ogg"
 import store from "store"
-import Tags from "pages/tags"
+import Tag from "pages/tag"
 import Target from "pages/target"
 import Users from "pages/users"
 
@@ -191,8 +191,8 @@ class App extends Component {
 						<Route component={SignIn} path="/signin" />
 
 						<Switch>
-							<Route component={Tags} path="/tag/create" />
-							<Route component={Tags} path="/tags/:id" />
+							<Route component={Tag} path="/tags/create" />
+							<Route component={Tag} path="/tags/:id" />
 						</Switch>
 
 						<Switch>

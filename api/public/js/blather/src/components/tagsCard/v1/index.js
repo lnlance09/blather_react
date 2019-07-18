@@ -129,7 +129,7 @@ class TagsCard extends Component {
 		const RenderTags = this.props.tags.map(tag => (
 			<List.Item key={`tag_${tag.name}`}>
 				<Label
-					color="green"
+					color="blue"
 					horizontal
 					id={tag.id}
 					onClick={() => this.props.history.push(`/tags/${tag.id.trim()}`)}
@@ -157,7 +157,7 @@ class TagsCard extends Component {
 		return (
 			<Provider store={store}>
 				<div className="tagsCard">
-					<Header size="tiny">
+					<Header size="medium">
 						Tags
 						{this.props.canEdit && (
 							<Icon

@@ -58,7 +58,7 @@ class TitleHeader extends Component {
 		return (
 			<div className="titleHeader">
 				{this.props.title && (
-					<Header as="h1" dividing={this.props.dividing}>
+					<Header as="h1" dividing={this.props.dividing} textAlign={this.props.textAlign}>
 						{editing ? (
 							<div>
 								<Input
@@ -100,6 +100,7 @@ TitleHeader.propTypes = {
 	dividing: PropTypes.bool,
 	id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 	subheader: PropTypes.oneOfType([PropTypes.bool, PropTypes.object, PropTypes.string]),
+	textAlign: PropTypes.string,
 	title: PropTypes.string,
 	type: PropTypes.string,
 	updateFallacy: PropTypes.func
@@ -108,6 +109,7 @@ TitleHeader.propTypes = {
 TitleHeader.defaultProps = {
 	canEdit: false,
 	dividing: false,
+	textAlign: "left",
 	updateFallacy
 }
 
