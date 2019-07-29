@@ -22,6 +22,12 @@ const searchResults = (state = initial(), action) => {
 				pages: action.payload.pages
 			}
 
+		case constants.TOGGLE_SEARCH_LOADING:
+			return {
+				...state,
+				loading: !state.loading
+			}
+
 		case constants.REFRESH_YOUTUBE_TOKEN:
 			return {
 				...state,

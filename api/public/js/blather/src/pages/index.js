@@ -168,7 +168,7 @@ class Page extends Component {
 						{props.username && (
 							<a
 								className="externalUrl"
-								href={props.externalUrl}
+								href="#"
 								onClick={() => window.open(props.externalUrl, "_blank")}
 							>
 								@{props.username}

@@ -182,12 +182,12 @@ class Header extends Component {
 								value={value}
 							/>
 							<Button
+								basic
 								className="sidebarSearchBtn"
 								color="blue"
 								content="Search"
 								fluid
 								icon="search"
-								inverted
 								onClick={() => {
 									this.setState({ visible: false })
 									this.props.history.push(`/search?q=${value}`)

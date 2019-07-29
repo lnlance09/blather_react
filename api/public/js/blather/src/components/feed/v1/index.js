@@ -53,11 +53,13 @@ class FeedComponent extends Component {
 
 	render() {
 		const { loadingMore } = this.state
+
 		const LazyLoadMore = props => {
 			if (loadingMore && props.hasMore) {
 				return <LazyLoad />
 			}
 		}
+
 		const RenderFeed = ({ props }) => {
 			return props.results.map((result, i) => {
 				if (result.id && result.item_type === "fallacy") {

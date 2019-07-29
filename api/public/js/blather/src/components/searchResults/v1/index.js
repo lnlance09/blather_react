@@ -1,5 +1,5 @@
 import "./style.css"
-import { fetchSearchResults } from "./actions"
+import { fetchSearchResults, toggleSearchLoading } from "./actions"
 import { refreshYouTubeToken } from "components/authentication/v1/actions"
 import { adjustTimezone } from "utils/dateFunctions"
 import { formatNumber, formatPlural } from "utils/textFunctions"
@@ -31,6 +31,7 @@ class SearchResults extends Component {
 		this.props.fetchSearchResults({
 			bearer: this.props.bearer,
 			fallacies: this.props.fallacies,
+			page: 0,
 			q: this.props.q,
 			type: this.props.type
 		})
@@ -42,9 +43,11 @@ class SearchResults extends Component {
 			newProps.type !== this.props.type ||
 			newProps.fallacies !== this.props.fallacies
 		) {
+			this.props.toggleSearchLoading()
 			this.props.fetchSearchResults({
 				bearer: newProps.bearer,
 				fallacies: newProps.fallacies,
+				page: 0,
 				q: newProps.q,
 				type: newProps.type
 			})
@@ -367,6 +370,7 @@ SearchResults.propTypes = {
 	pages: PropTypes.number,
 	q: PropTypes.string,
 	refreshYouTubeToken: PropTypes.func,
+	toggleSearchLoading: PropTypes.func,
 	type: PropTypes.string
 }
 
@@ -380,6 +384,7 @@ SearchResults.defaultProps = {
 	page: 0,
 	q: "",
 	refreshYouTubeToken,
+	toggleSearchLoading,
 	type: "profiles"
 }
 
@@ -392,6 +397,7 @@ export default connect(
 	mapStateToProps,
 	{
 		fetchSearchResults,
-		refreshYouTubeToken
+		refreshYouTubeToken,
+		toggleSearchLoading
 	}
 )(SearchResults)
