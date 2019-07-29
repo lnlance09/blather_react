@@ -11,7 +11,9 @@ export const fetchSearchResults = ({
 	q,
 	type
 }) => dispatch => {
-	dispatch(showLoading())
+	if (page === 0) {
+		dispatch(showLoading())
+	}
 
 	request.get(
 		`${window.location.origin}/api/search/advanced`,
@@ -35,7 +37,15 @@ export const fetchSearchResults = ({
 				payload: body
 			})
 
-			dispatch(hideLoading())
+			if (page === 0) {
+				dispatch(hideLoading())
+			}
 		}
 	)
+}
+
+export const toggleSearchLoading = () => dispatch => {
+	dispatch({
+		type: constants.TOGGLE_SEARCH_LOADING
+	})
 }

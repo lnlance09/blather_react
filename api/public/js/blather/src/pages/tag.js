@@ -249,7 +249,7 @@ class Tag extends Component {
 		}
 
 		const TagMenu = props => (
-			<Menu attached='top' className="tagMenu">
+			<Menu attached="top" className="tagMenu">
 				<Menu.Item
 					name="article"
 					active={activeItem === "article"}
@@ -261,7 +261,7 @@ class Tag extends Component {
 					onClick={this.handleItemClick}
 				/>
 				{activeItem === "article" && (
-					<Menu.Menu position='right'>
+					<Menu.Menu position="right">
 						<Menu.Item>
 							<EditButton props={this.props} />
 						</Menu.Item>
@@ -327,11 +327,9 @@ class Tag extends Component {
 							) : (
 								<div className="tagsWrapper">
 									{TagMenu(this.props)}
-									<Segment attached='top'>
+									<Segment attached="top">
 										{activeItem === "article" && (
-											<div>
-												{ArticleSection(this.props)}
-											</div>
+											<div>{ArticleSection(this.props)}</div>
 										)}
 										{activeItem === "history" && (
 											<List divided>{HistorySection(this.props)}</List>

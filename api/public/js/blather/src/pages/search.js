@@ -31,6 +31,7 @@ class SearchPage extends Component {
 			auth,
 			bearer,
 			fallacies,
+			page: 0,
 			types,
 			user: currentState.user.data
 		}
@@ -165,7 +166,7 @@ class SearchPage extends Component {
 				<Menu.Item className="searchItem">
 					<div className="ui icon input">
 						<DebounceInput
-							debounceTimeout={300}
+							debounceTimeout={500}
 							minLength={2}
 							onChange={e => this.onChangeSearchValue(e.target.value)}
 							placeholder="Search..."
