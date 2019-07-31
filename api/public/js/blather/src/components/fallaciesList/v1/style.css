@@ -4,6 +4,7 @@
 /*---   Misc  ---*/
 /*---   Social colors  ---*/
 .fallaciesList {
+  margin-top: 10px;
   width: 100%; }
   .fallaciesList .emptyFallaciesContainer {
     text-align: center; }
@@ -16,6 +17,8 @@
     cursor: pointer; }
     .fallaciesList .targetMsg .viewAllTargets:hover {
       text-decoration: underline; }
+  .fallaciesList .card .content {
+    word-break: break-word; }
   .fallaciesList .card .image {
     background: #FFFFFF !important;
     height: 320px !important;
