@@ -155,10 +155,10 @@ class Header extends Component {
 									<NavSearch history={this.props.history} />
 								</Menu.Item>
 								<Menu.Item className="fallaciesLink">
-									<Link to="/activity">Activity</Link>
+									<Link to="/assign"><Icon color="blue" name="pencil" /> Assign</Link>
 								</Menu.Item>
 								<Menu.Item className="fallaciesLink">
-									<Link to="/fallacies">Reference</Link>
+									<Link to="/fallacies"><Icon color="blue" name="book" /> Reference</Link>
 								</Menu.Item>
 								{LoginButton(this.props)}
 							</Responsive>
@@ -218,10 +218,10 @@ class Header extends Component {
 						<Menu.Item
 							name="activity"
 							onClick={() => {
-								this.props.history.push(`/activity`)
+								this.props.history.push(`/assign`)
 							}}
 						>
-							Activity
+							<Icon color="blue" name="pencil" />  Assign
 						</Menu.Item>
 						{FallaciesSidebar}
 					</Sidebar>

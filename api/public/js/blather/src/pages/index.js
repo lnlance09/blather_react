@@ -175,7 +175,6 @@ class Page extends Component {
 							</a>
 						)}
 					</div>
-					<Icon className={`${network}Icon`} name={network} size="large" />
 				</div>
 			)
 			return (

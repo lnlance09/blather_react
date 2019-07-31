@@ -23,8 +23,26 @@
     word-break: break-word; }
   .fallaciesList .cards .card .image {
     background: #FFFFFF !important;
-    height: 320px !important;
+    height: 300px !important;
     overflow-y: hidden; }
     @media only screen and (max-width: 1025px) {
       .fallaciesList .cards .card .image {
         height: auto !important; } }
+  .fallaciesList .cards .card .parent {
+    background: #2185D0 !important;
+    position: relative;
+    width: 100%; }
+  .fallaciesList .cards .card .one, .fallaciesList .cards .card .two {
+    height: 300px;
+    position: absolute;
+    width: 65%; }
+  .fallaciesList .cards .card .one {
+    clip-path: polygon(0 0, 100% 0%, 50% 100%, 0% 100%);
+    left: 0;
+    top: 0;
+    -webkit-clip-path: polygon(0 0, 100% 0%, 50% 100%, 0% 100%); }
+  .fallaciesList .cards .card .two {
+    clip-path: polygon(50% 0, 100% 0%, 100% 100%, 0% 100%);
+    right: 0;
+    top: 0;
+    -webkit-clip-path: polygon(50% 0, 100% 0%, 100% 100%, 0% 100%); }

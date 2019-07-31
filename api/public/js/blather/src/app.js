@@ -101,11 +101,19 @@ class App extends Component {
 							exact
 							path="/"
 							render={props => (
-								<Home key={window.location.pathname} {...props} />
+								<NewsFeed key={window.location.pathname} {...props} />
 							)}
 						/>
 
 						<Route component={NewsFeed} exact path="/activity" />
+
+						<Route
+							exact
+							path="/assign"
+							render={props => (
+								<Home key={window.location.pathname} {...props} />
+							)}
+						/>
 
 						<Route component={Bot} path="/bot" />
 

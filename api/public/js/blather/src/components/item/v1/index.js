@@ -73,7 +73,6 @@ class ResultItem extends Component {
 						label={props.label}
 						onError={i => (i.target.src = ImagePic)}
 						rounded
-						size="medium"
 						src={props.img}
 					/>
 				)

@@ -209,7 +209,7 @@ class FallaciesList extends Component {
 		const RenderFallacies = ({ props }) => {
 			return props.results.map((result, i) => {
 				if (result.id) {
-					let img = result.s3_link && result.network === "twitter" ? result.s3_link : ImagePic
+					let img = result.page_profile_pic ? result.page_profile_pic : ImagePic
 					let meta = (
 						<div>
 							<p>
@@ -232,12 +232,10 @@ class FallaciesList extends Component {
 					const url = `/fallacies/${result.slug}`
 					return (
 						<Card onClick={e => this.redirectToUrl(e, url)}>
-							<Image
-								onError={i => (i.target.src = ImagePic)}
-								src={img}
-								ui={false}
-								wrapped
-							/>
+							<div className="image parent">
+								<div className="one" style={{ backgroundImage: `url(${img})` }}></div>
+								<div className="two" style={{ backgroundImage: `url(${result.user_img})` }}></div>
+							</div>
 							<Card.Content>
 								<Card.Header>{result.title}</Card.Header>
 								<Card.Meta>{meta}</Card.Meta>
