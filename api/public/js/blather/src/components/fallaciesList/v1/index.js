@@ -212,19 +212,9 @@ class FallaciesList extends Component {
 					let meta = (
 						<div>
 							<p>
-								<Icon
-									color="green"
-									name={props.source === "users" ? "arrow right" : "arrow left"}
-								/>{" "}
-								{props.source === "users" ? (
-									<span>
-										Assigned to <b>{result.page_name}</b>
-									</span>
-								) : (
-									<span>
-										Assigned by <b>{result.user_name}</b>
-									</span>
-								)}{" "}
+								<b>{result.page_name}</b>{" "}
+								<Icon color="green" name="arrow left" />{" "}
+								<b>{result.user_name}</b>
 							</p>
 						</div>
 					)
