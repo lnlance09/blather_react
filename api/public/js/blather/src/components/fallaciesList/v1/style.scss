@@ -37,17 +37,9 @@
             }
 
             .image {
-                background: $white !important;
+                background: $blue !important;
                 height: 300px !important;
                 overflow-y: hidden;
-
-                @media only screen and (max-width: 1025px) {
-                    height: auto !important;
-                }
-            }
-
-            .parent {
-                background: $blue !important;
                 position: relative;
                 width: 100%;
             }
