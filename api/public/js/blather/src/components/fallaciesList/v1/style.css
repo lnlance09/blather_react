@@ -22,14 +22,9 @@
   .fallaciesList .cards .card .content {
     word-break: break-word; }
   .fallaciesList .cards .card .image {
-    background: #FFFFFF !important;
-    height: 300px !important;
-    overflow-y: hidden; }
-    @media only screen and (max-width: 1025px) {
-      .fallaciesList .cards .card .image {
-        height: auto !important; } }
-  .fallaciesList .cards .card .parent {
     background: #2185D0 !important;
+    height: 300px !important;
+    overflow-y: hidden;
     position: relative;
     width: 100%; }
   .fallaciesList .cards .card .one, .fallaciesList .cards .card .two {
