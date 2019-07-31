@@ -289,9 +289,9 @@ a {
 
 /* Fallacy page */
 .fallacyPage .fallacyGrid {
-  margin-top: 20px !important; }
+  margin-top: 10px !important; }
   .fallacyPage .fallacyGrid .leftSide, .fallacyPage .fallacyGrid .rightSide {
-    padding: 0 12px !important; }
+    padding: 0 8px !important; }
   .fallacyPage .fallacyGrid .materialWrapper {
     width: 100%; }
   .fallacyPage .fallacyGrid .row:first-of-type {
@@ -304,7 +304,21 @@ a {
   .fallacyPage .fallacyGrid .callToSignUp {
     margin-top: 10px; }
   .fallacyPage .fallacyGrid .shareList {
+    margin-top: 0 !important;
     width: 100%; }
+    .fallacyPage .fallacyGrid .shareList .item {
+      cursor: pointer;
+      height: 41px !important;
+      vertical-align: text-top; }
+    .fallacyPage .fallacyGrid .shareList .reddit {
+      background: #FF5700;
+      color: #FFFFFF;
+      border-radius: 50%;
+      display: inline-block;
+      font-size: 20px;
+      height: 35px !important;
+      line-height: 35px;
+      width: 35px !important; }
 
 .fallacyPage .exportEmbed {
   display: inline;
@@ -313,15 +327,22 @@ a {
 .fallacyPage .exportSection {
   margin-top: 16px; }
   .fallacyPage .exportSection .downloadBtn {
-    margin-top: 16px; }
+    margin-top: 14px; }
   .fallacyPage .exportSection .downloadDimmer {
-    cursor: pointer;
-    margin-top: 16px; }
+    cursor: pointer; }
+  .fallacyPage .exportSection .screenshotCaption {
+    color: #767676;
+    font-size: 12px;
+    font-style: italic;
+    margin-bottom: 14px;
+    margin-left: 3px;
+    margin-top: 4px; }
 
 .fallacyPage .exportContainer .exportSection {
   margin-top: 0; }
 
 .fallacyPage .shareContent {
+  line-height: 1;
   width: 100%; }
 
 .fallacyPage .sourcesContent {

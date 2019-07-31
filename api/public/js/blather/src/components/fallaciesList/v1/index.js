@@ -5,7 +5,6 @@ import { formatPlural } from "utils/textFunctions"
 import { connect, Provider } from "react-redux"
 import {
 	Card,
-	Divider,
 	Dropdown,
 	Form,
 	Header,
@@ -193,13 +192,13 @@ class FallaciesList extends Component {
 									value={value}
 								/>
 							</Form>
-							<Divider />
-							<FallacyRef
-								canScreenshot={false}
-								className="fallacyRef"
-								id={parseInt(value, 10)}
-							/>
-							<Divider />
+							<div style={{ margin: "16px 0" }}>
+								<FallacyRef
+									canScreenshot={false}
+									className="fallacyRef"
+									id={parseInt(value, 10)}
+								/>
+							</div>
 						</div>
 					)}
 				</div>
@@ -233,8 +232,11 @@ class FallaciesList extends Component {
 					return (
 						<Card onClick={e => this.redirectToUrl(e, url)}>
 							<div className="image parent">
-								<div className="one" style={{ backgroundImage: `url(${img})` }}></div>
-								<div className="two" style={{ backgroundImage: `url(${result.user_img})` }}></div>
+								<div className="one" style={{ backgroundImage: `url(${img})` }} />
+								<div
+									className="two"
+									style={{ backgroundImage: `url(${result.user_img})` }}
+								/>
 							</div>
 							<Card.Content>
 								<Card.Header>{result.title}</Card.Header>
@@ -295,7 +297,12 @@ class FallaciesList extends Component {
 					const url = `/targets/${props.assignedBy}/${result.id}`
 					return (
 						<Card onClick={e => this.redirectToUrl(e, url)}>
-							<Image onError={i => (i.target.src = ImagePic)} src={img} ui={false} wrapped />
+							<Image
+								onError={i => (i.target.src = ImagePic)}
+								src={img}
+								ui={false}
+								wrapped
+							/>
 							<Card.Content>
 								<Card.Header>{result.name}</Card.Header>
 								<Card.Meta>{meta}</Card.Meta>
@@ -346,8 +353,7 @@ class FallaciesList extends Component {
 								onBottomVisible={this.loadMore}
 							>
 								{showTargets ? (
-									<div>
-										<Divider />
+									<div style={{ marginTop: "16px" }}>
 										<Card.Group itemsPerRow={this.props.itemsPerRow} stackable>
 											<RenderTargets props={this.props} />
 										</Card.Group>

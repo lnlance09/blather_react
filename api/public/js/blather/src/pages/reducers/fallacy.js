@@ -266,6 +266,7 @@ const fallacy = (state = initial(), action) => {
 			}
 
 			const canScreenshot = [1, 2, 9, 10].includes(refId)
+			const lastUpdated = fallacy.last_updated === null ? Date.now() : fallacy.last_updated
 
 			return {
 				...state,
@@ -289,6 +290,7 @@ const fallacy = (state = initial(), action) => {
 				fallacyName: fallacy.fallacy_name,
 				highlightedText: fallacy.highlighted_text === "" ? null : fallacy.highlighted_text,
 				id: parseInt(fallacy.id, 10),
+				lastUpdated,
 				originalPayload,
 				pageTitle,
 				refId,
@@ -355,6 +357,7 @@ const fallacy = (state = initial(), action) => {
 		case constants.SAVE_SCREENSHOT:
 			return {
 				...state,
+				lastUpdated: action.payload.lastUpdated,
 				s3Link: action.payload.s3Link
 			}
 
@@ -463,6 +466,7 @@ const fallacy = (state = initial(), action) => {
 				explanation: payload.fallacy.explanation,
 				fallacyId: parseInt(payload.fallacy.fallacy_id, 10),
 				fallacyName: payload.fallacy.fallacy_name,
+				lastUpdated: payload.fallacy.last_updated,
 				originalPayload,
 				startTime: payload.fallacy.start_time,
 				tag_ids: payload.fallacy.tag_ids,

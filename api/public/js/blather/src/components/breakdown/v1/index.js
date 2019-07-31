@@ -2,7 +2,7 @@ import "./style.css"
 import { Link } from "react-router-dom"
 import { sanitizeText } from "utils/textFunctions"
 import {
-	Divider,
+	Button,
 	Header,
 	Icon,
 	Label,
@@ -110,8 +110,6 @@ class Breakdown extends Component {
 									icon="question"
 								/>
 
-								<Divider />
-
 								{options.length > 0 ? (
 									<Segment basic className="percentages">
 										{RenderFallacies()}
@@ -121,12 +119,10 @@ class Breakdown extends Component {
 								)}
 							</Segment>
 
-							<Divider />
-
 							<Segment basic className="questionnaire">
 								{placeholder.id && (
 									<div>
-										<Header className="first" size="small">
+										<Header className="first" size="medium">
 											Here's how{" "}
 											<Link to={`/users/${placeholder.user_id}`}>
 												{placeholder.user_name}
@@ -149,10 +145,9 @@ class Breakdown extends Component {
 												See full review
 											</Link>
 										</p>
-										<Divider />
 									</div>
 								)}
-								<Header size="small">
+								<Header size="medium">
 									Can pass an{" "}
 									<a
 										href="https://www.econlib.org/archives/2011/06/the_ideological.html"
@@ -164,22 +159,25 @@ class Breakdown extends Component {
 									?<Header.Subheader>{Stats(turingTest)}</Header.Subheader>
 								</Header>
 
-								<Header size="small">
+								<Header size="medium">
 									Believes most of what they talk about?
 									<Header.Subheader>{Stats(sincerity)}</Header.Subheader>
 								</Header>
 
-								<Header size="small">
-									<Icon
-										color="yellow"
-										name="star"
-										style={{ display: "inline-block" }}
-									/>{" "}
-									<Link
-										to={`/targets/${authenticated ? userId : "create"}/${dbId}`}
+								<Header size="medium">
+									<Button
+										basic
+										color="blue"
+										onClick={() =>
+											this.props.history.push(
+												`/targets/${
+													authenticated ? userId : "create"
+												}/${dbId}`
+											)
+										}
 									>
-										Create a review
-									</Link>
+										<Icon color="yellow" name="star" /> Create a review
+									</Button>
 								</Header>
 							</Segment>
 						</div>

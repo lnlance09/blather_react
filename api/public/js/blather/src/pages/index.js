@@ -11,7 +11,6 @@ import {
 	Header,
 	Icon,
 	Image,
-	Label,
 	Menu,
 	Placeholder,
 	Segment
@@ -185,7 +184,16 @@ class Page extends Component {
 		}
 
 		const PageMenu = props => (
-			<Menu borderless className="socialMediaPageMenu" fluid pointing secondary size="big" stackable>
+			<Menu
+				borderless
+				color="blue"
+				className="socialMediaPageMenu"
+				fluid
+				pointing
+				secondary
+				size="huge"
+				stackable
+			>
 				<Menu.Item
 					active={activeItem === itemsLabel}
 					name={itemsLabel}
@@ -197,11 +205,6 @@ class Page extends Component {
 					onClick={this.handleItemClick}
 				>
 					Fallacies{" "}
-					{props.fallacyCount > 0 && (
-						<Label basic horizontal>
-							{props.fallacyCount}
-						</Label>
-					)}
 				</Menu.Item>
 			</Menu>
 		)
@@ -321,6 +324,7 @@ class Page extends Component {
 										authenticated={authenticated}
 										count={this.props.fallacyCount}
 										dbId={this.props.dbId}
+										history={this.props.history}
 										id={this.props.id}
 										name={this.props.name}
 										network={network}

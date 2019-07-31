@@ -29,11 +29,8 @@
   .breakdown .questionnaire {
     margin-top: 0;
     padding: 0 !important; }
-    .breakdown .questionnaire .ui.header.small {
+    .breakdown .questionnaire .ui.header.medium {
       margin-top: 0; }
-      .breakdown .questionnaire .ui.header.small .icon.star {
-        font-size: 16px;
-        line-height: 15px; }
   .breakdown .placeholderDiv {
     font-style: italic;
     margin-bottom: 12px; }
@@ -43,7 +40,7 @@
   .breakdown .icon.question {
     color: #DB2828; }
   .breakdown .fullReview {
-    margin-top: 10px; }
+    margin: 10px 0 16px 0; }
   @media only screen and (max-width: 1025px) {
     .breakdown .ui.header.small {
       font-size: 14px !important; } }
