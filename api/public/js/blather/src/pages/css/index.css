@@ -393,7 +393,7 @@ a {
 
 @media only screen and (max-width: 1025px) {
   .socialMediaPage .image.profilePic {
-    height: 220px; }
+    height: 250px; }
   .socialMediaPage .grid.column {
     padding: 0; }
   .socialMediaPage .pageContentRow {
@@ -404,8 +404,8 @@ a {
       font-size: 16px !important; } }
 
 .socialMediaPage .image.profilePic {
-  height: 220px;
-  width: 220px; }
+  height: 250px;
+  width: 250px; }
 
 .socialMediaPage .pageHeaderInfo {
   margin-top: 10px;
@@ -600,7 +600,7 @@ a {
   .targetsPage .ui.text.container .targetImg {
     cursor: pointer;
     margin-top: 15px;
-    width: 220px; }
+    width: 250px; }
     .targetsPage .ui.text.container .targetImg + .header.medium {
       margin-top: 8px; }
   .targetsPage .ui.text.container .answers, .targetsPage .ui.text.container .questionnaire {
