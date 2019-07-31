@@ -4,22 +4,24 @@ import { adjustTimezone } from "utils/dateFunctions"
 import { formatPlural } from "utils/textFunctions"
 import { connect, Provider } from "react-redux"
 import {
+	Card,
 	Divider,
 	Dropdown,
 	Form,
 	Header,
 	Icon,
-	Item,
+	Image,
 	Message,
+	Placeholder,
 	Segment,
 	Visibility
 } from "semantic-ui-react"
+import ImagePic from "images/brain-fart.gif"
 import FallacyRef from "components/fallacyRef/v1/"
-import LazyLoad from "components/lazyLoad/v1/"
+import Marked from "marked"
 import Moment from "react-moment"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
-import ResultItem from "components/item/v1/"
 import store from "store"
 
 class FallaciesList extends Component {
@@ -138,6 +140,14 @@ class FallaciesList extends Component {
 		}
 	}
 
+	redirectToUrl = (e, url) => {
+		if (!e.metaKey) {
+			this.props.history.push(url)
+		} else {
+			window.open(url, "_blank").focus()
+		}
+	}
+
 	render() {
 		const { options, showFilter, showTargets, value } = this.state
 
@@ -199,14 +209,12 @@ class FallaciesList extends Component {
 		const RenderFallacies = ({ props }) => {
 			return props.results.map((result, i) => {
 				if (result.id) {
-					let img =
-						props.assignedBy || props.source === "fallacy"
-							? result.page_profile_pic
-							: result.user_img
+					let img = result.s3_link ? result.s3_link : ImagePic
 					let meta = (
 						<div>
 							<p>
 								<Icon
+									color="green"
 									name={props.source === "users" ? "arrow right" : "arrow left"}
 								/>{" "}
 								{props.source === "users" ? (
@@ -218,59 +226,112 @@ class FallaciesList extends Component {
 										Assigned by <b>{result.user_name}</b>
 									</span>
 								)}{" "}
-								<Icon className={`${result.network}Icon`} name={result.network} />
-							</p>
-							<p>
-								<Icon name="clock outline" />
-								<Moment date={adjustTimezone(result.date_created)} fromNow />
 							</p>
 						</div>
 					)
+					const url = `/fallacies/${result.slug}`
 					return (
-						<ResultItem
-							description={result.explanation}
-							history={props.history}
-							id={`fallacy_${i}`}
-							img={props.showPics ? img : null}
-							key={`fallacy_${i}`}
-							meta={meta}
-							tags={[result.fallacy_name]}
-							title={result.title}
-							type="fallacy"
-							url={`/fallacies/${result.slug}`}
-							useMarked
-						/>
+						<Card onClick={e => this.redirectToUrl(e, url)}>
+							<Image
+								onError={i => (i.target.src = ImagePic)}
+								src={img}
+								ui={false}
+								wrapped
+							/>
+							<Card.Content>
+								<Card.Header>{result.title}</Card.Header>
+								<Card.Meta>{meta}</Card.Meta>
+								<Card.Description
+									dangerouslySetInnerHTML={{
+										__html:
+											result.explanation !== undefined &&
+											result.explanation !== null
+												? Marked(result.explanation)
+												: null
+									}}
+								/>
+							</Card.Content>
+							<Card.Content extra>
+								<span>
+									<Icon name="eye" />
+									{result.view_count} views
+								</span>{" "}
+								<span style={{ float: "right" }}>
+									<Moment date={adjustTimezone(result.date_created)} fromNow />
+								</span>
+							</Card.Content>
+						</Card>
 					)
 				} else {
-					return <LazyLoad key={`fallacy_${i}`} />
+					return (
+						<Card>
+							<Placeholder>
+								<Placeholder.Image square />
+							</Placeholder>
+							<Card.Content>
+								<Placeholder>
+									<Placeholder.Header>
+										<Placeholder.Line length="very short" />
+										<Placeholder.Line length="medium" />
+									</Placeholder.Header>
+									<Placeholder.Paragraph>
+										<Placeholder.Line length="short" />
+									</Placeholder.Paragraph>
+								</Placeholder>
+							</Card.Content>
+						</Card>
+					)
 				}
 			})
 		}
 
-		const RenderTargets = props => {
+		const RenderTargets = ({ props }) => {
 			return props.targets.results.map((result, i) => {
 				if (result.id) {
+					let img = props.showPics ? result.profile_pic : null
 					let meta = (
 						<div>
 							{result.count} {formatPlural(result.count, "fallacy")}
 						</div>
 					)
+					const url = `/targets/${props.assignedBy}/${result.id}`
 					return (
-						<ResultItem
-							description=""
-							history={props.history}
-							id={`target_${i}`}
-							img={props.showPics ? result.profile_pic : null}
-							key={`target_${i}`}
-							meta={meta}
-							sanitize
-							title={result.name}
-							type="target"
-							url={`/targets/${props.assignedBy}/${result.id}`}
-						/>
+						<Card onClick={e => this.redirectToUrl(e, url)}>
+							<Image src={img} ui={false} wrapped />
+							<Card.Content>
+								<Card.Header>{result.name}</Card.Header>
+								<Card.Meta>{meta}</Card.Meta>
+								<Card.Description
+									dangerouslySetInnerHTML={{
+										__html:
+											result.explanation !== undefined &&
+											result.explanation !== null
+												? Marked(result.explanation)
+												: null
+									}}
+								/>
+							</Card.Content>
+						</Card>
 					)
 				} else {
-					return <LazyLoad key={`target_${i}`} />
+					return (
+						<Card>
+							<Placeholder>
+								<Placeholder.Image square />
+							</Placeholder>
+							<Card.Content>
+								<Placeholder>
+									<Placeholder.Header>
+										<Placeholder.Line length="very short" />
+										<Placeholder.Line length="medium" />
+									</Placeholder.Header>
+									<Placeholder.Paragraph>
+										<Placeholder.Line length="short" />
+									</Placeholder.Paragraph>
+								</Placeholder>
+							</Card.Content>
+						</Card>
+					)
 				}
 			})
 		}
@@ -289,14 +350,14 @@ class FallaciesList extends Component {
 								{showTargets ? (
 									<div>
 										<Divider />
-										<Item.Group className="targetItems" divided>
-											{RenderTargets(this.props)}
-										</Item.Group>
+										<Card.Group itemsPerRow={this.props.itemsPerRow} stackable>
+											<RenderTargets props={this.props} />
+										</Card.Group>
 									</div>
 								) : (
-									<Item.Group className="fallacyItems" divided>
+									<Card.Group itemsPerRow={this.props.itemsPerRow} stackable>
 										<RenderFallacies props={this.props} />
-									</Item.Group>
+									</Card.Group>
 								)}
 							</Visibility>
 						</div>
@@ -331,6 +392,7 @@ FallaciesList.propTypes = {
 	getTargets: PropTypes.func,
 	hasMore: PropTypes.bool,
 	icon: PropTypes.string,
+	itemsPerRow: PropTypes.number,
 	name: PropTypes.string,
 	network: PropTypes.string,
 	objectId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -356,6 +418,7 @@ FallaciesList.defaultProps = {
 	getFallacies,
 	getTargets,
 	icon: "tweet",
+	itemsPerRow: 3,
 	page: 0,
 	results: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
 	showPics: true,
