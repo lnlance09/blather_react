@@ -63,6 +63,7 @@ class ResultItem extends Component {
 			if (props.img) {
 				return (
 					<Item.Image
+						bordered
 						centered
 						className={
 							props.type === "fallacy" || props.type === "fallacies"
@@ -72,6 +73,7 @@ class ResultItem extends Component {
 						label={props.label}
 						onError={i => (i.target.src = ImagePic)}
 						rounded
+						size="medium"
 						src={props.img}
 					/>
 				)

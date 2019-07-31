@@ -88,14 +88,17 @@ class FeedComponent extends Component {
 									</Feed.Date>
 								</Feed.Summary>
 								<Feed.Extra
+									images
 									onClick={() => props.history.push(`/fallacies/${result.id}`)}
-									text
 								>
 									<div
 										dangerouslySetInnerHTML={{
 											__html: Marked(result.explanation)
 										}}
 									/>
+									{result.s3_link && result.network === "twitter" ? (
+										<Image bordered inline rounded src={result.s3_link} />
+									) : null}
 								</Feed.Extra>
 							</Feed.Content>
 						</Feed.Event>

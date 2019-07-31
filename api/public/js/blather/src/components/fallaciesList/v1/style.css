@@ -16,3 +16,7 @@
     cursor: pointer; }
     .fallaciesList .targetMsg .viewAllTargets:hover {
       text-decoration: underline; }
+  .fallaciesList .card .image {
+    background: #FFFFFF !important;
+    height: 320px !important;
+    overflow-y: hidden; }

@@ -121,6 +121,7 @@ class Target extends Component {
 					}`}
 					history={props.history}
 					icon="warning sign"
+					itemsPerRow={2}
 					network={props.page.network}
 					showPics={false}
 					source="targets"
