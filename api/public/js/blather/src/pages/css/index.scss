@@ -657,7 +657,7 @@ a {
 
     @media only screen and (max-width: 1025px) {
         .image.profilePic {
-            height: 220px;
+            height: 250px;
         }
 
         .grid.column {
@@ -680,8 +680,8 @@ a {
     }
 
     .image.profilePic {
-        height: 220px;
-        width: 220px;
+        height: 250px;
+        width: 250px;
     }
 
     .pageHeaderInfo {
@@ -1006,7 +1006,7 @@ a {
         .targetImg {
             cursor: pointer;
             margin-top: 15px;
-            width: 220px;
+            width: 250px;
 
             + .header.medium {
                 margin-top: 8px;
