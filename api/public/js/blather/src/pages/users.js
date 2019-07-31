@@ -220,7 +220,15 @@ class UserPage extends Component {
 		}
 
 		const UserMenu = props => (
-			<Menu className="profileMenu" fluid pointing secondary size="big" stackable>
+			<Menu
+				className="profileMenu"
+				color="blue"
+				fluid
+				pointing
+				secondary
+				size="huge"
+				stackable
+			>
 				<Menu.Item
 					active={activeItem === "fallacies"}
 					name="fallacies"
@@ -228,7 +236,7 @@ class UserPage extends Component {
 				>
 					Fallacies{" "}
 					{user.fallacyCount > 0 && (
-						<Label basic horizontal>
+						<Label color={activeItem === "fallacies" ? "blue" : "grey"} horizontal>
 							{formatNumber(user.fallacyCount)}
 						</Label>
 					)}
@@ -240,7 +248,7 @@ class UserPage extends Component {
 				>
 					Archives{" "}
 					{user.archiveCount > 0 && (
-						<Label basic horizontal>
+						<Label color={activeItem === "archives" ? "blue" : "grey"} horizontal>
 							{formatNumber(user.archiveCount)}
 						</Label>
 					)}
@@ -266,11 +274,12 @@ class UserPage extends Component {
 							)}
 							<div className="userHeaderSection">
 								<TitleHeader
-									subheader={(
+									subheader={
 										<span className="joinDate">
-											@{user.username} • Joined <Moment date={user.dateCreated} fromNow />
+											@{user.username} • Joined{" "}
+											<Moment date={user.dateCreated} fromNow />
 										</span>
-									)}
+									}
 									textAlign="center"
 									title={user.name}
 								/>

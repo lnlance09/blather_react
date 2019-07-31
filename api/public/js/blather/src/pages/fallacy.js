@@ -16,7 +16,6 @@ import { Link } from "react-router-dom"
 import {
 	FacebookIcon,
 	FacebookShareButton,
-	RedditIcon,
 	RedditShareButton,
 	TwitterIcon,
 	TwitterShareButton
@@ -283,10 +282,7 @@ class Fallacy extends Component {
 		const ExportSection = (props, side) => {
 			const content = (
 				<div>
-					<Header as="h2" inverted>
-						Screenshot
-					</Header>
-					<Icon color="green" name="download" size="big" />
+					<Icon color="blue" name="download" size="big" />
 				</div>
 			)
 			return (
@@ -298,6 +294,33 @@ class Fallacy extends Component {
 					)}
 					{props.id && (
 						<div>
+							{props.s3Link && props.canScreenshot ? (
+								<div>
+									<Dimmer.Dimmable
+										as={Image}
+										bordered
+										className="downloadDimmer"
+										dimmed={active}
+										dimmer={{ active, content, inverted: true }}
+										inverted
+										onClick={() => window.open(props.s3Link, "_blank")}
+										onMouseEnter={this.handleShow}
+										onMouseLeave={this.handleHide}
+										rounded
+										size="big"
+										src={props.s3Link}
+									/>
+									<p className="screenshotCaption">
+										Created{" "}
+										<Moment
+											date={adjustTimezone(props.lastUpdated)}
+											fromNow
+											interval={60000}
+										/>
+									</p>
+								</div>
+							) : null}
+
 							{props.canScreenshot ? (
 								<Form>
 									<Form.Field>
@@ -354,33 +377,16 @@ class Fallacy extends Component {
 
 							{props.canMakeVideo || props.canScreenshot ? (
 								<Button
+									basic
 									className="downloadBtn"
-									color="green"
+									color="blue"
 									content={`Create ${
 										props.canMakeVideo ? "video" : "screenshot"
 									}`}
 									fluid={side === "right"}
-									icon={props.canMakeVideo ? "film" : "camera"}
 									loading={props.creating}
 									onClick={this.captureScreenshot}
 								/>
-							) : null}
-							{props.s3Link && props.canScreenshot ? (
-								<div>
-									<Dimmer.Dimmable
-										as={Image}
-										bordered
-										className="downloadDimmer"
-										dimmed={active}
-										dimmer={{ active, content }}
-										onClick={() => window.open(props.s3Link, "_blank")}
-										onMouseEnter={this.handleShow}
-										onMouseLeave={this.handleHide}
-										rounded
-										size="big"
-										src={props.s3Link}
-									/>
-								</div>
 							) : null}
 						</div>
 					)}
@@ -412,7 +418,6 @@ class Fallacy extends Component {
 					<TitleHeader
 						bearer={bearer}
 						canEdit={canEdit}
-						dividing
 						id={id}
 						subheader={subheader}
 						title={props.title}
@@ -584,7 +589,7 @@ class Fallacy extends Component {
 								<RedditShareButton
 									url={`${window.location.origin}/fallacies/${id}`}
 								>
-									<RedditIcon round size={35} />
+									<Icon className="reddit" name="reddit alien" />
 								</RedditShareButton>
 							</List.Item>
 						</List>
@@ -661,6 +666,7 @@ class Fallacy extends Component {
 									<Grid.Row>
 										{ShareSection(true)}
 										<Statistic
+											className="viewCount"
 											horizontal
 											label="Views"
 											value={this.props.viewCount}
@@ -766,6 +772,7 @@ Fallacy.propTypes = {
 	fetchFallacy: PropTypes.func,
 	highlightedText: PropTypes.string,
 	id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+	lastUpdated: PropTypes.string,
 	originalPayload: PropTypes.shape({
 		date: PropTypes.string,
 		endTime: PropTypes.number,
