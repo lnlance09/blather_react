@@ -266,15 +266,14 @@ class UserPage extends Component {
 							)}
 							<div className="userHeaderSection">
 								<TitleHeader
-									subheader={`@${user.username}`}
+									subheader={(
+										<span className="joinDate">
+											@{user.username} • Joined <Moment date={user.dateCreated} fromNow />
+										</span>
+									)}
 									textAlign="center"
 									title={user.name}
 								/>
-								{this.props.user.id && (
-									<span className="joinDate">
-										Joined <Moment date={user.dateCreated} fromNow />
-									</span>
-								)}
 							</div>
 
 							{UserMenu(this.props)}

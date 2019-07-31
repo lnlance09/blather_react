@@ -21,7 +21,7 @@
       margin-top: 10px; } }
   .fallaciesList .cards .card .content {
     word-break: break-word; }
-  .fallaciesList .cards .card .image {
+  .fallaciesList .cards .card .image.parent {
     background: #2185D0 !important;
     height: 300px !important;
     overflow-y: hidden;

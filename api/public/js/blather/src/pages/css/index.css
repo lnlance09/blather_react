@@ -624,10 +624,6 @@ a {
   text-align: center; }
   .usersPage .userHeaderSection p {
     margin-top: 15px; }
-  .usersPage .userHeaderSection .joinDate {
-    color: #767676;
-    display: inline-block;
-    margin-top: 5px; }
 
 @media only screen and (max-width: 1025px) {
   .usersPage .userContentRow {
@@ -645,18 +641,18 @@ a {
   text-align: center; }
 
 .usersPage .profilePic {
-  height: 220px;
+  height: 250px;
   width: auto !important; }
   .usersPage .profilePic img {
-    height: 220px;
+    height: 250px;
     text-align: center;
-    width: 220px; }
+    width: 250px; }
   .usersPage .profilePic.default {
     background: #FFFFFF;
-    height: 220px !important;
+    height: 250px !important;
     overflow: hidden;
     padding: 7px;
-    width: 220px !important; }
+    width: 250px !important; }
 
 @media only screen and (max-width: 1025px) {
   .usersPage .profilePic {
