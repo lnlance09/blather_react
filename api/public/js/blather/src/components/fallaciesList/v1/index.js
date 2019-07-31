@@ -209,7 +209,7 @@ class FallaciesList extends Component {
 		const RenderFallacies = ({ props }) => {
 			return props.results.map((result, i) => {
 				if (result.id) {
-					let img = result.s3_link ? result.s3_link : ImagePic
+					let img = result.s3_link && result.network === "twitter" ? result.s3_link : ImagePic
 					let meta = (
 						<div>
 							<p>
