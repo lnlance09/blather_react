@@ -310,14 +310,16 @@ class Fallacy extends Component {
 										size="big"
 										src={props.s3Link}
 									/>
-									<p className="screenshotCaption">
-										Created{" "}
-										<Moment
-											date={adjustTimezone(props.lastUpdated)}
-											fromNow
-											interval={60000}
-										/>
-									</p>
+									{props.lastUpdated && (
+										<p className="screenshotCaption">
+											Created{" "}
+											<Moment
+												date={adjustTimezone(props.lastUpdated)}
+												fromNow
+												interval={60000}
+											/>
+										</p>
+									)}
 								</div>
 							) : null}
 
