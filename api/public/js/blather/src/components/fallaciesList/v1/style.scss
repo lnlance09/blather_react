@@ -38,12 +38,38 @@
 
             .image {
                 background: $white !important;
-                height: 320px !important;
+                height: 300px !important;
                 overflow-y: hidden;
 
                 @media only screen and (max-width: 1025px) {
                     height: auto !important;
                 }
+            }
+
+            .parent {
+                background: $blue !important;
+                position: relative;
+                width: 100%;
+            }
+
+            .one, .two {
+                height: 300px;
+                position: absolute;
+                width: 65%;
+            }
+
+            .one {
+                clip-path: polygon(0 0, 100% 0%, 50% 100%, 0% 100%);
+                left: 0;
+                top: 0;
+                -webkit-clip-path: polygon(0 0, 100% 0%, 50% 100%, 0% 100%);
+            }
+
+            .two {
+                clip-path: polygon(50% 0, 100% 0%, 100% 100%, 0% 100%);
+                right: 0;
+                top: 0;
+                -webkit-clip-path: polygon(50% 0, 100% 0%, 100% 100%, 0% 100%);
             }
         }
     }
