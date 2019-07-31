@@ -864,6 +864,7 @@
                 fe.explanation,
                 fe.fallacy_id,
                 fe.network,
+                CONCAT('".$this->s3Path."', fe.s3_link) AS s3_link,
                 fe.slug,
                 fe.start_time,
                 fe.status,

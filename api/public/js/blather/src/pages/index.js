@@ -220,7 +220,7 @@ class Page extends Component {
 							icon="warning sign"
 							network={network}
 							setFallacyId={this.setFallacyId}
-							showPics={false}
+							showPics={true}
 							source="pages"
 						/>
 					)

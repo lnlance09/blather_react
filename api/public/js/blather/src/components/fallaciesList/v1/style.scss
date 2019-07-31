@@ -25,4 +25,12 @@
             }
         }
     }
+
+    .card {
+        .image {
+            background: $white !important;
+            height: 320px !important;
+            overflow-y: hidden;
+        }
+    }
 }

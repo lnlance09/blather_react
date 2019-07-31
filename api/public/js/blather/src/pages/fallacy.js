@@ -607,6 +607,7 @@ class Fallacy extends Component {
 							fallacyId={props.fallacyId}
 							history={props.history}
 							icon="warning sign"
+							itemsPerRow={2}
 							source="fallacy"
 							useCards
 						/>
