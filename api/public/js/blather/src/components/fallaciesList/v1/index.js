@@ -297,7 +297,7 @@ class FallaciesList extends Component {
 					const url = `/targets/${props.assignedBy}/${result.id}`
 					return (
 						<Card onClick={e => this.redirectToUrl(e, url)}>
-							<Image src={img} ui={false} wrapped />
+							<Image onError={i => (i.target.src = ImagePic)} src={img} ui={false} wrapped />
 							<Card.Content>
 								<Card.Header>{result.name}</Card.Header>
 								<Card.Meta>{meta}</Card.Meta>
