@@ -610,8 +610,8 @@
         </div>
     </body>
 
-    <script src="/static/js/1.01dd439c.chunk.js"></script>
-    <script src="/static/js/main.ea7d59fa.chunk.js"></script>
+    <script src="/static/js/1.878bba27.chunk.js"></script>
+    <script src="/static/js/main.f0a2d1aa.chunk.js"></script>
     <script src="/static/js/runtime~main.229c360f.js"></script>
 
 <?php
