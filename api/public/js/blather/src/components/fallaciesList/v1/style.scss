@@ -1,7 +1,6 @@
 @import '../../../css/colors.scss';
 
 .fallaciesList {
-    margin-top: 10px;
     width: 100%;
 
     .emptyFallaciesContainer {
@@ -27,15 +26,25 @@
         }
     }
 
-    .card {
-        .content {
-            word-break: break-word;
+    .cards {
+        @media only screen and (max-width: 1025px) {
+            margin-top: 10px;
         }
 
-        .image {
-            background: $white !important;
-            height: 320px !important;
-            overflow-y: hidden;
+        .card {
+            .content {
+                word-break: break-word;
+            }
+
+            .image {
+                background: $white !important;
+                height: 320px !important;
+                overflow-y: hidden;
+
+                @media only screen and (max-width: 1025px) {
+                    height: auto !important;
+                }
+            }
         }
     }
 }
