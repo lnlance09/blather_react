@@ -217,7 +217,7 @@ const fallacy = (state = initial(), action) => {
 				}
 				if (
 					refId === 6 &&
-					contradiction.video.endTime - contradiction.video.startTime > 60
+					contradiction.video.endTime - contradiction.video.startTime > 120
 				) {
 					canMakeVideo = false
 				}
