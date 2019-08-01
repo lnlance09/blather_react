@@ -304,11 +304,13 @@ a {
   .fallacyPage .fallacyGrid .callToSignUp {
     margin-top: 10px; }
   .fallacyPage .fallacyGrid .shareList {
+    height: 41px;
     margin-top: 0 !important;
     width: 100%; }
     .fallacyPage .fallacyGrid .shareList .item {
       cursor: pointer;
       height: 41px !important;
+      padding: 0 !important;
       vertical-align: text-top; }
     .fallacyPage .fallacyGrid .shareList .reddit {
       background: #FF5700;
@@ -342,7 +344,7 @@ a {
   margin-top: 0; }
 
 .fallacyPage .shareContent {
-  line-height: 1;
+  line-height: 0;
   width: 100%; }
 
 .fallacyPage .sourcesContent {

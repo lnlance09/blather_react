@@ -510,12 +510,14 @@ a {
         }
 
         .shareList {
+            height: 41px;
             margin-top: 0 !important;
             width: 100%;
 
             .item {
                 cursor: pointer;
                 height: 41px !important;
+                padding: 0 !important;
                 vertical-align: text-top;
             }
 
@@ -565,7 +567,7 @@ a {
     }
 
     .shareContent {
-        line-height: 1;
+        line-height: 0;
         width: 100%;
     }
 
