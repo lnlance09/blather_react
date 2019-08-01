@@ -271,7 +271,7 @@ class Fallacy extends Component {
 			}
 			return (
 				<div className="commentsContent">
-					<Header dividing size="large">
+					<Header size="large">
 						Comments
 					</Header>
 					<Disqus.DiscussionEmbed config={DisqusConfig} shortname="blather-1" />
@@ -487,7 +487,7 @@ class Fallacy extends Component {
 
 		const ReferenceSection = (
 			<div className="fallacyContent">
-				<Header dividing size="large" data-html2canvas-ignore>
+				<Header size="large" data-html2canvas-ignore>
 					Reference
 				</Header>
 				{this.props.id ? (
@@ -566,7 +566,7 @@ class Fallacy extends Component {
 			return (
 				<div className="shareContent">
 					{useHeader && (
-						<Header dividing size="large">
+						<Header size="large">
 							Share
 						</Header>
 					)}
@@ -606,7 +606,7 @@ class Fallacy extends Component {
 			if (props.id) {
 				return (
 					<div className="similarContent">
-						<Header dividing size="large">
+						<Header size="large">
 							More examples of <i>{props.fallacyName}</i>
 						</Header>
 						<FallaciesList
@@ -629,7 +629,7 @@ class Fallacy extends Component {
 			const rawSources = refId === 3 || refId === 6 || refId === 8
 			return (
 				<div className="sourcesContent">
-					<Header dividing size="large">
+					<Header size="large">
 						Sources
 					</Header>
 					<FallacyExample
