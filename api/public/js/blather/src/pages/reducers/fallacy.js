@@ -177,7 +177,7 @@ const fallacy = (state = initial(), action) => {
 
 			if (
 				(refId === 3 || refId === 11) &&
-				contradiction.video.endTime - contradiction.video.startTime < 61 &&
+				contradiction.video.endTime - contradiction.video.startTime < 121 &&
 				contradiction.video.endTime > 0
 			) {
 				canMakeVideo = true
@@ -212,7 +212,7 @@ const fallacy = (state = initial(), action) => {
 			}
 
 			if (videoRefIds.includes(refId)) {
-				if (video.endTime - video.startTime < 61 && video.endTime > 0) {
+				if (video.endTime - video.startTime < 121 && video.endTime > 0) {
 					canMakeVideo = true
 				}
 				if (
@@ -412,7 +412,7 @@ const fallacy = (state = initial(), action) => {
 
 			if (payload.fallacy.network === "youtube" && payload.fallacy.comment_id === null) {
 				validOriginalLength = false
-				if (endTime - startTime < 61 && endTime > 0) {
+				if (endTime - startTime < 121 && endTime > 0) {
 					validOriginalLength = true
 				}
 
@@ -431,7 +431,7 @@ const fallacy = (state = initial(), action) => {
 				endTime = parseInt(payload.fallacy.contradiction_end_time, 10)
 
 				validContradictionLength = false
-				if (endTime - startTime < 61 && endTime > 0) {
+				if (endTime - startTime < 121 && endTime > 0) {
 					validContradictionLength = true
 				}
 
