@@ -348,19 +348,16 @@ a {
   width: 100%; }
 
 .fallacyPage .sourcesContent {
-  margin-bottom: 30px;
   width: 100%; }
   .fallacyPage .sourcesContent .divider {
-    margin: 30px; }
+    margin: 30px 0; }
 
 .fallacyPage .fallacyContent {
-  margin-bottom: 30px;
   width: 100%; }
   .fallacyPage .fallacyContent .divider {
     margin: 30px 0; }
 
 .fallacyPage .similarContent {
-  margin-bottom: 30px;
   width: 100%; }
   .fallacyPage .similarContent .divider {
     margin: 30px 0; }
@@ -389,7 +386,8 @@ a {
   .fallacyPage .statusActionSegment .twitterButton, .fallacyPage .statusActionSegment .youtubeButton {
     font-size: 12px; }
   .fallacyPage .row {
-    padding-bottom: 0 !important; }
+    padding-bottom: 0 !important;
+    padding-top: 0 !important; }
   .fallacyPage .retractionContainer {
     margin: 0 !important; }
   .fallacyPage .downloadBtn {
