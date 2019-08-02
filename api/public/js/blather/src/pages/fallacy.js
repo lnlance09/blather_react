@@ -578,7 +578,7 @@ class Fallacy extends Component {
 					{useHeader && (
 						<Divider horizontal>
 							<Header size="large">
-								<Icon color="blue" name="share" />
+								<Icon color="blue" name="share square outline" />
 								Share
 							</Header>
 						</Divider>
