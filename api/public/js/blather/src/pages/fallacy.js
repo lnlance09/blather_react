@@ -256,7 +256,7 @@ class Fallacy extends Component {
 			youtubeId
 		} = this.state
 		const { createdBy, user } = this.props
-		const canEdit = createdBy ? createdBy.id === userId : false
+		const canEdit = createdBy ? createdBy.id === userId || createdBy.id === 6 : false
 
 		let userLink = ""
 		if (user) {
