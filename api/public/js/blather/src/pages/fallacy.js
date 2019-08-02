@@ -576,9 +576,12 @@ class Fallacy extends Component {
 			return (
 				<div className="shareContent">
 					{useHeader && (
-						<Header size="large">
-							Share
-						</Header>
+						<Divider horizontal>
+							<Header size="large">
+								<Icon color="blue" name="share" />
+								Share
+							</Header>
+						</Divider>
 					)}
 					{this.props.id ? (
 						<List className="shareList" horizontal>

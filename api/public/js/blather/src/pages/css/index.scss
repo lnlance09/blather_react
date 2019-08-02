@@ -572,16 +572,14 @@ a {
     }
 
     .sourcesContent {
-        margin-bottom: $dividerMargin;
         width: 100%;
 
         .divider {
-            margin: $dividerMargin;
+            margin: $dividerMargin 0;
         }
     }
 
     .fallacyContent {
-        margin-bottom: $dividerMargin;
         width: 100%;
 
         .divider {
@@ -590,7 +588,6 @@ a {
     }
 
     .similarContent {
-        margin-bottom: $dividerMargin;
         width: 100%;
 
         .divider {
@@ -640,6 +637,7 @@ a {
 
         .row {
             padding-bottom: 0 !important;
+            padding-top: 0 !important;
         }
 
         .retractionContainer {
