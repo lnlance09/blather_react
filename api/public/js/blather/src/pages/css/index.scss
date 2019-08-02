@@ -572,23 +572,39 @@ a {
     }
 
     .sourcesContent {
-        margin-top: 30px;
+        margin-bottom: $dividerMargin;
         width: 100%;
+
+        .divider {
+            margin: $dividerMargin;
+        }
     }
 
     .fallacyContent {
-        margin-top: 30px;
+        margin-bottom: $dividerMargin;
         width: 100%;
+
+        .divider {
+            margin: $dividerMargin 0;
+        }
     }
 
     .similarContent {
-        margin-top: 30px;
+        margin-bottom: $dividerMargin;
         width: 100%;
+
+        .divider {
+            margin: $dividerMargin 0;
+        }
     }
 
     .commentsContent {
-        margin-top: 15px;
+        margin-bottom: $dividerMargin;
         width: 100%;
+
+        .divider {
+            margin: $dividerMargin 0;
+        }
 
         .comment-policy {
             margin-top: 0 !important;

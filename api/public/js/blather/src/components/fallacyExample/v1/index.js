@@ -231,7 +231,7 @@ class FallacyExample extends Component {
 			if (props.showExplanation && props.explanation) {
 				const explanationEl = (
 					<div>
-						<Header as="h2" className="fallacyHeader" size="medium">
+						<Header as="h2" className="fallacyHeader" size="large">
 							{props.fallacyName} <EditButton props={props} />
 							{props.downloading && props.exportOpt === "screenshotAll"
 								? WatermarkLabel(props)
@@ -263,7 +263,6 @@ class FallacyExample extends Component {
 									<Button
 										className="updateBtn"
 										color="blue"
-										compact
 										content="Update"
 										fluid
 										type="submit"
