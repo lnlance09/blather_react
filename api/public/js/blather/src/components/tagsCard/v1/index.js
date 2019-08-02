@@ -2,7 +2,8 @@ import "./style.css"
 import { removeFallacyTag, updateFallacy } from "pages/actions/fallacy"
 import { removeDiscussionTag, updateDiscussion } from "pages/actions/discussion"
 import { connect, Provider } from "react-redux"
-import { Button, Dropdown, Header, Icon, Label, List, Modal } from "semantic-ui-react"
+import { Link } from "react-router-dom"
+import { Button, Dropdown, Header, Icon, List, Modal } from "semantic-ui-react"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import store from "store"
@@ -128,14 +129,7 @@ class TagsCard extends Component {
 		)
 		const RenderTags = this.props.tags.map(tag => (
 			<List.Item key={`tag_${tag.name}`}>
-				<Label
-					color="blue"
-					horizontal
-					id={tag.id}
-					onClick={() => this.props.history.push(`/tags/${tag.id.trim()}`)}
-				>
-					{tag.name.trim()}
-				</Label>
+				<Link to={`/tags/${tag.id.trim()}`}>{tag.name.trim()}</Link>
 				{this.props.canEdit && (
 					<List.Content floated="right">
 						<Icon name="close" onClick={() => this.deleteTag(tag.id, tag.name)} />
