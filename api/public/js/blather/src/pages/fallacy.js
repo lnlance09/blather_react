@@ -24,6 +24,7 @@ import {
 	Button,
 	Container,
 	Dimmer,
+	Divider,
 	Form,
 	Grid,
 	Header,
@@ -271,9 +272,12 @@ class Fallacy extends Component {
 			}
 			return (
 				<div className="commentsContent">
-					<Header size="large">
-						Comments
-					</Header>
+					<Divider horizontal>
+						<Header size="large">
+							<Icon color="blue" name="comments outline" />
+							Comments
+						</Header>
+					</Divider>
 					<Disqus.DiscussionEmbed config={DisqusConfig} shortname="blather-1" />
 				</div>
 			)
@@ -479,7 +483,10 @@ class Fallacy extends Component {
 							<canvas id="materialCanvas" />
 						</div>
 					) : (
-						<LazyLoad header={false} />
+						<div>
+							<LazyLoad header={false} />
+							<LazyLoad header={false} />
+						</div>
 					)}
 				</div>
 			)
@@ -487,9 +494,12 @@ class Fallacy extends Component {
 
 		const ReferenceSection = (
 			<div className="fallacyContent">
-				<Header size="large" data-html2canvas-ignore>
-					Reference
-				</Header>
+				<Divider data-html2canvas-ignore horizontal>
+					<Header size="large">
+						<Icon color="blue" name="sticky note outline" />
+						Reference
+					</Header>
+				</Divider>
 				{this.props.id ? (
 					<div>
 						{exportOpt !== "screenshotAndRef" ? (
@@ -606,9 +616,13 @@ class Fallacy extends Component {
 			if (props.id) {
 				return (
 					<div className="similarContent">
-						<Header size="large">
-							More examples of <i>{props.fallacyName}</i>
-						</Header>
+						<Divider horizontal>
+							<Header size="large">
+								<Icon color="blue" name="lab" />
+								More examples
+							</Header>
+						</Divider>
+
 						<FallaciesList
 							emptyMsgContent="There are no similar fallacies"
 							fallacyId={props.fallacyId}
@@ -629,9 +643,12 @@ class Fallacy extends Component {
 			const rawSources = refId === 3 || refId === 6 || refId === 8
 			return (
 				<div className="sourcesContent">
-					<Header size="large">
-						Sources
-					</Header>
+					<Divider horizontal>
+						<Header size="large">
+							<Icon color="blue" name="bookmark outline" />
+							Sources
+						</Header>
+					</Divider>
 					<FallacyExample
 						bearer={bearer}
 						canEdit={canEdit}

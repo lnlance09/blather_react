@@ -348,20 +348,28 @@ a {
   width: 100%; }
 
 .fallacyPage .sourcesContent {
-  margin-top: 30px;
+  margin-bottom: 30px;
   width: 100%; }
+  .fallacyPage .sourcesContent .divider {
+    margin: 30px; }
 
 .fallacyPage .fallacyContent {
-  margin-top: 30px;
+  margin-bottom: 30px;
   width: 100%; }
+  .fallacyPage .fallacyContent .divider {
+    margin: 30px 0; }
 
 .fallacyPage .similarContent {
-  margin-top: 30px;
+  margin-bottom: 30px;
   width: 100%; }
+  .fallacyPage .similarContent .divider {
+    margin: 30px 0; }
 
 .fallacyPage .commentsContent {
-  margin-top: 15px;
+  margin-bottom: 30px;
   width: 100%; }
+  .fallacyPage .commentsContent .divider {
+    margin: 30px 0; }
   .fallacyPage .commentsContent .comment-policy {
     margin-top: 0 !important; }
 
