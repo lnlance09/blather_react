@@ -744,7 +744,7 @@
 				exit;
 			}
 
-			if ($fallacy['assigned_by'] !== $user->id) {
+			if ($fallacy['assigned_by'] !== $user->id && $fallacy['assigned_by'] != 6) {
 				$this->output->set_status_header(401);
 				echo json_encode([
 					'error' => 'You do not have permission to edit this fallacy'
