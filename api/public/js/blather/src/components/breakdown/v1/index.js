@@ -148,13 +148,13 @@ class Breakdown extends Component {
 									</div>
 								)}
 								<Header size="medium">
-									Can pass an{" "}
+									Can pass an Ideological {" "}
 									<a
 										href="https://www.econlib.org/archives/2011/06/the_ideological.html"
 										rel="noopener noreferrer"
 										target="_blank"
 									>
-										Ideological Turing Test
+										Turing Test
 									</a>
 									?<Header.Subheader>{Stats(turingTest)}</Header.Subheader>
 								</Header>
@@ -167,7 +167,6 @@ class Breakdown extends Component {
 								<Header size="medium">
 									<Button
 										basic
-										color="blue"
 										onClick={() =>
 											this.props.history.push(
 												`/targets/${

@@ -481,7 +481,7 @@ class Fallacy extends Component {
 							<canvas id="materialCanvas" />
 						</div>
 					) : (
-						<div>
+						<div style={{ marginBottom: "30px" }}>
 							<LazyLoad header={false} />
 							<LazyLoad header={false} />
 						</div>
