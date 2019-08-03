@@ -356,8 +356,8 @@ class FallacyExample extends Component {
 			>
 				{props.user ? (
 					<div>
-						{props.rawSources && !props.canEdit ? (
-							<List className="sourceList">
+						{props.rawSources ? (
+							<List className="sourceList" size="large">
 								{ParseMaterial(props)}
 								{props.contradiction && ParseMaterial(props, true)}
 							</List>
@@ -389,7 +389,7 @@ class FallacyExample extends Component {
 				material = props.contradiction
 			}
 			if (material.tweet) {
-				if (props.rawSources && !props.canEdit) {
+				if (props.rawSources) {
 					const tweetLink = `https://twitter.com/${
 						material.tweet.user.screen_name
 					}/status/${material.tweet.id_str}`
@@ -449,7 +449,7 @@ class FallacyExample extends Component {
 			}
 
 			if (material.video) {
-				if (props.rawSources && !props.canEdit) {
+				if (props.rawSources) {
 					const videoLink = `https://www.youtube.com/watch?v=${material.video.id}`
 					return (
 						<List.Item>

@@ -571,41 +571,31 @@ a {
         width: 100%;
     }
 
-    .sourcesContent {
-        width: 100%;
-
-        .divider {
-            margin: $dividerMargin 0;
-        }
-    }
-
     .fallacyContent {
         width: 100%;
-
-        .divider {
-            margin: $dividerMargin 0;
-        }
     }
 
-    .similarContent {
+    .sourcesContent {
+        margin: $dividerMargin 0;
         width: 100%;
-
-        .divider {
-            margin: $dividerMargin 0;
-        }
     }
 
     .commentsContent {
-        margin-bottom: $dividerMargin;
+        margin: $dividerMargin 0;
         width: 100%;
 
-        .divider {
-            margin: $dividerMargin 0;
+        .segment {
+            padding-top: 4px;
         }
 
         .comment-policy {
             margin-top: 0 !important;
         }
+    }
+
+    .similarContent {
+        margin: $dividerMargin 0;
+        width: 100%;
     }
 
     .tagsCard {
