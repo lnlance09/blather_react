@@ -3,8 +3,10 @@ import { Link } from "react-router-dom"
 import { sanitizeText } from "utils/textFunctions"
 import {
 	Button,
+	Divider,
 	Header,
 	Icon,
+	Image,
 	Label,
 	Message,
 	Placeholder,
@@ -119,15 +121,18 @@ class Breakdown extends Component {
 								)}
 							</Segment>
 
+							<Divider hidden />
+
 							<Segment basic className="questionnaire">
 								{placeholder.id && (
 									<div>
 										<Header className="first" size="medium">
+											<Image avatar size="medium" src={placeholder.user_img} />{" "}
 											Here's how{" "}
 											<Link to={`/users/${placeholder.user_id}`}>
 												{placeholder.user_name}
 											</Link>{" "}
-											has described this source.
+											has described this source
 										</Header>
 										<Icon name="quote left" />
 										<blockquote
@@ -147,16 +152,10 @@ class Breakdown extends Component {
 										</p>
 									</div>
 								)}
+
 								<Header size="medium">
-									Can pass an Ideological {" "}
-									<a
-										href="https://www.econlib.org/archives/2011/06/the_ideological.html"
-										rel="noopener noreferrer"
-										target="_blank"
-									>
-										Turing Test
-									</a>
-									?<Header.Subheader>{Stats(turingTest)}</Header.Subheader>
+									Can pass an ideological turing test?
+									<Header.Subheader>{Stats(turingTest)}</Header.Subheader>
 								</Header>
 
 								<Header size="medium">
@@ -178,6 +177,8 @@ class Breakdown extends Component {
 										<Icon color="yellow" name="star" /> Create a review
 									</Button>
 								</Header>
+
+								<Divider hidden />
 							</Segment>
 						</div>
 					) : (
