@@ -10,6 +10,7 @@ import {
 	Header,
 	Icon,
 	Image,
+	Label,
 	Message,
 	Placeholder,
 	Segment,
@@ -231,6 +232,9 @@ class FallaciesList extends Component {
 							<Card.Content>
 								<Card.Header>{result.title}</Card.Header>
 								<Card.Meta>{meta}</Card.Meta>
+								<Card.Meta>
+									<Moment date={adjustTimezone(result.date_created)} fromNow />
+								</Card.Meta>
 								<Card.Description
 									dangerouslySetInnerHTML={{
 										__html:
@@ -242,12 +246,16 @@ class FallaciesList extends Component {
 								/>
 							</Card.Content>
 							<Card.Content extra>
-								<span>
+								<span style={{ lineHeight: "1.7" }}>
 									<Icon name="eye" />
-									{result.view_count} views
+									<b>
+										{result.view_count} views
+									</b>
 								</span>{" "}
 								<span style={{ float: "right" }}>
-									<Moment date={adjustTimezone(result.date_created)} fromNow />
+									<Label tag>
+										{result.fallacy_name}
+									</Label>
 								</span>
 							</Card.Content>
 						</Card>

@@ -32,9 +32,9 @@
     .breakdown .questionnaire .ui.header.medium {
       margin-top: 0; }
   .breakdown .placeholderDiv {
-    font-style: italic;
     margin-bottom: 12px; }
     .breakdown .placeholderDiv p {
+      color: #545454;
       font-size: 16px;
       line-height: 1.6; }
   .breakdown .icon.question {
