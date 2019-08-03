@@ -631,7 +631,7 @@ class Fallacy extends Component {
 
 		const SourcesSection = props => {
 			const refId = props.refId
-			const rawSources = refId === 3 || refId === 6 || refId === 8
+			const rawSources = refId === 1 || refId === 2
 			return (
 				<div className="sourcesContent">
 					<Header size="large">
@@ -644,7 +644,7 @@ class Fallacy extends Component {
 						exportOpt={exportOpt}
 						history={this.props.history}
 						id={id}
-						rawSources={!rawSources}
+						rawSources={rawSources}
 						showExplanation={false}
 					/>
 				</div>
