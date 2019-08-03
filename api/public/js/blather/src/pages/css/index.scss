@@ -572,16 +572,17 @@ a {
     }
 
     .fallacyContent {
+        margin-bottom: $dividerMargin;
         width: 100%;
     }
 
     .sourcesContent {
-        margin: $dividerMargin 0;
+        margin-bottom: $dividerMargin;
         width: 100%;
     }
 
     .commentsContent {
-        margin: $dividerMargin 0;
+        margin-bottom: $dividerMargin;
         width: 100%;
 
         .segment {
@@ -594,12 +595,12 @@ a {
     }
 
     .similarContent {
-        margin: $dividerMargin 0;
+        margin-bottom: $dividerMargin;
         width: 100%;
     }
 
     .tagsCard {
-        margin-top: 15px;
+        margin-top: $dividerMargin;;
     }
 
     canvas {
@@ -640,6 +641,10 @@ a {
 
         .captureScreenshot {
             display: none;
+        }
+
+        .tagsCard {
+            margin: $dividerMargin 0;
         }
     }
 }
