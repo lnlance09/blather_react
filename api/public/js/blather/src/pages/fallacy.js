@@ -24,7 +24,6 @@ import {
 	Button,
 	Container,
 	Dimmer,
-	Divider,
 	Form,
 	Grid,
 	Header,
@@ -272,13 +271,12 @@ class Fallacy extends Component {
 			}
 			return (
 				<div className="commentsContent">
-					<Divider horizontal>
-						<Header size="large">
-							<Icon color="blue" name="comments outline" />
-							Comments
-						</Header>
-					</Divider>
-					<Disqus.DiscussionEmbed config={DisqusConfig} shortname="blather-1" />
+					<Header size="large">
+						Comments
+					</Header>
+					<Segment>
+						<Disqus.DiscussionEmbed config={DisqusConfig} shortname="blather-1" />
+					</Segment>
 				</div>
 			)
 		}
@@ -494,12 +492,9 @@ class Fallacy extends Component {
 
 		const ReferenceSection = (
 			<div className="fallacyContent">
-				<Divider data-html2canvas-ignore horizontal>
-					<Header size="large">
-						<Icon color="blue" name="sticky note outline" />
-						Reference
-					</Header>
-				</Divider>
+				<Header data-html2canvas-ignore horizontal size="large">
+					Reference
+				</Header>
 				{this.props.id ? (
 					<div>
 						{exportOpt !== "screenshotAndRef" ? (
@@ -576,12 +571,9 @@ class Fallacy extends Component {
 			return (
 				<div className="shareContent">
 					{useHeader && (
-						<Divider horizontal>
-							<Header size="large">
-								<Icon color="blue" name="share square outline" />
-								Share
-							</Header>
-						</Divider>
+						<Header size="large">
+							Share
+						</Header>
 					)}
 					{this.props.id ? (
 						<List className="shareList" horizontal>
@@ -619,13 +611,9 @@ class Fallacy extends Component {
 			if (props.id) {
 				return (
 					<div className="similarContent">
-						<Divider horizontal>
-							<Header size="large">
-								<Icon color="blue" name="lab" />
-								More examples
-							</Header>
-						</Divider>
-
+						<Header size="large">
+							Similar fallacies
+						</Header>
 						<FallaciesList
 							emptyMsgContent="There are no similar fallacies"
 							fallacyId={props.fallacyId}
@@ -646,12 +634,9 @@ class Fallacy extends Component {
 			const rawSources = refId === 3 || refId === 6 || refId === 8
 			return (
 				<div className="sourcesContent">
-					<Divider horizontal>
-						<Header size="large">
-							<Icon color="blue" name="bookmark outline" />
-							Sources
-						</Header>
-					</Divider>
+					<Header size="large">
+						Sources
+					</Header>
 					<FallacyExample
 						bearer={bearer}
 						canEdit={canEdit}
