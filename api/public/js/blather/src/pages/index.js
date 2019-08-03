@@ -186,12 +186,11 @@ class Page extends Component {
 		const PageMenu = props => (
 			<Menu
 				borderless
-				color="blue"
 				className="socialMediaPageMenu"
 				fluid
 				pointing
 				secondary
-				size="huge"
+				size="medium"
 				stackable
 			>
 				<Menu.Item
