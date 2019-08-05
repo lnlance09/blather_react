@@ -159,6 +159,7 @@ class Tag extends Component {
 		})
 		this.toggleModal()
 		this.setState({
+			caption: "",
 			img: false
 		})
 	}
@@ -195,12 +196,12 @@ class Tag extends Component {
 			}
 
 			if (props.description === null) {
-				return <div>There is no description yet...</div>
+				return <div className="tagDescription">There is no description yet...</div>
 			}
 
 			return (
 				<div
-					className="description"
+					className="tagDescription"
 					dangerouslySetInnerHTML={{
 						__html: sanitizeText(Marked(props.description))
 					}}
@@ -249,7 +250,6 @@ class Tag extends Component {
 		const GallerySection = props => (
 			<div className="galleryContent">
 				<Header size="large">Platitudes thru imagery</Header>
-
 				<Segment>
 					{props.images.length > 0 ? (
 						<div className="galleryWrapper">
@@ -260,7 +260,9 @@ class Tag extends Component {
 						<Header>There aren't any pics yet</Header>
 					)}
 				</Segment>
-				<Button circular color="green" icon="camera" onClick={() => this.toggleModal()} />
+				{authenticated && (
+					<Button circular color="green" icon="camera" onClick={() => this.toggleModal()} />
+				)}
 			</div>
 		)
 
