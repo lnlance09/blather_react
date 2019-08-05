@@ -656,7 +656,7 @@
     </body>
 
     <script src="/static/js/1.b382ada4.chunk.js"></script>
-    <script src="/static/js/main.589af954.chunk.js"></script>
+    <script src="/static/js/main.f2a986eb.chunk.js"></script>
     <script src="/static/js/runtime~main.229c360f.js"></script>
 
 <?php
