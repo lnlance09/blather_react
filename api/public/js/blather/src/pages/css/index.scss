@@ -985,6 +985,12 @@ a {
                     }
                 }
             }
+
+             .right {
+                .item {
+                    padding-right: 0 !important;
+                }
+            }
         }
 
         .editButtonWrapper {
@@ -1023,7 +1029,7 @@ a {
             }
         }
 
-        .description {
+        .tagDescription {
             font-size: 16px;
         }
     }
