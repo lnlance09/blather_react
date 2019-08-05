@@ -241,11 +241,7 @@ class FeedComponent extends Component {
 
 		const RenderTags = tags =>
 			tags.map((tag, i) => (
-				<Label
-					basic
-					key={`label_${i}`}
-					onClick={() => this.props.history.push(`/tags/${tag.id.trim()}`)}
-				>
+				<Label basic key={`label_${i}`}>
 					<Icon color="blue" name="tag" />
 					{tag.name}
 				</Label>
