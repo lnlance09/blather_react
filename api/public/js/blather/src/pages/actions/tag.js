@@ -1,11 +1,11 @@
 import * as constants from "../constants"
 import request from "request"
 
-export const changePic = ({ bearer, file, id }) => dispatch => {
+export const addPic = ({ bearer, caption, file, id }) => dispatch => {
 	const fr = new FileReader()
 	fr.onload = event => {
 		request.post(
-			`${window.location.origin}/api/tags/changePic`,
+			`${window.location.origin}/api/tags/addPic`,
 			{
 				headers: {
 					Authorization: bearer,
@@ -25,13 +25,14 @@ export const changePic = ({ bearer, file, id }) => dispatch => {
 					]
 				},
 				qs: {
+					caption,
 					id
 				}
 			},
 			function(err, response, body) {
 				dispatch({
 					payload: body,
-					type: constants.CHANGE_TAG_PIC
+					type: constants.ADD_TAG_PIC
 				})
 			}
 		)
@@ -51,6 +52,24 @@ export const fetchHistory = ({ id }) => dispatch => {
 		function(err, response, body) {
 			dispatch({
 				type: constants.FETCH_TAG_HISTORY,
+				payload: body
+			})
+		}
+	)
+}
+
+export const fetchTaggedUsers = ({ id }) => dispatch => {
+	request.get(
+		`${window.location.origin}/api/tags/getTaggedUsers`,
+		{
+			json: true,
+			qs: {
+				id
+			}
+		},
+		function(err, response, body) {
+			dispatch({
+				type: constants.FETCH_TAGGED_USERS,
 				payload: body
 			})
 		}

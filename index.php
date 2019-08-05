@@ -361,6 +361,45 @@
                 }
                 break;
 
+            case "tags":
+
+                $sql = "SELECT t.value, tv.description, ti.s3_path, ti.caption, fe.title, fe.slug
+                        FROM tags t
+
+                        INNER JOIN tag_versions tv ON t.id = tv.tag_id
+                        LEFT JOIN tag_images ti ON t.id = ti.tag_id
+                        LEFT JOIN fallacy_tags ft ON t.id = ft.tag_id
+                        LEFT JOIN fallacy_entries fe ON ft.fallacy_id = fe.id
+
+                        WHERE tv.version = (
+                            SELECT MAX(version) FROM tag_versions 
+                            WHERE tag_id = '".$mysqli->real_escape_string($id)."' 
+                            OR slug = '".$mysqli->real_escape_string($id)."'
+                        )";
+                if ($result = $mysqli->query($sql)) {
+                    $html = '';
+                    $i = 0;
+
+                    while ($row = $result->fetch_assoc()) {
+                        if ($i === 0) {
+                            $title = $row['value'];
+                            $description = $row['description'];
+                            $img = $s3Path.$row['s3_path'];
+
+                            $html .= '<div>
+                                        <h1>'.$title.'</h1>
+                                        <p>'.$description.'</p>
+                                    </div>';
+                        }
+
+                        $html .= '<img src="'.$s3Path.$row['s3_path'].'" alt="'.$row['caption'].'">';
+                        $html .= '<a href="'.$base_url.'fallacies/'.$row['slug'].'">'.$row['title'].'</a>';
+
+                        $i++;
+                    }
+                    $result->close();
+                }
+
             case "targets":
 
                 $pageId = count($paths) >= 3 ? $paths[2] : null;

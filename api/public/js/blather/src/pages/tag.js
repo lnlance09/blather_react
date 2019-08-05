@@ -2,25 +2,33 @@ import "pages/css/index.css"
 import { adjustTimezone } from "utils/dateFunctions"
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { sanitizeText } from "utils/textFunctions"
-import { changePic, fetchHistory, fetchTagInfo, updateDescription, updateTag } from "./actions/tag"
+import {
+	addPic,
+	fetchHistory,
+	fetchTaggedUsers,
+	fetchTagInfo,
+	updateDescription,
+	updateTag
+} from "./actions/tag"
 import Moment from "react-moment"
 import { connect, Provider } from "react-redux"
 import { Link } from "react-router-dom"
 import {
 	Button,
 	Container,
-	Dimmer,
 	Form,
 	Header,
 	Icon,
 	Image,
 	List,
 	Menu,
-	Placeholder,
+	Modal,
 	Segment,
 	TextArea
 } from "semantic-ui-react"
 import Dropzone from "react-dropzone"
+import FallaciesList from "components/fallaciesList/v1/"
+import Gallery from "react-grid-gallery"
 import ImagePic from "images/image-square.png"
 import Marked from "marked"
 import LazyLoad from "components/lazyLoad/v1/"
@@ -35,22 +43,29 @@ import TrumpImg from "images/trump-white.png"
 class Tag extends Component {
 	constructor(props) {
 		super(props)
-		const id = parseInt(this.props.match.params.id, 10)
+		let id = this.props.match.params.id
+		if (isNaN(id)) {
+			const split = id.split("-")
+			id = split[split.length - 1]
+		}
+
 		const currentState = store.getState()
 		const authenticated = currentState.user.authenticated
 		const bearer = currentState.user.bearer
 		const userId = parseInt(currentState.user.data.id, 10)
 
 		this.state = {
-			active: false,
 			activeItem: "article",
+			assignedTo: null,
 			authenticated,
 			bearer,
+			caption: "",
 			description: "",
 			editing: false,
 			id,
-			inverted: true,
+			img: false,
 			files: [],
+			modalVisible: false,
 			userId
 		}
 
@@ -68,11 +83,15 @@ class Tag extends Component {
 		})
 
 		this.props.fetchTagInfo({ id })
+		this.props.fetchTaggedUsers({ id })
+
+		this.onChangeCaption = this.onChangeCaption.bind(this)
 		this.onChangeDescription = this.onChangeDescription.bind(this)
 		this.onClickEdit = this.onClickEdit.bind(this)
 		this.onDrop = this.onDrop.bind(this)
 		this.setVersion = this.setVersion.bind(this)
 		this.updateTag = this.updateTag.bind(this)
+		this.updloadPic = this.uploadPic.bind(this)
 	}
 
 	handleHide = () => this.setState({ active: false })
@@ -86,6 +105,8 @@ class Tag extends Component {
 
 	handleShow = () => this.setState({ active: true })
 
+	onChangeCaption = (e, { value }) => this.setState({ caption: value })
+
 	onChangeDescription = (e, { value }) => this.setState({ description: value })
 
 	onClickEdit = () => {
@@ -95,16 +116,18 @@ class Tag extends Component {
 		})
 	}
 
-	onDrop(files) {
-		this.setState({ files })
+	onDrop = files => {
 		if (files.length > 0) {
-			console.log(this.props)
-			this.props.changePic({
-				bearer: this.state.bearer,
-				file: files[0],
-				id: this.props.id
+			this.setState({ files })
+			files.forEach(file => {
+				this.setState({ img: URL.createObjectURL(file) })
 			})
 		}
+	}
+
+	scrollToTop() {
+		const element = document.getElementsByClassName("examplesContent")
+		element[0].scrollIntoView({ behavior: "smooth" })
 	}
 
 	setVersion = edit => {
@@ -116,6 +139,8 @@ class Tag extends Component {
 		this.props.updateDescription({ description: edit.description })
 	}
 
+	toggleModal = () => this.setState({ modalVisible: !this.state.modalVisible })
+
 	updateTag = () => {
 		this.setState({ editing: false })
 		this.props.updateTag({
@@ -125,16 +150,31 @@ class Tag extends Component {
 		})
 	}
 
+	uploadPic = () => {
+		this.props.addPic({
+			bearer: this.state.bearer,
+			caption: this.state.caption,
+			file: this.state.files[0],
+			id: this.props.id
+		})
+		this.toggleModal()
+		this.setState({
+			img: false
+		})
+	}
+
 	render() {
 		const {
-			active,
 			activeItem,
+			assignedTo,
 			authenticated,
 			bearer,
+			caption,
 			description,
 			editing,
 			id,
-			inverted,
+			img,
+			modalVisible,
 			version
 		} = this.state
 
@@ -145,14 +185,19 @@ class Tag extends Component {
 						<Form.Field>
 							<TextArea
 								onChange={this.onChangeDescription}
-								rows={25}
+								rows={15}
 								value={description}
 							/>
 						</Form.Field>
-						<Button color="blue" compact content="Update" fluid type="submit" />
+						<Button color="blue" content="Update" fluid type="submit" />
 					</Form>
 				)
 			}
+
+			if (props.description === null) {
+				return <div>There is no description yet...</div>
+			}
+
 			return (
 				<div
 					dangerouslySetInnerHTML={{
@@ -179,6 +224,45 @@ class Tag extends Component {
 			return null
 		}
 
+		const ExamplesSection = ({ props }) => {
+			if (props.id) {
+				return (
+					<div className="examplesContent">
+						<Header size="large">Notable instances</Header>
+						<FallaciesList
+							assignedTo={assignedTo}
+							emptyMsgContent="There are no similar fallacies"
+							history={props.history}
+							icon="warning sign"
+							itemsPerRow={3}
+							source="tag"
+							tagId={props.id}
+							useCards
+						/>
+					</div>
+				)
+			}
+			return null
+		}
+
+		const GallerySection = props => (
+			<div className="galleryContent">
+				<Header size="large">Platitudes thru imagery</Header>
+
+				<Segment>
+					{props.images.length > 0 ? (
+						<div className="galleryWrapper">
+							<Gallery images={props.images} />
+							<div className="clearfix" />
+						</div>
+					) : (
+						<Header>There aren't any pics yet</Header>
+					)}
+				</Segment>
+				<Button circular color="green" icon="camera" onClick={() => this.toggleModal()} />
+			</div>
+		)
+
 		const HistorySection = props => {
 			return props.editHistory.map((edit, i) => {
 				return (
@@ -203,61 +287,47 @@ class Tag extends Component {
 			})
 		}
 
-		const ProfilePic = props => {
-			const content = (
-				<Dropzone className="dropdown" onDrop={this.onDrop}>
-					{({ getRootProps, getInputProps }) => (
-						<div {...getRootProps()}>
-							<input {...getInputProps()} />
-							<Header as="h2">Change pic</Header>
-							<Button className="changePicBtn" color="blue" icon>
-								<Icon name="image" />
-							</Button>
-						</div>
-					)}
-				</Dropzone>
-			)
-
-			if (authenticated) {
-				return (
-					<div className="profilePicContainer">
-						<Dimmer.Dimmable
-							as={Image}
-							bordered
-							centered
-							className={`profilePic ${!props.img ? "default" : ""}`}
-							dimmed={active}
-							dimmer={{ active, content, inverted }}
-							onError={i => (i.target.src = ImagePic)}
-							onMouseEnter={this.handleShow}
-							onMouseLeave={this.handleHide}
-							size="medium"
-							src={props.img}
-						/>
-					</div>
-				)
-			}
+		const PicModal = props => {
 			return (
-				<Image
-					bordered
-					centered
-					className={`profilePic ${!props.img ? "default" : ""}`}
-					onError={i => (i.target.src = ImagePic)}
-					src={props.img}
-				/>
+				<Modal
+					centered={false}
+					className="tagPicModal"
+					closeIcon
+					onClose={() => this.toggleModal()}
+					open={modalVisible}
+					size="small"
+				>
+					<Modal.Header>Add a Photo</Modal.Header>
+					<Modal.Content image>
+						<Form>
+							{TagPic(props)}
+							<Form.TextArea
+								onChange={this.onChangeCaption}
+								placeholder="Caption..."
+								value={caption}
+							/>
+							<Button
+								color="blue"
+								content="Upload"
+								fluid
+								onClick={() => this.uploadPic()}
+							/>
+						</Form>
+					</Modal.Content>
+				</Modal>
 			)
 		}
 
 		const TagMenu = props => (
-			<Menu attached="top" className="tagMenu">
+			<Menu borderless className="tagMenu" pointing secondary>
 				<Menu.Item
-					name="article"
 					active={activeItem === "article"}
+					name="article"
 					onClick={this.handleItemClick}
 				/>
 				<Menu.Item
-					name="history"
 					active={activeItem === "history"}
+					name="history"
 					onClick={this.handleItemClick}
 				/>
 				{activeItem === "article" && (
@@ -269,6 +339,34 @@ class Tag extends Component {
 				)}
 			</Menu>
 		)
+
+		const TagPic = props => {
+			if (!img) {
+				return (
+					<Container fluid>
+						<Dropzone className="dropdown" onDrop={this.onDrop}>
+							{({ getRootProps, getInputProps }) => (
+								<div {...getRootProps()}>
+									<input {...getInputProps()} />
+									<Header color="blue">Select a pic</Header>
+								</div>
+							)}
+						</Dropzone>
+					</Container>
+				)
+			}
+
+			return (
+				<Image
+					bordered
+					centered
+					className="tagModalPic"
+					onError={i => (i.target.src = ImagePic)}
+					rounded
+					src={img}
+				/>
+			)
+		}
 
 		const TagTitle = ({ props }) => {
 			const subheader = (
@@ -295,12 +393,48 @@ class Tag extends Component {
 					canEdit={false}
 					id={id}
 					subheader={subheader}
-					textAlign="center"
+					textAlign="left"
 					title={props.name}
 					type="tag"
 				/>
 			)
 		}
+
+		const UsersSection = props => (
+			<div className="usersContent">
+				<Header size="large">Who actually believes this</Header>
+
+				<Segment>
+					<List relaxed size="big">
+						{props.users.map(user => (
+							<List.Item>
+								<Image
+									bordered
+									onError={i => (i.target.src = ImagePic)}
+									rounded
+									size="tiny"
+									src={user.img}
+								/>
+								<List.Content>
+									<List.Header
+										as="a"
+										onClick={() => {
+											this.scrollToTop()
+											this.setState({ assignedTo: user.value })
+										}}
+									>
+										{user.name}
+									</List.Header>
+									<List.Description>
+										Has used this {user.count} time{user.count !== "1" && "s"}
+									</List.Description>
+								</List.Content>
+							</List.Item>
+						))}
+					</List>
+				</Segment>
+			</div>
+		)
 
 		return (
 			<Provider store={store}>
@@ -309,15 +443,6 @@ class Tag extends Component {
 					<PageHeader {...this.props} />
 					{!this.props.error ? (
 						<Container className="mainContainer" textAlign="left">
-							{this.props.loading ? (
-								<Container textAlign="center">
-									<Placeholder className="profilePicPlaceholder">
-										<Placeholder.Image square />
-									</Placeholder>
-								</Container>
-							) : (
-								<div>{ProfilePic(this.props)}</div>
-							)}
 							<TagTitle props={this.props} />
 							{this.props.loading ? (
 								<div>
@@ -327,14 +452,22 @@ class Tag extends Component {
 							) : (
 								<div className="tagsWrapper">
 									{TagMenu(this.props)}
-									<Segment attached="top">
+									<Segment>
 										{activeItem === "article" && (
 											<div>{ArticleSection(this.props)}</div>
 										)}
 										{activeItem === "history" && (
-											<List divided>{HistorySection(this.props)}</List>
+											<List divided relaxed>
+												{HistorySection(this.props)}
+											</List>
 										)}
 									</Segment>
+
+									{GallerySection(this.props)}
+									{UsersSection(this.props)}
+									<ExamplesSection props={this.props} />
+
+									{PicModal(this.props)}
 								</div>
 							)}
 						</Container>
@@ -352,7 +485,7 @@ class Tag extends Component {
 }
 
 Tag.propTypes = {
-	changePic: PropTypes.func,
+	addPic: PropTypes.func,
 	createdBy: PropTypes.shape({
 		id: PropTypes.number,
 		img: PropTypes.string,
@@ -364,23 +497,29 @@ Tag.propTypes = {
 	editHistory: PropTypes.array,
 	error: PropTypes.bool,
 	fetchHistory: PropTypes.func,
+	fetchTaggedUsers: PropTypes.func,
 	fetchTagInfo: PropTypes.func,
 	id: PropTypes.number,
+	images: PropTypes.array,
 	img: PropTypes.string,
 	loading: PropTypes.bool,
 	name: PropTypes.string,
 	updateDescription: PropTypes.func,
-	updateTag: PropTypes.func
+	updateTag: PropTypes.func,
+	users: PropTypes.array
 }
 
 Tag.defaultProps = {
-	changePic,
+	addPic,
 	editHistory: [],
 	fetchHistory,
+	fetchTaggedUsers,
 	fetchTagInfo,
+	images: [],
 	loading: true,
 	updateDescription,
-	updateTag
+	updateTag,
+	users: []
 }
 
 const mapStateToProps = (state, ownProps) => {
@@ -393,8 +532,9 @@ const mapStateToProps = (state, ownProps) => {
 export default connect(
 	mapStateToProps,
 	{
-		changePic,
+		addPic,
 		fetchHistory,
+		fetchTaggedUsers,
 		fetchTagInfo,
 		updateDescription,
 		updateTag

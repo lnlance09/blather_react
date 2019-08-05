@@ -127,7 +127,11 @@ class Breakdown extends Component {
 								{placeholder.id && (
 									<div>
 										<Header className="first" size="medium">
-											<Image avatar size="medium" src={placeholder.user_img} />{" "}
+											<Image
+												avatar
+												size="medium"
+												src={placeholder.user_img}
+											/>{" "}
 											Here's how{" "}
 											<Link to={`/users/${placeholder.user_id}`}>
 												{placeholder.user_name}

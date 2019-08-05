@@ -56,7 +56,8 @@
 					'network' => null,
 					'object_id' => null,
 					'page' => null,
-					'q' => null
+					'q' => null,
+					'tag_id' => null
 				], true);
 				$this->fallacies->updateViewCount($id);
 			}
@@ -606,7 +607,8 @@
 				'network' => $this->input->get('network'),
 				'object_id' => $this->input->get('objectId'),
 				'page' => $page,
-				'q' => trim($this->input->get('q'))
+				'q' => trim($this->input->get('q')),
+				'tag_id' => trim($this->input->get('tagId'))
 			];
 			$count = $this->fallacies->search($params, true);
 			$pages = ceil($count/$limit);

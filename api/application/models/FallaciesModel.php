@@ -952,6 +952,12 @@
                 ]);
             }
 
+            if ($data['tag_id']) {
+                $this->db->where([
+                    't.id' => $data['tag_id']
+                ]);
+            }
+
             if (!$just_count) {
                 $limit = 10;
                 $start = $data['page']*$limit;

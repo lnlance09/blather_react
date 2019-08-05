@@ -1,17 +1,21 @@
 import * as constants from "../constants"
 
-const initial = () => ({})
+const initial = () => ({
+	images: []
+})
 
 const tag = (state = initial(), action) => {
 	const payload = action.payload
 
 	switch (action.type) {
-		case constants.CHANGE_TAG_PIC:
+		case constants.ADD_TAG_PIC:
 			if (!payload.error) {
+				const images =
+					state.images.length > 0 ? [...state.images, payload.img] : [payload.img]
 				return {
 					...state,
 					error: false,
-					img: payload.img
+					images
 				}
 			}
 
@@ -38,14 +42,18 @@ const tag = (state = initial(), action) => {
 					username: payload.tag.username
 				},
 				dateCreated: payload.tag.date_created,
-				description:
-					payload.tag.description === null
-						? "There is no article for this tag yet..."
-						: payload.tag.description,
+				description: payload.tag.description,
 				id: parseInt(payload.tag.tag_id, 10),
+				images: payload.tag.images,
 				img: payload.tag.tag_img === null ? "" : payload.tag.tag_img,
 				loading: false,
 				name: payload.tag.tag_name
+			}
+
+		case constants.FETCH_TAGGED_USERS:
+			return {
+				...state,
+				users: payload.users
 			}
 
 		case constants.FETCH_TAG_HISTORY:

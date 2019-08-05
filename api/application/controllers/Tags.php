@@ -23,25 +23,29 @@
 				exit;
 			}
 
+			$images = $this->tags->getImages($id);
+			$tag['images'] = $images;
+
 			echo json_encode([
 				'error' => false,
 				'tag' => $tag
 			]);
 		}
 
-		public function changePic() {
+		public function addPic() {
 			$id = $this->input->get('id');
+			$caption = $this->input->get('caption');
 
 			if (!$this->user) {
 				$this->output->set_status_header(401);
 				echo json_encode([
-					'error' => 'You must be logged in to edit tags'
+					'error' => 'You must be logged in add pics'
 				]);
 				exit;
 			}
 
 			$this->load->library('upload', [
-				'allowed_types' => 'jpg|jpeg|png',
+				'allowed_types' => 'jpg|jpeg|png|gif',
 				'file_ext_tolower' => true,
 				'max_height' => 0,
 				'max_size' => 25000,
@@ -61,33 +65,28 @@
 			$data = $this->upload->data();
 			$file = $data['file_name'];
 			$path = $data['full_path'];
+			$height = $data['image_height'];
+			$width = $data['image_width'];
 
-			/*
-			if ($data['image_width'] !== $data['image_height']) {
-				$config['height'] = 250;
-				$config['maintain_ratio'] = false;
-				$config['new_image'] = $path;
-				$config['source_image'] = $path;
-				$config['width'] = 250;
-
-				$this->load->library('image_lib', $config);
-				$this->image_lib->resize();
-				$this->image_lib->clear();
-			}
-			*/
-
-			$s3Path = 'tags/'.$id.'_'.$file;
+			$s3Path = 'tags/'.$id.'/'.$id.'_'.$file;
 			$s3Link = $this->media->addToS3($s3Path, $path);
 
-			$this->tags->updateTag($id, [
-				'date_updated' => date('Y-m-d H:i:s'),
-				'img' => $s3Path,
-				'tag_id' => $id,
-				'updated_by' => $this->user->id
+			$this->tags->addPic([
+				'caption' => $caption,
+				'height' => $height,
+				'width' => $width,
+				's3_path' => $s3Path,
+				'tag_id' => $id
 			]);
 			echo json_encode([
 				'error' => false,
-				'img' => $s3Link
+				'img' => [
+					'caption' => $caption,
+					'thumbnailHeight' => $height,
+					'thumbnailWidth' => $width,
+					'thumbnailSrc' => $s3Link,
+					'src' => $s3Link
+				]
 			]);
 		}
 
@@ -105,6 +104,15 @@
 			echo json_encode([
 				'error' => false,
 				'tags' => $tags
+			]);
+		}
+
+		public function getTaggedUsers() {
+			$id = $this->input->get('id');
+			$pages = $this->tags->getTaggedUsers($id);
+			echo json_encode([
+				'error' => false,
+				'users' => $pages
 			]);
 		}
 
