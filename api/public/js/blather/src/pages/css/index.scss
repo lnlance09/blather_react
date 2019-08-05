@@ -1023,23 +1023,8 @@ a {
             }
         }
 
-        .sectionLogo {
-            display: inline-block;
-            margin-right: 5px;
-            vertical-align: middle;
-
-            .svgSectionLogo {
-                fill: $blue;
-                height: 50px;
-                line-height: 50px;
-                width: 50px;
-            }
-
-            &.thumbtack {
-                .svgSectionLogo {
-                    fill: $red;
-                }
-            }
+        .description {
+            font-size: 16px;
         }
     }
 
