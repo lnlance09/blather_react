@@ -12,6 +12,10 @@
 			$this->db->query("SET time_zone='+0:00'");
 		}
 
+		public function addPic($data) {
+			$this->db->insert('tag_images', $data);
+		}
+
 		public function getHistory($id) {
 			$this->db->select("tv.description, CONCAT('".$this->s3Path."', tv.img) AS tag_img,
 				tv.date_updated, tv.updated_by,tv.version,
@@ -24,13 +28,33 @@
 			return $results;
 		}
 
+		public function getImages($id) {
+			$this->db->select("CONCAT('".$this->s3Path."', s3_path) AS src, CONCAT('".$this->s3Path."', s3_path) AS thumbnail, CONVERT(`height`, UNSIGNED INTEGER) AS thumbnailHeight, CONVERT(`width`, UNSIGNED INTEGER) AS thumbnailWidth, caption");
+			$this->db->where('tag_id', $id);
+			$results = $this->db->get('tag_images')->result_array();
+			return count($results) === 0 ? false : $results;
+		}
+
+		public function getTaggedUsers($id) {
+			$this->db->select("CONCAT('".$this->s3Path."', p.s3_pic) AS img, CONCAT(p.name, ' (', COUNT(*), ')') AS text, COUNT(*) AS count, p.social_media_id AS value, p.name AS name, p.type");
+			$this->db->join('fallacy_entries fe', 'p.social_media_id = fe.page_id');
+			$this->db->join('fallacy_tags ft', 'fe.id = ft.fallacy_id');
+			$this->db->where('ft.tag_id', $id);
+			$this->db->group_by('p.social_media_id');
+			$results = $this->db->get('pages p')->result_array();
+			return count($results) === 0 ? false : $results;
+		}
+
 		public function getTagInfo($id) {
-			$this->db->select("t.id AS tag_id, t.value AS tag_name, t.date_created,
+			$this->db->select("
+
+				t.id AS tag_id, t.value AS tag_name, t.date_created,
 
 				tv.description, CONCAT('".$this->s3Path."', tv.img) AS tag_img,
 				tv.date_updated, tv.updated_by,
 
-				u.id AS user_id, u.name AS user_name, CONCAT('".$this->s3Path."', u.img) AS user_img, u.username");
+				u.id AS user_id, u.name AS user_name, CONCAT('".$this->s3Path."', u.img) AS user_img, u.username
+				");
 			$this->db->join('users u', 't.created_by = u.id');
 			$this->db->join('tag_versions tv', 't.id = tv.tag_id');
 			$this->db->where('t.id', $id);
@@ -40,24 +64,28 @@
 		}
 
 		public function getTags() {
-			$this->db->select('id, value, value AS text');
+			$this->db->select('id, value, slug, value AS text');
 			return $this->db->get('tags')->result_array();
 		}
 
 		public function insertTags($id, $tags, $type, $userId) {
-			foreach($tags as $tag) {
+			foreach ($tags as $tag) {
 				$tagName = is_array($tag) ? $tag['name'] : $tag;
 				$this->db->select('id');
 				$this->db->where('value', $tagName);
 				$query = $this->db->get('tags');
 				$result = $query->result_array();
-				if(count($result) === 0) {
+				if (count($result) === 0) {
 					$this->db->insert('tags', [
 						'created_by' => $userId,
 						'date_created' => date('Y-m-d H:i:s'),
 						'value' => $tagName
 					]);
 					$tagId = $this->db->insert_id();
+
+					$this->update($tagId, [
+						'slug' => slugify($tagName).'-'.$tagId
+					]);
 
 					$this->db->insert('tag_versions', [
 						'date_updated' => date('Y-m-d H:i:s'),
@@ -80,7 +108,7 @@
 					$query = $this->db->get($type.'_tags');
 					$result = $query->result_array();
 					
-					if($result[0]['count'] == 0) {
+					if ($result[0]['count'] == 0) {
 						$this->db->insert($type.'_tags', [
 							'date_created' => date('Y-m-d H:i:s'),
 							$type.'_id' => $id,
@@ -99,6 +127,11 @@
 			$this->db->delete($type.'_tags');
 		}
 
+		public function update($id, $data) {
+			$this->db->where('id', $id);
+			$this->db->update('tags', $data);
+		}
+
 		public function updateTag($id, $data) {
 			$subquery = "SELECT description, img, version
 						FROM tag_versions 
@@ -106,11 +139,11 @@
 						ORDER BY version DESC 
 						LIMIT 1";
 			$query = $this->db->query($subquery, [$id])->result();
-			if(!empty($query)) {
-				if(!array_key_exists('img', $data)) {
+			if (!empty($query)) {
+				if (!array_key_exists('img', $data)) {
 					$data['img'] = $query[0]->img;
 				}
-				if(!array_key_exists('description', $data)) {
+				if (!array_key_exists('description', $data)) {
 					$data['description'] = $query[0]->description;
 				}
 				$data['version'] = $query[0]->version+1;

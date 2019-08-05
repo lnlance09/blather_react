@@ -10,6 +10,7 @@ export const getFallacies = ({
 	network,
 	objectId,
 	page,
+	tagId,
 	type
 }) => dispatch => {
 	request.get(
@@ -25,6 +26,7 @@ export const getFallacies = ({
 				network,
 				objectId,
 				page,
+				tagId,
 				type
 			}
 		},

@@ -7,13 +7,6 @@
   margin-left: 0;
   padding-left: 0 !important; }
 
-.search.selection.dropdown .ui.label {
-  background: #21BA45;
-  border: none !important;
-  box-shadow: none !important;
-  color: #FFFFFF;
-  padding: 6px 12px; }
-
 .ui.vertical.menu .item {
   font-weight: normal !important; }
   .ui.vertical.menu .item.active {
@@ -22,6 +15,18 @@
     font-weight: bold !important; }
     .ui.vertical.menu .item.active:hover {
       color: #FFFFFF; }
+
+.tagPicModal .content .form {
+  text-align: center;
+  width: 100% !important; }
+  .tagPicModal .content .form img {
+    margin-bottom: 25px; }
+  .tagPicModal .content .form .container {
+    height: 120px;
+    padding-top: 38px; }
+    .tagPicModal .content .form .container .header {
+      cursor: pointer;
+      margin: 0; }
 
 .ui.secondary.pointing.menu .item .label {
   background: #F9FAFB;
@@ -594,23 +599,26 @@ a {
     overflow: hidden; }
     .tagsPage .tagsWrapper .segment img {
       max-width: 400px; }
-
-.tagsPage .profilePicContainer {
-  text-align: center; }
-
-.tagsPage .profilePic {
-  height: 250px;
-  margin-bottom: 12px;
-  width: auto !important; }
-  .tagsPage .profilePic img {
-    height: 250px;
-    text-align: center; }
-  .tagsPage .profilePic.default {
-    background: #FFFFFF;
-    height: 250px !important;
-    overflow: hidden;
-    padding: 7px;
-    width: 250px !important; }
+  .tagsPage .tagsWrapper .commentsContent .segment {
+    padding-top: 5px; }
+  .tagsPage .tagsWrapper .examplesContent, .tagsPage .tagsWrapper .commentsContent, .tagsPage .tagsWrapper .galleryContent, .tagsPage .tagsWrapper .usersContent {
+    margin-top: 25px; }
+  .tagsPage .tagsWrapper .galleryContent .header {
+    line-height: 36px;
+    margin-bottom: 0; }
+  .tagsPage .tagsWrapper .galleryContent .galleryWrapper {
+    width: 100%; }
+  .tagsPage .tagsWrapper .sectionLogo {
+    display: inline-block;
+    margin-right: 5px;
+    vertical-align: middle; }
+    .tagsPage .tagsWrapper .sectionLogo .svgSectionLogo {
+      fill: #2185D0;
+      height: 50px;
+      line-height: 50px;
+      width: 50px; }
+    .tagsPage .tagsWrapper .sectionLogo.thumbtack .svgSectionLogo {
+      fill: #DB2828; }
 
 @media only screen and (max-width: 1025px) {
   .tagsPage .tagsWrapper .segment.stacked img {

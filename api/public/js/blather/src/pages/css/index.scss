@@ -9,16 +9,6 @@
     padding-left: 0 !important;
 }
 
-.search.selection.dropdown {
-    .ui.label {
-        background: $green;
-        border: none !important;
-        box-shadow: none !important;
-        color: $white;
-        padding: 6px 12px;
-    }
-}
-
 .ui.vertical.menu {
     .item {
         font-weight: normal !important;
@@ -31,6 +21,25 @@
             &:hover {
                 color: $white;
             }
+        }
+    }
+}
+
+.tagPicModal .content .form {
+    text-align: center;
+    width: 100% !important;
+
+    img {
+        margin-bottom: 25px;
+    }
+
+    .container {
+        height: 120px;
+        padding-top: 38px;
+
+        .header {
+            cursor: pointer;
+            margin: 0;
         }
     }
 }
@@ -992,28 +1001,45 @@ a {
                 max-width: 400px;
             }
         }
-    }
 
-    .profilePicContainer {
-        text-align: center;
-    }
-
-    .profilePic {
-        height: 250px;
-        margin-bottom: 12px;
-        width: auto !important;
-
-        img {
-            height: 250px;
-            text-align: center;
+        .commentsContent {
+            .segment {
+                padding-top: 5px;
+            }
         }
 
-        &.default {
-            background: $white;
-            height: 250px !important;
-            overflow: hidden;
-            padding: 7px;
-            width: 250px !important;
+        .examplesContent, .commentsContent, .galleryContent, .usersContent {
+            margin-top: $dividerMargin;
+        }
+
+        .galleryContent {
+            .header {
+                line-height: 36px;
+                margin-bottom: 0;
+            }
+
+            .galleryWrapper {
+                width: 100%;
+            }
+        }
+
+        .sectionLogo {
+            display: inline-block;
+            margin-right: 5px;
+            vertical-align: middle;
+
+            .svgSectionLogo {
+                fill: $blue;
+                height: 50px;
+                line-height: 50px;
+                width: 50px;
+            }
+
+            &.thumbtack {
+                .svgSectionLogo {
+                    fill: $red;
+                }
+            }
         }
     }
 

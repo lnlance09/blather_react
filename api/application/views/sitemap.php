@@ -32,6 +32,21 @@
 	}
 ?>
 
+
+<?php
+	// Tags
+	for ($i=0;$i<count($tags);$i++) {
+?>
+	<url>
+		<loc><?php echo $base_url.'tags/'.$tags[$i]['slug']; ?></loc>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+<?php
+	}
+?>
+
+
 <?php
 	// Targets
 	for ($i=0;$i<count($reviews);$i++) {
@@ -39,7 +54,7 @@
 	<url>
 		<loc><?php echo $base_url.'targets/'.$reviews[$i]['user_id'].'/'.$reviews[$i]['page_id']; ?></loc>
 		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
+		<priority>0.7</priority>
 	</url>
 <?php
 	}
@@ -53,7 +68,7 @@
 	<url>
 		<loc><?php echo $base_url.'users/'.$users[$i]['username']; ?></loc>
 		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
+		<priority>0.6</priority>
 	</url>
 <?php
 	}
@@ -69,7 +84,7 @@
 	<url>
 		<loc><?php echo $url; ?></loc>
 		<changefreq>daily</changefreq>
-		<priority>0.7</priority>
+		<priority>0.6</priority>
 	</url>
 <?php
 	}
@@ -85,7 +100,7 @@
 	<url>
 		<loc><?php echo $url; ?></loc>
 		<changefreq>daily</changefreq>
-		<priority>0.7</priority>
+		<priority>0.6</priority>
 	</url>
 <?php
 	}

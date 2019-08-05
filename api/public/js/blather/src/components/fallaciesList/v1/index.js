@@ -28,6 +28,11 @@ class FallaciesList extends Component {
 	constructor(props) {
 		super(props)
 		const showFilter = this.props.source !== "fallacy"
+		let value = this.props.fallacies ? this.props.fallacies : ""
+		if (this.props.source === "tag") {
+			value = this.props.assignedTo
+		}
+
 		this.state = {
 			assignedBy: null,
 			assignedTo: null,
@@ -41,7 +46,7 @@ class FallaciesList extends Component {
 			page: this.props.page,
 			showFilter,
 			showTargets: false,
-			value: this.props.fallacies ? this.props.fallacies : ""
+			value
 		}
 
 		this.onChangeSearch = this.onChangeSearch.bind(this)
@@ -59,7 +64,8 @@ class FallaciesList extends Component {
 			fallacyId: this.props.fallacyId,
 			network: this.props.network,
 			objectId: this.props.objectId,
-			page: 0
+			page: 0,
+			tagId: this.props.tagId
 		})
 		if (this.props.source === "users") {
 			this.props.getTargets({ id: this.props.assignedBy })
@@ -68,6 +74,7 @@ class FallaciesList extends Component {
 
 	fetchFallacies(props) {
 		let id = ""
+
 		switch (props.source) {
 			case "pages":
 			case "targets":
@@ -83,11 +90,18 @@ class FallaciesList extends Component {
 				id = ""
 		}
 
+		let endpoint = "fallacies/uniqueFallacies"
 		let qs = `?id=${id}&type=${props.source}&network=${props.network}`
 		if (props.source && props.assignedBy) {
 			qs += `&assignedBy=${props.assignedBy}`
 		}
-		return fetch(`${window.location.origin}/api/fallacies/uniqueFallacies${qs}`, {
+
+		if (props.source === "tag") {
+			endpoint = "tags/getTaggedUsers"
+			qs = `?id=${props.tagId}`
+		}
+
+		return fetch(`${window.location.origin}/api/${endpoint}${qs}`, {
 			headers: {
 				"Content-Type": "application/json"
 			}
@@ -95,7 +109,8 @@ class FallaciesList extends Component {
 			.then(response => {
 				if (response.ok) {
 					response.json().then(data => {
-						this.setState({ options: data.fallacies })
+						const options = props.source === "tag" ? data.users : data.fallacies
+						this.setState({ options })
 					})
 				}
 			})
@@ -118,22 +133,27 @@ class FallaciesList extends Component {
 				fallacyId: this.props.fallacyId,
 				network: this.props.network,
 				objectId: this.props.objectId,
-				page: newPage
+				page: newPage,
+				tagId: this.props.tagId
 			})
 		}
 	}
 
 	onChangeSearch = (e, { text, value }) => {
 		this.setState({ fallacies: value, page: 0, value })
+		const assignedTo = this.props.source === "tag" ? value : this.props.assignedTo
+		const fallacies = this.props.source === "tag" ? null : value
+
 		this.props.getFallacies({
 			assignedBy: this.props.assignedBy,
-			assignedTo: this.props.assignedTo,
+			assignedTo,
 			commentId: this.props.commentId,
-			fallacies: value,
+			fallacies,
 			fallacyId: this.props.fallacyId,
 			network: this.props.network,
 			objectId: this.props.objectId,
-			page: 0
+			page: 0,
+			tagId: this.props.tagId
 		})
 		if (this.props.changeUrl) {
 			this.props.setFallacyId(value)
@@ -213,15 +233,14 @@ class FallaciesList extends Component {
 					let meta = (
 						<div>
 							<p>
-								<b>{result.page_name}</b>{" "}
-								<Icon color="green" name="arrow left" />{" "}
+								<b>{result.page_name}</b> <Icon color="green" name="arrow left" />{" "}
 								<b>{result.user_name}</b>
 							</p>
 						</div>
 					)
 					const url = `/fallacies/${result.slug}`
 					return (
-						<Card onClick={e => this.redirectToUrl(e, url)}>
+						<Card key={result.id} onClick={e => this.redirectToUrl(e, url)}>
 							<div className="image parent">
 								<div className="one" style={{ backgroundImage: `url(${img})` }} />
 								<div
@@ -248,21 +267,17 @@ class FallaciesList extends Component {
 							<Card.Content extra>
 								<span style={{ lineHeight: "1.7" }}>
 									<Icon name="eye" />
-									<b>
-										{result.view_count} views
-									</b>
+									<b>{result.view_count} views</b>
 								</span>{" "}
 								<span style={{ float: "right" }}>
-									<Label tag>
-										{result.fallacy_name}
-									</Label>
+									<Label tag>{result.fallacy_name}</Label>
 								</span>
 							</Card.Content>
 						</Card>
 					)
 				} else {
 					return (
-						<Card>
+						<Card key={`fallacyCard${i}`}>
 							<Placeholder>
 								<Placeholder.Image square />
 							</Placeholder>
@@ -403,6 +418,7 @@ FallaciesList.propTypes = {
 	setFallacyId: PropTypes.func,
 	showPics: PropTypes.bool,
 	source: PropTypes.string,
+	tagId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 	targets: PropTypes.shape({
 		count: PropTypes.number,
 		hasMore: PropTypes.bool,

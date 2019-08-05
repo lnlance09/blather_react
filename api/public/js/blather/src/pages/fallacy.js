@@ -271,9 +271,7 @@ class Fallacy extends Component {
 			}
 			return (
 				<div className="commentsContent">
-					<Header size="large">
-						Comments
-					</Header>
+					<Header size="large">Comments</Header>
 					<Segment>
 						<Disqus.DiscussionEmbed config={DisqusConfig} shortname="blather-1" />
 					</Segment>
@@ -492,7 +490,7 @@ class Fallacy extends Component {
 
 		const ReferenceSection = (
 			<div className="fallacyContent">
-				<Header data-html2canvas-ignore horizontal size="large">
+				<Header data-html2canvas-ignore size="large">
 					Reference
 				</Header>
 				{this.props.id ? (
@@ -570,11 +568,7 @@ class Fallacy extends Component {
 		const ShareSection = useHeader => {
 			return (
 				<div className="shareContent">
-					{useHeader && (
-						<Header size="large">
-							Share
-						</Header>
-					)}
+					{useHeader && <Header size="large">Share</Header>}
 					{this.props.id ? (
 						<List className="shareList" horizontal>
 							<List.Item>
@@ -611,9 +605,7 @@ class Fallacy extends Component {
 			if (props.id) {
 				return (
 					<div className="similarContent">
-						<Header size="large">
-							Similar fallacies
-						</Header>
+						<Header size="large">Similar fallacies</Header>
 						<FallaciesList
 							emptyMsgContent="There are no similar fallacies"
 							fallacyId={props.fallacyId}
@@ -634,9 +626,7 @@ class Fallacy extends Component {
 			const rawSources = refId === 1 || refId === 2
 			return (
 				<div className="sourcesContent">
-					<Header size="large">
-						Sources
-					</Header>
+					<Header size="large">Sources</Header>
 					<FallacyExample
 						bearer={bearer}
 						canEdit={canEdit}

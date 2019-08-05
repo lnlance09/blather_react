@@ -8,11 +8,17 @@
 			$this->baseUrl = $this->config->base_url();
 
 			$this->load->model('FallaciesModel', 'fallacies');
+			$this->load->model('TagsModel', 'tags');
 			$this->load->model('UsersModel', 'users');
 		}
 
 		public function index() {
-			
+			$tags = $this->tags->getTags();
+			foreach ($tags as $tag) {
+				$this->tags->update($tag['id'], [
+					'slug' => slugify($tag['value']).'-'.$tag['id'],
+				]);
+			}
 		}
 
 		public function feed() {
@@ -31,7 +37,8 @@
 				'network' => null,
 				'object_id' => null,
 				'page' => $page,
-				'q' => null
+				'q' => null,
+				'tag_id' => null
 			];
 			$fallacies = $this->fallacies->search($params);
 			$count = $this->fallacies->search($params, true);

@@ -29,6 +29,7 @@
 				'fallacies' => $fallacies,
 				'fallacyTypes' => $fallacyTypes,
 				'reviews' => $reviews,
+				'tags' => $tags,
 				'twitterPages' => $twitterPages,
 				'users' => $users,
 				'youtubePages' => $youtubePages
