@@ -94,6 +94,22 @@ class Tag extends Component {
 		this.updloadPic = this.uploadPic.bind(this)
 	}
 
+	componentDidMount() {
+		window.scrollTo({ top: 0, behavior: "smooth" })
+	}
+
+	componentWillReceiveProps(newProps) {
+		let newId = newProps.match.params.id
+		if (isNaN(newId)) {
+			const split = newId.split("-")
+			newId = split[split.length - 1]
+		}
+
+		if (newId !== this.state.id) {
+			window.scrollTo({ top: 0, behavior: "smooth" })
+		}
+	}
+
 	handleHide = () => this.setState({ active: false })
 
 	handleItemClick = (e, { name }) => {
