@@ -170,6 +170,7 @@ class FallaciesList extends Component {
 
 	render() {
 		const { options, showFilter, showTargets, value } = this.state
+		const placeholder = this.props.source === "tag" ? "Filter by page" : "Filter by fallacy"
 
 		const FilterSection = ({ props }) => {
 			const filterVisible = showFilter && !showTargets
@@ -207,7 +208,7 @@ class FallaciesList extends Component {
 									lazyLoad
 									onChange={this.onChangeSearch}
 									options={options}
-									placeholder="Filter by fallacy"
+									placeholder={placeholder}
 									scrolling
 									selection
 									value={value}

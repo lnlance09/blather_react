@@ -200,6 +200,7 @@ class Tag extends Component {
 
 			return (
 				<div
+					className="description"
 					dangerouslySetInnerHTML={{
 						__html: sanitizeText(Marked(props.description))
 					}}
@@ -452,16 +453,16 @@ class Tag extends Component {
 							) : (
 								<div className="tagsWrapper">
 									{TagMenu(this.props)}
-									<Segment>
-										{activeItem === "article" && (
-											<div>{ArticleSection(this.props)}</div>
-										)}
-										{activeItem === "history" && (
+									{activeItem === "article" && (
+										<div>{ArticleSection(this.props)}</div>
+									)}
+									{activeItem === "history" && (
+										<Segment>
 											<List divided relaxed>
 												{HistorySection(this.props)}
 											</List>
-										)}
-									</Segment>
+										</Segment>
+									)}
 
 									{GallerySection(this.props)}
 									{UsersSection(this.props)}

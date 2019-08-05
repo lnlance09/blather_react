@@ -608,17 +608,8 @@ a {
     margin-bottom: 0; }
   .tagsPage .tagsWrapper .galleryContent .galleryWrapper {
     width: 100%; }
-  .tagsPage .tagsWrapper .sectionLogo {
-    display: inline-block;
-    margin-right: 5px;
-    vertical-align: middle; }
-    .tagsPage .tagsWrapper .sectionLogo .svgSectionLogo {
-      fill: #2185D0;
-      height: 50px;
-      line-height: 50px;
-      width: 50px; }
-    .tagsPage .tagsWrapper .sectionLogo.thumbtack .svgSectionLogo {
-      fill: #DB2828; }
+  .tagsPage .tagsWrapper .description {
+    font-size: 16px; }
 
 @media only screen and (max-width: 1025px) {
   .tagsPage .tagsWrapper .segment.stacked img {
