@@ -374,7 +374,10 @@
                         WHERE tv.version = (
                             SELECT MAX(version) FROM tag_versions 
                             WHERE tag_id = '".$mysqli->real_escape_string($id)."' 
-                            OR slug = '".$mysqli->real_escape_string($id)."'
+                            OR t.slug = '".$mysqli->real_escape_string($id)."'
+                        )
+                        AND (
+                            tag_id = '".$mysqli->real_escape_string($id)."' OR t.slug = '".$mysqli->real_escape_string($id)."'
                         )";
                 if ($result = $mysqli->query($sql)) {
                     $html = '';
