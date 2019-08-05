@@ -13,12 +13,7 @@
 		}
 
 		public function index() {
-			$tags = $this->tags->getTags();
-			foreach ($tags as $tag) {
-				$this->tags->update($tag['id'], [
-					'slug' => slugify($tag['value']).'-'.$tag['id'],
-				]);
-			}
+			
 		}
 
 		public function feed() {

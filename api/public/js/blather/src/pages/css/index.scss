@@ -676,8 +676,8 @@ a {
         }
     }
 
-    .ui.feed > .event > .content .meta {
-        margin-top: 0;
+    .ui.feed > .event > .content .meta .label {
+        cursor: pointer;
     }
 
     .mostFallacious {

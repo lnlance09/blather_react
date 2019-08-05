@@ -1,10 +1,11 @@
 import "./style.css"
+import { mapIdsToNames } from "utils/arrayFunctions"
 import { getFeed } from "./actions"
 import { adjustTimezone } from "utils/dateFunctions"
 import { formatGrammar, formatPlural } from "utils/textFunctions"
 import { connect } from "react-redux"
 import { Link } from "react-router-dom"
-import { Feed, Image, Visibility } from "semantic-ui-react"
+import { Feed, Image, Label, Visibility } from "semantic-ui-react"
 import ImagePic from "images/image-square.png"
 import LazyLoad from "components/lazyLoad/v1/"
 import Marked from "marked"
@@ -66,6 +67,7 @@ class FeedComponent extends Component {
 					let userLink = `/pages/${result.page_type}/${
 						result.page_type === "twitter" ? result.page_username : result.page_id
 					}`
+
 					return (
 						<Feed.Event key={`feed_${i}`}>
 							<Feed.Label
@@ -100,6 +102,15 @@ class FeedComponent extends Component {
 										<Image bordered inline rounded src={result.s3_link} />
 									) : null}
 								</Feed.Extra>
+								{result.tag_ids !== null ? (
+									<Feed.Meta>
+										<Feed.Content>
+											<Label.Group size="large">
+												{RenderTags(tags(result))}
+											</Label.Group>
+										</Feed.Content>
+									</Feed.Meta>
+								) : null}
 							</Feed.Content>
 						</Feed.Event>
 					)
@@ -226,6 +237,24 @@ class FeedComponent extends Component {
 
 				return <LazyLoad key={`feed_${i}`} />
 			})
+		}
+
+		const RenderTags = tags =>
+			tags.map((tag, i) => (
+				<Label
+					basic
+					key={`label_${i}`}
+					onClick={() => this.props.history.push(`/tags/${tag.id.trim()}`)}
+				>
+					{tag.name}
+				</Label>
+			))
+
+		const tags = result => {
+			if (result.tag_ids === null || result.tag_names === null) {
+				return []
+			}
+			return mapIdsToNames(result.tag_ids, result.tag_names)
 		}
 
 		return (
