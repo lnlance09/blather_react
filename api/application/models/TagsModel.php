@@ -40,6 +40,7 @@
 			$this->db->join('fallacy_entries fe', 'p.social_media_id = fe.page_id');
 			$this->db->join('fallacy_tags ft', 'fe.id = ft.fallacy_id');
 			$this->db->where('ft.tag_id', $id);
+			$this->db->order_by('count DESC');
 			$this->db->group_by('p.social_media_id');
 			$results = $this->db->get('pages p')->result_array();
 			return count($results) === 0 ? false : $results;

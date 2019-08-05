@@ -399,6 +399,7 @@
                     }
                     $result->close();
                 }
+                break;
 
             case "targets":
 
