@@ -502,8 +502,8 @@
                 CONCAT('".$this->s3Path."', u.img) AS user_img, 
                 u.id AS user_id, 
 
-                GROUP_CONCAT(DISTINCT t.id SEPARATOR ', ') tag_ids, 
-                GROUP_CONCAT(DISTINCT t.value SEPARATOR ', ') AS tag_names,
+                GROUP_CONCAT(DISTINCT t.id ORDER BY t.id ASC SEPARATOR '| ') tag_ids, 
+                GROUP_CONCAT(DISTINCT t.value ORDER BY t.id ASC SEPARATOR '| ') AS tag_names,
 
                 tp.tweet_json,
 
@@ -888,8 +888,8 @@
                 a.object_id AS archive_object_id,
                 a.date_created AS archive_date_created,
 
-                GROUP_CONCAT(DISTINCT t.id SEPARATOR ', ') tag_ids,
-                GROUP_CONCAT(DISTINCT t.value SEPARATOR ', ') AS tag_names,
+                GROUP_CONCAT(DISTINCT t.id ORDER BY t.id ASC SEPARATOR '| ') tag_ids,
+                GROUP_CONCAT(DISTINCT t.value ORDER BY t.id ASC SEPARATOR '| ') AS tag_names,
 
                 'fallacy' AS item_type ";
 

@@ -4,5 +4,5 @@ export const mapIdsToNames = (ids, names) => {
 			return { id: e, name: arr[i] }
 		})
 	}
-	return ids.split(",").zip(names.split(","))
+	return ids.split("|").zip(names.split("|"))
 }
