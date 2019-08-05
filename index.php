@@ -386,8 +386,10 @@
                     while ($row = $result->fetch_assoc()) {
                         if ($i === 0) {
                             $title = $row['value'];
-                            $description = $row['description'];
-                            $img = $s3Path.$row['s3_path'];
+                            $description = substr($row['description'], 0, 160);
+                            if (!empty($row['s3_path'])) {
+                                $img = $s3Path.$row['s3_path'];
+                            }
 
                             $html .= '<div>
                                         <h1>'.$title.'</h1>
