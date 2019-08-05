@@ -75,7 +75,8 @@
                         'network' => null,
                         'object_id' => null,
                         'page' => $page,
-                        'q' => $q
+                        'q' => $q,
+                        'tag_id' => null
                     ];
                     $count = $this->fallacies->search($params, true);
                     $results = $this->fallacies->search($params, false);
