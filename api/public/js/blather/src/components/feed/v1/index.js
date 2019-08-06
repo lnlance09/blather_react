@@ -5,7 +5,7 @@ import { adjustTimezone } from "utils/dateFunctions"
 import { formatGrammar, formatPlural } from "utils/textFunctions"
 import { connect } from "react-redux"
 import { Link } from "react-router-dom"
-import { Feed, Icon, Image, Label, Visibility } from "semantic-ui-react"
+import { Feed, Image, Label, Visibility } from "semantic-ui-react"
 import ImagePic from "images/image-square.png"
 import LazyLoad from "components/lazyLoad/v1/"
 import Marked from "marked"
@@ -246,7 +246,6 @@ class FeedComponent extends Component {
 					key={`label_${i}`}
 					onClick={() => this.props.history.push(`/tags/${tag.id.trim()}`)}
 				>
-					<Icon color="blue" name="tag" />
 					{tag.name}
 				</Label>
 			))

@@ -10,7 +10,8 @@
     max-width: 600px !important; } }
 
 .feed .content .extra p {
-  cursor: pointer; }
+  cursor: pointer;
+  white-space: pre-line; }
 
 .feed .content .extra .videoImg {
   cursor: pointer;
