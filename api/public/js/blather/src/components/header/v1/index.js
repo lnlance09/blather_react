@@ -225,7 +225,7 @@ class Header extends Component {
 								this.props.history.push(`/assign`)
 							}}
 						>
-							<Icon color="blue" name="pencil" /> Assign
+							<b>Assign</b>
 						</Menu.Item>
 						{FallaciesSidebar}
 					</Sidebar>
