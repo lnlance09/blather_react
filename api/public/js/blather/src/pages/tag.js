@@ -466,6 +466,7 @@ class Tag extends Component {
 									<List.Item
 										onClick={() => {
 											window.scrollTo({ top: 0, behavior: "smooth" })
+											this.setState({ id: tag.id })
 											this.props.fetchTagInfo({ id: tag.id })
 											this.props.fetchTaggedUsers({ id: tag.id })
 										}}
