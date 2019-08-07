@@ -420,7 +420,7 @@ class Tag extends Component {
 		const UsersSection = props => (
 			<div className="usersContent">
 				<Segment>
-					<Grid>
+					<Grid stackable>
 						<Grid.Column width={8}>
 							<Header size="large">Who actually believes this</Header>
 							<List divided relaxed size="big">
