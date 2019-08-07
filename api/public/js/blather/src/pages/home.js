@@ -46,6 +46,10 @@ class Home extends Component {
 		this.onPaste = this.onPaste.bind(this)
 	}
 
+	componentDidMount() {
+		window.scrollTo({ top: 0, behavior: "smooth" })
+	}
+
 	handleHoverOn = e => {
 		let text = ""
 		if (window.getSelection) {
