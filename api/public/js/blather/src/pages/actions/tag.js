@@ -94,6 +94,24 @@ export const fetchTagInfo = ({ id }) => dispatch => {
 	)
 }
 
+export const getRelatedTags = ({ q }) => dispatch => {
+	request.get(
+		`${window.location.origin}/api/tags/getRelatedTags`,
+		{
+			json: true,
+			qs: {
+				q
+			}
+		},
+		function(err, response, body) {
+			dispatch({
+				type: constants.GET_RELATED_TAGS,
+				payload: body
+			})
+		}
+	)
+}
+
 export const updateDescription = ({ description }) => dispatch => {
 	dispatch({
 		type: constants.UPDATE_TAG_DESCRIPTION,

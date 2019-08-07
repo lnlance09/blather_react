@@ -26,6 +26,9 @@
 			$images = $this->tags->getImages($id);
 			$tag['images'] = $images;
 
+			$related = $this->tags->getRelated();
+			$tag['related'] = $related;
+
 			echo json_encode([
 				'error' => false,
 				'tag' => $tag
@@ -96,6 +99,16 @@
 			echo json_encode([
 				'error' => false,
 				'history' => $history
+			]);
+		}
+
+		public function getRelatedTags() {
+			$q = $this->input->get('q');
+			$related = $this->tags->getRelated($q);
+
+			echo json_encode([
+				'error' => false,
+				'related' => $related
 			]);
 		}
 

@@ -7,6 +7,7 @@ import {
 	fetchHistory,
 	fetchTaggedUsers,
 	fetchTagInfo,
+	getRelatedTags,
 	updateDescription,
 	updateTag
 } from "./actions/tag"
@@ -17,9 +18,11 @@ import {
 	Button,
 	Container,
 	Form,
+	Grid,
 	Header,
 	Icon,
 	Image,
+	Input,
 	List,
 	Menu,
 	Modal,
@@ -66,6 +69,7 @@ class Tag extends Component {
 			img: false,
 			files: [],
 			modalVisible: false,
+			relatedSearchVal: "",
 			userId
 		}
 
@@ -82,11 +86,9 @@ class Tag extends Component {
 			xhtml: false
 		})
 
-		this.props.fetchTagInfo({ id })
-		this.props.fetchTaggedUsers({ id })
-
 		this.onChangeCaption = this.onChangeCaption.bind(this)
 		this.onChangeDescription = this.onChangeDescription.bind(this)
+		this.onChangeRelatedSearchVal = this.onChangeRelatedSearchVal.bind(this)
 		this.onClickEdit = this.onClickEdit.bind(this)
 		this.onDrop = this.onDrop.bind(this)
 		this.setVersion = this.setVersion.bind(this)
@@ -96,18 +98,8 @@ class Tag extends Component {
 
 	componentDidMount() {
 		window.scrollTo({ top: 0, behavior: "smooth" })
-	}
-
-	componentWillReceiveProps(newProps) {
-		let newId = newProps.match.params.id
-		if (isNaN(newId)) {
-			const split = newId.split("-")
-			newId = split[split.length - 1]
-		}
-
-		if (newId !== this.state.id) {
-			window.scrollTo({ top: 0, behavior: "smooth" })
-		}
+		this.props.fetchTagInfo({ id: this.state.id })
+		this.props.fetchTaggedUsers({ id: this.state.id })
 	}
 
 	handleHide = () => this.setState({ active: false })
@@ -124,6 +116,11 @@ class Tag extends Component {
 	onChangeCaption = (e, { value }) => this.setState({ caption: value })
 
 	onChangeDescription = (e, { value }) => this.setState({ description: value })
+
+	onChangeRelatedSearchVal = (e, { value }) => {
+		this.setState({ relatedSearchVal: value })
+		this.props.getRelatedTags({ q: value})
+	}
 
 	onClickEdit = () => {
 		this.setState({
@@ -192,6 +189,7 @@ class Tag extends Component {
 			id,
 			img,
 			modalVisible,
+			relatedSearchVal,
 			version
 		} = this.state
 
@@ -249,7 +247,7 @@ class Tag extends Component {
 						<Header size="large">Notable instances</Header>
 						<FallaciesList
 							assignedTo={assignedTo}
-							emptyMsgContent="There are no similar fallacies"
+							emptyMsgContent="There are no instances of this platitude"
 							history={props.history}
 							icon="warning sign"
 							itemsPerRow={3}
@@ -265,7 +263,7 @@ class Tag extends Component {
 
 		const GallerySection = props => (
 			<div className="galleryContent">
-				<Header size="large">Platitudes thru imagery</Header>
+				<Header size="large">Talking points thru imagery</Header>
 				<Segment>
 					{props.images.length > 0 ? (
 						<div className="galleryWrapper">
@@ -421,36 +419,68 @@ class Tag extends Component {
 
 		const UsersSection = props => (
 			<div className="usersContent">
-				<Header size="large">Who actually believes this</Header>
-
 				<Segment>
-					<List relaxed size="big">
-						{props.users.map(user => (
-							<List.Item>
-								<Image
-									bordered
-									onError={i => (i.target.src = ImagePic)}
-									rounded
-									size="tiny"
-									src={user.img}
-								/>
-								<List.Content>
-									<List.Header
-										as="a"
+					<Grid>
+						<Grid.Column width={8}>
+							<Header size="large">Who actually believes this</Header>
+							<List divided relaxed size="big">
+								{props.users.map(user => (
+									<List.Item>
+										<Image
+											bordered
+											className="userPic"
+											onError={i => (i.target.src = ImagePic)}
+											rounded
+											size="tiny"
+											src={user.img}
+										/>
+										<List.Content>
+											<List.Header
+												as="a"
+												onClick={() => {
+													this.scrollToTop()
+													this.setState({ assignedTo: user.value })
+												}}
+											>
+												{user.name}
+											</List.Header>
+											<List.Description>
+												Has used this {user.count} time{user.count !== "1" && "s"}
+											</List.Description>
+										</List.Content>
+									</List.Item>
+								))}
+							</List>
+						</Grid.Column>
+						<Grid.Column width={8}>
+							<Header size="large">Other platitudes</Header>
+							<Input
+								fluid
+								icon="search"
+								onChange={this.onChangeRelatedSearchVal}
+								placeholder="Search..."
+								relatedSearchVal={relatedSearchVal}
+							/>
+							<List divided relaxed size="big">
+								{props.relatedTags.map(tag => (
+									<List.Item
 										onClick={() => {
-											this.scrollToTop()
-											this.setState({ assignedTo: user.value })
+											window.scrollTo({ top: 0, behavior: "smooth" })
+											this.props.fetchTagInfo({ id: tag.id })
+											this.props.fetchTaggedUsers({ id: tag.id })
 										}}
 									>
-										{user.name}
-									</List.Header>
-									<List.Description>
-										Has used this {user.count} time{user.count !== "1" && "s"}
-									</List.Description>
-								</List.Content>
-							</List.Item>
-						))}
-					</List>
+										<List.Content>
+											<List.Header as="a">
+												{tag.value}
+											</List.Header>
+											<List.Description as="a">{tag.count} examples</List.Description>
+										</List.Content>
+									</List.Item>
+								))}
+							</List>
+						</Grid.Column>
+					</Grid>
 				</Segment>
 			</div>
 		)
@@ -518,11 +548,13 @@ Tag.propTypes = {
 	fetchHistory: PropTypes.func,
 	fetchTaggedUsers: PropTypes.func,
 	fetchTagInfo: PropTypes.func,
+	getRelatedTags: PropTypes.func,
 	id: PropTypes.number,
 	images: PropTypes.array,
 	img: PropTypes.string,
 	loading: PropTypes.bool,
 	name: PropTypes.string,
+	relatedTags: PropTypes.array,
 	updateDescription: PropTypes.func,
 	updateTag: PropTypes.func,
 	users: PropTypes.array
@@ -534,8 +566,10 @@ Tag.defaultProps = {
 	fetchHistory,
 	fetchTaggedUsers,
 	fetchTagInfo,
+	getRelatedTags,
 	images: [],
 	loading: true,
+	relatedTags: [],
 	updateDescription,
 	updateTag,
 	users: []
@@ -555,6 +589,7 @@ export default connect(
 		fetchHistory,
 		fetchTaggedUsers,
 		fetchTagInfo,
+		getRelatedTags,
 		updateDescription,
 		updateTag
 	}
