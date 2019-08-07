@@ -69,6 +69,10 @@ class Page extends Component {
 		this.setFallacyId = this.setFallacyId.bind(this)
 	}
 
+	componentDidMount() {
+		window.scrollTo({ top: 0, behavior: "smooth" })
+	}
+
 	componentWillReceiveProps(props) {
 		const id = props.match.params.id
 		const network = props.match.params.network
@@ -90,6 +94,8 @@ class Page extends Component {
 				network,
 				page: 0
 			})
+
+			window.scrollTo({ top: 0, behavior: "smooth" })
 		}
 
 		const label = this.determineItemsLabel(network)
