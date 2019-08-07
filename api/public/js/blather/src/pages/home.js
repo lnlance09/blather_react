@@ -21,7 +21,7 @@ class Home extends Component {
 		const user = currentState.user
 		const auth = user.authenticated
 		const bearer = user.bearer
-		const url = "https://twitter.com/realDonaldTrump/status/1150874781744607232"
+		const url = ""
 
 		this.state = {
 			auth,
