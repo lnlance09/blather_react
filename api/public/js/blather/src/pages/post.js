@@ -242,6 +242,7 @@ class Post extends Component {
 							emptyMsgContent={`No fallacies have been assigned to this ${type}`}
 							history={props.history}
 							icon={network}
+							itemsPerRow={2}
 							network={network}
 							objectId={id}
 							page={0}
