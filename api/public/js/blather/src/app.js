@@ -199,7 +199,7 @@ class App extends Component {
 						<Route component={SignIn} path="/signin" />
 
 						<Switch>
-							<Route component={Tag} path="/tags/create" />
+							<Route component={Tag} exact path="/tags/create" />
 							<Route component={Tag} path="/tags/:id" />
 						</Switch>
 

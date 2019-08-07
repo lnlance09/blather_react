@@ -35,12 +35,29 @@
 			return count($results) === 0 ? false : $results;
 		}
 
-		public function getTaggedUsers($id) {
+		public function getRelated($q = null, $limit = 15) {
+			$this->db->select("t.id, t.value, CONCAT('".$this->s3Path."', ti.s3_path) AS img, COUNT(ft.id) AS count");
+			$this->db->join('fallacy_tags ft', 't.id = ft.tag_id');
+			$this->db->join('tag_images ti', 't.id = ti.tag_id', 'left');
+
+			if ($q) {
+				$this->db->like('t.value', $q);
+			}
+
+			$this->db->order_by('count DESC');
+			$this->db->limit($limit);
+			$this->db->group_by('t.id');
+			$results = $this->db->get('tags t')->result_array();
+			return count($results) === 0 ? false : $results;
+		}
+
+		public function getTaggedUsers($id, $limit = 100) {
 			$this->db->select("CONCAT('".$this->s3Path."', p.s3_pic) AS img, CONCAT(p.name, ' (', COUNT(*), ')') AS text, COUNT(*) AS count, p.social_media_id AS value, p.name AS name, p.type");
 			$this->db->join('fallacy_entries fe', 'p.social_media_id = fe.page_id');
 			$this->db->join('fallacy_tags ft', 'fe.id = ft.fallacy_id');
 			$this->db->where('ft.tag_id', $id);
 			$this->db->order_by('count DESC');
+			$this->db->limit($limit);
 			$this->db->group_by('p.social_media_id');
 			$results = $this->db->get('pages p')->result_array();
 			return count($results) === 0 ? false : $results;

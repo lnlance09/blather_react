@@ -615,7 +615,9 @@ a {
 
 @media only screen and (max-width: 1025px) {
   .tagsPage .tagsWrapper .segment.stacked img {
-    width: 300px; } }
+    width: 300px; }
+  .tagsPage .ui.image.userPic {
+    display: none !important; } }
 
 /* Targets page */
 .targetsPage .ui.text.container {
