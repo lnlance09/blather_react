@@ -36,9 +36,8 @@
 		}
 
 		public function getRelated($q = null, $limit = 15) {
-			$this->db->select("t.id, t.value, CONCAT('".$this->s3Path."', ti.s3_path) AS img, COUNT(ft.id) AS count");
+			$this->db->select("t.id, t.value, COUNT(ft.id) AS count");
 			$this->db->join('fallacy_tags ft', 't.id = ft.tag_id');
-			$this->db->join('tag_images ti', 't.id = ti.tag_id', 'left');
 
 			if ($q) {
 				$this->db->like('t.value', $q);
