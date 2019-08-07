@@ -34,6 +34,7 @@
 					$auth = $user ? $user->linkedTwitter : false;
 					$token = $auth ? $user->twitterAccessToken : null;
 					$secret = $auth ? $user->twitterAccessSecret : null;
+					$this->twitter->getPageExtended($id, $auth, $token, $secret);
 					$page = $this->twitter->getPageExtended($id, null, $token, $secret);
 					break;
 
