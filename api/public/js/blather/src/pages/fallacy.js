@@ -525,16 +525,13 @@ class Fallacy extends Component {
 									size="mini"
 									src={props.user.img}
 								/>
-								<Card.Header>
-									<Link to={userLink}>
-										{props.user.name}
-									</Link>
+								<Card.Header
+									onClick={() => props.history.push(userLink)}
+									style={{ cursor: "pointer" }}
+								>
+									{props.user.name}
 								</Card.Header>
 								<Card.Meta>
-									<Icon
-										color={props.retracted ? "green" : "red"}
-										name={props.retracted ? "checkmark" : "close"}
-									/>{" "}
 									{props.retracted ? "has retracted" : "has not retracted yet"}
 								</Card.Meta>
 								<Card.Description>
