@@ -470,43 +470,41 @@ class Tag extends Component {
 
 		const UsersSection = props => (
 			<div className="usersContent">
-				<Segment>
-					<Grid stackable>
-						<Grid.Column width={8}>
-							<Header size="large">Mentions</Header>
-							<Responsive maxWidth={1024}>
-								<List divided relaxed>
-									{RenderUsers(props)}
-								</List>
-							</Responsive>
-							<Responsive minWidth={1025}>
-								<List divided relaxed size="big">
-									{RenderUsers(props)}
-								</List>
-							</Responsive>
-						</Grid.Column>
-						<Grid.Column width={8}>
-							<Header size="large">Other platitudes</Header>
-							<Input
-								fluid
-								icon="search"
-								onChange={this.onChangeRelatedSearchVal}
-								placeholder="Search..."
-								relatedSearchVal={relatedSearchVal}
-							/>
-							<Responsive maxWidth={1024}>
-								<List className="tagsList" divided relaxed>
-									{RenderTags(props)}
-								</List>
-							</Responsive>
-							<Responsive minWidth={1025}>
-								<List className="tagsList" divided relaxed size="big">
-									{RenderTags(props)}
-								</List>
-							</Responsive>
-						</Grid.Column>
-					</Grid>
-				</Segment>
+				<Grid stackable>
+					<Grid.Column width={8}>
+						<Header size="large" textAlign="center">Mentions</Header>
+						<Responsive maxWidth={1024}>
+							<List divided relaxed>
+								{RenderUsers(props)}
+							</List>
+						</Responsive>
+						<Responsive minWidth={1025}>
+							<List divided relaxed size="big">
+								{RenderUsers(props)}
+							</List>
+						</Responsive>
+					</Grid.Column>
+					<Grid.Column width={8}>
+						<Header size="large" textAlign="center">Other platitudes</Header>
+						<Input
+							fluid
+							icon="search"
+							onChange={this.onChangeRelatedSearchVal}
+							placeholder="Search..."
+							relatedSearchVal={relatedSearchVal}
+						/>
+						<Responsive maxWidth={1024}>
+							<List className="tagsList" divided relaxed>
+								{RenderTags(props)}
+							</List>
+						</Responsive>
+						<Responsive minWidth={1025}>
+							<List className="tagsList" divided relaxed size="big">
+								{RenderTags(props)}
+							</List>
+						</Responsive>
+					</Grid.Column>
+				</Grid>
 			</div>
 		)
 
@@ -537,8 +535,8 @@ class Tag extends Component {
 										</Segment>
 									)}
 
-									{GallerySection(this.props)}
 									{UsersSection(this.props)}
+									{GallerySection(this.props)}
 									<ExamplesSection props={this.props} />
 
 									{PicModal(this.props)}
