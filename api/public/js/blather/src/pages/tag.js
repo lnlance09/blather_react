@@ -473,7 +473,7 @@ class Tag extends Component {
 				<Segment>
 					<Grid stackable>
 						<Grid.Column width={8}>
-							<Header size="large">Mentionsha</Header>
+							<Header size="large">Mentions</Header>
 							<Responsive maxWidth={1024}>
 								<List divided relaxed>
 									{RenderUsers(props)}
