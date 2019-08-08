@@ -379,7 +379,6 @@ class Fallacy extends Component {
 
 							{props.canMakeVideo || props.canScreenshot ? (
 								<Button
-									basic
 									className="downloadBtn"
 									color="blue"
 									content={`Create ${
