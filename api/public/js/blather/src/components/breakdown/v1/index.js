@@ -126,48 +126,50 @@ class Breakdown extends Component {
 							<Segment basic className="questionnaire">
 								{placeholder.id && (
 									<div>
-										<Header className="first" size="medium">
-											<Image
-												avatar
-												size="medium"
-												src={placeholder.user_img}
-											/>{" "}
-											Here's how{" "}
-											<Link to={`/users/${placeholder.user_id}`}>
-												{placeholder.user_name}
-											</Link>{" "}
-											has described this source
+										<div>
+											<Header className="first" size="medium">
+												<Image
+													avatar
+													size="medium"
+													src={placeholder.user_img}
+												/>{" "}
+												Here's how{" "}
+												<Link to={`/users/${placeholder.user_id}`}>
+													{placeholder.user_name}
+												</Link>{" "}
+												has described this source
+											</Header>
+											<Icon name="quote left" />
+											<blockquote
+												cite={`https://blather.io/targets/${
+													placeholder.user_id
+												}/${dbId}`}
+												className="placeholderDiv"
+												dangerouslySetInnerHTML={{
+													__html: sanitizeText(Marked(placeholder.summary))
+												}}
+											/>
+											<Icon name="quote right" />
+											<p className="fullReview">
+												<Link to={`/targets/${placeholder.user_id}/${dbId}`}>
+													See full review
+												</Link>
+											</p>
+										</div>
+
+										<Header size="medium">
+											Can pass an ideological turing test?
+											<Header.Subheader>{Stats(turingTest)}</Header.Subheader>
 										</Header>
-										<Icon name="quote left" />
-										<blockquote
-											cite={`https://blather.io/targets/${
-												placeholder.user_id
-											}/${dbId}`}
-											className="placeholderDiv"
-											dangerouslySetInnerHTML={{
-												__html: sanitizeText(Marked(placeholder.summary))
-											}}
-										/>
-										<Icon name="quote right" />
-										<p className="fullReview">
-											<Link to={`/targets/${placeholder.user_id}/${dbId}`}>
-												See full review
-											</Link>
-										</p>
+
+										<Header size="medium">
+											Believes most of what they talk about?
+											<Header.Subheader>{Stats(sincerity)}</Header.Subheader>
+										</Header>
 									</div>
 								)}
 
-								<Header size="medium">
-									Can pass an ideological turing test?
-									<Header.Subheader>{Stats(turingTest)}</Header.Subheader>
-								</Header>
-
-								<Header size="medium">
-									Believes most of what they talk about?
-									<Header.Subheader>{Stats(sincerity)}</Header.Subheader>
-								</Header>
-
-								<Header size="medium">
+								<Header size="medium" style={{ marginTop: "16px" }}>
 									<Button
 										basic
 										onClick={() =>
