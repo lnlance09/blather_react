@@ -1000,14 +1000,6 @@ a {
             }
         }
 
-        .segment {
-            overflow: hidden;
-
-            img {
-                max-width: 400px;
-            }
-        }
-
         .commentsContent {
             .segment {
                 padding-top: 5px;
@@ -1026,6 +1018,14 @@ a {
 
             .galleryWrapper {
                 width: 100%;
+            }
+
+            .segment {
+                overflow: hidden;
+
+                img {
+                    max-width: 400px;
+                }
             }
         }
 
@@ -1046,7 +1046,7 @@ a {
         }
 
         .ui.image.userPic {
-            // display: none !important;
+            width: 50px;
         }
     }
 }

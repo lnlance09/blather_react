@@ -597,10 +597,6 @@ a {
   .tagsPage .tagsWrapper .editButtonWrapper .editButton {
     display: inline !important;
     font-size: 16px !important; }
-  .tagsPage .tagsWrapper .segment {
-    overflow: hidden; }
-    .tagsPage .tagsWrapper .segment img {
-      max-width: 400px; }
   .tagsPage .tagsWrapper .commentsContent .segment {
     padding-top: 5px; }
   .tagsPage .tagsWrapper .examplesContent, .tagsPage .tagsWrapper .commentsContent, .tagsPage .tagsWrapper .galleryContent, .tagsPage .tagsWrapper .usersContent {
@@ -610,6 +606,10 @@ a {
     margin-bottom: 0; }
   .tagsPage .tagsWrapper .galleryContent .galleryWrapper {
     width: 100%; }
+  .tagsPage .tagsWrapper .galleryContent .segment {
+    overflow: hidden; }
+    .tagsPage .tagsWrapper .galleryContent .segment img {
+      max-width: 400px; }
   .tagsPage .tagsWrapper .tagDescription {
     font-size: 16px; }
   .tagsPage .tagsWrapper .tagsList {
@@ -617,7 +617,9 @@ a {
 
 @media only screen and (max-width: 1025px) {
   .tagsPage .tagsWrapper .segment.stacked img {
-    width: 300px; } }
+    width: 300px; }
+  .tagsPage .ui.image.userPic {
+    width: 50px; } }
 
 /* Targets page */
 .targetsPage .ui.text.container {
