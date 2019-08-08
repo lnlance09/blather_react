@@ -24,8 +24,10 @@
   .fallacyExample .fallacyMaterial .sourceList .item {
     margin-bottom: 8px; }
   .fallacyExample .fallacyExplanation {
-    padding: 5px;
+    padding: 0;
     width: 100%; }
+    .fallacyExample .fallacyExplanation.downloading {
+      padding: 5px; }
   .fallacyExample span.clearfix {
     display: block; }
   .fallacyExample .commonMarkLink {

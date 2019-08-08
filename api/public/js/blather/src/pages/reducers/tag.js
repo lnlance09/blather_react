@@ -48,7 +48,7 @@ const tag = (state = initial(), action) => {
 				img: payload.tag.tag_img === null ? "" : payload.tag.tag_img,
 				loading: false,
 				name: payload.tag.tag_name,
-				relatedTags: payload.tag.related
+				relatedTags: payload.tag.related === false ? [] : payload.tag.related
 			}
 
 		case constants.FETCH_TAGGED_USERS:
@@ -66,7 +66,7 @@ const tag = (state = initial(), action) => {
 		case constants.GET_RELATED_TAGS:
 			return {
 				...state,
-				relatedTags: payload.related
+				relatedTags: payload.related === false ? [] : payload.related
 			}
 
 		case constants.UPDATE_TAG:
