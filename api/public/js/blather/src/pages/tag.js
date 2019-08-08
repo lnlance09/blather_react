@@ -197,7 +197,7 @@ class Tag extends Component {
 		const ArticleSection = props => {
 			if (editing) {
 				return (
-					<Form onSubmit={this.updateTag}>
+					<Form as={Segment} onSubmit={this.updateTag}>
 						<Form.Field>
 							<TextArea
 								onChange={this.onChangeDescription}
@@ -500,7 +500,7 @@ class Tag extends Component {
 								<div className="tagsWrapper">
 									{TagMenu(this.props)}
 									{activeItem === "article" && (
-										<Segment>{ArticleSection(this.props)}</Segment>
+										<div>{ArticleSection(this.props)}</div>
 									)}
 									{activeItem === "history" && (
 										<Segment>
@@ -509,12 +509,6 @@ class Tag extends Component {
 											</List>
 										</Segment>
 									)}
-
-									<Divider horizontal />
-									{UsersSection(this.props)}
-
-									<Divider horizontal />
-									{GallerySection(this.props)}
 
 									<Divider horizontal />
 									<ExamplesSection props={this.props} />
