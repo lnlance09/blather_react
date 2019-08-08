@@ -13,7 +13,6 @@ import {
 } from "./actions/tag"
 import Moment from "react-moment"
 import { connect, Provider } from "react-redux"
-import { Link } from "react-router-dom"
 import {
 	Button,
 	Container,

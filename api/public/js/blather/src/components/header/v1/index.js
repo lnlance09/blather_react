@@ -177,21 +177,16 @@ class Header extends Component {
 						visible={visible}
 						width="wide"
 					>
-						<Menu.Item name="search">
+						<Menu.Item as="div" name="search">
 							<Input
 								className="sidebarSearch"
-								icon="search"
 								onChange={this.onChangeSearch}
 								placeholder="Search..."
-								size="small"
 								value={value}
 							/>
-						</Menu.Item>
-						<Menu.Item>
 							<Button
-								basic
 								className="sidebarSearchBtn"
-								color="blue"
+								color="black"
 								content="Search"
 								fluid
 								icon="search"
