@@ -226,7 +226,7 @@ class UserPage extends Component {
 				fluid
 				pointing
 				secondary
-				size="huge"
+				size="large"
 				stackable
 			>
 				<Menu.Item

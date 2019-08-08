@@ -199,7 +199,7 @@ class Page extends Component {
 				fluid
 				pointing
 				secondary
-				size="medium"
+				size="large"
 				stackable
 			>
 				<Menu.Item
