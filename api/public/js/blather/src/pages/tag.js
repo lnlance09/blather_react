@@ -411,7 +411,7 @@ class Tag extends Component {
 		)
 
 		const TagMenu = props => (
-			<Menu borderless className="tagMenu" pointing secondary>
+			<Menu borderless className="tagMenu" pointing secondary size="large">
 				<Menu.Item
 					active={activeItem === "article"}
 					name="article"
@@ -461,30 +461,11 @@ class Tag extends Component {
 		}
 
 		const TagTitle = ({ props }) => {
-			const subheader = (
-				<div className="subHeader">
-					{props.createdBy && (
-						<div>
-							Created{" "}
-							<Moment
-								date={adjustTimezone(props.dateCreated)}
-								fromNow
-								interval={60000}
-							/>{" "}
-							by{" "}
-							<Link to={`/users/${props.createdBy.username}`}>
-								{props.createdBy.name}
-							</Link>
-						</div>
-					)}
-				</div>
-			)
 			return (
 				<TitleHeader
 					bearer={bearer}
 					canEdit={false}
 					id={id}
-					subheader={subheader}
 					textAlign="left"
 					title={props.name}
 					type="tag"
