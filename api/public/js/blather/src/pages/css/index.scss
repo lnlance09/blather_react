@@ -570,6 +570,8 @@ a {
     }
 
     .exportContainer {
+        margin-bottom: 0;
+
         .exportSection {
             margin-top: 0;
         }
@@ -609,7 +611,11 @@ a {
     }
 
     .tagsCard {
-        margin-top: $dividerMargin;;
+        margin-top: $dividerMargin;
+    }
+
+    .retractionContent {
+        margin-bottom: $dividerMargin;
     }
 
     canvas {

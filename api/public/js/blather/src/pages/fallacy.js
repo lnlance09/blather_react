@@ -22,6 +22,7 @@ import {
 } from "react-share"
 import {
 	Button,
+	Card,
 	Container,
 	Dimmer,
 	Form,
@@ -511,55 +512,71 @@ class Fallacy extends Component {
 		)
 
 		const RetractionSegment = props => (
-			<div>
-				{props.user && (
+			<div className="retractionContent">
+				<Header size="large">Retraction</Header>
+				{props.user ? (
 					<Container className="retractionContainer">
-						{props.retracted ? (
-							<div>
-								<Message
-									content={`${
-										props.user.name
-									} has admitted that this is poor reasoning.`}
-									header={`Nice job, ${props.user.name}!`}
-									icon="thumbs up"
-									success
+						<Card fluid>
+							<Card.Content>
+								<Image
+									circular
+									floated="right"
+									onError={i => (i.target.src = ImagePic)}
+									size="mini"
+									src={props.user.img}
 								/>
-							</div>
-						) : (
-							<div>
-								{props.user.id === twitterId || props.user.id === youtubeId ? (
-									<div>
-										<Message
-											content="You have an opportunity to show your followers that you care enough about intellectual honesty to admit you were wrong."
-											header={`Congratulation, ${props.user.name}!`}
-										/>
-										<Button
-											color="green"
-											content="Yes, I admit this was poor reasoning."
-											fluid
-											icon="check"
-											onClick={this.retractLogic}
-										/>
-									</div>
+								<Card.Header>
+									<Link to={userLink}>
+										{props.user.name}
+									</Link>
+								</Card.Header>
+								<Card.Meta>
+									<Icon
+										color={props.retracted ? "green" : "red"}
+										name={props.retracted ? "checkmark" : "close"}
+									/>{" "}
+									{props.retracted ? "has retracted" : "has not retracted yet"}
+								</Card.Meta>
+								<Card.Description>
+									{props.retracted ? (
+										`${
+											props.user.name
+										} has admitted that this is poor reasoning.`
+									) : (
+										props.user.id === twitterId || props.user.id === youtubeId ? (
+											<div>
+												<p>You have an opportunity to show your followers that you care enough about intellectual honesty to admit you were wrong.</p>
+											</div>
+										) : (
+											<p>
+												If this was assigned to one of your accounts, please <Link to="/signin">sign in</Link> to retract it.
+											</p>
+										)
+									)}
+								</Card.Description>
+							</Card.Content>
+							<Card.Content extra>
+								{props.retracted ? (
+									<Button color="green" disabled fluid>
+										<Icon name="checkmark" />
+										Retracted
+									</Button>
 								) : (
-									<div>
-										<Message
-											content="How they respond to being called out should tell you everything you need to know."
-											header={`Is ${
-												props.user.name
-											} a grifter or just naive?`}
-										/>
-										<p>
-											<b>
-												<Link to={userLink}>{props.user.name}</Link> still
-												hasn't admitted to using erroneous logic
-											</b>
-										</p>
-									</div>
+									props.user.id === twitterId || props.user.id === youtubeId ? (
+										<Button color="green" fluid onClick={this.retractLogic}>
+											Retract
+										</Button>
+									) : (
+										<Button disabled fluid negative>
+											Retract
+										</Button>
+									)
 								)}
-							</div>
-						)}
+							</Card.Content>
+						</Card>
 					</Container>
+				) : (
+					<LazyLoad header={false} />
 				)}
 			</div>
 		)
@@ -659,6 +676,7 @@ class Fallacy extends Component {
 								<Grid className="fallacyGrid">
 									<Grid.Row>{MaterialSection(this.props)}</Grid.Row>
 									<Grid.Row>{SourcesSection(this.props)}</Grid.Row>
+									<Grid.Row>{RetractionSegment(this.props)}</Grid.Row>
 									<Grid.Row>
 										{ShareSection(true)}
 										<Statistic
@@ -688,6 +706,7 @@ class Fallacy extends Component {
 									<Grid.Column className="leftSide" width={12}>
 										{MaterialSection(this.props)}
 										{SourcesSection(this.props)}
+										{RetractionSegment(this.props)}
 										{CommentsSection(this.props)}
 										{SimilarSection(this.props)}
 									</Grid.Column>
@@ -697,7 +716,6 @@ class Fallacy extends Component {
 												<Segment className="exportContainer">
 													{ExportSection(this.props, "right")}
 												</Segment>
-												{RetractionSegment(this.props)}
 												<Statistic
 													horizontal
 													label="Views"
