@@ -17,6 +17,7 @@ import { Link } from "react-router-dom"
 import {
 	Button,
 	Container,
+	Divider,
 	Form,
 	Grid,
 	Header,
@@ -535,6 +536,7 @@ class Tag extends Component {
 										</Segment>
 									)}
 
+									<Divider horizontal />
 									{UsersSection(this.props)}
 									{GallerySection(this.props)}
 									<ExamplesSection props={this.props} />
