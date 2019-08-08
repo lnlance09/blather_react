@@ -1,9 +1,9 @@
 {
-  "main.css": "/static/css/main.d49925d1.chunk.css",
-  "main.js": "/static/js/main.d6b40280.chunk.js",
-  "main.js.map": "/static/js/main.d6b40280.chunk.js.map",
-  "static/js/1.b6f56df4.chunk.js": "/static/js/1.b6f56df4.chunk.js",
-  "static/js/1.b6f56df4.chunk.js.map": "/static/js/1.b6f56df4.chunk.js.map",
+  "main.css": "/static/css/main.26e50e28.chunk.css",
+  "main.js": "/static/js/main.7b3debe6.chunk.js",
+  "main.js.map": "/static/js/main.7b3debe6.chunk.js.map",
+  "static/js/1.39f39d30.chunk.js": "/static/js/1.39f39d30.chunk.js",
+  "static/js/1.39f39d30.chunk.js.map": "/static/js/1.39f39d30.chunk.js.map",
   "runtime~main.js": "/static/js/runtime~main.229c360f.js",
   "runtime~main.js.map": "/static/js/runtime~main.229c360f.js.map",
   "static/media/trump-white.png": "/static/media/trump-white.b65f57d1.png",
@@ -14,8 +14,8 @@
   "static/media/sound.ogg": "/static/media/sound.b8da6d65.ogg",
   "static/media/app.css": "/static/media/Merriweather-Regular.202792c4.otf",
   "static/media/semantic.min.css": "/static/media/brand-icons.a1a749e8.svg",
-  "static/css/main.d49925d1.chunk.css.map": "/static/css/main.d49925d1.chunk.css.map",
+  "static/css/main.26e50e28.chunk.css.map": "/static/css/main.26e50e28.chunk.css.map",
   "index.html": "/index.html",
-  "precache-manifest.c6162e257eeeb8bdbc5c6fe77efe82d1.js": "/precache-manifest.c6162e257eeeb8bdbc5c6fe77efe82d1.js",
+  "precache-manifest.279d99cbb2327dfc0b209eb3be10b667.js": "/precache-manifest.279d99cbb2327dfc0b209eb3be10b667.js",
   "service-worker.js": "/service-worker.js"
 }
