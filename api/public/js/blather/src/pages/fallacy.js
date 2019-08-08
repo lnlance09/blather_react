@@ -612,7 +612,7 @@ class Fallacy extends Component {
 							icon="warning sign"
 							itemsPerRow={2}
 							source="fallacy"
-							useCards
+							usePics={false}
 						/>
 					</div>
 				)

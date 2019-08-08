@@ -28,7 +28,12 @@ class Footer extends Component {
 					</List>
 					<p>© 2018 - 2019, Blather</p>
 					<p>
-						<a href="https://www.patreon.com/bePatron?u=3485613" data-patreon-widget-type="become-patron-button">Become a Patron!</a>
+						<a
+							href="https://www.patreon.com/bePatron?u=3485613"
+							data-patreon-widget-type="become-patron-button"
+						>
+							Become a Patron!
+						</a>
 					</p>
 				</Container>
 			</Segment>

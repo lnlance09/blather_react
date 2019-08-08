@@ -15,6 +15,7 @@ import Moment from "react-moment"
 import { connect, Provider } from "react-redux"
 import {
 	Button,
+	Card,
 	Container,
 	Divider,
 	Form,
@@ -119,7 +120,7 @@ class Tag extends Component {
 
 	onChangeRelatedSearchVal = (e, { value }) => {
 		this.setState({ relatedSearchVal: value })
-		this.props.getRelatedTags({ q: value})
+		this.props.getRelatedTags({ q: value })
 	}
 
 	onClickEdit = () => {
@@ -253,7 +254,6 @@ class Tag extends Component {
 							itemsPerRow={3}
 							source="tag"
 							tagId={props.id}
-							useCards
 						/>
 					</div>
 				)
@@ -273,7 +273,12 @@ class Tag extends Component {
 							</div>
 						</Segment>
 						{authenticated && (
-							<Button circular color="green" icon="camera" onClick={() => this.toggleModal()} />
+							<Button
+								circular
+								color="green"
+								icon="camera"
+								onClick={() => this.toggleModal()}
+							/>
 						)}
 					</div>
 				)}
@@ -344,23 +349,25 @@ class Tag extends Component {
 					onChange={this.onChangeRelatedSearchVal}
 					placeholder="Search..."
 					relatedSearchVal={relatedSearchVal}
+					size="large"
 				/>
 				<Responsive maxWidth={1024}>
-					<List className="tagsList" relaxed>
+					<Card.Group className="tagsList" itemsPerRow={3}>
 						{RenderTags(props)}
-					</List>
+					</Card.Group>
 				</Responsive>
 				<Responsive minWidth={1025}>
-					<List className="tagsList" relaxed size="big">
+					<Card.Group className="tagsList" itemsPerRow={3}>
 						{RenderTags(props)}
-					</List>
+					</Card.Group>
 				</Responsive>
 			</div>
 		)
 
-		const RenderTags = props => (
+		const RenderTags = props =>
 			props.relatedTags.map(tag => (
-				<List.Item
+				<Card
+					key={tag.id}
 					onClick={() => {
 						window.scrollTo({ top: 0, behavior: "smooth" })
 						this.setState({ id: tag.id })
@@ -369,45 +376,37 @@ class Tag extends Component {
 						props.fetchTaggedUsers({ id: tag.id })
 					}}
 				>
-					<List.Content>
-						<List.Header as="a">
-							{tag.value}
-						</List.Header>
-						<List.Description as="a">{tag.count} examples</List.Description>
-					</List.Content>
-				</List.Item>
+					<Card.Content>
+						<Card.Header as="a">{tag.value}</Card.Header>
+						<Card.Meta>{tag.count} examples</Card.Meta>
+					</Card.Content>
+				</Card>
 			))
-		)
 
-		const RenderUsers = props => (
+		const RenderUsers = props =>
 			props.users.map(user => (
-				<List.Item>
-					<Image
-						bordered
-						circular
-						className="userPic"
-						onError={i => (i.target.src = ImagePic)}
-						rounded
-						size="tiny"
-						src={user.img}
-					/>
-					<List.Content>
-						<List.Header
-							as="a"
-							onClick={() => {
-								this.scrollToTop()
-								this.setState({ assignedTo: user.value })
-							}}
-						>
-							{user.name}
-						</List.Header>
-						<List.Description>
+				<Card
+					key={user.id}
+					onClick={() => {
+						this.scrollToTop()
+						this.setState({ assignedTo: user.value })
+					}}
+				>
+					<Card.Content>
+						<Image
+							circular
+							floated="right"
+							onError={i => (i.target.src = ImagePic)}
+							size="mini"
+							src={user.img}
+						/>
+						<Card.Header>{user.name}</Card.Header>
+						<Card.Meta>
 							{user.count} time{user.count !== "1" && "s"}
-						</List.Description>
-					</List.Content>
-				</List.Item>
+						</Card.Meta>
+					</Card.Content>
+				</Card>
 			))
-		)
 
 		const TagMenu = props => (
 			<Menu borderless className="tagMenu" pointing secondary size="large">
@@ -476,14 +475,10 @@ class Tag extends Component {
 			<div className="usersContent">
 				<Header size="large">Mentions</Header>
 				<Responsive maxWidth={1024}>
-					<List relaxed>
-						{RenderUsers(props)}
-					</List>
+					<Card.Group itemsPerRow={3}>{RenderUsers(props)}</Card.Group>
 				</Responsive>
 				<Responsive minWidth={1025}>
-					<List relaxed size="big">
-						{RenderUsers(props)}
-					</List>
+					<Card.Group itemsPerRow={3}>{RenderUsers(props)}</Card.Group>
 				</Responsive>
 			</div>
 		)
@@ -505,7 +500,7 @@ class Tag extends Component {
 								<div className="tagsWrapper">
 									{TagMenu(this.props)}
 									{activeItem === "article" && (
-										<div>{ArticleSection(this.props)}</div>
+										<Segment>{ArticleSection(this.props)}</Segment>
 									)}
 									{activeItem === "history" && (
 										<Segment>
@@ -517,8 +512,14 @@ class Tag extends Component {
 
 									<Divider horizontal />
 									{UsersSection(this.props)}
+
+									<Divider horizontal />
 									{GallerySection(this.props)}
+
+									<Divider horizontal />
 									<ExamplesSection props={this.props} />
+
+									<Divider horizontal />
 									{RelatedSection(this.props)}
 
 									{PicModal(this.props)}
