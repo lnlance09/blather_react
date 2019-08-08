@@ -263,20 +263,20 @@ class Tag extends Component {
 		}
 
 		const GallerySection = props => (
-			<div className="galleryContent">
-				<Header size="large">Talking points thru imagery</Header>
-				<Segment>
-					{props.images.length > 0 ? (
-						<div className="galleryWrapper">
-							<Gallery images={props.images} />
-							<div className="clearfix" />
-						</div>
-					) : (
-						<Header>There aren't any pics yet</Header>
-					)}
-				</Segment>
-				{authenticated && (
-					<Button circular color="green" icon="camera" onClick={() => this.toggleModal()} />
+			<div>
+				{props.images.length > 0 && (
+					<div className="galleryContent">
+						<Header size="large">Talking points thru imagery</Header>
+						<Segment>
+							<div className="galleryWrapper">
+								<Gallery images={props.images} />
+								<div className="clearfix" />
+							</div>
+						</Segment>
+						{authenticated && (
+							<Button circular color="green" icon="camera" onClick={() => this.toggleModal()} />
+						)}
+					</div>
 				)}
 			</div>
 		)
