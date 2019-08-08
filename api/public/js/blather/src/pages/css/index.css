@@ -599,7 +599,7 @@ a {
     font-size: 16px !important; }
   .tagsPage .tagsWrapper .commentsContent .segment {
     padding-top: 5px; }
-  .tagsPage .tagsWrapper .examplesContent, .tagsPage .tagsWrapper .commentsContent, .tagsPage .tagsWrapper .galleryContent, .tagsPage .tagsWrapper .usersContent {
+  .tagsPage .tagsWrapper .examplesContent, .tagsPage .tagsWrapper .commentsContent, .tagsPage .tagsWrapper .galleryContent, .tagsPage .tagsWrapper .relatedContent, .tagsPage .tagsWrapper .usersContent {
     margin-top: 25px; }
   .tagsPage .tagsWrapper .galleryContent .header {
     line-height: 36px;
