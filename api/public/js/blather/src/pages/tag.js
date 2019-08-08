@@ -19,7 +19,6 @@ import {
 	Container,
 	Divider,
 	Form,
-	Grid,
 	Header,
 	Icon,
 	Image,
@@ -337,14 +336,38 @@ class Tag extends Component {
 			)
 		}
 
+		const RelatedSection = props => (
+			<div className="relatedContent">
+				<Header size="large">Other platitudes</Header>
+				<Input
+					fluid
+					icon="search"
+					onChange={this.onChangeRelatedSearchVal}
+					placeholder="Search..."
+					relatedSearchVal={relatedSearchVal}
+				/>
+				<Responsive maxWidth={1024}>
+					<List className="tagsList" relaxed>
+						{RenderTags(props)}
+					</List>
+				</Responsive>
+				<Responsive minWidth={1025}>
+					<List className="tagsList" relaxed size="big">
+						{RenderTags(props)}
+					</List>
+				</Responsive>
+			</div>
+		)
+
 		const RenderTags = props => (
 			props.relatedTags.map(tag => (
 				<List.Item
 					onClick={() => {
 						window.scrollTo({ top: 0, behavior: "smooth" })
 						this.setState({ id: tag.id })
-						this.props.fetchTagInfo({ id: tag.id })
-						this.props.fetchTaggedUsers({ id: tag.id })
+						props.history.push(`/tags/${tag.id}`)
+						props.fetchTagInfo({ id: tag.id })
+						props.fetchTaggedUsers({ id: tag.id })
 					}}
 				>
 					<List.Content>
@@ -471,41 +494,17 @@ class Tag extends Component {
 
 		const UsersSection = props => (
 			<div className="usersContent">
-				<Grid stackable>
-					<Grid.Column width={8}>
-						<Header size="large" textAlign="center">Mentions</Header>
-						<Responsive maxWidth={1024}>
-							<List divided relaxed>
-								{RenderUsers(props)}
-							</List>
-						</Responsive>
-						<Responsive minWidth={1025}>
-							<List divided relaxed size="big">
-								{RenderUsers(props)}
-							</List>
-						</Responsive>
-					</Grid.Column>
-					<Grid.Column width={8}>
-						<Header size="large" textAlign="center">Other platitudes</Header>
-						<Input
-							fluid
-							icon="search"
-							onChange={this.onChangeRelatedSearchVal}
-							placeholder="Search..."
-							relatedSearchVal={relatedSearchVal}
-						/>
-						<Responsive maxWidth={1024}>
-							<List className="tagsList" divided relaxed>
-								{RenderTags(props)}
-							</List>
-						</Responsive>
-						<Responsive minWidth={1025}>
-							<List className="tagsList" divided relaxed size="big">
-								{RenderTags(props)}
-							</List>
-						</Responsive>
-					</Grid.Column>
-				</Grid>
+				<Header size="large">Mentions</Header>
+				<Responsive maxWidth={1024}>
+					<List relaxed>
+						{RenderUsers(props)}
+					</List>
+				</Responsive>
+				<Responsive minWidth={1025}>
+					<List relaxed size="big">
+						{RenderUsers(props)}
+					</List>
+				</Responsive>
 			</div>
 		)
 
@@ -540,6 +539,7 @@ class Tag extends Component {
 									{UsersSection(this.props)}
 									{GallerySection(this.props)}
 									<ExamplesSection props={this.props} />
+									{RelatedSection(this.props)}
 
 									{PicModal(this.props)}
 								</div>
