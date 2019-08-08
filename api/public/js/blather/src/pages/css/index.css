@@ -612,12 +612,12 @@ a {
     width: 100%; }
   .tagsPage .tagsWrapper .tagDescription {
     font-size: 16px; }
+  .tagsPage .tagsWrapper .tagsList {
+    margin-top: 12px !important; }
 
 @media only screen and (max-width: 1025px) {
   .tagsPage .tagsWrapper .segment.stacked img {
-    width: 300px; }
-  .tagsPage .ui.image.userPic {
-    display: none !important; } }
+    width: 300px; } }
 
 /* Targets page */
 .targetsPage .ui.text.container {

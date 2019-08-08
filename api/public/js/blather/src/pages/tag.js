@@ -26,6 +26,7 @@ import {
 	List,
 	Menu,
 	Modal,
+	Responsive,
 	Segment,
 	TextArea
 } from "semantic-ui-react"
@@ -335,6 +336,56 @@ class Tag extends Component {
 			)
 		}
 
+		const RenderTags = props => (
+			props.relatedTags.map(tag => (
+				<List.Item
+					onClick={() => {
+						window.scrollTo({ top: 0, behavior: "smooth" })
+						this.setState({ id: tag.id })
+						this.props.fetchTagInfo({ id: tag.id })
+						this.props.fetchTaggedUsers({ id: tag.id })
+					}}
+				>
+					<List.Content>
+						<List.Header as="a">
+							{tag.value}
+						</List.Header>
+						<List.Description as="a">{tag.count} examples</List.Description>
+					</List.Content>
+				</List.Item>
+			))
+		)
+
+		const RenderUsers = props => (
+			props.users.map(user => (
+				<List.Item>
+					<Image
+						bordered
+						circular
+						className="userPic"
+						onError={i => (i.target.src = ImagePic)}
+						rounded
+						size="tiny"
+						src={user.img}
+					/>
+					<List.Content>
+						<List.Header
+							as="a"
+							onClick={() => {
+								this.scrollToTop()
+								this.setState({ assignedTo: user.value })
+							}}
+						>
+							{user.name}
+						</List.Header>
+						<List.Description>
+							{user.count} time{user.count !== "1" && "s"}
+						</List.Description>
+					</List.Content>
+				</List.Item>
+			))
+		)
+
 		const TagMenu = props => (
 			<Menu borderless className="tagMenu" pointing secondary>
 				<Menu.Item
@@ -422,35 +473,17 @@ class Tag extends Component {
 				<Segment>
 					<Grid stackable>
 						<Grid.Column width={8}>
-							<Header size="large">Who actually believes this</Header>
-							<List divided relaxed size="big">
-								{props.users.map(user => (
-									<List.Item>
-										<Image
-											bordered
-											className="userPic"
-											onError={i => (i.target.src = ImagePic)}
-											rounded
-											size="tiny"
-											src={user.img}
-										/>
-										<List.Content>
-											<List.Header
-												as="a"
-												onClick={() => {
-													this.scrollToTop()
-													this.setState({ assignedTo: user.value })
-												}}
-											>
-												{user.name}
-											</List.Header>
-											<List.Description>
-												Has used this {user.count} time{user.count !== "1" && "s"}
-											</List.Description>
-										</List.Content>
-									</List.Item>
-								))}
-							</List>
+							<Header size="large">Mentionsha</Header>
+							<Responsive maxWidth={1024}>
+								<List divided relaxed>
+									{RenderUsers(props)}
+								</List>
+							</Responsive>
+							<Responsive minWidth={1025}>
+								<List divided relaxed size="big">
+									{RenderUsers(props)}
+								</List>
+							</Responsive>
 						</Grid.Column>
 						<Grid.Column width={8}>
 							<Header size="large">Other platitudes</Header>
@@ -461,25 +494,16 @@ class Tag extends Component {
 								placeholder="Search..."
 								relatedSearchVal={relatedSearchVal}
 							/>
-							<List divided relaxed size="big">
-								{props.relatedTags.map(tag => (
-									<List.Item
-										onClick={() => {
-											window.scrollTo({ top: 0, behavior: "smooth" })
-											this.setState({ id: tag.id })
-											this.props.fetchTagInfo({ id: tag.id })
-											this.props.fetchTaggedUsers({ id: tag.id })
-										}}
-									>
-										<List.Content>
-											<List.Header as="a">
-												{tag.value}
-											</List.Header>
-											<List.Description as="a">{tag.count} examples</List.Description>
-										</List.Content>
-									</List.Item>
-								))}
-							</List>
+							<Responsive maxWidth={1024}>
+								<List className="tagsList" divided relaxed>
+									{RenderTags(props)}
+								</List>
+							</Responsive>
+							<Responsive minWidth={1025}>
+								<List className="tagsList" divided relaxed size="big">
+									{RenderTags(props)}
+								</List>
+							</Responsive>
 						</Grid.Column>
 					</Grid>
 				</Segment>
