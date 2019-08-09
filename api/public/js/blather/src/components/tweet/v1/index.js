@@ -120,7 +120,9 @@ class Tweet extends Component {
 						circular
 						className="tweetUserImg"
 						floated="left"
-						onError={i => (i.target.src = ItemPic)}
+						onError={i =>
+							(i.target.src = props.profileImg ? props.profileImg : ItemPic)
+						}
 						src={profileImg}
 					/>
 					<Card.Header

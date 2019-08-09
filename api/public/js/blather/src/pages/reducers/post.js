@@ -56,6 +56,7 @@ const post = (state = initial(), action) => {
 
 			let pageInfo = {}
 			let profileImg = ""
+			let s3Pic = ""
 			let existsOnYt = true
 			let needToRefresh = false
 			let info = {}
@@ -84,6 +85,7 @@ const post = (state = initial(), action) => {
 			let archives = payload.archives
 
 			if (payload.type === "tweet") {
+				s3Pic = payload.profile_pic
 				info = payload.data
 				profileImg = payload.data.user.profile_image_url_https
 				if (payload.data.retweeted_status) {
@@ -118,6 +120,7 @@ const post = (state = initial(), action) => {
 				needToRefresh,
 				pageInfo,
 				profileImg,
+				s3Pic,
 				type: payload.type
 			}
 

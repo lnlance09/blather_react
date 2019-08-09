@@ -146,12 +146,16 @@ class Breakdown extends Component {
 												}/${dbId}`}
 												className="placeholderDiv"
 												dangerouslySetInnerHTML={{
-													__html: sanitizeText(Marked(placeholder.summary))
+													__html: sanitizeText(
+														Marked(placeholder.summary)
+													)
 												}}
 											/>
 											<Icon name="quote right" />
 											<p className="fullReview">
-												<Link to={`/targets/${placeholder.user_id}/${dbId}`}>
+												<Link
+													to={`/targets/${placeholder.user_id}/${dbId}`}
+												>
 													See full review
 												</Link>
 											</p>
