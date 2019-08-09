@@ -70,7 +70,9 @@ class TagsCard extends Component {
 		this.setState({
 			options: [{ text: value, value }, ...this.state.options]
 		})
+
 	handleChange = (e, { value }) => this.setState({ edited: true, tags: value })
+
 	updateTags = () => {
 		this.setState({ editing: false, open: false })
 		if (this.props.type === "fallacy") {
@@ -91,6 +93,7 @@ class TagsCard extends Component {
 
 	render() {
 		let { open, options, tags } = this.state
+
 		const TagsModal = (
 			<Modal
 				basic
@@ -118,7 +121,7 @@ class TagsCard extends Component {
 						/>
 						<Button
 							className="tagModalBtn"
-							content="Update"
+							content="Add"
 							onClick={this.updateTags}
 							primary
 						/>
@@ -127,6 +130,7 @@ class TagsCard extends Component {
 				</Modal.Content>
 			</Modal>
 		)
+
 		const RenderTags = this.props.tags.map(tag => (
 			<List.Item key={`tag_${tag.name}`}>
 				<Link to={`/tags/${tag.id.trim()}`}>{tag.name.trim()}</Link>
@@ -137,6 +141,7 @@ class TagsCard extends Component {
 				)}
 			</List.Item>
 		))
+
 		const ShowTags = props => {
 			if (props.tags.length > 0) {
 				return (

@@ -25,6 +25,16 @@
     }
 }
 
+.search.selection.dropdown {
+    .ui.label {
+        background: $orange;
+        border: none !important;
+        box-shadow: none !important;
+        color: $white;
+        padding: 6px 12px;
+    }
+}
+
 .tagPicModal .content .form {
     text-align: center;
     width: 100% !important;
