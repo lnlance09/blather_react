@@ -475,10 +475,14 @@ class Tag extends Component {
 			<div className="usersContent">
 				<Header size="large">Mentions</Header>
 				<Responsive maxWidth={1024}>
-					<Card.Group className="usersList" itemsPerRow={3} stackable>{RenderUsers(props)}</Card.Group>
+					<Card.Group className="usersList" itemsPerRow={3} stackable>
+						{RenderUsers(props)}
+					</Card.Group>
 				</Responsive>
 				<Responsive minWidth={1025}>
-					<Card.Group className="usersList" itemsPerRow={3} stackable>{RenderUsers(props)}</Card.Group>
+					<Card.Group className="usersList" itemsPerRow={3} stackable>
+						{RenderUsers(props)}
+					</Card.Group>
 				</Responsive>
 			</div>
 		)

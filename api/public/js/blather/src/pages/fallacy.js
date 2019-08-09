@@ -570,19 +570,15 @@ class Fallacy extends Component {
 											<Icon color="green" name="checkmark" /> Retracted!
 										</div>
 									) : (
-										<div>
-											Still waiting...
-										</div>
+										<div>Still waiting...</div>
 									)}
 								</Card.Header>
 								<Card.Meta>
 									{props.retracted ? (
-										<div>
-											Congrats, {props.createdBy.name}
-										</div>
+										<div>Congrats, {props.createdBy.name}</div>
 									) : (
 										<div>
-											for {" "}
+											for{" "}
 											<Moment
 												ago
 												date={adjustTimezone(props.createdAt)}
@@ -595,18 +591,24 @@ class Fallacy extends Component {
 								<Card.Description>
 									{props.retracted ? (
 										<div>
-											<Link to={userLink}>{props.user.name}</Link> has admitted that this is poor reasoning.`
+											<Link to={userLink}>{props.user.name}</Link> has
+											admitted that this is poor reasoning.`
+										</div>
+									) : props.user.id === twitterId ||
+									  props.user.id === youtubeId ? (
+										<div>
+											<p>
+												You have an opportunity to show your followers that
+												you care enough about intellectual honesty to admit
+												you were wrong.
+											</p>
 										</div>
 									) : (
-										props.user.id === twitterId || props.user.id === youtubeId ? (
-											<div>
-												<p>You have an opportunity to show your followers that you care enough about intellectual honesty to admit you were wrong.</p>
-											</div>
-										) : (
-											<p>
-												<Link to={userLink}>{props.user.name}</Link>, if this was assigned to you, please <Link to="/signin">sign in</Link> to retract it.
-											</p>
-										)
+										<p>
+											<Link to={userLink}>{props.user.name}</Link>, if this
+											was assigned to you, please{" "}
+											<Link to="/signin">sign in</Link> to retract it.
+										</p>
 									)}
 								</Card.Description>
 							</Card.Content>
@@ -616,16 +618,14 @@ class Fallacy extends Component {
 										<Icon name="checkmark" />
 										Retracted
 									</Button>
+								) : props.user.id === twitterId || props.user.id === youtubeId ? (
+									<Button color="green" fluid onClick={this.retractLogic}>
+										Retract
+									</Button>
 								) : (
-									props.user.id === twitterId || props.user.id === youtubeId ? (
-										<Button color="green" fluid onClick={this.retractLogic}>
-											Retract
-										</Button>
-									) : (
-										<Button disabled fluid negative>
-											Retract
-										</Button>
-									)
+									<Button disabled fluid negative>
+										Retract
+									</Button>
 								)}
 							</Card.Content>
 						</Card>

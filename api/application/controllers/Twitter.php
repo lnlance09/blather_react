@@ -234,6 +234,7 @@
 				'data' => $tweet['error'] ? null : $tweet['data'],
 				'error' => $tweet['error'] ? true : false,
 				'is_live_search' => $auth,
+				'profile_pic' => !$tweet['error'] && !$auth ? $tweet['profile_pic'] : null,
 				'type' => 'tweet'
 			]);
 		}

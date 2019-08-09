@@ -271,6 +271,16 @@ class FallaciesList extends Component {
 									<Card.Header>{result.title}</Card.Header>
 									<Card.Meta>{meta}</Card.Meta>
 									<Card.Meta>
+										{result.network === "youtube" && (
+											<b>
+												<Icon className="youtubeIcon" name="youtube" />{" "}
+											</b>
+										)}
+										{result.network === "twitter" && (
+											<b>
+												<Icon className="twitterIcon" name="twitter" />{" "}
+											</b>
+										)}
 										<Moment
 											date={adjustTimezone(result.date_created)}
 											fromNow

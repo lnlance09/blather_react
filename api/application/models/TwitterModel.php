@@ -416,9 +416,38 @@
 
                 return [
                     'data' => json_decode($tweet['tweet_json'], true),
-                    'error' => false
+                    'error' => false,
+                    'profile_pic' => $tweet['profile_pic']
                 ];
             }
+        }
+
+        /**
+         * Query the DB to get info about a given Tweet
+         * @param  [int] $id           [The ID of the Tweet]
+         * @param  [boolean] $archive [Whether or not to get the archive code]
+         * @return [array|boolean]     [An array containing data about the given Tweet OR false if the row doesn't exist]
+         */
+        public function getTweetFromDB($id, $archive = false, $fallacies = false) {
+            $select = "tweet_json, CONCAT('".$this->s3Path."', p.s3_pic) AS profile_pic";
+            if ($archive) {
+                $select .= ', a.code, a.date_created';
+            }
+
+            $this->db->select($select);
+
+            if ($archive) {
+                $this->db->join('archive_links a', 'a.object_id=tp.tweet_id AND a.page_id=tp.page_id', 'left');
+            }
+
+            if ($fallacies) {
+                $this->db->join('twitter_page_fallacies f', 'tp.tweet_id=f.tweet_id', 'left');
+            }
+
+            $this->db->join('pages p', 'tp.page_id=p.social_media_id');
+            $this->db->where('tweet_id', $id);
+            $data = $this->db->get('twitter_posts tp')->result_array();
+            return count($data) === 1 ? $data[0] : false;
         }
 
         /**
@@ -445,31 +474,6 @@
             ];
             $info = $this->sendRequest($this->tweetUrl, false, $data, $headers, $token, $secret);
             return $decode ? @json_decode($info, true) : $info;
-        } 
-
-        /**
-         * Query the DB to get info about a given Tweet
-         * @param  [int] $id           [The ID of the Tweet]
-         * @param  [boolean] $archive [Whether or not to get the archive code]
-         * @return [array|boolean]     [An array containing data about the given Tweet OR false if the row doesn't exist]
-         */
-        public function getTweetFromDB($id, $archive = false, $fallacies = false) {
-            $select = 'tweet_json';
-            if ($archive) {
-                $select .= ', a.code, a.date_created';
-            }
-
-            $this->db->select($select);
-            if ($archive) {
-                $this->db->join('archive_links a', 'a.object_id=tp.tweet_id AND a.page_id=tp.page_id', 'left');
-            }
-            if ($fallacies) {
-                $this->db->join('twitter_page_fallacies f', 'tp.tweet_id=f.tweet_id', 'left');
-            }
-
-            $this->db->where('tweet_id', $id);
-            $data = $this->db->get('twitter_posts tp')->result_array();
-            return count($data) === 1 ? $data[0] : false;
         }
 
         /**

@@ -260,7 +260,7 @@ class Post extends Component {
 					name: network === "youtube" ? user.title : user.name,
 					type: network,
 					username: network === "youtube" ? null : user.screen_name
-			}
+			  }
 			: null
 
 		const DisplayFallacyForm = props => (
@@ -330,7 +330,7 @@ class Post extends Component {
 										id={props.info.id_str}
 										imageSize="medium"
 										is_quote_status={props.info.is_quote_status}
-										profileImg={props.profileImg}
+										profileImg={props.s3Pic}
 										quoted_status={
 											props.info.quoted_status === undefined &&
 											props.info.is_quote_status
@@ -448,6 +448,7 @@ Post.propTypes = {
 	pageInfo: PropTypes.object,
 	profileImg: PropTypes.string,
 	refreshYouTubeToken: PropTypes.func,
+	s3Pic: PropTypes.string,
 	sendNotification: PropTypes.func,
 	type: PropTypes.string
 }
