@@ -446,6 +446,23 @@ class Fallacy extends Component {
 										id={id}
 									/>
 									{SourcesSection(props)}
+									<Responsive maxWidth={1024}>
+										{ShareSection(true)}
+										<Statistic
+											className="viewCount"
+											horizontal
+											label="Views"
+											value={this.props.viewCount}
+										/>
+										<TagsCard
+											bearer={bearer}
+											canEdit={canEdit}
+											history={this.props.history}
+											id={this.props.id}
+											tags={tags()}
+											type="fallacy"
+										/>
+									</Responsive>
 									{ReferenceSection}
 								</div>
 							) : (
@@ -473,6 +490,23 @@ class Fallacy extends Component {
 												showMaterial={false}
 											/>
 											{SourcesSection(props)}
+											<Responsive maxWidth={1024}>
+												{ShareSection(true)}
+												<Statistic
+													className="viewCount"
+													horizontal
+													label="Views"
+													value={this.props.viewCount}
+												/>
+												<TagsCard
+													bearer={bearer}
+													canEdit={canEdit}
+													history={this.props.history}
+													id={this.props.id}
+													tags={tags()}
+													type="fallacy"
+												/>
+											</Responsive>
 											{ReferenceSection}
 										</div>
 									)}
@@ -697,25 +731,6 @@ class Fallacy extends Component {
 								<Grid className="fallacyGrid">
 									<Grid.Row>{MaterialSection(this.props)}</Grid.Row>
 									<Grid.Row>{RetractionSegment(this.props)}</Grid.Row>
-									<Grid.Row>
-										{ShareSection(true)}
-										<Statistic
-											className="viewCount"
-											horizontal
-											label="Views"
-											value={this.props.viewCount}
-										/>
-									</Grid.Row>
-									<Grid.Row>
-										<TagsCard
-											bearer={bearer}
-											canEdit={canEdit}
-											history={this.props.history}
-											id={this.props.id}
-											tags={tags()}
-											type="fallacy"
-										/>
-									</Grid.Row>
 									<Grid.Row>{CommentsSection(this.props)}</Grid.Row>
 									<Grid.Row>{SimilarSection(this.props)}</Grid.Row>
 								</Grid>
