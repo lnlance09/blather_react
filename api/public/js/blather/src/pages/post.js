@@ -260,8 +260,9 @@ class Post extends Component {
 					name: network === "youtube" ? user.title : user.name,
 					type: network,
 					username: network === "youtube" ? null : user.screen_name
-			  }
+			}
 			: null
+
 		const DisplayFallacyForm = props => (
 			<div className="fallacyFormWrapper">
 				<FallacyForm
@@ -347,7 +348,6 @@ class Post extends Component {
 											favorite_count: props.info.favorite_count,
 											retweet_count: props.info.retweet_count
 										}}
-										useLocalProfilePic
 										user={props.info.user}
 									/>
 								</div>
