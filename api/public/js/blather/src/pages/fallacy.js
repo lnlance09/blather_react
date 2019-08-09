@@ -445,6 +445,7 @@ class Fallacy extends Component {
 										history={props.history}
 										id={id}
 									/>
+									{SourcesSection(props)}
 									{ReferenceSection}
 								</div>
 							) : (
@@ -471,6 +472,7 @@ class Fallacy extends Component {
 												id={id}
 												showMaterial={false}
 											/>
+											{SourcesSection(props)}
 											{ReferenceSection}
 										</div>
 									)}
@@ -529,16 +531,38 @@ class Fallacy extends Component {
 									onClick={() => props.history.push(userLink)}
 									style={{ cursor: "pointer" }}
 								>
-									{props.user.name}
+									{props.retracted ? (
+										<div>
+											<Icon color="green" name="checkmark" /> Retracted!
+										</div>
+									) : (
+										<div>
+											Still waiting...
+										</div>
+									)}
 								</Card.Header>
 								<Card.Meta>
-									{props.retracted ? "has retracted" : "has not retracted yet"}
+									{props.retracted ? (
+										<div>
+											Congrats, {props.createdBy.name}
+										</div>
+									) : (
+										<div>
+											for {" "}
+											<Moment
+												ago
+												date={adjustTimezone(props.createdAt)}
+												fromNow
+												interval={60000}
+											/>
+										</div>
+									)}
 								</Card.Meta>
 								<Card.Description>
 									{props.retracted ? (
-										`${
-											props.user.name
-										} has admitted that this is poor reasoning.`
+										<div>
+											<Link to={userLink}>{props.user.name}</Link> has admitted that this is poor reasoning.`
+										</div>
 									) : (
 										props.user.id === twitterId || props.user.id === youtubeId ? (
 											<div>
@@ -546,7 +570,7 @@ class Fallacy extends Component {
 											</div>
 										) : (
 											<p>
-												If this was assigned to one of your accounts, please <Link to="/signin">sign in</Link> to retract it.
+												<Link to={userLink}>{props.user.name}</Link>, if this was assigned to you, please <Link to="/signin">sign in</Link> to retract it.
 											</p>
 										)
 									)}
@@ -638,7 +662,7 @@ class Fallacy extends Component {
 			const refId = props.refId
 			const rawSources = refId === 1 || refId === 2
 			return (
-				<div className="sourcesContent">
+				<div className="sourcesContent" data-html2canvas-ignore>
 					<Header size="large">Sources</Header>
 					<FallacyExample
 						bearer={bearer}
@@ -672,7 +696,6 @@ class Fallacy extends Component {
 							<Responsive maxWidth={1024}>
 								<Grid className="fallacyGrid">
 									<Grid.Row>{MaterialSection(this.props)}</Grid.Row>
-									<Grid.Row>{SourcesSection(this.props)}</Grid.Row>
 									<Grid.Row>{RetractionSegment(this.props)}</Grid.Row>
 									<Grid.Row>
 										{ShareSection(true)}
@@ -702,7 +725,6 @@ class Fallacy extends Component {
 								<Grid className="fallacyGrid">
 									<Grid.Column className="leftSide" width={12}>
 										{MaterialSection(this.props)}
-										{SourcesSection(this.props)}
 										{RetractionSegment(this.props)}
 										{CommentsSection(this.props)}
 										{SimilarSection(this.props)}
