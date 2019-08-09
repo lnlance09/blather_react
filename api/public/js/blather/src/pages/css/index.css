@@ -16,6 +16,13 @@
     .ui.vertical.menu .item.active:hover {
       color: #FFFFFF; }
 
+.search.selection.dropdown .ui.label {
+  background: #F2711C;
+  border: none !important;
+  box-shadow: none !important;
+  color: #FFFFFF;
+  padding: 6px 12px; }
+
 .tagPicModal .content .form {
   text-align: center;
   width: 100% !important; }
