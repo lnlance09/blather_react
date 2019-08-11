@@ -122,11 +122,11 @@ class Tweet extends Component {
 						className="tweetUserImg"
 						floated="left"
 						onError={i => {
-							if (img === profileImg) {
+							if (img === props.profileImg) {
 								i.target.src = ItemPic
 							} else {
-								i.target.src = profileImg
-								this.setState({ img: profileImg })
+								i.target.src = props.profileImg
+								this.setState({ img: props.profileImg })
 							}
 						}}
 						src={profileImg}
