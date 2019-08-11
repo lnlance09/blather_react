@@ -1,6 +1,8 @@
 import * as constants from "./constants"
 
-const initial = () => ({})
+const initial = () => ({
+	loadingMore: false
+})
 
 const archives = (state = initial(), action) => {
 	const payload = action.payload
@@ -16,6 +18,12 @@ const archives = (state = initial(), action) => {
 				hasMore: payload.pagination.hasMore,
 				loadingMore: false,
 				page: payload.pagination.page
+			}
+
+		case constants.TOGGLE_LOADING:
+			return {
+				...state,
+				loadingMore: !state.loadingMore
 			}
 
 		default:
