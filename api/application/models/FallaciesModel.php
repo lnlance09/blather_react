@@ -717,7 +717,7 @@
         }
 
         public function getReview($user_id, $page_id, $id = null, $by_id = false) {
-            $this->db->select("p.name AS page_name, p.username, p.social_media_id, p.id AS page_id, p.profile_pic AS page_profile_pic, p.type, u.id AS user_id, u.name AS user_name, c.id, c.summary, c.sincerity, c.sincerity_explanation, c.turing_test, c.turing_test_explanation");
+            $this->db->select("p.name AS page_name, p.username, p.social_media_id, p.id AS page_id, CONCAT('".$this->s3Path."', p.profile_pic) AS page_profile_pic, p.type, u.id AS user_id, u.name AS user_name, c.id, c.summary, c.sincerity, c.sincerity_explanation, c.turing_test, c.turing_test_explanation");
             $this->db->join('pages p', 'c.page_id = p.id');
             $this->db->join('users u', 'c.user_id = u.id');
 

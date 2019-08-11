@@ -253,11 +253,11 @@
 			$pageId = (int)$this->input->get('pageId');
 			$review = $this->fallacies->getReview($userId, $pageId, null);
 
-			if(empty($review)) {
+			if (empty($review)) {
 				$user = $this->users->userExists($userId);
 				$page = $this->fallacies->pageExists($pageId);
 
-				if($user && $page) {
+				if ($user && $page) {
 					$this->fallacies->createReview([
 						'page_id' => $pageId,
 						'user_id' => $userId
