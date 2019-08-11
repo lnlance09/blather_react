@@ -874,7 +874,7 @@
                 fe.view_count,
 
                 p.name AS page_name,
-                p.profile_pic AS page_profile_pic,
+                CONCAT('".$this->s3Path."', p.s3_pic) AS page_profile_pic,
                 p.social_media_id AS page_id,
                 p.type AS page_type,
                 p.username AS page_username,
