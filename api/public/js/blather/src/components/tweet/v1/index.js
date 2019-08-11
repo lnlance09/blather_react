@@ -21,6 +21,7 @@ class Tweet extends Component {
 			animation: "fade",
 			duration: 700,
 			highlight: "",
+			img: "",
 			visible: false
 		}
 
@@ -45,7 +46,7 @@ class Tweet extends Component {
 	}
 
 	render() {
-		const { animation, duration, visible } = this.state
+		const { animation, duration, img, visible } = this.state
 		const { highlight, retweeted_status } = this.props
 		const className = `tweet${this.props.redirect ? " clickable" : ""}`
 
@@ -120,9 +121,14 @@ class Tweet extends Component {
 						circular
 						className="tweetUserImg"
 						floated="left"
-						onError={i =>
-							(i.target.src = props.profileImg ? props.profileImg : ItemPic)
-						}
+						onError={i => {
+							if (img === profileImg) {
+								i.target.src = ItemPic
+							} else {
+								i.target.src = profileImg
+								this.setState({ img: profileImg })
+							}
+						}}
 						src={profileImg}
 					/>
 					<Card.Header

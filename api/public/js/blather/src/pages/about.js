@@ -43,6 +43,11 @@ class About extends Component {
 			tab = this.props.match.params.tab
 		}
 		this.setState({ activeItem: tab })
+
+		const aScript = document.createElement("script")
+		aScript.type = "text/javascript"
+		aScript.src = "https://c6.patreon.com/becomePatronButton.bundle.js"
+		document.head.appendChild(aScript)
 	}
 
 	handleItemClick = (e, { name }) => {
@@ -93,6 +98,14 @@ class About extends Component {
 					it means to have a discussion; which is to change minds.
 				</p>
 				<Follow className="twitterFollowButton" username="blatherio" />
+				<p style={{ marginTop: "10px" }}>
+					<a
+						href="https://www.patreon.com/bePatron?u=3485613"
+						data-patreon-widget-type="become-patron-button"
+					>
+						Become a Patron!
+					</a>
+				</p>
 			</div>
 		)
 		const ContactSection = props => (
