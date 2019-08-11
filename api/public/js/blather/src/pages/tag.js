@@ -367,6 +367,7 @@ class Tag extends Component {
 						props.fetchTagInfo({ id: tag.id })
 						props.fetchTaggedUsers({ id: tag.id })
 					}}
+					raised={parseInt(tag.id, 10) === parseInt(props.id, 10)}
 				>
 					<Card.Content>
 						<Card.Header>{tag.value}</Card.Header>
