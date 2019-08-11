@@ -138,7 +138,7 @@ class FallaciesList extends Component {
 
 	loadMore = () => {
 		if (this.props.hasMore && !this.props.loadingMore) {
-			const newPage = parseInt(this.state.page + 1, 10)
+			const newPage = parseInt(this.props.page + 1, 10)
 			this.setState({ page: newPage })
 			this.props.toggleLoading()
 			this.props.getFallacies({
