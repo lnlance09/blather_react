@@ -608,7 +608,6 @@
             savePic($pic, $path);
 
             $key = 'pages/twitter/'.$name.'-'.$id.'.jpg';
-
             if (filesize($path) == 0) {
                 return 'https://s3.amazonaws.com/blather22/'.$key;
             }
@@ -622,6 +621,8 @@
             $this->db->update('pages', [
                 's3_pic' => $key
             ]);
+
+            unlink($path);
 
             return $s3Link;
         }
