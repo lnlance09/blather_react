@@ -309,7 +309,13 @@ class SearchResults extends Component {
 					)
 				}
 
-				if (result.id || result.video_id || result.tweet_id || result.social_media_id || result.channel_id) {
+				if (
+					result.id ||
+					result.video_id ||
+					result.tweet_id ||
+					result.social_media_id ||
+					result.channel_id
+				) {
 					let itemData = FormatData(result)
 					return (
 						<ResultItem

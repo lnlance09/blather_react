@@ -1,5 +1,5 @@
 import "./style.css"
-import { getArchives } from "./actions"
+import { getArchives, toggleLoading } from "./actions"
 import { adjustTimezone } from "utils/dateFunctions"
 import { formatDuration } from "utils/textFunctions"
 import { connect } from "react-redux"
@@ -17,7 +17,6 @@ class ArchivesList extends Component {
 		super(props)
 		this.state = {
 			id: null,
-			loadingMore: false,
 			options: [],
 			page: this.props.page,
 			q: this.props.q
@@ -58,14 +57,15 @@ class ArchivesList extends Component {
 	}
 
 	loadMore = () => {
-		if (this.props.hasMore) {
-			const newPage = parseInt(this.state.page + 1, 10)
+		if (this.props.hasMore && !this.props.loadingMore) {
+			const newPage = parseInt(this.props.page + 1, 10)
+
 			this.setState({
-				loadingMore: true,
-				page: newPage,
 				pageId: this.state.value,
 				q: this.state.q
 			})
+
+			this.props.toggleLoading()
 			this.props.getArchives({
 				id: this.props.id,
 				page: newPage,
@@ -76,7 +76,7 @@ class ArchivesList extends Component {
 	}
 
 	onChangeInput = value => {
-		this.setState({ page: 0, q: value })
+		this.setState({ q: value })
 		this.props.getArchives({
 			id: this.props.id,
 			page: 0,
@@ -86,7 +86,7 @@ class ArchivesList extends Component {
 	}
 
 	onChangeSearch = (e, { value }) => {
-		this.setState({ page: 0, value })
+		this.setState({ value })
 		this.props.getArchives({
 			id: this.props.id,
 			page: 0,
@@ -96,13 +96,15 @@ class ArchivesList extends Component {
 	}
 
 	render() {
-		const { loadingMore, options, q, value } = this.state
+		const { options, q, value } = this.state
+		const { loadingMore } = this.props
 
 		const LazyLoadMore = props => {
 			if (loadingMore && props.hasMore) {
 				return <LazyLoad />
 			}
 		}
+
 		const ParseArchiveInfo = archive => {
 			switch (archive.type) {
 				case "comment":
@@ -134,6 +136,7 @@ class ArchivesList extends Component {
 					return null
 			}
 		}
+
 		const RenderArchives = props => {
 			return props.archives.map((archive, i) => {
 				if (archive.link) {
@@ -258,9 +261,11 @@ ArchivesList.propTypes = {
 	getArchives: PropTypes.func,
 	id: PropTypes.number,
 	hasMore: PropTypes.bool,
+	loadingMore: PropTypes.bool,
 	page: PropTypes.number,
 	q: PropTypes.string,
-	submitted: PropTypes.bool
+	submitted: PropTypes.bool,
+	toggleLoading: PropTypes.func
 }
 
 ArchivesList.defaultProps = {
@@ -268,9 +273,11 @@ ArchivesList.defaultProps = {
 	emptyMsgContent: "This user has not archived anything yet",
 	emptyMsgHeader: "No archives",
 	getArchives,
+	loadingMore: false,
 	page: 0,
 	q: "",
-	submitted: false
+	submitted: false,
+	toggleLoading
 }
 
 const mapStateToProps = (state, ownProps) => ({
@@ -280,5 +287,5 @@ const mapStateToProps = (state, ownProps) => ({
 
 export default connect(
 	mapStateToProps,
-	{ getArchives }
+	{ getArchives, toggleLoading }
 )(ArchivesList)
