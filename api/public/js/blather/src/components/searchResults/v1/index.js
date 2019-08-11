@@ -6,6 +6,7 @@ import { formatNumber, formatPlural } from "utils/textFunctions"
 import { connect, Provider } from "react-redux"
 import { Link } from "react-router-dom"
 import { Container, Icon, Item, Message, Statistic, Visibility } from "semantic-ui-react"
+import _ from "lodash"
 import itemPic from "images/image-square.png"
 import LazyLoad from "components/lazyLoad/v1/"
 import Moment from "react-moment"
@@ -22,6 +23,8 @@ class SearchResults extends Component {
 			data: this.props.data,
 			page: 0
 		}
+
+		this.loadMore = _.debounce(this.loadMore.bind(this), 400)
 	}
 
 	componentDidMount() {
@@ -52,12 +55,13 @@ class SearchResults extends Component {
 	}
 
 	loadMore = () => {
-		if (this.props.hasMore) {
+		if (this.props.hasMore && !this.props.loading) {
 			const newPage = parseInt(this.state.page + 1, 10)
 			this.setState({
 				loadingMore: true,
 				page: newPage
 			})
+			this.props.toggleSearchLoading()
 			this.props.fetchSearchResults({
 				bearer: this.props.bearer,
 				fallacies: this.props.fallacies,
@@ -228,8 +232,6 @@ class SearchResults extends Component {
 			return null
 		}
 
-		const lazyLoad = this.props.data.map((result, i) => <LazyLoad key={`search_result_${i}`} />)
-
 		const ResultsHeader = count => (
 			<Statistic size="tiny">
 				<Statistic.Value>{formatNumber(count)}</Statistic.Value>
@@ -237,11 +239,7 @@ class SearchResults extends Component {
 			</Statistic>
 		)
 
-		const ResultItems = ({ props }) => {
-			if (props.loading) {
-				return <Item.Group divided>{lazyLoad}</Item.Group>
-			}
-
+		const ResultItems = props => {
 			if (props.count > 0) {
 				return (
 					<Item.Group divided>
@@ -250,15 +248,19 @@ class SearchResults extends Component {
 				)
 			}
 
-			return (
-				<Message
-					className="emptyMsg"
-					content="Try modifying your search"
-					header="No results..."
-					icon="search"
-					warning
-				/>
-			)
+			if (props.count === 0 && !props.loading) {
+				return (
+					<Message
+						className="emptyMsg"
+						content="Try modifying your search"
+						header="No results..."
+						icon="search"
+						warning
+					/>
+				)
+			}
+
+			return <LazyLoad />
 		}
 
 		const SearchResults = ({ props }) => {
@@ -307,27 +309,31 @@ class SearchResults extends Component {
 					)
 				}
 
-				let itemData = FormatData(result)
-				return (
-					<ResultItem
-						description={itemData.description}
-						extra={itemData.extra}
-						highlight={props.q !== "" && props.type === "fallacies"}
-						highlightText={props.q}
-						history={props.history}
-						id={`${props.type}_${i}`}
-						img={itemData.img}
-						key={`${props.type}_${i}`}
-						meta={itemData.meta}
-						sanitize
-						tags={itemData.tags}
-						title={itemData.title}
-						truncate={itemData.truncate}
-						type={props.type}
-						url={itemData.url}
-						useMarked={itemData.useMarked}
-					/>
-				)
+				if (result.id || result.video_id || result.tweet_id || result.social_media_id || result.channel_id) {
+					let itemData = FormatData(result)
+					return (
+						<ResultItem
+							description={itemData.description}
+							extra={itemData.extra}
+							highlight={props.q !== "" && props.type === "fallacies"}
+							highlightText={props.q}
+							history={props.history}
+							id={`${props.type}_${i}`}
+							img={itemData.img}
+							key={`${props.type}_${i}`}
+							meta={itemData.meta}
+							sanitize
+							tags={itemData.tags}
+							title={itemData.title}
+							truncate={itemData.truncate}
+							type={props.type}
+							url={itemData.url}
+							useMarked={itemData.useMarked}
+						/>
+					)
+				}
+
+				return <LazyLoad />
 			})
 		}
 
@@ -341,7 +347,7 @@ class SearchResults extends Component {
 					{LinkAccountMsg(this.props)}
 					<Container className="searchContentContainer">
 						<Visibility continuous offset={[50, 50]} onBottomVisible={this.loadMore}>
-							<ResultItems props={this.props} />
+							{ResultItems(this.props)}
 							{LazyLoadMore(this.props)}
 						</Visibility>
 					</Container>

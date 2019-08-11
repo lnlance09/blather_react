@@ -1,5 +1,5 @@
 import "./style.css"
-import { getFallacies, getTargets } from "./actions"
+import { getFallacies, getTargets, toggleLoading } from "./actions"
 import { adjustTimezone } from "utils/dateFunctions"
 import { formatPlural } from "utils/textFunctions"
 import { connect, Provider } from "react-redux"
@@ -137,12 +137,10 @@ class FallaciesList extends Component {
 	}
 
 	loadMore = () => {
-		if (this.props.hasMore) {
+		if (this.props.hasMore && !this.props.loadingMore) {
 			const newPage = parseInt(this.state.page + 1, 10)
-			this.setState({
-				loadingMore: true,
-				page: newPage
-			})
+			this.setState({ page: newPage })
+			this.props.toggleLoading()
 			this.props.getFallacies({
 				assignedBy: this.props.assignedBy,
 				assignedTo: this.props.assignedTo,
@@ -550,6 +548,7 @@ FallaciesList.propTypes = {
 	hasMore: PropTypes.bool,
 	icon: PropTypes.string,
 	itemsPerRow: PropTypes.number,
+	loadingMore: PropTypes.bool,
 	name: PropTypes.string,
 	network: PropTypes.string,
 	objectId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -567,6 +566,7 @@ FallaciesList.propTypes = {
 		pages: PropTypes.number,
 		results: PropTypes.array
 	}),
+	toggleLoading: PropTypes.func,
 	useCards: PropTypes.bool
 }
 
@@ -578,6 +578,7 @@ FallaciesList.defaultProps = {
 	getTargets,
 	icon: "tweet",
 	itemsPerRow: 3,
+	loadingMore: false,
 	page: 0,
 	results: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
 	showPics: true,
@@ -585,6 +586,7 @@ FallaciesList.defaultProps = {
 		page: 0,
 		results: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}]
 	},
+	toggleLoading,
 	useCards: true
 }
 
@@ -595,5 +597,5 @@ const mapStateToProps = (state, ownProps) => ({
 
 export default connect(
 	mapStateToProps,
-	{ getFallacies, getTargets }
+	{ getFallacies, getTargets, toggleLoading }
 )(FallaciesList)
