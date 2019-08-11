@@ -648,7 +648,7 @@
         }
 
         public function searchPagesFromDb($q, $page = 0, $just_count = false) {
-            $select = "about, name, CONCAT('".$this->s3Path."', p.s3_pic), social_media_id, type, username";
+            $select = "about, name, CONCAT('".$this->s3Path."', p.s3_pic) AS profile_pic, social_media_id, type, username";
             if ($just_count) {
                 $select = 'COUNT(*) AS count';
             }
