@@ -33,22 +33,21 @@ class SearchPage extends Component {
 			fallacies,
 			page: 0,
 			types,
+			q: query.q,
 			user: currentState.user.data
 		}
-
-		this.props.setValue({ value: query.q })
 	}
 
 	componentWillReceiveProps(props) {
 		const _query = qs.parse(this.props.location.search)
 		const query = qs.parse(props.location.search)
 		if (_query.q !== query.q) {
-			this.props.setValue({ value: query.q })
+			this.setState({ q: query.q })
 		}
 	}
 
 	changeUrl = fallacies => {
-		let radioVal = this.props.q
+		let radioVal = this.state.q
 		let radioValue = radioVal === undefined || radioVal === null ? "" : radioVal
 		let fallacyStr = fallacies.join(",")
 		this.props.history.push(`/search/fallacies?q=${radioValue}&fallacies=${fallacyStr}`)
@@ -79,7 +78,7 @@ class SearchPage extends Component {
 			page: 0
 		})
 
-		let itemVal = this.props.q
+		let itemVal = this.state.q
 		let value = itemVal === undefined || itemVal === null ? "" : itemVal
 		this.props.history.push(`/search/${name}?q=${value}`)
 	}
@@ -103,9 +102,7 @@ class SearchPage extends Component {
 	}
 
 	onChangeSearchValue = value => {
-		this.setState({ page: 0 })
-		this.props.setValue({ value })
-
+		this.setState({ page: 0, q: value })
 		if (value !== undefined) {
 			let { activeItem, fallacies } = this.state
 			let fallacyStr = ""
@@ -117,8 +114,7 @@ class SearchPage extends Component {
 	}
 
 	render() {
-		const { activeItem, all, auth, bearer, fallacies, page, user } = this.state
-		const { q } = this.props
+		const { activeItem, all, auth, bearer, fallacies, page, q, user } = this.state
 
 		const FallacyItem = rawFallacies.map((item, i) => (
 			<Form.Checkbox

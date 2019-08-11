@@ -1,6 +1,8 @@
 import * as constants from "./constants"
 
-const initial = () => ({})
+const initial = () => ({
+	loadingMore: false
+})
 
 const fallacies = (state = initial(), action) => {
 	switch (action.type) {
@@ -34,6 +36,12 @@ const fallacies = (state = initial(), action) => {
 					pages: action.payload.pages,
 					results: targets
 				}
+			}
+
+		case constants.TOGGLE_LOADING:
+			return {
+				...state,
+				loadingMore: !state.loadingMore
 			}
 
 		default:

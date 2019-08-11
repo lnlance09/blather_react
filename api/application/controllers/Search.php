@@ -56,7 +56,6 @@
                             $count = $pages['count'];
                             $results = $pages['data'];
                         }
-
                     } else {
                         $count = $this->youtube->searchPagesFromDb($q, $page, true);
                         $results = $this->youtube->searchPagesFromDb($q, $page, false);
