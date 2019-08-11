@@ -34,6 +34,10 @@ class Fallacies extends Component {
 		}
 	}
 
+	componentWillMount() {
+		window.scrollTo({ top: 0, behavior: "smooth" })
+	}
+
 	componentWillReceiveProps(props) {
 		const name = props.match.params.id
 		const parsedName = name ? name.split("-").join(" ") : false

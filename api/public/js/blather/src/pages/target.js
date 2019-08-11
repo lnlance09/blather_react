@@ -85,11 +85,20 @@ class Target extends Component {
 		this.submitForm = this.submitForm.bind(this)
 	}
 
+	componentWillMount() {
+		window.scrollTo({ top: 0, behavior: "smooth" })
+	}
+
 	changeSincerityExplanation = (e, { value }) => this.props.changeSincerityExplanation({ value })
+
 	changeSummary = (e, { value }) => this.props.changeSummary({ value })
+
 	changeTuringExplanation = (e, { value }) => this.props.changeTuringExplanation({ value })
+
 	handleSincerityChange = (e, { value }) => this.props.changeSincerity({ value })
+
 	handleTuringChange = (e, { value }) => this.props.changeTuring({ value })
+
 	submitForm = () => {
 		this.setState({ editing: false, loading: true })
 		this.props.saveReview({
@@ -106,8 +115,10 @@ class Target extends Component {
 	render() {
 		const { editing, exists, loading, myId, userId } = this.state
 		const { error, page, user } = this.props
+
 		const readonly = userId !== myId
 		const showMessage = (userId === myId && this.props.fallacyCount < 5) || !exists
+
 		const DisplayFallacies = ({ props }) => (
 			<div className="fallaciesWrapper">
 				<Header dividing size="large">
@@ -128,6 +139,7 @@ class Target extends Component {
 				/>
 			</div>
 		)
+
 		const Questionnaire = props => (
 			<Form className="questionnaire" onSubmit={this.submitForm}>
 				<Form.TextArea
@@ -222,6 +234,7 @@ class Target extends Component {
 				/>
 			</Form>
 		)
+
 		const ShowAnswers = props => (
 			<div>
 				{props.hasLoaded ? (
