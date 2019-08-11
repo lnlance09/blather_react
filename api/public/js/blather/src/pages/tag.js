@@ -26,7 +26,6 @@ import {
 	List,
 	Menu,
 	Modal,
-	Responsive,
 	Segment,
 	TextArea
 } from "semantic-ui-react"
@@ -197,7 +196,7 @@ class Tag extends Component {
 		const ArticleSection = props => {
 			if (editing) {
 				return (
-					<Form as={Segment} onSubmit={this.updateTag}>
+					<Form as={Segment}>
 						<Form.Field>
 							<TextArea
 								onChange={this.onChangeDescription}
@@ -205,7 +204,7 @@ class Tag extends Component {
 								value={description}
 							/>
 						</Form.Field>
-						<Button color="blue" content="Update" fluid type="submit" />
+						<Button color="blue" content="Update" fluid onClick={this.updateTag} />
 					</Form>
 				)
 			}
@@ -241,7 +240,7 @@ class Tag extends Component {
 			return null
 		}
 
-		const ExamplesSection = ({ props }) => {
+		const ExamplesSection = props => {
 			if (props.id) {
 				return (
 					<div className="examplesContent">
@@ -348,19 +347,12 @@ class Tag extends Component {
 					icon="search"
 					onChange={this.onChangeRelatedSearchVal}
 					placeholder="Search..."
-					relatedSearchVal={relatedSearchVal}
+					value={relatedSearchVal}
 					size="large"
 				/>
-				<Responsive maxWidth={1024}>
-					<Card.Group className="tagsList" itemsPerRow={3} stackable>
-						{RenderTags(props)}
-					</Card.Group>
-				</Responsive>
-				<Responsive minWidth={1025}>
-					<Card.Group className="tagsList" itemsPerRow={3} stackable>
-						{RenderTags(props)}
-					</Card.Group>
-				</Responsive>
+				<Card.Group className="tagsList" itemsPerRow={3} stackable>
+					{RenderTags(props)}
+				</Card.Group>
 			</div>
 		)
 
@@ -377,7 +369,7 @@ class Tag extends Component {
 					}}
 				>
 					<Card.Content>
-						<Card.Header as="a">{tag.value}</Card.Header>
+						<Card.Header>{tag.value}</Card.Header>
 						<Card.Meta>{tag.count} examples</Card.Meta>
 					</Card.Content>
 				</Card>
@@ -474,16 +466,9 @@ class Tag extends Component {
 		const UsersSection = props => (
 			<div className="usersContent">
 				<Header size="large">Mentions</Header>
-				<Responsive maxWidth={1024}>
-					<Card.Group className="usersList" itemsPerRow={3} stackable>
-						{RenderUsers(props)}
-					</Card.Group>
-				</Responsive>
-				<Responsive minWidth={1025}>
-					<Card.Group className="usersList" itemsPerRow={3} stackable>
-						{RenderUsers(props)}
-					</Card.Group>
-				</Responsive>
+				<Card.Group className="usersList" itemsPerRow={3} stackable>
+					{RenderUsers(props)}
+				</Card.Group>
 			</div>
 		)
 
@@ -515,7 +500,7 @@ class Tag extends Component {
 									)}
 
 									<Divider horizontal />
-									<ExamplesSection props={this.props} />
+									{ExamplesSection(this.props)}
 
 									<Divider horizontal />
 									{RelatedSection(this.props)}

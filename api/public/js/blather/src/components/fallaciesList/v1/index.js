@@ -75,6 +75,22 @@ class FallaciesList extends Component {
 		}
 	}
 
+	componentWillUpdate(nextProps) {
+		if (nextProps.tagId !== this.props.tagId) {
+			this.props.getFallacies({
+				assignedBy: nextProps.assignedBy,
+				assignedTo: nextProps.assignedTo,
+				commentId: nextProps.commentId,
+				fallacies: nextProps.fallacies,
+				fallacyId: nextProps.fallacyId,
+				network: nextProps.network,
+				objectId: nextProps.objectId,
+				page: 0,
+				tagId: nextProps.tagId
+			})
+		}
+	}
+
 	fetchFallacies(props) {
 		let id = ""
 
