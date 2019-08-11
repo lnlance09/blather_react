@@ -622,7 +622,9 @@
                 's3_pic' => $key
             ]);
 
-            unlink($path);
+            if (file_exists($path)) {
+                unlink($path);
+            }
 
             return $s3Link;
         }
