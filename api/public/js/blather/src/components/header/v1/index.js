@@ -51,6 +51,7 @@ class Header extends Component {
 
 	render() {
 		const { activeItem, value, visible } = this.state
+
 		const FallaciesSidebar = fallacies.map(fallacy => (
 			<Menu.Item
 				active={activeItem === fallacy.name.toLowerCase()}
@@ -61,9 +62,10 @@ class Header extends Component {
 				{`${fallacy.name}`}
 			</Menu.Item>
 		))
+
 		const LoginButton = props => {
 			if (props.authenticated) {
-				const trigger = <Button color="blue">{props.data.name}</Button>
+				const trigger = <Button basic color="blue">{props.data.name}</Button>
 				return (
 					<Menu.Item direction="right" position="right">
 						<Dropdown className="dropDownMenu" fluid icon={false} trigger={trigger}>
