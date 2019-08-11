@@ -232,17 +232,17 @@ class SearchPage extends Component {
 					<DisplayMetaTags page="search" props={this.props} state={this.state} />
 					<PageHeader {...this.props} />
 					<Container className="mainContainer" textAlign="left">
-						<Responsive maxWidth={900}>
+						<Responsive maxWidth={1024}>
 							<Grid>
 								<Grid.Row>{SearchMenu(this.props)}</Grid.Row>
 								<Grid.Row>{SearchItems()}</Grid.Row>
 							</Grid>
 						</Responsive>
 
-						<Responsive minWidth={901}>
+						<Responsive minWidth={1025}>
 							<Grid>
-								<Grid.Column width={5}>{SearchMenu(this.props)}</Grid.Column>
-								<Grid.Column className="rightSide" width={11}>
+								<Grid.Column width={4}>{SearchMenu(this.props)}</Grid.Column>
+								<Grid.Column className="rightSide" width={12}>
 									{SearchItems()}
 								</Grid.Column>
 							</Grid>

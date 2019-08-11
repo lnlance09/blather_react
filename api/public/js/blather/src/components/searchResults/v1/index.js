@@ -23,8 +23,6 @@ class SearchResults extends Component {
 			data: this.props.data,
 			page: 0
 		}
-
-		this.loadMore = _.debounce(this.loadMore.bind(this), 400)
 	}
 
 	componentDidMount() {

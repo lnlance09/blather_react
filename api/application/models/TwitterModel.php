@@ -254,7 +254,7 @@
          * @return [array|boolan]       [An array containing data about the given page OR false if no rows are returned]
          */
         public function getPageInfoFromDB($id, $just_count = false) {
-            $select = '*';
+            $select = "about, name, id, social_media_id, username, CONCAT('".$this->s3Path."', s3_pic) AS profile_pic";
             if ($just_count) {
                 $select = 'COUNT(*) AS count';
             }
