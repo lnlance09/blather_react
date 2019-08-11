@@ -552,7 +552,7 @@ class Fallacy extends Component {
 				<Header size="large">Retraction</Header>
 				{props.user ? (
 					<Container className="retractionContainer">
-						<Card fluid>
+						<Card fluid raised>
 							<Card.Content>
 								<Image
 									circular
