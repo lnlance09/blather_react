@@ -130,15 +130,18 @@ class Breakdown extends Component {
 											<Header className="first" size="medium">
 												<Image
 													avatar
+													className="reviewAvatar"
 													size="medium"
 													src={placeholder.user_img}
 												/>{" "}
+
 												Here's how{" "}
 												<Link to={`/users/${placeholder.user_id}`}>
 													{placeholder.user_name}
 												</Link>{" "}
 												has described this source
 											</Header>
+
 											<Icon name="quote left" />
 											<blockquote
 												cite={`https://blather.io/targets/${
@@ -152,6 +155,7 @@ class Breakdown extends Component {
 												}}
 											/>
 											<Icon name="quote right" />
+
 											<p className="fullReview">
 												<Link
 													to={`/targets/${placeholder.user_id}/${dbId}`}

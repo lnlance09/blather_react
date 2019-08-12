@@ -43,4 +43,6 @@
     margin: 10px 0 16px 0; }
   @media only screen and (max-width: 1025px) {
     .breakdown .ui.header.small {
-      font-size: 14px !important; } }
+      font-size: 14px !important; }
+    .breakdown .reviewAvatar {
+      display: none !important; } }
