@@ -65,7 +65,11 @@ class Header extends Component {
 
 		const LoginButton = props => {
 			if (props.authenticated) {
-				const trigger = <Button basic color="blue">{props.data.name}</Button>
+				const trigger = (
+					<Button basic color="blue">
+						{props.data.name}
+					</Button>
+				)
 				return (
 					<Menu.Item direction="right" position="right">
 						<Dropdown className="dropDownMenu" fluid icon={false} trigger={trigger}>

@@ -1,5 +1,5 @@
 import "./style.css"
-import { fetchSearchResults, toggleSearchLoading } from "./actions"
+import { fetchSearchResults, resetSearchData, toggleSearchLoading } from "./actions"
 import { refreshYouTubeToken } from "components/authentication/v1/actions"
 import { adjustTimezone } from "utils/dateFunctions"
 import { formatNumber, formatPlural } from "utils/textFunctions"
@@ -19,10 +19,7 @@ import store from "store"
 class SearchResults extends Component {
 	constructor(props) {
 		super(props)
-		this.state = {
-			data: this.props.data,
-			page: 0
-		}
+		this.state = {}
 
 		this.loadMore = _.debounce(this.loadMore.bind(this), 400)
 	}
@@ -44,6 +41,7 @@ class SearchResults extends Component {
 			newProps.fallacies !== this.props.fallacies
 		) {
 			this.props.toggleSearchLoading()
+			this.props.resetSearchData()
 			this.props.fetchSearchResults({
 				bearer: newProps.bearer,
 				fallacies: newProps.fallacies,
@@ -56,11 +54,7 @@ class SearchResults extends Component {
 
 	loadMore = () => {
 		if (this.props.hasMore && !this.props.loading) {
-			const newPage = parseInt(this.state.page + 1, 10)
-			this.setState({
-				loadingMore: true,
-				page: newPage
-			})
+			let newPage = this.props.page + 1
 			this.props.toggleSearchLoading()
 			this.props.fetchSearchResults({
 				bearer: this.props.bearer,
@@ -74,8 +68,6 @@ class SearchResults extends Component {
 	}
 
 	render() {
-		const { loadingMore } = this.state
-
 		if (this.props.error && this.props.type === "youtube") {
 			this.props.refreshYouTubeToken({
 				bearer: this.props.bearer
@@ -196,7 +188,7 @@ class SearchResults extends Component {
 		}
 
 		const LazyLoadMore = props => {
-			if (props.hasMore && loadingMore) {
+			if (props.hasMore && props.loading) {
 				return <LazyLoad />
 			}
 			return null
@@ -352,7 +344,7 @@ class SearchResults extends Component {
 					</div>
 					{LinkAccountMsg(this.props)}
 					<Container className="searchContentContainer">
-						<Visibility continuous offset={[50, 50]} onBottomVisible={this.loadMore}>
+						<Visibility continuous onBottomVisible={this.loadMore}>
 							{ResultItems(this.props)}
 							{LazyLoadMore(this.props)}
 						</Visibility>
@@ -379,6 +371,7 @@ SearchResults.propTypes = {
 	pages: PropTypes.number,
 	q: PropTypes.string,
 	refreshYouTubeToken: PropTypes.func,
+	resetSearchData: PropTypes.func,
 	toggleSearchLoading: PropTypes.func,
 	type: PropTypes.string
 }
@@ -393,6 +386,7 @@ SearchResults.defaultProps = {
 	page: 0,
 	q: "",
 	refreshYouTubeToken,
+	resetSearchData,
 	toggleSearchLoading,
 	type: "profiles"
 }
@@ -407,6 +401,7 @@ export default connect(
 	{
 		fetchSearchResults,
 		refreshYouTubeToken,
+		resetSearchData,
 		toggleSearchLoading
 	}
 )(SearchResults)

@@ -44,6 +44,12 @@ export const fetchSearchResults = ({
 	)
 }
 
+export const resetSearchData = () => dispatch => {
+	dispatch({
+		type: constants.RESET_SEARCH_DATA
+	})
+}
+
 export const toggleSearchLoading = () => dispatch => {
 	dispatch({
 		type: constants.TOGGLE_SEARCH_LOADING

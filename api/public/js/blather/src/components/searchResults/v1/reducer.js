@@ -1,6 +1,8 @@
 import * as constants from "./constants"
 
-const initial = () => ({})
+const initial = () => ({
+	page: 0
+})
 
 const searchResults = (state = initial(), action) => {
 	switch (action.type) {
@@ -22,17 +24,23 @@ const searchResults = (state = initial(), action) => {
 				pages: action.payload.pages
 			}
 
-		case constants.TOGGLE_SEARCH_LOADING:
-			return {
-				...state,
-				loading: !state.loading
-			}
-
 		case constants.REFRESH_YOUTUBE_TOKEN:
 			return {
 				...state,
 				bearer: action.payload.bearer,
 				youtubeAccessToken: action.payload.refreshToken
+			}
+
+		case constants.RESET_SEARCH_DATA:
+			return {
+				...state,
+				data: [{}]
+			}
+
+		case constants.TOGGLE_SEARCH_LOADING:
+			return {
+				...state,
+				loading: !state.loading
 			}
 
 		default:

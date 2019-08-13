@@ -134,7 +134,6 @@ class Breakdown extends Component {
 													size="medium"
 													src={placeholder.user_img}
 												/>{" "}
-
 												Here's how{" "}
 												<Link to={`/users/${placeholder.user_id}`}>
 													{placeholder.user_name}
