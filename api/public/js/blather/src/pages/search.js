@@ -31,7 +31,6 @@ class SearchPage extends Component {
 			auth,
 			bearer,
 			fallacies,
-			page: 0,
 			types,
 			q: query.q,
 			user: currentState.user.data
@@ -65,8 +64,7 @@ class SearchPage extends Component {
 		this.setState({
 			activeItem: "fallacies",
 			all: !all,
-			fallacies,
-			page: 0
+			fallacies
 		})
 
 		this.changeUrl(fallacies)
@@ -74,8 +72,7 @@ class SearchPage extends Component {
 
 	handleItemClick = (e, { name }) => {
 		this.setState({
-			activeItem: name,
-			page: 0
+			activeItem: name
 		})
 
 		let itemVal = this.state.q
@@ -94,15 +91,14 @@ class SearchPage extends Component {
 
 		this.setState({
 			activeItem: "fallacies",
-			fallacies,
-			page: 0
+			fallacies
 		})
 
 		this.changeUrl(fallacies)
 	}
 
 	onChangeSearchValue = value => {
-		this.setState({ page: 0, q: value })
+		this.setState({ q: value })
 		if (value !== undefined) {
 			let { activeItem, fallacies } = this.state
 			let fallacyStr = ""
@@ -114,7 +110,7 @@ class SearchPage extends Component {
 	}
 
 	render() {
-		const { activeItem, all, auth, bearer, fallacies, page, q, user } = this.state
+		const { activeItem, all, auth, bearer, fallacies, q, user } = this.state
 
 		const FallacyItem = rawFallacies.map((item, i) => (
 			<Form.Checkbox
@@ -151,7 +147,6 @@ class SearchPage extends Component {
 				history={this.props.history}
 				linkedTwitter={auth ? user.linkedTwitter : false}
 				linkedYoutube={auth ? user.linkedYoutube : false}
-				page={page}
 				q={q}
 				type={activeItem}
 			/>

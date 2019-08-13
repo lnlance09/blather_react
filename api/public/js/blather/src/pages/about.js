@@ -37,6 +37,10 @@ class About extends Component {
 		this.sendContactMsg = this.sendContactMsg.bind(this)
 	}
 
+	componentDidMount() {
+		window.scrollTo({ top: 0, behavior: "smooth" })
+	}
+
 	componentWillMount() {
 		let tab = "about"
 		if (this.props.match.params.tab) {

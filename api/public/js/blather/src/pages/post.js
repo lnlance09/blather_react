@@ -80,7 +80,9 @@ class Post extends Component {
 		this.setClip = this.setClip.bind(this)
 	}
 
-	componentDidMount() {}
+	componentDidMount() {
+		window.scrollTo({ top: 0, behavior: "smooth" })
+	}
 
 	componentWillReceiveProps(newProps) {
 		const qs = queryString.parse(newProps.location.search)
@@ -234,9 +236,7 @@ class Post extends Component {
 			if (props.info) {
 				return (
 					<div className="fallaciesWrapper">
-						<Header dividing size="large">
-							Fallacies
-						</Header>
+						<Header size="large">Fallacies</Header>
 						<FallaciesList
 							commentId={type === "comment" ? id : null}
 							emptyMsgContent={`No fallacies have been assigned to this ${type}`}
