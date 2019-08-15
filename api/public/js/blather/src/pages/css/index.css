@@ -611,14 +611,11 @@ a {
   .tagsPage .tagsWrapper .commentsContent .segment {
     padding-top: 5px; }
   .tagsPage .tagsWrapper .galleryContent .header {
-    line-height: 36px;
-    margin-bottom: 0; }
+    line-height: 36px; }
   .tagsPage .tagsWrapper .galleryContent .galleryWrapper {
     width: 100%; }
-  .tagsPage .tagsWrapper .galleryContent .segment {
-    overflow: hidden; }
-    .tagsPage .tagsWrapper .galleryContent .segment img {
-      max-width: 400px; }
+    .tagsPage .tagsWrapper .galleryContent .galleryWrapper img {
+      cursor: pointer; }
   .tagsPage .tagsWrapper .tagDescription {
     font-size: 16px; }
   .tagsPage .tagsWrapper .tagsList, .tagsPage .tagsWrapper .usersList {
