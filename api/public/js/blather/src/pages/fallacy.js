@@ -37,6 +37,7 @@ import {
 	Segment,
 	Statistic
 } from "semantic-ui-react"
+import { confetti } from "dom-confetti"
 import Disqus from "disqus-react"
 import FallacyExample from "components/fallacyExample/v1/"
 import FallaciesList from "components/fallaciesList/v1/"
@@ -235,6 +236,20 @@ class Fallacy extends Component {
 	}
 
 	retractLogic = () => {
+		const button = document.querySelector(".retractBtn")
+		confetti(button, {
+			angle: 90,
+			colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"],
+			dragFriction: 0.1,
+			duration: 3000,
+			elementCount: 50,
+			height: "12px",
+			spread: "45",
+			stagger: 0,
+			startVelocity: 45,
+			width: "12px"
+		})
+
 		this.props.retractLogic({
 			bearer: this.state.bearer,
 			id: this.state.id,
@@ -549,10 +564,10 @@ class Fallacy extends Component {
 
 		const RetractionSegment = props => (
 			<div className="retractionContent">
-				<Header size="large">Retraction</Header>
+				<Header size="large">Status</Header>
 				{props.user ? (
 					<Container className="retractionContainer">
-						<Card fluid raised>
+						<Card fluid>
 							<Card.Content>
 								<Image
 									circular
@@ -561,24 +576,20 @@ class Fallacy extends Component {
 									size="mini"
 									src={props.user.img}
 								/>
-								<Card.Header
-									onClick={() => props.history.push(userLink)}
-									style={{ cursor: "pointer" }}
-								>
+								<Card.Header>
 									{props.retracted ? (
-										<div>
-											<Icon color="green" name="checkmark" /> Retracted!
-										</div>
+										<div>Retracted</div>
 									) : (
-										<div>Still waiting...</div>
+										<div>Still waiting for a retraction...</div>
 									)}
 								</Card.Header>
 								<Card.Meta>
 									{props.retracted ? (
-										<div>Congrats, {props.createdBy.name}</div>
+										<div>Nice work, {props.createdBy.name}</div>
 									) : (
 										<div>
-											for{" "}
+											<Icon name="clock outline" />
+											waiting for{" "}
 											<Moment
 												ago
 												date={adjustTimezone(props.createdAt)}
@@ -592,34 +603,39 @@ class Fallacy extends Component {
 									{props.retracted ? (
 										<div>
 											<Link to={userLink}>{props.user.name}</Link> has
-											admitted that this is poor reasoning.`
+											admitted that this is poor reasoning.
 										</div>
 									) : props.user.id === twitterId ||
 									  props.user.id === youtubeId ? (
 										<div>
 											<p>
-												You have an opportunity to show your followers that
-												you care enough about intellectual honesty to admit
-												you were wrong.
+												{props.user.name}, this is an opportunity to show
+												your followers that you have enough courage to admit
+												that you were wrong.
 											</p>
 										</div>
 									) : (
 										<p>
-											<Link to={userLink}>{props.user.name}</Link>, if this
-											was assigned to you, please{" "}
-											<Link to="/signin">sign in</Link> to retract it.
+											<Link to={userLink}>{props.user.name}</Link>, if you
+											have the courage to admit that you're wrong, please{" "}
+											<Link to="/signin">sign in</Link> to retract this.
 										</p>
 									)}
 								</Card.Description>
 							</Card.Content>
 							<Card.Content extra>
 								{props.retracted ? (
-									<Button color="green" disabled fluid>
+									<Button active color="green" fluid>
 										<Icon name="checkmark" />
 										Retracted
 									</Button>
 								) : props.user.id === twitterId || props.user.id === youtubeId ? (
-									<Button color="green" fluid onClick={this.retractLogic}>
+									<Button
+										className="retractBtn"
+										fluid
+										negative
+										onClick={this.retractLogic}
+									>
 										Retract
 									</Button>
 								) : (

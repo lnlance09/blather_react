@@ -7,6 +7,7 @@
     "babel-preset-react-app": "^7.0.0",
     "depcheck": "^0.7.2",
     "disqus-react": "^1.0.5",
+    "dom-confetti": "^0.1.1",
     "express": "^4.16.4",
     "history": "^4.7.2",
     "html-react-parser": "^0.6.1",
