@@ -48,6 +48,7 @@ const tag = (state = initial(), action) => {
 				img: payload.tag.tag_img === null ? "" : payload.tag.tag_img,
 				loading: false,
 				name: payload.tag.tag_name,
+				rawImages: payload.tag.rawImages,
 				relatedTags: payload.tag.related === false ? [] : payload.tag.related
 			}
 

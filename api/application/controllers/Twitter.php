@@ -7,6 +7,7 @@
 
 			$this->load->helper('common_helper');
 			$this->load->model('TwitterModel', 'twitter');
+			$this->load->model('UsersModel', 'users');
 			$this->load->model('YouTubeModel', 'youtube');
 		}
 
@@ -236,6 +237,48 @@
 				'is_live_search' => $auth,
 				'profile_pic' => array_key_exists('profile_pic', $tweet) ? $tweet['profile_pic'] : null,
 				'type' => 'tweet'
+			]);
+		}
+
+		public function tweetFromExtension() {
+			$id = $this->input->get('id');
+
+			if (!$id) {
+				$this->output->set_status_header(404);
+				echo json_encode([
+					'error' => 'This tweet does not exist'
+				]);
+				exit;
+			}
+
+			$auth = $this->user ? $this->user->linkedTwitter : false;
+
+			if ($auth) {
+				$token = $auth ? $this->user->twitterAccessToken : null;
+				$secret = $auth ? $this->user->twitterAccessSecret : null;
+			} else {
+				$tokens = $this->users->getDefaultTwitterTokens();
+				$token = $tokens->twitter_access_token;
+				$secret = $tokens->twitter_access_secret;
+			}
+
+			$tweet = $this->twitter->getTweetExtended($id, true, $token, $secret);
+
+			if ($tweet['error']) {
+				$code = $tweet['code'];
+				$data = null;
+				$error = true;
+			} else {
+				$code = 0;
+				$data = $tweet['data'];
+				$error = false;
+			}
+
+			echo json_encode([
+				'code' => $code,
+				'data' => $data,
+				'error' => $error,
+				'is_live_search' => $auth
 			]);
 		}
 	}

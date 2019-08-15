@@ -1,4 +1,5 @@
 import "pages/css/index.css"
+import "react-image-lightbox/style.css"
 import { adjustTimezone } from "utils/dateFunctions"
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { sanitizeText } from "utils/textFunctions"
@@ -25,14 +26,16 @@ import {
 	Input,
 	List,
 	Menu,
+	Message,
 	Modal,
 	Segment,
 	TextArea
 } from "semantic-ui-react"
 import Dropzone from "react-dropzone"
 import FallaciesList from "components/fallaciesList/v1/"
-import Gallery from "react-grid-gallery"
+import ImageMasonry from "react-image-masonry"
 import ImagePic from "images/image-square.png"
+import Lightbox from "react-image-lightbox"
 import Marked from "marked"
 import LazyLoad from "components/lazyLoad/v1/"
 import PageFooter from "components/footer/v1/"
@@ -67,8 +70,10 @@ class Tag extends Component {
 			editing: false,
 			id,
 			img: false,
+			isOpen: false,
 			files: [],
 			modalVisible: false,
+			photoIndex: 0,
 			relatedSearchVal: "",
 			userId
 		}
@@ -100,6 +105,21 @@ class Tag extends Component {
 		window.scrollTo({ top: 0, behavior: "smooth" })
 		this.props.fetchTagInfo({ id: this.state.id })
 		this.props.fetchTaggedUsers({ id: this.state.id })
+	}
+
+	componentWillUpdate(nextProps) {
+		let id = nextProps.match.params.id
+		if (isNaN(id)) {
+			const split = id.split("-")
+			id = parseInt(split[split.length - 1], 10)
+		} else {
+			id = parseInt(id, 10)
+		}
+
+		if (id !== this.props.id) {
+			this.props.fetchTagInfo({ id })
+			this.props.fetchTaggedUsers({ id })
+		}
 	}
 
 	handleHide = () => this.setState({ active: false })
@@ -188,7 +208,9 @@ class Tag extends Component {
 			editing,
 			id,
 			img,
+			isOpen,
 			modalVisible,
+			photoIndex,
 			relatedSearchVal,
 			version
 		} = this.state
@@ -261,25 +283,66 @@ class Tag extends Component {
 		}
 
 		const GallerySection = props => (
-			<div>
-				{props.images.length > 0 && (
-					<div className="galleryContent">
-						<Header size="large">Talking points thru imagery</Header>
-						<Segment>
-							<div className="galleryWrapper">
-								<Gallery images={props.images} />
-								<div className="clearfix" />
-							</div>
-						</Segment>
-						{authenticated && (
-							<Button
-								circular
-								color="green"
-								icon="camera"
-								onClick={() => this.toggleModal()}
-							/>
-						)}
-					</div>
+			<div className="galleryContent">
+				<Header size="large">Platitudes thru imagery</Header>
+				<Container className="galleryWrapper">
+					{props.images.length > 0 ? (
+						<ImageMasonry
+							animate
+							forceOrder
+							numCols={3}
+						>
+							{props.images.map((img, i) => (
+								<div
+									className="tile"
+									key={i}
+									onClick={() => {
+										this.setState({
+											isOpen: true,
+											photoIndex: i
+										})
+									}}
+								>
+									<img
+										alt={img.caption}
+										src={img.src}
+									/>
+								</div>
+							))}
+						</ImageMasonry>
+					) : (
+						<Message
+							content="There are no images yet"
+						/>
+					)}
+
+					{isOpen && (
+						<Lightbox
+							mainSrc={props.rawImages[photoIndex]}
+							nextSrc={props.rawImages[(photoIndex + 1) % props.rawImages.length]}
+							onCloseRequest={() => this.setState({ isOpen: false })}
+							onMoveNextRequest={() =>
+								this.setState({
+									photoIndex: (photoIndex + 1) % props.rawImages.length
+								})
+							}
+							onMovePrevRequest={() =>
+								this.setState({
+									photoIndex: (photoIndex + props.rawImages.length - 1) % props.rawImages.length
+								})
+							}
+							prevSrc={props.rawImages[(photoIndex + props.rawImages.length - 1) % props.rawImages.length]}
+						/>
+					)}
+				</Container>
+				{authenticated && (
+					<Button
+						circular
+						color="green"
+						icon="camera"
+						onClick={() => this.toggleModal()}
+						style={{ marginTop: "10px" }}
+					/>
 				)}
 			</div>
 		)
@@ -376,31 +439,6 @@ class Tag extends Component {
 				</Card>
 			))
 
-		const RenderUsers = props =>
-			props.users.map(user => (
-				<Card
-					key={user.id}
-					onClick={() => {
-						this.scrollToTop()
-						this.setState({ assignedTo: user.value })
-					}}
-				>
-					<Card.Content>
-						<Image
-							circular
-							floated="right"
-							onError={i => (i.target.src = ImagePic)}
-							size="mini"
-							src={user.img}
-						/>
-						<Card.Header>{user.name}</Card.Header>
-						<Card.Meta>
-							{user.count} time{user.count !== "1" && "s"}
-						</Card.Meta>
-					</Card.Content>
-				</Card>
-			))
-
 		const TagMenu = props => (
 			<Menu borderless className="tagMenu" pointing secondary size="large">
 				<Menu.Item
@@ -464,15 +502,6 @@ class Tag extends Component {
 			)
 		}
 
-		const UsersSection = props => (
-			<div className="usersContent">
-				<Header size="large">Mentions</Header>
-				<Card.Group className="usersList" itemsPerRow={3} stackable>
-					{RenderUsers(props)}
-				</Card.Group>
-			</div>
-		)
-
 		return (
 			<Provider store={store}>
 				<div className="tagsPage">
@@ -492,6 +521,7 @@ class Tag extends Component {
 									{activeItem === "article" && (
 										<div>{ArticleSection(this.props)}</div>
 									)}
+
 									{activeItem === "history" && (
 										<Segment>
 											<List divided relaxed>
@@ -499,6 +529,9 @@ class Tag extends Component {
 											</List>
 										</Segment>
 									)}
+
+									<Divider horizontal />
+									{GallerySection(this.props)}
 
 									<Divider horizontal />
 									{ExamplesSection(this.props)}
@@ -544,6 +577,7 @@ Tag.propTypes = {
 	img: PropTypes.string,
 	loading: PropTypes.bool,
 	name: PropTypes.string,
+	rawImages: PropTypes.array,
 	relatedTags: PropTypes.array,
 	updateDescription: PropTypes.func,
 	updateTag: PropTypes.func,
@@ -559,6 +593,7 @@ Tag.defaultProps = {
 	getRelatedTags,
 	images: [],
 	loading: true,
+	rawImages: [],
 	relatedTags: [],
 	updateDescription,
 	updateTag,

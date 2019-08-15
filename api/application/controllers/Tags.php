@@ -15,6 +15,7 @@
 		public function index() {
 			$id = (int)$this->input->get('id');
 			$tag = $this->tags->getTagInfo($id);
+
 			if (!$tag) {
 				$this->output->set_status_header(401);
 				echo json_encode([
@@ -25,6 +26,7 @@
 
 			$images = $this->tags->getImages($id);
 			$tag['images'] = $images;
+			$tag['rawImages'] = !empty($images) ? array_column($images, 'src') : [];
 
 			$related = $this->tags->getRelated();
 			$tag['related'] = $related;

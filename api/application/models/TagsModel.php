@@ -32,7 +32,7 @@
 			$this->db->select("CONCAT('".$this->s3Path."', s3_path) AS src, CONCAT('".$this->s3Path."', s3_path) AS thumbnail, CONVERT(`height`, UNSIGNED INTEGER) AS thumbnailHeight, CONVERT(`width`, UNSIGNED INTEGER) AS thumbnailWidth, caption");
 			$this->db->where('tag_id', $id);
 			$results = $this->db->get('tag_images')->result_array();
-			return count($results) === 0 ? false : $results;
+			return count($results) === 0 ? [] : $results;
 		}
 
 		public function getRelated($q = null, $limit = 15) {

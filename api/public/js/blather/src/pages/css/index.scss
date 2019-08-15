@@ -1020,18 +1020,13 @@ a {
         .galleryContent {
             .header {
                 line-height: 36px;
-                margin-bottom: 0;
             }
 
             .galleryWrapper {
                 width: 100%;
-            }
-
-            .segment {
-                overflow: hidden;
 
                 img {
-                    max-width: 400px;
+                    cursor: pointer;
                 }
             }
         }
