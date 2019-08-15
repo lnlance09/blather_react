@@ -110,7 +110,7 @@ class Tweet extends Component {
 				name = retweeted_status.user.name
 				profileImg = props.useLocalProfilePic
 					? props.profileImg
-					: retweeted_status.user.profile_image_url_https
+					: retweeted_status.user.profile_image_url_https.replace("_normal", "")
 				screenName = retweeted_status.user.screen_name
 			}
 
