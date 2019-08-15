@@ -287,11 +287,7 @@ class Tag extends Component {
 				<Header size="large">Platitudes thru imagery</Header>
 				<Container className="galleryWrapper">
 					{props.images.length > 0 ? (
-						<ImageMasonry
-							animate
-							forceOrder
-							numCols={3}
-						>
+						<ImageMasonry animate forceOrder numCols={3}>
 							{props.images.map((img, i) => (
 								<div
 									className="tile"
@@ -303,17 +299,12 @@ class Tag extends Component {
 										})
 									}}
 								>
-									<img
-										alt={img.caption}
-										src={img.src}
-									/>
+									<img alt={img.caption} src={img.src} />
 								</div>
 							))}
 						</ImageMasonry>
 					) : (
-						<Message
-							content="There are no images yet"
-						/>
+						<Message content="There are no images yet" />
 					)}
 
 					{isOpen && (
@@ -328,10 +319,17 @@ class Tag extends Component {
 							}
 							onMovePrevRequest={() =>
 								this.setState({
-									photoIndex: (photoIndex + props.rawImages.length - 1) % props.rawImages.length
+									photoIndex:
+										(photoIndex + props.rawImages.length - 1) %
+										props.rawImages.length
 								})
 							}
-							prevSrc={props.rawImages[(photoIndex + props.rawImages.length - 1) % props.rawImages.length]}
+							prevSrc={
+								props.rawImages[
+									(photoIndex + props.rawImages.length - 1) %
+										props.rawImages.length
+								]
+							}
 						/>
 					)}
 				</Container>
