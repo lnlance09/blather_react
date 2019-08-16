@@ -185,6 +185,7 @@ class Tag extends Component {
 			relatedSearchVal,
 			version
 		} = this.state
+		const { images, rawImages } = this.props
 
 		const ArticleSection = props => {
 			if (editing) {
@@ -253,13 +254,13 @@ class Tag extends Component {
 			return null
 		}
 
-		const GallerySection = ({ props }) => (
+		const GallerySection = props => (
 			<div className="galleryContent">
 				<Header size="large">Platitudes thru imagery</Header>
 				<div className="galleryWrapper">
-					{props.images.length > 0 ? (
+					{images.length > 0 ? (
 						<ImageMasonry animate forceOrder numCols={3}>
-							{props.images.map((img, i) => (
+							{images.map((img, i) => (
 								<div
 									className="tile"
 									key={i}
@@ -280,25 +281,25 @@ class Tag extends Component {
 
 					{isOpen && (
 						<Lightbox
-							mainSrc={props.rawImages[photoIndex]}
-							nextSrc={props.rawImages[(photoIndex + 1) % props.rawImages.length]}
+							mainSrc={rawImages[photoIndex]}
+							nextSrc={rawImages[(photoIndex + 1) % rawImages.length]}
 							onCloseRequest={() => this.setState({ isOpen: false })}
 							onMoveNextRequest={() =>
 								this.setState({
-									photoIndex: (photoIndex + 1) % props.rawImages.length
+									photoIndex: (photoIndex + 1) % rawImages.length
 								})
 							}
 							onMovePrevRequest={() =>
 								this.setState({
 									photoIndex:
-										(photoIndex + props.rawImages.length - 1) %
-										props.rawImages.length
+										(photoIndex + rawImages.length - 1) %
+										rawImages.length
 								})
 							}
 							prevSrc={
-								props.rawImages[
-									(photoIndex + props.rawImages.length - 1) %
-										props.rawImages.length
+								rawImages[
+									(photoIndex + rawImages.length - 1) %
+										rawImages.length
 								]
 							}
 						/>
@@ -447,7 +448,7 @@ class Tag extends Component {
 									)}
 
 									<Divider horizontal />
-									<GallerySection props={this.props} />
+									{GallerySection(this.props)}
 
 									<Divider horizontal />
 									{ExamplesSection(this.props)}
