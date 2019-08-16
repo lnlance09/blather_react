@@ -292,15 +292,11 @@ class Tag extends Component {
 							onMovePrevRequest={() =>
 								this.setState({
 									photoIndex:
-										(photoIndex + rawImages.length - 1) %
-										rawImages.length
+										(photoIndex + rawImages.length - 1) % rawImages.length
 								})
 							}
 							prevSrc={
-								rawImages[
-									(photoIndex + rawImages.length - 1) %
-										rawImages.length
-								]
+								rawImages[(photoIndex + rawImages.length - 1) % rawImages.length]
 							}
 						/>
 					)}
