@@ -843,12 +843,12 @@
    },
    {
       "id":"37",
-      "description":"If the premise of the argument is falsified with a counter example, rather than changing the conclusion, the arguer changes the definition of a major premise to make both the premise and the conclusion true. Typically, the arguer makes a sweeping generalization about a an entire group. This is usually done by implying that the group is bound and defined by the arbitrary quality. If an exception to this generalization is pointed out, the arguer dismisses the exception as not truly belonging to the group in the first place.",
+      "description":"If the premise of the argument is falsified with a counter example, rather than changing the conclusion, the arguer changes the definition of a major premise to make both the premise and the conclusion true. Typically, the arguer makes a sweeping generalization about an entire group. This is usually done by implying that the group is bound and defined by the arbitrary quality. If an exception to this generalization is pointed out, the arguer dismisses the exception as not truly belonging to the group in the first place.",
       "name":"No True Scotsman",
       "dialogue": [
          {
             "name": "Blathering Bill",
-            "message": "It is the duty of police officers to protect and serve with integrity and honesty. They would never break the law."
+            "message": "It is the duty of police officers to protect and serve with honesty and integrity. They would never break the law."
          },
          {
             "name": "Rational Rob",
