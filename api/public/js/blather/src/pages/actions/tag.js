@@ -1,7 +1,7 @@
 import * as constants from "../constants"
 import request from "request"
 
-export const addPic = ({ bearer, caption, file, id }) => dispatch => {
+export const addPic = ({ bearer, file, id }) => dispatch => {
 	const fr = new FileReader()
 	fr.onload = event => {
 		request.post(
@@ -25,7 +25,6 @@ export const addPic = ({ bearer, caption, file, id }) => dispatch => {
 					]
 				},
 				qs: {
-					caption,
 					id
 				}
 			},

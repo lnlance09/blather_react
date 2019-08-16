@@ -1,7 +1,8 @@
 import * as constants from "../constants"
 
 const initial = () => ({
-	images: []
+	images: [],
+	rawImages: []
 })
 
 const tag = (state = initial(), action) => {
@@ -12,10 +13,15 @@ const tag = (state = initial(), action) => {
 			if (!payload.error) {
 				const images =
 					state.images.length > 0 ? [...state.images, payload.img] : [payload.img]
+				const rawImages =
+					state.rawImages.length > 0
+						? [...state.rawImages, payload.img.src]
+						: [payload.img.src]
 				return {
 					...state,
 					error: false,
-					images
+					images,
+					rawImages
 				}
 			}
 
