@@ -153,7 +153,7 @@ class SearchResults extends Component {
 						title: result.value,
 						truncate: true,
 						url: `/tags/${result.slug}`,
-						useMarked: true
+						useMarked: false
 					}
 
 				case "users":
