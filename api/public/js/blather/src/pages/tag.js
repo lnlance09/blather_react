@@ -27,7 +27,6 @@ import {
 	List,
 	Menu,
 	Message,
-	Modal,
 	Segment,
 	TextArea
 } from "semantic-ui-react"
@@ -65,14 +64,10 @@ class Tag extends Component {
 			assignedTo: null,
 			authenticated,
 			bearer,
-			caption: "",
 			description: "",
 			editing: false,
 			id,
-			img: false,
 			isOpen: false,
-			files: [],
-			modalVisible: false,
 			photoIndex: 0,
 			relatedSearchVal: "",
 			userId
@@ -91,14 +86,12 @@ class Tag extends Component {
 			xhtml: false
 		})
 
-		this.onChangeCaption = this.onChangeCaption.bind(this)
 		this.onChangeDescription = this.onChangeDescription.bind(this)
 		this.onChangeRelatedSearchVal = this.onChangeRelatedSearchVal.bind(this)
 		this.onClickEdit = this.onClickEdit.bind(this)
 		this.onDrop = this.onDrop.bind(this)
 		this.setVersion = this.setVersion.bind(this)
 		this.updateTag = this.updateTag.bind(this)
-		this.updloadPic = this.uploadPic.bind(this)
 	}
 
 	componentDidMount() {
@@ -122,18 +115,12 @@ class Tag extends Component {
 		}
 	}
 
-	handleHide = () => this.setState({ active: false })
-
 	handleItemClick = (e, { name }) => {
 		this.setState({ activeItem: name })
 		if (name === "history") {
 			this.props.fetchHistory({ id: this.props.id })
 		}
 	}
-
-	handleShow = () => this.setState({ active: true })
-
-	onChangeCaption = (e, { value }) => this.setState({ caption: value })
 
 	onChangeDescription = (e, { value }) => this.setState({ description: value })
 
@@ -151,9 +138,12 @@ class Tag extends Component {
 
 	onDrop = files => {
 		if (files.length > 0) {
-			this.setState({ files })
 			files.forEach(file => {
-				this.setState({ img: URL.createObjectURL(file) })
+				this.props.addPic({
+					bearer: this.state.bearer,
+					file,
+					id: this.props.id
+				})
 			})
 		}
 	}
@@ -172,8 +162,6 @@ class Tag extends Component {
 		this.props.updateDescription({ description: edit.description })
 	}
 
-	toggleModal = () => this.setState({ modalVisible: !this.state.modalVisible })
-
 	updateTag = () => {
 		this.setState({ editing: false })
 		this.props.updateTag({
@@ -183,33 +171,16 @@ class Tag extends Component {
 		})
 	}
 
-	uploadPic = () => {
-		this.props.addPic({
-			bearer: this.state.bearer,
-			caption: this.state.caption,
-			file: this.state.files[0],
-			id: this.props.id
-		})
-		this.toggleModal()
-		this.setState({
-			caption: "",
-			img: false
-		})
-	}
-
 	render() {
 		const {
 			activeItem,
 			assignedTo,
 			authenticated,
 			bearer,
-			caption,
 			description,
 			editing,
 			id,
-			img,
 			isOpen,
-			modalVisible,
 			photoIndex,
 			relatedSearchVal,
 			version
@@ -282,10 +253,10 @@ class Tag extends Component {
 			return null
 		}
 
-		const GallerySection = props => (
+		const GallerySection = ({ props }) => (
 			<div className="galleryContent">
 				<Header size="large">Platitudes thru imagery</Header>
-				<Container className="galleryWrapper">
+				<div className="galleryWrapper">
 					{props.images.length > 0 ? (
 						<ImageMasonry animate forceOrder numCols={3}>
 							{props.images.map((img, i) => (
@@ -299,7 +270,7 @@ class Tag extends Component {
 										})
 									}}
 								>
-									<img alt={img.caption} src={img.src} />
+									<img alt={img.src} src={img.src} />
 								</div>
 							))}
 						</ImageMasonry>
@@ -332,15 +303,21 @@ class Tag extends Component {
 							}
 						/>
 					)}
-				</Container>
+				</div>
 				{authenticated && (
-					<Button
-						circular
-						color="green"
-						icon="camera"
-						onClick={() => this.toggleModal()}
-						style={{ marginTop: "10px" }}
-					/>
+					<Dropzone className="dropdown" onDrop={this.onDrop}>
+						{({ getRootProps, getInputProps }) => (
+							<div {...getRootProps()}>
+								<input {...getInputProps()} />
+								<Button
+									circular
+									color="green"
+									icon="camera"
+									style={{ marginTop: "10px" }}
+								/>
+							</div>
+						)}
+					</Dropzone>
 				)}
 			</div>
 		)
@@ -367,37 +344,6 @@ class Tag extends Component {
 					</List.Item>
 				)
 			})
-		}
-
-		const PicModal = props => {
-			return (
-				<Modal
-					centered={false}
-					className="tagPicModal"
-					closeIcon
-					onClose={() => this.toggleModal()}
-					open={modalVisible}
-					size="small"
-				>
-					<Modal.Header>Add a Photo</Modal.Header>
-					<Modal.Content image>
-						<Form>
-							{TagPic(props)}
-							<Form.TextArea
-								onChange={this.onChangeCaption}
-								placeholder="Caption..."
-								value={caption}
-							/>
-							<Button
-								color="blue"
-								content="Upload"
-								fluid
-								onClick={() => this.uploadPic()}
-							/>
-						</Form>
-					</Modal.Content>
-				</Modal>
-			)
 		}
 
 		const RelatedSection = props => (
@@ -459,34 +405,6 @@ class Tag extends Component {
 			</Menu>
 		)
 
-		const TagPic = props => {
-			if (!img) {
-				return (
-					<Container fluid>
-						<Dropzone className="dropdown" onDrop={this.onDrop}>
-							{({ getRootProps, getInputProps }) => (
-								<div {...getRootProps()}>
-									<input {...getInputProps()} />
-									<Header color="blue">Select a pic</Header>
-								</div>
-							)}
-						</Dropzone>
-					</Container>
-				)
-			}
-
-			return (
-				<Image
-					bordered
-					centered
-					className="tagModalPic"
-					onError={i => (i.target.src = ImagePic)}
-					rounded
-					src={img}
-				/>
-			)
-		}
-
 		const TagTitle = ({ props }) => {
 			return (
 				<TitleHeader
@@ -529,15 +447,13 @@ class Tag extends Component {
 									)}
 
 									<Divider horizontal />
-									{GallerySection(this.props)}
+									<GallerySection props={this.props} />
 
 									<Divider horizontal />
 									{ExamplesSection(this.props)}
 
 									<Divider horizontal />
 									{RelatedSection(this.props)}
-
-									{PicModal(this.props)}
 								</div>
 							)}
 						</Container>

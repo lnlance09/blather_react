@@ -39,7 +39,6 @@
 
 		public function addPic() {
 			$id = $this->input->get('id');
-			$caption = $this->input->get('caption');
 
 			if (!$this->user) {
 				$this->output->set_status_header(401);
@@ -77,7 +76,6 @@
 			$s3Link = $this->media->addToS3($s3Path, $path);
 
 			$this->tags->addPic([
-				'caption' => $caption,
 				'height' => $height,
 				'width' => $width,
 				's3_path' => $s3Path,
@@ -86,7 +84,6 @@
 			echo json_encode([
 				'error' => false,
 				'img' => [
-					'caption' => $caption,
 					'thumbnailHeight' => $height,
 					'thumbnailWidth' => $width,
 					'thumbnailSrc' => $s3Link,
