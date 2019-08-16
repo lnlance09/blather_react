@@ -21,7 +21,7 @@ class SearchPage extends Component {
 		const currentState = store.getState()
 		const bearer = currentState.user.bearer
 		const auth = currentState.user.authenticated
-		const types = ["channels", "fallacies", "profiles", "tweets", "users", "videos"]
+		const types = ["channels", "fallacies", "profiles", "tags", "tweets", "users", "videos"]
 		const fallacies = query.fallacies ? query.fallacies.split(",") : []
 		const activeItem = types.indexOf(type) === -1 ? "profiles" : type
 
@@ -199,6 +199,18 @@ class SearchPage extends Component {
 					</Menu.Menu>
 				</Menu.Item>
 				<Menu.Item
+					active={activeItem === "tags"}
+					name="tags"
+					onClick={this.handleItemClick}
+				>
+					Tags
+					<Icon
+						className="tagsIcon"
+						color={activeItem === "tags" ? "white" : "blue"}
+						name="tag"
+					/>
+				</Menu.Item>
+				<Menu.Item
 					active={activeItem === "users"}
 					name="users"
 					onClick={this.handleItemClick}
@@ -206,7 +218,7 @@ class SearchPage extends Component {
 					Users
 					<Icon
 						className="usersIcon"
-						inverted={activeItem === "users"}
+						color={activeItem === "users" ? "white" : "orange"}
 						name="user circle"
 					/>
 				</Menu.Item>

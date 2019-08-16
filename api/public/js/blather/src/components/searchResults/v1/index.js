@@ -143,6 +143,19 @@ class SearchResults extends Component {
 						useMarked: false
 					}
 
+				case "tags":
+					return {
+						description: result.description,
+						extra: null,
+						img: null,
+						meta: null,
+						tags: [],
+						title: result.value,
+						truncate: true,
+						url: `/tags/${result.slug}`,
+						useMarked: true
+					}
+
 				case "users":
 					return {
 						description: result.about,

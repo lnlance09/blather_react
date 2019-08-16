@@ -53,10 +53,18 @@ class NavSearch extends Component {
 	}
 
 	onClick = (e, data) => {
-		const link =
-			data.result.type === "youtube" ? data.result.social_media_id : data.result.username
+		let link = `/pages/youtube/${data.result.social_media_id}`
+
+		if (data.result.type === "twitter") {
+			link = `/pages/twitter/${data.result.username}`
+		}
+
+		if (data.result.type === "tag") {
+			link = `/tags/${data.result.slug}`
+		}
+
 		if (this.props.source === "header") {
-			this.props.history.push(`/pages/${data.result.type}/${link}`)
+			this.props.history.push(link)
 		}
 
 		if (this.props.source === "fallacyForm") {
@@ -83,12 +91,14 @@ class NavSearch extends Component {
 		const resultRenderer = ({ description, image, social_media_id, title, type, username }) => {
 			return (
 				<div className="searchItem">
-					<Image
-						className="dropDownItemPic"
-						onError={i => (i.target.src = defaultImg)}
-						rounded={false}
-						src={image}
-					/>
+					{image && (
+						<Image
+							className="dropDownItemPic"
+							onError={i => (i.target.src = defaultImg)}
+							rounded={false}
+							src={image}
+						/>
+					)}
 					<Header size="tiny">{title}</Header>
 					<span>
 						<Icon className={`${type}Icon`} name={type} />
@@ -108,6 +118,7 @@ class NavSearch extends Component {
 
 		const SearchBar = props => (
 			<Search
+				category
 				className="navSearch"
 				defaultValue={value}
 				disabled={props.disabled}
@@ -150,7 +161,7 @@ NavSearch.defaultProps = {
 	disabled: false,
 	placeholder: "Search",
 	source: "header",
-	width: "360px"
+	width: "450px"
 }
 
 const mapStateToProps = (state, ownProps) => ({

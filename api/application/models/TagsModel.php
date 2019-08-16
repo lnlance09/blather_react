@@ -144,6 +144,35 @@
 			$this->db->delete($type.'_tags');
 		}
 
+		public function searchTags($q = null, $page = 0, $just_count = false) {
+			$select = 't.id, t.value, t.slug, "tag" AS type, tv.description';
+			if ($just_count) {
+				$select = 'COUNT(*) AS count';
+			}
+
+			$this->db->select($select);
+
+			if ($q) {
+				$this->db->like('t.value', $q);
+			}
+
+			if (!$just_count) {
+				$this->db->join('tag_versions tv', 't.id = tv.tag_id');
+				$this->db->where('tv.version = (SELECT MAX(version) FROM tag_versions WHERE tag_id = t.id)');
+
+				$limit = 10;
+				$start = $page*$limit;
+				$this->db->limit($start, $limit);
+			}
+ 
+			$results = $this->db->get('tags t')->result_array();
+			if ($just_count) {
+				return $results[0]['count'];
+			}
+
+			return $results;
+		}
+
 		public function update($id, $data) {
 			$this->db->where('id', $id);
 			$this->db->update('tags', $data);

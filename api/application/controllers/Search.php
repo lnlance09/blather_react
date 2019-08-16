@@ -9,6 +9,7 @@
             $this->load->model('DiscussionsModel', 'discussions');
             $this->load->model('FallaciesModel', 'fallacies');
             $this->load->model('FacebookModel', 'fb');
+            $this->load->model('TagsModel', 'tags');
             $this->load->model('TwitterModel', 'twitter');
             $this->load->model('YouTubeModel', 'youtube');
         }
@@ -117,6 +118,12 @@
                     }
                     break;
 
+                case 'tags':
+
+                    $count = $this->tags->searchTags($q, $page, true);
+                    $results = $this->tags->searchTags($q, $page);
+                    break;
+
                 case 'tweets':
 
                     $count = $this->twitter->searchTweets($q, $page, true);
@@ -151,8 +158,10 @@
 
         public function basic() {
             $q = $this->input->get('q');
-            $youtubeResults = $this->youtube->searchPagesFromDb($q, 0, false);
-            $twitterResults = $this->twitter->searchPagesFromDb($q, 0, false);
+
+            $youtubeResults = $this->youtube->searchPagesFromDb($q);
+            $twitterResults = $this->twitter->searchPagesFromDb($q);
+            $tags = $this->tags->searchTags($q);
 
             if (empty($youtubeResults)) {
                 $youtubeResults = [];
@@ -162,20 +171,45 @@
                 $twitterResults = [];
             }
 
-            $merge = array_merge($youtubeResults, $twitterResults);
-            $merge = array_slice($merge, 0, 7);
-            for ($i=0;$i<count($merge);$i++) {
-                $merge[$i]['description'] = $merge[$i]['about'];
-                $merge[$i]['image'] = $merge[$i]['profile_pic'];
-                $merge[$i]['key'] = $merge[$i]['social_media_id'];
-                $merge[$i]['title'] = $merge[$i]['name'];
-                unset($merge[$i]['about']);
-                unset($merge[$i]['name']);
-                unset($merge[$i]['profile_pic']);
+            if (empty($tags)) {
+                $tags = [];
+            }
+
+            $pages = array_merge($youtubeResults, $twitterResults);
+            $pages = array_slice($pages, 0, 7);
+
+            for ($i=0;$i<count($pages);$i++) {
+                $pages[$i]['image'] = $pages[$i]['profile_pic'];
+                $pages[$i]['key'] = $pages[$i]['social_media_id'];
+                $pages[$i]['title'] = $pages[$i]['name'];
+                unset($pages[$i]['name']);
+                unset($pages[$i]['profile_pic']);
+            }
+
+            for ($i=0;$i<count($tags);$i++) {
+                $tags[$i]['image'] = null;
+                $tags[$i]['key'] = $tags[$i]['id'];
+                $tags[$i]['title'] = $tags[$i]['value'];
+            }
+
+            $results = [];
+
+            if (count($pages) > 0) {
+                $results['pages'] = [
+                    'name' => 'Pages',
+                    'results' => $pages
+                ];
+            }
+
+            if (count($tags) > 0) {
+                $results['tags'] = [
+                    'name' => 'Tags',
+                    'results' => $tags
+                ];
             }
 
             echo json_encode([
-                'results' => !$merge ? [] : $merge
+                'results' => $results
             ]);
         }
     }
