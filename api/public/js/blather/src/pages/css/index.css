@@ -453,6 +453,9 @@ a {
     background-size: cover;
     height: 230px;
     z-index: 999; }
+    @media only screen and (max-width: 1025px) {
+      .socialMediaPage .segments .segment.coverPic {
+        background-size: contain; } }
   .socialMediaPage .segments .imgContainer {
     background: #FFFFFF;
     margin-bottom: 18px;
@@ -685,6 +688,9 @@ a {
     background-size: cover;
     height: 230px;
     z-index: 999; }
+    @media only screen and (max-width: 1025px) {
+      .usersPage .segments .segment.coverPic {
+        background-size: contain; } }
   .usersPage .segments .imgContainer {
     background: #FFFFFF;
     margin-bottom: 18px;
