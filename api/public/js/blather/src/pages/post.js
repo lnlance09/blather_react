@@ -411,14 +411,16 @@ class Post extends Component {
 					<DisplayMetaTags page="post" props={this.props} state={this.state} />
 					<PageHeader {...this.props} />
 					<Container className={containerClassName} text>
-						{DisplayPost(this.props)}
-						{!tweetExists && <Message content="This tweet does not exist" error />}
-						{!videoExists && <Message content="This video does not exist" error />}
-						{!this.props.error && (
-							<div>
-								<DisplayFallacies props={this.props} />
-							</div>
-						)}
+						<Segment>
+							{DisplayPost(this.props)}
+							{!tweetExists && <Message content="This tweet does not exist" error />}
+							{!videoExists && <Message content="This video does not exist" error />}
+							{!this.props.error && (
+								<div>
+									<DisplayFallacies props={this.props} />
+								</div>
+							)}
+						</Segment>
 					</Container>
 					<PageFooter />
 				</div>
