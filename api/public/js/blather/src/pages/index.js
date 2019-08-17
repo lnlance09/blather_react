@@ -196,6 +196,7 @@ class Page extends Component {
 			<Menu
 				borderless
 				className="socialMediaPageMenu"
+				color="blue"
 				fluid
 				pointing
 				secondary
@@ -307,46 +308,54 @@ class Page extends Component {
 						<Container className="mainContainer" textAlign="left">
 							<Grid>
 								<Grid.Column width={16}>
-									{this.props.id ? (
-										<div>
-											<Image
-												bordered
-												centered
-												circular
-												className="profilePic"
-												onError={i => (i.target.src = defaultImg)}
-												rounded
-												size="medium"
-												src={this.props.img}
-											/>
-											{PageHeaderInfo(this.props)}
-										</div>
-									) : (
-										<Container textAlign="center">
-											<Placeholder className="profilePicPlaceholder">
-												<Placeholder.Image square />
-											</Placeholder>
+									<Segment.Group>
+										<Segment className="coverPic" />
+										<Container className="imgContainer" textAlign="center">
+											<div>
+												<Segment circular>
+													{this.props.id ? (
+														<Image
+															centered
+															circular
+															className="profilePic"
+															onError={i =>
+																(i.target.src = defaultImg)
+															}
+															rounded
+															size="medium"
+															src={this.props.img}
+														/>
+													) : (
+														<Placeholder className="profilePicPlaceholder">
+															<Placeholder.Image square />
+														</Placeholder>
+													)}
+												</Segment>
+												{PageHeaderInfo(this.props)}
+											</div>
 										</Container>
-									)}
-									<Breakdown
-										authenticated={authenticated}
-										count={this.props.fallacyCount}
-										dbId={this.props.dbId}
-										history={this.props.history}
-										id={this.props.id}
-										name={this.props.name}
-										network={network}
-										placeholder={this.props.placeholder}
-										setFallacyId={this.setFallacyId}
-										sincerity={this.props.sincerity}
-										turingTest={this.props.turingTest}
-										userId={userId}
-										username={this.props.username}
-									/>
-									{PageMenu(this.props)}
-									<Container className="profileContentContainer">
-										<ShowContent props={this.props} />
-									</Container>
+										<Segment basic>
+											<Breakdown
+												authenticated={authenticated}
+												count={this.props.fallacyCount}
+												dbId={this.props.dbId}
+												history={this.props.history}
+												id={this.props.id}
+												name={this.props.name}
+												network={network}
+												placeholder={this.props.placeholder}
+												setFallacyId={this.setFallacyId}
+												sincerity={this.props.sincerity}
+												turingTest={this.props.turingTest}
+												userId={userId}
+												username={this.props.username}
+											/>
+											{PageMenu(this.props)}
+											<Container className="profileContentContainer">
+												<ShowContent props={this.props} />
+											</Container>
+										</Segment>
+									</Segment.Group>
 								</Grid.Column>
 							</Grid>
 						</Container>

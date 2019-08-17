@@ -166,7 +166,6 @@ class UserPage extends Component {
 					<div className="profilePicContainer">
 						<Dimmer.Dimmable
 							as={Image}
-							bordered
 							centered
 							circular
 							className={`profilePic ${!user.img ? "default" : ""}`}
@@ -183,7 +182,6 @@ class UserPage extends Component {
 			}
 			return (
 				<Image
-					bordered
 					centered
 					circular
 					className={`profilePic ${!user.img ? "default" : ""}`}
@@ -263,34 +261,41 @@ class UserPage extends Component {
 					<PageHeader {...this.props} />
 					{!this.props.error ? (
 						<Container className="mainContainer" textAlign="left">
-							{this.props.user.id ? (
-								<div>{ProfilePic(this.props)}</div>
-							) : (
-								<Container textAlign="center">
-									<Placeholder className="profilePicPlaceholder">
-										<Placeholder.Image square />
-									</Placeholder>
+							<Segment.Group>
+								<Segment className="coverPic" />
+								<Container className="imgContainer" textAlign="center">
+									<Segment circular>
+										{this.props.user.id ? (
+											<div>{ProfilePic(this.props)}</div>
+										) : (
+											<Placeholder className="profilePicPlaceholder">
+												<Placeholder.Image square />
+											</Placeholder>
+										)}
+									</Segment>
+									<div className="userHeaderSection">
+										<TitleHeader
+											subheader={
+												<span className="joinDate">
+													@{user.username} • Joined{" "}
+													<Moment date={user.dateCreated} fromNow />
+												</span>
+											}
+											textAlign="center"
+											title={user.name}
+										/>
+									</div>
 								</Container>
-							)}
-							<div className="userHeaderSection">
-								<TitleHeader
-									subheader={
-										<span className="joinDate">
-											@{user.username} • Joined{" "}
-											<Moment date={user.dateCreated} fromNow />
-										</span>
-									}
-									textAlign="center"
-									title={user.name}
-								/>
-							</div>
 
-							{UserMenu(this.props)}
-							<Container className="profileContentContainer">
-								<Segment basic className="profileContentSegment">
-									{ShowContent(this.props)}
+								<Segment basic>
+									{UserMenu(this.props)}
+									<Container className="profileContentContainer">
+										<Segment basic className="profileContentSegment">
+											{ShowContent(this.props)}
+										</Segment>
+									</Container>
 								</Segment>
-							</Container>
+							</Segment.Group>
 						</Container>
 					) : (
 						<Container className="mainContainer" text textAlign="center">
