@@ -6,7 +6,6 @@ import {
 	Divider,
 	Header,
 	Icon,
-	Image,
 	Label,
 	Message,
 	Placeholder,
@@ -76,7 +75,7 @@ class Breakdown extends Component {
 						>
 							<Header size="small">
 								{result.key}{" "}
-								<Label basic horizontal>
+								<Label basic horizontal size="tiny">
 									{result.count}
 								</Label>
 							</Header>
@@ -100,121 +99,99 @@ class Breakdown extends Component {
 
 		return (
 			<div className="breakdown">
-				<div>
-					{this.props.id ? (
-						<div>
-							<Segment basic className="breakdownSegment">
-								<Message
-									content={`A measure of ${
-										this.props.name
-									}'s partisanship, logical consistency, and intellectual honesty`}
-									header="How reputable is this source?"
-									icon="question"
-								/>
+				{this.props.id ? (
+					<div>
+						<Segment basic className="breakdownSegment">
+							<Message
+								content={`A measure of ${
+									this.props.name
+								}'s partisanship, logical consistency, and intellectual honesty`}
+								header="How reputable is this source?"
+								icon="question"
+							/>
 
-								{options.length > 0 ? (
-									<Segment basic className="percentages">
-										{RenderFallacies()}
-									</Segment>
-								) : (
-									<Message content="No fallacies have been assigned" />
-								)}
-							</Segment>
-
-							<Divider hidden />
-
-							<Segment basic className="questionnaire">
-								{placeholder.id && (
-									<div>
-										<div>
-											<Header className="first" size="medium">
-												<Image
-													avatar
-													className="reviewAvatar"
-													size="medium"
-													src={placeholder.user_img}
-												/>{" "}
-												Here's how{" "}
-												<Link to={`/users/${placeholder.user_id}`}>
-													{placeholder.user_name}
-												</Link>{" "}
-												has described this source
-											</Header>
-
-											<Icon name="quote left" />
-											<blockquote
-												cite={`https://blather.io/targets/${
-													placeholder.user_id
-												}/${dbId}`}
-												className="placeholderDiv"
-												dangerouslySetInnerHTML={{
-													__html: sanitizeText(
-														Marked(placeholder.summary)
-													)
-												}}
-											/>
-											<Icon name="quote right" />
-
-											<p className="fullReview">
-												<Link
-													to={`/targets/${placeholder.user_id}/${dbId}`}
-												>
-													See full review
-												</Link>
-											</p>
-										</div>
-
-										<Header size="medium">
-											Can pass an ideological turing test?
-											<Header.Subheader>{Stats(turingTest)}</Header.Subheader>
-										</Header>
-
-										<Header size="medium">
-											Believes most of what they talk about?
-											<Header.Subheader>{Stats(sincerity)}</Header.Subheader>
-										</Header>
-									</div>
-								)}
-
-								<Header size="medium" style={{ marginTop: "16px" }}>
-									<Button
-										basic
-										onClick={() =>
-											this.props.history.push(
-												`/targets/${
-													authenticated ? userId : "create"
-												}/${dbId}`
-											)
-										}
-									>
-										<Icon color="yellow" name="star" /> Create a review
-									</Button>
-								</Header>
-
-								<Divider hidden />
-							</Segment>
-						</div>
-					) : (
-						<Segment>
-							<Placeholder fluid>
-								<Placeholder.Paragraph>
-									<Placeholder.Line length="full" />
-									<Placeholder.Line length="full" />
-									<Placeholder.Line length="full" />
-									<Placeholder.Line length="full" />
-									<Placeholder.Line length="full" />
-									<Placeholder.Line length="full" />
-									<Placeholder.Line length="full" />
-									<Placeholder.Line length="full" />
-									<Placeholder.Line length="full" />
-									<Placeholder.Line length="full" />
-									<Placeholder.Line length="full" />
-									<Placeholder.Line length="full" />
-								</Placeholder.Paragraph>
-							</Placeholder>
+							{options.length > 0 ? (
+								<Segment basic className="percentages">
+									{RenderFallacies()}
+								</Segment>
+							) : (
+								<Message content="No fallacies have been assigned" />
+							)}
 						</Segment>
-					)}
-				</div>
+
+						<Divider hidden />
+					</div>
+				) : (
+					<Segment>
+						<Placeholder fluid>
+							<Placeholder.Paragraph>
+								<Placeholder.Line length="full" />
+								<Placeholder.Line length="full" />
+								<Placeholder.Line length="full" />
+								<Placeholder.Line length="full" />
+								<Placeholder.Line length="full" />
+								<Placeholder.Line length="full" />
+								<Placeholder.Line length="full" />
+								<Placeholder.Line length="full" />
+								<Placeholder.Line length="full" />
+								<Placeholder.Line length="full" />
+								<Placeholder.Line length="full" />
+								<Placeholder.Line length="full" />
+							</Placeholder.Paragraph>
+						</Placeholder>
+					</Segment>
+				)}
+
+				{placeholder.id && (
+					<Segment basic className="questionnaire">
+						<Header className="first" size="medium">
+							Here's how{" "}
+							<Link to={`/users/${placeholder.user_id}`}>
+								{placeholder.user_name}
+							</Link>{" "}
+							has described this source
+						</Header>
+
+						<Icon name="quote left" />
+						<blockquote
+							cite={`https://blather.io/targets/${placeholder.user_id}/${dbId}`}
+							className="placeholderDiv"
+							dangerouslySetInnerHTML={{
+								__html: sanitizeText(Marked(placeholder.summary))
+							}}
+						/>
+						<Icon name="quote right" />
+
+						<p className="fullReview">
+							<Link to={`/targets/${placeholder.user_id}/${dbId}`}>
+								See full review
+							</Link>
+						</p>
+
+						<Header size="medium">
+							Can pass an ideological turing test?
+							<Header.Subheader>{Stats(turingTest)}</Header.Subheader>
+						</Header>
+
+						<Header size="medium">
+							Believes most of what they talk about?
+							<Header.Subheader>{Stats(sincerity)}</Header.Subheader>
+						</Header>
+
+						<Header size="medium" style={{ marginTop: "16px" }}>
+							<Button
+								color="blue"
+								onClick={() =>
+									this.props.history.push(
+										`/targets/${authenticated ? userId : "create"}/${dbId}`
+									)
+								}
+							>
+								<Icon color="yellow" name="star" /> Create a review
+							</Button>
+						</Header>
+					</Segment>
+				)}
 			</div>
 		)
 	}

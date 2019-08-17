@@ -3,46 +3,49 @@
 /*---   Neutrals  ---*/
 /*---   Misc  ---*/
 /*---   Social colors  ---*/
-.breakdown {
-  margin-top: 20px !important; }
-  .breakdown .breakdownSegment {
+.breakdown .breakdownSegment {
+  padding: 0 !important; }
+  .breakdown .breakdownSegment .percentages {
     padding: 0 !important; }
-    .breakdown .breakdownSegment .percentages {
-      padding: 0 !important; }
-      .breakdown .breakdownSegment .percentages .ui.header.small {
-        margin-bottom: 7px !important; }
-      .breakdown .breakdownSegment .percentages .fallacyPercentage {
-        cursor: pointer;
-        margin-top: 12px; }
-        .breakdown .breakdownSegment .percentages .fallacyPercentage:first-of-type {
-          margin-top: 0; }
-        .breakdown .breakdownSegment .percentages .fallacyPercentage .progress {
-          margin-bottom: 0; }
-          .breakdown .breakdownSegment .percentages .fallacyPercentage .progress .bar {
-            background: #2185D0;
-            min-width: 50px; }
-            .breakdown .breakdownSegment .percentages .fallacyPercentage .progress .bar .progress {
-              color: #FFFFFF; }
-          .breakdown .breakdownSegment .percentages .fallacyPercentage .progress .label {
-            background: #F9FAFB;
-            color: #545454; }
-  .breakdown .questionnaire {
-    margin-top: 0;
-    padding: 0 !important; }
-    .breakdown .questionnaire .ui.header.medium {
-      margin-top: 0; }
-  .breakdown .placeholderDiv {
-    margin-bottom: 12px; }
-    .breakdown .placeholderDiv p {
-      color: #545454;
-      font-size: 16px;
-      line-height: 1.6; }
-  .breakdown .icon.question {
-    color: #DB2828; }
-  .breakdown .fullReview {
-    margin: 10px 0 16px 0; }
-  @media only screen and (max-width: 1025px) {
-    .breakdown .ui.header.small {
-      font-size: 14px !important; }
-    .breakdown .reviewAvatar {
-      display: none !important; } }
+    .breakdown .breakdownSegment .percentages .ui.header.small {
+      margin-bottom: 7px !important; }
+    .breakdown .breakdownSegment .percentages .fallacyPercentage {
+      cursor: pointer;
+      margin-top: 12px; }
+      .breakdown .breakdownSegment .percentages .fallacyPercentage:first-of-type {
+        margin-top: 0; }
+      .breakdown .breakdownSegment .percentages .fallacyPercentage .progress {
+        margin-bottom: 0; }
+        .breakdown .breakdownSegment .percentages .fallacyPercentage .progress .bar {
+          background: #2185D0;
+          min-width: 50px; }
+          .breakdown .breakdownSegment .percentages .fallacyPercentage .progress .bar .progress {
+            color: #FFFFFF; }
+        .breakdown .breakdownSegment .percentages .fallacyPercentage .progress .label {
+          background: #F9FAFB;
+          color: #545454; }
+
+.breakdown .questionnaire {
+  margin-top: 0;
+  padding: 0 !important; }
+  .breakdown .questionnaire .ui.header.medium {
+    margin-top: 0; }
+
+.breakdown .placeholderDiv {
+  margin-bottom: 12px; }
+  .breakdown .placeholderDiv p {
+    color: #545454;
+    font-size: 16px;
+    line-height: 1.6; }
+
+.breakdown .icon.question {
+  color: #DB2828; }
+
+.breakdown .fullReview {
+  margin: 10px 0 16px 0; }
+
+@media only screen and (max-width: 1025px) {
+  .breakdown .ui.header.small {
+    font-size: 14px !important; }
+  .breakdown .reviewAvatar {
+    display: none !important; } }
