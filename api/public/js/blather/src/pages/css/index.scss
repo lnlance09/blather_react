@@ -745,6 +745,10 @@ a {
             background-size: cover;
             height: 230px;
             z-index: 999;
+
+            @media only screen and (max-width: 1025px) {
+                background-size: contain;;
+            }
         }
 
         .imgContainer {
@@ -1148,6 +1152,10 @@ a {
             background-size: cover;
             height: 230px;
             z-index: 999;
+
+            @media only screen and (max-width: 1025px) {
+                background-size: contain;;
+            }
         }
 
         .imgContainer {
