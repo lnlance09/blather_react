@@ -76,7 +76,7 @@ class NewsFeed extends Component {
 					<PageHeader {...this.props} />
 					<Container className="mainContainer">
 						<Responsive maxWidth={1024}>
-							<Grid>
+							<Grid className="feedGrid">
 								<Grid.Row>{TopCard(this.props)}</Grid.Row>
 								<Grid.Row className="feedRow">
 									<FeedComponent history={this.props.history} size="small" />
@@ -85,7 +85,7 @@ class NewsFeed extends Component {
 						</Responsive>
 
 						<Responsive minWidth={1025}>
-							<Grid>
+							<Grid className="feedGrid">
 								<Grid.Column width={12}>
 									<FeedComponent history={this.props.history} />
 								</Grid.Column>
