@@ -79,7 +79,9 @@ class NewsFeed extends Component {
 							<Grid className="feedGrid">
 								<Grid.Row>{TopCard(this.props)}</Grid.Row>
 								<Grid.Row className="feedRow">
-									<FeedComponent history={this.props.history} size="small" />
+									<Segment>
+										<FeedComponent history={this.props.history} size="small" />
+									</Segment>
 								</Grid.Row>
 							</Grid>
 						</Responsive>
