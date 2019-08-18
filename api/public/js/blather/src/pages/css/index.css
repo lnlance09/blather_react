@@ -417,10 +417,12 @@ a {
   .feedPage .grid {
     margin-left: 0 !important;
     margin-right: 0 !important; }
-    .feedPage .grid .feedRow {
-      word-break: break-word; }
-      .feedPage .grid .feedRow .tweet {
-        max-width: 300px !important; } }
+    .feedPage .grid .segment {
+      width: 100% !important; }
+      .feedPage .grid .segment .feedRow {
+        word-break: break-word; }
+        .feedPage .grid .segment .feedRow .tweet {
+          max-width: 300px !important; } }
 
 .feedPage .ui.feed > .event > .content .meta .label {
   cursor: pointer; }
