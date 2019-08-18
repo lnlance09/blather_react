@@ -1,5 +1,6 @@
 import "pages/css/index.css"
 import { changeProfilePic, updateAbout } from "components/authentication/v1/actions"
+import { adjustTimezone } from "utils/dateFunctions"
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { formatNumber } from "utils/textFunctions"
 import { fetchUserData, reset } from "pages/actions/user"
@@ -286,7 +287,10 @@ class UserPage extends Component {
 											subheader={
 												<span className="joinDate">
 													@{user.username} • Joined{" "}
-													<Moment date={user.dateCreated} fromNow />
+													<Moment
+														date={adjustTimezone(user.dateCreated)}
+														fromNow
+													/>
 												</span>
 											}
 											textAlign="center"
