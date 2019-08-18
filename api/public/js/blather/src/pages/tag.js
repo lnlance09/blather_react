@@ -403,11 +403,26 @@ class Tag extends Component {
 		)
 
 		const TagTitle = ({ props }) => {
+			const subheader = (
+				<div className="subHeader">
+					{props.createdBy && (
+						<div>
+							Created{" "}
+							<Moment
+								date={adjustTimezone(props.dateCreated)}
+								fromNow
+								interval={60000}
+							/>
+						</div>
+					)}
+				</div>
+			)
 			return (
 				<TitleHeader
 					bearer={bearer}
 					canEdit={false}
 					id={id}
+					subheader={subheader}
 					textAlign="left"
 					title={props.name}
 					type="tag"
