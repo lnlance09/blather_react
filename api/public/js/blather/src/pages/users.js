@@ -234,7 +234,11 @@ class UserPage extends Component {
 				>
 					Fallacies{" "}
 					{user.fallacyCount > 0 && (
-						<Label basic color={activeItem === "fallacies" ? "blue" : "black"} horizontal>
+						<Label
+							basic
+							color={activeItem === "fallacies" ? "blue" : "black"}
+							horizontal
+						>
 							{formatNumber(user.fallacyCount)}
 						</Label>
 					)}
@@ -246,7 +250,11 @@ class UserPage extends Component {
 				>
 					Archives{" "}
 					{user.archiveCount > 0 && (
-						<Label basic color={activeItem === "archives" ? "blue" : "black"} horizontal>
+						<Label
+							basic
+							color={activeItem === "archives" ? "blue" : "black"}
+							horizontal
+						>
 							{formatNumber(user.archiveCount)}
 						</Label>
 					)}

@@ -248,6 +248,37 @@ export const resetPasswordProps = () => dispatch => {
 	})
 }
 
+export const submitGoogleForm = ({ accessToken, email, id, idToken, img, name }) => dispatch => {
+	request.post(
+		`${window.location.origin}/api/users/registerWithGoogle`,
+		{
+			form: {
+				accessToken,
+				email,
+				id,
+				idToken,
+				img,
+				name
+			},
+			json: true
+		},
+		function(err, response, body) {
+			if (!body.error) {
+				const token = jwt.sign({ data: body.user }, "secret", {
+					expiresIn: 60 * 60 * 5
+				})
+				localStorage.setItem("jwtToken", token)
+				body.bearer = token
+			}
+
+			dispatch({
+				payload: body,
+				type: constants.SET_USER_DATA
+			})
+		}
+	)
+}
+
 export const submitLoginForm = ({ email, password }) => dispatch => {
 	request.post(
 		`${window.location.origin}/api/users/login`,

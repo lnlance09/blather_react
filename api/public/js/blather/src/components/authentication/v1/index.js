@@ -1,11 +1,13 @@
 import "./style.css"
 import {
+	submitGoogleForm,
 	submitLoginForm,
 	submitRegistrationForm,
 	switchTab,
 	twitterRequestToken,
 	verifyEmail
 } from "./actions"
+import { GoogleLogin } from "react-google-login"
 import { Provider, connect } from "react-redux"
 import { Redirect } from "react-router-dom"
 import { Button, Divider, Form, Header, Input, Message, Segment } from "semantic-ui-react"
@@ -32,6 +34,7 @@ class Authentication extends Component {
 			verify: false
 		}
 
+		this.googleResponse = this.googleResponse.bind(this)
 		this.onChangeEmail = this.onChangeEmail.bind(this)
 		this.onChangePassword = this.onChangePassword.bind(this)
 
@@ -54,20 +57,38 @@ class Authentication extends Component {
 		})
 	}
 
+	googleResponse(e) {
+		const accessToken = e.tokenObj.access_token
+		const email = e.profileObj.email
+		const id = e.profileObj.googleId
+		const idToken = e.tokenObj.id_token
+		const img = e.profileObj.imageUrl
+		const name = e.profileObj.name
+
+		this.props.submitGoogleForm({
+			accessToken,
+			email,
+			id,
+			idToken,
+			img,
+			name
+		})
+	}
+
 	onClick() {
 		this.setState({
 			loadingLogin: false,
 			loadingRegistration: false,
-			login: this.state.login ? false : true
+			login: !this.state.login
 		})
 		this.props.switchTab(this.state.login)
 	}
 
 	onChangeEmail = (e, { value }) => this.setState({ email: value })
 
-	onChangeVerificationCode = (e, { value }) => this.setState({ verificationCode: value })
-
 	onChangePassword = (e, { value }) => this.setState({ password: value })
+
+	onChangeVerificationCode = (e, { value }) => this.setState({ verificationCode: value })
 
 	onRegChangeEmail = (e, { value }) => this.setState({ regEmail: value })
 
@@ -93,8 +114,7 @@ class Authentication extends Component {
 		}
 	}
 
-	submitLoginForm(e) {
-		e.preventDefault()
+	submitLoginForm() {
 		this.setState({ loadingLogin: true })
 		if (this.state.email.length > 0 && this.state.password.length > 0) {
 			this.props.submitLoginForm({
@@ -104,8 +124,7 @@ class Authentication extends Component {
 		}
 	}
 
-	submitRegistrationForm(e) {
-		e.preventDefault()
+	submitRegistrationForm() {
 		this.setState({ loadingRegistration: true })
 		this.props.submitRegistrationForm({
 			email: this.state.regEmail,
@@ -128,6 +147,7 @@ class Authentication extends Component {
 			username,
 			verificationCode
 		} = this.state
+
 		const EmailVerificationForm = props => {
 			if (props.verify) {
 				return (
@@ -146,17 +166,40 @@ class Authentication extends Component {
 				)
 			}
 		}
+
 		const ErrorMsg = props => {
 			if (props.loginError && props.loginErrorMsg) {
 				return <Message content={props.loginErrorMsg} error />
 			}
 		}
+
+		const GoogleLoginBtn = (
+			<GoogleLogin
+				buttonText="Login"
+				clientId="208834451570-uhnsvk3tb5cqr6uoipnrl9ks68cmeicp.apps.googleusercontent.com"
+				cookiePolicy={"single_host_origin"}
+				onFailure={e => console.log(e)}
+				onSuccess={this.googleResponse}
+				render={renderProps => (
+					<Button
+						color="google plus"
+						content="Continue with Google"
+						disabled={renderProps.disabled}
+						fluid
+						icon="google"
+						onClick={renderProps.onClick}
+					/>
+				)}
+			/>
+		)
+
 		const HeaderText = props => {
 			if (!props.verify) {
 				return login ? "Sign In" : "Create an account"
 			}
 			return "Please verify your email"
 		}
+
 		const InfoBox = props => {
 			if (!props.verify) {
 				return (
@@ -169,13 +212,11 @@ class Authentication extends Component {
 				)
 			}
 		}
+
 		const MainForm = props => {
 			if (login && !props.verify) {
 				return (
-					<Form
-						loading={loadingLogin && !props.loginError}
-						onSubmit={this.submitLoginForm}
-					>
+					<Form loading={loadingLogin && !props.loginError}>
 						<Form.Field>
 							<Input
 								onChange={this.onChangeEmail}
@@ -191,25 +232,25 @@ class Authentication extends Component {
 								value={password}
 							/>
 						</Form.Field>
-						<Button color="blue" content="Login" fluid type="submit" />
+						<Form.Field>
+							<Button
+								color="blue"
+								content="Login"
+								fluid
+								onClick={this.submitLoginForm}
+								type="submit"
+							/>
+						</Form.Field>
 						<Divider horizontal>Or</Divider>
-						<Button
-							color="twitter"
-							content="Sign in with Twitter"
-							fluid
-							icon="twitter"
-							onClick={() => this.redirectToUrl(props.data.twitterUrl)}
-						/>
+						<Form.Field>{TwitterLogin(props)}</Form.Field>
+						<Form.Field>{GoogleLoginBtn}</Form.Field>
 					</Form>
 				)
 			}
 
 			if (!login && !props.verify) {
 				return (
-					<Form
-						loading={loadingRegistration && !props.loginError}
-						onSubmit={this.submitRegistrationForm}
-					>
+					<Form loading={loadingRegistration && !props.loginError}>
 						<Form.Field>
 							<Input
 								onChange={this.onRegChangeEmail}
@@ -240,21 +281,36 @@ class Authentication extends Component {
 								value={username}
 							/>
 						</Form.Field>
-						<Button color="blue" content="Create an account" fluid type="submit" />
+						<Form.Field>
+							<Button
+								color="blue"
+								content="Create an account"
+								fluid
+								onClick={this.submitRegistrationForm}
+								type="submit"
+							/>
+						</Form.Field>
 						<Divider horizontal>Or</Divider>
-						<Button
-							color="twitter"
-							content="Sign up with Twitter"
-							fluid
-							icon="twitter"
-							onClick={() => this.redirectToUrl(props.data.twitterUrl)}
-						/>
+						<Form.Field>{TwitterLogin(props)}</Form.Field>
+						<Form.Field>{GoogleLoginBtn}</Form.Field>
 					</Form>
 				)
 			}
 		}
+
 		const RegisterButton = () => (login ? "Create an account" : "Sign in")
+
 		const RegisterText = () => (login ? "New to Blather?" : "Already have an account?")
+
+		const TwitterLogin = props => (
+			<Button
+				color="twitter"
+				content="Continue with Twitter"
+				fluid
+				icon="twitter"
+				onClick={() => this.redirectToUrl(props.data.twitterUrl)}
+			/>
+		)
 
 		return this.props.data.emailVerified ? (
 			<Redirect to="/" />
@@ -309,6 +365,7 @@ Authentication.propTypes = {
 	login: PropTypes.bool,
 	loginError: PropTypes.bool,
 	loginErrorMsg: PropTypes.string,
+	submitGoogleForm: PropTypes.func,
 	submitLoginForm: PropTypes.func.isRequired,
 	submitRegistrationForm: PropTypes.func.isRequired,
 	switchTab: PropTypes.func.isRequired,
@@ -321,6 +378,7 @@ Authentication.propTypes = {
 
 Authentication.defaultProps = {
 	login: true,
+	submitGoogleForm,
 	submitLoginForm,
 	submitRegistrationForm,
 	switchTab,
@@ -336,6 +394,7 @@ const mapStateToProps = (state, ownProps) => ({
 export default connect(
 	mapStateToProps,
 	{
+		submitGoogleForm,
 		submitLoginForm,
 		submitRegistrationForm,
 		switchTab,

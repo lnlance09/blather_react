@@ -58,6 +58,7 @@
 
 				$name = $userInfo['name'];
 				$username = $userInfo['screen_name'];
+				$img = str_replace('_normal', '', $userInfo['profile_image_url_https']);
 				$bio = $userInfo['description'];
 				$exists = $this->users->userLookupByEmail($username);
 
@@ -68,9 +69,17 @@
 					$img = $exists['img'];
 					$linkedYoutube = (int)$exists['linked_youtube'];
 				} else {
+					// Save pic
+					$s3Path = 'users/'.$twitterId.'.jpg';
+					$path = './public/img/profile_pics/'.$twitterId.'.jpg';
+					$content = file_get_contents($img);
+					file_put_contents($path, $content);
+					$s3Link = $this->media->addToS3($s3Path, $path);
+
 					$register = $this->users->register([
 						'bio' => $bio,
 						'email' => null,
+						'img' => $s3Path,
 						'name' => $name,
 						'password' => null,
 						'username' => $username,
@@ -87,7 +96,7 @@
 
 					$date_created = $register['user']['dateCreated'];
 					$user_id = $register['user']['id'];
-					$img = null;
+					$img = $s3Link;
 				}
 
 				$linkedYoutube = false;

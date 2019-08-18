@@ -696,7 +696,6 @@ a {
         background-size: contain; } }
   .usersPage .segments .imgContainer {
     background: #FFFFFF;
-    margin-bottom: 18px;
     margin-top: -195px; }
     .usersPage .segments .imgContainer .segment.circular {
       display: inline-block;
