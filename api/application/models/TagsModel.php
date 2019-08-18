@@ -159,10 +159,11 @@
 			if (!$just_count) {
 				$this->db->join('tag_versions tv', 't.id = tv.tag_id');
 				$this->db->where('tv.version = (SELECT MAX(version) FROM tag_versions WHERE tag_id = t.id)');
+				$this->db->order_by('t.value');
 
 				$limit = 10;
 				$start = $page*$limit;
-				$this->db->limit($start, $limit);
+				$this->db->limit($limit, $start);
 			}
  
 			$results = $this->db->get('tags t')->result_array();
