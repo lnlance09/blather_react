@@ -3,7 +3,7 @@ import { DisplayMetaTags } from "utils/metaFunctions"
 import { mostFallacious } from "pages/actions/feed"
 import { Provider, connect } from "react-redux"
 import { Link } from "react-router-dom"
-import { Card, Container, Feed, Grid, Responsive } from "semantic-ui-react"
+import { Card, Container, Feed, Grid, Responsive, Segment } from "semantic-ui-react"
 import ImagePic from "images/image-square.png"
 import FeedComponent from "components/feed/v1/"
 import PageFooter from "components/footer/v1/"
@@ -87,7 +87,9 @@ class NewsFeed extends Component {
 						<Responsive minWidth={1025}>
 							<Grid className="feedGrid">
 								<Grid.Column width={12}>
-									<FeedComponent history={this.props.history} />
+									<Segment>
+										<FeedComponent history={this.props.history} />
+									</Segment>
 								</Grid.Column>
 								<Grid.Column width={4}>{TopCard(this.props)}</Grid.Column>
 							</Grid>
