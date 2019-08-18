@@ -755,10 +755,12 @@ class Fallacy extends Component {
 							<Responsive minWidth={1025}>
 								<Grid className="fallacyGrid">
 									<Grid.Column className="leftSide" width={12}>
-										{MaterialSection(this.props)}
-										{RetractionSegment(this.props)}
-										{CommentsSection(this.props)}
-										{SimilarSection(this.props)}
+										<Segment>
+											{MaterialSection(this.props)}
+											{RetractionSegment(this.props)}
+											{CommentsSection(this.props)}
+											{SimilarSection(this.props)}
+										</Segment>
 									</Grid.Column>
 									<Grid.Column className="rightSide" width={4}>
 										{this.props.id ? (
