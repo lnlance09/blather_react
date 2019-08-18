@@ -75,6 +75,11 @@
 			return $this->firebasetoken->decode($token, $secret);
 		}
 
+		public function generateUsername($name) {
+			$name = str_replace(' ', '', $name);
+			return $name.rand(1000, 9999);
+		}
+
 		/**
 		 * Query the `archived_links` table
 		 * @param  [array] $data [An array containing data for the WHERE clause]
@@ -381,6 +386,24 @@
 			$this->updateUser($data['user_id'], [
 				'linked_fb' => 1,
 			]);
+		}
+
+		/**
+		 * Either insert or update a row to the `google_users` table
+		 * @param [int] $userId   [The ID of the Blather user]
+		 * @param [array] $data   [An array containing values for each of the columns in the `twitter_users` table]
+		 */
+		public function setGoogleDetails($userId, $data) {
+			$this->db->select('COUNT(*) AS count');
+			$this->db->where('user_id', $userId);
+			$query = $this->db->get('google_users')->result();
+
+			if ($query[0]->count == 0) {
+				$this->db->insert('google_users', $data);
+			} else {
+				$this->db->where('user_id', $userId);
+				$this->db->update('google_users', $data);
+			}
 		}
 
 		/**

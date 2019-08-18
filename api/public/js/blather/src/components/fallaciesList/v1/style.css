@@ -7,8 +7,6 @@
   width: 100%; }
   .fallaciesList .emptyFallaciesContainer {
     text-align: center; }
-    .fallaciesList .emptyFallaciesContainer .header {
-      font-size: 20px; }
   .fallaciesList .targetMsg .icon.crosshairs {
     color: #DB2828; }
   .fallaciesList .targetMsg .viewAllTargets {

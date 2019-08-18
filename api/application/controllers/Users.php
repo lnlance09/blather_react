@@ -448,6 +448,129 @@
 			}
 		}
 
+		public function registerWithGoogle() {
+			$access_token = $this->input->post('accessToken');
+			$email = $this->input->post('email');
+			$id = $this->input->post('id');
+			$id_token = $this->input->post('idToken');
+			$img = $this->input->post('img');
+			$name = $this->input->post('name');
+
+			if (!is_numeric($id)) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'A valid Google ID is required'
+				]);
+				exit;
+			}
+
+			if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'A valid email is required'
+				]);
+				exit;
+			}
+
+			$exists = $this->users->userLookupByEmail($email);
+			if ($exists) {
+				$login = $this->users->login($email, '');
+				$user = $login[0];
+				$user['emailVerified'] = $user['emailVerified'] === '1';
+				$user['fbUrl'] = null;
+				$user['img'] = $user['img'] ? $user['img'] : null;
+				$user['linkedFb'] = $user['linkedFb'] === '1';
+				$user['linkedTwitter'] = $user['linkedTwitter'] === '1';
+				$user['linkedYoutube'] = $user['linkedYoutube'] === '1';
+				$user['twitterOauthSecret'] = null;
+				$user['twitterOauthToken'] = null;
+				$user['twitterUrl'] = null;
+				$user['youtubeUrl'] = $this->youtube->getTokenUrl();
+
+				if (!$user['linkedTwitter']) {
+					$token = $this->twitter->getRequestToken();
+					if ($token) {
+						$user['twitterAccessToken'] = $token['oauth_token'];
+						$user['twitterAccessSecret'] = $token['oauth_token_secret'];
+						$user['twitterUrl'] = $this->twitter->authorizeUrl.'?oauth_token='.$token['oauth_token'];
+					}
+				}
+
+				$this->users->setGoogleDetails($user['id'], [
+					'access_token' => $access_token,
+					'google_id' => $id,
+					'id_token' => $id_token,
+					'user_id' => $user['id']
+				]);
+
+				echo json_encode([
+					'error' => false,
+					'user' => $user
+				]);
+				exit;
+			}
+
+			// Save pic
+			$img = str_replace('s96-c/photo.jpg', 's240-c/photo.jpg', $img);
+			$s3Path = 'users/'.$id.'.jpg';
+			$path = './public/img/profile_pics/'.$id.'.jpg';
+			$content = file_get_contents($img);
+			file_put_contents($path, $content);
+			$s3Link = $this->media->addToS3($s3Path, $path);
+
+			$username = $this->users->generateUsername($name);
+			$register = $this->users->register([
+				'bio' => null,
+				'email' => $email,
+				'email_verified' => 1,
+				'img' => $s3Path,
+				'name' => $name,
+				'password' => null,
+				'username' => $username,
+				'verification_code' => null
+			]);
+
+			if ($register['error']) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => $register['msg']
+				]);
+				exit;
+			}
+
+			$date_created = $register['user']['dateCreated'];
+			$user_id = $register['user']['id'];
+
+			$data['id'] = $user_id;
+			$data['bio'] = null;
+			$data['img'] = $s3Link;
+			$data['name'] = $name;
+			$data['username'] = $username;
+			$data['dateCreated'] = $date_created;
+			$data['email'] = $email;
+			$data['emailVerified'] = true;
+			$data['linkedYoutube'] = false;
+			$data['linkedTwitter'] = false;
+			$data['twitterAccessSecret'] = false;
+			$data['twitterAccessToken'] = false;
+			$data['twitterDate'] = false;
+			$data['twitterId'] = false;
+			$data['twitterUsername'] = false;
+			$data['youtubeUrl'] = $this->youtube->getTokenUrl();
+
+			$this->users->setGoogleDetails($user_id, [
+				'access_token' => $access_token,
+				'google_id' => $id,
+				'id_token' => $id_token,
+				'user_id' => $user_id
+			]);
+
+			echo json_encode([
+				'error' => false,
+				'user' => $data
+			]);
+		}
+
 		public function uniqueFallacies() {
 			$id = $this->input->get('id');
 			if (empty($id)) {
