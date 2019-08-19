@@ -191,7 +191,7 @@ class Tag extends Component {
 		const ArticleSection = props => {
 			if (editing) {
 				return (
-					<Form as={Segment}>
+					<Form>
 						<Form.Field>
 							<TextArea
 								onChange={this.onChangeDescription}
@@ -257,7 +257,6 @@ class Tag extends Component {
 
 		const GallerySection = props => (
 			<div className="galleryContent">
-				<Header size="large">Platitudes thru imagery</Header>
 				<div className="galleryWrapper">
 					{images.length > 0 ? (
 						<ImageMasonry animate forceOrder numCols={3}>
@@ -307,12 +306,14 @@ class Tag extends Component {
 						{({ getRootProps, getInputProps }) => (
 							<div {...getRootProps()}>
 								<input {...getInputProps()} />
-								<Button
-									circular
-									color="green"
-									icon="camera"
-									style={{ marginTop: "10px" }}
-								/>
+								<Divider horizontal>
+									<Icon
+										circular
+										className="cameraIcon"
+										name="camera"
+										size="big"
+									/>
+								</Divider>
 							</div>
 						)}
 					</Dropzone>
@@ -362,26 +363,31 @@ class Tag extends Component {
 		)
 
 		const RenderTags = props =>
-			props.relatedTags.map(tag => (
-				<Card
-					key={tag.id}
-					onClick={() => {
-						this.setState({ id: tag.id })
-						props.toggleLoading()
-						props.history.push(`/tags/${tag.id}`)
-						window.scrollTo({ top: 0, behavior: "smooth" })
-					}}
-					raised={parseInt(tag.id, 10) === parseInt(props.id, 10)}
-				>
-					<Card.Content>
-						<Card.Header>{tag.value}</Card.Header>
-						<Card.Meta>{tag.count} examples</Card.Meta>
-					</Card.Content>
-				</Card>
-			))
+			props.relatedTags.map(tag => {
+				const selected = parseInt(tag.id, 10) === parseInt(props.id, 10)
+				return (
+					<Card
+						color={selected ? "blue" : null}
+						key={tag.id}
+						onClick={() => {
+							if (!selected) {
+								props.toggleLoading()
+								props.history.push(`/tags/${tag.id}`)
+								window.scrollTo({ top: 0, behavior: "smooth" })
+							}
+						}}
+						raised={selected}
+					>
+						<Card.Content>
+							<Card.Header>{tag.value}</Card.Header>
+							<Card.Meta>{tag.count} examples</Card.Meta>
+						</Card.Content>
+					</Card>
+				)
+			})
 
 		const TagMenu = props => (
-			<Menu borderless className="tagMenu" color="blue" pointing secondary size="large">
+			<Menu attached="top" className="tagMenu" size="large">
 				<Menu.Item
 					active={activeItem === "article"}
 					name="article"
@@ -438,36 +444,38 @@ class Tag extends Component {
 					{!this.props.error ? (
 						<Container className="mainContainer" textAlign="left">
 							<TagTitle props={this.props} />
-							{this.props.loading ? (
-								<div style={{ marginTop: "10px" }}>
-									<LazyLoad header={false} />
-									<LazyLoad header={false} />
-								</div>
-							) : (
-								<div className="tagsWrapper">
-									{TagMenu(this.props)}
-									{activeItem === "article" && (
-										<div>{ArticleSection(this.props)}</div>
+							<div className="tagsWrapper">
+								{TagMenu(this.props)}
+								<Segment attached>
+									{this.props.loading ? (
+										<div style={{ marginTop: "10px" }}>
+											<LazyLoad header={false} />
+											<LazyLoad header={false} />
+										</div>
+									) : (
+										<div>
+											{activeItem === "article" && (
+												<div>{ArticleSection(this.props)}</div>
+											)}
+
+											{activeItem === "history" && (
+												<List divided relaxed>
+													{HistorySection(this.props)}
+												</List>
+											)}
+
+											<Divider section />
+											{GallerySection(this.props)}
+
+											<Divider horizontal />
+											{ExamplesSection(this.props)}
+
+											<Divider horizontal />
+											{RelatedSection(this.props)}
+										</div>
 									)}
-
-									{activeItem === "history" && (
-										<Segment>
-											<List divided relaxed>
-												{HistorySection(this.props)}
-											</List>
-										</Segment>
-									)}
-
-									<Divider horizontal />
-									{GallerySection(this.props)}
-
-									<Divider horizontal />
-									{ExamplesSection(this.props)}
-
-									<Divider horizontal />
-									{RelatedSection(this.props)}
-								</div>
-							)}
+								</Segment>
+							</div>
 						</Container>
 					) : (
 						<Container className="mainContainer" text textAlign="center">

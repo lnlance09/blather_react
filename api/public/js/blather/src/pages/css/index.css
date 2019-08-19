@@ -617,28 +617,31 @@ a {
 .tagsPage .tagsWrapper {
   width: 100%; }
   .tagsPage .tagsWrapper .menu.tagMenu {
-    margin-top: 8px !important; }
+    margin-top: 12px !important; }
     .tagsPage .tagsWrapper .menu.tagMenu .list .item {
       cursor: pointer; }
       .tagsPage .tagsWrapper .menu.tagMenu .list .item.selected {
         background: #FFFFFF; }
-    .tagsPage .tagsWrapper .menu.tagMenu .right.menu .item {
-      padding-right: 4px !important; }
   .tagsPage .tagsWrapper .editButtonWrapper .editButton {
     display: inline !important;
     font-size: 16px !important; }
   .tagsPage .tagsWrapper .commentsContent .segment {
     padding-top: 5px; }
-  .tagsPage .tagsWrapper .galleryContent .header {
-    line-height: 36px; }
   .tagsPage .tagsWrapper .galleryContent .galleryWrapper {
     width: 100%; }
     .tagsPage .tagsWrapper .galleryContent .galleryWrapper img {
       cursor: pointer; }
-  .tagsPage .tagsWrapper .tagDescription {
-    font-size: 16px; }
   .tagsPage .tagsWrapper .tagsList, .tagsPage .tagsWrapper .usersList {
     margin-top: 12px !important; }
+  .tagsPage .tagsWrapper .divider .cameraIcon, .tagsPage .tagsWrapper .divider .photoIcon {
+    background: #2185D0;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-size: 20px;
+    margin-top: 0 !important; }
+  .tagsPage .tagsWrapper .divider .photoIcon {
+    background: #FFFFFF;
+    color: #2185D0; }
 
 @media only screen and (max-width: 1025px) {
   .tagsPage .tagsWrapper .segment.stacked img {

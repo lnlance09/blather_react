@@ -1013,7 +1013,7 @@ a {
         width: 100%;
 
         .menu.tagMenu {
-            margin-top: 8px !important;
+            margin-top: 12px !important;
 
             .list {
                 .item {
@@ -1022,12 +1022,6 @@ a {
                     &.selected {
                         background: $white;
                     }
-                }
-            }
-
-            .right.menu {
-                .item {
-                    padding-right: 4px !important;
                 }
             }
         }
@@ -1046,10 +1040,6 @@ a {
         }
 
         .galleryContent {
-            .header {
-                line-height: 36px;
-            }
-
             .galleryWrapper {
                 width: 100%;
 
@@ -1059,12 +1049,23 @@ a {
             }
         }
 
-        .tagDescription {
-            font-size: 16px;
-        }
-
         .tagsList, .usersList {
             margin-top: 12px !important;
+        }
+
+        .divider {
+            .cameraIcon, .photoIcon {
+                background: $blue;
+                color: $white;
+                cursor: pointer;
+                font-size: 20px;
+                margin-top: 0 !important;
+            }
+
+            .photoIcon {
+                background: $white;
+                color: $blue;
+            }
         }
     }
 
