@@ -96,6 +96,16 @@ class SettingsPage extends Component {
 		}
 	}
 
+	handleItemClick = (e, { name }) => {
+		if (name === "twitter") {
+			this.props.twitterRequestToken({
+				bearer: this.props.bearer,
+				reset: false
+			})
+		}
+		this.setState({ activeItem: name })
+	}
+
 	onChangeConfirmPassword = (e, { value }) => this.setState({ confirmPassword: value })
 
 	onChangeNewPassword = (e, { value }) => this.setState({ newPassword: value })
@@ -129,18 +139,9 @@ class SettingsPage extends Component {
 		})
 	}
 
-	handleItemClick = (e, { name }) => {
-		if (name === "twitter") {
-			this.props.twitterRequestToken({
-				bearer: this.props.bearer,
-				reset: false
-			})
-		}
-		this.setState({ activeItem: name })
-	}
-
 	render() {
 		const { activeItem, confirmPassword, loading, newPassword, password } = this.state
+
 		const ActiveItemDiv = activeItem => {
 			if (activeItem === "basic") {
 				const joinDate = adjustTimezone(this.props.data.dateCreated)
@@ -212,6 +213,7 @@ class SettingsPage extends Component {
 						{this.props.data.linkedTwitter ? (
 							<div>
 								<p className="firstParagraph">
+									<Icon name="clock" />{" "}
 									You linked your Twitter account{" "}
 									<Moment
 										date={adjustTimezone(this.props.data.twitterDate)}
@@ -223,7 +225,6 @@ class SettingsPage extends Component {
 									<Button
 										as="a"
 										color="twitter"
-										compact
 										onClick={e => this.props.removeTwitter(this.props.bearer)}
 									>
 										<Icon name="twitter" /> Remove access
@@ -234,7 +235,7 @@ class SettingsPage extends Component {
 							<div>
 								<Message header="What we are requesting" info list={list} />
 								<p className="firstParagraph">
-									<Button color="twitter" compact onClick={this.redirectToUrl}>
+									<Button color="twitter" onClick={this.redirectToUrl}>
 										<Icon name="twitter" /> Link your account
 									</Button>
 								</p>
@@ -255,6 +256,7 @@ class SettingsPage extends Component {
 						{this.props.data.linkedYoutube ? (
 							<div>
 								<p className="firstParagraph">
+									<Icon name="clock" />{" "}
 									You linked your YouTube account{" "}
 									<Moment
 										date={adjustTimezone(this.props.data.youtubeDate)}
@@ -266,7 +268,6 @@ class SettingsPage extends Component {
 									<Button
 										as="a"
 										color="youtube"
-										compact
 										onClick={e => this.props.removeYouTube(this.props.bearer)}
 									>
 										<Icon name="youtube" /> Remove access
@@ -277,7 +278,7 @@ class SettingsPage extends Component {
 							<div>
 								<Message header="What we are requesting" info list={list} />
 								<p className="firstParagraph">
-									<Button color="youtube" compact onClick={this.redirectToUrl}>
+									<Button color="youtube" onClick={this.redirectToUrl}>
 										<Icon name="youtube" /> Link your account
 									</Button>
 								</p>
@@ -287,26 +288,27 @@ class SettingsPage extends Component {
 				)
 			}
 		}
+
 		const SettingsMenu = props => (
-			<Menu className="settingsMenu" fluid pointing secondary stackable>
+			<Menu className="settingsMenu" fluid pointing stackable>
 				<Menu.Item
+					active={activeItem === "basic"}
 					key="basic"
 					name="basic"
-					active={activeItem === "basic"}
 					onClick={this.handleItemClick}
 				/>
 				<Menu.Item
+					active={activeItem === "twitter"}
 					key="twitter"
 					name="twitter"
-					active={activeItem === "twitter"}
 					onClick={this.handleItemClick}
 				>
 					Twitter
 				</Menu.Item>
 				<Menu.Item
+					active={activeItem === "youtube"}
 					key="youtube"
 					name="youtube"
-					active={activeItem === "youtube"}
 					onClick={this.handleItemClick}
 				>
 					YouTube
@@ -325,7 +327,7 @@ class SettingsPage extends Component {
 						<Header as="h1">Settings</Header>
 						<div className="settingsContent">
 							{SettingsMenu(this.props)}
-							<Segment basic>{ActiveItemDiv(activeItem)}</Segment>
+							<Segment>{ActiveItemDiv(activeItem)}</Segment>
 						</div>
 					</Container>
 					<PageFooter />
