@@ -460,7 +460,6 @@ a {
         background-size: contain; } }
   .socialMediaPage .segments .imgContainer {
     background: #FFFFFF;
-    margin-bottom: 18px;
     margin-top: -195px; }
     .socialMediaPage .segments .imgContainer .segment.circular {
       display: inline-block;
