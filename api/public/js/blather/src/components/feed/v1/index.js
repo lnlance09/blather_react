@@ -99,7 +99,13 @@ class FeedComponent extends Component {
 										}}
 									/>
 									{result.s3_link && result.network === "twitter" ? (
-										<Image bordered inline rounded src={result.s3_link} />
+										<Image
+											bordered
+											inline
+											onError={i => (i.target.src = ImagePic)}
+											rounded
+											src={result.s3_link}
+										/>
 									) : null}
 								</Feed.Extra>
 								{result.tag_ids !== null ? (
