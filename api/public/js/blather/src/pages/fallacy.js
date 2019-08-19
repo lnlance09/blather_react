@@ -608,9 +608,9 @@ class Fallacy extends Component {
 										  props.user.id === youtubeId ? (
 											<div>
 												<p>
-													{props.user.name}, this is an opportunity to show
-													your followers that you have enough courage to admit
-													that you were wrong.
+													{props.user.name}, this is an opportunity to
+													show your followers that you have enough courage
+													to admit that you were wrong.
 												</p>
 											</div>
 										) : (
@@ -628,7 +628,8 @@ class Fallacy extends Component {
 											<Icon name="checkmark" />
 											Retracted
 										</Button>
-									) : props.user.id === twitterId || props.user.id === youtubeId ? (
+									) : props.user.id === twitterId ||
+									  props.user.id === youtubeId ? (
 										<Button
 											className="retractBtn"
 											fluid
