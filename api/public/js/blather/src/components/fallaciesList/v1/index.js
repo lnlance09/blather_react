@@ -320,7 +320,7 @@ class FallaciesList extends Component {
 										<b>{result.view_count} views</b>
 									</span>{" "}
 									<span style={{ float: "right" }}>
-										<Label color="blue" tag>
+										<Label basic color="blue">
 											{result.fallacy_name}
 										</Label>
 									</span>
