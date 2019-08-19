@@ -270,7 +270,7 @@ class UserPage extends Component {
 										<TitleHeader
 											subheader={
 												<span className="joinDate">
-													@{user.username} • Joined{" "}
+													{user.username} • Joined{" "}
 													<Moment
 														date={adjustTimezone(user.dateCreated)}
 														fromNow
