@@ -9,15 +9,11 @@
         }
     }
 
-    .emptyMsg {
-        margin-top: 8px !important;
-    }
-
     .ui.active.transition.visible.dimmer {
         background: $dimmer-background !important;
     }
 
-    .ui.items {
-        margin-top: 15px !important;
+    .resultsSegment, .linkAccountMsg, .emptyMsg  {
+        margin-top: 14px !important;
     }
 }

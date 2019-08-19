@@ -5,7 +5,7 @@ import { adjustTimezone } from "utils/dateFunctions"
 import { formatNumber, formatPlural } from "utils/textFunctions"
 import { connect, Provider } from "react-redux"
 import { Link } from "react-router-dom"
-import { Container, Icon, Item, Message, Statistic, Visibility } from "semantic-ui-react"
+import { Container, Icon, Item, Message, Segment, Statistic, Visibility } from "semantic-ui-react"
 import _ from "lodash"
 import itemPic from "images/image-square.png"
 import LazyLoad from "components/lazyLoad/v1/"
@@ -21,7 +21,7 @@ class SearchResults extends Component {
 		super(props)
 		this.state = {}
 
-		this.loadMore = _.debounce(this.loadMore.bind(this), 400)
+		this.loadMore = _.debounce(this.loadMore.bind(this), 800)
 	}
 
 	componentDidMount() {
@@ -246,29 +246,17 @@ class SearchResults extends Component {
 
 		const ResultItems = props => {
 			if (props.count > 0) {
-				return (
-					<Item.Group divided>
-						<SearchResults props={props} />
-					</Item.Group>
-				)
+				return <Item.Group divided>{SearchResults(props)}</Item.Group>
 			}
 
-			if (props.count === 0 && !props.loading) {
-				return (
-					<Message
-						className="emptyMsg"
-						content="Try modifying your search"
-						header="No results..."
-						icon="search"
-						warning
-					/>
-				)
+			if (props.count === 0) {
+				return <LazyLoad />
 			}
 
-			return <LazyLoad />
+			return null
 		}
 
-		const SearchResults = ({ props }) => {
+		const SearchResults = props => {
 			return props.data.map((result, i) => {
 				if (props.type === "tweets" && result.tweet_json) {
 					let marginTop = i === 0 ? 0 : 12
@@ -358,8 +346,20 @@ class SearchResults extends Component {
 					{LinkAccountMsg(this.props)}
 					<Container className="searchContentContainer">
 						<Visibility continuous onBottomVisible={this.loadMore}>
-							{ResultItems(this.props)}
-							{LazyLoadMore(this.props)}
+							{this.props.count === 0 && !this.props.loading && (
+								<Message
+									className="emptyMsg"
+									content="Try modifying your search"
+									header="No results..."
+									icon="search"
+									warning
+								/>
+							)}
+
+							<Segment className="resultsSegment">
+								{ResultItems(this.props)}
+								{LazyLoadMore(this.props)}
+							</Segment>
 						</Visibility>
 					</Container>
 				</div>
