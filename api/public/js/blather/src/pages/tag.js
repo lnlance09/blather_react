@@ -439,7 +439,7 @@ class Tag extends Component {
 						<Container className="mainContainer" textAlign="left">
 							<TagTitle props={this.props} />
 							{this.props.loading ? (
-								<div>
+								<div style={{ marginTop: "10px" }}>
 									<LazyLoad header={false} />
 									<LazyLoad header={false} />
 								</div>
