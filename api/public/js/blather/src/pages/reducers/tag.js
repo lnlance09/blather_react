@@ -2,6 +2,7 @@ import * as constants from "../constants"
 
 const initial = () => ({
 	images: [],
+	loading: false,
 	rawImages: []
 })
 
@@ -74,6 +75,12 @@ const tag = (state = initial(), action) => {
 			return {
 				...state,
 				relatedTags: payload.related === false ? [] : payload.related
+			}
+
+		case constants.TOGGLE_TAG_LOADING:
+			return {
+				...state,
+				loading: !state.loading
 			}
 
 		case constants.UPDATE_TAG:

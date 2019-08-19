@@ -9,6 +9,7 @@ import {
 	fetchTaggedUsers,
 	fetchTagInfo,
 	getRelatedTags,
+	toggleLoading,
 	updateDescription,
 	updateTag
 } from "./actions/tag"
@@ -96,6 +97,7 @@ class Tag extends Component {
 
 	componentDidMount() {
 		window.scrollTo({ top: 0, behavior: "smooth" })
+		this.props.toggleLoading()
 		this.props.fetchTagInfo({ id: this.state.id })
 		this.props.fetchTaggedUsers({ id: this.state.id })
 	}
@@ -109,7 +111,7 @@ class Tag extends Component {
 			id = parseInt(id, 10)
 		}
 
-		if (id !== this.props.id) {
+		if (id !== this.props.id && !this.props.loading) {
 			this.props.fetchTagInfo({ id })
 			this.props.fetchTaggedUsers({ id })
 		}
@@ -179,7 +181,6 @@ class Tag extends Component {
 			bearer,
 			description,
 			editing,
-			id,
 			isOpen,
 			photoIndex,
 			relatedSearchVal,
@@ -365,11 +366,10 @@ class Tag extends Component {
 				<Card
 					key={tag.id}
 					onClick={() => {
-						window.scrollTo({ top: 0, behavior: "smooth" })
 						this.setState({ id: tag.id })
+						props.toggleLoading()
 						props.history.push(`/tags/${tag.id}`)
-						props.fetchTagInfo({ id: tag.id })
-						props.fetchTaggedUsers({ id: tag.id })
+						window.scrollTo({ top: 0, behavior: "smooth" })
 					}}
 					raised={parseInt(tag.id, 10) === parseInt(props.id, 10)}
 				>
@@ -381,7 +381,7 @@ class Tag extends Component {
 			))
 
 		const TagMenu = props => (
-			<Menu borderless className="tagMenu" pointing secondary size="large">
+			<Menu borderless className="tagMenu" color="blue" pointing secondary size="large">
 				<Menu.Item
 					active={activeItem === "article"}
 					name="article"
@@ -421,7 +421,7 @@ class Tag extends Component {
 				<TitleHeader
 					bearer={bearer}
 					canEdit={false}
-					id={id}
+					id={props.id}
 					subheader={subheader}
 					textAlign="left"
 					title={props.name}
@@ -505,6 +505,7 @@ Tag.propTypes = {
 	name: PropTypes.string,
 	rawImages: PropTypes.array,
 	relatedTags: PropTypes.array,
+	toggleLoading: PropTypes.func,
 	updateDescription: PropTypes.func,
 	updateTag: PropTypes.func,
 	users: PropTypes.array
@@ -512,15 +513,17 @@ Tag.propTypes = {
 
 Tag.defaultProps = {
 	addPic,
+	description: "",
 	editHistory: [],
 	fetchHistory,
 	fetchTaggedUsers,
 	fetchTagInfo,
 	getRelatedTags,
 	images: [],
-	loading: true,
+	loading: false,
 	rawImages: [],
 	relatedTags: [],
+	toggleLoading,
 	updateDescription,
 	updateTag,
 	users: []
@@ -541,6 +544,7 @@ export default connect(
 		fetchTaggedUsers,
 		fetchTagInfo,
 		getRelatedTags,
+		toggleLoading,
 		updateDescription,
 		updateTag
 	}
