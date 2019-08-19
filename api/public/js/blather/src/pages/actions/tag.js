@@ -111,6 +111,12 @@ export const getRelatedTags = ({ q }) => dispatch => {
 	)
 }
 
+export const toggleLoading = () => dispatch => {
+	dispatch({
+		type: constants.TOGGLE_TAG_LOADING
+	})
+}
+
 export const updateDescription = ({ description }) => dispatch => {
 	dispatch({
 		type: constants.UPDATE_TAG_DESCRIPTION,

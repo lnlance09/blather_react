@@ -617,11 +617,13 @@ a {
 .tagsPage .tagsWrapper {
   width: 100%; }
   .tagsPage .tagsWrapper .menu.tagMenu {
-    margin-top: 16px !important; }
+    margin-top: 8px !important; }
     .tagsPage .tagsWrapper .menu.tagMenu .list .item {
       cursor: pointer; }
       .tagsPage .tagsWrapper .menu.tagMenu .list .item.selected {
         background: #FFFFFF; }
+    .tagsPage .tagsWrapper .menu.tagMenu .right.menu .item {
+      padding-right: 4px !important; }
   .tagsPage .tagsWrapper .editButtonWrapper .editButton {
     display: inline !important;
     font-size: 16px !important; }
