@@ -11,6 +11,7 @@ import {
 	toggleCreateMode,
 	updateFallacy
 } from "pages/actions/fallacy"
+import { FacebookProvider, Comments, Like } from "react-facebook"
 import { connect, Provider } from "react-redux"
 import { Link } from "react-router-dom"
 import {
@@ -38,7 +39,6 @@ import {
 	Statistic
 } from "semantic-ui-react"
 import { confetti } from "dom-confetti"
-import Disqus from "disqus-react"
 import FallacyExample from "components/fallacyExample/v1/"
 import FallaciesList from "components/fallaciesList/v1/"
 import FallacyRef from "components/fallacyRef/v1/"
@@ -279,21 +279,21 @@ class Fallacy extends Component {
 			userLink = `/pages/${user.type}/${user.type === "twitter" ? user.username : user.id}`
 		}
 
-		const CommentsSection = props => {
-			const DisqusConfig = {
-				identifier: props.id,
-				title: props.title,
-				url: `https://blather.io/fallacies/${props.slug}`
-			}
-			return (
-				<div className="commentsContent">
-					<Header size="large">Comments</Header>
-					<Segment>
-						<Disqus.DiscussionEmbed config={DisqusConfig} shortname="blather-1" />
-					</Segment>
-				</div>
-			)
-		}
+		const CommentsSection = props => (
+			<div className="commentsContent">
+				<Segment>
+					<FacebookProvider appId="498572440350555" style={{ width: "100%" }}>
+						<Comments href={window.location.href} width="100%" />
+					</FacebookProvider>
+
+					<div style={{ padding: "10px 6px 0 6px" }}>
+						<FacebookProvider appId="498572440350555">
+							<Like href={window.location.href} colorScheme="dark" showFaces />
+						</FacebookProvider>
+					</div>
+				</Segment>
+			</div>
+		)
 
 		const ExportSection = (props, side) => {
 			const content = (
