@@ -8,11 +8,8 @@
   float: right;
   margin-right: 3px; }
 
-.searchResults .emptyMsg {
-  margin-top: 8px !important; }
-
 .searchResults .ui.active.transition.visible.dimmer {
   background: rgba(255, 255, 255, 0.8) !important; }
 
-.searchResults .ui.items {
-  margin-top: 15px !important; }
+.searchResults .resultsSegment, .searchResults .linkAccountMsg, .searchResults .emptyMsg {
+  margin-top: 14px !important; }
