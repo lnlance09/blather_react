@@ -562,88 +562,90 @@ class Fallacy extends Component {
 
 		const RetractionSegment = props => (
 			<div className="retractionContent">
-				<Header size="large">Status</Header>
 				{props.user ? (
-					<Container className="retractionContainer">
-						<Card fluid>
-							<Card.Content>
-								<Image
-									circular
-									floated="right"
-									onError={i => (i.target.src = ImagePic)}
-									size="mini"
-									src={props.user.img}
-								/>
-								<Card.Header>
-									{props.retracted ? (
-										<div>Retracted</div>
-									) : (
-										<div>Still waiting for a retraction...</div>
-									)}
-								</Card.Header>
-								<Card.Meta>
-									{props.retracted ? (
-										<div>Nice work, {props.createdBy.name}</div>
-									) : (
-										<div>
-											<Icon name="clock outline" />
-											waiting for{" "}
-											<Moment
-												ago
-												date={adjustTimezone(props.createdAt)}
-												fromNow
-												interval={60000}
-											/>
-										</div>
-									)}
-								</Card.Meta>
-								<Card.Description>
-									{props.retracted ? (
-										<div>
-											<Link to={userLink}>{props.user.name}</Link> has
-											admitted that this is poor reasoning.
-										</div>
-									) : props.user.id === twitterId ||
-									  props.user.id === youtubeId ? (
-										<div>
+					<div>
+						<Header size="large">Status</Header>
+						<Container className="retractionContainer">
+							<Card fluid>
+								<Card.Content>
+									<Image
+										circular
+										floated="right"
+										onError={i => (i.target.src = ImagePic)}
+										size="mini"
+										src={props.user.img}
+									/>
+									<Card.Header>
+										{props.retracted ? (
+											<div>Retracted</div>
+										) : (
+											<div>Still waiting for a retraction...</div>
+										)}
+									</Card.Header>
+									<Card.Meta>
+										{props.retracted ? (
+											<div>Nice work, {props.createdBy.name}</div>
+										) : (
+											<div>
+												<Icon name="clock outline" />
+												waiting for{" "}
+												<Moment
+													ago
+													date={adjustTimezone(props.createdAt)}
+													fromNow
+													interval={60000}
+												/>
+											</div>
+										)}
+									</Card.Meta>
+									<Card.Description>
+										{props.retracted ? (
+											<div>
+												<Link to={userLink}>{props.user.name}</Link> has
+												admitted that this is poor reasoning.
+											</div>
+										) : props.user.id === twitterId ||
+										  props.user.id === youtubeId ? (
+											<div>
+												<p>
+													{props.user.name}, this is an opportunity to show
+													your followers that you have enough courage to admit
+													that you were wrong.
+												</p>
+											</div>
+										) : (
 											<p>
-												{props.user.name}, this is an opportunity to show
-												your followers that you have enough courage to admit
-												that you were wrong.
+												<Link to={userLink}>{props.user.name}</Link>, if you
+												have the courage to admit that you're wrong, please{" "}
+												<Link to="/signin">sign in</Link> to retract this.
 											</p>
-										</div>
+										)}
+									</Card.Description>
+								</Card.Content>
+								<Card.Content extra>
+									{props.retracted ? (
+										<Button active color="green" fluid>
+											<Icon name="checkmark" />
+											Retracted
+										</Button>
+									) : props.user.id === twitterId || props.user.id === youtubeId ? (
+										<Button
+											className="retractBtn"
+											fluid
+											negative
+											onClick={this.retractLogic}
+										>
+											Retract
+										</Button>
 									) : (
-										<p>
-											<Link to={userLink}>{props.user.name}</Link>, if you
-											have the courage to admit that you're wrong, please{" "}
-											<Link to="/signin">sign in</Link> to retract this.
-										</p>
+										<Button disabled fluid negative>
+											Retract
+										</Button>
 									)}
-								</Card.Description>
-							</Card.Content>
-							<Card.Content extra>
-								{props.retracted ? (
-									<Button active color="green" fluid>
-										<Icon name="checkmark" />
-										Retracted
-									</Button>
-								) : props.user.id === twitterId || props.user.id === youtubeId ? (
-									<Button
-										className="retractBtn"
-										fluid
-										negative
-										onClick={this.retractLogic}
-									>
-										Retract
-									</Button>
-								) : (
-									<Button disabled fluid negative>
-										Retract
-									</Button>
-								)}
-							</Card.Content>
-						</Card>
-					</Container>
+								</Card.Content>
+							</Card>
+						</Container>
+					</div>
 				) : (
 					<LazyLoad header={false} />
 				)}
