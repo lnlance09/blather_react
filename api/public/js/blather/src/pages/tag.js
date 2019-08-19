@@ -27,7 +27,6 @@ import {
 	Input,
 	List,
 	Menu,
-	Message,
 	Segment,
 	TextArea
 } from "semantic-ui-react"
@@ -206,9 +205,12 @@ class Tag extends Component {
 
 			if (props.description === null) {
 				return (
-					<Message
-						content="There is no description yet"
-					/>
+					<Segment placeholder>
+						<Header icon>
+							<Icon name="newspaper" />
+							This tag is empty
+						</Header>
+					</Segment>
 				)
 			}
 
@@ -280,7 +282,12 @@ class Tag extends Component {
 							))}
 						</ImageMasonry>
 					) : (
-						<Message content="There are no images yet" />
+						<Segment placeholder>
+							<Header icon>
+								<Icon name="image" />
+								There are no images yet
+							</Header>
+						</Segment>
 					)}
 
 					{isOpen && (
