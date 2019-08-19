@@ -371,6 +371,7 @@ a {
 
 .fallacyPage .commentsContent {
   margin-bottom: 25px;
+  overflow-x: hidden;
   width: 100%; }
 
 .fallacyPage .similarContent {

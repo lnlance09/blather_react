@@ -281,17 +281,15 @@ class Fallacy extends Component {
 
 		const CommentsSection = props => (
 			<div className="commentsContent">
-				<Segment>
-					<FacebookProvider appId="498572440350555" style={{ width: "100%" }}>
-						<Comments href={window.location.href} width="100%" />
-					</FacebookProvider>
+				<FacebookProvider appId="498572440350555" style={{ width: "100%" }}>
+					<Comments href={window.location.href} width="100%" />
+				</FacebookProvider>
 
-					<div style={{ padding: "10px 6px 0 6px" }}>
-						<FacebookProvider appId="498572440350555">
-							<Like href={window.location.href} colorScheme="dark" showFaces />
-						</FacebookProvider>
-					</div>
-				</Segment>
+				<div style={{ padding: "10px 6px" }}>
+					<FacebookProvider appId="498572440350555">
+						<Like href={window.location.href} colorScheme="dark" showFaces />
+					</FacebookProvider>
+				</div>
 			</div>
 		)
 
