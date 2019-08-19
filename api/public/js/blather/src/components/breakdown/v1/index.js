@@ -180,7 +180,6 @@ class Breakdown extends Component {
 
 						<Header size="medium" style={{ marginTop: "16px" }}>
 							<Button
-								basic
 								color="blue"
 								onClick={() =>
 									this.props.history.push(

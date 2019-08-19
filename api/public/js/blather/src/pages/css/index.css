@@ -688,6 +688,9 @@ a {
   .usersPage .userContentRow {
     padding-top: 0 !important; } }
 
+.usersPage .profileMenu {
+  margin-top: 20px !important; }
+
 .usersPage .segments {
   background: #FFFFFF; }
   .usersPage .segments .segment.coverPic {

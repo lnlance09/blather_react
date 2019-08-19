@@ -1,16 +1,19 @@
 import "pages/css/index.css"
 import { refreshYouTubeToken } from "components/authentication/v1/actions"
 import { DisplayMetaTags } from "utils/metaFunctions"
+import { formatNumber } from "utils/textFunctions"
 import { fetchFallacyCount, fetchPageData, reset } from "pages/actions/page"
 import { Provider, connect } from "react-redux"
 import {
 	Button,
 	Container,
 	Dimmer,
+	Divider,
 	Grid,
 	Header,
 	Icon,
 	Image,
+	Label,
 	Menu,
 	Placeholder,
 	Segment
@@ -193,16 +196,7 @@ class Page extends Component {
 		}
 
 		const PageMenu = props => (
-			<Menu
-				borderless
-				className="socialMediaPageMenu"
-				color="blue"
-				fluid
-				pointing
-				secondary
-				size="large"
-				stackable
-			>
+			<Menu className="socialMediaPageMenu" fluid pointing size="large" stackable>
 				<Menu.Item
 					active={activeItem === itemsLabel}
 					name={itemsLabel}
@@ -214,6 +208,11 @@ class Page extends Component {
 					onClick={this.handleItemClick}
 				>
 					Fallacies{" "}
+					{props.fallacyCount > 0 && (
+						<Label color="blue" floating>
+							{formatNumber(props.fallacyCount)}
+						</Label>
+					)}
 				</Menu.Item>
 			</Menu>
 		)
@@ -350,6 +349,7 @@ class Page extends Component {
 												userId={userId}
 												username={this.props.username}
 											/>
+											<Divider section />
 											{PageMenu(this.props)}
 											<Container className="profileContentContainer">
 												<ShowContent props={this.props} />

@@ -219,15 +219,7 @@ class UserPage extends Component {
 		}
 
 		const UserMenu = props => (
-			<Menu
-				className="profileMenu"
-				color="blue"
-				fluid
-				pointing
-				secondary
-				size="large"
-				stackable
-			>
+			<Menu className="profileMenu" fluid pointing size="large" stackable>
 				<Menu.Item
 					active={activeItem === "fallacies"}
 					name="fallacies"
@@ -235,11 +227,7 @@ class UserPage extends Component {
 				>
 					Fallacies{" "}
 					{user.fallacyCount > 0 && (
-						<Label
-							basic
-							color={activeItem === "fallacies" ? "blue" : "black"}
-							horizontal
-						>
+						<Label color="blue" floating>
 							{formatNumber(user.fallacyCount)}
 						</Label>
 					)}
@@ -251,11 +239,7 @@ class UserPage extends Component {
 				>
 					Archives{" "}
 					{user.archiveCount > 0 && (
-						<Label
-							basic
-							color={activeItem === "archives" ? "blue" : "black"}
-							horizontal
-						>
+						<Label color="blue" floating>
 							{formatNumber(user.archiveCount)}
 						</Label>
 					)}
