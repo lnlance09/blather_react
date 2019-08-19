@@ -372,10 +372,6 @@ a {
 .fallacyPage .commentsContent {
   margin-bottom: 25px;
   width: 100%; }
-  .fallacyPage .commentsContent .segment {
-    padding-top: 4px; }
-  .fallacyPage .commentsContent .comment-policy {
-    margin-top: 0 !important; }
 
 .fallacyPage .similarContent {
   margin-bottom: 25px;
