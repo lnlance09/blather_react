@@ -205,7 +205,11 @@ class Tag extends Component {
 			}
 
 			if (props.description === null) {
-				return <div className="tagDescription">There is no description yet...</div>
+				return (
+					<Message
+						content="There is no description yet"
+					/>
+				)
 			}
 
 			return (
@@ -401,7 +405,18 @@ class Tag extends Component {
 				{activeItem === "article" && (
 					<Menu.Menu position="right">
 						<Menu.Item>
-							<EditButton props={this.props} />
+							{authenticated ? (
+								<EditButton props={this.props} />
+							) : (
+								<Icon
+									color="blue"
+									name="sign in"
+									onClick={() => {
+										props.history.push("/signin")
+									}}
+									style={{ cursor: "pointer" }}
+								/>
+							)}
 						</Menu.Item>
 					</Menu.Menu>
 				)}
