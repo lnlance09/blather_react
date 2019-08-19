@@ -75,7 +75,7 @@ class Breakdown extends Component {
 						>
 							<Header size="small">
 								{result.key}{" "}
-								<Label basic horizontal size="tiny">
+								<Label basic horizontal>
 									{result.count}
 								</Label>
 							</Header>
