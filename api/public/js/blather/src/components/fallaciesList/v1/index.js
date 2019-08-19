@@ -217,7 +217,7 @@ class FallaciesList extends Component {
 					)}
 					{filterVisible && (
 						<div>
-							<Form size="large">
+							<Form>
 								<Form.Field
 									clearable
 									control={Dropdown}
