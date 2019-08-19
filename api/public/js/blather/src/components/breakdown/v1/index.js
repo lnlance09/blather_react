@@ -182,6 +182,7 @@ class Breakdown extends Component {
 
 							<Header size="medium" style={{ marginTop: "16px" }}>
 								<Button
+									basic
 									color="blue"
 									onClick={() =>
 										this.props.history.push(
@@ -189,7 +190,7 @@ class Breakdown extends Component {
 										)
 									}
 								>
-									<Icon color="yellow" name="star" /> Create a review
+									Create a review
 								</Button>
 							</Header>
 						</Segment>
