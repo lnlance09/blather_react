@@ -143,54 +143,57 @@ class Breakdown extends Component {
 				)}
 
 				{placeholder.id && (
-					<Segment basic className="questionnaire">
-						<Header className="first" size="medium">
-							Here's how{" "}
-							<Link to={`/users/${placeholder.user_id}`}>
-								{placeholder.user_name}
-							</Link>{" "}
-							has described this source
-						</Header>
+					<div>
+						<Divider />
+						<Segment basic className="questionnaire">
+							<Header className="first" size="medium">
+								Here's how{" "}
+								<Link to={`/users/${placeholder.user_id}`}>
+									{placeholder.user_name}
+								</Link>{" "}
+								has described this source
+							</Header>
 
-						<Icon name="quote left" />
-						<blockquote
-							cite={`https://blather.io/targets/${placeholder.user_id}/${dbId}`}
-							className="placeholderDiv"
-							dangerouslySetInnerHTML={{
-								__html: sanitizeText(Marked(placeholder.summary))
-							}}
-						/>
-						<Icon name="quote right" />
+							<Icon name="quote left" />
+							<blockquote
+								cite={`https://blather.io/targets/${placeholder.user_id}/${dbId}`}
+								className="placeholderDiv"
+								dangerouslySetInnerHTML={{
+									__html: sanitizeText(Marked(placeholder.summary))
+								}}
+							/>
+							<Icon name="quote right" />
 
-						<p className="fullReview">
-							<Link to={`/targets/${placeholder.user_id}/${dbId}`}>
-								See full review
-							</Link>
-						</p>
+							<p className="fullReview">
+								<Link to={`/targets/${placeholder.user_id}/${dbId}`}>
+									See full review
+								</Link>
+							</p>
 
-						<Header size="medium">
-							Can pass an ideological turing test?
-							<Header.Subheader>{Stats(turingTest)}</Header.Subheader>
-						</Header>
+							<Header size="medium">
+								Can pass an ideological turing test?
+								<Header.Subheader>{Stats(turingTest)}</Header.Subheader>
+							</Header>
 
-						<Header size="medium">
-							Believes most of what they talk about?
-							<Header.Subheader>{Stats(sincerity)}</Header.Subheader>
-						</Header>
+							<Header size="medium">
+								Believes most of what they talk about?
+								<Header.Subheader>{Stats(sincerity)}</Header.Subheader>
+							</Header>
 
-						<Header size="medium" style={{ marginTop: "16px" }}>
-							<Button
-								color="blue"
-								onClick={() =>
-									this.props.history.push(
-										`/targets/${authenticated ? userId : "create"}/${dbId}`
-									)
-								}
-							>
-								<Icon color="yellow" name="star" /> Create a review
-							</Button>
-						</Header>
-					</Segment>
+							<Header size="medium" style={{ marginTop: "16px" }}>
+								<Button
+									color="blue"
+									onClick={() =>
+										this.props.history.push(
+											`/targets/${authenticated ? userId : "create"}/${dbId}`
+										)
+									}
+								>
+									<Icon color="yellow" name="star" /> Create a review
+								</Button>
+							</Header>
+						</Segment>
+					</div>
 				)}
 			</div>
 		)

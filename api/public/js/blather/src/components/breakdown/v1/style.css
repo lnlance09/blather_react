@@ -4,6 +4,7 @@
 /*---   Misc  ---*/
 /*---   Social colors  ---*/
 .breakdown .breakdownSegment {
+  margin-bottom: 0 !important;
   padding: 0 !important; }
   .breakdown .breakdownSegment .percentages {
     padding: 0 !important; }

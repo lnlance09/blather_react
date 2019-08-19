@@ -334,6 +334,7 @@ class Page extends Component {
 											</div>
 										</Container>
 										<Segment basic>
+											<Divider />
 											<Breakdown
 												authenticated={authenticated}
 												count={this.props.fallacyCount}
