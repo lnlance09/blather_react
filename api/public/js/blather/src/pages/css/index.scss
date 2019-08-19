@@ -604,6 +604,7 @@ a {
 
     .commentsContent {
         margin-bottom: $dividerMargin;
+        overflow-x: hidden;
         width: 100%;
     }
 
