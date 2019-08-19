@@ -958,6 +958,10 @@
                 ]);
             }
 
+            if (array_key_exists('exclude', $data)) {
+                $this->db->where_not_in('fe.id', $data['exclude']);
+            }
+
             if (!$just_count) {
                 $limit = 10;
                 $start = $data['page']*$limit;

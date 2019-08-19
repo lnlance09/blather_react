@@ -696,6 +696,7 @@ class Fallacy extends Component {
 						<Header size="large">Similar fallacies</Header>
 						<FallaciesList
 							emptyMsgContent="There are no similar fallacies"
+							exclude={props.id}
 							fallacyId={props.fallacyId}
 							history={props.history}
 							icon="warning sign"

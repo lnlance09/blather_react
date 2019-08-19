@@ -597,6 +597,7 @@
 				'assigned_to' => $this->input->get('assignedTo'),
 				'comment_id' => $this->input->get('commentId'),
 				'fallacies' => $this->input->get('fallacies'),
+				'exclude' => $this->input->get('exclude'),
 				'fallacy_id' => $this->input->get('fallacyId'),
 				'network' => $this->input->get('network'),
 				'object_id' => $this->input->get('objectId'),
