@@ -1049,6 +1049,12 @@ a {
             }
         }
 
+        .segment.placeholder {
+            .icon {
+                height: auto !important;
+            }
+        }
+
         .tagsList, .usersList {
             margin-top: 12px !important;
         }

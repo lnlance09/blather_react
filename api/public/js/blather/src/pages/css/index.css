@@ -631,6 +631,8 @@ a {
     width: 100%; }
     .tagsPage .tagsWrapper .galleryContent .galleryWrapper img {
       cursor: pointer; }
+  .tagsPage .tagsWrapper .segment.placeholder .icon {
+    height: auto !important; }
   .tagsPage .tagsWrapper .tagsList, .tagsPage .tagsWrapper .usersList {
     margin-top: 12px !important; }
   .tagsPage .tagsWrapper .divider .cameraIcon, .tagsPage .tagsWrapper .divider .photoIcon {
