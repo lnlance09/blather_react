@@ -11,6 +11,7 @@ export const getFallacies = ({
 	network,
 	objectId,
 	page,
+	shuffle,
 	tagId,
 	type
 }) => dispatch => {
@@ -28,6 +29,7 @@ export const getFallacies = ({
 				network,
 				objectId,
 				page,
+				shuffle: shuffle === true ? 1 : 0,
 				tagId,
 				type
 			}

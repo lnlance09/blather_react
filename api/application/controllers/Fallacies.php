@@ -594,6 +594,7 @@
 		}
 
 		public function search() {
+			$shuffle = (int)$this->input->get('shuffle');
 			$page = $this->input->get('page');
 			$results = null;
 			$limit = 10;
@@ -615,6 +616,11 @@
 			$count = $this->fallacies->search($params, true);
 			$pages = ceil($count/$limit);
 			$results = $this->fallacies->search($params);
+
+			if ($shuffle === 1) {
+				shuffle($results);
+			}
+
 			echo json_encode([
 				'count' => $count,
 				'error' => false,

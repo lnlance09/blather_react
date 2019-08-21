@@ -733,6 +733,7 @@ class Fallacy extends Component {
 							history={props.history}
 							icon="warning sign"
 							itemsPerRow={2}
+							shuffle={true}
 							source="fallacy"
 							usePics={false}
 						/>

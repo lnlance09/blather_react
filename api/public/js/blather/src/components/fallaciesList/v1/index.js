@@ -69,6 +69,7 @@ class FallaciesList extends Component {
 			network: this.props.network,
 			objectId: this.props.objectId,
 			page: 0,
+			shuffle: this.props.shuffle,
 			tagId: this.props.tagId
 		})
 		if (this.props.source === "users") {
@@ -88,6 +89,7 @@ class FallaciesList extends Component {
 				network: nextProps.network,
 				objectId: nextProps.objectId,
 				page: 0,
+				shuffle: nextProps.shuffle,
 				tagId: nextProps.tagId
 			})
 		}
@@ -154,6 +156,7 @@ class FallaciesList extends Component {
 				network: this.props.network,
 				objectId: this.props.objectId,
 				page: newPage,
+				shuffle: this.props.shuffle,
 				tagId: this.props.tagId
 			})
 		}
@@ -174,6 +177,7 @@ class FallaciesList extends Component {
 			network: this.props.network,
 			objectId: this.props.objectId,
 			page: 0,
+			shuffle: this.props.shuffle,
 			tagId: this.props.tagId
 		})
 		if (this.props.changeUrl) {
@@ -561,6 +565,7 @@ FallaciesList.propTypes = {
 	results: PropTypes.array,
 	setFallacyId: PropTypes.func,
 	showPics: PropTypes.bool,
+	shuffle: PropTypes.bool,
 	source: PropTypes.string,
 	tagId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 	targets: PropTypes.shape({
@@ -587,6 +592,7 @@ FallaciesList.defaultProps = {
 	page: 0,
 	results: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
 	showPics: true,
+	shuffle: false,
 	targets: {
 		page: 0,
 		results: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}]
