@@ -259,16 +259,16 @@ class Page extends Component {
 							<DimmerMsg
 								btn={
 									<Button
-										color={props.network}
+										color={network}
 										icon
 										onClick={() =>
-											props.history.push(`/settings/${props.network}`)
+											props.history.push(`/settings/${network}`)
 										}
 									>
-										<Icon name={props.network} /> Link your {props.network}
+										<Icon name={network} /> Link your {network}
 									</Button>
 								}
-								msg={`Link your ${props.network} to start calling ${
+								msg={`Link your ${network} to start calling ${
 									props.name
 								} out`}
 								props={props}

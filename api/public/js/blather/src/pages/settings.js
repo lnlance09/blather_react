@@ -81,6 +81,10 @@ class SettingsPage extends Component {
 		this.setPassword = this.setPassword.bind(this)
 	}
 
+	componentDidMount() {
+		window.scrollTo({ top: 0, behavior: "smooth" })
+	}
+
 	componentWillReceiveProps(props) {
 		if (props.passwordChangeSuccessful) {
 			this.setState({
