@@ -9,6 +9,8 @@
     }
 
     .fallacyHeader {
+        margin-top: 0;
+
         .editButton {
             color: $blue;
             cursor: pointer;
@@ -98,17 +100,6 @@
 
         .button {
             margin-top: 12px;
-        }
-    }
-
-    .watermarkLabel {
-        float: right;
-        margin: 6px;
-        padding: 2px 6px 2px 2px;
-
-        img {
-            display: inline !important;
-            margin-right: 6px;
         }
     }
 }

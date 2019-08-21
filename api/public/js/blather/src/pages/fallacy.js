@@ -26,13 +26,16 @@ import {
 	Card,
 	Container,
 	Dimmer,
+	Divider,
 	Form,
 	Grid,
 	Header,
 	Icon,
 	Image,
+	Label,
 	List,
 	Message,
+	Modal,
 	Radio,
 	Responsive,
 	Segment,
@@ -84,6 +87,7 @@ class Fallacy extends Component {
 			exportArticle: this.props.refId > 8 ? "comment" : "tweet",
 			exportOpt: "screenshot",
 			id,
+			modalOpen: false,
 			show: false,
 			twitterId,
 			userId,
@@ -126,7 +130,7 @@ class Fallacy extends Component {
 			return
 		}
 
-		let el = "materialWrapper"
+		let el = "screenshotPicWrapper"
 		if (this.props.canMakeVideo) {
 			duration = document.getElementById("fallacyDateDiff").textContent
 			el = this.props.screenshotEl
@@ -259,6 +263,8 @@ class Fallacy extends Component {
 
 	showImage = () => this.setState({ show: true })
 
+	toggleModal = () => this.setState({ modalOpen: !this.state.modalOpen })
+
 	render() {
 		const {
 			active,
@@ -267,10 +273,12 @@ class Fallacy extends Component {
 			exportArticle,
 			exportOpt,
 			id,
+			modalOpen,
 			twitterId,
 			userId,
 			youtubeId
 		} = this.state
+
 		const { createdBy, user } = this.props
 		const canEdit = createdBy ? createdBy.id === userId || createdBy.id === 6 : false
 
@@ -312,15 +320,12 @@ class Fallacy extends Component {
 								<div>
 									<Dimmer.Dimmable
 										as={Image}
-										bordered
 										className="downloadDimmer"
 										dimmed={active}
 										dimmer={{ active, content, inverted: true }}
-										inverted
 										onClick={() => window.open(props.s3Link, "_blank")}
 										onMouseEnter={this.handleShow}
 										onMouseLeave={this.handleHide}
-										rounded
 										size="big"
 										src={props.s3Link}
 									/>
@@ -400,7 +405,15 @@ class Fallacy extends Component {
 									}`}
 									fluid={side === "right"}
 									loading={props.creating}
-									onClick={this.captureScreenshot}
+									onClick={() => {
+										if (props.canScreenshot) {
+											this.toggleModal()
+										}
+
+										if (props.canMakeVideo) {
+											this.captureScreenshot()
+										}
+									}}
 								/>
 							) : null}
 						</div>
@@ -453,8 +466,6 @@ class Fallacy extends Component {
 									<FallacyExample
 										bearer={bearer}
 										canEdit={canEdit}
-										downloading={downloading}
-										exportOpt={exportOpt}
 										history={props.history}
 										id={id}
 									/>
@@ -496,8 +507,6 @@ class Fallacy extends Component {
 											<FallacyExample
 												bearer={bearer}
 												canEdit={canEdit}
-												downloading={downloading}
-												exportOpt={exportOpt}
 												history={props.history}
 												id={id}
 												showMaterial={false}
@@ -537,22 +546,65 @@ class Fallacy extends Component {
 			)
 		}
 
+		const PictureModal = props => {
+			return (
+				<Modal
+					className="screenshotModal"
+					closeOnDocumentClick
+					closeIcon
+					inverted="true"
+					onClose={this.toggleModal}
+					open={modalOpen}
+				>
+					<Modal.Content>
+						<div className="screenshotPicWrapper" id="screenshotPicWrapper">
+							<FallacyExample
+								canEdit={false}
+								downloading={downloading}
+								exportOpt={exportOpt}
+								history={props.history}
+								id={id}
+								showExplanation={exportOpt === "screenshotAll"}
+							/>
+							{exportOpt === "screenshotAndRef" && (
+								<div>
+									<Divider />
+									<FallacyRef canScreenshot={false} id={props.fallacyId} />
+								</div>
+							)}
+							{downloading && (
+								<div>
+									<Divider />
+									<Label
+										basic
+										color="white"
+										className="watermarkLabel"
+										size="big"
+									>
+										blather.io/fallacies/{props.id}
+									</Label>
+								</div>
+							)}
+						</div>
+					</Modal.Content>
+					<Modal.Actions>
+						<Button
+							color="blue"
+							content="Make image"
+							loading={downloading}
+							onClick={this.captureScreenshot}
+						/>
+					</Modal.Actions>
+				</Modal>
+			)
+		}
+
 		const ReferenceSection = (
 			<div className="fallacyContent">
-				<Header data-html2canvas-ignore size="large">
-					Reference
-				</Header>
+				<Header size="large">Reference</Header>
 				{this.props.id ? (
 					<div>
-						{exportOpt !== "screenshotAndRef" ? (
-							<div data-html2canvas-ignore>
-								<FallacyRef canScreenshot={false} id={this.props.fallacyId} />
-							</div>
-						) : (
-							<div>
-								<FallacyRef canScreenshot={false} id={this.props.fallacyId} />
-							</div>
-						)}
+						<FallacyRef canScreenshot={false} id={this.props.fallacyId} />
 					</div>
 				) : (
 					<LazyLoad header={false} />
@@ -696,7 +748,7 @@ class Fallacy extends Component {
 						<Header size="large">Similar fallacies</Header>
 						<FallaciesList
 							emptyMsgContent="There are no similar fallacies"
-							exclude={props.id}
+							exclude={[props.id]}
 							fallacyId={props.fallacyId}
 							history={props.history}
 							icon="warning sign"
@@ -714,13 +766,11 @@ class Fallacy extends Component {
 			const refId = props.refId
 			const rawSources = refId === 1 || refId === 2
 			return (
-				<div className="sourcesContent" data-html2canvas-ignore>
+				<div className="sourcesContent">
 					<Header size="large">Sources</Header>
 					<FallacyExample
 						bearer={bearer}
 						canEdit={canEdit}
-						downloading={downloading}
-						exportOpt={exportOpt}
 						history={this.props.history}
 						id={id}
 						rawSources={rawSources}
@@ -790,6 +840,7 @@ class Fallacy extends Component {
 										)}
 									</Grid.Column>
 								</Grid>
+								{PictureModal(this.props)}
 							</Responsive>
 						</Container>
 					) : (

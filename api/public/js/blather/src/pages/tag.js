@@ -309,6 +309,11 @@ class Tag extends Component {
 							prevSrc={
 								rawImages[(photoIndex + rawImages.length - 1) % rawImages.length]
 							}
+							reactModalStyle={{
+								content: {
+									top: "70px"
+								}
+							}}
 						/>
 					)}
 				</div>
