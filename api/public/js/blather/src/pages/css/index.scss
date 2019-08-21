@@ -100,7 +100,7 @@
 }
 
 .screenshotPicWrapper {
-    background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1IiBoZWlnaHQ9IjUiPgo8cmVjdCB3aWR0aD0iNSIgaGVpZ2h0PSI1IiBmaWxsPSIjRkZFMjFGIj48L3JlY3Q+CjxwYXRoIGQ9Ik0wIDVMNSAwWk02IDRMNCA2Wk0tMSAxTDEgLTFaIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiI+PC9wYXRoPgo8L3N2Zz4=");
+    background-color: #ff7;
     padding: 25px;
 
     #fallacyDateDiff {
@@ -108,6 +108,7 @@
     }
 
     .watermarkLabel {
+        border: none !important;
         width: 100% !important;
 
         img {

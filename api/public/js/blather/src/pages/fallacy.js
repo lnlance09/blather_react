@@ -320,12 +320,14 @@ class Fallacy extends Component {
 								<div>
 									<Dimmer.Dimmable
 										as={Image}
+										bordered
 										className="downloadDimmer"
 										dimmed={active}
 										dimmer={{ active, content, inverted: true }}
 										onClick={() => window.open(props.s3Link, "_blank")}
 										onMouseEnter={this.handleShow}
 										onMouseLeave={this.handleHide}
+										rounded
 										size="big"
 										src={props.s3Link}
 									/>
@@ -471,13 +473,6 @@ class Fallacy extends Component {
 									/>
 									{SourcesSection(props)}
 									<Responsive maxWidth={1024}>
-										{ShareSection(true)}
-										<Statistic
-											className="viewCount"
-											horizontal
-											label="Views"
-											value={this.props.viewCount}
-										/>
 										<TagsCard
 											bearer={bearer}
 											canEdit={canEdit}
@@ -513,13 +508,6 @@ class Fallacy extends Component {
 											/>
 											{SourcesSection(props)}
 											<Responsive maxWidth={1024}>
-												{ShareSection(true)}
-												<Statistic
-													className="viewCount"
-													horizontal
-													label="Views"
-													value={this.props.viewCount}
-												/>
 												<TagsCard
 													bearer={bearer}
 													canEdit={canEdit}
@@ -574,13 +562,9 @@ class Fallacy extends Component {
 							)}
 							{downloading && (
 								<div>
-									<Divider />
-									<Label
-										basic
-										color="white"
-										className="watermarkLabel"
-										size="big"
-									>
+									<Divider hidden />
+									<Label basic className="watermarkLabel" size="large">
+										<Icon color="yellow" name="sticky note" />
 										blather.io/fallacies/{props.id}
 									</Label>
 								</div>
@@ -800,6 +784,15 @@ class Fallacy extends Component {
 									<Grid.Row>{MaterialSection(this.props)}</Grid.Row>
 									<Grid.Row>{RetractionSegment(this.props)}</Grid.Row>
 									<Grid.Row>{CommentsSection(this.props)}</Grid.Row>
+									<Grid.Row style={{ marginBottom: "25px" }}>
+										{ShareSection(true)}
+										<Statistic
+											className="viewCount"
+											horizontal
+											label="Views"
+											value={this.props.viewCount}
+										/>
+									</Grid.Row>
 									<Grid.Row>{SimilarSection(this.props)}</Grid.Row>
 								</Grid>
 							</Responsive>
