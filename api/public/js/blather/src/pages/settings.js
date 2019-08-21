@@ -213,8 +213,7 @@ class SettingsPage extends Component {
 						{this.props.data.linkedTwitter ? (
 							<div>
 								<p className="firstParagraph">
-									<Icon name="clock" />{" "}
-									You linked your Twitter account{" "}
+									<Icon name="clock" /> You linked your Twitter account{" "}
 									<Moment
 										date={adjustTimezone(this.props.data.twitterDate)}
 										fromNow
@@ -256,8 +255,7 @@ class SettingsPage extends Component {
 						{this.props.data.linkedYoutube ? (
 							<div>
 								<p className="firstParagraph">
-									<Icon name="clock" />{" "}
-									You linked your YouTube account{" "}
+									<Icon name="clock" /> You linked your YouTube account{" "}
 									<Moment
 										date={adjustTimezone(this.props.data.youtubeDate)}
 										fromNow

@@ -575,7 +575,12 @@ class Fallacy extends Component {
 							{downloading && (
 								<div>
 									<Divider />
-									<Label basic color="white" className="watermarkLabel" size="big">
+									<Label
+										basic
+										color="white"
+										className="watermarkLabel"
+										size="big"
+									>
 										blather.io/fallacies/{props.id}
 									</Label>
 								</div>
@@ -596,9 +601,7 @@ class Fallacy extends Component {
 
 		const ReferenceSection = (
 			<div className="fallacyContent">
-				<Header size="large">
-					Reference
-				</Header>
+				<Header size="large">Reference</Header>
 				{this.props.id ? (
 					<div>
 						<FallacyRef canScreenshot={false} id={this.props.fallacyId} />

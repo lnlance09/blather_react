@@ -311,7 +311,7 @@ class Tag extends Component {
 							}
 							reactModalStyle={{
 								content: {
-									top: '70px'
+									top: "70px"
 								}
 							}}
 						/>
