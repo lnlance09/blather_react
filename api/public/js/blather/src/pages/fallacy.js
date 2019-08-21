@@ -556,18 +556,14 @@ class Fallacy extends Component {
 							/>
 							{exportOpt === "screenshotAndRef" && (
 								<div>
-									<Divider />
+									<Divider horizontal />
 									<FallacyRef canScreenshot={false} id={props.fallacyId} />
 								</div>
 							)}
 							{downloading && (
-								<div>
-									<Divider hidden />
-									<Label basic className="watermarkLabel" size="large">
-										<Icon color="yellow" name="sticky note" />
-										blather.io/fallacies/{props.id}
-									</Label>
-								</div>
+								<Divider className="watermarkLabel" horizontal>
+									blather.io/fallacies/{props.id}
+								</Divider>
 							)}
 						</div>
 					</Modal.Content>
