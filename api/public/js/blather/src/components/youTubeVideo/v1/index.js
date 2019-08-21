@@ -153,6 +153,7 @@ class YouTubeVideo extends Component {
 
 	render() {
 		const { activeItem, archiveVisible, auth, playing, user } = this.state
+
 		const ArchiveForm = props => (
 			<div className="archiveForm">
 				<Form
@@ -203,11 +204,13 @@ class YouTubeVideo extends Component {
 				</Form>
 			</div>
 		)
+
 		const ArchivesList = props => {
 			const archives = activeItem === "All" ? props.archives : props.myArchives
 			if (!archives || archives === undefined || props === undefined) {
 				return null
 			}
+
 			return (
 				<div>
 					<Menu pointing secondary>
@@ -294,6 +297,7 @@ class YouTubeVideo extends Component {
 				</div>
 			)
 		}
+
 		const ChannelCard = props => {
 			if (props.channel) {
 				return (
@@ -329,6 +333,7 @@ class YouTubeVideo extends Component {
 			}
 			return <LazyLoad />
 		}
+
 		const DisplayStats = props => {
 			if (props.stats) {
 				return (
@@ -357,9 +362,11 @@ class YouTubeVideo extends Component {
 			}
 			return null
 		}
+
 		const PopularityBar = props => (
 			<Progress color="green" percent={props.stats ? props.stats.likePct : null} progress />
 		)
+
 		return (
 			<div className="youTubeVideo">
 				<Segment>
