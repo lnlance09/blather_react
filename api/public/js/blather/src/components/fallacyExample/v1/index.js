@@ -52,6 +52,22 @@ class FallacyExample extends Component {
 		this.updateTimes = this.updateTimes.bind(this)
 	}
 
+	componentWillMount() {
+		this.setState({
+			endTime: this.props.endTime > 0 ? formatTime(this.props.endTime) : "",
+			startTime: this.props.startTime > 0 ? formatTime(this.props.startTime) : ""
+		})
+
+		if (this.props.contradiction && this.props.contradiction.video) {
+			const endTime = this.props.contradiction.video.endTime
+			const startTime = this.props.contradiction.video.startTime
+			this.setState({
+				contradictionEndTime: endTime > 0 ? formatTime(endTime) : "",
+				contradictionStartTime: startTime > 0 ? formatTime(startTime) : ""
+			})
+		}
+	}
+
 	componentWillReceiveProps(newProps) {
 		this.setState({
 			endTime: newProps.endTime > 0 ? formatTime(newProps.endTime) : "",
