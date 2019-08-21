@@ -613,13 +613,14 @@
 				'q' => trim($this->input->get('q')),
 				'tag_id' => trim($this->input->get('tagId'))
 			];
+
+			if ($shuffle === 1) {
+				$params['shuffle'] = true;
+			}
+
 			$count = $this->fallacies->search($params, true);
 			$pages = ceil($count/$limit);
 			$results = $this->fallacies->search($params);
-
-			if ($shuffle === 1) {
-				shuffle($results);
-			}
 
 			echo json_encode([
 				'count' => $count,
