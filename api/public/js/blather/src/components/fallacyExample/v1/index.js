@@ -13,13 +13,11 @@ import {
 	Icon,
 	Image,
 	Input,
-	Label,
 	List,
 	Segment,
 	TextArea
 } from "semantic-ui-react"
 import ImagePic from "images/image-square.png"
-import WatermarkImg from "images/brain-logo-white-small.png"
 import LazyLoad from "components/lazyLoad/v1/"
 import Marked from "marked"
 import PropTypes from "prop-types"
@@ -161,6 +159,7 @@ class FallacyExample extends Component {
 			explanation,
 			startTime
 		} = this.state
+
 		const EditButton = ({ props }) => {
 			if (props.explanation) {
 				if (props.canEdit) {
@@ -175,6 +174,7 @@ class FallacyExample extends Component {
 			}
 			return null
 		}
+
 		const EditTimesForm = (props, contradiction) => {
 			const endName = contradiction ? "contradictionEndTime" : "endTime"
 			const startName = contradiction ? "contradictionStartTime" : "startTime"
@@ -227,15 +227,14 @@ class FallacyExample extends Component {
 				</Form>
 			)
 		}
+
 		const Explanation = props => {
 			if (props.showExplanation && props.explanation) {
 				const explanationEl = (
 					<div>
+						<Divider />
 						<Header as="h2" className="fallacyHeader" size="large">
 							{props.fallacyName} <EditButton props={props} />
-							{props.downloading && props.exportOpt === "screenshotAll"
-								? WatermarkLabel(props)
-								: null}
 						</Header>
 						<div>
 							{editing ? (
@@ -320,6 +319,7 @@ class FallacyExample extends Component {
 
 			return <LazyLoad header={false} />
 		}
+
 		const FeaturedInVideo = (video, props) => {
 			if (video.channel.id !== props.user.id && !video.comment) {
 				const link = `/pages/${props.user.type}/${
@@ -349,6 +349,7 @@ class FallacyExample extends Component {
 				)
 			}
 		}
+
 		const Material = props => (
 			<div
 				className={`fallacyMaterial ${props.downloading ? "downloading" : ""}`}
@@ -363,11 +364,6 @@ class FallacyExample extends Component {
 							</List>
 						) : (
 							<div>
-								{props.downloading &&
-								(props.exportOpt === "screenshot" ||
-									props.exportOpt === "screenshotAndRef")
-									? WatermarkLabel(props)
-									: null}
 								{ParseMaterial(props)}
 								{props.contradiction && (
 									<div>
@@ -383,6 +379,7 @@ class FallacyExample extends Component {
 				)}
 			</div>
 		)
+
 		const ParseMaterial = (props, contradiction = false) => {
 			let material = props
 			if (contradiction) {
@@ -508,6 +505,7 @@ class FallacyExample extends Component {
 			}
 			return null
 		}
+
 		const ShowDateDifference = props => {
 			if (props.contradiction) {
 				let dateOne = ""
@@ -539,18 +537,12 @@ class FallacyExample extends Component {
 			}
 			return null
 		}
-		const WatermarkLabel = props => (
-			<Label color="blue" className="watermarkLabel">
-				<Image src={WatermarkImg} />
-				blather.io/fallacies/{props.id}
-			</Label>
-		)
 
 		return (
-			<Segment basic className="fallacyExample" id="fallacyExample">
+			<div className="fallacyExample" id="fallacyExample">
 				{this.props.showMaterial && Material(this.props)}
 				{Explanation(this.props)}
-			</Segment>
+			</div>
 		)
 	}
 }

@@ -296,7 +296,7 @@ class Tweet extends Component {
 							{QuotedTweet(this.props)}
 						</Card.Content>
 						{this.props.showStats && (
-							<Card.Content data-html2canvas-ignore extra>
+							<Card.Content extra>
 								<StatsBar
 									favoriteCount={
 										retweeted_status

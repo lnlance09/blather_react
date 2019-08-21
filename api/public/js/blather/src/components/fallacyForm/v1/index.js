@@ -315,6 +315,7 @@ class FallacyForm extends Component {
 			}
 			return null
 		}
+
 		const ContradictionMsg = props => {
 			const msg = c.error ? cErrorMsg : cValidMsg
 			if (!cValid) {
@@ -322,6 +323,7 @@ class FallacyForm extends Component {
 			}
 			return null
 		}
+
 		const DisplayContradiction = props => {
 			switch (c.network) {
 				case "twitter":
@@ -406,12 +408,14 @@ class FallacyForm extends Component {
 					return null
 			}
 		}
+
 		const ErrorMsg = ({ props }) => {
 			if (props.fallacyFormError && props.fallacyFormErrorMsg) {
 				return <Message content={props.fallacyFormErrorMsg} error />
 			}
 			return null
 		}
+
 		const SelectAssignee = props => (
 			<SearchForm
 				defaultValue={page ? page.name : null}
@@ -421,6 +425,7 @@ class FallacyForm extends Component {
 				width={"100%"}
 			/>
 		)
+
 		const StartTime = props => {
 			if (props.type === "video" && info !== undefined && !info.comment) {
 				return (
@@ -460,6 +465,7 @@ class FallacyForm extends Component {
 			}
 			return null
 		}
+
 		const SuccessModal = props => {
 			if (page !== null) {
 				const assigneeLink = page.type === "youtube" ? page.id : page.username
