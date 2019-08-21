@@ -8,6 +8,7 @@ import { Link } from "react-router-dom"
 import { Feed, Image, Label, Visibility } from "semantic-ui-react"
 import ImagePic from "images/image-square.png"
 import LazyLoad from "components/lazyLoad/v1/"
+import Lightbox from "react-image-lightbox"
 import Marked from "marked"
 import Moment from "react-moment"
 import PropTypes from "prop-types"
@@ -18,6 +19,8 @@ class FeedComponent extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
+			currentImg: "",
+			lightboxOpen: false,
 			loadingMore: false,
 			page: 0
 		}
@@ -53,7 +56,7 @@ class FeedComponent extends Component {
 	}
 
 	render() {
-		const { loadingMore } = this.state
+		const { currentImg, lightboxOpen, loadingMore } = this.state
 
 		const LazyLoadMore = props => {
 			if (loadingMore && props.hasMore) {
@@ -61,7 +64,7 @@ class FeedComponent extends Component {
 			}
 		}
 
-		const RenderFeed = ({ props }) => {
+		const RenderFeed = props => {
 			return props.results.map((result, i) => {
 				if (result.id && result.item_type === "fallacy") {
 					let userLink = `/pages/${result.page_type}/${
@@ -89,19 +92,25 @@ class FeedComponent extends Component {
 										/>
 									</Feed.Date>
 								</Feed.Summary>
-								<Feed.Extra
-									images
-									onClick={() => props.history.push(`/fallacies/${result.id}`)}
-								>
+								<Feed.Extra images>
 									<div
 										dangerouslySetInnerHTML={{
 											__html: Marked(result.explanation)
 										}}
+										onClick={() =>
+											props.history.push(`/fallacies/${result.id}`)
+										}
 									/>
 									{result.s3_link && result.network === "twitter" ? (
 										<Image
 											bordered
 											inline
+											onClick={() => {
+												this.setState({
+													lightboxOpen: true,
+													currentImg: result.s3_link
+												})
+											}}
 											onError={i => (i.target.src = ImagePic)}
 											rounded
 											src={result.s3_link}
@@ -266,9 +275,20 @@ class FeedComponent extends Component {
 		return (
 			<Visibility className="feedWrapper" continuous onBottomVisible={this.loadMore}>
 				<Feed size={this.props.size}>
-					<RenderFeed props={this.props} />
+					{RenderFeed(this.props)}
 					{LazyLoadMore(this.props)}
 				</Feed>
+				{lightboxOpen && (
+					<Lightbox
+						mainSrc={currentImg}
+						onCloseRequest={() => this.setState({ lightboxOpen: false })}
+						reactModalStyle={{
+							content: {
+								top: "70px"
+							}
+						}}
+					/>
+				)}
 			</Visibility>
 		)
 	}
