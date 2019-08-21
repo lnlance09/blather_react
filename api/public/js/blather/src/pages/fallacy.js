@@ -165,6 +165,7 @@ class Fallacy extends Component {
 				link.click()
 
 				this.setState({ downloading: false })
+				this.toggleModal()
 			} else if (this.props.canMakeVideo) {
 				this.props.toggleCreateMode()
 
