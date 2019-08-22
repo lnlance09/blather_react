@@ -82,7 +82,7 @@ class FallacyRef extends Component {
 						>
 							{this.props.includeHeader && (
 								<Header as="p" size="medium">
-									What is {formatGrammar(fallacy.name)} <i>{fallacy.name}</i>?
+									{fallacy.name}
 								</Header>
 							)}
 							<p>{fallacy.description}</p>

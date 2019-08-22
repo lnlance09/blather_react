@@ -29,7 +29,7 @@ class Fallacies extends Component {
 		const name = this.props.match.params.id
 		const parsedName = name ? name.split("-").join(" ") : false
 		this.state = {
-			activeItem: parsedName ? parsedName : "ad hominem abusive",
+			activeItem: parsedName ? parsedName : "ad hominem",
 			intervalId: 0
 		}
 	}
@@ -41,7 +41,7 @@ class Fallacies extends Component {
 	componentWillReceiveProps(props) {
 		const name = props.match.params.id
 		const parsedName = name ? name.split("-").join(" ") : false
-		this.setState({ activeItem: parsedName ? parsedName : "ad hominem abusive" })
+		this.setState({ activeItem: parsedName ? parsedName : "ad hominem" })
 	}
 
 	captureScreenshot(id, filename) {
