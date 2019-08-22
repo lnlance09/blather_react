@@ -2,7 +2,7 @@
    {
       "id":"1",
       "description":"This is an insult that is given instead of a reason.",
-      "name":"Ad Hominem Abusive",
+      "name":"Ad Hominem",
       "dialogue": [
          {
             "name": "Rational Rob",
@@ -11,55 +11,6 @@
          {
             "name": "Blathering Bill",
             "message": "You didn't even graduate from college so it makes sense you would think that. It is a virus."
-         }
-      ]
-   },
-   {
-      "id":"2",
-      "description":"This is an attempt to discredit the arguer by linking him or her to something or someone that is thought of in a negative way.",
-      "name":"Ad Hominem Association",
-      "dialogue": [
-         {
-            "name": "Blathering Bill",
-            "message": "John is a scumbag."
-         },
-         {
-            "name": "Rational Rob",
-            "message": "Why?"
-         },
-         {
-            "name": "Blathering Bill",
-            "message": "Because I saw him hanging out with Rick and Rick is a scumbag."
-         }
-      ]
-   },
-   {
-      "id":"3",
-      "description":"This is an attack on the circumstances of the arguer. May imply ulterior motives or conflict of interests.",
-      "name":"Ad Hominem Tu Quoque",
-      "dialogue": [
-         {
-            "name": "Blathering Bill",
-            "message": "Rob says that cigarettes cause lung cancer but he smokes a pack a day. Smoking doesn't cause cancer!"
-         }
-      ]
-   },
-   {
-      "id":"4",
-      "description":"Where something is claimed to be true or good solely because lots of others believe it to be so.",
-      "name":"Ad Populum Bandwagoning",
-      "dialogue": [
-         {
-            "name": "Blathering Bill",
-            "message": "Bitcoin at 20k is a steal! I'm stocking up."
-         },
-         {
-            "name": "Rational Rob",
-            "message": "Have you given this invesment much thought?"
-         },
-         {
-            "name": "Blathering Bill",
-            "message": "No, but everyone else is buying right now."
          }
       ]
    },
@@ -83,67 +34,6 @@
       ]
    },
    {
-      "id":"58",
-      "description":"Person A unavoidably receives benefits or services courtesy of organization B. Therefore, person A has agreed to the rules set by organization B.",
-      "name":"Appeal to Benefit",
-      "dialogue": [
-         {
-            "name": "Blathering Bill",
-            "message": "Keith called me from jail the other day and he was talking about how much it sucks being locked up. But, you know what? He's always using the weight room and the TV and eating at the cafeteria and speaking with a psychologist... all of that is courtesy of the prison."
-         },
-         {
-            "name": "Rational Rob",
-            "message": "So, what's your point?"
-         },
-         {
-            "name": "Blathering Bill",
-            "message": "If he hates prison so much then why does he keep using all the services there? He probably likes it there."
-         }
-      ]
-   },
-   {
-      "id":"64",
-      "description":"This is a disingenuous tactic that is used by right-wingers to make their views appear more respectable to liberals. On the surface, it can seem believable because Trump and Bernie were both anti-establishment candidates and there was a lot of resentment between Bernie and Hillary supporters. However, Trump is on the right and Bernie is solidly on the left. There probably is a small amount of voters that voted for Trump simply because they hated Hillary so much. But, that was done out of hatred for Hillary; not because they agree with most of Trump's policies.",
-      "name":"Appeal to Bernie",
-      "dialogue": [
-         {
-            "name": "Blathering Bill",
-            "message": "As a Bernie supporting, classical liberal vegan, I believe that climate change is real. Taxes on the rich should be increased. Black lives matter and rape victims should be taken seriously. "
-         },
-         {
-            "name": "Rational Rob",
-            "message": "So...I assume you're voting for Hillary?"
-         },
-         {
-            "name": "Blathering Bill",
-            "message": "Fuck no! Only cucks vote for Hillary. Again, I'm a BERNIE supporting classical LIBERAL VEGAN! That's why I'm voting for Trump!"
-         }
-      ]
-   },
-   {
-      "id":"57",
-      "description":"When one assumes that because you live in a country or are a citizen of a country that you agree with the rules of that country.",
-      "name":"Appeal to Current Location",
-      "dialogue": [
-         {
-            "name": "Rational Rob",
-            "message": "It's kind of disturbing that Keith might get a life sentence. That's his third strike and it's for a petty drug charge. Essentially, a victimless crime."
-         },
-         {
-            "name": "Blathering Bill",
-            "message": "Yeah, but Keith lives here and he agreed to rules."
-         },
-         {
-            "name": "Rational Rob",
-            "message": "He agreed to spend the rest of his life behind bars if he got caught smoking grass?"
-         },
-         {
-            "name": "Blathering Bill",
-            "message": "Yeah, he lives here so he agreed. He signed a social contract."
-         }
-      ]
-   },
-   {
       "id":"6",
       "description":"This is really just a threat. The arguer tries to get others to adopt his\/her point of view or else the arguer will cause them harm.",
       "name":"Appeal to Force",
@@ -155,36 +45,6 @@
          {
             "name": "Rational Rob",
             "message": "Okay. Okay..."
-         }
-      ]
-   },
-   {
-      "id":"61",
-      "description":"The left-wing version of the Appeal to Soros. The left's favorite boogeymen, the Koch Brothers are easy targets becuase they're wealthy, older white men. Find something wrong in the world and there will be no shortage of conspiracy theory minded people willing and ready to perform the mental gynastic necessary to explain how the Koch Brothers are somehow responsible.",
-      "name":"Appeal to Koch Bros",
-      "dialogue": [
-         {
-            "name": "Rational Rob",
-            "message": "I just read that the Koch Brothers are donating large sums of money to politicans who want to make it easier for immigrants to become American citizens. Good for them."
-         },
-         {
-            "name": "Blathering Bill",
-            "message": "Fuck the Koch Brothers! They just want more immigrants here so that big businesses can exploit them and pay them lower wages."
-         }
-      ]
-   },
-   {
-      "id":"63",
-      "description":"This is a combination of a straw man and an appeal to the law. Person A thinks an item or practice should be legal. Therefore, person A supports or agrees with that item or practice.",
-      "name":"Appeal to Legality",
-      "dialogue": [
-         {
-            "name": "Rational Rob",
-            "message": "As much as I dislike religion, I think people should be free to believe what they want to believe."
-         },
-         {
-            "name": "Blathering Bill",
-            "message": "You're a theocrat!"
          }
       ]
    },
@@ -219,40 +79,6 @@
       ]
    },
    {
-      "id":"62",
-      "description":"The right-wing version of the Appeal to Koch Bros. The right's favorite boogeyman, George Soros is an easy target because he's wealthy and especially because he's Jewish and left-leaning. Anti-semites and ultra right-wing conservatives come out of woodwork to employ this fallacy in what are really just cheap attempts at easing any cognitive dissonance they may have.",
-      "name":"Appeal to Soros",
-      "dialogue": [
-         {
-            "name": "Rational Rob",
-            "message": "The sheer number of people who showed up yesterday to protest police brutality was so refreshing."
-         },
-         {
-            "name": "Blathering Bill",
-            "message": "They were all paid protestors. Just showed up to collect some of those Soros shekels."
-         }
-      ]
-   },
-   {
-      "id":"70",
-      "description":"A personal favorite amongst miserable people of all stripes, it is when one assumes that something is bad because it reduces suffering. Basically, I had to suffer so other people should have to suffer too.",
-      "name":"Appeal to Suffering",
-      "dialogue": [
-         {
-            "name": "Blathering Bill",
-            "message": "People who use vaccines need to be punished!"
-         },
-         {
-            "name": "Rational Rob",
-            "message": "I didn't know that you were an anti-vaxxer."
-         },
-         {
-            "name": "Blathering Bill",
-            "message": "Oh, I'm not. Vaccines work really well and that's the problem. My grandfather contracted polio as a kid and we both have nothing but disdain for these kids today who cheat biology by using vaccines. Kids today never had to suffer like my grandpa did so they can't appreciate what it's truly like to be healthy."
-         }
-      ]
-   },
-   {
       "id":"8",
       "description":"This form of argument tries to persaude the listener that an idea must be true because it has been believed or practiced for a long time.",
       "name":"Appeal to Tradition",
@@ -268,32 +94,21 @@
       ]
    },
    {
-      "id":"9",
-      "description":"The arguer claims priviliged knowledge of a questionable entity by claiming to be a victim of it (and thereby shielding himself from criticism).",
-      "name":"Appeal to Victimization",
+      "id":"4",
+      "description":"Where something is claimed to be true or good solely because lots of others believe it to be so.",
+      "name":"Bandwagoning",
       "dialogue": [
          {
             "name": "Blathering Bill",
-            "message": "Santa Claus is real. I know because he woke me up last Christmas Eve and forced me to help him deliver presents in the blistering cold. I developed frost bites and had to have my leg amputated. So, don't even ask me if I have proof! I have all the proof I need."
+            "message": "Bitcoin at 20k is a steal! I'm stocking up."
          },
          {
             "name": "Rational Rob",
-            "message": "Okay..."
-         }
-      ]
-   },
-   {
-      "id":"10",
-      "description":"The arguer produces an overwhelming array of statements and\/or technical jargon in a relatively short period of time. The opponent is unable to address them all or even understand them. Observers will likely be impressed, but have no way of checking the validity of the claims. More often than not, the claims are untrue or aren't even relevant to what is being discussed.",
-      "name":"Argumentum Verbosium",
-      "dialogue": [
-         {
-            "name": "Rational Rob",
-            "message": "Why do you want to deport me?"
+            "message": "Have you given this invesment much thought?"
          },
          {
             "name": "Blathering Bill",
-            "message": "Well, we did it as a way to bring attention to the fact that we have all of these foreigners and the Russian government, the official Chinese government, now said political power goes out the barrel of a gun. It killed about 80 million people because he's the only guy that have the guns. So we did it to point out that this is globalism, and the mega banks that control the planet and brag that they've taken over in Bloomberg, AP, Reuters, you name it, brag that they're going to get our guns as well. They've taken everybody's guns but the Swiss and the American people. And when they get our guns, they can have their world tyranny while the government buys 1.6 billion bullets, armored vehicles, tanks, helicopters, predator drones, armed now in U.S. skies, being used to arrest people in North Dakota. The Second Amendment isn't there for duck hunting. It's there to protect us from tyrannical government and street thugs. Take the women in India. Your piece earlier on CNN I was watching during Anderson Cooper's show. Didn't tell you that the women of India have signed giant petitions to get firearms because the police can't and won't protect them. The answer is... Wait a minute. I have FBI crime statistics that come out a year late, 2011, 20-plus percent crime drop in the last nine years. Real violent crime because more guns means less crime. Britain took the guns 15, 16 years ago. Tripling of your overall violent crime. True we have a higher gun violence level, but overall, muggings, stabbings, deaths, you -- those men raped that woman in India to death with an iron rod four feet long. You can't ban the iron rods. The guns -- the iron rods, Piers, didn't do it, the tyrants did it. Hitler took the guns, Stalin took the guns, Mao took the guns. Fidel Castro took the guns. Hugo Chavez took the guns, and I'm here to tell you, 1776 will commence again if you try to take our firearms. It doesn't matter how many lemmings you get out there on the street begging for them to have their guns taken. We will not relinquish them. Do you understand? That why you're going to fail and the establishment knows no matter how much propaganda, the republic will rise again when you attempt to take our gun. My family in the Texas revolution in Santa Ana. My family was at the core on both sides starting left, because Santa Ana came to take the guns at Gonzalez, Texas."
+            "message": "No, but everyone else is buying right now."
          }
       ]
    },
@@ -317,32 +132,36 @@
       ]
    },
    {
-      "id":"12",
-      "description":"The arguer gives the impression that there are only two extreme positions that are possible. This does not allow for moderate, middle grounds or grey areas.",
-      "name":"Black or White",
+      "id":"16",
+      "description":"Providing what is essentially the conclusion of the argument as a premise.",
+      "name":"Begging the question",
       "dialogue": [
          {
+            "name": "Rational Rob",
+            "message": "Why is using drugs wrong?"
+         },
+         {
             "name": "Blathering Bill",
-            "message": "There are two kinds of people in this world: people who recognize Nickelback as the greatest band to ever exist, and people who can't appreciate good music because they're low IQ scum fucks!"
+            "message": "Because it's illegal"
+         },
+         {
+            "name": "Rational Rob",
+            "message": "Why is it illegal?"
+         },
+         {
+            "name": "Blathering Bill",
+            "message": "Because it's wrong"
          }
       ]
    },
    {
-      "id":"13",
-      "description":"The belief that destruction is economically beneficial because it will provide jobs to people who will rebuild what was destroyed. This fails to take into consideration all of the ways that the money could have been spent if it were not needed to rebuld what was destroyed.",
-      "name":"Broken Window Fallacy",
+      "id":"12",
+      "description":"The arguer gives the impression that there are only two extreme positions that are possible. This does not allow for moderate, middle grounds or grey areas.",
+      "name":"Black-or-white",
       "dialogue": [
          {
             "name": "Blathering Bill",
-            "message": "I hope this hurricane that's headed our way next Friday is crazy big and destroys a lot of homes!"
-         },
-         {
-            "name": "Rational Rob",
-            "message": "Why?"
-         },
-         {
-            "name": "Blathering Bill",
-            "message": "I just lost my job again and I can sure use another one. I might be able to get a job rebuilding. A lot of people will get work. It'll definitely boost the economy."
+            "message": "There are two kinds of people in this world: people who recognize Nickelback as the greatest band to ever exist, and people who can't appreciate good music because they're low IQ scum fucks!"
          }
       ]
    },
@@ -377,85 +196,6 @@
          {
             "name": "Blathering Bill",
             "message": "They say that alcohol is bad for the liver but my dad started binge drinking at 14 and he never had a problem with his liver."
-         }
-      ]
-   },
-   {
-      "id":"16",
-      "description":"Providing what is essentially the conclusion of the argument as a premise.",
-      "name":"Circular Reasoning",
-      "dialogue": [
-         {
-            "name": "Rational Rob",
-            "message": "Why is using drugs wrong?"
-         },
-         {
-            "name": "Blathering Bill",
-            "message": "Because it's illegal"
-         },
-         {
-            "name": "Rational Rob",
-            "message": "Why is it illegal?"
-         },
-         {
-            "name": "Blathering Bill",
-            "message": "Because it's wrong"
-         }
-      ]
-   },
-   {
-      "id":"17",
-      "description":"The composition fallacy is committed when one assumes that a quality of a thing can be determined by the quality of its individual parts.",
-      "name":"Composition Fallacy",
-      "dialogue": [
-         {
-            "name": "Blathering Bill",
-            "message": "Your brain is made of molecules. Molecules do not have consciousness. Therefore, your brain cannot be the source of consciousness."
-         }
-      ]
-   },
-   {
-      "id":"18",
-      "description":"Improperly rejecting a claim for being imprecise.",
-      "name":"Continuum Fallacy",
-      "dialogue": [
-         {
-            "name": "Blathering Bill",
-            "message": "The temperature of the globe has only gone up a fration of a percent over the past 20 years and we haven't seen any catastrophic events. What's another few degrees gonna do?"
-         }
-      ]
-   },
-   {
-      "id":"19",
-      "description":"This is a combination of two fallacies; appeal to victimization and appeal to force. Typically, the role of the person who is using this fallacy will constanty shift between victim and aggressor. One minute, they'll claim to be a helpless victim and the next, they'll outright threaten you. The result is general confusion as the viewers will most likely not know which role is genuine.",
-      "name":"Cry Bullying",
-      "dialogue": [
-         {
-            "name": "Blathering Bill",
-            "message": "You better loan me some money or else I'll move out and you'll have to find a new roommate."
-         },
-         {
-            "name": "Rational Rob",
-            "message": "What? Why do I have to loan you money?"
-         },
-         {
-            "name": "Blathering Bill",
-            "message": "I'm a quarter Native American and it's the least you can do for me considering how your people committed genocide against ingigenous people. Plus, you're a Redskins fan and that shirt with that logo on it really oppresses me."
-         }
-      ]
-   },
-   {
-      "id":"20",
-      "description":"The division fallacy is committed when one assumes that a quality of a thing's individual parts can be determined by the quality of the whole.",
-      "name":"Division Fallacy",
-      "dialogue": [
-         {
-            "name": "Blathering Bill",
-            "message": "Food from Mexico is amazing! I hope our new roommate, Javier, can whip us up some good quesedillas."
-         },
-         {
-            "name": "Rational Rob",
-            "message": "Ugh"
          }
       ]
    },
@@ -544,21 +284,6 @@
       ]
    },
    {
-      "id":"24",
-      "description":"This is a tricky one that skeptics have to be wary of. We may be tempted to claim that the conclusion of an argument is wrong because the arguer used a logical fallacy in his or her reasoning. Just because a fallacy was used does not mean that the conclusion is necessarily incorrect.",
-      "name":"Fallacy Fallacy",
-      "dialogue": [
-         {
-            "name": "Rational Rob",
-            "message": "I might need to adjust my diet. My doctor says that my cholesterol is up."
-         },
-         {
-            "name": "Blathering Bill",
-            "message": "Ha. Your doctor says so? That's an appeal to authority. Don't just listen to him because he's a doctor."
-         }
-      ]
-   },
-   {
       "id":"25",
       "description":"Describes a situation of logical and apparent equivalence, when in fact there is none.",
       "name":"False Equivalence",
@@ -597,25 +322,6 @@
       ]
    },
    {
-      "id":"27",
-      "description":"The mistaken belief that a random event must be due to happen soon if it has not happened in an unusually long time.",
-      "name":"Gambler's Fallacy",
-      "dialogue": [
-         {
-            "name": "Blathering Bill",
-            "message": "I'm gonna order a new jacket just so I'm prepared for the blizzard that's header our way."
-         },
-         {
-            "name": "Rational Rob",
-            "message": "We're in Miami. It doesn't even snow here."
-         },
-         {
-            "name": "Blathering Bill",
-            "message": "My point exactly. It hasn't snowed here in so long that we're long overdue for a snow storm. Any day now..."
-         }
-      ]
-   },
-   {
       "id":"28",
       "description":"Discrediting the source or origin of an argument instead of the argument itself.",
       "name":"Genetic Fallacy",
@@ -631,36 +337,6 @@
       ]
    },
    {
-      "id":"29",
-      "description":"This one doesn't appear on most lists of logical fallacies that are found on the internet and it isn't technically a fallacy. Although, it is a way of poisoning the well and discrediting someone. Godwin's law was first coined in 1990 by author and attorney Mike Godwin. It states that \"As an online discussion grows longer, the probability of a comparison involving Hitler approaches 1.\"\t",
-      "name":"Godwin's Law",
-      "dialogue": [
-         {
-            "name": "Rational Rob",
-            "message": "You should really quit smoking. You've developed a pretty nasty cough."
-         },
-         {
-            "name": "Blathering Bill",
-            "message": "Don't you know that it was the Nazis who were the first to recongize the link between smoking and poor health? Thanks, but I'll continue smoking..."
-         }
-      ]
-   },
-   {
-      "id":"60",
-      "description":"When someone ignores the advice and opinions of scientists or other experts in their fields and appeals to their own knowledge that they've gathered on the internet. This fallacy is almost always a clear indicator that the person using it has a case of Dunning-Kruger.",
-      "name":"Google University",
-      "dialogue": [
-         {
-            "name": "Rational Rob",
-            "message": "You applied for a position as a brain surgeon today? You didn't even go to medical school and you don't know the first thing about performing surgery."
-         },
-         {
-            "name": "Blathering Bill",
-            "message": "I've been watching videos on YouTube and doing a ton of Google searches in my free time. I've just learned so much and I know how things work."
-         }
-      ]
-   },
-   {
       "id":"30",
       "description":"The arguer attributes a property to an entire group based only on observing that property in an individual.",
       "name":"Hasty Generalization",
@@ -668,33 +344,6 @@
          {
             "name": "Blathering Bill",
             "message": "People from Salt Lake City sure are crazy. I had a roommate in college who was from there and she partied all the time."
-         }
-      ]
-   },
-   {
-      "id":"66",
-      "description":"A game that people play in order to free themselves from the responsibilities of having to practice what they preach. The players of this game will try to pass the burden of reposibility onto the next person in line who is slighltly more capable than them.",
-      "name":"Hot Potato",
-      "dialogue": [
-         {
-            "name": "Blathering Bill",
-            "message": "There shouldn't be any homelessness in America. We're a wealthy country and those who make a lot of money should have to contribute back to society by helping the less fortunate find homes."
-         },
-         {
-            "name": "Rational Rob",
-            "message": "Agreed. Come to think of it, I could use some help right now considering how I lost my job a few months back. Could you maybe contribute a few hundred so I can put it towards a rent?"
-         },
-         {
-            "name": "Blathering Bill",
-            "message": "Um, well... Charles actually just got a raise last week. He makes 10k more than me annually now. Try asking him."
-         },
-         {
-            "name": "Rational Rob",
-            "message": "You still make 100k per year. That's well above the national average. You can't spare anything?"
-         },
-         {
-            "name": "Blathering Bill",
-            "message": "Yeah, but Charles makes even more. Just ask him."
          }
       ]
    },
@@ -725,33 +374,6 @@
          {
             "name": "Blathering Bill",
             "message": "You still cheat on your wife, Rob?"
-         }
-      ]
-   },
-   {
-      "id":"56",
-      "description":"A type of black-or-white fallacy that consists of someone telling their opponent that they're welcome to move somewhere else if they don't agree with the way things are. This tactic almost always involves an appeal to the law because the law is the authority that can used to convince people that their grievances aren't legitimate. This tactic is a personal favorite amongst bootlickers on all ends of the political spectrum but it is most commonly used by those on the right who think that wanting affordable health care means that you should just pack up your things and move to Venezeula and those on the left who think that wanting to keep more of your paycheck means that you should just move to Somalia.",
-      "name":"Love It or Leave It",
-      "dialogue": [
-         {
-            "name": "Blathering Bill",
-            "message": "I'm sick and tired of seeing that guy in the blue vest always talking about the police in a negative way. The police are allowed to use more force here in America and if he doesn't like it he should just move to England where the police are less violent and don't have guns."
-         },
-         {
-            "name": "Rational Rob",
-            "message": "Why should he have to go through the hassle of leaving his friends, family and the place he calls home just because he doesn't want people to be abused by the police?"
-         },
-         {
-            "name": "Blathering Bill",
-            "message": "I'm not saying that he has to leave. I'm just pointing out that if he feels strongly enough about police brutality he can always move somewhere else."
-         },
-         {
-            "name": "Rational Rob",
-            "message": "So, he doesn't have to leave but he should leave?"
-         },
-         {
-            "name": "Blathering Bill",
-            "message": "Yeah..."
          }
       ]
    },
@@ -827,21 +449,6 @@
       ]
    },
    {
-      "id":"69",
-      "description":"A conclusion or statement that does not logically follow from the previous argument or statement.",
-      "name":"Non Sequitur",
-      "dialogue": [
-         {
-            "name": "Blathering Bill",
-            "message": "Brush your teeth every morning. Help fight injustice."
-         },
-         {
-            "name": "Rational Rob",
-            "message": "What?"
-         }
-      ]
-   },
-   {
       "id":"37",
       "description":"If the premise of the argument is falsified with a counter example, rather than changing the conclusion, the arguer changes the definition of a major premise to make both the premise and the conclusion true. Typically, the arguer makes a sweeping generalization about an entire group. This is usually done by implying that the group is bound and defined by the arbitrary quality. If an exception to this generalization is pointed out, the arguer dismisses the exception as not truly belonging to the group in the first place.",
       "name":"No True Scotsman",
@@ -857,6 +464,21 @@
          {
             "name": "Blathering Bill",
             "message": "They aren't real cops."
+         }
+      ]
+   },
+   {
+      "id":"69",
+      "description":"A conclusion or statement that does not logically follow from the previous argument or statement.",
+      "name":"Non Sequitur",
+      "dialogue": [
+         {
+            "name": "Blathering Bill",
+            "message": "Brush your teeth every morning. Help fight injustice."
+         },
+         {
+            "name": "Rational Rob",
+            "message": "What?"
          }
       ]
    },
@@ -891,25 +513,6 @@
          {
             "name": "Rational Rob",
             "message": "Are you sure that's the reason?"
-         }
-      ]
-   },
-   {
-      "id":"40",
-      "description":"Refers to the selective excerpting of words from their original context in a way that distorts the source's intended meaning.",
-      "name":"Quoting out of Context",
-      "dialogue": [
-         {
-            "name": "Blathering Bill",
-            "message": "I just want to quote from Einstein. 'Science without religion is lame, religion without science is blind.' From Steven Hawking: 'It would be very difficult to explain why the universe would have begun just this way, except as the act of a god who intended to create beings like us.'"
-         },
-         {
-            "name": "Rational Rob",
-            "message": "Wasn't Einstein an atheist?"
-         },
-         {
-            "name": "Blathering Bill",
-            "message": "Nope. I've got the quote right here."
          }
       ]
    },
@@ -1025,9 +628,28 @@
       ]
    },
    {
+      "id":"27",
+      "description":"The mistaken belief that a random event must be due to happen soon if it has not happened in an unusually long time.",
+      "name":"The Gambler's Fallacy",
+      "dialogue": [
+         {
+            "name": "Blathering Bill",
+            "message": "I'm gonna order a new jacket just so I'm prepared for the blizzard that's header our way."
+         },
+         {
+            "name": "Rational Rob",
+            "message": "We're in Miami. It doesn't even snow here."
+         },
+         {
+            "name": "Blathering Bill",
+            "message": "My point exactly. It hasn't snowed here in so long that we're long overdue for a snow storm. Any day now..."
+         }
+      ]
+   },
+   {
       "id":"46",
       "description":"Cherry picking data that supports your contention while ignoring data that contradcits it. Basically, confirmation bias.",
-      "name":"Texas Sharpshooter",
+      "name":"The Texas Sharpshooter",
       "dialogue": [
          {
             "name": "Blathering Bill",
@@ -1046,12 +668,6 @@
             "message": "If you make enough predictions, then sooner or later some of them will probably become true. But, that's because of pure luck; not any uncanny ability to predict the future with accuracy."
          }
       ]
-   },
-   {
-      "id":"68",
-      "description":"Clickbaity headline that is given to content that is supposed to feature hard, objective facts. If the headline of an article or the title of a video begins with these three words there is an almost 100% certainty that it's just gossip, opinions, trivia, and lackluster arguments.",
-      "name":"The Truth About...",
-      "dialogue": []
    },
    {
       "id":"47",
@@ -1080,6 +696,17 @@
          {
             "name": "Blathering Bill",
             "message": "Well, Mark and I have both worked as programmers."
+         }
+      ]
+   },
+   {
+      "id":"3",
+      "description":"This is an attack on the circumstances of the arguer. May imply ulterior motives or conflict of interests.",
+      "name":"Tu Quoque",
+      "dialogue": [
+         {
+            "name": "Blathering Bill",
+            "message": "Rob says that cigarettes cause lung cancer but he smokes a pack a day. Smoking doesn't cause cancer!"
          }
       ]
    },
@@ -1125,21 +752,7 @@
          }
       ]
    },
-   {
-      "id":"59",
-      "description":"When one accuses the victim of being responsible for their own misfortune.",
-      "name":"Victim Blaming",
-      "dialogue": [
-         {
-            "name": "Rational Rob",
-            "message": "Did you hear what happened to Brittany last night? She was sexually assaulted by two guys!"
-         },
-         {
-            "name": "Blathering Bill",
-            "message": "She shouldn't have been wearing those low cut dresses and high heels that she always wears. Everyone knows how horny men get when they're drunk. She'll learn."
-         }
-      ]
-   },
+   
    {
       "id":"51",
       "description":"This happens when someone changes the definition of a word in such a way that reality conforms to their biases or lies.",

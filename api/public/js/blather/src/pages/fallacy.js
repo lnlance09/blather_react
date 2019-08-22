@@ -581,9 +581,9 @@ class Fallacy extends Component {
 
 		const ReferenceSection = (
 			<div className="fallacyContent">
-				<Header size="large">Reference</Header>
 				{this.props.id ? (
 					<div>
+						<Divider />
 						<FallacyRef canScreenshot={false} id={this.props.fallacyId} />
 					</div>
 				) : (
@@ -596,7 +596,6 @@ class Fallacy extends Component {
 			<div className="retractionContent">
 				{props.user ? (
 					<div>
-						<Header size="large">Status</Header>
 						<Container className="retractionContainer">
 							<Card fluid>
 								<Card.Content>
@@ -725,7 +724,7 @@ class Fallacy extends Component {
 			if (props.id) {
 				return (
 					<div className="similarContent">
-						<Header size="large">Similar fallacies</Header>
+						<Divider />
 						<FallaciesList
 							emptyMsgContent="There are no similar fallacies"
 							exclude={[props.id]}
