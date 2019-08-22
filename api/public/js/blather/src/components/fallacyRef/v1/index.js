@@ -1,5 +1,4 @@
 import "./style.css"
-import { formatGrammar } from "utils/textFunctions"
 import { connect } from "react-redux"
 import { Comment, Header, Icon, Segment } from "semantic-ui-react"
 import BillPic from "images/avatar/small/mark.png"

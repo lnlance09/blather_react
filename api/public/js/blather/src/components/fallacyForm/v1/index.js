@@ -522,70 +522,75 @@ class FallacyForm extends Component {
 			return null
 		}
 
+		const MainForm = props => (
+			<Form
+				error={props.fallacyFormError || cError || !cValid}
+				onSubmit={this.onSubmitForm}
+				unstackable
+			>
+				{canAssign && (
+					<div>
+						{StartTime(props)}
+						<div className="selectAssignee">{SelectAssignee(props)}</div>
+					</div>
+				)}
+				<Form.Field>
+					<Dropdown
+						className="fallacyDropdown"
+						defaultValue={id}
+						fluid
+						onChange={this.onChangeFallacy}
+						options={fallacyDropdownOptions}
+						placeholder="Select a fallacy"
+						search
+						selection
+					/>
+					<FallacyRef
+						canScreenshot={false}
+						className="fallacyRef"
+						id={parseInt(id, 10)}
+					/>
+				</Form.Field>
+				{ContradictionInput(props)}
+				<Divider />
+				<Form.Field>
+					<Input
+						className="titleField"
+						fluid
+						onChange={this.onChangeTitle}
+						placeholder="Title"
+						value={title}
+					/>
+				</Form.Field>
+				<Form.Field className="explanationField">
+					<TextArea
+						autoHeight
+						onChange={this.onChangeExplanation}
+						placeholder="Explain how this is a fallacy"
+						rows={5}
+						value={explanation}
+					/>
+				</Form.Field>
+				<ErrorMsg props={props} />
+				<Button color="blue" content="Assign" fluid type="submit" />
+				<div className="clearfix" />
+			</Form>
+		)
+
 		return (
 			<Provider store={store}>
-				<Card className="fallacyForm" fluid>
-					<Card.Content>
-						<Card.Header className="formHeader">Does this make sense?</Card.Header>
-						<Card.Meta>Assign a fallacy</Card.Meta>
-					</Card.Content>
-					<Card.Content>
-						<Form
-							error={this.props.fallacyFormError || cError || !cValid}
-							onSubmit={this.onSubmitForm}
-							unstackable
-						>
-							{canAssign && (
-								<div>
-									{StartTime(this.props)}
-									<div className="selectAssignee">
-										{SelectAssignee(this.props)}
-									</div>
-								</div>
-							)}
-							<Form.Field>
-								<Dropdown
-									className="fallacyDropdown"
-									defaultValue={id}
-									fluid
-									onChange={this.onChangeFallacy}
-									options={fallacyDropdownOptions}
-									placeholder="Select a fallacy"
-									search
-									selection
-								/>
-								<FallacyRef
-									canScreenshot={false}
-									className="fallacyRef"
-									id={parseInt(id, 10)}
-								/>
-							</Form.Field>
-							{ContradictionInput(this.props)}
-							<Divider />
-							<Form.Field>
-								<Input
-									className="titleField"
-									fluid
-									onChange={this.onChangeTitle}
-									placeholder="Title"
-									value={title}
-								/>
-							</Form.Field>
-							<Form.Field className="explanationField">
-								<TextArea
-									autoHeight
-									onChange={this.onChangeExplanation}
-									placeholder="Explain how this is a fallacy"
-									rows={5}
-									value={explanation}
-								/>
-							</Form.Field>
-							<ErrorMsg props={this.props} />
-							<Button color="blue" content="Assign a fallacy" fluid type="submit" />
-							<div className="clearfix" />
-						</Form>
-					</Card.Content>
-				</Card>
+				{this.props.useCard ? (
+					<Card className="fallacyForm" fluid>
+						<Card.Content>
+							<Card.Header className="formHeader">Does this make sense?</Card.Header>
+							<Card.Meta>Assign a fallacy</Card.Meta>
+						</Card.Content>
+						<Card.Content>{MainForm(this.props)}</Card.Content>
+					</Card>
+				) : (
+					<div className="fallacyForm">{MainForm(this.props)}</div>
+				)}
+
 				<div>{SuccessModal(this.props)}</div>
 			</Provider>
 		)
@@ -643,7 +648,8 @@ FallacyForm.propTypes = {
 	setContradictionEndTime: PropTypes.func,
 	setContradictionHighlight: PropTypes.func,
 	startTime: PropTypes.string,
-	toggleModal: PropTypes.func
+	toggleModal: PropTypes.func,
+	useCard: PropTypes.bool
 }
 
 FallacyForm.defaultProps = {
@@ -663,7 +669,8 @@ FallacyForm.defaultProps = {
 	setContradictionEndTime,
 	setContradictionHighlight,
 	startTime: "0",
-	toggleModal
+	toggleModal,
+	useCard: false
 }
 
 const mapStateToProps = (state, ownProps) => ({

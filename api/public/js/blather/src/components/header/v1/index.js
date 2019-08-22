@@ -16,6 +16,7 @@ import {
 	Sidebar
 } from "semantic-ui-react"
 import fallacies from "fallacies.json"
+import ImagePic from "images/brain-fart.gif"
 import LoadingBar from "react-redux-loading-bar"
 import Logo from "./images/logo.svg"
 import NavSearch from "components/search/v1/"
@@ -70,7 +71,16 @@ class Header extends Component {
 
 		const LoginButton = props => {
 			if (props.authenticated) {
-				const trigger = <Image avatar bordered circular rounded src={props.data.img} />
+				const trigger = (
+					<Image
+						avatar
+						bordered
+						circular
+						onError={i => (i.target.src = ImagePic)}
+						rounded
+						src={props.data.img}
+					/>
+				)
 				return (
 					<Menu.Item position="right">
 						<Dropdown

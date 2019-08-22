@@ -1,15 +1,15 @@
 import "pages/css/index.css"
 import { getPostFromUrl } from "pages/actions/home"
 import { connect, Provider } from "react-redux"
+import { Link } from "react-router-dom"
 import { DisplayMetaTags } from "utils/metaFunctions"
-import { Container, Header, Input, Message } from "semantic-ui-react"
+import { Container, Divider, Header, Icon, Input, Message, Segment } from "semantic-ui-react"
 import FallacyForm from "components/fallacyForm/v1/"
-import Logo from "images/trump.svg"
 import PageFooter from "components/footer/v1/"
 import PageHeader from "components/header/v1/"
+import queryString from "query-string"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
-import ReactSVG from "react-svg"
 import store from "store"
 import Tweet from "components/tweet/v1/"
 
@@ -21,13 +21,15 @@ class Home extends Component {
 		const user = currentState.user
 		const auth = user.authenticated
 		const bearer = user.bearer
-		const url = ""
+
+		const qs = queryString.parse(this.props.location.search)
+		const url = qs.url
 
 		this.state = {
 			auth,
 			bearer,
 			endTime: "",
-			fallacyId: "56",
+			fallacyId: "1",
 			formVisible: true,
 			highlightedText: "IF YOU ARE NOT HAPPY HERE, YOU CAN LEAVE!",
 			startTime: "",
@@ -50,6 +52,18 @@ class Home extends Component {
 		window.scrollTo({ top: 0, behavior: "smooth" })
 	}
 
+	componentWillMount(newProps) {
+		const qs = queryString.parse(this.props.location.search)
+		const url = qs.url
+		if (this.state.url !== url) {
+			this.setState({ url })
+			this.props.getPostFromUrl({
+				bearer: this.state.bearer,
+				url
+			})
+		}
+	}
+
 	handleHoverOn = e => {
 		let text = ""
 		if (window.getSelection) {
@@ -69,7 +83,6 @@ class Home extends Component {
 	onPaste = e => {
 		const url = e.clipboardData.getData("Text")
 		this.setState({ url })
-
 		this.props.getPostFromUrl({
 			bearer: this.state.bearer,
 			url
@@ -93,95 +106,116 @@ class Home extends Component {
 
 		return (
 			<Provider store={store}>
-				<div className="aboutPage">
+				<div className="homePage">
 					<DisplayMetaTags page="home" props={this.props} state={this.state} />
 					<PageHeader {...this.props} />
 					<Container className="mainContainer" textAlign="left">
 						<div>
-							<ReactSVG
-								className="heroLogo"
-								evalScripts="always"
-								src={Logo}
-								svgClassName="heroLogo"
-							/>
-							<Header as="h1" className="heroHeader" textAlign="center">
-								Pick a Tweet. Any Tweet.
-								<Header.Subheader>Assign a Logical Fallacy</Header.Subheader>
+							<Header as="h1" attached="top" className="heroHeader">
+								Pick a tweet. Any tweet.
+								<Header.Subheader>Assign a logical fallacy</Header.Subheader>
 							</Header>
-							<Input
-								className="heroInput"
-								fluid
-								icon="twitter"
-								iconPosition="left"
-								onKeyUp={this.onKeyUp}
-								onPaste={this.onPaste}
-								placeholder="Paste a link to a Tweet"
-								size="large"
-								value={url}
-							/>
-
-							<div className="postContainer">
-								{type === "tweet" && (
-									<Tweet
-										bearer={bearer}
-										created_at={info.created_at}
-										extended_entities={info.extended_entities}
-										externalLink
-										highlight={highlightedText !== ""}
-										highlightedText={highlightedText}
-										full_text={info.full_text}
-										handleHoverOn={this.handleHoverOn}
-										id={info.id_str}
-										imageSize="medium"
-										is_quote_status={info.is_quote_status}
-										profileImg={this.props.profileImg}
-										quoted_status={
-											info.quoted_status === undefined && info.is_quote_status
-												? info.retweeted_status
-												: info.quoted_status
-										}
-										quoted_status_id_str={info.quoted_status_id_str}
-										quoted_status_permalink={info.quoted_status_permalink}
-										retweeted_status={
-											info.retweeted_status === undefined
-												? false
-												: info.retweeted_status
-										}
-										stats={{
-											favorite_count: info.favorite_count,
-											retweet_count: info.retweet_count
-										}}
-										useLocalProfilePic
-										user={info.user}
-									/>
-								)}
-								{type === "video" && (
-									<Message
-										content="Link your YouTube account to assign fallacies to videos"
-										warning
-									/>
-								)}
-							</div>
-
-							{validPost && (
-								<FallacyForm
-									authenticated={auth}
-									bearer={bearer}
-									commentId={type === "comment" ? id : null}
-									endTime={endTime}
-									fallacyId={fallacyId}
-									handleSubmit={this.handleSubmit}
-									highlightedText={highlightedText}
-									history={this.props.history}
-									network={this.props.network}
-									objectId={mediaId}
-									pageInfo={page}
-									sendNotification={this.props.sendNotification}
-									startTime={startTime}
-									type={type}
-									user={user}
+							<Segment attached className="heroSegment">
+								<Input
+									className="heroInput"
+									fluid
+									icon="twitter"
+									iconPosition="left"
+									onKeyUp={this.onKeyUp}
+									onPaste={this.onPaste}
+									placeholder="Paste a link to a Tweet"
+									size="large"
+									value={url}
 								/>
-							)}
+								<Divider />
+
+								{validPost ? (
+									<div>
+										<div className="postContainer">
+											{type === "tweet" && (
+												<Tweet
+													bearer={bearer}
+													created_at={info.created_at}
+													extended_entities={info.extended_entities}
+													externalLink
+													highlight={highlightedText !== ""}
+													highlightedText={highlightedText}
+													full_text={info.full_text}
+													handleHoverOn={this.handleHoverOn}
+													id={info.id_str}
+													imageSize="medium"
+													is_quote_status={info.is_quote_status}
+													profileImg={this.props.profileImg}
+													quoted_status={
+														info.quoted_status === undefined &&
+														info.is_quote_status
+															? info.retweeted_status
+															: info.quoted_status
+													}
+													quoted_status_id_str={info.quoted_status_id_str}
+													quoted_status_permalink={
+														info.quoted_status_permalink
+													}
+													retweeted_status={
+														info.retweeted_status === undefined
+															? false
+															: info.retweeted_status
+													}
+													stats={{
+														favorite_count: info.favorite_count,
+														retweet_count: info.retweet_count
+													}}
+													useLocalProfilePic
+													user={info.user}
+												/>
+											)}
+											{type === "video" && (
+												<Message
+													content="Link your YouTube account to assign fallacies to videos"
+													warning
+												/>
+											)}
+										</div>
+
+										<Divider />
+										<FallacyForm
+											authenticated={auth}
+											bearer={bearer}
+											commentId={type === "comment" ? id : null}
+											endTime={endTime}
+											fallacyId={fallacyId}
+											handleSubmit={this.handleSubmit}
+											highlightedText={highlightedText}
+											history={this.props.history}
+											network={this.props.network}
+											objectId={mediaId}
+											pageInfo={page}
+											sendNotification={this.props.sendNotification}
+											startTime={startTime}
+											type={type}
+											useCard={false}
+											user={user}
+										/>
+
+										{!auth && (
+											<Message warning>
+												<Message.Content>
+													<Message.Header>Sign in</Message.Header>
+													This will be assigned anonymously. It is
+													recommended that you{" "}
+													<Link to="/signin">sign in</Link>
+												</Message.Content>
+											</Message>
+										)}
+									</div>
+								) : (
+									<Segment padded="very" placeholder>
+										<Header icon>
+											<Icon className="twitterIcon" name="twitter" />
+										</Header>
+									</Segment>
+								)}
+							</Segment>
 						</div>
 					</Container>
 					<PageFooter />
