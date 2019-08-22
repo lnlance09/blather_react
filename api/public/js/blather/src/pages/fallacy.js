@@ -32,7 +32,6 @@ import {
 	Header,
 	Icon,
 	Image,
-	Label,
 	List,
 	Message,
 	Modal,

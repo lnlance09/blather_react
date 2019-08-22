@@ -9,6 +9,8 @@ import {
 	removeTwitter,
 	removeYouTube,
 	resetPasswordProps,
+	setPatreonUsername,
+	togglePatreonLoading,
 	twitterRequestToken
 } from "components/authentication/v1/actions"
 import { Provider, connect } from "react-redux"
@@ -71,12 +73,14 @@ class SettingsPage extends Component {
 			confirmPassword: "",
 			loading: false,
 			newPassword: "",
-			password: ""
+			password: "",
+			patreonUsername: this.props.data.patreonUsername
 		}
 
-		this.onChangePassword = this.onChangePassword.bind(this)
-		this.onChangeNewPassword = this.onChangeNewPassword.bind(this)
 		this.onChangeConfirmPassword = this.onChangeConfirmPassword.bind(this)
+		this.onChangeNewPassword = this.onChangeNewPassword.bind(this)
+		this.onChangePassword = this.onChangePassword.bind(this)
+		this.onChangePatroenUsername = this.onChangePatroenUsername.bind(this)
 		this.redirectToUrl = this.redirectToUrl.bind(this)
 		this.setPassword = this.setPassword.bind(this)
 	}
@@ -116,6 +120,8 @@ class SettingsPage extends Component {
 
 	onChangePassword = (e, { value }) => this.setState({ password: value })
 
+	onChangePatroenUsername = (e, { value }) => this.setState({ patreonUsername: value })
+
 	redirectToUrl = e => {
 		let url = null
 		switch (this.state.activeItem) {
@@ -144,15 +150,24 @@ class SettingsPage extends Component {
 	}
 
 	render() {
-		const { activeItem, confirmPassword, loading, newPassword, password } = this.state
+		const {
+			activeItem,
+			confirmPassword,
+			loading,
+			newPassword,
+			password,
+			patreonUsername
+		} = this.state
+
+		const { bearer, data } = this.props
 
 		const ActiveItemDiv = activeItem => {
 			if (activeItem === "basic") {
-				const joinDate = adjustTimezone(this.props.data.dateCreated)
+				const joinDate = adjustTimezone(data.dateCreated)
 				return (
 					<div className="changePasswordBox">
 						<p>
-							<b>{this.props.data.name}</b>
+							<b>{data.name}</b>
 						</p>
 						<p>
 							<Icon name="clock" /> Joined{" "}
@@ -206,6 +221,47 @@ class SettingsPage extends Component {
 				)
 			}
 
+			if (activeItem === "patreon") {
+				return (
+					<div>
+						<Message
+							className="patreonMsg"
+							content="Get paid to to do the Lord's work"
+							header="Enter your Patreon username"
+							icon="patreon"
+						/>
+						<Form
+							onSubmit={() => {
+								this.props.togglePatreonLoading()
+								this.props.setPatreonUsername({ bearer, patreonUsername })
+							}}
+						>
+							<Form.Field>
+								<Input
+									fluid
+									icon
+									onChange={this.onChangePatroenUsername}
+									placeholder="Your patreon username"
+									value={patreonUsername}
+								>
+									<input />
+									<Icon className="patreonIcon" name="patreon" />
+								</Input>
+							</Form.Field>
+							<Form.Field>
+								<Button
+									color="blue"
+									content="Update"
+									disabled={patreonUsername === ""}
+									fluid
+									loading={this.props.patreonLoading}
+								/>
+							</Form.Field>
+						</Form>
+					</div>
+				)
+			}
+
 			if (activeItem === "twitter") {
 				const list = [
 					"Basic info. This includes your name, username, and profile picture.",
@@ -214,12 +270,12 @@ class SettingsPage extends Component {
 
 				return (
 					<div>
-						{this.props.data.linkedTwitter ? (
+						{data.linkedTwitter ? (
 							<div>
 								<p className="firstParagraph">
 									<Icon name="clock" /> You linked your Twitter account{" "}
 									<Moment
-										date={adjustTimezone(this.props.data.twitterDate)}
+										date={adjustTimezone(data.twitterDate)}
 										fromNow
 										interval={60000}
 									/>
@@ -228,7 +284,7 @@ class SettingsPage extends Component {
 									<Button
 										as="a"
 										color="twitter"
-										onClick={e => this.props.removeTwitter(this.props.bearer)}
+										onClick={e => this.props.removeTwitter(bearer)}
 									>
 										<Icon name="twitter" /> Remove access
 									</Button>
@@ -236,7 +292,7 @@ class SettingsPage extends Component {
 							</div>
 						) : (
 							<div>
-								<Message header="What we are requesting" info list={list} />
+								<Message header="What we are requesting" list={list} />
 								<p className="firstParagraph">
 									<Button color="twitter" onClick={this.redirectToUrl}>
 										<Icon name="twitter" /> Link your account
@@ -256,12 +312,12 @@ class SettingsPage extends Component {
 
 				return (
 					<div>
-						{this.props.data.linkedYoutube ? (
+						{data.linkedYoutube ? (
 							<div>
 								<p className="firstParagraph">
 									<Icon name="clock" /> You linked your YouTube account{" "}
 									<Moment
-										date={adjustTimezone(this.props.data.youtubeDate)}
+										date={adjustTimezone(data.youtubeDate)}
 										fromNow
 										interval={60000}
 									/>
@@ -270,7 +326,7 @@ class SettingsPage extends Component {
 									<Button
 										as="a"
 										color="youtube"
-										onClick={e => this.props.removeYouTube(this.props.bearer)}
+										onClick={e => this.props.removeYouTube(bearer)}
 									>
 										<Icon name="youtube" /> Remove access
 									</Button>
@@ -278,7 +334,7 @@ class SettingsPage extends Component {
 							</div>
 						) : (
 							<div>
-								<Message header="What we are requesting" info list={list} />
+								<Message header="What we are requesting" list={list} />
 								<p className="firstParagraph">
 									<Button color="youtube" onClick={this.redirectToUrl}>
 										<Icon name="youtube" /> Link your account
@@ -305,7 +361,7 @@ class SettingsPage extends Component {
 					name="twitter"
 					onClick={this.handleItemClick}
 				>
-					Twitter
+					<Icon className="twitterIcon" name="twitter" /> Twitter
 				</Menu.Item>
 				<Menu.Item
 					active={activeItem === "youtube"}
@@ -313,7 +369,15 @@ class SettingsPage extends Component {
 					name="youtube"
 					onClick={this.handleItemClick}
 				>
-					YouTube
+					<Icon className="youtubeIcon" name="youtube" /> YouTube
+				</Menu.Item>
+				<Menu.Item
+					active={activeItem === "patreon"}
+					key="patreon"
+					name="patreon"
+					onClick={this.handleItemClick}
+				>
+					<Icon className="patreonIcon" name="patreon" /> Patreon
 				</Menu.Item>
 			</Menu>
 		)
@@ -352,6 +416,7 @@ SettingsPage.propTypes = {
 		img: PropTypes.string,
 		linkedTwitter: PropTypes.bool,
 		linkedYoutube: PropTypes.bool,
+		patreonUsername: PropTypes.string,
 		twitterAccessToken: PropTypes.string,
 		twitterAccessSecret: PropTypes.string,
 		twitterDate: PropTypes.string,
@@ -369,9 +434,12 @@ SettingsPage.propTypes = {
 	passwordChangeSuccessful: PropTypes.bool,
 	passwordError: PropTypes.bool,
 	passwordErrorMsg: PropTypes.string,
+	patreonLoading: PropTypes.bool,
 	removeTwitter: PropTypes.func,
 	removeYouTube: PropTypes.func,
-	resetPasswordProps: PropTypes.func
+	resetPasswordProps: PropTypes.func,
+	setPatreonUsername: PropTypes.func,
+	togglePatreonLoading: PropTypes.func
 }
 
 SettingsPage.defaultProps = {
@@ -381,6 +449,8 @@ SettingsPage.defaultProps = {
 	removeTwitter,
 	removeYouTube,
 	resetPasswordProps,
+	setPatreonUsername,
+	togglePatreonLoading,
 	twitterRequestToken
 }
 
@@ -400,6 +470,8 @@ export default connect(
 		removeTwitter,
 		removeYouTube,
 		resetPasswordProps,
+		setPatreonUsername,
+		togglePatreonLoading,
 		twitterRequestToken
 	}
 )(SettingsPage)

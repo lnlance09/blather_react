@@ -46,16 +46,10 @@
       font-size: 15px !important;
       font-weight: bold !important;
       line-height: 35.5px; }
-  .pageHeader .menu.globalHeader .headerContainer .dropDownMenu {
-    font-size: 15px; }
-    .pageHeader .menu.globalHeader .headerContainer .dropDownMenu button {
-      margin-right: 0; }
-    .pageHeader .menu.globalHeader .headerContainer .dropDownMenu .menu.visible {
-      margin-top: 17px;
-      width: 100%;
-      z-index: 1001; }
+  .pageHeader .menu.globalHeader .headerContainer .dropDownMenu .menu.visible {
+    z-index: 1001; }
 
-.pageHeader .sidebar {
-  top: 72px !important; }
-  .pageHeader .sidebar .sidebarSearchBtn {
+.pageHeader .sidebar.menu {
+  padding-top: 70px; }
+  .pageHeader .sidebar.menu .sidebarSearchBtn {
     margin-top: 8px; }

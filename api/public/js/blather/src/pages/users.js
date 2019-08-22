@@ -13,6 +13,7 @@ import {
 	Icon,
 	Image,
 	Label,
+	List,
 	Menu,
 	Placeholder,
 	Segment
@@ -85,13 +86,15 @@ class UserPage extends Component {
 				bearer: this.state.bearer,
 				username
 			})
+		}
 
-			const isMyProfile = username === this.state.myUsername
-			let tab = newProps.match.params.tab
-			if (!this.state.tabs.includes(tab)) {
-				tab = "fallacies"
-			}
+		const isMyProfile = username === this.state.myUsername
+		let tab = newProps.match.params.tab
+		if (!this.state.tabs.includes(tab)) {
+			tab = "fallacies"
+		}
 
+		if (this.state.username !== username || this.state.tab !== tab) {
 			this.setState({
 				activeItem: tab,
 				isMyProfile,
@@ -267,19 +270,46 @@ class UserPage extends Component {
 										)}
 									</Segment>
 									<div className="userHeaderSection">
-										<TitleHeader
-											subheader={
-												<span className="joinDate">
-													{user.username} • Joined{" "}
-													<Moment
-														date={adjustTimezone(user.dateCreated)}
-														fromNow
-													/>
-												</span>
-											}
-											textAlign="center"
-											title={user.name}
-										/>
+										<TitleHeader textAlign="center" title={user.name} />
+										{this.props.user.id && (
+											<List horizontal>
+												<List.Item>
+													<List.Content>
+														<Icon color="red" name="at" />{" "}
+														{user.username}
+													</List.Content>
+												</List.Item>
+												<List.Item>
+													<List.Content>
+														<Icon color="blue" name="clock" />
+														Joined{" "}
+														<Moment
+															date={adjustTimezone(user.dateCreated)}
+															fromNow
+														/>
+													</List.Content>
+												</List.Item>
+												{user.patreonUsername && (
+													<List.Item>
+														<List.Content>
+															<Icon
+																className="patreonIcon"
+																name="patreon"
+															/>{" "}
+															<a
+																href={`https://patreon.com/${
+																	user.patreonUsername
+																}`}
+																rel="noopener noreferrer"
+																target="_blank"
+															>
+																{user.patreonUsername}
+															</a>
+														</List.Content>
+													</List.Item>
+												)}
+											</List>
+										)}
 									</div>
 								</Container>
 
@@ -322,6 +352,7 @@ UserPage.propTypes = {
 		img: PropTypes.string,
 		linkedTwitter: PropTypes.bool,
 		linkedYoutube: PropTypes.bool,
+		patreonUsername: PropTypes.string,
 		name: PropTypes.string,
 		username: PropTypes.string
 	})

@@ -9,6 +9,7 @@ import {
 	Dropdown,
 	Grid,
 	Icon,
+	Image,
 	Input,
 	Menu,
 	Responsive,
@@ -22,6 +23,7 @@ import PropTypes from "prop-types"
 import React, { Component } from "react"
 import ReactSVG from "react-svg"
 import store from "store"
+import Url from "url-parse"
 
 class Header extends Component {
 	constructor(props) {
@@ -31,6 +33,7 @@ class Header extends Component {
 			value: "",
 			visible: false
 		}
+
 		this.onLogout = this.onLogout.bind(this)
 	}
 
@@ -45,8 +48,10 @@ class Header extends Component {
 
 	onLogout() {
 		this.props.logout()
-		this.setState({ authenticated: false })
-		this.props.history.push("/")
+		const parsed = new Url(window.location)
+		if (parsed.pathname !== "/") {
+			window.location.reload()
+		}
 	}
 
 	render() {
@@ -65,28 +70,43 @@ class Header extends Component {
 
 		const LoginButton = props => {
 			if (props.authenticated) {
-				const trigger = <Button color="blue">{props.data.name}</Button>
+				const trigger = <Image avatar bordered circular rounded src={props.data.img} />
 				return (
-					<Menu.Item direction="right" position="right">
-						<Dropdown className="dropDownMenu" fluid icon={false} trigger={trigger}>
+					<Menu.Item position="right">
+						<Dropdown
+							className="dropDownMenu"
+							icon={false}
+							pointing="top right"
+							trigger={trigger}
+						>
 							<Dropdown.Menu>
 								<Dropdown.Item
-									icon="user"
 									onClick={() =>
 										props.history.push(`/users/${props.data.username}`)
 									}
-									text="Profile"
+									text={props.data.name}
+								/>
+								<Dropdown.Divider />
+								<Dropdown.Item
+									onClick={() =>
+										props.history.push(
+											`/users/${props.data.username}/fallacies`
+										)
+									}
+									text="My Fallacies"
 								/>
 								<Dropdown.Item
-									icon="settings"
+									onClick={() =>
+										props.history.push(`/users/${props.data.username}/archives`)
+									}
+									text="My Archives"
+								/>
+								<Dropdown.Divider />
+								<Dropdown.Item
 									onClick={() => props.history.push(`/settings`)}
 									text="Settings"
 								/>
-								<Dropdown.Item
-									icon="sign out"
-									onClick={this.onLogout}
-									text="Log out"
-								/>
+								<Dropdown.Item onClick={this.onLogout} text="Log out" />
 							</Dropdown.Menu>
 						</Dropdown>
 					</Menu.Item>
@@ -200,21 +220,13 @@ class Header extends Component {
 						</Menu.Item>
 						{!this.props.authenticated ? (
 							<Menu.Item>
-								<Button.Group fluid>
-									<Button
-										color="teal"
-										content="Sign In"
-										onClick={() =>
-											this.props.history.push("/signin?type=signin")
-										}
-									/>
-									<Button.Or />
-									<Button
-										color="green"
-										content="Join"
-										onClick={() => this.props.history.push("/signin?type=join")}
-									/>
-								</Button.Group>
+								<Button
+									color="green"
+									content="Sign In"
+									fluid
+									icon="sign in"
+									onClick={() => this.props.history.push("/signin?type=join")}
+								/>
 							</Menu.Item>
 						) : (
 							<Menu.Item onClick={this.onLogout}>Sign Out</Menu.Item>

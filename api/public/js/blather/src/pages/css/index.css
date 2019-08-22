@@ -96,6 +96,9 @@ a {
 .youtubeIcon {
   color: #ff0000; }
 
+.patreonIcon {
+  color: #f96854; }
+
 .sticky.noteIcon {
   color: #FBBD08; }
 
@@ -574,15 +577,8 @@ a {
 
 .settingsPage .settingsContent {
   width: 100%; }
-  .settingsPage .settingsContent .segment.basic {
-    margin-top: 0;
-    min-height: 400px;
-    padding-left: 0;
-    padding-right: 0; }
-    .settingsPage .settingsContent .segment.basic .contentWrapper {
-      text-align: center; }
-    .settingsPage .settingsContent .segment.basic .changePasswordBox .button {
-      float: right; }
+  .settingsPage .settingsContent .patreonMsg .icon {
+    color: #f96854; }
 
 /* Signin page */
 .loginContainer {
