@@ -638,7 +638,7 @@
 ?>
 
         <link rel="stylesheet" type="text/css" href="/static/css/1.61d008cc.chunk.css">
-        <link rel="stylesheet" type="text/css" href="/static/css/main.0b936885.chunk.css">
+        <link rel="stylesheet" type="text/css" href="/static/css/main.72b0dd31.chunk.css">
         <link rel="manifest" href="/manifest.json">
         <link rel="shortcut icon" href="/favicon.ico?v=3">
         <link rel="apple-touch-icon" sizes="128x128" href="/favicon.ico?v=3">
@@ -657,7 +657,7 @@
     </body>
 
     <script src="/static/js/1.5c848c92.chunk.js"></script>
-    <script src="/static/js/main.2ef0a10c.chunk.js"></script>
+    <script src="/static/js/main.f50ca205.chunk.js"></script>
     <script src="/static/js/runtime~main.229c360f.js"></script>
 
 <?php
