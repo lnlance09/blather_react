@@ -111,11 +111,11 @@ class Home extends Component {
 					<PageHeader {...this.props} />
 					<Container className="mainContainer" textAlign="left">
 						<div>
-							<Header as="h1" attached="top" className="heroHeader">
+							<Header as="h1" className="heroHeader">
 								Pick a tweet. Any tweet.
 								<Header.Subheader>Assign a logical fallacy</Header.Subheader>
 							</Header>
-							<Segment attached className="heroSegment">
+							<Segment className="heroSegment">
 								<Input
 									className="heroInput"
 									fluid
