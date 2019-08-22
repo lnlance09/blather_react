@@ -32,6 +32,8 @@
                 word-break: break-word;
 
                 .description {
+                    max-height: 240px;
+                    overflow: hidden;
                     white-space: pre-line;
                 }
             }

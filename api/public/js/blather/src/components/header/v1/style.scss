@@ -70,23 +70,15 @@
             }
 
             .dropDownMenu {
-                font-size: 15px;
-
-                button {
-                    margin-right: 0;
-                }
-
                 .menu.visible {
-                    margin-top: 17px;
-                    width: 100%;
                     z-index: 1001;
                 }
             }
         }
     }
 
-    .sidebar {
-        top: 72px !important;
+    .sidebar.menu {
+        padding-top: 70px;
 
         .sidebarSearchBtn {
             margin-top: 8px;

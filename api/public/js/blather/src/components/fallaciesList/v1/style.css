@@ -20,6 +20,8 @@
   .fallaciesList .cards .card .content {
     word-break: break-word; }
     .fallaciesList .cards .card .content .description {
+      max-height: 240px;
+      overflow: hidden;
       white-space: pre-line; }
   .fallaciesList .cards .card .image.parent {
     background: #2185D0 !important;

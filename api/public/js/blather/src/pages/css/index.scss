@@ -147,6 +147,10 @@ a {
     color: $youtube;
 }
 
+.patreonIcon {
+    color: $patreon;
+}
+
 .sticky.noteIcon {
     color: $yellow;
 }
@@ -948,20 +952,9 @@ a {
     .settingsContent {
         width: 100%;
 
-        .segment.basic {
-            margin-top: 0;
-            min-height: 400px;
-            padding-left: 0;
-            padding-right: 0;
-
-            .contentWrapper {
-                text-align: center;
-            }
-
-            .changePasswordBox {
-                .button {
-                    float: right;
-                }
+        .patreonMsg {
+            .icon {
+                color: $patreon;
             }
         }
     }

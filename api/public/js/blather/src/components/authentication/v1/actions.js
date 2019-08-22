@@ -248,6 +248,36 @@ export const resetPasswordProps = () => dispatch => {
 	})
 }
 
+export const setPatreonUsername = ({ bearer, patreonUsername }) => dispatch => {
+	request.post(
+		`${window.location.origin}/api/users/update`,
+		{
+			form: {
+				patreonUsername
+			},
+			headers: {
+				Authorization: bearer
+			},
+			json: true
+		},
+		function(err, response, body) {
+			if (!body.error) {
+				let localData = parseJwt()
+				localData.patreonUsername = body.data.patreon_username
+				const token = setToken(localData)
+
+				dispatch({
+					payload: {
+						patreonUsername: body.data.patreon_username,
+						bearer: token
+					},
+					type: constants.SET_PATREON_USERNAME
+				})
+			}
+		}
+	)
+}
+
 export const submitGoogleForm = ({ accessToken, email, id, idToken, img, name }) => dispatch => {
 	request.post(
 		`${window.location.origin}/api/users/registerWithGoogle`,
@@ -339,6 +369,12 @@ export const switchTab = tab => dispatch => {
 	})
 }
 
+export const togglePatreonLoading = () => dispatch => {
+	dispatch({
+		type: constants.TOGGLE_PATREON_LOADING
+	})
+}
+
 export const twitterRequestToken = ({ bearer, reset }) => dispatch => {
 	request.post(
 		`${window.location.origin}/api/twitter/requestToken`,
@@ -385,12 +421,12 @@ export const updateAbout = ({ bearer, bio }) => dispatch => {
 		function(err, response, body) {
 			if (!body.error) {
 				let localData = parseJwt()
-				localData.bio = body.bio
+				localData.bio = body.data.bio
 				const token = setToken(localData)
 
 				dispatch({
 					payload: {
-						bio: body.bio,
+						bio: body.data.bio,
 						bearer: token
 					},
 					type: constants.UPDATE_ABOUT

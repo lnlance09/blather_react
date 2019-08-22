@@ -31,6 +31,7 @@ const pageUser = (state = initial(), action) => {
 					linkedTwitter: payload.user.linkedTwitter === "1",
 					linkedYoutube: payload.user.linkedYoutube === "1",
 					name: payload.user.name,
+					patreonUsername: payload.user.patreonUsername,
 					username: payload.user.username
 				}
 			}

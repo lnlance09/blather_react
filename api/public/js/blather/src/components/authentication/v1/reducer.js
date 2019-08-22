@@ -18,6 +18,7 @@ const initial = () => ({
 	bearer: token,
 	data: localData,
 	passwordError: false,
+	patreonLoading: false,
 	verify
 })
 
@@ -159,6 +160,17 @@ const test = (state = initial(), action) => {
 				passwordErrorMsg: ""
 			}
 
+		case constants.SET_PATREON_USERNAME:
+			return {
+				...state,
+				bearer: action.payload.bearer,
+				data: {
+					...state.data,
+					patreonUsername: action.payload.patreonUsername
+				},
+				patreonLoading: false
+			}
+
 		case constants.SET_TWITTER_URL:
 			return {
 				...state,
@@ -196,6 +208,7 @@ const test = (state = initial(), action) => {
 					img: action.payload.user.img,
 					linkedTwitter: action.payload.user.linkedTwitter,
 					linkedYoutube: action.payload.user.linkedYoutube,
+					patreonUsername: action.payload.user.patreonUsername,
 					twitterAccessToken: action.payload.user.twitterAccessToken,
 					twitterAccessSecret: action.payload.user.twitterAccessSecret,
 					twitterDate: action.payload.user.twitterDate,
@@ -227,6 +240,12 @@ const test = (state = initial(), action) => {
 			return {
 				...state,
 				loginError: action.tab.tab ? true : false
+			}
+
+		case constants.TOGGLE_PATREON_LOADING:
+			return {
+				...state,
+				patreonLoading: !state.patreonLoading
 			}
 
 		case constants.UPDATE_ABOUT:

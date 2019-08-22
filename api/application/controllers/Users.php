@@ -237,7 +237,7 @@
 
 		public function getInfo() {
 			$username = $this->input->get('username');
-			$select = "bio, date_created, email_verified AS emailVerified, u.id AS id, CONCAT('".$this->s3Path."', u.img) AS img, linked_twitter AS linkedTwitter, linked_youtube AS linkedYoutube, name, username";
+			$select = "bio, date_created, email_verified AS emailVerified, u.id AS id, CONCAT('".$this->s3Path."', u.img) AS img, linked_twitter AS linkedTwitter, linked_youtube AS linkedYoutube, patreon_username AS patreonUsername, name, username";
 			$info = $this->users->getUserInfo($username, $select);
 
 			if (!$info) {
@@ -589,6 +589,7 @@
 
 		public function update() {
 			$bio = $this->input->post('bio');
+			$patreonUsername = $this->input->post('patreonUsername');
 
 			$user = $this->user;
 			if (!$user) {
@@ -599,9 +600,18 @@
 				exit;
 			}
 
-			$this->users->updateUser($user->id, ['bio' => $bio]);
+			$data = [];
+			if (!empty($bio)) {
+				$data['bio'] = $bio;
+			}
+
+			if (!empty($patreonUsername)) {
+				$data['patreon_username'] = $patreonUsername;
+			}
+
+			$this->users->updateUser($user->id, $data);
 			echo json_encode([
-				'bio' => $bio,
+				'data' => $data,
 				'error' => false
 			]);
 		}

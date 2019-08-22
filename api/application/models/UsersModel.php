@@ -256,7 +256,7 @@
 		 */
 		public function login($email, $password) {
 			$column = filter_var($email, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
-			$select = "users.id, name, username, CONCAT('".$this->s3Path."', img) AS img, bio, email, email_verified AS emailVerified, linked_youtube AS linkedYoutube, linked_fb AS linkedFb, linked_twitter AS linkedTwitter, verification_code AS verificationCode, users.date_created AS dateCreated,
+			$select = "users.id, name, username, CONCAT('".$this->s3Path."', img) AS img, bio, email, email_verified AS emailVerified, linked_youtube AS linkedYoutube, linked_fb AS linkedFb, linked_twitter AS linkedTwitter, verification_code AS verificationCode, users.date_created AS dateCreated, patreon_username AS patreonUsername, 
 				twitter_users.date_linked AS twitterDate, twitter_users.twitter_access_token AS twitterAccessToken, twitter_users.twitter_access_secret AS twitterAccessSecret, twitter_users.twitter_id AS twitterId,
 				youtube_users.youtube_access_token AS youtubeAccessToken, youtube_users.date_linked AS youtubeDate, youtube_users.youtube_refresh_token AS youtubeRefreshToken,youtube_users.youtube_id AS youtubeId";
 			$this->db->select($select);
