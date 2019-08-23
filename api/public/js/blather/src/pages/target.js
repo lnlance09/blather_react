@@ -15,6 +15,7 @@ import { Link } from "react-router-dom"
 import {
 	Button,
 	Container,
+	Divider,
 	Form,
 	Header,
 	Icon,
@@ -22,6 +23,7 @@ import {
 	Message,
 	Placeholder
 } from "semantic-ui-react"
+import BrainPic from "images/brain-fart.gif"
 import FallaciesList from "components/fallaciesList/v1/"
 import ImagePic from "images/image-square.png"
 import LazyLoad from "components/lazyLoad/v1/"
@@ -113,7 +115,7 @@ class Target extends Component {
 	}
 
 	render() {
-		const { editing, exists, loading, myId, userId } = this.state
+		const { auth, editing, exists, loading, myId, userId } = this.state
 		const { error, page, user } = this.props
 
 		const readonly = userId !== myId
@@ -121,9 +123,7 @@ class Target extends Component {
 
 		const DisplayFallacies = ({ props }) => (
 			<div className="fallaciesWrapper">
-				<Header dividing size="large">
-					Fallacies
-				</Header>
+				<Divider />
 				<FallaciesList
 					assignedBy={userId}
 					assignedTo={props.page.id}
@@ -142,19 +142,20 @@ class Target extends Component {
 
 		const Questionnaire = props => (
 			<Form className="questionnaire" onSubmit={this.submitForm}>
-				<Form.TextArea
-					autoHeight
-					disabled={props.fallacyCount < 5}
-					label="Summary"
-					onChange={this.changeSummary}
-					readOnly={readonly}
-					rows={5}
-					value={props.summary}
-				/>
 				<Form.Field disabled={props.fallacyCount < 5}>
-					<label>
+					<Header size="small">Summary</Header>
+					<Form.TextArea
+						autoHeight
+						onChange={this.changeSummary}
+						readOnly={readonly}
+						rows={5}
+						value={props.summary}
+					/>
+				</Form.Field>
+				<Form.Field disabled={props.fallacyCount < 5}>
+					<Header size="small">
 						Does {props.page.name} sincerely believe most of what they talk about?
-					</label>
+					</Header>
 				</Form.Field>
 				<Form.Group inline>
 					<Form.Radio
@@ -185,7 +186,7 @@ class Target extends Component {
 					value={props.sincerityExplanation}
 				/>
 				<Form.Field disabled={props.fallacyCount < 5}>
-					<label>
+					<Header size="small">
 						Can {props.page.name} pass an{" "}
 						<a
 							href="https://www.econlib.org/archives/2011/06/the_ideological.html"
@@ -195,7 +196,7 @@ class Target extends Component {
 							Ideological Turing Test
 						</a>
 						?
-					</label>
+					</Header>
 				</Form.Field>
 				<Form.Group inline>
 					<Form.Radio
@@ -339,16 +340,38 @@ class Target extends Component {
 						) : (
 							<div>
 								{page.pic ? (
-									<Image
-										bordered
-										centered
-										circular
-										className="targetImg"
-										onClick={() => this.props.history.push(page.link)}
-										onError={i => (i.target.src = ImagePic)}
-										size="small"
-										src={page.pic}
-									/>
+									<Container className="imgContainer" text textAlign="center">
+										<div className="targetImgDiv">
+											<Image
+												bordered
+												centered
+												circular
+												className="targetImg"
+												inline
+												onClick={() => this.props.history.push(page.link)}
+												onError={i => (i.target.src = ImagePic)}
+												size="small"
+												src={page.pic}
+											/>
+											<Image
+												bordered
+												centered
+												circular
+												className="targetImg user"
+												inline
+												onClick={() => {
+													if (auth) {
+														this.props.history.push(
+															`/users/${user.username}`
+														)
+													}
+												}}
+												onError={i => (i.target.src = BrainPic)}
+												size="small"
+												src={user.img ? user.img : BrainPic}
+											/>
+										</div>
+									</Container>
 								) : (
 									<Container textAlign="center">
 										<Placeholder className="profilePicPlaceholder">
@@ -357,7 +380,7 @@ class Target extends Component {
 									</Container>
 								)}
 
-								<Header as="h1" size="medium" textAlign="center">
+								<Header as="h1" size="large" textAlign="center">
 									{page.name}
 									<Header.Subheader>
 										Review by{" "}
@@ -368,6 +391,8 @@ class Target extends Component {
 										)}
 									</Header.Subheader>
 								</Header>
+								<Divider />
+
 								{showMessage && (
 									<Message
 										content={`You must assign at least 5 fallacies to ${
@@ -422,7 +447,9 @@ Target.propTypes = {
 	turingTestExplanation: PropTypes.string,
 	user: PropTypes.shape({
 		id: PropTypes.string,
-		name: PropTypes.string
+		img: PropTypes.string,
+		name: PropTypes.string,
+		username: PropTypes.string
 	})
 }
 

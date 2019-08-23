@@ -10,26 +10,31 @@ const target = (state = initial(), action) => {
 				...state,
 				sincerity: payload === "yes"
 			}
+
 		case constants.CHANGE_SINCERITY_EXPLANATION:
 			return {
 				...state,
 				sincerityExplanation: payload
 			}
+
 		case constants.CHANGE_SUMMARY:
 			return {
 				...state,
 				summary: payload
 			}
+
 		case constants.CHANGE_TURING:
 			return {
 				...state,
 				turingTest: payload === "yes"
 			}
+
 		case constants.CHANGE_TURING_EXPLANATION:
 			return {
 				...state,
 				turingTestExplanation: payload
 			}
+
 		case constants.FETCH_PAGE:
 			return {
 				...state,
@@ -46,6 +51,7 @@ const target = (state = initial(), action) => {
 					name: "You"
 				}
 			}
+
 		case constants.FETCH_REVIEW:
 			if (payload.error) {
 				return {
@@ -102,9 +108,12 @@ const target = (state = initial(), action) => {
 						: payload.review.turing_test_explanation,
 				user: {
 					id: payload.review.user_id,
-					name: payload.review.user_name
+					img: payload.review.user_pic,
+					name: payload.review.user_name,
+					username: payload.review.user_username
 				}
 			}
+
 		case constants.SAVE_REVIEW:
 			let sincerityAnswer = null
 			if (payload.review.sincerity === "1") {
@@ -137,6 +146,7 @@ const target = (state = initial(), action) => {
 					...state.user
 				}
 			}
+
 		default:
 			return state
 	}

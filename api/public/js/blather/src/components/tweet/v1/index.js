@@ -120,6 +120,7 @@ class Tweet extends Component {
 						bordered
 						circular
 						className="tweetUserImg"
+						crossOrigin="anonymous"
 						floated="left"
 						onError={i => {
 							if (img === props.profileImg) {
@@ -129,7 +130,7 @@ class Tweet extends Component {
 								this.setState({ img: props.profileImg })
 							}
 						}}
-						src={profileImg}
+						src={`${profileImg}?v=${new Date().getTime()}`}
 					/>
 					<Card.Header
 						className={`tweetUserName ${props.externalLink ? "link" : ""}`}
@@ -165,10 +166,11 @@ class Tweet extends Component {
 									as="a"
 									bordered
 									className="mediaImg"
+									crossOrigin="anonymous"
 									href={item.expanded_url}
 									rounded={false}
 									size={props.imageSize}
-									src={item.media_url_https}
+									src={`${item.media_url_https}?v=${new Date().getTime()}`}
 									target="_blank"
 								/>
 							</div>

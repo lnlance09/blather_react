@@ -657,12 +657,24 @@ a {
     float: right;
     font-size: 19.5px;
     line-height: 19.5px; }
-  .targetsPage .ui.text.container .targetImg {
-    cursor: pointer;
-    margin-top: 15px;
-    width: 250px; }
-    .targetsPage .ui.text.container .targetImg + .header.medium {
-      margin-top: 8px; }
+  .targetsPage .ui.text.container .imgContainer {
+    height: 220px; }
+    .targetsPage .ui.text.container .imgContainer .targetImgDiv {
+      left: 0;
+      margin: auto;
+      padding-right: 50px;
+      position: absolute;
+      right: 0; }
+      .targetsPage .ui.text.container .imgContainer .targetImgDiv .targetImg {
+        cursor: pointer;
+        margin-top: 15px;
+        position: absolute;
+        width: 200px; }
+        .targetsPage .ui.text.container .imgContainer .targetImgDiv .targetImg + .header.large {
+          margin-top: 8px; }
+        .targetsPage .ui.text.container .imgContainer .targetImgDiv .targetImg.user {
+          left: 0;
+          right: 160px; }
   .targetsPage .ui.text.container .answers, .targetsPage .ui.text.container .questionnaire {
     margin-bottom: 16px; }
   .targetsPage .ui.text.container .questionnaire {
