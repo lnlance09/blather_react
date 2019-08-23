@@ -4,7 +4,7 @@ import { formatTime } from "utils/dateFunctions"
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { downloadVideo, fetchPostData } from "pages/actions/post"
 import { Provider, connect } from "react-redux"
-import { Container, Divider, Header, Icon, Image, Message, Segment } from "semantic-ui-react"
+import { Container, Divider, Icon, Image, Message, Segment } from "semantic-ui-react"
 import html2canvas from "html2canvas"
 import FallacyForm from "components/fallacyForm/v1/"
 import FallaciesList from "components/fallaciesList/v1/"
@@ -236,7 +236,7 @@ class Post extends Component {
 			if (props.info) {
 				return (
 					<div className="fallaciesWrapper">
-						<Header size="large">Fallacies</Header>
+						<Divider />
 						<FallaciesList
 							commentId={type === "comment" ? id : null}
 							emptyMsgContent={`No fallacies have been assigned to this ${type}`}

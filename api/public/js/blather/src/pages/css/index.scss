@@ -1103,13 +1103,31 @@ a {
             }
         }
 
-        .targetImg {
-            cursor: pointer;
-            margin-top: 15px;
-            width: 250px;
+        .imgContainer {
+            height: 220px;
 
-            + .header.medium {
-                margin-top: 8px;
+            .targetImgDiv {
+                left: 0;
+                margin: auto;
+                padding-right: 50px;
+                position: absolute;
+                right: 0;
+
+                .targetImg {
+                    cursor: pointer;
+                    margin-top: 15px;
+                    position: absolute;
+                    width: 200px;
+
+                    + .header.large {
+                        margin-top: 8px;
+                    }
+
+                    &.user {
+                        left: 0;
+                        right: 160px;
+                    }
+                }
             }
         }
 
