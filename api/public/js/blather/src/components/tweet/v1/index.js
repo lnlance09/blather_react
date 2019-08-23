@@ -114,6 +114,10 @@ class Tweet extends Component {
 				screenName = retweeted_status.user.screen_name
 			}
 
+			if (props.useLocalProfilePic) {
+				profileImg += `?v=${new Date().getTime()}`
+			}
+
 			return (
 				<div>
 					<Image
@@ -130,7 +134,7 @@ class Tweet extends Component {
 								this.setState({ img: props.profileImg })
 							}
 						}}
-						src={`${profileImg}?v=${new Date().getTime()}`}
+						src={profileImg}
 					/>
 					<Card.Header
 						className={`tweetUserName ${props.externalLink ? "link" : ""}`}
@@ -160,6 +164,11 @@ class Tweet extends Component {
 			if (extEntities) {
 				return extEntities.media.map((item, i) => {
 					if (item.type === "photo" || item.type === "video") {
+						let mediaImg = item.media_url_https
+						if (props.useLocalProfilePic) {
+							mediaImg += `?v=${new Date().getTime()}`
+						}
+
 						return (
 							<div className="mediaPic" key={`embed_${i}`}>
 								<Image
@@ -170,7 +179,7 @@ class Tweet extends Component {
 									href={item.expanded_url}
 									rounded={false}
 									size={props.imageSize}
-									src={`${item.media_url_https}?v=${new Date().getTime()}`}
+									src={mediaImg}
 									target="_blank"
 								/>
 							</div>

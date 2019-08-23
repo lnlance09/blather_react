@@ -165,7 +165,6 @@ class Home extends Component {
 														favorite_count: info.favorite_count,
 														retweet_count: info.retweet_count
 													}}
-													useLocalProfilePic
 													user={info.user}
 												/>
 											)}
