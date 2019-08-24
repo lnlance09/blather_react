@@ -3,7 +3,7 @@ import { DisplayMetaTags } from "utils/metaFunctions"
 import { mostFallacious } from "pages/actions/feed"
 import { Provider, connect } from "react-redux"
 import { Link } from "react-router-dom"
-import { FacebookShareButton, TwitterShareButton } from "react-share"
+import { FacebookShareButton, RedditShareButton, TwitterShareButton } from "react-share"
 import { Card, Container, Feed, Grid, Icon, List, Responsive, Segment } from "semantic-ui-react"
 import ImagePic from "images/image-square.png"
 import FeedComponent from "components/feed/v1/"
@@ -40,6 +40,11 @@ class NewsFeed extends Component {
 						<FacebookShareButton url={window.location.href}>
 							<Icon className="facebookIcon" name="facebook" /> Share on Facebook
 						</FacebookShareButton>
+					</List.Item>
+					<List.Item>
+						<RedditShareButton url={`${window.location.origin}`}>
+							<Icon className="redditIcon" name="reddit" /> Share on Reddit
+						</RedditShareButton>
 					</List.Item>
 				</List>
 			</Segment>
