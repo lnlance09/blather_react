@@ -9,10 +9,10 @@
   .breakdown .breakdownSegment .percentages {
     padding: 0 !important; }
     .breakdown .breakdownSegment .percentages .ui.header.small {
-      margin-bottom: 7px !important; }
+      margin-bottom: 8px !important; }
     .breakdown .breakdownSegment .percentages .fallacyPercentage {
       cursor: pointer;
-      margin-top: 12px; }
+      margin-top: 15px; }
       .breakdown .breakdownSegment .percentages .fallacyPercentage:first-of-type {
         margin-top: 0; }
       .breakdown .breakdownSegment .percentages .fallacyPercentage .progress {
@@ -22,9 +22,6 @@
           min-width: 50px; }
           .breakdown .breakdownSegment .percentages .fallacyPercentage .progress .bar .progress {
             color: #FFFFFF; }
-        .breakdown .breakdownSegment .percentages .fallacyPercentage .progress .label {
-          background: #F9FAFB;
-          color: #545454; }
 
 .breakdown .questionnaire {
   margin-top: 0;

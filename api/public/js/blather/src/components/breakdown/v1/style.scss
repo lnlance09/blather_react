@@ -9,12 +9,12 @@
             padding: 0 !important;
 
             .ui.header.small {
-                margin-bottom: 7px !important;
+                margin-bottom: 8px !important;
             }
 
             .fallacyPercentage {
                 cursor: pointer;
-                margin-top: 12px;
+                margin-top: 15px;
 
                 &:first-of-type {
                     margin-top: 0;
@@ -30,11 +30,6 @@
                         .progress {
                             color: $white;
                         }
-                    }
-
-                    .label {
-                        background: $offWhite;
-                        color: $lightBlack;
                     }
                 }
             }

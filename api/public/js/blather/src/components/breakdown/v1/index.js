@@ -118,8 +118,6 @@ class Breakdown extends Component {
 								<Message content="No fallacies have been assigned" />
 							)}
 						</Segment>
-
-						<Divider hidden />
 					</div>
 				) : (
 					<Segment>
@@ -197,6 +195,7 @@ class Breakdown extends Component {
 										)
 									}
 								>
+									<Icon name="star" />
 									Create a review
 								</Button>
 							</Header>
