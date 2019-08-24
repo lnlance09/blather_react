@@ -188,7 +188,7 @@ class Header extends Component {
 								</Menu.Item>
 								<Menu.Item className="fallaciesLink">
 									<Link to="/assign">
-										<Icon color="blue" name="pencil" /> Assign
+										<Icon color="green" name="plus" /> Assign
 									</Link>
 								</Menu.Item>
 								<Menu.Item className="fallaciesLink">

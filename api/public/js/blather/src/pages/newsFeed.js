@@ -4,7 +4,17 @@ import { mostFallacious } from "pages/actions/feed"
 import { Provider, connect } from "react-redux"
 import { Link } from "react-router-dom"
 import { FacebookShareButton, RedditShareButton, TwitterShareButton } from "react-share"
-import { Card, Container, Feed, Grid, Icon, List, Responsive, Segment } from "semantic-ui-react"
+import {
+	Card,
+	Container,
+	Divider,
+	Feed,
+	Grid,
+	Icon,
+	List,
+	Responsive,
+	Segment
+} from "semantic-ui-react"
 import ImagePic from "images/image-square.png"
 import FeedComponent from "components/feed/v1/"
 import PageFooter from "components/footer/v1/"
@@ -16,18 +26,36 @@ import store from "store"
 class NewsFeed extends Component {
 	constructor(props) {
 		super(props)
-		this.state = {}
+
+		const currentState = store.getState()
+		const auth = currentState.user.authenticated
+
+		this.state = {
+			auth
+		}
+
 		this.props.mostFallacious()
 	}
 
 	render() {
+		const { auth } = this.state
+
 		const InfoCard = props => (
 			<Segment>
-				<List className="topList" relaxed size="medium">
+				<List className="topList" relaxed size="large">
 					<List.Item onClick={() => props.history.push("/assign")}>
-						<List.Icon color="blue" name="pencil" />
+						<List.Icon color="green" name="plus" />
 						<List.Content>Assign a fallacy</List.Content>
 					</List.Item>
+					{!auth && (
+						<List.Item onClick={() => props.history.push("/signin?type=signin")}>
+							<List.Icon color="blue" name="sign in" />
+							<List.Content>Sign In</List.Content>
+						</List.Item>
+					)}
+				</List>
+				<Divider />
+				<List className="topList" relaxed size="small">
 					<List.Item>
 						<TwitterShareButton
 							title="Home - Blather"
