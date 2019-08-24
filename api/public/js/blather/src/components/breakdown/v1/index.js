@@ -171,8 +171,15 @@ class Breakdown extends Component {
 							</p>
 
 							<Header size="medium">
-								Can pass an ideological turing test?
-								<Header.Subheader>{Stats(turingTest)}</Header.Subheader>
+								Can pass an{" "}
+								<a
+									href="https://www.econlib.org/archives/2011/06/the_ideological.html"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									Ideological Turing Test
+								</a>
+								?<Header.Subheader>{Stats(turingTest)}</Header.Subheader>
 							</Header>
 
 							<Header size="medium">

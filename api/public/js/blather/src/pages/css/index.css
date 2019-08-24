@@ -437,6 +437,9 @@ a {
 .feedPage .mostFallacious .feedEvent .meta {
   margin-top: 0 !important; }
 
+.feedPage .topList .item {
+  cursor: pointer; }
+
 .feedPage .feedWrapper {
   width: 100%; }
   .feedPage .feedWrapper .feed {

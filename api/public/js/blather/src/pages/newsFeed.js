@@ -3,7 +3,8 @@ import { DisplayMetaTags } from "utils/metaFunctions"
 import { mostFallacious } from "pages/actions/feed"
 import { Provider, connect } from "react-redux"
 import { Link } from "react-router-dom"
-import { Card, Container, Feed, Grid, Responsive, Segment } from "semantic-ui-react"
+import { FacebookShareButton, TwitterShareButton } from "react-share"
+import { Card, Container, Feed, Grid, Icon, List, Responsive, Segment } from "semantic-ui-react"
 import ImagePic from "images/image-square.png"
 import FeedComponent from "components/feed/v1/"
 import PageFooter from "components/footer/v1/"
@@ -20,6 +21,30 @@ class NewsFeed extends Component {
 	}
 
 	render() {
+		const InfoCard = props => (
+			<Segment>
+				<List className="topList" relaxed size="medium">
+					<List.Item onClick={() => props.history.push("/assign")}>
+						<List.Icon color="blue" name="pencil" />
+						<List.Content>Assign a fallacy</List.Content>
+					</List.Item>
+					<List.Item>
+						<TwitterShareButton
+							title="Home - Blather"
+							url={`${window.location.origin}`}
+						>
+							<Icon className="twitterIcon" name="twitter" /> Share on Twitter
+						</TwitterShareButton>
+					</List.Item>
+					<List.Item>
+						<FacebookShareButton url={window.location.href}>
+							<Icon className="facebookIcon" name="facebook" /> Share on Facebook
+						</FacebookShareButton>
+					</List.Item>
+				</List>
+			</Segment>
+		)
+
 		const RenderMostFallacious = props =>
 			props.results.map((result, i) => {
 				return (
@@ -77,6 +102,7 @@ class NewsFeed extends Component {
 					<Container className="mainContainer">
 						<Responsive maxWidth={1024}>
 							<Grid className="feedGrid">
+								<Grid.Row>{InfoCard(this.props)}</Grid.Row>
 								<Grid.Row>{TopCard(this.props)}</Grid.Row>
 								<Grid.Row className="feedRow">
 									<Segment>
@@ -93,7 +119,10 @@ class NewsFeed extends Component {
 										<FeedComponent history={this.props.history} />
 									</Segment>
 								</Grid.Column>
-								<Grid.Column width={4}>{TopCard(this.props)}</Grid.Column>
+								<Grid.Column width={4}>
+									{InfoCard(this.props)}
+									{TopCard(this.props)}
+								</Grid.Column>
 							</Grid>
 						</Responsive>
 					</Container>
