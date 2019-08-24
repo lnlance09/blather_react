@@ -1,0 +1,47 @@
+[
+    {
+        "key": "wiggles",
+        "text": "Wiggles",
+        "value": "wiggles"
+    },
+    {
+        "key": "graphPaper",
+        "text": "Graph Paper",
+        "value": "graphPaper"
+    },
+    {
+        "key": "iLikeFood",
+        "text": "I Like Food",
+        "value": "iLikeFood"
+    },
+    {
+        "key": "bathroomFloor",
+        "text": "Bathroom Floor",
+        "value": "bathroomFloor"
+    },
+    {
+        "key": "tinyCheckers",
+        "text": "Tiny Checker",
+        "value": "tinyCheckers"
+    },
+    {
+        "key": "anchorsAway",
+        "text": "Anchors Away",
+        "value": "anchorsAway"
+    },
+    {
+        "key": "brickWall",
+        "text": "Brick Wall",
+        "value": "brickWall"
+    },
+    {
+        "key": "stripes",
+        "text": "Stripes",
+        "value": "stripes"
+    },
+    {
+        "key": "diagonalLines",
+        "text": "Diagonal Lines",
+        "value": "diagonalLines"
+    }
+]
