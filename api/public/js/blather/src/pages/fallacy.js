@@ -1,4 +1,5 @@
 import "pages/css/index.css"
+import backgroundOptions from "backgroundOptions.json"
 import { mapIdsToNames } from "utils/arrayFunctions"
 import { adjustTimezone } from "utils/dateFunctions"
 import { DisplayMetaTags } from "utils/metaFunctions"
@@ -21,6 +22,7 @@ import {
 	Container,
 	Dimmer,
 	Divider,
+	Dropdown,
 	Form,
 	Grid,
 	Header,
@@ -74,6 +76,7 @@ class Fallacy extends Component {
 		this.state = {
 			active: false,
 			auth,
+			background: "wiggles",
 			bearer,
 			downloading: false,
 			editing: false,
@@ -90,6 +93,7 @@ class Fallacy extends Component {
 
 		this.captureScreenshot = this.captureScreenshot.bind(this)
 		this.handleExportChange = this.handleExportChange.bind(this)
+		this.onSelectBackground = this.onSelectBackground.bind(this)
 	}
 
 	captureScreenshot() {
@@ -233,6 +237,8 @@ class Fallacy extends Component {
 		}
 	}
 
+	onSelectBackground = (e, { value }) => this.setState({ background: value })
+
 	retractLogic = () => {
 		const button = document.querySelector(".retractBtn")
 		confetti(button, {
@@ -262,6 +268,7 @@ class Fallacy extends Component {
 	render() {
 		const {
 			active,
+			background,
 			bearer,
 			downloading,
 			exportArticle,
@@ -273,7 +280,7 @@ class Fallacy extends Component {
 			youtubeId
 		} = this.state
 
-		const { createdBy, user } = this.props
+		const { createdBy, backgroundOptions, user } = this.props
 		const canEdit = createdBy ? createdBy.id === userId || createdBy.id === 6 : false
 
 		let userLink = ""
@@ -543,7 +550,10 @@ class Fallacy extends Component {
 					open={modalOpen}
 				>
 					<Modal.Content>
-						<div className="screenshotPicWrapper" id="screenshotPicWrapper">
+						<div
+							className={`screenshotPicWrapper ${background}`}
+							id="screenshotPicWrapper"
+						>
 							<FallacyExample
 								canEdit={false}
 								downloading={downloading}
@@ -566,6 +576,12 @@ class Fallacy extends Component {
 						</div>
 					</Modal.Content>
 					<Modal.Actions>
+						<Dropdown
+							onChange={this.onSelectBackground}
+							options={backgroundOptions}
+							placeholder="Background"
+							selection
+						/>
 						<Button
 							color="blue"
 							content="Make image"
@@ -847,6 +863,7 @@ class Fallacy extends Component {
 }
 
 Fallacy.propTypes = {
+	backgroundOptions: PropTypes.array,
 	canMakeVideo: PropTypes.bool,
 	canScreenshot: PropTypes.bool,
 	comments: PropTypes.shape({
@@ -917,6 +934,7 @@ Fallacy.propTypes = {
 }
 
 Fallacy.defaultProps = {
+	backgroundOptions,
 	creating: false,
 	convoLoading: true,
 	createVideoFallacy,
