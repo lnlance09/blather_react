@@ -99,6 +99,9 @@ a {
 .patreonIcon {
   color: #f96854; }
 
+.redditIcon {
+  color: #FF5700; }
+
 .sticky.noteIcon {
   color: #FBBD08; }
 
@@ -327,23 +330,10 @@ a {
   .fallacyPage .fallacyGrid .callToSignUp {
     margin-top: 10px; }
   .fallacyPage .fallacyGrid .shareList {
-    height: 41px;
     margin-top: 0 !important;
     width: 100%; }
     .fallacyPage .fallacyGrid .shareList .item {
-      cursor: pointer;
-      height: 41px !important;
-      padding: 0 !important;
-      vertical-align: text-top; }
-    .fallacyPage .fallacyGrid .shareList .reddit {
-      background: #FF5700;
-      color: #FFFFFF;
-      border-radius: 50%;
-      display: inline-block;
-      font-size: 20px;
-      height: 35px !important;
-      line-height: 35px;
-      width: 35px !important; }
+      cursor: pointer; }
 
 .fallacyPage .exportEmbed {
   display: inline;
@@ -389,7 +379,7 @@ a {
   width: 100%; }
 
 .fallacyPage .tagsCard {
-  margin-top: 25px; }
+  margin-top: 20px; }
 
 .fallacyPage .retractionContent {
   margin-bottom: 25px;
@@ -417,7 +407,9 @@ a {
   .fallacyPage .captureScreenshot {
     display: none; }
   .fallacyPage .tagsCard {
-    margin: 25px 0; } }
+    margin: 25px 0; }
+  .fallacyPage .commentsContent {
+    margin-bottom: 10px; } }
 
 /* Feed page */
 @media only screen and (max-width: 1025px) {

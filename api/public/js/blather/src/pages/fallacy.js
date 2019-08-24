@@ -14,13 +14,7 @@ import {
 import { FacebookProvider, Comments, Like } from "react-facebook"
 import { connect, Provider } from "react-redux"
 import { Link } from "react-router-dom"
-import {
-	FacebookIcon,
-	FacebookShareButton,
-	RedditShareButton,
-	TwitterIcon,
-	TwitterShareButton
-} from "react-share"
+import { FacebookShareButton, RedditShareButton, TwitterShareButton } from "react-share"
 import {
 	Button,
 	Card,
@@ -289,15 +283,19 @@ class Fallacy extends Component {
 
 		const CommentsSection = props => (
 			<div className="commentsContent">
-				<FacebookProvider appId="498572440350555" style={{ width: "100%" }}>
-					<Comments href={window.location.href} width="100%" />
-				</FacebookProvider>
+				{props.id && (
+					<div>
+						<FacebookProvider appId="498572440350555" style={{ width: "100%" }}>
+							<Comments href={window.location.href} width="100%" />
+						</FacebookProvider>
 
-				<div style={{ padding: "10px 6px" }}>
-					<FacebookProvider appId="498572440350555">
-						<Like href={window.location.href} colorScheme="dark" showFaces />
-					</FacebookProvider>
-				</div>
+						<div style={{ padding: "10px 6px" }}>
+							<FacebookProvider appId="498572440350555">
+								<Like href={window.location.href} colorScheme="dark" showFaces />
+							</FacebookProvider>
+						</div>
+					</div>
+				)}
 			</div>
 		)
 
@@ -689,27 +687,30 @@ class Fallacy extends Component {
 				<div className="shareContent">
 					{useHeader && <Header size="large">Share</Header>}
 					{this.props.id ? (
-						<List className="shareList" horizontal>
+						<List className="shareList" relaxed size="large">
 							<List.Item>
 								<TwitterShareButton
 									title={this.props.pageTitle}
 									url={`${window.location.origin}/fallacies/${id}`}
 								>
-									<TwitterIcon round size={35} />
+									<Icon className="twitterIcon" name="twitter" size="large" />{" "}
+									tweet this fallacy
 								</TwitterShareButton>
 							</List.Item>
 							<List.Item>
 								<FacebookShareButton
 									url={`${window.location.origin}/fallacies/${id}`}
 								>
-									<FacebookIcon round size={35} />
+									<Icon className="facebookIcon" name="facebook" size="large" />{" "}
+									share on facebook
 								</FacebookShareButton>
 							</List.Item>
 							<List.Item>
 								<RedditShareButton
 									url={`${window.location.origin}/fallacies/${id}`}
 								>
-									<Icon className="reddit" name="reddit alien" />
+									<Icon className="redditIcon" name="reddit" size="large" /> share
+									on reddit
 								</RedditShareButton>
 							</List.Item>
 						</List>
@@ -780,7 +781,7 @@ class Fallacy extends Component {
 									<Grid.Row>{MaterialSection(this.props)}</Grid.Row>
 									<Grid.Row>{RetractionSegment(this.props)}</Grid.Row>
 									<Grid.Row>{CommentsSection(this.props)}</Grid.Row>
-									<Grid.Row style={{ marginBottom: "25px" }}>
+									<Grid.Row>
 										{ShareSection(true)}
 										<Statistic
 											className="viewCount"

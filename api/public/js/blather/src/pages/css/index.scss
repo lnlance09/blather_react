@@ -151,6 +151,10 @@ a {
     color: $patreon;
 }
 
+.redditIcon {
+    color: $reddit;
+}
+
 .sticky.noteIcon {
     color: $yellow;
 }
@@ -548,26 +552,11 @@ a {
         }
 
         .shareList {
-            height: 41px;
             margin-top: 0 !important;
             width: 100%;
 
             .item {
                 cursor: pointer;
-                height: 41px !important;
-                padding: 0 !important;
-                vertical-align: text-top;
-            }
-
-            .reddit {
-                background: $reddit;
-                color: $white;
-                border-radius: 50%;
-                display: inline-block;
-                font-size: 20px;
-                height: 35px !important;
-                line-height: 35px;
-                width: 35px !important;
             }
         }
     }
@@ -632,7 +621,7 @@ a {
     }
 
     .tagsCard {
-        margin-top: $dividerMargin;
+        margin-top: 20px;
     }
 
     .retractionContent {
@@ -682,6 +671,10 @@ a {
 
         .tagsCard {
             margin: $dividerMargin 0;
+        }
+
+        .commentsContent {
+            margin-bottom: 10px;
         }
     }
 }
