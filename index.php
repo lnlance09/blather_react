@@ -363,6 +363,9 @@
 
             case "tags":
 
+                $exp = explode('-', $id);
+                $id = end($exp);
+
                 $sql = "SELECT t.value, tv.description, ti.s3_path, ti.caption, fe.title, fe.slug
                         FROM tags t
 
@@ -376,9 +379,7 @@
                             WHERE tag_id = '".$mysqli->real_escape_string($id)."' 
                             OR t.slug = '".$mysqli->real_escape_string($id)."'
                         )
-                        AND (
-                            t.id = '".$mysqli->real_escape_string($id)."' OR t.slug = '".$mysqli->real_escape_string($id)."'
-                        )";
+                        AND t.id = '".$mysqli->real_escape_string($id)."'";
                 if ($result = $mysqli->query($sql)) {
                     $html = '';
                     $i = 0;
@@ -387,6 +388,7 @@
                         if ($i === 0) {
                             $title = $row['value'];
                             $description = substr($row['description'], 0, 160);
+
                             if (!empty($row['s3_path'])) {
                                 $img = $s3Path.$row['s3_path'];
                             }
