@@ -43,5 +43,20 @@
         "key": "diagonalLines",
         "text": "Diagonal Lines",
         "value": "diagonalLines"
+    },
+    {
+        "key": "greenStripes",
+        "text": "Green Stripes",
+        "value": "greenStripes"
+    },
+    {
+        "key": "microbialMat",
+        "text": "Microbial Mat",
+        "value": "microbialMat"
+    },
+    {
+        "key": "honeycomb",
+        "text": "Honeycomb",
+        "value": "honeycomb"
     }
 ]
