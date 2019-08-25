@@ -670,7 +670,7 @@ FallacyForm.defaultProps = {
 	setContradictionHighlight,
 	startTime: "0",
 	toggleModal,
-	useCard: false
+	useCard: true
 }
 
 const mapStateToProps = (state, ownProps) => ({
