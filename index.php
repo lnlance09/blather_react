@@ -659,7 +659,7 @@
     </body>
 
     <script src="/static/js/1.7c494ccc.chunk.js"></script>
-    <script src="/static/js/main.376630d8.chunk.js"></script>
+    <script src="/static/js/main.ff7eb07b.chunk.js"></script>
     <script src="/static/js/runtime~main.229c360f.js"></script>
 
 <?php
