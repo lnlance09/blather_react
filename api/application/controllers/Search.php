@@ -158,10 +158,10 @@
 
         public function basic() {
             $q = $this->input->get('q');
+            $category = (int)$this->input->get('category');
 
             $youtubeResults = $this->youtube->searchPagesFromDb($q);
             $twitterResults = $this->twitter->searchPagesFromDb($q);
-            $tags = $this->tags->searchTags($q);
 
             if (empty($youtubeResults)) {
                 $youtubeResults = [];
@@ -169,10 +169,6 @@
 
             if (empty($twitterResults)) {
                 $twitterResults = [];
-            }
-
-            if (empty($tags)) {
-                $tags = [];
             }
 
             $pages = array_merge($youtubeResults, $twitterResults);
@@ -186,26 +182,34 @@
                 unset($pages[$i]['profile_pic']);
             }
 
-            for ($i=0;$i<count($tags);$i++) {
-                $tags[$i]['image'] = null;
-                $tags[$i]['key'] = $tags[$i]['id'];
-                $tags[$i]['title'] = $tags[$i]['value'];
-            }
+            $results = $pages;
 
-            $results = [];
+            if ($category) {
+                $tags = $this->tags->searchTags($q);
+                if (empty($tags)) {
+                    $tags = [];
+                }
 
-            if (count($pages) > 0) {
-                $results['pages'] = [
-                    'name' => 'Pages',
-                    'results' => $pages
-                ];
-            }
+                for ($i=0;$i<count($tags);$i++) {
+                    $tags[$i]['image'] = null;
+                    $tags[$i]['key'] = $tags[$i]['id'];
+                    $tags[$i]['title'] = $tags[$i]['value'];
+                }
 
-            if (count($tags) > 0) {
-                $results['tags'] = [
-                    'name' => 'Tags',
-                    'results' => $tags
-                ];
+                $results = [];
+                if (count($pages) > 0) {
+                    $results['pages'] = [
+                        'name' => 'Pages',
+                        'results' => $pages
+                    ];
+                }
+
+                if (count($tags) > 0) {
+                    $results['tags'] = [
+                        'name' => 'Tags',
+                        'results' => $tags
+                    ];
+                }
             }
 
             echo json_encode([

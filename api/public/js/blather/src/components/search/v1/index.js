@@ -24,9 +24,14 @@ class NavSearch extends Component {
 	}
 
 	fetchResults() {
-		return fetch(`${window.location.origin}/api/search/basic?q=${this.state.value}`, {
-			json: true
-		})
+		return fetch(
+			`${window.location.origin}/api/search/basic?q=${this.state.value}&category=${
+				this.props.category ? 1 : 0
+			}`,
+			{
+				json: true
+			}
+		)
 			.then(response => {
 				if (response.ok) {
 					response.json().then(data => {
@@ -118,14 +123,14 @@ class NavSearch extends Component {
 
 		const SearchBar = props => (
 			<Search
-				category
+				category={props.category}
 				className="navSearch"
 				defaultValue={value}
 				disabled={props.disabled}
 				loading={isLoading}
 				minCharacters={4}
 				onResultSelect={this.onClick}
-				onSearchChange={_.debounce(this.handleSearchChange, 500, {
+				onSearchChange={_.debounce(this.handleSearchChange, 800, {
 					leading: true
 				})}
 				placeholder={props.placeholder}
@@ -148,6 +153,7 @@ class NavSearch extends Component {
 }
 
 NavSearch.propTypes = {
+	category: PropTypes.string,
 	defaultValue: PropTypes.string,
 	disabled: PropTypes.bool,
 	onChangeAssignee: PropTypes.func,
@@ -158,6 +164,7 @@ NavSearch.propTypes = {
 }
 
 NavSearch.defaultProps = {
+	category: true,
 	disabled: false,
 	placeholder: "Search",
 	source: "header",
