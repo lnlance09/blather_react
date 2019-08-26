@@ -145,7 +145,7 @@
 		}
 
 		public function searchTags($q = null, $page = 0, $just_count = false) {
-			$select = 't.id, t.value, t.slug, "tag" AS type, tv.description';
+			$select = "t.id, t.value, t.slug, 'tag' AS type, tv.description, tv.date_updated, COUNT(ft.id) AS example_count, CONCAT('".$this->s3Path."', ti.s3_path) AS tag_img";
 			if ($just_count) {
 				$select = 'COUNT(*) AS count';
 			}
@@ -158,8 +158,11 @@
 
 			if (!$just_count) {
 				$this->db->join('tag_versions tv', 't.id = tv.tag_id');
+				$this->db->join('fallacy_tags ft', 't.id = ft.tag_id', 'left');
+				$this->db->join('tag_images ti', 't.id = ti.tag_id', 'left');
 				$this->db->where('tv.version = (SELECT MAX(version) FROM tag_versions WHERE tag_id = t.id)');
 				$this->db->order_by('t.value');
+				$this->db->group_by('t.id');
 
 				$limit = 10;
 				$start = $page*$limit;
