@@ -52,7 +52,7 @@
 				'allowed_types' => 'jpg|jpeg|png|gif',
 				'file_ext_tolower' => true,
 				'max_height' => 0,
-				'max_size' => 25000,
+				'max_size' => 10000,
 				'max_width' => 0,
 				'upload_path' => './public/img/tag_pics/'
 			]);
