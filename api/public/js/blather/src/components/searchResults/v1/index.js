@@ -151,16 +151,16 @@ class SearchResults extends Component {
 						meta: (
 							<div>
 								<p>
-									<Icon name="clock outline" /> edited {" "}
+									<Icon name="clock outline" /> edited{" "}
 									<Moment date={adjustTimezone(result.date_updated)} fromNow />
 								</p>
 							</div>
 						),
 						tags: [],
 						title: result.value,
-						truncate: true,
+						truncate: false,
 						url: `/tags/${result.slug}`,
-						useMarked: false
+						useMarked: true
 					}
 
 				case "users":

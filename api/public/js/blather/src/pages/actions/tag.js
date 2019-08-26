@@ -1,5 +1,6 @@
 import * as constants from "../constants"
 import request from "request"
+import { showLoading, hideLoading } from "react-redux-loading-bar"
 
 export const addPic = ({ bearer, file, id }) => dispatch => {
 	const fr = new FileReader()
@@ -76,6 +77,8 @@ export const fetchTaggedUsers = ({ id }) => dispatch => {
 }
 
 export const fetchTagInfo = ({ id }) => dispatch => {
+	dispatch(showLoading())
+
 	request.get(
 		`${window.location.origin}/api/tags`,
 		{
@@ -89,6 +92,7 @@ export const fetchTagInfo = ({ id }) => dispatch => {
 				type: constants.FETCH_TAG_INFO,
 				payload: body
 			})
+			dispatch(hideLoading())
 		}
 	)
 }
@@ -109,6 +113,12 @@ export const getRelatedTags = ({ q }) => dispatch => {
 			})
 		}
 	)
+}
+
+export const reset = () => dispatch => {
+	dispatch({
+		type: constants.RESET_TAG_TO_INITIAL
+	})
 }
 
 export const toggleLoading = () => dispatch => {
