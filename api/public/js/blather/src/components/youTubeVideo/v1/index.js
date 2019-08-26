@@ -166,7 +166,7 @@ class YouTubeVideo extends Component {
 							input={
 								<Form.Input
 									fluid
-									icon="hourglass end"
+									icon="hourglass start"
 									placeholder="Start time"
 									type="text"
 								/>
