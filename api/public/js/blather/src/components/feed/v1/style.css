@@ -11,7 +11,8 @@
 
 .feed .content .extra p {
   cursor: pointer;
-  white-space: pre-line; }
+  white-space: pre-line;
+  word-break: break-all; }
 
 .feed .content .extra .videoImg {
   cursor: pointer;
