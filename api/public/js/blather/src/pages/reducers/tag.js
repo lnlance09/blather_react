@@ -77,6 +77,11 @@ const tag = (state = initial(), action) => {
 				relatedTags: payload.related === false ? [] : payload.related
 			}
 
+		case constants.RESET_TAG_TO_INITIAL:
+			return {
+				state
+			}
+
 		case constants.TOGGLE_TAG_LOADING:
 			return {
 				...state,

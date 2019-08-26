@@ -131,6 +131,12 @@ export const removeFallacyTag = ({ bearer, id, tagId, tagName }) => dispatch => 
 	)
 }
 
+export const reset = () => dispatch => {
+	dispatch({
+		type: constants.RESET_FALLACY_TO_INITIAL
+	})
+}
+
 export const retractLogic = ({ bearer, id, type }) => dispatch => {
 	request.post(
 		`${window.location.origin}/api/fallacies/retractLogic`,
@@ -252,10 +258,4 @@ export const updateFallacy = ({
 			})
 		}
 	)
-}
-
-export const reset = () => dispatch => {
-	dispatch({
-		type: constants.RESET_FALLACY_TO_INITIAL
-	})
 }

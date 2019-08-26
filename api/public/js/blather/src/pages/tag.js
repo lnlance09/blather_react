@@ -9,6 +9,7 @@ import {
 	fetchTaggedUsers,
 	fetchTagInfo,
 	getRelatedTags,
+	reset,
 	toggleLoading,
 	updateDescription,
 	updateTag
@@ -387,6 +388,7 @@ class Tag extends Component {
 						key={tag.id}
 						onClick={() => {
 							if (!selected) {
+								props.reset()
 								props.toggleLoading()
 								props.history.push(`/tags/${tag.id}`)
 								window.scrollTo({ top: 0, behavior: "smooth" })
@@ -540,6 +542,7 @@ Tag.propTypes = {
 	name: PropTypes.string,
 	rawImages: PropTypes.array,
 	relatedTags: PropTypes.array,
+	reset: PropTypes.func,
 	toggleLoading: PropTypes.func,
 	updateDescription: PropTypes.func,
 	updateTag: PropTypes.func,
@@ -558,6 +561,7 @@ Tag.defaultProps = {
 	loading: false,
 	rawImages: [],
 	relatedTags: [],
+	reset,
 	toggleLoading,
 	updateDescription,
 	updateTag,
@@ -579,6 +583,7 @@ export default connect(
 		fetchTaggedUsers,
 		fetchTagInfo,
 		getRelatedTags,
+		reset,
 		toggleLoading,
 		updateDescription,
 		updateTag
