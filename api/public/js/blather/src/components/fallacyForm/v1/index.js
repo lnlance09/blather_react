@@ -418,6 +418,7 @@ class FallacyForm extends Component {
 
 		const SelectAssignee = props => (
 			<SearchForm
+				category={false}
 				defaultValue={page ? page.name : null}
 				onChangeAssignee={this.onChangeAssignee}
 				placeholder="Who should this fallacy be assigned to?"
