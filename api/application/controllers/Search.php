@@ -28,9 +28,7 @@
             $q = trim($q);
             $results = null;
             $error = false;
-
             $limit = 10;
-            $start = $page*$limit;
 
             switch ($type) {
                 case 'channels':
@@ -122,6 +120,7 @@
 
                     $count = $this->tags->searchTags($q, $page, true);
                     $results = $this->tags->searchTags($q, $page);
+                    $limit = 25;
                     break;
 
                 case 'tweets':

@@ -164,7 +164,7 @@
 				$this->db->order_by('t.value');
 				$this->db->group_by('t.id');
 
-				$limit = 10;
+				$limit = 25;
 				$start = $page*$limit;
 				$this->db->limit($limit, $start);
 			}
