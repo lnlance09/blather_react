@@ -147,8 +147,15 @@ class SearchResults extends Component {
 					return {
 						description: result.description,
 						extra: null,
-						img: null,
-						meta: null,
+						img: result.tag_img,
+						meta: (
+							<div>
+								<p>
+									<Icon name="clock outline" /> edited {" "}
+									<Moment date={adjustTimezone(result.date_updated)} fromNow />
+								</p>
+							</div>
+						),
 						tags: [],
 						title: result.value,
 						truncate: true,
