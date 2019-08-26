@@ -156,11 +156,12 @@ class SearchResults extends Component {
 								</p>
 							</div>
 						),
+						sanitize: true,
 						tags: [],
 						title: result.value,
-						truncate: false,
+						truncate: true,
 						url: `/tags/${result.slug}`,
-						useMarked: true
+						useMarked: false
 					}
 
 				case "users":
