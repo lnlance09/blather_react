@@ -172,7 +172,6 @@ class Tweet extends Component {
 						return (
 							<div className="mediaPic" key={`embed_${i}`}>
 								<Image
-									as="a"
 									bordered
 									className="mediaImg"
 									crossOrigin="anonymous"
