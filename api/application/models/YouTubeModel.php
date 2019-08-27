@@ -388,7 +388,7 @@
                 'client_id' => $this->clientId,
                 'redirect_uri' => $this->redirectUrl,
                 'response_type' => 'code',
-                'scope' => 'https://www.googleapis.com/auth/youtube.force-ssl'
+                'scope' => 'https://www.googleapis.com/auth/youtube.readonly'
             ];
             return $this->loginUrl.'?'.http_build_query($data);
         }
