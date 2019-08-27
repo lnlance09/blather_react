@@ -309,7 +309,7 @@ class Fallacy extends Component {
 		const ExportSection = (props, side) => {
 			const content = (
 				<div>
-					<Icon color="blue" name="download" size="big" />
+					<Icon color="green" name="download" size="big" />
 				</div>
 			)
 			return (
@@ -328,7 +328,7 @@ class Fallacy extends Component {
 										bordered
 										className="downloadDimmer"
 										dimmed={active}
-										dimmer={{ active, content, inverted: true }}
+										dimmer={{ active, content }}
 										onClick={() => window.open(props.s3Link, "_blank")}
 										onMouseEnter={this.handleShow}
 										onMouseLeave={this.handleHide}
@@ -336,11 +336,11 @@ class Fallacy extends Component {
 										size="big"
 										src={props.s3Link}
 									/>
-									{props.lastUpdated && (
+									{props.s3Updated && (
 										<p className="screenshotCaption">
 											Created{" "}
 											<Moment
-												date={adjustTimezone(props.lastUpdated)}
+												date={adjustTimezone(props.s3Updated)}
 												fromNow
 												interval={60000}
 											/>
@@ -912,6 +912,7 @@ Fallacy.propTypes = {
 	retracted: PropTypes.bool,
 	retractLogic: PropTypes.func,
 	s3Link: PropTypes.string,
+	s3Updated: PropTypes.string,
 	saveScreenshot: PropTypes.func,
 	slug: PropTypes.string,
 	status: PropTypes.number,

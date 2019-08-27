@@ -582,14 +582,15 @@
 			$s3Link = $this->s3Path.$key;
 
 			$this->fallacies->update($id, [
-				's3_link' => $key
+				's3_link' => $key,
+				's3_updated' => date('Y-m-d H:i:s')
 			]);
 			$this->fallacies->updateViewCount($id);
 
 			echo json_encode([
 				'error' => false,
-				'lastUpdated' => date('Y-m-d H:i:s'),
-				's3Link' => $s3Link
+				's3Link' => $s3Link,
+				's3Updated' => date('Y-m-d H:i:s')
 			]);
 		}
 

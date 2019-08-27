@@ -296,6 +296,7 @@ const fallacy = (state = initial(), action) => {
 				refId,
 				retracted: fallacy.retracted === "1",
 				s3Link: fallacy.s3_link,
+				s3Updated: fallacy.s3_updated,
 				screenshotEl,
 				similarCount,
 				slug: fallacy.slug,
@@ -357,8 +358,8 @@ const fallacy = (state = initial(), action) => {
 		case constants.SAVE_SCREENSHOT:
 			return {
 				...state,
-				lastUpdated: action.payload.lastUpdated,
-				s3Link: action.payload.s3Link
+				s3Link: action.payload.s3Link,
+				s3Updated: action.payload.s3Updated
 			}
 
 		case constants.SET_FALLACY_TAGS:
