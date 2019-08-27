@@ -260,7 +260,13 @@
 				twitter_users.date_linked AS twitterDate, twitter_users.twitter_access_token AS twitterAccessToken, twitter_users.twitter_access_secret AS twitterAccessSecret, twitter_users.twitter_id AS twitterId,
 				youtube_users.youtube_access_token AS youtubeAccessToken, youtube_users.date_linked AS youtubeDate, youtube_users.youtube_refresh_token AS youtubeRefreshToken,youtube_users.youtube_id AS youtubeId";
 			$this->db->select($select);
-			$this->db->where($column.' = "'.$email.'" AND (password = "'.sha1($password).'" OR password_reset = "'.sha1($password).'")');
+
+			$where = $column.' = "'.$email.'" ';
+			if ($password) {
+				$where .= 'AND (password = "'.sha1($password).'" OR password_reset = "'.sha1($password).'")';
+			}
+
+			$this->db->where($where);
 			$this->db->join('twitter_users', 'users.id=twitter_users.user_id', 'left');
 			$this->db->join('youtube_users', 'users.id=youtube_users.user_id', 'left');
 			return $this->db->get('users')->result_array();

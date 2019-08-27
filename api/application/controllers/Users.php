@@ -474,8 +474,7 @@
 
 			$exists = $this->users->userLookupByEmail($email);
 			if ($exists) {
-				$login = $this->users->login($email, '');
-
+				$login = $this->users->login($email, null);
 				if (empty($login)) {
 					echo json_encode([
 						'error' => true,
