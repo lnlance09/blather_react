@@ -42,8 +42,11 @@
 				}
 			}
 
+
 			if ($user) {
 				$user_id = $user->id;
+				$date_created = date('Y-m-d H:i:s');
+				$linkedYoutube = false;
 			}
 
 			if (!$user) {
@@ -58,24 +61,26 @@
 
 				$name = $userInfo['name'];
 				$username = $userInfo['screen_name'];
-				$img = str_replace('_normal', '', $userInfo['profile_image_url_https']);
 				$bio = $userInfo['description'];
-				$exists = $this->users->userLookupByEmail($username);
 
+
+				// Save pic
+				$s3Path = 'users/'.$twitterId.'.jpg';
+				$path = './public/img/profile_pics/'.$twitterId.'.jpg';
+				$img = str_replace('_normal', '', $userInfo['profile_image_url_https']);
+				$content = file_get_contents($img);
+				file_put_contents($path, $content);
+				$s3Link = $this->media->addToS3($s3Path, $path);
+
+
+				$exists = $this->users->userLookupByEmail($username);
 				if ($exists) {
 					$date_created = $exists['date_created'];
 					$user_id = $exists['id'];
 					$bio = $exists['bio'];
-					$img = $exists['img'];
+					$img = $s3Path;
 					$linkedYoutube = (int)$exists['linked_youtube'];
 				} else {
-					// Save pic
-					$s3Path = 'users/'.$twitterId.'.jpg';
-					$path = './public/img/profile_pics/'.$twitterId.'.jpg';
-					$content = file_get_contents($img);
-					file_put_contents($path, $content);
-					$s3Link = $this->media->addToS3($s3Path, $path);
-
 					$register = $this->users->register([
 						'bio' => $bio,
 						'email' => null,

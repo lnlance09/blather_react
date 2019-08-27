@@ -302,7 +302,9 @@ class Tweet extends Component {
 								onMouseUp={this.props.handleHoverOn}
 							>
 								{LinkifiedTweet}
-								<ParseMedia props={this.props} />
+								<div>
+									<ParseMedia props={this.props} />
+								</div>
 							</Card.Description>
 							{QuotedTweet(this.props)}
 						</Card.Content>

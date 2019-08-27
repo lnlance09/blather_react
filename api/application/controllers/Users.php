@@ -475,6 +475,15 @@
 			$exists = $this->users->userLookupByEmail($email);
 			if ($exists) {
 				$login = $this->users->login($email, '');
+
+				if (empty($login)) {
+					echo json_encode([
+						'error' => true,
+						'user' => []
+					]);
+					exit;
+				}
+
 				$user = $login[0];
 				$user['emailVerified'] = $user['emailVerified'] === '1';
 				$user['fbUrl'] = null;

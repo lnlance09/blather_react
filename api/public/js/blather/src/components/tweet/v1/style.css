@@ -70,6 +70,7 @@
     .tweet .quotedTweet .quotedTweetContent .quotedHeader {
       font-size: 14px !important; }
   .tweet .mediaPic {
+    display: inline-block;
     margin-top: 8px; }
   .tweet .tweetUserImg {
     margin-right: 9px !important;
@@ -80,8 +81,6 @@
     height: auto !important; }
     .tweet .tweetUserName.link {
       cursor: pointer; }
-      .tweet .tweetUserName.link:hover {
-        text-decoration: underline; }
   .tweet .tweetUserScreenName {
     font-size: 14px !important;
     line-height: 14px;
