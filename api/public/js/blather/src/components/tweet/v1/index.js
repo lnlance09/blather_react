@@ -175,11 +175,9 @@ class Tweet extends Component {
 									bordered
 									className="mediaImg"
 									crossOrigin="anonymous"
-									href={item.expanded_url}
 									rounded={false}
 									size={props.imageSize}
 									src={mediaImg}
-									target="_blank"
 								/>
 							</div>
 						)
