@@ -142,6 +142,7 @@ class Home extends Component {
 													highlightedText={highlightedText}
 													full_text={info.full_text}
 													handleHoverOn={this.handleHoverOn}
+													history={this.props.history}
 													id={info.id_str}
 													imageSize="medium"
 													is_quote_status={info.is_quote_status}
