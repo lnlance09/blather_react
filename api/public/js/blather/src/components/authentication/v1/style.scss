@@ -14,12 +14,34 @@
         }
     }
 
-    .registerLink {
-        color: $blue;
-        cursor: pointer;
+    .registerText {
+        background: $white;
+        border-top: solid 1px $darkWhite;
+        text-align: left;
 
-        &:hover {
-            text-decoration: underline;
+        .registerLink {
+            color: $blue;
+            cursor: pointer;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .googleBtn {
+        font-weight: bold;
+        margin-top: 12px;
+        width: 100%;
+    }
+
+    .twitterBtn {
+        border-radius: 2px;
+        height: 43px;
+        text-align: left;
+
+        .icon {
+            line-height: 18px
         }
     }
 }

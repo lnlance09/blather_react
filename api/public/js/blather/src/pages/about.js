@@ -71,6 +71,7 @@ class About extends Component {
 
 	render() {
 		const { activeItem, msg } = this.state
+
 		const AboutSection = () => (
 			<div>
 				<p>
@@ -112,6 +113,7 @@ class About extends Component {
 				</p>
 			</div>
 		)
+
 		const ContactSection = props => (
 			<div>
 				<Form
@@ -142,6 +144,44 @@ class About extends Component {
 				</Form>
 			</div>
 		)
+
+		const PrivacySection = () => (
+			<div>
+				<Header as="p" size="small">
+					Google
+				</Header>
+				<p>
+					If you choose to sign up with Google instead of signing up organically, Blather
+					will store the following.
+				</p>
+
+				<List bulleted>
+					<Menu.Item>Your first and last names</Menu.Item>
+					<Menu.Item>Your profile picture</Menu.Item>
+					<Menu.Item>Your Google ID</Menu.Item>
+					<Menu.Item>Your email</Menu.Item>
+				</List>
+
+				<p>
+					Those are used to make a basic profile on Blather for the person signing up.{" "}
+					Your name and profile picture will be visible to anyone who views your profile
+					on Blather. However, your Google ID and and email will not be made visible to
+					anyone except the person who they belong to.
+				</p>
+
+				<Header as="p" size="small">
+					YouTube
+				</Header>
+				<p>
+					If you link your YouTube account to assign fallacies to videos, Blather will
+					only store YouTube ID. That will not be shared with anyone. Linking your YouTube
+					account with Blather is necessary so that basic information (title, description,
+					and date uploaded) about the video that has been assigned a fallacy can be
+					documented.
+				</p>
+			</div>
+		)
+
 		const RulesSection = () => (
 			<div>
 				<Header as="p" size="small">
@@ -182,12 +222,15 @@ class About extends Component {
 				</p>
 			</div>
 		)
+
 		const showContent = props => {
 			switch (activeItem) {
 				case "about":
 					return <div>{AboutSection()}</div>
 				case "contact":
 					return <div>{ContactSection(props)}</div>
+				case "privacy":
+					return <div>{PrivacySection()}</div>
 				case "rules":
 					return <div>{RulesSection()}</div>
 				default:
@@ -224,6 +267,11 @@ class About extends Component {
 							<Menu.Item
 								active={activeItem === "rules"}
 								name="rules"
+								onClick={this.handleItemClick}
+							/>
+							<Menu.Item
+								active={activeItem === "privacy"}
+								name="privacy"
 								onClick={this.handleItemClick}
 							/>
 							<Menu.Item
