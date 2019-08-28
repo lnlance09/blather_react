@@ -6,12 +6,11 @@
     $dir = "/blather/";
     $base_url = "https://blather.io/";
     $title = "Assign a Logical Fallacy";
-    $description = "Blather is a website that lets users assign logical fallacies and analyze the logic and reasoning of claims made on social media. It is meant to combat partisanship.";
+    $description = "Blather is a website that lets users assign logical fallacies and analyze the logic and reasoning of claims made on social media. Make political memes out of tweets.";
     $keywords = [
         "logical fallacies",
-        "awful reasoning",
-        "logic",
-        "talking points"
+        "political memes",
+        "contradictions"
     ];
     $html = "";
 
