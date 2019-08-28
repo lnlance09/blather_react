@@ -10,7 +10,17 @@ import {
 import { GoogleLogin } from "react-google-login"
 import { Provider, connect } from "react-redux"
 import { Redirect } from "react-router-dom"
-import { Button, Divider, Form, Header, Input, Message, Segment } from "semantic-ui-react"
+import {
+	Button,
+	Divider,
+	Form,
+	Header,
+	Icon,
+	Input,
+	Label,
+	Message,
+	Segment
+} from "semantic-ui-react"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import store from "store"
@@ -115,8 +125,8 @@ class Authentication extends Component {
 	}
 
 	submitLoginForm() {
-		this.setState({ loadingLogin: true })
 		if (this.state.email.length > 0 && this.state.password.length > 0) {
+			this.setState({ loadingLogin: true })
 			this.props.submitLoginForm({
 				email: this.state.email,
 				password: this.state.password
@@ -175,21 +185,13 @@ class Authentication extends Component {
 
 		const GoogleLoginBtn = (
 			<GoogleLogin
-				buttonText="Login"
+				buttonText={`${login ? "Sign in" : "Sign up"} with Google`}
+				className="googleBtn"
 				clientId="208834451570-uhnsvk3tb5cqr6uoipnrl9ks68cmeicp.apps.googleusercontent.com"
 				cookiePolicy={"single_host_origin"}
 				onFailure={e => console.log(e)}
 				onSuccess={this.googleResponse}
-				render={renderProps => (
-					<Button
-						color="google plus"
-						content="Continue with Google"
-						disabled={renderProps.disabled}
-						fluid
-						icon="google"
-						onClick={renderProps.onClick}
-					/>
-				)}
+				theme="dark"
 			/>
 		)
 
@@ -203,12 +205,12 @@ class Authentication extends Component {
 		const InfoBox = props => {
 			if (!props.verify) {
 				return (
-					<Segment>
+					<Label attached="bottom" className="registerText">
 						{RegisterText()}{" "}
 						<span className="registerLink" onClick={this.onClick}>
 							{RegisterButton()}
 						</span>
-					</Segment>
+					</Label>
 				)
 			}
 		}
@@ -235,15 +237,12 @@ class Authentication extends Component {
 						<Form.Field>
 							<Button
 								color="blue"
-								content="Login"
+								content="Sign in"
 								fluid
 								onClick={this.submitLoginForm}
 								type="submit"
 							/>
 						</Form.Field>
-						<Divider horizontal>Or</Divider>
-						<Form.Field>{TwitterLogin(props)}</Form.Field>
-						<Form.Field>{GoogleLoginBtn}</Form.Field>
 					</Form>
 				)
 			}
@@ -290,9 +289,6 @@ class Authentication extends Component {
 								type="submit"
 							/>
 						</Form.Field>
-						<Divider horizontal>Or</Divider>
-						<Form.Field>{TwitterLogin(props)}</Form.Field>
-						<Form.Field>{GoogleLoginBtn}</Form.Field>
 					</Form>
 				)
 			}
@@ -304,12 +300,13 @@ class Authentication extends Component {
 
 		const TwitterLogin = props => (
 			<Button
+				className="twitterBtn"
 				color="twitter"
-				content="Continue with Twitter"
 				fluid
-				icon="twitter"
 				onClick={() => this.redirectToUrl(props.data.twitterUrl)}
-			/>
+			>
+				<Icon name="twitter" size="large" /> {login ? "Sign in" : "Sign up"} with Twitter
+			</Button>
 		)
 
 		return this.props.data.emailVerified ? (
@@ -322,8 +319,13 @@ class Authentication extends Component {
 						{MainForm(this.props)}
 						{ErrorMsg(this.props)}
 						{EmailVerificationForm(this.props)}
+						<Divider />
+						{InfoBox(this.props)}
 					</Segment>
-					{InfoBox(this.props)}
+					<Segment>
+						{TwitterLogin(this.props)}
+						{GoogleLoginBtn}
+					</Segment>
 				</div>
 			</Provider>
 		)

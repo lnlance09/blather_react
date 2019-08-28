@@ -12,8 +12,24 @@
 .authComponent .authSegment .error.message {
   margin-bottom: 14px; }
 
-.authComponent .registerLink {
-  color: #2185D0;
-  cursor: pointer; }
-  .authComponent .registerLink:hover {
-    text-decoration: underline; }
+.authComponent .registerText {
+  background: #FFFFFF;
+  border-top: solid 1px #F3F4F5;
+  text-align: left; }
+  .authComponent .registerText .registerLink {
+    color: #2185D0;
+    cursor: pointer; }
+    .authComponent .registerText .registerLink:hover {
+      text-decoration: underline; }
+
+.authComponent .googleBtn {
+  font-weight: bold;
+  margin-top: 12px;
+  width: 100%; }
+
+.authComponent .twitterBtn {
+  border-radius: 2px;
+  height: 43px;
+  text-align: left; }
+  .authComponent .twitterBtn .icon {
+    line-height: 18px; }

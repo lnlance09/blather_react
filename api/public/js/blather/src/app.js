@@ -126,7 +126,7 @@ class App extends Component {
 								)}
 							/>
 							<Route
-								path="/about/:tab(contact|rules)"
+								path="/about/:tab(contact|privacy|rules)"
 								render={props => (
 									<About key={window.location.pathname} {...props} />
 								)}
