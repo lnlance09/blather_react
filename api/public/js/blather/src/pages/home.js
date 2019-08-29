@@ -3,7 +3,18 @@ import { getPostFromUrl } from "pages/actions/home"
 import { connect, Provider } from "react-redux"
 import { Link } from "react-router-dom"
 import { DisplayMetaTags } from "utils/metaFunctions"
-import { Container, Divider, Header, Icon, Input, Message, Segment } from "semantic-ui-react"
+import {
+	Container,
+	Divider,
+	Grid,
+	Header,
+	Icon,
+	Image,
+	Input,
+	List,
+	Message,
+	Segment
+} from "semantic-ui-react"
 import FallacyForm from "components/fallacyForm/v1/"
 import PageFooter from "components/footer/v1/"
 import PageHeader from "components/header/v1/"
@@ -217,6 +228,76 @@ class Home extends Component {
 								)}
 							</Segment>
 						</div>
+					</Container>
+				</div>
+				<div className="competitionContainer">
+					<Container>
+						<Header size="large" textAlign="center">
+							What is Blather?
+						</Header>
+						<p>
+							Blather is a website that lets users assign logical fallacies and
+							analyze the logic and reasoning of claims made on social media. You can
+							use it to make memes out of tweets and sharpen your critical thinking
+							skills too.
+						</p>
+						<Header size="medium" textAlign="left">
+							Rules
+						</Header>
+						<List bulleted size="medium">
+							<List.Item>You can select from 47 logical fallacies.</List.Item>
+							<List.Item>
+								If you're assigning a doublethink, keep in mind that sometimes
+								people genuinely have a change of heart. Use your own best
+								judgement.
+							</List.Item>
+							<List.Item>
+								Tweets can be used to show how they contradict other tweets but they
+								have to be from the same account.
+							</List.Item>
+							<List.Item>
+								Learn to understand what the fallacy actually is and how it's used
+								before assigning it.
+							</List.Item>
+						</List>
+						<Header size="medium" textAlign="left">
+							Examples
+						</Header>
+
+						<Grid>
+							<Grid.Row columns={4}>
+								<Grid.Column>
+									<Image
+										onClick={() =>
+											this.props.history.push(
+												"/fallacies/cj-pearson-doesnt-know-what-truth-is-756"
+											)
+										}
+										src="https://s3.amazonaws.com/blather22/screenshots/cj-pearson-doesnt-know-what-truth-is-756.png"
+									/>
+								</Grid.Column>
+								<Grid.Column>
+									<Image
+										onClick={() =>
+											this.props.history.push(
+												"/fallacies/dylan-wheeler-cant-decide-if-hes-a-republican-231"
+											)
+										}
+										src="https://s3.amazonaws.com/blather22/screenshots/dylan-wheeler-cant-decide-if-hes-a-republican-231.png"
+									/>
+								</Grid.Column>
+								<Grid.Column>
+									<Image
+										onClick={() =>
+											this.props.history.push(
+												"/fallacies/dylan-wheeler-cant-decide-if-hes-a-republican-231"
+											)
+										}
+										src="https://s3.amazonaws.com/blather22/screenshots/charlie-kirks-doublethink-about-the-border-again-676.png"
+									/>
+								</Grid.Column>
+							</Grid.Row>
+						</Grid>
 					</Container>
 					<PageFooter />
 				</div>
