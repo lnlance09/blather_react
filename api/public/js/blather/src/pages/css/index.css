@@ -467,6 +467,9 @@ a {
     padding: 0 15px; }
   .competitionContainer .grid img {
     cursor: pointer; }
+  @media only screen and (max-width: 1025px) {
+    .competitionContainer {
+      margin-top: 18px; } }
 
 /* Pages page */
 @media only screen and (max-width: 1025px) {
