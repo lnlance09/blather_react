@@ -1,7 +1,7 @@
 {
   "main.css": "/static/css/main.ed395675.chunk.css",
-  "main.js": "/static/js/main.24d96a3e.chunk.js",
-  "main.js.map": "/static/js/main.24d96a3e.chunk.js.map",
+  "main.js": "/static/js/main.bb3ba8f5.chunk.js",
+  "main.js.map": "/static/js/main.bb3ba8f5.chunk.js.map",
   "static/css/1.d5ba5ecc.chunk.css": "/static/css/1.d5ba5ecc.chunk.css",
   "static/js/1.36946138.chunk.js": "/static/js/1.36946138.chunk.js",
   "static/js/1.36946138.chunk.js.map": "/static/js/1.36946138.chunk.js.map",
@@ -15,9 +15,9 @@
   "static/media/sound.ogg": "/static/media/sound.b8da6d65.ogg",
   "static/media/app.css": "/static/media/Merriweather-Regular.202792c4.otf",
   "static/media/semantic.min.css": "/static/media/brand-icons.a1a749e8.svg",
-  "static/css/1.d5ba5ecc.chunk.css.map": "/static/css/1.d5ba5ecc.chunk.css.map",
   "static/css/main.ed395675.chunk.css.map": "/static/css/main.ed395675.chunk.css.map",
+  "static/css/1.d5ba5ecc.chunk.css.map": "/static/css/1.d5ba5ecc.chunk.css.map",
   "index.html": "/index.html",
-  "precache-manifest.4dbcbe8b3f84cedfc5edcf467a8c29a0.js": "/precache-manifest.4dbcbe8b3f84cedfc5edcf467a8c29a0.js",
+  "precache-manifest.fc15cc37355c5f12e656c1cdba8423b8.js": "/precache-manifest.fc15cc37355c5f12e656c1cdba8423b8.js",
   "service-worker.js": "/service-worker.js"
 }
