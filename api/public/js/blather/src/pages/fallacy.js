@@ -334,7 +334,7 @@ class Fallacy extends Component {
 										onMouseLeave={this.handleHide}
 										rounded
 										size="big"
-										src={props.s3Link}
+										src={`${props.s3Link}?v=${new Date().getTime()}`}
 									/>
 									{props.s3Updated && (
 										<p className="screenshotCaption">
