@@ -298,6 +298,23 @@ class Home extends Component {
 								</Grid.Column>
 							</Grid.Row>
 						</Grid>
+
+						<Divider hidden />
+
+						<div>
+							<Link to="/">See more examples</Link>
+						</div>
+
+						<Divider section />
+
+						<Header as="h2" icon textAlign="center">
+							<Icon color="yellow" name="trophy" />
+							Coming soon
+							<Header.Subheader>
+								A cash reward for the best example of partisanship each month
+							</Header.Subheader>
+						</Header>
+
 					</Container>
 					<PageFooter />
 				</div>
