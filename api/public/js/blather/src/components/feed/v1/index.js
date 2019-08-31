@@ -113,7 +113,7 @@ class FeedComponent extends Component {
 											}}
 											onError={i => (i.target.src = ImagePic)}
 											rounded
-											src={result.s3_link}
+											src={`${result.s3_link}?v=${new Date().getTime()}`}
 										/>
 									) : null}
 								</Feed.Extra>
