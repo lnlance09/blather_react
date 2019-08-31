@@ -435,6 +435,9 @@ a {
         .feedPage .grid .segment .feedRow .tweet {
           max-width: 300px !important; } }
 
+.feedPage .activityHeader {
+  margin-bottom: 0; }
+
 .feedPage .ui.feed > .event > .content .meta .label {
   cursor: pointer; }
 
