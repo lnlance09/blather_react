@@ -335,7 +335,7 @@ Home.defaultProps = {
 		},
 		{
 			img: "https://s3.amazonaws.com/blather22/screenshots/charlie-kirks-doublethink-about-the-border-again-676.png",
-			link: "dylan-wheeler-cant-decide-if-hes-a-republican-231"
+			link: "charlie-kirks-doublethink-about-the-border-again-676"
 		},
 		{
 			img: "https://s3.amazonaws.com/blather22/screenshots/dylan-wheeler-cant-decide-if-hes-a-republican-231.png",
