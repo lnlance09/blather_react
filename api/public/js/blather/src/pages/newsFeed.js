@@ -10,6 +10,7 @@ import {
 	Divider,
 	Feed,
 	Grid,
+	Header,
 	Icon,
 	List,
 	Responsive,
@@ -133,6 +134,10 @@ class NewsFeed extends Component {
 					<DisplayMetaTags page="feed" props={this.props} state={this.state} />
 					<PageHeader {...this.props} />
 					<Container className="mainContainer">
+						<Header className="activityHeader" size="huge">
+							Activity
+						</Header>
+
 						<Responsive maxWidth={1024}>
 							<Grid className="feedGrid">
 								<Grid.Row>{InfoCard(this.props)}</Grid.Row>
