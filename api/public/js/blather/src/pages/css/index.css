@@ -95,16 +95,6 @@
     background-image: url("../../images/art/09.jpg"); }
   .screenshotPicWrapper.art10 {
     background-image: url("../../images/art/10.jpg"); }
-  .screenshotPicWrapper.art11 {
-    background-image: url("../../images/art/11.png"); }
-  .screenshotPicWrapper.art12 {
-    background-image: url("../../images/art/12.jpg"); }
-  .screenshotPicWrapper.art13 {
-    background-image: url("../../images/art/13.jpg"); }
-  .screenshotPicWrapper.art14 {
-    background-image: url("../../images/art/14.jpg"); }
-  .screenshotPicWrapper.art15 {
-    background-image: url("../../images/art/15.jpg"); }
 
 @media only screen and (max-width: 1025px) {
   .pageHeaderPlaceholder {
@@ -482,9 +472,6 @@ a {
     padding: 0 15px; }
   .competitionContainer .grid img {
     cursor: pointer; }
-  @media only screen and (max-width: 1025px) {
-    .competitionContainer {
-      margin-top: 18px; } }
 
 /* Pages page */
 @media only screen and (max-width: 1025px) {
