@@ -629,7 +629,7 @@
         <meta name="twitter:image" content="<?php echo $img; ?>">
 
         <meta name="description" content="<?php echo htmlentities($description); ?>">
-        <meta name="keywords" content="<?php echo array_unique($keywords); ?>">
+        <meta name="keywords" content="<?php echo implode(",", array_unique($keywords)); ?>">
         <meta name="title" content="<?php echo htmlentities($title); ?> - Blather">
 <?php
     if ($author) {
