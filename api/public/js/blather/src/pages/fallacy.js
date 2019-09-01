@@ -3,6 +3,7 @@ import backgroundOptions from "backgroundOptions.json"
 import { mapIdsToNames } from "utils/arrayFunctions"
 import { adjustTimezone } from "utils/dateFunctions"
 import { DisplayMetaTags } from "utils/metaFunctions"
+import { hyphenateText } from "utils/textFunctions"
 import {
 	createVideoFallacy,
 	fetchFallacy,
@@ -76,7 +77,7 @@ class Fallacy extends Component {
 		this.state = {
 			active: false,
 			auth,
-			background: "wiggles",
+			background: "art01",
 			bearer,
 			downloading: false,
 			editing: false,
@@ -153,11 +154,7 @@ class Fallacy extends Component {
 				})
 
 				let link = document.createElement("a")
-				link.download =
-					filename
-						.toLowerCase()
-						.split(" ")
-						.join("-") + ".png"
+				link.download = `${hyphenateText(filename)}.png`
 				link.href = img
 				link.click()
 
@@ -548,6 +545,7 @@ class Fallacy extends Component {
 					inverted="true"
 					onClose={this.toggleModal}
 					open={modalOpen}
+					size="large"
 				>
 					<Modal.Content>
 						<div
@@ -563,7 +561,11 @@ class Fallacy extends Component {
 								showExplanation={exportOpt === "screenshotAll"}
 							/>
 							{exportOpt === "screenshotAndRef" && (
-								<div>
+								<div
+									className={`fallacyRefContainer ${
+										downloading ? "downloading" : ""
+									}`}
+								>
 									<Divider horizontal />
 									<FallacyRef canScreenshot={false} id={props.fallacyId} />
 								</div>
@@ -584,7 +586,8 @@ class Fallacy extends Component {
 						/>
 						<Button
 							color="blue"
-							content="Make image"
+							content="Create image"
+							icon="image"
 							loading={downloading}
 							onClick={this.captureScreenshot}
 						/>

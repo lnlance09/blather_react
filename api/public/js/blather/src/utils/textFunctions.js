@@ -51,6 +51,12 @@ export const getHighlightedText = (text, higlight, className = "") => {
 	)
 }
 
+export const hyphenateText = text =>
+	text
+		.toLowerCase()
+		.split(" ")
+		.join("-")
+
 export const sanitizeText = html => {
 	return sanitizeHtml(html, {
 		allowedTags: [

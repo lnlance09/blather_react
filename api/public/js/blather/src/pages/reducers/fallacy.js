@@ -358,8 +358,8 @@ const fallacy = (state = initial(), action) => {
 		case constants.SAVE_SCREENSHOT:
 			return {
 				...state,
-				s3Link: action.payload.s3Link,
-				s3Updated: action.payload.s3Updated
+				s3Link: payload.s3Link,
+				s3Updated: payload.s3Updated
 			}
 
 		case constants.SET_FALLACY_TAGS:

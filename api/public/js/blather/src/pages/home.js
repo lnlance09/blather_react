@@ -249,7 +249,10 @@ class Home extends Component {
 						</Header>
 
 						<List bulleted size="medium">
-							<List.Item>You can select from <Link to="/fallacies">47 logical fallacies</Link>.</List.Item>
+							<List.Item>
+								You can select from{" "}
+								<Link to="/fallacies">47 logical fallacies</Link>.
+							</List.Item>
 							<List.Item>
 								If you're assigning a doublethink, keep in mind that sometimes
 								people genuinely have a change of heart. Use your own best
@@ -276,9 +279,7 @@ class Home extends Component {
 										<Image
 											bordered
 											onClick={() =>
-												this.props.history.push(
-													`/fallacies/${e.link}`
-												)
+												this.props.history.push(`/fallacies/${e.link}`)
 											}
 											onError={i => (i.target.src = ImagePic)}
 											rounded
@@ -304,7 +305,6 @@ class Home extends Component {
 								A cash reward for the best example of partisanship each month
 							</Header.Subheader>
 						</Header>
-
 					</Container>
 					<PageFooter />
 				</div>
@@ -330,15 +330,18 @@ Home.propTypes = {
 Home.defaultProps = {
 	examples: [
 		{
-			img: "https://s3.amazonaws.com/blather22/screenshots/cj-pearson-doesnt-know-what-truth-is-756.png",
+			img:
+				"https://s3.amazonaws.com/blather22/screenshots/cj-pearson-doesnt-know-what-truth-is-756.png",
 			link: "cj-pearson-doesnt-know-what-truth-is-756"
 		},
 		{
-			img: "https://s3.amazonaws.com/blather22/screenshots/charlie-kirks-doublethink-about-the-border-again-676.png",
+			img:
+				"https://s3.amazonaws.com/blather22/screenshots/charlie-kirks-doublethink-about-the-border-again-676.png",
 			link: "charlie-kirks-doublethink-about-the-border-again-676"
 		},
 		{
-			img: "https://s3.amazonaws.com/blather22/screenshots/dylan-wheeler-cant-decide-if-hes-a-republican-231.png",
+			img:
+				"https://s3.amazonaws.com/blather22/screenshots/dylan-wheeler-cant-decide-if-hes-a-republican-231.png",
 			link: "dylan-wheeler-cant-decide-if-hes-a-republican-231"
 		}
 	],

@@ -1,62 +1,77 @@
 [
     {
-        "key": "wiggles",
-        "text": "Wiggles",
-        "value": "wiggles"
+        "key": "art01",
+        "text": "Background 01",
+        "value": "art01"
     },
     {
-        "key": "graphPaper",
-        "text": "Graph Paper",
-        "value": "graphPaper"
+        "key": "art02",
+        "text": "Background 02",
+        "value": "art02"
     },
     {
-        "key": "iLikeFood",
-        "text": "I Like Food",
-        "value": "iLikeFood"
+        "key": "art03",
+        "text": "Background 03",
+        "value": "art03"
     },
     {
-        "key": "bathroomFloor",
-        "text": "Bathroom Floor",
-        "value": "bathroomFloor"
+        "key": "art04",
+        "text": "Background 04",
+        "value": "art04"
     },
     {
-        "key": "tinyCheckers",
-        "text": "Tiny Checker",
-        "value": "tinyCheckers"
+        "key": "art05",
+        "text": "Background 05",
+        "value": "art05"
     },
     {
-        "key": "anchorsAway",
-        "text": "Anchors Away",
-        "value": "anchorsAway"
+        "key": "art06",
+        "text": "Background 06",
+        "value": "art06"
     },
     {
-        "key": "brickWall",
-        "text": "Brick Wall",
-        "value": "brickWall"
+        "key": "art07",
+        "text": "Background 07",
+        "value": "art07"
     },
     {
-        "key": "stripes",
-        "text": "Stripes",
-        "value": "stripes"
+        "key": "art08",
+        "text": "Background 08",
+        "value": "art08"
     },
     {
-        "key": "diagonalLines",
-        "text": "Diagonal Lines",
-        "value": "diagonalLines"
+        "key": "art09",
+        "text": "Background 09",
+        "value": "art09"
     },
     {
-        "key": "greenStripes",
-        "text": "Green Stripes",
-        "value": "greenStripes"
+        "key": "art10",
+        "text": "Background 10",
+        "value": "art10"
     },
     {
-        "key": "microbialMat",
-        "text": "Microbial Mat",
-        "value": "microbialMat"
+        "key": "art11",
+        "text": "Background 11",
+        "value": "art11"
     },
     {
-        "key": "honeycomb",
-        "text": "Honeycomb",
-        "value": "honeycomb"
+        "key": "art12",
+        "text": "Background 12",
+        "value": "art12"
+    },
+    {
+        "key": "art13",
+        "text": "Background 13",
+        "value": "art13"
+    },
+    {
+        "key": "art14",
+        "text": "Background 14",
+        "value": "art14"
+    },
+    {
+        "key": "art15",
+        "text": "Background 15",
+        "value": "art15"
     }
 ]
