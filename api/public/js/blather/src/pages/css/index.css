@@ -72,7 +72,7 @@
   .screenshotPicWrapper .watermarkLabel {
     margin-bottom: 0; }
   .screenshotPicWrapper .fallacyRefContainer.downloading .fallacySegment {
-    opacity: 0.95; }
+    opacity: 0.97; }
   .screenshotPicWrapper.art02 .watermarkLabel, .screenshotPicWrapper.art02 .fallacyExplanation, .screenshotPicWrapper.art02 .fallacyHeader, .screenshotPicWrapper.art02 #fallacyDateDiff, .screenshotPicWrapper.art04 .watermarkLabel, .screenshotPicWrapper.art04 .fallacyExplanation, .screenshotPicWrapper.art04 .fallacyHeader, .screenshotPicWrapper.art04 #fallacyDateDiff, .screenshotPicWrapper.art08 .watermarkLabel, .screenshotPicWrapper.art08 .fallacyExplanation, .screenshotPicWrapper.art08 .fallacyHeader, .screenshotPicWrapper.art08 #fallacyDateDiff {
     color: #FFFFFF; }
   .screenshotPicWrapper.art01 {
@@ -468,7 +468,7 @@ a {
 
 .homePage {
   background-color: #f9fafb;
-  background-image: url("../../images/art/10.jpg");
+  background-image: url("../../images/art/09.jpg");
   background-size: cover;
   padding: 0; }
   .homePage .mainContainer {
