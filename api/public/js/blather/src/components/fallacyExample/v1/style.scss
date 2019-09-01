@@ -34,6 +34,8 @@
     .fallacyMaterial {
         &.downloading {
             .tweet {
+                opacity: 0.9;
+
                 .card .content .description span b {
                     white-space: pre !important;
                 }
