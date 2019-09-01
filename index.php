@@ -5,6 +5,7 @@
 
     $dir = "/blather/";
     $base_url = "https://blather.io/";
+    $canonical_url = $uri;
     $title = "Assign a Logical Fallacy";
     $description = "Blather is a website that lets users assign logical fallacies and analyze the logic and reasoning of claims made on social media. Make political memes out of tweets.";
     $keywords = [
@@ -222,6 +223,7 @@
                         $img = $s3Path.$pagePic;
                         $author = $userName;
                         $authorUrl = $base_url.'users/'.$userUsername;
+                        $canonical_url = $base_url."fallacies/".$slug;
 
                         if (strpos($s3Link, "screenshots") !== false) {
                             $img = $s3Path.$s3Link;
@@ -231,7 +233,7 @@
                             "@context" => "http://schema.org",
                             "@type" => "BlogPosting",
                             "image" => $img,
-                            "url" => $base_url."fallacies/".$slug,
+                            "url" => $canonical_url,
                             "headline" => $title,
                             "alternativeHeadline" => $pageTitle,
                             "dateCreated" => $createdAt,
@@ -330,12 +332,13 @@
 
                     $ext = $type === "twitter" ? "jpg" : "png";
                     $img = $s3Path.$s3Pic;
+                    $canonical_url = $base_url."pages/".$type."/".($type === "twitter" ? $username : $pageId);
 
                     $schema = [
                         "@context" => "https://schema.org",
                         "@type" => "Person",
                         "name" => $title,
-                        "url" => $base_url."pages/".$type."/".($type === "twitter" ? $username : $pageId),
+                        "url" => $canonical_url,
                         "sameAs" => [
                             $type === "twitter" ? "https://twitter.com/".$username : "https://www.youtube.com/channel/".$pageId
                         ]
@@ -365,7 +368,7 @@
                 $exp = explode('-', $id);
                 $id = end($exp);
 
-                $sql = "SELECT t.value, tv.description, ti.s3_path, ti.caption, fe.title, fe.slug
+                $sql = "SELECT t.value, t.slug, tv.description, ti.s3_path, ti.caption, fe.title, fe.slug
                         FROM tags t
 
                         INNER JOIN tag_versions tv ON t.id = tv.tag_id
@@ -385,6 +388,7 @@
 
                     while ($row = $result->fetch_assoc()) {
                         if ($i === 0) {
+                            $canonical_url = $base_url.'tags/'.$row['slug'];
                             $title = $row['value'];
                             $description = substr($row['description'], 0, 160);
 
@@ -446,6 +450,7 @@
                     }
 
                     $description = substr($summary, 0, 160);
+                    $canonical_url = $base_url."targets/".$id."/".$pageId;
 
                     if ($id != "create") {
                         $schema = [
@@ -467,7 +472,7 @@
                                 [
                                     "@type" => "ListItem",
                                     "description" => $title,
-                                    "item" => $base_url."targets/".$id."/".$pageId,
+                                    "item" => $canonical_url,
                                     "name" => $pageName,
                                     "position" => 3
                                 ]
@@ -538,12 +543,13 @@
                     $result->close();
 
                     $description = $title."'s profile on Blather";
+                    $canonical_url = $base_url."users/".$username;
 
                     $schema = [
                         "@context" => "https://schema.org",
                         "@type" => "Person",
                         "name" => $title,
-                        "url" => $base_url."users/".$username
+                        "url" => $canonical_url
                     ];
                 }
                 break;
@@ -640,6 +646,10 @@
 
         <link rel="stylesheet" type="text/css" href="/static/css/1.d5ba5ecc.chunk.css">
         <link rel="stylesheet" type="text/css" href="/static/css/main.61f1def5.chunk.css">
+
+        <link rel="canonical" href="<?php echo $canonical_url; ?>" />
+        <link rel="home" href="<?php echo $base_url; ?>" />
+
         <link rel="manifest" href="/manifest.json">
         <link rel="shortcut icon" href="/favicon.ico?v=3">
         <link rel="apple-touch-icon" sizes="128x128" href="/favicon.ico?v=3">
