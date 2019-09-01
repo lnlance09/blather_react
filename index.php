@@ -177,13 +177,20 @@
                                 u.id AS user_id,
                                 u.img AS user_profile_pic,
                                 u.name AS user_name,
-                                u.username
+                                u.username,
+
+                                GROUP_CONCAT(DISTINCT t.id ORDER BY t.id ASC SEPARATOR '|') AS tag_ids,
+                                GROUP_CONCAT(DISTINCT t.value ORDER BY t.id ASC SEPARATOR '|') AS tag_names,
+                                GROUP_CONCAT(DISTINCT t.slug ORDER BY t.id ASC SEPARATOR '|') AS tag_slugs
+
                             FROM fallacy_entries fe
                             INNER JOIN fallacies f ON fe.fallacy_id = f.id
                             INNER JOIN pages p ON fe.page_id = p.social_media_id
                             INNER JOIN users u ON fe.assigned_by = u.id
                             LEFT JOIN contradictions c ON fe.id = c.fallacy_entry_id
                             LEFT JOIN pages cp ON c.page_id = cp.social_media_id
+                            LEFT JOIN fallacy_tags ft ON fe.id = ft.fallacy_id
+                            INNER JOIN tags t ON ft.tag_id = t.id
                             WHERE fe.id = '".$mysqli->real_escape_string((int)$id)."'";
                     $result = $mysqli->query($sql);
 
@@ -214,6 +221,10 @@
                             $userName = $row['user_name'];
                             $userPic = $row['user_profile_pic'];
                             $userUsername = $row['username'];
+
+                            $tag_ids = explode('|', $row['tag_ids']);
+                            $tag_names = explode('|', $row['tag_names']);
+                            $tag_slugs = explode('|', $row['tag_slugs']);
                         }
                         $result->close();
 
@@ -229,27 +240,35 @@
                             $img = $s3Path.$s3Link;
                         }
 
+                        $schema_keywords = [
+                            'Tag:'.$fallacyName,
+                            'Tag:'.$pageName
+                        ];
+
+                        for ($i=0;$i<count($tag_ids);$i++) {
+                            $schema_keywords[] = 'Tag:'.trim($tag_names[$i]);
+                            $keywords[] = trim($tag_names[$i]);
+                        }
+
                         $schema = [
                             "@context" => "http://schema.org",
-                            "@type" => "BlogPosting",
+                            "@type" => "NewsArticle",
                             "image" => $img,
                             "url" => $canonical_url,
-                            "headline" => $title,
-                            "alternativeHeadline" => $pageTitle,
                             "dateCreated" => $createdAt,
                             "datePublished" => $createdAt,
                             "dateModified" => empty($lastUpdated) ? $createdAt : $lastUpdated,
-                            "inLanguage" => "en-US",
+                            "headline" => $title,
+                            "name" => $title,
+                            "description" => $description,
+                            "identifier" => $id,
+                            "keywords" =>  $schema_keywords,
                             "author" => [
                                 "@type" => "Person",
                                 "name" => $author,
                                 "url" => $authorUrl
                             ],
-                            "creator" => [
-                                "@type" => "Person",
-                                "name" => $author,
-                                "url" => $authorUrl
-                            ],
+                            "creator" => $author,
                             "publisher" => [
                                 "@type" => "Organization",
                                 "name" => "Blather",
@@ -261,16 +280,7 @@
                                     "height" => "512"
                                 ]
                             ],
-                            "mainEntityOfPage" => "True",
-                            "keywords" =>  [
-                                $fallacyName,
-                                "Logic",
-                                "Fallacy",
-                                $pageName
-                            ],
-                            "genre" => ["SEO","JSON-LD"],
-                            "articleSection" => "Logical Fallacies",
-                            "articleBody" => $explanation
+                            "mainEntityOfPage" => $canonical_url
                         ];
 
                         $keywords[] = $fallacyName;
@@ -306,6 +316,10 @@
                             $result->close();
                         }
 
+                        for ($i=0;$i<count($tag_ids);$i++) {
+                            $html .= '<a href="'.$base_url.'tags/'.trim($tag_slugs[$i]).'">'.trim($tag_names[$i]).'</a>';
+                        }
+
                         $html .= '</div>';
                     }
                 }
@@ -325,7 +339,7 @@
                         $title = $row['name'];
                         $s3Pic = $row['s3_pic'];
                         $username = $row['username'];
-                        $description = "How strong is ".$title."'s commitment to truth? Is ".$title." a grifter or delusional? ".$title."'s list of contradictions and logical fallacies on Blather. A measure of ".$title."'s partisanship, logical consistency, and intellectual honesty.";
+                        $description = $title."'s list of contradictions and logical fallacies on Blather. A measure of ".$title."'s credibility and partisanship.";
                         $type = $row['type'];
                     }
                     $result->close();
