@@ -190,7 +190,7 @@
                             LEFT JOIN contradictions c ON fe.id = c.fallacy_entry_id
                             LEFT JOIN pages cp ON c.page_id = cp.social_media_id
                             LEFT JOIN fallacy_tags ft ON fe.id = ft.fallacy_id
-                            INNER JOIN tags t ON ft.tag_id = t.id
+                            LEFT JOIN tags t ON ft.tag_id = t.id
                             WHERE fe.id = '".$mysqli->real_escape_string((int)$id)."'";
                     $result = $mysqli->query($sql);
 
@@ -246,8 +246,10 @@
                         ];
 
                         for ($i=0;$i<count($tag_ids);$i++) {
-                            $schema_keywords[] = 'Tag:'.trim($tag_names[$i]);
-                            $keywords[] = trim($tag_names[$i]);
+                            if (!empty($tag_ids[$i])) {
+                                $schema_keywords[] = 'Tag:'.trim($tag_names[$i]);
+                                $keywords[] = trim($tag_names[$i]);
+                            }
                         }
 
                         $schema = [
@@ -317,7 +319,9 @@
                         }
 
                         for ($i=0;$i<count($tag_ids);$i++) {
-                            $html .= '<a href="'.$base_url.'tags/'.trim($tag_slugs[$i]).'">'.trim($tag_names[$i]).'</a>';
+                            if (!empty($tag_ids[$i])) {
+                                $html .= '<a href="'.$base_url.'tags/'.trim($tag_slugs[$i]).'">'.trim($tag_names[$i]).'</a>';
+                            }
                         }
 
                         $html .= '</div>';
