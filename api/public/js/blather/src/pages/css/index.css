@@ -174,9 +174,6 @@ a {
 .heroInput .icon.youtube {
   color: #ff0000; }
 
-.heroSegment {
-  padding-bottom: 25px; }
-
 /* About page */
 .aboutPage .logoContainer {
   background: #FFFFFF;
@@ -465,7 +462,8 @@ a {
   background-size: cover;
   padding: 0; }
   .homePage .mainContainer {
-    min-height: 70vh; }
+    min-height: 70vh;
+    padding-bottom: 25px; }
 
 .competitionContainer {
   background: #FFFFFF;
