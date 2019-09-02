@@ -448,7 +448,7 @@ a {
   margin-top: 0; }
 
 .homePage {
-  background-image: url("../../images/art/isometric/01.svg");
+  background-image: url("../../images/art/isometric/07.svg");
   background-size: cover;
   padding: 0; }
   .homePage .mainContainer {
@@ -490,7 +490,7 @@ a {
   background: #FFFFFF; }
   .socialMediaPage .segments .segment.coverPic {
     background-color: #FFFFFF;
-    background-image: url("../../images/art/isometric/04.svg");
+    background-image: url("../../images/art/isometric/07.svg");
     background-size: cover;
     border-bottom: solid 1px #DCDDDE;
     height: 230px; }
@@ -731,7 +731,7 @@ a {
   background: #FFFFFF; }
   .usersPage .segments .segment.coverPic {
     background-color: #FFFFFF;
-    background-image: url("../../images/art/isometric/07.svg");
+    background-image: url("../../images/art/isometric/01.svg");
     background-size: cover;
     border-bottom: solid 1px #DCDDDE;
     height: 230px; }

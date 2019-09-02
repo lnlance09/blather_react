@@ -801,7 +801,7 @@ class Fallacy extends Component {
 									<Grid.Row>{RetractionSegment(this.props)}</Grid.Row>
 									<Grid.Row>{CommentsSection(this.props)}</Grid.Row>
 									<Grid.Row>
-										{ShareSection(true)}
+										{ShareSection(false)}
 										<Statistic
 											className="viewCount"
 											horizontal
