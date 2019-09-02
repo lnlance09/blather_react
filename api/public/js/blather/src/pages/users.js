@@ -275,13 +275,13 @@ class UserPage extends Component {
 											<List horizontal>
 												<List.Item>
 													<List.Content>
-														<Icon color="red" name="at" />{" "}
+														<Icon color="blue" name="at" />{" "}
 														{user.username}
 													</List.Content>
 												</List.Item>
 												<List.Item>
 													<List.Content>
-														<Icon color="blue" name="clock" />
+														<Icon color="blue" name="clock outline" />
 														Joined{" "}
 														<Moment
 															date={adjustTimezone(user.dateCreated)}
