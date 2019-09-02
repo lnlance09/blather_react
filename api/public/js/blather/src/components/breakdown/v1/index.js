@@ -1,6 +1,5 @@
 import "./style.css"
 import { Link } from "react-router-dom"
-import { sanitizeText } from "utils/textFunctions"
 import {
 	Button,
 	Divider,
@@ -12,9 +11,9 @@ import {
 	Progress,
 	Segment
 } from "semantic-ui-react"
-import Marked from "marked"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
+import TextTruncate from "react-text-truncate"
 
 class Breakdown extends Component {
 	constructor(props) {
@@ -156,17 +155,22 @@ class Breakdown extends Component {
 							<blockquote
 								cite={`https://blather.io/targets/${placeholder.user_id}/${dbId}`}
 								className="placeholderDiv"
-								dangerouslySetInnerHTML={{
-									__html: sanitizeText(Marked(placeholder.summary))
-								}}
-							/>
+							>
+								<TextTruncate
+									line={3}
+									text={placeholder.summary}
+									textTruncateChild={(
+										<Link to={`/targets/${placeholder.user_id}/${dbId}`}>
+											See full review
+										</Link>
+									)}
+									truncateText="..."
+								/>
+							</blockquote>
+
 							<Icon name="quote right" />
 
-							<p className="fullReview">
-								<Link to={`/targets/${placeholder.user_id}/${dbId}`}>
-									See full review
-								</Link>
-							</p>
+							<Divider hidden />
 
 							<Header size="medium">
 								Can pass an{" "}
@@ -187,7 +191,6 @@ class Breakdown extends Component {
 
 							<Header size="medium" style={{ marginTop: "16px" }}>
 								<Button
-									basic
 									color="blue"
 									onClick={() =>
 										this.props.history.push(
@@ -195,7 +198,7 @@ class Breakdown extends Component {
 										)
 									}
 								>
-									<Icon name="star" />
+									<Icon color="yellow" name="star" />
 									Create a review
 								</Button>
 							</Header>

@@ -30,17 +30,13 @@
     margin-top: 0; }
 
 .breakdown .placeholderDiv {
+  color: #545454;
+  font-size: 16px;
+  line-height: 1.6;
   margin-bottom: 12px; }
-  .breakdown .placeholderDiv p {
-    color: #545454;
-    font-size: 16px;
-    line-height: 1.6; }
 
 .breakdown .icon.question {
   color: #DB2828; }
-
-.breakdown .fullReview {
-  margin: 10px 0 16px 0; }
 
 @media only screen and (max-width: 1025px) {
   .breakdown .ui.header.small {
