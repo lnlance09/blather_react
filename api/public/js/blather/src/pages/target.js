@@ -23,9 +23,9 @@ import {
 	Message,
 	Placeholder
 } from "semantic-ui-react"
-import BrainPic from "images/brain-fart.gif"
+import BrainPic from "images/avatar/brain-fart.gif"
 import FallaciesList from "components/fallaciesList/v1/"
-import ImagePic from "images/image-square.png"
+import ImagePic from "images/images/image-square.png"
 import LazyLoad from "components/lazyLoad/v1/"
 import Marked from "marked"
 import PageFooter from "components/footer/v1/"

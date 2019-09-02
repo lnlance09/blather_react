@@ -24,7 +24,7 @@ import {
 } from "semantic-ui-react"
 import _ from "lodash"
 import FallacyForm from "components/fallacyForm/v1/"
-import ImagePic from "images/image-square.png"
+import ImagePic from "images/images/image-square.png"
 import LazyLoad from "components/lazyLoad/v1/"
 import Moment from "react-moment"
 import PropTypes from "prop-types"

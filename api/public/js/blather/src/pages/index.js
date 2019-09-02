@@ -19,7 +19,7 @@ import {
 	Segment
 } from "semantic-ui-react"
 import Breakdown from "components/breakdown/v1/"
-import defaultImg from "images/image-square.png"
+import defaultImg from "images/images/square-image.png"
 import FallaciesList from "components/fallaciesList/v1/"
 import LazyLoad from "components/lazyLoad/v1/"
 import PageFooter from "components/footer/v1/"

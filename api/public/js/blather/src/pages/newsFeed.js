@@ -16,7 +16,7 @@ import {
 	Responsive,
 	Segment
 } from "semantic-ui-react"
-import ImagePic from "images/image-square.png"
+import ImagePic from "images/images/image-square.png"
 import FeedComponent from "components/feed/v1/"
 import PageFooter from "components/footer/v1/"
 import PageHeader from "components/header/v1/"

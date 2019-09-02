@@ -15,7 +15,7 @@ import {
 	Message,
 	Segment
 } from "semantic-ui-react"
-import ImagePic from "images/image-square.png"
+import ImagePic from "images/images/image-square.png"
 import FallacyForm from "components/fallacyForm/v1/"
 import PageFooter from "components/footer/v1/"
 import PageHeader from "components/header/v1/"
@@ -233,7 +233,7 @@ class Home extends Component {
 				</div>
 				<div className="competitionContainer">
 					<Container>
-						<Header size="large" textAlign="center">
+						<Header size="huge" textAlign="center">
 							What is Blather?
 						</Header>
 

@@ -18,7 +18,7 @@ import {
 	Responsive
 } from "semantic-ui-react"
 import ProfilePic from "images/trump-fanboy.png"
-import ItemPic from "images/square-image.png"
+import ItemPic from "images/images/square-image.png"
 import Logo from "components/header/v1/images/logo.svg"
 import ReactSVG from "react-svg"
 import Typist from "react-typist"

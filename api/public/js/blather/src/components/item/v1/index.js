@@ -1,7 +1,7 @@
 import "./style.css"
 import { formatNumber, formatPlural, getHighlightedText } from "utils/textFunctions"
 import { Item, Label, List } from "semantic-ui-react"
-import ImagePic from "images/image-square.png"
+import ImagePic from "images/images/image-square.png"
 import LazyLoad from "components/lazyLoad/v1/"
 import Marked from "marked"
 import PropTypes from "prop-types"
