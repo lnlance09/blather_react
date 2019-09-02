@@ -159,11 +159,11 @@ class Breakdown extends Component {
 								<TextTruncate
 									line={3}
 									text={placeholder.summary}
-									textTruncateChild={(
+									textTruncateChild={
 										<Link to={`/targets/${placeholder.user_id}/${dbId}`}>
 											See full review
 										</Link>
-									)}
+									}
 									truncateText="..."
 								/>
 							</blockquote>

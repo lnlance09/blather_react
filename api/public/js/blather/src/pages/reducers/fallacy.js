@@ -475,6 +475,12 @@ const fallacy = (state = initial(), action) => {
 				title: payload.fallacy.title
 			}
 
+		case constants.UPLOAD_BACKGROUND_PIC:
+			return {
+				...state,
+				backgroundImg: payload.img
+			}
+
 		default:
 			return state
 	}

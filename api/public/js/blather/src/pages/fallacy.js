@@ -11,7 +11,8 @@ import {
 	retractLogic,
 	saveScreenshot,
 	toggleCreateMode,
-	updateFallacy
+	updateFallacy,
+	uploadBackgroundPic
 } from "pages/actions/fallacy"
 import { FacebookProvider, Comments, Like } from "react-facebook"
 import { connect, Provider } from "react-redux"
@@ -35,9 +36,12 @@ import {
 	Radio,
 	Responsive,
 	Segment,
-	Statistic
+	Statistic,
+	Transition
 } from "semantic-ui-react"
+import { Slider } from "react-semantic-ui-range"
 import { confetti } from "dom-confetti"
+import Dropzone from "react-dropzone"
 import FallacyExample from "components/fallacyExample/v1/"
 import FallaciesList from "components/fallaciesList/v1/"
 import FallacyRef from "components/fallacyRef/v1/"
@@ -81,10 +85,12 @@ class Fallacy extends Component {
 			bearer,
 			downloading: false,
 			editing: false,
-			exportArticle: this.props.refId > 8 ? "comment" : "tweet",
 			exportOpt: "screenshot",
 			id,
 			modalOpen: false,
+			opacity: 95,
+			repeat: false,
+			settingsVisible: false,
 			show: false,
 			twitterId,
 			userId,
@@ -94,6 +100,7 @@ class Fallacy extends Component {
 
 		this.captureScreenshot = this.captureScreenshot.bind(this)
 		this.handleExportChange = this.handleExportChange.bind(this)
+		this.onDrop = this.onDrop.bind(this)
 		this.onSelectBackground = this.onSelectBackground.bind(this)
 	}
 
@@ -216,7 +223,6 @@ class Fallacy extends Component {
 		}
 
 		this.setState({
-			exportArticle: newProps.refId > 8 ? "comment" : "tweet",
 			exportOpt: newProps.canMakeVideo ? "video" : "screenshot"
 		})
 	}
@@ -231,6 +237,14 @@ class Fallacy extends Component {
 		this.setState({ value })
 		if (this.props.onChange) {
 			this.props.onChange(value.toString("html"))
+		}
+	}
+
+	onDrop(files) {
+		if (files.length > 0) {
+			this.props.uploadBackgroundPic({
+				file: files[0]
+			})
 		}
 	}
 
@@ -262,16 +276,20 @@ class Fallacy extends Component {
 
 	toggleModal = () => this.setState({ modalOpen: !this.state.modalOpen })
 
+	toggleRepeat = () => this.setState({ repeat: !this.state.repeat })
+
 	render() {
 		const {
 			active,
 			background,
 			bearer,
 			downloading,
-			exportArticle,
 			exportOpt,
 			id,
 			modalOpen,
+			opacity,
+			repeat,
+			settingsVisible,
 			twitterId,
 			userId,
 			youtubeId
@@ -346,37 +364,7 @@ class Fallacy extends Component {
 								</div>
 							) : null}
 
-							{props.canScreenshot ? (
-								<Form>
-									<Form.Field>
-										<Radio
-											checked={exportOpt === "screenshot"}
-											label={`Screenshot just the ${exportArticle}(s)`}
-											name="exportOption"
-											onChange={this.handleExportChange}
-											value="screenshot"
-										/>
-									</Form.Field>
-									<Form.Field>
-										<Radio
-											checked={exportOpt === "screenshotAll"}
-											label={`Screenshot the ${exportArticle}(s) plus the explanation`}
-											name="exportOption"
-											onChange={this.handleExportChange}
-											value="screenshotAll"
-										/>
-									</Form.Field>
-									<Form.Field>
-										<Radio
-											checked={exportOpt === "screenshotAndRef"}
-											label={`Screenshot the ${exportArticle}(s) plus the reference`}
-											name="exportOption"
-											onChange={this.handleExportChange}
-											value="screenshotAndRef"
-										/>
-									</Form.Field>
-								</Form>
-							) : (
+							{!props.canScreenshot && (
 								<div>
 									<Form>
 										<Form.Field>
@@ -537,6 +525,11 @@ class Fallacy extends Component {
 		}
 
 		const PictureModal = props => {
+			const style = {
+				backgroundImage: props.backgroundImg ? `url(${props.backgroundImg})` : null,
+				backgroundSize: repeat ? "contain" : "cover"
+			}
+
 			return (
 				<Modal
 					className="screenshotModal"
@@ -551,6 +544,7 @@ class Fallacy extends Component {
 						<div
 							className={`screenshotPicWrapper ${background}`}
 							id="screenshotPicWrapper"
+							style={style}
 						>
 							<FallacyExample
 								canEdit={false}
@@ -558,6 +552,7 @@ class Fallacy extends Component {
 								exportOpt={exportOpt}
 								history={props.history}
 								id={id}
+								opacity={opacity / 100}
 								showExplanation={exportOpt === "screenshotAll"}
 							/>
 							{exportOpt === "screenshotAndRef" && (
@@ -567,7 +562,11 @@ class Fallacy extends Component {
 									}`}
 								>
 									<Divider horizontal />
-									<FallacyRef canScreenshot={false} id={props.fallacyId} />
+									<FallacyRef
+										canScreenshot={false}
+										id={props.fallacyId}
+										opacity={opacity / 100}
+									/>
 								</div>
 							)}
 							{downloading && (
@@ -576,14 +575,117 @@ class Fallacy extends Component {
 								</Divider>
 							)}
 						</div>
+
+						<Header className="advancedSettingsHeader">
+							Advanced Settings
+							<a
+								href={window.location.origin}
+								onClick={e => {
+									e.preventDefault()
+									this.setState({ settingsVisible: !settingsVisible })
+								}}
+							>
+								{settingsVisible ? "hide" : "show"}
+							</a>
+						</Header>
+
+						<Transition animation="scale" duration={500} visible={settingsVisible}>
+							<Segment className="opacitySlider">
+								<Header size="tiny">Opacity</Header>
+								<Segment>
+									<Slider
+										color="blue"
+										settings={{
+											min: 0,
+											max: 100,
+											start: 100,
+											step: 1,
+											onChange: opacity => {
+												this.setState({ opacity })
+											}
+										}}
+										value={opacity}
+									/>
+								</Segment>
+
+								<Header size="tiny">Background</Header>
+								<Segment>
+									<Grid columns={2} relaxed="very">
+										<Grid.Column>
+											<Dropdown
+												fluid
+												onChange={this.onSelectBackground}
+												options={backgroundOptions}
+												placeholder="Background"
+												selection
+											/>
+										</Grid.Column>
+										<Grid.Column>
+											<Dropzone onDrop={this.onDrop}>
+												{({ getRootProps, getInputProps }) => (
+													<div
+														className="changeBackgroundBtn"
+														{...getRootProps()}
+													>
+														<input {...getInputProps()} />
+														<Button
+															color="green"
+															content="Custom"
+															fluid
+															icon="photo"
+														/>
+													</div>
+												)}
+											</Dropzone>
+										</Grid.Column>
+									</Grid>
+									<Divider fitted vertical>
+										or
+									</Divider>
+								</Segment>
+
+								<Header size="tiny">Repeat</Header>
+								<List relaxed>
+									<List.Item>
+										<Radio onChange={this.toggleRepeat} toggle />
+									</List.Item>
+								</List>
+
+								<Header size="tiny">Include</Header>
+								<List relaxed>
+									<List.Item>
+										<Radio
+											checked={exportOpt === "screenshot"}
+											label="Just the tweet(s)"
+											name="exportOption"
+											onChange={this.handleExportChange}
+											value="screenshot"
+										/>
+									</List.Item>
+									<List.Item>
+										<Radio
+											checked={exportOpt === "screenshotAll"}
+											label="Explanation"
+											name="exportOption"
+											onChange={this.handleExportChange}
+											value="screenshotAll"
+										/>
+									</List.Item>
+									<List.Item>
+										<Radio
+											checked={exportOpt === "screenshotAndRef"}
+											label="Reference"
+											name="exportOption"
+											onChange={this.handleExportChange}
+											value="screenshotAndRef"
+										/>
+									</List.Item>
+								</List>
+							</Segment>
+						</Transition>
 					</Modal.Content>
+
 					<Modal.Actions>
-						<Dropdown
-							onChange={this.onSelectBackground}
-							options={backgroundOptions}
-							placeholder="Background"
-							selection
-						/>
 						<Button
 							color="blue"
 							content="Create image"
@@ -866,6 +968,7 @@ class Fallacy extends Component {
 }
 
 Fallacy.propTypes = {
+	backgroundImg: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
 	backgroundOptions: PropTypes.array,
 	canMakeVideo: PropTypes.bool,
 	canScreenshot: PropTypes.bool,
@@ -934,10 +1037,12 @@ Fallacy.propTypes = {
 		type: PropTypes.string,
 		username: PropTypes.string
 	}),
-	viewCount: PropTypes.number
+	viewCount: PropTypes.number,
+	uploadBackgroundPic: PropTypes.func
 }
 
 Fallacy.defaultProps = {
+	backgroundImg: false,
 	backgroundOptions,
 	creating: false,
 	convoLoading: true,
@@ -951,7 +1056,8 @@ Fallacy.defaultProps = {
 	tag_ids: "",
 	tag_names: "",
 	thumbnailImg: "https://s3.amazonaws.com/blather22/thumbnail.jpg",
-	toggleCreateMode
+	toggleCreateMode,
+	uploadBackgroundPic
 }
 
 const mapStateToProps = (state, ownProps) => {
@@ -970,6 +1076,7 @@ export default connect(
 		retractLogic,
 		saveScreenshot,
 		toggleCreateMode,
-		updateFallacy
+		updateFallacy,
+		uploadBackgroundPic
 	}
 )(Fallacy)

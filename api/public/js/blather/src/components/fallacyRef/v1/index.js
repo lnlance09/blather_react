@@ -78,6 +78,7 @@ class FallacyRef extends Component {
 							className="fallacySegment"
 							id="fallacySegment"
 							stacked={this.props.stacked}
+							style={{ opacity: this.props.opacity }}
 						>
 							{this.props.includeHeader && (
 								<Header as="p" size="medium">
@@ -111,6 +112,7 @@ FallacyRef.propTypes = {
 	canScreenshot: PropTypes.bool,
 	id: PropTypes.number,
 	includeHeader: PropTypes.bool,
+	opacity: PropTypes.string,
 	stacked: PropTypes.bool,
 	showDialogue: PropTypes.bool
 }
@@ -118,6 +120,7 @@ FallacyRef.propTypes = {
 FallacyRef.defaultProps = {
 	canScreenshot: true,
 	includeHeader: true,
+	opacity: "1",
 	showDialogue: true,
 	stacked: false
 }

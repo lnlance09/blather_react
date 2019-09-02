@@ -259,3 +259,37 @@ export const updateFallacy = ({
 		}
 	)
 }
+
+export const uploadBackgroundPic = ({ file }) => dispatch => {
+	const fr = new FileReader()
+	fr.onload = event => {
+		request.post(
+			`${window.location.origin}/api/fallacies/uploadBackgroundPic`,
+			{
+				headers: {
+					"Content-Type": "multipart/form-data",
+					enctype: "multipart/form-data"
+				},
+				json: true,
+				multipart: {
+					chunked: false,
+					data: [
+						{
+							"Content-Disposition": `form-data; name="file"; filename="${
+								file.name
+							}"`,
+							body: event.target.result
+						}
+					]
+				}
+			},
+			function(err, response, body) {
+				dispatch({
+					type: constants.UPLOAD_BACKGROUND_PIC,
+					payload: body
+				})
+			}
+		)
+	}
+	fr.readAsArrayBuffer(file)
+}
