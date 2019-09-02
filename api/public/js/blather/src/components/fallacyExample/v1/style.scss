@@ -36,8 +36,12 @@
             .tweet {
                 opacity: 0.95;
 
-                .card .content .description span b {
-                    white-space: pre !important;
+                .card {
+                    border: solid 1px $blue;
+
+                    .content .description span b {
+                        white-space: pre !important;
+                    }
                 }
             }
         }
