@@ -17,7 +17,7 @@ import {
 	Segment,
 	Visibility
 } from "semantic-ui-react"
-import ImagePic from "images/brain-fart.gif"
+import ImagePic from "images/avatar/brain-fart.gif"
 import FallacyRef from "components/fallacyRef/v1/"
 import LazyLoad from "components/lazyLoad/v1/"
 import Marked from "marked"

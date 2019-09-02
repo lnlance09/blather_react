@@ -114,50 +114,50 @@
         }
     }
 
-    &.art02, &.art04, &.art08 {
+    &.art02, &.art04, &.art07 {
         .watermarkLabel, .fallacyExplanation, .fallacyHeader, #fallacyDateDiff {
             color: $white;
         }
     }
 
     &.art01 {
-        background-image: url("../../images/art/01.jpg");
+        background-image: url("../../images/art/isometric/01.svg");
     }
 
     &.art02 {
-        background-image: url("../../images/art/02.jpg");
+        background-image: url("../../images/art/isometric/02.svg");
     }
 
     &.art03 {
-        background-image: url("../../images/art/03.jpg");
+        background-image: url("../../images/art/isometric/03.svg");
     }
 
     &.art04 {
-        background-image: url("../../images/art/04.jpg");
+        background-image: url("../../images/art/isometric/04.svg");
     }
 
     &.art05 {
-        background-image: url("../../images/art/05.jpg");
+        background-image: url("../../images/art/isometric/05.svg");
     }
 
     &.art06 {
-        background-image: url("../../images/art/06.jpg");
+        background-image: url("../../images/art/isometric/06.svg");
     }
 
     &.art07 {
-        background-image: url("../../images/art/07.jpg");
+        background-image: url("../../images/art/isometric/07.svg");
     }
 
     &.art08 {
-        background-image: url("../../images/art/08.jpg");
+        background-image: url("../../images/art/isometric/08.svg");
     }
 
     &.art09 {
-        background-image: url("../../images/art/09.jpg");
+        background-image: url("../../images/art/isometric/09.svg");
     }
 
     &.art10 {
-        background-image: url("../../images/art/10.jpg");
+        background-image: url("../../images/art/isometric/10.svg");
     }
 }
 
@@ -256,20 +256,6 @@ a {
 
     .sub.header {
         font-size: 13px !important;
-    }
-}
-
-.heroHeader {
-    padding-left: 6px !important;
-}
-
-.heroInput {
-    .icon.twitter {
-        color: $twitter;
-    }
-
-    .icon.youtube {
-        color: $youtube;
     }
 }
 
@@ -772,14 +758,31 @@ a {
 
 
 .homePage {
-    background-color: #f9fafb;
-    background-image: url("../../images/art/09.jpg");
+    background-image: url("../../images/art/isometric/02.svg");
     background-size: cover;
     padding: 0;
 
     .mainContainer {
         min-height: 70vh;
-        padding-bottom: 25px;
+        padding-bottom: 40px;
+    }
+
+    .heroSegment {
+        opacity: 0.95;
+    }
+
+    .heroHeader {
+        padding-left: 6px !important;
+    }
+
+    .heroInput {
+        .icon.twitter {
+            color: $twitter;
+        }
+
+        .icon.youtube {
+            color: $youtube;
+        }
     }
 }
 
@@ -789,7 +792,7 @@ a {
     padding-top: 1.2rem;
 
     .container {
-        padding: 0 15px;
+        padding: 10px 15px;
     }
 
     .grid {
@@ -827,7 +830,7 @@ a {
 
         .segment.coverPic {
             background-color: $white;
-            background-image: url("../../images/art/06.jpg");
+            background-image: url("../../images/art/isometric/04.svg");
             background-size: cover;
             border-bottom: solid 1px $lightGrey;
             height: 230px;
@@ -1246,7 +1249,7 @@ a {
 
         .segment.coverPic {
             background-color: $white;
-            background-image: url("../../images/art/08.jpg");
+            background-image: url("../../images/art/isometric/07.svg");
             background-size: cover;
             border-bottom: solid 1px $lightGrey;
             height: 230px;

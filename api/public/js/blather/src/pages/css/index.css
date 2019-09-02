@@ -73,28 +73,28 @@
     margin-bottom: 0; }
   .screenshotPicWrapper .fallacyRefContainer.downloading .fallacySegment {
     opacity: 0.95; }
-  .screenshotPicWrapper.art02 .watermarkLabel, .screenshotPicWrapper.art02 .fallacyExplanation, .screenshotPicWrapper.art02 .fallacyHeader, .screenshotPicWrapper.art02 #fallacyDateDiff, .screenshotPicWrapper.art04 .watermarkLabel, .screenshotPicWrapper.art04 .fallacyExplanation, .screenshotPicWrapper.art04 .fallacyHeader, .screenshotPicWrapper.art04 #fallacyDateDiff, .screenshotPicWrapper.art08 .watermarkLabel, .screenshotPicWrapper.art08 .fallacyExplanation, .screenshotPicWrapper.art08 .fallacyHeader, .screenshotPicWrapper.art08 #fallacyDateDiff {
+  .screenshotPicWrapper.art02 .watermarkLabel, .screenshotPicWrapper.art02 .fallacyExplanation, .screenshotPicWrapper.art02 .fallacyHeader, .screenshotPicWrapper.art02 #fallacyDateDiff, .screenshotPicWrapper.art04 .watermarkLabel, .screenshotPicWrapper.art04 .fallacyExplanation, .screenshotPicWrapper.art04 .fallacyHeader, .screenshotPicWrapper.art04 #fallacyDateDiff, .screenshotPicWrapper.art07 .watermarkLabel, .screenshotPicWrapper.art07 .fallacyExplanation, .screenshotPicWrapper.art07 .fallacyHeader, .screenshotPicWrapper.art07 #fallacyDateDiff {
     color: #FFFFFF; }
   .screenshotPicWrapper.art01 {
-    background-image: url("../../images/art/01.jpg"); }
+    background-image: url("../../images/art/isometric/01.svg"); }
   .screenshotPicWrapper.art02 {
-    background-image: url("../../images/art/02.jpg"); }
+    background-image: url("../../images/art/isometric/02.svg"); }
   .screenshotPicWrapper.art03 {
-    background-image: url("../../images/art/03.jpg"); }
+    background-image: url("../../images/art/isometric/03.svg"); }
   .screenshotPicWrapper.art04 {
-    background-image: url("../../images/art/04.jpg"); }
+    background-image: url("../../images/art/isometric/04.svg"); }
   .screenshotPicWrapper.art05 {
-    background-image: url("../../images/art/05.jpg"); }
+    background-image: url("../../images/art/isometric/05.svg"); }
   .screenshotPicWrapper.art06 {
-    background-image: url("../../images/art/06.jpg"); }
+    background-image: url("../../images/art/isometric/06.svg"); }
   .screenshotPicWrapper.art07 {
-    background-image: url("../../images/art/07.jpg"); }
+    background-image: url("../../images/art/isometric/07.svg"); }
   .screenshotPicWrapper.art08 {
-    background-image: url("../../images/art/08.jpg"); }
+    background-image: url("../../images/art/isometric/08.svg"); }
   .screenshotPicWrapper.art09 {
-    background-image: url("../../images/art/09.jpg"); }
+    background-image: url("../../images/art/isometric/09.svg"); }
   .screenshotPicWrapper.art10 {
-    background-image: url("../../images/art/10.jpg"); }
+    background-image: url("../../images/art/isometric/10.svg"); }
 
 @media only screen and (max-width: 1025px) {
   .pageHeaderPlaceholder {
@@ -164,15 +164,6 @@ a {
     font-size: 20px !important; }
   .sub.header {
     font-size: 13px !important; } }
-
-.heroHeader {
-  padding-left: 6px !important; }
-
-.heroInput .icon.twitter {
-  color: #0084b4; }
-
-.heroInput .icon.youtube {
-  color: #ff0000; }
 
 /* About page */
 .aboutPage .logoContainer {
@@ -457,20 +448,27 @@ a {
   margin-top: 0; }
 
 .homePage {
-  background-color: #f9fafb;
-  background-image: url("../../images/art/09.jpg");
+  background-image: url("../../images/art/isometric/02.svg");
   background-size: cover;
   padding: 0; }
   .homePage .mainContainer {
     min-height: 70vh;
-    padding-bottom: 25px; }
+    padding-bottom: 40px; }
+  .homePage .heroSegment {
+    opacity: 0.95; }
+  .homePage .heroHeader {
+    padding-left: 6px !important; }
+  .homePage .heroInput .icon.twitter {
+    color: #0084b4; }
+  .homePage .heroInput .icon.youtube {
+    color: #ff0000; }
 
 .competitionContainer {
   background: #FFFFFF;
   border-top: solid 1px #DCDDDE;
   padding-top: 1.2rem; }
   .competitionContainer .container {
-    padding: 0 15px; }
+    padding: 10px 15px; }
   .competitionContainer .grid img {
     cursor: pointer; }
 
@@ -489,7 +487,7 @@ a {
   background: #FFFFFF; }
   .socialMediaPage .segments .segment.coverPic {
     background-color: #FFFFFF;
-    background-image: url("../../images/art/06.jpg");
+    background-image: url("../../images/art/isometric/04.svg");
     background-size: cover;
     border-bottom: solid 1px #DCDDDE;
     height: 230px; }
@@ -730,7 +728,7 @@ a {
   background: #FFFFFF; }
   .usersPage .segments .segment.coverPic {
     background-color: #FFFFFF;
-    background-image: url("../../images/art/08.jpg");
+    background-image: url("../../images/art/isometric/07.svg");
     background-size: cover;
     border-bottom: solid 1px #DCDDDE;
     height: 230px; }

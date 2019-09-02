@@ -34,7 +34,7 @@ import {
 import Dropzone from "react-dropzone"
 import FallaciesList from "components/fallaciesList/v1/"
 import ImageMasonry from "react-image-masonry"
-import ImagePic from "images/image-square.png"
+import ImagePic from "images/images/image-square.png"
 import Lightbox from "react-image-lightbox"
 import Marked from "marked"
 import LazyLoad from "components/lazyLoad/v1/"

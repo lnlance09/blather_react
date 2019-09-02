@@ -16,7 +16,7 @@ import {
 	Sidebar
 } from "semantic-ui-react"
 import fallacies from "fallacies.json"
-import ImagePic from "images/brain-fart.gif"
+import ImagePic from "images/avatar/brain-fart.gif"
 import LoadingBar from "react-redux-loading-bar"
 import Logo from "./images/logo.svg"
 import NavSearch from "components/search/v1/"
