@@ -134,23 +134,20 @@ class NewsFeed extends Component {
 					<DisplayMetaTags page="feed" props={this.props} state={this.state} />
 					<PageHeader {...this.props} />
 					<Container className="mainContainer">
-						<Header className="activityHeader" size="huge">
-							Activity
-						</Header>
-
 						<Responsive maxWidth={1024}>
 							<Grid className="feedGrid">
 								<Grid.Row>{InfoCard(this.props)}</Grid.Row>
 								<Grid.Row>{TopCard(this.props)}</Grid.Row>
 								<Grid.Row className="feedRow">
-									<Segment>
-										<FeedComponent history={this.props.history} size="small" />
-									</Segment>
+									<FeedComponent history={this.props.history} size="small" />
 								</Grid.Row>
 							</Grid>
 						</Responsive>
 
 						<Responsive minWidth={1025}>
+							<Header className="activityHeader" size="huge">
+								Activity
+							</Header>
 							<Grid className="feedGrid">
 								<Grid.Column width={12}>
 									<Segment>
