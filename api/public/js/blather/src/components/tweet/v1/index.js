@@ -282,7 +282,7 @@ class Tweet extends Component {
 
 		return (
 			<Provider store={store}>
-				<div className={className}>
+				<div className={className} style={{ opacity: this.props.opacity }}>
 					<Card color={this.props.color} fluid raised={this.props.raised}>
 						{RetweetedText(this.props)}
 						<Card.Content
@@ -388,6 +388,7 @@ Tweet.propTypes = {
 	imageSize: PropTypes.string,
 	is_quote_status: PropTypes.bool,
 	key: PropTypes.string,
+	opacity: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 	profileImg: PropTypes.string,
 	quoted_status: PropTypes.shape({
 		created_at: PropTypes.string,
@@ -459,6 +460,7 @@ Tweet.defaultProps = {
 	full_text: "",
 	highlight: false,
 	imageSize: "tiny",
+	opacity: 1,
 	quoted_status: {
 		user: {}
 	},

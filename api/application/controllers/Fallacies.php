@@ -879,4 +879,36 @@
 				'review' => $data
 			]);
 		}
+
+		public function uploadBackgroundPic() {
+			$this->load->library('upload', [
+				'allowed_types' => 'jpg|jpeg|png',
+				'file_ext_tolower' => true,
+				'max_height' => 0,
+				'max_size' => 25000,
+				'max_width' => 0,
+				'upload_path' => './public/img/backgrounds/'
+			]);
+
+			if (!$this->upload->do_upload('file')) {
+				$this->output->set_status_header(403);
+				$data = $this->upload->display_errors();
+				echo json_encode([
+					'error' => $data
+				]);
+				exit;
+			} 
+
+			$data = $this->upload->data();
+			$file = $data['file_name'];
+			$path = $data['full_path'];
+
+			$s3Path = 'backgrounds/'.time().'_'.$file;
+			$s3Link = $this->media->addToS3($s3Path, $path);
+
+			echo json_encode([
+				'error' => false,
+				'img' => $s3Link
+			]);
+		}
 	}

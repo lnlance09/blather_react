@@ -65,36 +65,40 @@
   .pageHeaderPlaceholder .placeholder {
     text-align: center; }
 
-.screenshotPicWrapper {
+.screenshotModal .screenshotPicWrapper {
   background-color: #F9FAFB;
-  background-size: cover;
   padding: 20px; }
-  .screenshotPicWrapper .watermarkLabel {
+  .screenshotModal .screenshotPicWrapper .watermarkLabel {
     margin-bottom: 0; }
-  .screenshotPicWrapper .fallacyRefContainer.downloading .fallacySegment {
-    opacity: 0.95; }
-  .screenshotPicWrapper.art02 .watermarkLabel, .screenshotPicWrapper.art02 .fallacyExplanation, .screenshotPicWrapper.art02 .fallacyHeader, .screenshotPicWrapper.art02 #fallacyDateDiff, .screenshotPicWrapper.art04 .watermarkLabel, .screenshotPicWrapper.art04 .fallacyExplanation, .screenshotPicWrapper.art04 .fallacyHeader, .screenshotPicWrapper.art04 #fallacyDateDiff, .screenshotPicWrapper.art07 .watermarkLabel, .screenshotPicWrapper.art07 .fallacyExplanation, .screenshotPicWrapper.art07 .fallacyHeader, .screenshotPicWrapper.art07 #fallacyDateDiff {
+  .screenshotModal .screenshotPicWrapper.art02 .watermarkLabel, .screenshotModal .screenshotPicWrapper.art02 .fallacyExplanation, .screenshotModal .screenshotPicWrapper.art02 .fallacyHeader, .screenshotModal .screenshotPicWrapper.art02 #fallacyDateDiff, .screenshotModal .screenshotPicWrapper.art04 .watermarkLabel, .screenshotModal .screenshotPicWrapper.art04 .fallacyExplanation, .screenshotModal .screenshotPicWrapper.art04 .fallacyHeader, .screenshotModal .screenshotPicWrapper.art04 #fallacyDateDiff, .screenshotModal .screenshotPicWrapper.art07 .watermarkLabel, .screenshotModal .screenshotPicWrapper.art07 .fallacyExplanation, .screenshotModal .screenshotPicWrapper.art07 .fallacyHeader, .screenshotModal .screenshotPicWrapper.art07 #fallacyDateDiff {
     color: #FFFFFF; }
-  .screenshotPicWrapper.art01 {
+  .screenshotModal .screenshotPicWrapper.art01 {
     background-image: url("../../images/art/isometric/01.svg"); }
-  .screenshotPicWrapper.art02 {
+  .screenshotModal .screenshotPicWrapper.art02 {
     background-image: url("../../images/art/isometric/02.svg"); }
-  .screenshotPicWrapper.art03 {
+  .screenshotModal .screenshotPicWrapper.art03 {
     background-image: url("../../images/art/isometric/03.svg"); }
-  .screenshotPicWrapper.art04 {
+  .screenshotModal .screenshotPicWrapper.art04 {
     background-image: url("../../images/art/isometric/04.svg"); }
-  .screenshotPicWrapper.art05 {
+  .screenshotModal .screenshotPicWrapper.art05 {
     background-image: url("../../images/art/isometric/05.svg"); }
-  .screenshotPicWrapper.art06 {
+  .screenshotModal .screenshotPicWrapper.art06 {
     background-image: url("../../images/art/isometric/06.svg"); }
-  .screenshotPicWrapper.art07 {
+  .screenshotModal .screenshotPicWrapper.art07 {
     background-image: url("../../images/art/isometric/07.svg"); }
-  .screenshotPicWrapper.art08 {
+  .screenshotModal .screenshotPicWrapper.art08 {
     background-image: url("../../images/art/isometric/08.svg"); }
-  .screenshotPicWrapper.art09 {
+  .screenshotModal .screenshotPicWrapper.art09 {
     background-image: url("../../images/art/isometric/09.svg"); }
-  .screenshotPicWrapper.art10 {
+  .screenshotModal .screenshotPicWrapper.art10 {
     background-image: url("../../images/art/isometric/10.svg"); }
+
+.screenshotModal .opacitySlider {
+  margin-top: 20px; }
+
+.screenshotModal .advancedSettingsHeader a {
+  float: right;
+  font-size: 13px; }
 
 @media only screen and (max-width: 1025px) {
   .pageHeaderPlaceholder {

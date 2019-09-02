@@ -434,6 +434,7 @@ class FallacyExample extends Component {
 							id={material.tweet.id_str}
 							imageSize="medium"
 							is_quote_status={material.tweet.is_quote_status}
+							opacity={props.opacity}
 							profileImg={material.user.img}
 							quoted_status={
 								material.tweet.quoted_status === undefined &&
@@ -569,6 +570,7 @@ FallacyExample.propTypes = {
 	downloading: PropTypes.bool,
 	editExplanation: PropTypes.func,
 	exportOpt: PropTypes.string,
+	opacity: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 	rawSources: PropTypes.bool,
 	showExplanation: PropTypes.bool,
 	showMaterial: PropTypes.bool
@@ -578,6 +580,7 @@ FallacyExample.defaultProps = {
 	canEdit: false,
 	downloading: false,
 	editExplanation,
+	opacity: 1,
 	rawSources: false,
 	showExplanation: true,
 	showMaterial: true

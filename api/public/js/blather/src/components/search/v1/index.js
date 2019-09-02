@@ -153,7 +153,7 @@ class NavSearch extends Component {
 }
 
 NavSearch.propTypes = {
-	category: PropTypes.string,
+	category: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
 	defaultValue: PropTypes.string,
 	disabled: PropTypes.bool,
 	onChangeAssignee: PropTypes.func,

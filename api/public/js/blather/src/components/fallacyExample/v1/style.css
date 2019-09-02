@@ -21,12 +21,10 @@
         color: #FF695E; }
     .fallacyExample .fallacyHeader:hover .editButton {
       display: inline !important; }
-  .fallacyExample .fallacyMaterial.downloading .tweet {
-    opacity: 0.95; }
-    .fallacyExample .fallacyMaterial.downloading .tweet .card {
-      border: solid 1px #DCDDDE; }
-      .fallacyExample .fallacyMaterial.downloading .tweet .card .content .description span b {
-        white-space: pre !important; }
+  .fallacyExample .fallacyMaterial.downloading .tweet .card {
+    border: solid 1px #DCDDDE; }
+    .fallacyExample .fallacyMaterial.downloading .tweet .card .content .description span b {
+      white-space: pre !important; }
   .fallacyExample .fallacyMaterial .sourceList .item {
     margin-bottom: 8px; }
   .fallacyExample .fallacyExplanation {
