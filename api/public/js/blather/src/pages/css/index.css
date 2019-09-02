@@ -448,7 +448,7 @@ a {
   margin-top: 0; }
 
 .homePage {
-  background-image: url("../../images/art/isometric/02.svg");
+  background-image: url("../../images/art/isometric/01.svg");
   background-size: cover;
   padding: 0; }
   .homePage .mainContainer {
@@ -457,7 +457,10 @@ a {
   .homePage .heroSegment {
     opacity: 0.95; }
   .homePage .heroHeader {
+    color: #000000;
     padding-left: 6px !important; }
+    .homePage .heroHeader .sub.header {
+      color: #FFFFFF; }
   .homePage .heroInput .icon.twitter {
     color: #0084b4; }
   .homePage .heroInput .icon.youtube {

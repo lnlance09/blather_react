@@ -758,7 +758,7 @@ a {
 
 
 .homePage {
-    background-image: url("../../images/art/isometric/02.svg");
+    background-image: url("../../images/art/isometric/01.svg");
     background-size: cover;
     padding: 0;
 
@@ -772,7 +772,12 @@ a {
     }
 
     .heroHeader {
+        color: $fullBlack;
         padding-left: 6px !important;
+
+        .sub.header {
+            color: $white;
+        }
     }
 
     .heroInput {
