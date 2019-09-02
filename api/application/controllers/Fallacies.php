@@ -881,6 +881,10 @@
 		}
 
 		public function uploadBackgroundPic() {
+			header("Access-Control-Allow-Origin: *");
+			header("Access-Control-Allow-Headers: origin, content-type, accept, authorization");
+			header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS, HEAD");
+
 			$this->load->library('upload', [
 				'allowed_types' => 'jpg|jpeg|png',
 				'file_ext_tolower' => true,
