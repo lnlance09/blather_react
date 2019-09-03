@@ -36,8 +36,7 @@ import {
 	Radio,
 	Responsive,
 	Segment,
-	Statistic,
-	Transition
+	Statistic
 } from "semantic-ui-react"
 import { Slider } from "react-semantic-ui-range"
 import { confetti } from "dom-confetti"
@@ -90,7 +89,6 @@ class Fallacy extends Component {
 			modalOpen: false,
 			opacity: 95,
 			repeat: false,
-			settingsVisible: false,
 			show: false,
 			twitterId,
 			userId,
@@ -289,7 +287,6 @@ class Fallacy extends Component {
 			modalOpen,
 			opacity,
 			repeat,
-			settingsVisible,
 			twitterId,
 			userId,
 			youtubeId
@@ -578,111 +575,101 @@ class Fallacy extends Component {
 
 						<Header className="advancedSettingsHeader">
 							Advanced Settings
-							<a
-								href={window.location.origin}
-								onClick={e => {
-									e.preventDefault()
-									this.setState({ settingsVisible: !settingsVisible })
-								}}
-							>
-								{settingsVisible ? "hide" : "show"}
-							</a>
 						</Header>
 
-						<Transition animation="scale" duration={500} visible={settingsVisible}>
-							<Segment className="opacitySlider">
-								<Header size="tiny">Opacity</Header>
-								<Segment>
-									<Slider
-										color="blue"
-										settings={{
-											min: 0,
-											max: 100,
-											start: 100,
-											step: 1,
-											onChange: opacity => {
-												this.setState({ opacity })
-											}
-										}}
-										value={opacity}
-									/>
-								</Segment>
-
-								<Header size="tiny">Background</Header>
-								<Segment>
-									<Grid columns={2} relaxed="very">
-										<Grid.Column>
-											<Dropdown
-												fluid
-												onChange={this.onSelectBackground}
-												options={backgroundOptions}
-												placeholder="Background"
-												selection
-											/>
-										</Grid.Column>
-										<Grid.Column>
-											<Dropzone onDrop={this.onDrop}>
-												{({ getRootProps, getInputProps }) => (
-													<div
-														className="changeBackgroundBtn"
-														{...getRootProps()}
-													>
-														<input {...getInputProps()} />
-														<Button
-															color="green"
-															content="Custom"
-															fluid
-															icon="photo"
-														/>
-													</div>
-												)}
-											</Dropzone>
-										</Grid.Column>
-									</Grid>
-									<Divider fitted vertical>
-										or
-									</Divider>
-								</Segment>
-
-								<Header size="tiny">Repeat</Header>
-								<List relaxed>
-									<List.Item>
-										<Radio onChange={this.toggleRepeat} toggle />
-									</List.Item>
-								</List>
-
-								<Header size="tiny">Include</Header>
-								<List relaxed>
-									<List.Item>
-										<Radio
-											checked={exportOpt === "screenshot"}
-											label="Just the tweet(s)"
-											name="exportOption"
-											onChange={this.handleExportChange}
-											value="screenshot"
-										/>
-									</List.Item>
-									<List.Item>
-										<Radio
-											checked={exportOpt === "screenshotAll"}
-											label="Explanation"
-											name="exportOption"
-											onChange={this.handleExportChange}
-											value="screenshotAll"
-										/>
-									</List.Item>
-									<List.Item>
-										<Radio
-											checked={exportOpt === "screenshotAndRef"}
-											label="Reference"
-											name="exportOption"
-											onChange={this.handleExportChange}
-											value="screenshotAndRef"
-										/>
-									</List.Item>
-								</List>
+						<Segment className="opacitySlider">
+							<Header size="tiny">Opacity</Header>
+							<Segment>
+								<Slider
+									color="blue"
+									settings={{
+										min: 0,
+										max: 100,
+										start: 100,
+										step: 1,
+										onChange: opacity => {
+											this.setState({ opacity })
+										}
+									}}
+									value={opacity}
+								/>
 							</Segment>
-						</Transition>
+
+							<Header size="tiny">Background</Header>
+							<Segment>
+								<Grid columns={2} relaxed="very">
+									<Grid.Column>
+										<Dropdown
+											fluid
+											onChange={this.onSelectBackground}
+											options={backgroundOptions}
+											placeholder="Background"
+											selection
+										/>
+									</Grid.Column>
+									<Grid.Column>
+										<Dropzone onDrop={this.onDrop}>
+											{({ getRootProps, getInputProps }) => (
+												<div
+													className="changeBackgroundBtn"
+													{...getRootProps()}
+												>
+													<input {...getInputProps()} />
+													<Button
+														basic
+														color="blue"
+														content="Custom"
+														fluid
+														icon="photo"
+													/>
+												</div>
+											)}
+										</Dropzone>
+									</Grid.Column>
+								</Grid>
+								<Divider fitted vertical>
+									or
+								</Divider>
+							</Segment>
+
+							<Header size="tiny">Repeat</Header>
+							<List relaxed>
+								<List.Item>
+									<Radio onChange={this.toggleRepeat} toggle />
+								</List.Item>
+							</List>
+
+							<Header size="tiny">Include</Header>
+							<List relaxed>
+								<List.Item>
+									<Radio
+										checked={exportOpt === "screenshot"}
+										label="Just the tweet(s)"
+										name="exportOption"
+										onChange={this.handleExportChange}
+										value="screenshot"
+									/>
+								</List.Item>
+								<List.Item>
+									<Radio
+										checked={exportOpt === "screenshotAll"}
+										label="Explanation"
+										name="exportOption"
+										onChange={this.handleExportChange}
+										value="screenshotAll"
+									/>
+								</List.Item>
+								<List.Item>
+									<Radio
+										checked={exportOpt === "screenshotAndRef"}
+										label="Reference"
+										name="exportOption"
+										onChange={this.handleExportChange}
+										value="screenshotAndRef"
+									/>
+								</List.Item>
+							</List>
+						</Segment>
 					</Modal.Content>
 
 					<Modal.Actions>
