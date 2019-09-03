@@ -155,7 +155,7 @@ class Header extends Component {
 										className="headerLogo"
 										evalScripts="always"
 										onClick={() => {
-											this.props.history.push("/")
+											this.props.history.push("/activity")
 										}}
 										src={Logo}
 										svgClassName="svgHeaderLogo"
@@ -179,7 +179,7 @@ class Header extends Component {
 										className="headerLogo"
 										evalScripts="always"
 										onClick={() => {
-											this.props.history.push("/")
+											this.props.history.push("/activity")
 										}}
 										src={Logo}
 										svgClassName="svgHeaderLogo"
