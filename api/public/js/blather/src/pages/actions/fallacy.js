@@ -264,7 +264,7 @@ export const uploadBackgroundPic = ({ file }) => dispatch => {
 	const fr = new FileReader()
 	fr.onload = event => {
 		request.post(
-			"https://media.blather.io/api/fallacies/uploadBackgroundPic",
+			`${window.location.origin}/api/fallacies/uploadBackgroundPic`,
 			{
 				headers: {
 					"Content-Type": "multipart/form-data",
