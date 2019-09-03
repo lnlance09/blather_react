@@ -102,9 +102,9 @@ class Breakdown extends Component {
 					<div>
 						<Segment basic className="breakdownSegment">
 							<Message
-								content={`A measure of ${
+								content={`These are the logical fallacies that ${
 									this.props.name
-								}'s partisanship, logical consistency, and intellectual honesty`}
+								} has committed`}
 								header="How reputable is this source?"
 								icon="question"
 							/>
