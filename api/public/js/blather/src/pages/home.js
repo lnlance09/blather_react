@@ -293,7 +293,7 @@ class Home extends Component {
 						<Divider hidden />
 
 						<div>
-							<Link to="/">See more examples</Link>
+							<Link to="/activity">See more examples</Link>
 						</div>
 
 						<Divider section />
