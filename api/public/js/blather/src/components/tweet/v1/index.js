@@ -157,7 +157,7 @@ class Tweet extends Component {
 			)
 		}
 
-		const ParseMedia = ({ props }) => {
+		const ParseMedia = props => {
 			const extEntities = retweeted_status
 				? retweeted_status.extended_entities
 				: props.extended_entities
@@ -300,7 +300,7 @@ class Tweet extends Component {
 							>
 								{LinkifiedTweet}
 								<div>
-									<ParseMedia props={this.props} />
+									{ParseMedia(this.props)}
 								</div>
 							</Card.Description>
 							{QuotedTweet(this.props)}
