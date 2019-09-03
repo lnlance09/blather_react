@@ -38,6 +38,10 @@ class NewsFeed extends Component {
 		this.props.mostFallacious()
 	}
 
+	componentDidMount() {
+		window.scrollTo({ top: 0, behavior: "smooth" })
+	}
+
 	render() {
 		const { auth } = this.state
 

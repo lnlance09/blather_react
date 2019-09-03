@@ -37,6 +37,10 @@ class SearchPage extends Component {
 		}
 	}
 
+	componentDidMount() {
+		window.scrollTo({ top: 0, behavior: "smooth" })
+	}
+
 	componentWillReceiveProps(props) {
 		const _query = qs.parse(this.props.location.search)
 		const query = qs.parse(props.location.search)
