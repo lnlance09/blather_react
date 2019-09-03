@@ -114,15 +114,19 @@
 			$path = $data['full_path'];
 
 			if ($data['image_width'] !== $data['image_height']) {
-				$config['height'] = 220;
-				$config['maintain_ratio'] = false;
-				$config['new_image'] = $path;
-				$config['source_image'] = $path;
-				$config['width'] = 220;
+				$original_path = $path;
+				$path = './public/img/profile_pics/resized_'.$file;
 
-				$this->load->library('image_lib', $config);
+				$this->load->library('image_lib', [
+					'height' => 220,
+					'maintain_ratio' => false,
+					'new_image' => $path,
+					'source_image' => $original_path,
+					'width' => 220
+				]);
 				$this->image_lib->resize();
 				$this->image_lib->clear();
+				unlink($original_path);
 			}
 
 			$s3Path = 'users/'.$user->id.'_'.$file;
@@ -131,6 +135,7 @@
 			$this->users->updateUser($user->id, [
 				'img' => $s3Path
 			]);
+
 			echo json_encode([
 				'error' => false,
 				'img' => $s3Link
