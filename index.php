@@ -364,12 +364,8 @@
 
                     $keywords[] = $title;
                     $keywords[] = "credibility";
-                    $keywords[] = "delusional";
-                    $keywords[] = "grifter";
                     $keywords[] = "contradictions";
-                    $keywords[] = "intellectual honesty";
-                    $keywords[] = "partisanship";
-                    $keywords[] = "consistency";
+                    $keywords[] = "logical fallacies";
                 }
                 break;
 
