@@ -24,10 +24,20 @@
             $this->db->query("SET time_zone='+0:00'");
         }
 
-        public function getAllPages() {
-            $this->db->select('*');
-            $this->db->where('type', 'youtube');
-            return $this->db->get('pages')->result_array();
+        public function getAllPages($only_with_fallacies = false) {
+            $this->db->select('p.*');
+
+            if ($only_with_fallacies) {
+                $this->db->join('fallacy_entries fe', 'p.social_media_id=fe.page_id');
+            }
+
+            $this->db->where('p.type', 'youtube');
+
+            if ($only_with_fallacies) {
+                $this->db->group_by('p.id');
+            }
+
+            return $this->db->get('pages p')->result_array();
         }
 
         public function getAllVideos() {
