@@ -20,10 +20,10 @@
 			$reviews = $this->fallacies->getReviews();
 			$tags = $this->tags->getTags();
 			$tweets = $this->twitter->getAllTweets();
-			$twitterPages = $this->twitter->getAllPages();
+			$twitterPages = $this->twitter->getAllPages(true);
 			$users = $this->users->getUsers();
 			$videos = $this->youtube->getAllVideos();
-			$youtubePages = $this->youtube->getAllPages();
+			$youtubePages = $this->youtube->getAllPages(true);
 
 			$this->load->view('sitemap', [
 				'fallacies' => $fallacies,
