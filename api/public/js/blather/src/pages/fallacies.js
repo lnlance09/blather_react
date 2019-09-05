@@ -1,25 +1,15 @@
 import "pages/css/index.css"
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { Provider } from "react-redux"
-import { Link } from "react-router-dom"
-import {
-	Comment,
-	Container,
-	Grid,
-	Header,
-	Icon,
-	Menu,
-	Responsive,
-	Segment
-} from "semantic-ui-react"
-import BillPic from "images/avatar/small/mark.png"
+import { Container, Divider, Dropdown, Header, Segment } from "semantic-ui-react"
 import fallacies from "fallacies.json"
-import html2canvas from "html2canvas"
+import FallaciesList from "components/fallaciesList/v1/"
+import fallacyOptions from "fallacyOptions.json"
+import FallacyRef from "components/fallacyRef/v1/"
 import PageFooter from "components/footer/v1/"
 import PageHeader from "components/header/v1/"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
-import RobPic from "images/avatar/small/matthew.png"
 import store from "store"
 
 class Fallacies extends Component {
@@ -27,11 +17,16 @@ class Fallacies extends Component {
 		super(props)
 
 		const name = this.props.match.params.id
-		const parsedName = name ? name.split("-").join(" ") : false
+		const option = fallacyOptions.filter(f => f.key === name)
+		const activeItem = option.length === 1 ? option[0].value : null
+
 		this.state = {
-			activeItem: parsedName ? parsedName : "ad hominem",
-			intervalId: 0
+			activeItem,
+			intervalId: 0,
+			selected: activeItem !== null
 		}
+
+		this.onChangeFallacy = this.onChangeFallacy.bind(this)
 	}
 
 	componentWillMount() {
@@ -40,32 +35,24 @@ class Fallacies extends Component {
 
 	componentWillReceiveProps(props) {
 		const name = props.match.params.id
-		const parsedName = name ? name.split("-").join(" ") : false
-		this.setState({ activeItem: parsedName ? parsedName : "ad hominem" })
+		const option = fallacyOptions.filter(f => f.key === name)
+		const activeItem = option.length === 1 ? option[0].value : null
+		this.setState({ activeItem })
 	}
 
-	captureScreenshot(id, filename) {
-		html2canvas(document.getElementById(id), {
-			scale: 2
-		}).then(canvas => {
-			const ctx = canvas.getContext("2d")
-			ctx.globalAlpha = 1
-			let img = canvas.toDataURL("image/png")
-			let link = document.createElement("a")
-			link.download =
-				filename
-					.toLowerCase()
-					.split(" ")
-					.join("-") + ".png"
-			link.href = img
-			link.click()
+	onChangeFallacy = (e, { value }) => {
+		this.setState({
+			activeItem: value,
+			selected: value !== ""
 		})
 	}
 
-	handleItemClick = (e, { name }) => {
-		this.scrollToTop()
-		this.setState({ activeItem: name })
-		this.props.history.push(`/fallacies/${name.split(" ").join("-")}`)
+	onClickFallacy = id => {
+		window.scrollTo({ top: 0, behavior: "smooth" })
+		this.setState({
+			activeItem: id,
+			selected: true
+		})
 	}
 
 	scrollStep() {
@@ -83,62 +70,19 @@ class Fallacies extends Component {
 	}
 
 	render() {
-		const { activeItem } = this.state
+		const { activeItem, selected } = this.state
 
-		const FallaciesConversation = dialogue =>
-			dialogue.map((item, i) => {
-				const pic = item.name === "Blathering Bill" ? BillPic : RobPic
-				return (
-					<Comment key={`${item.name}_${i}`}>
-						<Comment.Avatar src={pic} />
-						<Comment.Content>
-							<Comment.Author>{item.name}</Comment.Author>
-							<Comment.Text>{item.message}</Comment.Text>
-						</Comment.Content>
-					</Comment>
-				)
-			})
-
-		const FallaciesMain = fallacies.map((fallacy, i) => {
-			if (fallacy.name.toLowerCase() === activeItem) {
-				return (
-					<div className="mainFallacy active" id={fallacy.id} key={fallacy.id}>
-						<Segment>
-							<Header as="p" size="medium">
-								{fallacy.name}
-							</Header>
-							<p>{fallacy.description}</p>
-							<Comment.Group>{FallaciesConversation(fallacy.dialogue)}</Comment.Group>
-							<span
-								className="captureScreenshot"
-								data-html2canvas-ignore
-								onClick={() => this.captureScreenshot(fallacy.id, fallacy.name)}
-							>
-								<Icon name="camera" /> capture screenshot
-							</span>
-							<Link
-								data-html2canvas-ignore
-								to={`/search/fallacies?fallacies=${fallacy.id}`}
-							>
-								view real examples
-							</Link>
-							<div className="clearfix" />
-						</Segment>
-					</div>
-				)
-			}
-			return null
-		})
-
-		const FallaciesSidebar = fallacies.map(fallacy => (
-			<Menu.Item
-				active={activeItem === fallacy.name.toLowerCase()}
-				key={fallacy.id}
-				name={fallacy.name.toLowerCase()}
-				onClick={this.handleItemClick}
-			>
-				{`${fallacy.name}`}
-			</Menu.Item>
+		const RenderFallacies = fallacies.map((fallacy, i) => (
+			<FallacyRef
+				canScreenshot={false}
+				className="fallacyRef"
+				click={true}
+				id={parseInt(fallacy.id, 10)}
+				key={fallacy.key}
+				onClick={this.onClickFallacy}
+				showDialogue={false}
+				showImage={true}
+			/>
 		))
 
 		return (
@@ -151,31 +95,40 @@ class Fallacies extends Component {
 						ref={this.handleContextRef}
 						textAlign="left"
 					>
-						<Header as="h1" dividing>
-							Fallacies
-							<Header.Subheader>Plus a few other things...</Header.Subheader>
-						</Header>
+						<Header as="h1" content="Reference" />
+						<Dropdown
+							clearable
+							fluid
+							onChange={this.onChangeFallacy}
+							options={fallacyOptions}
+							placeholder="Search fallacies"
+							selection
+							size="large"
+							value={activeItem}
+						/>
+						<Divider />
 
-						<Responsive maxWidth={1024}>{FallaciesMain}</Responsive>
+						{selected ? (
+							<div>
+								<FallacyRef
+									canScreenshot={false}
+									className="fallacyRef"
+									id={parseInt(activeItem, 10)}
+									showImage={true}
+								/>
 
-						<Responsive minWidth={1025}>
-							<Grid>
-								<Grid.Column width={4}>
-									<Menu
-										borderless
-										className="fallaciesMenu"
-										fluid
-										secondary
-										vertical
-									>
-										{FallaciesSidebar}
-									</Menu>
-								</Grid.Column>
-								<Grid.Column className="rightSide" width={12}>
-									{FallaciesMain}
-								</Grid.Column>
-							</Grid>
-						</Responsive>
+								<Header as="h2">Examples</Header>
+								<FallaciesList
+									emptyMsgContent="There are no records of this fallacy"
+									fallacyId={activeItem}
+									history={this.props.history}
+									icon="warning sign"
+									source="fallacy"
+								/>
+							</div>
+						) : (
+							<Segment.Group>{RenderFallacies}</Segment.Group>
+						)}
 					</Container>
 					<PageFooter />
 				</div>

@@ -1,0 +1,232 @@
+[
+   {
+      "key": "ad-hominem",
+      "text":"Ad Hominem",
+      "value":"1"
+   },
+   {
+      "key": "appeal-to-authority",
+      "text":"Appeal to Authority",
+      "value":"5"
+   },
+   {
+      "key":"appeal-to-force",
+      "text":"Appeal to Force",
+      "value":"6"
+   },
+   {
+      "key":"appeal-to-nature",
+      "text":"Appeal to Nature",
+      "value":"7"
+   },
+   {
+      "key":"appeal-to-the-law",
+      "text":"Appeal to the Law",
+      "value":"55"
+   },
+   {
+      "key":"appeal-to-suffering",
+      "text":"Appeal to Suffering",
+      "value":"67"
+   },
+   {
+      "key": "appeal-to-tradition",
+      "text":"Appeal to Tradition",
+      "value":"8"
+   },
+   {
+      "key": "bandwagon",
+      "text":"Bandwagoning",
+      "value":"4"
+   },
+   {
+      "key":"baseless-claim",
+      "text":"Baseless Claim",
+      "value":"11"
+   },
+   {
+      "key": "begging-the-question",
+      "text":"Begging the question",
+      "value":"16"
+   },
+   {
+      "key": "black-or-white",
+      "text":"Black or white",
+      "value":"12"
+   },
+   {
+      "key": "burden-of-proof",
+      "text":"Burden of Proof",
+      "value":"14"
+   },
+   {
+      "key": "cherry-picking",
+      "text":"Cherry Picking",
+      "value":"15"
+   },
+   {
+      "key":"doublethink",
+      "text":"Doublethink",
+      "value":"21"
+   },
+   {
+      "key":"exploiting-tragedies",
+      "text":"Exploiting Tragedies",
+      "value":"22"
+   },
+   {
+      "key":"factual-innacuracy",
+      "text":"Factual Inaccuracy",
+      "value":"23"
+   },
+   {
+      "key": "false-equivalence",
+      "text":"False Equivalence",
+      "value":"25"
+   },
+   {
+      "key":"galileos-gambit",
+      "text":"Galileo's Gambit",
+      "value":"26"
+   },
+   {
+      "key":"genetic-fallacy",
+      "text":"Genetic Fallacy",
+      "value":"28"
+   },
+   {
+      "key": "hasty-generalization",
+      "text":"Hasty Generalization",
+      "value":"30"
+   },
+   {
+      "key": "its-in-the-name",
+      "text":"It's in the name!",
+      "value":"65"
+   },
+   {
+      "key":"loaded-question",
+      "text":"Loaded Question",
+      "value":"31"
+   },
+   {
+      "key":"luddite-fallacy",
+      "text":"Luddite Fallacy",
+      "value":"32"
+   },
+   {
+      "key": "middle-ground",
+      "text":"Middle Ground",
+      "value":"33"
+   },
+   {
+      "key":"moral-high-ground",
+      "text":"Moral High Ground",
+      "value":"34"
+   },
+   {
+      "key": "moving-the-goalposts",
+      "text":"Moving the Goalposts",
+      "value":"35"
+   },
+   {
+      "key":"nirvana-fallacy",
+      "text":"Nirvana Fallacy",
+      "value":"36"
+   },
+   {
+      "key": "no-true-scotsman",
+      "text":"No True Scotsman",
+      "value":"37"
+   },
+   {
+      "key": "non-sequitur",
+      "text":"Non Sequitur",
+      "value":"69"
+   },
+   {
+      "key":"post-hoc-fallacy",
+      "text":"Post Hoc Fallacy",
+      "value":"38"
+   },
+   {
+      "key":"quota-fallact",
+      "text":"Quota Fallacy",
+      "value":"39"
+   },
+   {
+      "key": "red-herring",
+      "text":"Red Herring",
+      "value":"41"
+   },
+   {
+      "key":"shill-gambit",
+      "text":"Shill Gambit",
+      "value":"42"
+   },
+   {
+      "key":"slippery-slope",
+      "text":"Slippery Slope",
+      "value":"43"
+   },
+   {
+      "key":"strawman",
+      "text":"Strawman",
+      "value":"45"
+   },
+   {
+      "key":"the-gamblers-fallacy",
+      "text":"The Gambler's Fallacy",
+      "value":"27"
+   },
+   {
+      "key":"the-texas-sharpshooter",
+      "text":"The Texas Sharpshooter",
+      "value":"46"
+   },
+   {
+      "key":"thought-terminating-cliche",
+      "text":"Thought Terminating Clich\u00e9",
+      "value":"47"
+   },
+   {
+      "key":"tribal-fallacy",
+      "text":"Tribal Fallacy",
+      "value":"48"
+   },
+   {
+      "key":"tu-quoque",
+      "text":"Tu Quoque",
+      "value":"3"
+   },
+   {
+      "key":"two-wrongs-make-a-right",
+      "text":"Two Wrongs Make a Right",
+      "value":"49"
+   },
+   {
+      "key":"unfalsifiable-claim",
+      "text":"Unfalsifiable Claim",
+      "value":"50"
+   },
+   {
+      "key":"word-redefinition",
+      "text":"Word Redefinition",
+      "value":"51"
+   },
+   {
+      "key":"whataboutism",
+      "text":"Whataboutism",
+      "value":"52"
+   },
+   {
+      "key":"word-salad",
+      "text":"Word Salad",
+      "value":"53"
+   },
+   {
+      "key":"zero-sum-fallacy",
+      "text":"Zero Sum Fallacy",
+      "value":"54"
+   }
+]

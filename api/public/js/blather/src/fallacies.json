@@ -2,6 +2,7 @@
    {
       "id":"1",
       "description":"This is an insult that is given instead of a reason.",
+      "key": "ad-hominem",
       "name":"Ad Hominem",
       "dialogue": [
          {
@@ -17,6 +18,7 @@
    {
       "id":"5",
       "description":"The arguer tries to inflate the worth of his argument by associating it with a well known authority who is not an actual authority on the subject at hand. The arguer may also try to use his\/her own authority to persuade listeners.",
+      "key": "appeal-to-authority",
       "name":"Appeal to Authority",
       "dialogue": [
          {
@@ -36,6 +38,7 @@
    {
       "id":"6",
       "description":"This is really just a threat. The arguer tries to get others to adopt his\/her point of view or else the arguer will cause them harm.",
+      "key":"appeal-to-force",
       "name":"Appeal to Force",
       "dialogue": [
          {
@@ -51,6 +54,7 @@
    {
       "id":"7",
       "description":"Wherein judgment is based solely on whether the subject of judgment is \"natural\" or \"unnatural.\"",
+      "key":"appeal-to-nature",
       "name":"Appeal to Nature",
       "dialogue": [
          {
@@ -66,6 +70,7 @@
    {
       "id":"55",
       "description":"When following the law is assumed to be the morally correct thing to do, without justification, or when breaking the law is assumed to be the morally wrong thing to do, without justification. This can also happen when one equates supporting the legalization of something with actually supporting it.",
+      "key":"appeal-to-the-law",
       "name":"Appeal to the Law",
       "dialogue": [
          {
@@ -79,130 +84,10 @@
       ]
    },
    {
-      "id":"8",
-      "description":"This form of argument tries to persaude the listener that an idea must be true because it has been believed or practiced for a long time.",
-      "name":"Appeal to Tradition",
-      "dialogue": [
-         {
-            "name": "Rational Rob",
-            "message": "Do you really want your daughter going into prostitution?"
-         },
-         {
-            "name": "Blathering Bill",
-            "message": "It's the world's oldest profession. It couldn't have existed for this long if it wasn't a good profession."
-         }
-      ]
-   },
-   {
-      "id":"4",
-      "description":"Where something is claimed to be true or good solely because lots of others believe it to be so.",
-      "name":"Bandwagoning",
-      "dialogue": [
-         {
-            "name": "Blathering Bill",
-            "message": "Bitcoin at 20k is a steal! I'm stocking up."
-         },
-         {
-            "name": "Rational Rob",
-            "message": "Have you given this invesment much thought?"
-         },
-         {
-            "name": "Blathering Bill",
-            "message": "No, but everyone else is buying right now."
-         }
-      ]
-   },
-   {
-      "id":"11",
-      "description":"Making a claim without offering any proof to substantiate it.",
-      "name":"Baseless Claim",
-      "dialogue": [
-         {
-            "name": "Blathering Bill",
-            "message": "My new car gets 500 miles per gallon!"
-         },
-         {
-            "name": "Rational Rob",
-            "message": "Proof?"
-         },
-         {
-            "name": "Blathering Bill",
-            "message": "..."
-         }
-      ]
-   },
-   {
-      "id":"16",
-      "description":"Providing what is essentially the conclusion of the argument as a premise.",
-      "name":"Begging the question",
-      "dialogue": [
-         {
-            "name": "Rational Rob",
-            "message": "Why is using drugs wrong?"
-         },
-         {
-            "name": "Blathering Bill",
-            "message": "Because it's illegal"
-         },
-         {
-            "name": "Rational Rob",
-            "message": "Why is it illegal?"
-         },
-         {
-            "name": "Blathering Bill",
-            "message": "Because it's wrong"
-         }
-      ]
-   },
-   {
-      "id":"12",
-      "description":"The arguer gives the impression that there are only two extreme positions that are possible. This does not allow for moderate, middle grounds or grey areas.",
-      "name":"Black or white",
-      "dialogue": [
-         {
-            "name": "Blathering Bill",
-            "message": "There are two kinds of people in this world: people who recognize Nickelback as the greatest band to ever exist, and people who can't appreciate good music because they're low IQ scum fucks!"
-         }
-      ]
-   },
-   {
-      "id":"14",
-      "description":"Instead of providing evidence to support a claim, the arguer implies that it is true because his\/her opponent has not proved it to be false. Extraordinary claims require extraordinary evidence.",
-      "name":"Burden of Proof",
-      "dialogue": [
-         {
-            "name": "Rational Rob",
-            "message": "Any plans for this weekend?"
-         },
-         {
-            "name": "Blathering Bill",
-            "message": "I'm going to search for that hidden treasure that's buried out in the desert that I was telling you about. Over $20 million in gold."
-         },
-         {
-            "name": "Rational Rob",
-            "message": "Are you even sure that such a thing exists?"
-         },
-         {
-            "name": "Blathering Bill",
-            "message": "Well, no one has been able to prove to me that isn't buried out there. Until someone does I'm just going to assume that it is."
-         }
-      ]
-   },
-   {
-      "id":"15",
-      "description":"The act of pointing at individual cases or data that seem to confirm a particular position, while ignoring a significant portion of related cases or data that may contradict that position.",
-      "name":"Cherry Picking",
-      "dialogue": [
-         {
-            "name": "Blathering Bill",
-            "message": "They say that alcohol is bad for the liver but my dad started binge drinking at 14 and he never had a problem with his liver."
-         }
-      ]
-   },
-   {
       "id":"67",
-      "description":"The belief that ending a cruel policy is an insult to all of the people who were previously victimized by it.",
-      "name":"Don't Cut in Line",
+      "description":"The belief that some people should have to suffer because other people have had to suffer. Usually, the person using this argument will claim that it's a 'slap in the face' to people that have suffered that others aren't suffering just like they did.",
+      "key":"appeal-to-suffering",
+      "name":"Appeal to Suffering",
       "dialogue": [
          {
             "name": "Blathering Bill",
@@ -227,8 +112,137 @@
       ]
    },
    {
+      "id":"8",
+      "description":"This form of argument tries to persaude the listener that an idea must be true because it has been believed or practiced for a long time.",
+      "key": "appeal-to-tradition",
+      "name":"Appeal to Tradition",
+      "dialogue": [
+         {
+            "name": "Rational Rob",
+            "message": "Do you really want your daughter going into prostitution?"
+         },
+         {
+            "name": "Blathering Bill",
+            "message": "It's the world's oldest profession. It couldn't have existed for this long if it wasn't a good profession."
+         }
+      ]
+   },
+   {
+      "id":"4",
+      "description":"Where something is claimed to be true or good solely because lots of others believe it to be so.",
+      "key": "bandwagon",
+      "name":"Bandwagoning",
+      "dialogue": [
+         {
+            "name": "Blathering Bill",
+            "message": "Bitcoin at 20k is a steal! I'm stocking up."
+         },
+         {
+            "name": "Rational Rob",
+            "message": "Have you given this invesment much thought?"
+         },
+         {
+            "name": "Blathering Bill",
+            "message": "No, but everyone else is buying right now."
+         }
+      ]
+   },
+   {
+      "id":"11",
+      "description":"Making a claim without offering any proof to substantiate it.",
+      "key":"baseless-claim",
+      "name":"Baseless Claim",
+      "dialogue": [
+         {
+            "name": "Blathering Bill",
+            "message": "My new car gets 500 miles per gallon!"
+         },
+         {
+            "name": "Rational Rob",
+            "message": "Proof?"
+         },
+         {
+            "name": "Blathering Bill",
+            "message": "..."
+         }
+      ]
+   },
+   {
+      "id":"16",
+      "description":"Providing what is essentially the conclusion of the argument as a premise.",
+      "key": "begging-the-question",
+      "name":"Begging the question",
+      "dialogue": [
+         {
+            "name": "Rational Rob",
+            "message": "Why is using drugs wrong?"
+         },
+         {
+            "name": "Blathering Bill",
+            "message": "Because it's illegal"
+         },
+         {
+            "name": "Rational Rob",
+            "message": "Why is it illegal?"
+         },
+         {
+            "name": "Blathering Bill",
+            "message": "Because it's wrong"
+         }
+      ]
+   },
+   {
+      "id":"12",
+      "description":"The arguer gives the impression that there are only two extreme positions that are possible. This does not allow for moderate, middle grounds or grey areas.",
+      "key": "black-or-white",
+      "name":"Black or white",
+      "dialogue": [
+         {
+            "name": "Blathering Bill",
+            "message": "There are two kinds of people in this world: people who recognize Nickelback as the greatest band to ever exist, and people who can't appreciate good music because they're low IQ scum fucks!"
+         }
+      ]
+   },
+   {
+      "id":"14",
+      "description":"Instead of providing evidence to support a claim, the arguer implies that it is true because his\/her opponent has not proved it to be false. Extraordinary claims require extraordinary evidence.",
+      "key": "burden-of-proof",
+      "name":"Burden of Proof",
+      "dialogue": [
+         {
+            "name": "Rational Rob",
+            "message": "Any plans for this weekend?"
+         },
+         {
+            "name": "Blathering Bill",
+            "message": "I'm going to search for that hidden treasure that's buried out in the desert that I was telling you about. Over $20 million in gold."
+         },
+         {
+            "name": "Rational Rob",
+            "message": "Are you even sure that such a thing exists?"
+         },
+         {
+            "name": "Blathering Bill",
+            "message": "Well, no one has been able to prove to me that isn't buried out there. Until someone does I'm just going to assume that it is."
+         }
+      ]
+   },
+   {
+      "id":"15",
+      "description":"The act of pointing at individual cases or data that seem to confirm a particular position, while ignoring a significant portion of related cases or data that may contradict that position.",
+      "key": "cherry-picking",
+      "name":"Cherry Picking",
+      "dialogue": [
+         {
+            "name": "Blathering Bill",
+            "message": "They say that alcohol is bad for the liver but my dad started binge drinking at 14 and he never had a problem with his liver."
+         }
+      ]
+   },
+   {
       "id":"21",
       "description":"The power of holding two contradictory beliefs in one's mind simultaneously, and accepting both of them.",
+      "key":"doublethink",
       "name":"Doublethink",
       "dialogue": [
          {
@@ -256,6 +270,7 @@
    {
       "id":"22",
       "description":"This isn't a fallacy; it's just a very cruel and dishonest tactic. This happens when someone uses a tragedy to advance their narrative or for their own personal gain. The gains can range from mere attention on social media to money or favors. This happens a lot after school shootings in the United States. Using this fallacy typically indicates a clear lack of empathy on behalf of the person employing it.",
+      "key":"exploiting-tragedies",
       "name":"Exploiting Tragedies",
       "dialogue": [
          {
@@ -271,6 +286,7 @@
    {
       "id":"23",
       "description": "An inaccurate fact that is used to advance an argument.",
+      "key":"factual-innacuracy",
       "name":"Factual Inaccuracy",
       "dialogue": [
          {
@@ -286,6 +302,7 @@
    {
       "id":"25",
       "description":"Describes a situation of logical and apparent equivalence, when in fact there is none.",
+      "key": "false-equivalence",
       "name":"False Equivalence",
       "dialogue": [
          {
@@ -305,6 +322,7 @@
    {
       "id":"26",
       "description":"A rhetorical tactic that asserts that if your ideas are ridiculed, then they must be valid. This fallacy earns its name from Galileo\u2018s famous persecution at the hands of the Catholic Church for his defense of heliocentrism in the face of the orthodox Biblical literalism of the day.",
+      "key":"galileos-gambit",
       "name":"Galileo's Gambit",
       "dialogue": [
          {
@@ -324,6 +342,7 @@
    {
       "id":"28",
       "description":"Discrediting the source or origin of an argument instead of the argument itself.",
+      "key":"genetic-fallacy",
       "name":"Genetic Fallacy",
       "dialogue": [
          {
@@ -339,6 +358,7 @@
    {
       "id":"30",
       "description":"The arguer attributes a property to an entire group based only on observing that property in an individual.",
+      "key": "hasty-generalization",
       "name":"Hasty Generalization",
       "dialogue": [
          {
@@ -350,6 +370,7 @@
    {
       "id":"65",
       "description":"An error in reasoning whereby one believes that someone or something are actually what they self-identify as despite all evidence to the contrary. Anyone can choose to identify as whatever they want to but it doesn't necessarily mean that the self-identification is accurate.",
+      "key":"its-in-the-name",
       "name":"It's in the name!",
       "dialogue": [
          {
@@ -369,6 +390,7 @@
    {
       "id":"31",
       "description":"A question posed that implies an unstated major premise such that any answer will trap the answerer into appearing to agree with the unstated premise.",
+      "key":"loaded-question",
       "name":"Loaded Question",
       "dialogue": [
          {
@@ -380,6 +402,7 @@
    {
       "id":"32",
       "description":"The belief that technological progress should be slowed down or even halted so jobs will not be lost.",
+      "key":"luddite-fallacy",
       "name":"Luddite Fallacy",
       "dialogue": [
          {
@@ -403,6 +426,7 @@
    {
       "id":"33",
       "description":"Assuming that the compromise between two positions is correct.",
+      "key": "middle-ground",
       "name":"Middle Ground",
       "dialogue": [
          {
@@ -414,6 +438,7 @@
    {
       "id":"34",
       "description":"In which one assumes a 'holier-than-thou' attitude in an attempt to make oneself look good to win an argument.",
+      "key":"moral-high-ground",
       "name":"Moral High Ground",
       "dialogue": [
          {
@@ -425,6 +450,7 @@
    {
       "id":"35",
       "description":"When criteria are met that falsify the arguer's position, the arguer changes the criteria and claims that his\/her position is still valid.",
+      "key": "moving-the-goalposts",
       "name":"Moving the Goalposts",
       "dialogue": [
          {
@@ -440,6 +466,7 @@
    {
       "id":"36",
       "description":"When arguing against an action or policy, this fallacy is committed if the arguer declares the action to be useless if it does not lead to ideal conditions. It is related to the false dichotomy in that it implies that if the action does not lead to perfection, then it is useless. It does not recognize that simple improvement is worthwhile. Essentially, if it isn't perfect, then it is useless.",
+      "key":"nirvana-fallacy",
       "name":"Nirvana Fallacy",
       "dialogue": [
          {
@@ -451,6 +478,7 @@
    {
       "id":"37",
       "description":"If the premise of the argument is falsified with a counter example, rather than changing the conclusion, the arguer changes the definition of a major premise to make both the premise and the conclusion true. Typically, the arguer makes a sweeping generalization about an entire group. This is usually done by implying that the group is bound and defined by the arbitrary quality. If an exception to this generalization is pointed out, the arguer dismisses the exception as not truly belonging to the group in the first place.",
+      "key": "no-true-scotsman",
       "name":"No True Scotsman",
       "dialogue": [
          {
@@ -470,6 +498,7 @@
    {
       "id":"69",
       "description":"A conclusion or statement that does not logically follow from the previous argument or statement.",
+      "key": "non-sequitur",
       "name":"Non Sequitur",
       "dialogue": [
          {
@@ -485,6 +514,7 @@
    {
       "id":"38",
       "description":"A precedes B, therefore A caused B.",
+      "key":"post-hoc-fallacy",
       "name":"Post Hoc Fallacy",
       "dialogue": [
          {
@@ -504,6 +534,7 @@
    {
       "id":"39",
       "description":"A type of non-sequitir whereby one asserts that if a certain group of people are statistically over/under represented in something, that discrimination and\/or bigotry is the culprit.",
+      "key":"quota-fallacy",
       "name":"Quota Fallacy",
       "dialogue": [
          {
@@ -519,6 +550,7 @@
    {
       "id":"41",
       "description":"A speaker attempts to distract an audience by deviating from the topic at hand by introducing a separate argument the speaker believes is easier to speak to.",
+      "key": "red-herring",
       "name":"Red Herring",
       "dialogue": [
          {
@@ -542,6 +574,7 @@
    {
       "id":"42",
       "description":"Conspiracy theory style reasoning wherein an argument is dismissed because the person who is putting it forth is assumed be profiting from the position that they're taking. This can also be an ad hominem attack. It's common for the person whose argument has been dismissed to be accused of being on a company's payroll. This assumes that the only legitimate reason one can have for taking a certain position is personal gain.",
+      "key":"shill-gambit",
       "name":"Shill Gambit",
       "dialogue": [
          {
@@ -561,6 +594,7 @@
    {
       "id":"43",
       "description":"The arguer tries to convince others that one action will lead to a series of events that will eventually lead to an ultimate, usually unwanted, consequence. This is fallacious if it is unlikely that each intermediate step will necessarily follow the preceding one.",
+      "key":"slippery-slope",
       "name":"Slippery Slope",
       "dialogue": [
          {
@@ -578,39 +612,9 @@
       ]
    },
    {
-      "id":"44",
-      "description":"The arguer attempts to explain a discrepancy in his\/her argument by assigning special properties to his\/her position that immunizes it from criticism. Special Pleading may render a claim unfalsifiable. The fallacy of Special Pleading occurs when someone argues that a case is an exception to a rule based upon an irrelevant characteristic that does not define an exception. Special Pleading also may occur when the arguer implies that opponents of his\/her point of view cannot possibly understand it because they lack the capacity or skills needed to comprehend it.",
-      "name":"Special Pleading",
-      "dialogue": [
-         {
-            "name": "Rational Rob",
-            "message": "You're totally wrong about that quote by Abraham Lincoln about not believing everything you read on the internet. That quote isn't real."
-         },
-         {
-            "name": "Blathering Bill",
-            "message": "There isn't any universal truth. Each person has their own version of the what's true."
-         },
-         {
-            "name": "Rational Rob",
-            "message": "...and you believe that to be true?"
-         },
-         {
-            "name": "Blathering Bill",
-            "message": "Yep"
-         },
-         {
-            "name": "Rational Rob",
-            "message": "I thought that nothing was universally true?"
-         },
-         {
-            "name": "Blathering Bill",
-            "message": "Well... except for that."
-         }
-      ]
-   },
-   {
       "id":"45",
       "description":"Giving the impression of refuting an opponent's argument, while actually refuting an argument that was not advanced by that opponent.",
+      "key":"strawman",
       "name":"Strawman",
       "dialogue": [
          {
@@ -630,6 +634,7 @@
    {
       "id":"27",
       "description":"The mistaken belief that a random event must be due to happen soon if it has not happened in an unusually long time.",
+      "key":"the-gamblers-fallacy",
       "name":"The Gambler's Fallacy",
       "dialogue": [
          {
@@ -649,6 +654,7 @@
    {
       "id":"46",
       "description":"Cherry picking data that supports your contention while ignoring data that contradcits it. Basically, confirmation bias.",
+      "key":"the-texas-sharpshooter",
       "name":"The Texas Sharpshooter",
       "dialogue": [
          {
@@ -672,6 +678,7 @@
    {
       "id":"47",
       "description":"A commonly used phrase, sometimes passing as folk wisdom, used to quell cognitive dissonance, conceal lack of thought-entertainment, move on to other topics.",
+      "key":"thought-terminating-cliche",
       "name":"Thought Terminating Clich\u00e9",
       "dialogue": [
          {
@@ -687,6 +694,7 @@
    {
       "id":"48",
       "description":"A type of non-sequitir whereby one attempts to take credit for the deeds of someone else who belongs to the same group of people as the person putting forth the argument.",
+      "key":"tribal-fallacy",
       "name":"Tribal Fallacy",
       "dialogue": [
          {
@@ -702,6 +710,7 @@
    {
       "id":"3",
       "description":"This is an attack on the circumstances of the arguer. May imply ulterior motives or conflict of interests.",
+      "key":"tu-quoque",
       "name":"Tu Quoque",
       "dialogue": [
          {
@@ -713,6 +722,7 @@
    {
       "id":"49",
       "description":"When a person attempts to justify an action against another person because the other person did take or would take the same action against him or her.",
+      "key":"two-wrongs-make-a-right",
       "name":"Two Wrongs Make a Right",
       "dialogue": [
          {
@@ -736,6 +746,7 @@
    {
       "id":"50",
       "description":"A claim that is asserted that cannot be proven wrong. No evidence suffices as valid evidence.",
+      "key":"unfalsifiable-claim",
       "name":"Unfalsifiable Claim",
       "dialogue": [
          {
@@ -756,6 +767,7 @@
    {
       "id":"51",
       "description":"This happens when someone changes the definition of a word in such a way that reality conforms to their biases or lies.",
+      "key":"word-redefinition",
       "name":"Word Redefinition",
       "dialogue": [
          {
@@ -771,6 +783,7 @@
    {
       "id":"52",
       "description":"A deflection tactic that is used to shift the focus of attention away from what is being criticized on to other stuff that is totally irrelevant.",
+      "key":"whataboutism",
       "name":"Whataboutism",
       "dialogue": [
          {
@@ -786,6 +799,7 @@
    {
       "id":"53",
       "description":"This isn't any sort of coherent argument or rhetoric. However, it often masquerades as one if the person communicating it is well spoken. This is essentially just a confused or unintelligible mixture of seemingly random words and phrases.",
+      "key":"word-salad",
       "name":"Word Salad",
       "dialogue": [
          {
@@ -801,6 +815,7 @@
    {
       "id":"54",
       "description":"When one assumes that someone else\u2019s gain is a loss to other players; and the total amount of the available money or resources is fixed. A logical fallacy often occurs when this particular game theory is applied to economic or political discussions amongst non-economists \u2013 leading to false beliefs that the amount of wealth or jobs in the economy is fixed.",
+      "key":"zero-sum-fallacy",
       "name":"Zero Sum Fallacy",
       "dialogue": [
          {

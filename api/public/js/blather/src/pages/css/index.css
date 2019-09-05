@@ -70,8 +70,10 @@
   padding: 20px; }
   .screenshotModal .screenshotPicWrapper .watermarkLabel {
     margin-bottom: 0; }
-  .screenshotModal .screenshotPicWrapper.art02 .watermarkLabel, .screenshotModal .screenshotPicWrapper.art02 .fallacyExplanation, .screenshotModal .screenshotPicWrapper.art02 .fallacyHeader, .screenshotModal .screenshotPicWrapper.art02 #fallacyDateDiff, .screenshotModal .screenshotPicWrapper.art04 .watermarkLabel, .screenshotModal .screenshotPicWrapper.art04 .fallacyExplanation, .screenshotModal .screenshotPicWrapper.art04 .fallacyHeader, .screenshotModal .screenshotPicWrapper.art04 #fallacyDateDiff, .screenshotModal .screenshotPicWrapper.art07 .watermarkLabel, .screenshotModal .screenshotPicWrapper.art07 .fallacyExplanation, .screenshotModal .screenshotPicWrapper.art07 .fallacyHeader, .screenshotModal .screenshotPicWrapper.art07 #fallacyDateDiff {
+  .screenshotModal .screenshotPicWrapper.basic .watermarkLabel, .screenshotModal .screenshotPicWrapper.basic .fallacyExplanation, .screenshotModal .screenshotPicWrapper.basic .fallacyHeader, .screenshotModal .screenshotPicWrapper.basic #fallacyDateDiff, .screenshotModal .screenshotPicWrapper.art02 .watermarkLabel, .screenshotModal .screenshotPicWrapper.art02 .fallacyExplanation, .screenshotModal .screenshotPicWrapper.art02 .fallacyHeader, .screenshotModal .screenshotPicWrapper.art02 #fallacyDateDiff, .screenshotModal .screenshotPicWrapper.art04 .watermarkLabel, .screenshotModal .screenshotPicWrapper.art04 .fallacyExplanation, .screenshotModal .screenshotPicWrapper.art04 .fallacyHeader, .screenshotModal .screenshotPicWrapper.art04 #fallacyDateDiff, .screenshotModal .screenshotPicWrapper.art07 .watermarkLabel, .screenshotModal .screenshotPicWrapper.art07 .fallacyExplanation, .screenshotModal .screenshotPicWrapper.art07 .fallacyHeader, .screenshotModal .screenshotPicWrapper.art07 #fallacyDateDiff {
     color: #FFFFFF; }
+  .screenshotModal .screenshotPicWrapper.basic {
+    background: #2185D0; }
   .screenshotModal .screenshotPicWrapper.art01 {
     background-image: url("../../images/art/isometric/01.svg"); }
   .screenshotModal .screenshotPicWrapper.art02 {
@@ -299,27 +301,6 @@ a {
 .fallaciesPage .sub.header .icon.sidebar {
   cursor: pointer;
   float: left; }
-
-.fallaciesPage .mainFallacy {
-  display: none; }
-  .fallaciesPage .mainFallacy .segment p:not(.header) {
-    margin-bottom: 12px !important; }
-  .fallaciesPage .mainFallacy .segment .header {
-    margin-bottom: 5px; }
-  .fallaciesPage .mainFallacy .segment .captureScreenshot {
-    cursor: pointer;
-    float: left; }
-    .fallaciesPage .mainFallacy .segment .captureScreenshot + a {
-      float: right; }
-  @media only screen and (max-width: 1025px) {
-    .fallaciesPage .mainFallacy .segment .header {
-      font-size: 16px !important; }
-    .fallaciesPage .mainFallacy .segment .comment {
-      font-size: 12px; }
-    .fallaciesPage .mainFallacy .segment .captureScreenshot {
-      display: none; } }
-  .fallaciesPage .mainFallacy.active {
-    display: block; }
 
 /* Fallacy page */
 .fallacyPage .fallacyGrid {
