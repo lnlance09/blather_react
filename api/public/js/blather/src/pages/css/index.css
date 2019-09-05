@@ -433,8 +433,7 @@ a {
   margin-top: 0; }
 
 .homePage {
-  background-image: url("../../images/art/isometric/07.svg");
-  background-size: cover;
+  background: linear-gradient(#2185D0, #54C8FF);
   padding: 0; }
   .homePage .mainContainer {
     min-height: 70vh;
