@@ -251,7 +251,7 @@ class Home extends Component {
 						<List bulleted size="medium">
 							<List.Item>
 								You can select from{" "}
-								<Link to="/fallacies">47 logical fallacies</Link>.
+								<Link to="/fallacies">46 logical fallacies</Link>.
 							</List.Item>
 							<List.Item>
 								If you're assigning a doublethink, keep in mind that sometimes

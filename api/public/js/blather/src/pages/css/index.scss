@@ -733,8 +733,7 @@ a {
 
 
 .homePage {
-    background-image: url("../../images/art/isometric/07.svg");
-    background-size: cover;
+    background: linear-gradient($blue, $lightBlue);
     padding: 0;
 
     .mainContainer {
