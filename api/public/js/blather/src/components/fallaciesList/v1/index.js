@@ -78,7 +78,7 @@ class FallaciesList extends Component {
 	}
 
 	componentWillUpdate(nextProps) {
-		if (nextProps.tagId !== this.props.tagId) {
+		if (nextProps.tagId !== this.props.tagId || nextProps.fallacyId !== this.props.fallacyId) {
 			this.props.getFallacies({
 				assignedBy: nextProps.assignedBy,
 				assignedTo: nextProps.assignedTo,
@@ -239,11 +239,13 @@ class FallaciesList extends Component {
 								/>
 							</Form>
 							<div style={{ margin: "16px 0" }}>
-								<FallacyRef
-									canScreenshot={false}
-									className="fallacyRef"
-									id={parseInt(value, 10)}
-								/>
+								{value && (
+									<FallacyRef
+										canScreenshot={false}
+										className="fallacyRef"
+										id={parseInt(value, 10)}
+									/>
+								)}
 							</div>
 						</div>
 					)}

@@ -80,7 +80,7 @@ class Fallacy extends Component {
 		this.state = {
 			active: false,
 			auth,
-			background: "art01",
+			background: "basic",
 			bearer,
 			downloading: false,
 			editing: false,
@@ -560,8 +560,9 @@ class Fallacy extends Component {
 								>
 									<Divider horizontal />
 									<FallacyRef
-										canScreenshot={false}
 										id={props.fallacyId}
+										imageFluid={true}
+										justImage={true}
 										opacity={opacity / 100}
 									/>
 								</div>
@@ -573,11 +574,9 @@ class Fallacy extends Component {
 							)}
 						</div>
 
-						<Header className="advancedSettingsHeader">
-							Advanced Settings
-						</Header>
+						<Header className="advancedSettingsHeader">Advanced Settings</Header>
 
-						<Segment className="opacitySlider">
+						<div className="opacitySlider">
 							<Header size="tiny">Opacity</Header>
 							<Segment>
 								<Slider
@@ -616,8 +615,7 @@ class Fallacy extends Component {
 												>
 													<input {...getInputProps()} />
 													<Button
-														basic
-														color="blue"
+														color="green"
 														content="Custom"
 														fluid
 														icon="photo"
@@ -669,7 +667,7 @@ class Fallacy extends Component {
 									/>
 								</List.Item>
 							</List>
-						</Segment>
+						</div>
 					</Modal.Content>
 
 					<Modal.Actions>
@@ -690,7 +688,7 @@ class Fallacy extends Component {
 				{this.props.id ? (
 					<div>
 						<Divider />
-						<FallacyRef canScreenshot={false} id={this.props.fallacyId} />
+						<FallacyRef id={this.props.fallacyId} imageFluid={true} justImage={true} />
 					</div>
 				) : (
 					<LazyLoad header={false} />

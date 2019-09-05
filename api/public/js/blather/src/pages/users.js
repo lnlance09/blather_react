@@ -275,8 +275,7 @@ class UserPage extends Component {
 											<List horizontal>
 												<List.Item>
 													<List.Content>
-														<Icon name="at" />{" "}
-														{user.username}
+														<Icon name="at" /> {user.username}
 													</List.Content>
 												</List.Item>
 												<List.Item>

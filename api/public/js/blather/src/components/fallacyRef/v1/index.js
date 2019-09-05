@@ -1,9 +1,9 @@
 import "./style.css"
-import { connect } from "react-redux"
-import { Comment, Header, Icon, Segment } from "semantic-ui-react"
+import { Comment, Header, Icon, Image, Segment } from "semantic-ui-react"
 import BillPic from "images/avatar/small/mark.png"
 import fallacies from "fallacies.json"
 import html2canvas from "html2canvas"
+import ImagePic from "images/images/image-square.png"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import RobPic from "images/avatar/small/matthew.png"
@@ -11,6 +11,7 @@ import RobPic from "images/avatar/small/matthew.png"
 class FallacyRef extends Component {
 	constructor(props) {
 		super(props)
+
 		this.state = {
 			fallacy: null
 		}
@@ -18,21 +19,14 @@ class FallacyRef extends Component {
 
 	componentDidMount() {
 		fallacies.map((fallacy, i) => {
-			if (parseInt(fallacy.id, 10) === this.props.id) {
-				this.setState({ fallacy })
-			}
+			this.matchFallacy(this.props.id)
 			return true
 		})
 	}
 
-	componentWillUpdate(newProps) {
+	componentWillReceiveProps(newProps) {
 		if (this.props.id !== newProps.id) {
-			fallacies.map((fallacy, i) => {
-				if (parseInt(fallacy.id, 10) === newProps.id) {
-					this.setState({ fallacy })
-				}
-				return true
-			})
+			this.matchFallacy(newProps.id)
 		}
 	}
 
@@ -54,8 +48,18 @@ class FallacyRef extends Component {
 		})
 	}
 
+	matchFallacy = id => {
+		fallacies.map((fallacy, i) => {
+			if (parseInt(fallacy.id, 10) === id) {
+				this.setState({ fallacy })
+			}
+			return true
+		})
+	}
+
 	render() {
 		const { fallacy } = this.state
+
 		const FallacyConversation = dialogue =>
 			dialogue.map((item, i) => {
 				const pic = item.name === "Blathering Bill" ? BillPic : RobPic
@@ -70,67 +74,85 @@ class FallacyRef extends Component {
 				)
 			})
 
-		return (
-			<div className="fallacyRef">
-				{fallacy && (
-					<div>
-						<Segment
-							className="fallacySegment"
-							id="fallacySegment"
-							stacked={this.props.stacked}
-							style={{ opacity: this.props.opacity }}
+		const FallacyImg = props => (
+			<Image
+				centered={props.imageCentered}
+				crossOrigin="anonymous"
+				fluid={props.imageFluid}
+				onError={i => (i.target.src = ImagePic)}
+				rounded
+				size={props.imageFluid ? null : "large"}
+				src={`https://blather22.s3.amazonaws.com/reference/${fallacy.key}.jpg`}
+				style={{ opacity: props.opacity }}
+			/>
+		)
+
+		return this.props.justImage ? (
+			<div>{fallacy && FallacyImg(this.props)}</div>
+		) : (
+			fallacy && (
+				<Segment
+					className={`fallacySegment ${this.props.click ? "click" : null}`}
+					onClick={() => this.props.onClick(fallacy.id)}
+					stacked={this.props.stacked}
+					style={{ opacity: this.props.opacity }}
+				>
+					{this.props.includeHeader && (
+						<Header as="p" size="medium">
+							{fallacy.name}
+						</Header>
+					)}
+
+					<p>{fallacy.description}</p>
+
+					{this.props.showDialogue && (
+						<Comment.Group>{FallacyConversation(fallacy.dialogue)}</Comment.Group>
+					)}
+
+					{this.props.showImage && FallacyImg(this.props)}
+
+					{this.props.canScreenshot && (
+						<span
+							className="captureScreenshot"
+							data-html2canvas-ignore
+							onClick={() => this.captureScreenshot(fallacy.name)}
 						>
-							{this.props.includeHeader && (
-								<Header as="p" size="medium">
-									{fallacy.name}
-								</Header>
-							)}
-							<p>{fallacy.description}</p>
-							{this.props.showDialogue && (
-								<Comment.Group>
-									{FallacyConversation(fallacy.dialogue)}
-								</Comment.Group>
-							)}
-						</Segment>
-						{this.props.canScreenshot && (
-							<span
-								className="captureScreenshot"
-								data-html2canvas-ignore
-								onClick={() => this.captureScreenshot(fallacy.name)}
-							>
-								<Icon name="camera" /> capture screenshot
-							</span>
-						)}
-					</div>
-				)}
-			</div>
+							<Icon name="camera" /> capture screenshot
+						</span>
+					)}
+				</Segment>
+			)
 		)
 	}
 }
 
 FallacyRef.propTypes = {
 	canScreenshot: PropTypes.bool,
+	click: PropTypes.bool,
 	id: PropTypes.number,
+	imageCentered: PropTypes.bool,
+	imageFluid: PropTypes.bool,
 	includeHeader: PropTypes.bool,
+	justImage: PropTypes.bool,
+	onClick: PropTypes.func,
 	opacity: PropTypes.string,
 	stacked: PropTypes.bool,
-	showDialogue: PropTypes.bool
+	showDialogue: PropTypes.bool,
+	showImage: PropTypes.bool
 }
 
 FallacyRef.defaultProps = {
 	canScreenshot: true,
+	click: false,
+	imageCentered: false,
+	imageFluid: false,
 	includeHeader: true,
+	justImage: false,
+	onClick: () => null,
 	opacity: "1",
 	showDialogue: true,
+	showImage: false,
 	stacked: false
 }
 
-const mapStateToProps = (state, ownProps) => ({
-	...state.fallacyRef,
-	...ownProps
-})
-
-export default connect(
-	mapStateToProps,
-	{}
-)(FallacyRef)
+export default FallacyRef

@@ -3,19 +3,20 @@
 /*---   Neutrals  ---*/
 /*---   Misc  ---*/
 /*---   Social colors  ---*/
-.fallacyRef .segment p:not(.header) {
-  margin-bottom: 12px !important; }
-
-.fallacyRef .segment .header {
+.fallacySegment .header {
   margin-bottom: 5px; }
 
-@media only screen and (max-width: 1025px) {
-  .fallacyRef .segment .header {
-    font-size: 18px !important; } }
+.fallacySegment p:not(.header) {
+  margin-bottom: 12px !important; }
 
-.fallacyRef .captureScreenshot {
+.fallacySegment .captureScreenshot {
+  cursor: pointer; }
+
+.fallacySegment.click {
   cursor: pointer; }
 
 @media only screen and (max-width: 1025px) {
-  .fallacyRef .captureScreenshot {
+  .fallacySegment .header {
+    font-size: 18px !important; }
+  .fallacySegment .captureScreenshot {
     display: none !important; } }

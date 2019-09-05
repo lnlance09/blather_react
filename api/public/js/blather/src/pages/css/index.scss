@@ -114,10 +114,14 @@
             }
         }
 
-        &.art02, &.art04, &.art07 {
+        &.basic, &.art02, &.art04, &.art07 {
             .watermarkLabel, .fallacyExplanation, .fallacyHeader, #fallacyDateDiff {
                 color: $white;
             }
+        }
+
+        &.basic {
+            background: $blue;
         }
 
         &.art01 {
@@ -507,47 +511,6 @@ a {
         .icon.sidebar {
             cursor: pointer;
             float: left;
-        }
-    }
-
-    .mainFallacy {
-        display: none;
-
-        .segment {
-            p:not(.header) {
-                margin-bottom: 12px !important;
-            }
-
-            .header {
-                margin-bottom: 5px;
-            }
-
-            .captureScreenshot {
-                cursor: pointer;
-                float: left;
-
-                + a {
-                    float: right;
-                }
-            }
-
-            @media only screen and (max-width: 1025px) {
-                .header {
-                    font-size: 16px !important;
-                }
-
-                .comment {
-                    font-size: 12px;
-                }
-
-                .captureScreenshot {
-                    display: none;
-                }
-            }
-        }
-
-        &.active {
-            display: block;
         }
     }
 }

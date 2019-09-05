@@ -546,11 +546,8 @@ class FallacyForm extends Component {
 						search
 						selection
 					/>
-					<FallacyRef
-						canScreenshot={false}
-						className="fallacyRef"
-						id={parseInt(id, 10)}
-					/>
+					<Divider />
+					<FallacyRef className="fallacyRef" id={parseInt(id, 10)} justImage={true} />
 				</Form.Field>
 				{ContradictionInput(props)}
 				<Divider />

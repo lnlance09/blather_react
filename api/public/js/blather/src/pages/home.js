@@ -275,7 +275,7 @@ class Home extends Component {
 						<Grid stackable>
 							<Grid.Row columns={4}>
 								{this.props.examples.map(e => (
-									<Grid.Column>
+									<Grid.Column key={e.key}>
 										<Image
 											bordered
 											onClick={() =>
@@ -332,16 +332,19 @@ Home.defaultProps = {
 		{
 			img:
 				"https://s3.amazonaws.com/blather22/screenshots/cj-pearson-doesnt-know-what-truth-is-756.png",
+			key: "cj-pearson-doesnt-know-what-truth-is-756",
 			link: "cj-pearson-doesnt-know-what-truth-is-756"
 		},
 		{
 			img:
 				"https://s3.amazonaws.com/blather22/screenshots/charlie-kirks-doublethink-about-the-border-again-676.png",
+			key: "charlie-kirks-doublethink-about-the-border-again-676",
 			link: "charlie-kirks-doublethink-about-the-border-again-676"
 		},
 		{
 			img:
 				"https://s3.amazonaws.com/blather22/screenshots/dylan-wheeler-cant-decide-if-hes-a-republican-231.png",
+			key: "dylan-wheeler-cant-decide-if-hes-a-republican-231",
 			link: "dylan-wheeler-cant-decide-if-hes-a-republican-231"
 		}
 	],
