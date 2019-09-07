@@ -126,6 +126,7 @@
 			$data['youtubeUrl'] = $this->youtube->getTokenUrl();
 
 			$this->users->updateUser($user_id, [
+				'img' => $img,
 				'linked_twitter' => $linkedTwitter,
 			]);
 
