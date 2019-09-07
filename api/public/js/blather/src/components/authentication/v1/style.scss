@@ -37,11 +37,14 @@
 
     .twitterBtn {
         border-radius: 2px;
+        font-weight: normal;
         height: 43px;
+        padding: 11px 15px;
         text-align: left;
 
         .icon {
-            line-height: 18px
+            line-height: 18px;
+            margin-right: 12px !important;
         }
     }
 }
