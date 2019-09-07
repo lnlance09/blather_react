@@ -1,13 +1,13 @@
 {
   "main.css": "/static/css/main.d76a7bd7.chunk.css",
-  "main.js": "/static/js/main.dc83db57.chunk.js",
-  "main.js.map": "/static/js/main.dc83db57.chunk.js.map",
+  "main.js": "/static/js/main.641b6e72.chunk.js",
+  "main.js.map": "/static/js/main.641b6e72.chunk.js.map",
   "static/css/1.e40e395f.chunk.css": "/static/css/1.e40e395f.chunk.css",
   "static/js/1.e16e9c60.chunk.js": "/static/js/1.e16e9c60.chunk.js",
   "static/js/1.e16e9c60.chunk.js.map": "/static/js/1.e16e9c60.chunk.js.map",
   "runtime~main.js": "/static/js/runtime~main.229c360f.js",
   "runtime~main.js.map": "/static/js/runtime~main.229c360f.js.map",
-  "static/media/index.css": "/static/media/05.c3e53643.svg",
+  "static/media/index.css": "/static/media/10.c1229334.svg",
   "static/media/trump-white.png": "/static/media/trump-white.b65f57d1.png",
   "static/media/logo.svg": "/static/media/logo.014d7d9d.svg",
   "static/media/brain-fart.gif": "/static/media/brain-fart.d8a44fba.gif",
@@ -19,6 +19,6 @@
   "static/css/main.d76a7bd7.chunk.css.map": "/static/css/main.d76a7bd7.chunk.css.map",
   "static/css/1.e40e395f.chunk.css.map": "/static/css/1.e40e395f.chunk.css.map",
   "index.html": "/index.html",
-  "precache-manifest.e9b921c5c139f9bddf12c2c012a0e162.js": "/precache-manifest.e9b921c5c139f9bddf12c2c012a0e162.js",
+  "precache-manifest.6d7295c00ba5f6e779c6b5f2e9a760da.js": "/precache-manifest.6d7295c00ba5f6e779c6b5f2e9a760da.js",
   "service-worker.js": "/service-worker.js"
 }
