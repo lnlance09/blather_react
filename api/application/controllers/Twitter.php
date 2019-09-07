@@ -78,7 +78,7 @@
 					$date_created = $exists['date_created'];
 					$user_id = $exists['id'];
 					$bio = $exists['bio'];
-					$img = $s3Path;
+					$img = $s3Link;
 					$linkedYoutube = (int)$exists['linked_youtube'];
 				} else {
 					$register = $this->users->register([
@@ -101,7 +101,7 @@
 
 					$date_created = $register['user']['dateCreated'];
 					$user_id = $register['user']['id'];
-					$img = $s3Path;
+					$img = $s3Link;
 				}
 
 				$linkedYoutube = false;
@@ -126,7 +126,7 @@
 			$data['youtubeUrl'] = $this->youtube->getTokenUrl();
 
 			$this->users->updateUser($user_id, [
-				'img' => $img,
+				'img' => $s3Path,
 				'linked_twitter' => $linkedTwitter,
 			]);
 
