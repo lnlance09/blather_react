@@ -4,7 +4,7 @@ import { capitalizeWord } from "./textFunctions"
 
 export const DisplayMetaTags = ({ page, props, state }) => {
 	const description =
-		"Blather is a website that lets users assign logical fallacies and analyze the logic and reasoning of claims made on social media. Make political memes out of tweets."
+		"Blather is a website and application that lets users assign logical fallacies to tweets. You can make political memes out of tweets and fallacies."
 	const img = ""
 	let metaTags = {}
 
