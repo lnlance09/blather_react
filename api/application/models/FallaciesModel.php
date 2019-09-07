@@ -841,7 +841,7 @@
         }
 
         public function getPageByDbId($id) {
-            $this->db->select('name, profile_pic');
+            $this->db->select('name, profile_pic, social_media_id, type, username');
             $this->db->where('id', $id);
             return $this->db->get('pages')->row();
         }
