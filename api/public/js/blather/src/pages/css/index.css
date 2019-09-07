@@ -95,8 +95,8 @@
   .screenshotModal .screenshotPicWrapper.art10 {
     background-image: url("../../images/art/isometric/10.svg"); }
 
-.screenshotModal .opacitySlider {
-  margin-top: 20px; }
+.screenshotModal .advancedSettings {
+  margin-top: 25px; }
 
 .screenshotModal .advancedSettingsHeader a {
   float: right;
