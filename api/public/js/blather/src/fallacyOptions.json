@@ -20,14 +20,14 @@
       "value":"7"
    },
    {
-      "key":"appeal-to-the-law",
-      "text":"Appeal to the Law",
-      "value":"55"
-   },
-   {
       "key":"appeal-to-suffering",
       "text":"Appeal to Suffering",
       "value":"67"
+   },
+   {
+      "key":"appeal-to-the-law",
+      "text":"Appeal to the Law",
+      "value":"55"
    },
    {
       "key": "appeal-to-tradition",
@@ -35,7 +35,7 @@
       "value":"8"
    },
    {
-      "key": "bandwagon",
+      "key": "bandwagoning",
       "text":"Bandwagoning",
       "value":"4"
    },
@@ -210,14 +210,14 @@
       "value":"50"
    },
    {
-      "key":"word-redefinition",
-      "text":"Word Redefinition",
-      "value":"51"
-   },
-   {
       "key":"whataboutism",
       "text":"Whataboutism",
       "value":"52"
+   },
+   {
+      "key":"word-redefinition",
+      "text":"Word Redefinition",
+      "value":"51"
    },
    {
       "key":"word-salad",
