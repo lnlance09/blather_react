@@ -305,8 +305,7 @@ class Authentication extends Component {
 				fluid
 				onClick={() => this.redirectToUrl(props.data.twitterUrl)}
 			>
-				<Icon name="twitter" size="large" />{" "}
-				{login ? "Sign in" : "Sign up"} with Twitter
+				<Icon name="twitter" size="large" /> {login ? "Sign in" : "Sign up"} with Twitter
 			</Button>
 		)
 
