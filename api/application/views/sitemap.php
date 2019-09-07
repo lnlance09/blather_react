@@ -6,41 +6,31 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 	<url>
 		<loc><?php echo $base_url; ?></loc> 
-		<changefreq>never</changefreq>
+		<changefreq>daily</changefreq>
 		<priority>1.0</priority>
 	</url>
 
 	<url>
 		<loc><?php echo $base_url; ?>activity</loc> 
-		<changefreq>never</changefreq>
-		<priority>1.0</priority>
-	</url>
-
-
-<?php
-	// Twitter pages
-	for ($i=0;$i<count($twitterPages);$i++) {
-		$username = $twitterPages[$i]['username'];
-		$url = $base_url.'pages/twitter/'.$username;
-?>
-	<url>
-		<loc><?php echo $url; ?></loc>
 		<changefreq>daily</changefreq>
 		<priority>0.9</priority>
 	</url>
-<?php
-	}
-?>
+
+	<url>
+		<loc><?php echo $base_url.'fallacies'; ?></loc>
+		<changefreq>daily</changefreq>
+		<priority>0.9</priority>
+	</url>
 
 
 <?php
-	// Youtube pages
-	for ($i=0;$i<count($youtubePages);$i++) {
-		$id = $youtubePages[$i]['social_media_id'];
-		$url = $base_url.'pages/youtube/'.$id;
+	// Fallacy types
+	for ($i=0;$i<count($fallacyTypes);$i++) {
+		$replace = str_replace(' ', '-', $fallacyTypes[$i]['name']);
+		$name = strtolower(str_replace("'", '', $replace));
 ?>
 	<url>
-		<loc><?php echo $url; ?></loc>
+		<loc><?php echo $base_url.'fallacies/'.$name; ?></loc>
 		<changefreq>daily</changefreq>
 		<priority>0.9</priority>
 	</url>
@@ -80,6 +70,38 @@
 
 
 <?php
+	// Twitter pages
+	for ($i=0;$i<count($twitterPages);$i++) {
+		$username = $twitterPages[$i]['username'];
+		$url = $base_url.'pages/twitter/'.$username;
+?>
+	<url>
+		<loc><?php echo $url; ?></loc>
+		<changefreq>daily</changefreq>
+		<priority>0.7</priority>
+	</url>
+<?php
+	}
+?>
+
+
+<?php
+	// Youtube pages
+	for ($i=0;$i<count($youtubePages);$i++) {
+		$id = $youtubePages[$i]['social_media_id'];
+		$url = $base_url.'pages/youtube/'.$id;
+?>
+	<url>
+		<loc><?php echo $url; ?></loc>
+		<changefreq>daily</changefreq>
+		<priority>0.7</priority>
+	</url>
+<?php
+	}
+?>
+
+
+<?php
 	// Targets
 	for ($i=0;$i<count($reviews);$i++) {
 ?>
@@ -107,25 +129,9 @@
 ?>
 
 
-<?php
-	// Fallacy types
-	for ($i=0;$i<count($fallacyTypes);$i++) {
-		$replace = str_replace(' ', '-', $fallacyTypes[$i]['name']);
-		$name = strtolower(str_replace("'", '', $replace));
-?>
-	<url>
-		<loc><?php echo $base_url.'fallacies/'.$name; ?></loc>
-		<changefreq>daily</changefreq>
-		<priority>0.5</priority>
-	</url>
-<?php
-	}
-?>
-
-
 	<url>
 		<loc><?php echo $base_url; ?>about</loc>
-		<changefreq>never</changefreq>
+		<changefreq>daily</changefreq>
 		<priority>0.3</priority>
 	</url>
 	<url>
