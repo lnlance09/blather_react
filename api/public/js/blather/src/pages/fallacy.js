@@ -333,33 +333,36 @@ class Fallacy extends Component {
 					)}
 					{props.id && (
 						<div>
-							{props.s3Link && props.canScreenshot ? (
-								<div>
-									<Dimmer.Dimmable
-										as={Image}
-										bordered
-										className="downloadDimmer"
-										dimmed={active}
-										dimmer={{ active, content }}
-										onClick={() => window.open(props.s3Link, "_blank")}
-										onMouseEnter={this.handleShow}
-										onMouseLeave={this.handleHide}
-										rounded
-										size="big"
-										src={`${props.s3Link}?v=${new Date().getTime()}`}
-									/>
-									{props.s3Updated && (
-										<p className="screenshotCaption">
-											Created{" "}
-											<Moment
-												date={adjustTimezone(props.s3Updated)}
-												fromNow
-												interval={60000}
-											/>
-										</p>
-									)}
-								</div>
-							) : null}
+							{props.canScreenshot &&
+								(props.s3Link ? (
+									<div>
+										<Dimmer.Dimmable
+											as={Image}
+											bordered
+											className="downloadDimmer"
+											dimmed={active}
+											dimmer={{ active, content }}
+											onClick={() => window.open(props.s3Link, "_blank")}
+											onMouseEnter={this.handleShow}
+											onMouseLeave={this.handleHide}
+											rounded
+											size="big"
+											src={`${props.s3Link}?v=${new Date().getTime()}`}
+										/>
+										{props.s3Updated && (
+											<p className="screenshotCaption">
+												Created{" "}
+												<Moment
+													date={adjustTimezone(props.s3Updated)}
+													fromNow
+													interval={60000}
+												/>
+											</p>
+										)}
+									</div>
+								) : (
+									<Image src={ImagePic} />
+								))}
 
 							{!props.canScreenshot && (
 								<div>
@@ -574,9 +577,7 @@ class Fallacy extends Component {
 							)}
 						</div>
 
-						<Header className="advancedSettingsHeader">Advanced Settings</Header>
-
-						<div className="opacitySlider">
+						<div className="advancedSettings">
 							<Header size="tiny">Opacity</Header>
 							<Segment>
 								<Slider
@@ -781,6 +782,7 @@ class Fallacy extends Component {
 								</Card.Content>
 							</Card>
 						</Container>
+						<Divider />
 					</div>
 				) : (
 					<LazyLoad header={false} />

@@ -244,9 +244,12 @@
                         $author = $userName;
                         $authorUrl = $base_url.'users/'.$userUsername;
                         $canonical_url = $base_url."fallacies/".$slug;
+                        $referee_pic = $s3Path.'reference/'.str_replace(' ', '-', strtolower($fallacyName)).'.jpg';
 
                         if (strpos($s3Link, "screenshots") !== false) {
                             $img = $s3Path.$s3Link;
+                        } else {
+                            $img = $referee_pic;
                         }
 
                         $schema_keywords = [
@@ -296,18 +299,13 @@
 
                         $keywords[] = $fallacyName;
                         $keywords[] = $pageName;
-                        $implode = implode(",", $title);
-                        for ($i=0;$i<count($implode);$i++) {
-                            if (strlen($implode[$i]) > 3) {
-                                $keywords[] = str_replace(['\'', '"'], '', $implode[$i]);
-                            }
-                        }
 
                         $html = '<div>
                                     <h1>
                                         '.$fallacyTitle.' - '.$fallacyName.' by '.$pageName.'
                                     </h1>
                                     <p>'.$explanation.'</p>
+                                    <img src="'.$referee_pic.'" alt="'.$fallacyName.'" />
                                     <a href="'.$base_url.'fallacies/'.str_replace(' ', '-', strtolower($fallacyName)).'">'.$fallacyName.'</a>
                                     <a href="'.$base_url.'pages/'.$network.'/'.$pageId.'">'.$pageName.'</a>
                                     <img src="'.$s3Path.$pagePic.'" alt="'.$pageName.'"/>';
@@ -375,6 +373,23 @@
                     $keywords[] = "credibility";
                     $keywords[] = "contradictions";
                     $keywords[] = "logical fallacies";
+
+                    $html = '<div>
+                                <img src="'.$img.'" alt="'.$title.'">
+                                <h1>'.$title.'</h1>
+                                <p>'.$description.'</p>
+                            </div>';
+
+                    $sql = "SELECT slug, title
+                            FROM fallacy_entries
+                            WHERE page_id = '".$mysqli->real_escape_string($pageId)."'";
+                    $result = $mysqli->query($sql);
+                    if ($result) {
+                        while ($row = $result->fetch_assoc()) {
+                            $html .= '<a href="'.$base_url.'fallacies/'.$row['slug'].'">'.$row['title'].'</a>';
+                        }
+                        $result->close();
+                    }
                 }
                 break;
 
