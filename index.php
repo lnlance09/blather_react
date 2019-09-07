@@ -54,6 +54,11 @@
             $set = true;
             break;
 
+        case "/about/privacy";
+            $title = "Privacy";
+            $set = true;
+            break;
+
         case "/about/rules";
             $title = "Rules";
             $set = true;
@@ -112,6 +117,7 @@
                     }
                     $result->close();
 
+                    $img = $s3Path."reference/".$id.".jpg";
                     $schema = [
                         "@context" => "https://schema.org",
                         "@type" => "BreadcrumbList",
@@ -134,12 +140,15 @@
 
                     $html = '<div>
                                 <h1>'.$title.'</h1>
-                                <p>'.$description.'</p>';
+                                <p>'.$description.'</p>
+                                <img src="'.$img.'" alt="'.$title.'" />
+                                <p>Examples</p>';
 
                     $sql = "SELECT slug, title
                             FROM fallacy_entries
                             WHERE fallacy_id = '".$mysqli->real_escape_string($fallacyId)."'";
                     $result = $mysqli->query($sql);
+
                     if ($result) {
                         while ($row = $result->fetch_assoc()) {
                             $html .= '<a href="'.$base_url.'fallacies/'.$row['slug'].'">'.$row['title'].'</a>';
