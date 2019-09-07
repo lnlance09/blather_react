@@ -95,40 +95,42 @@ class Fallacies extends Component {
 						ref={this.handleContextRef}
 						textAlign="left"
 					>
-						<Header as="h1" content="Reference" />
-						<Dropdown
-							clearable
-							fluid
-							onChange={this.onChangeFallacy}
-							options={fallacyOptions}
-							placeholder="Search fallacies"
-							selection
-							size="large"
-							value={activeItem}
-						/>
-						<Divider />
+						<Header as="h1">Reference</Header>
+						<Segment>
+							<Dropdown
+								clearable
+								fluid
+								onChange={this.onChangeFallacy}
+								options={fallacyOptions}
+								placeholder="Search fallacies"
+								selection
+								size="large"
+								value={activeItem}
+							/>
+							<Divider />
 
-						{selected ? (
-							<div>
-								<FallacyRef
-									canScreenshot={false}
-									className="fallacyRef"
-									id={parseInt(activeItem, 10)}
-									showImage={true}
-								/>
+							{selected ? (
+								<div>
+									<FallacyRef
+										canScreenshot={false}
+										className="fallacyRef"
+										id={parseInt(activeItem, 10)}
+										showImage={true}
+									/>
 
-								<Header as="h2">Examples</Header>
-								<FallaciesList
-									emptyMsgContent="There are no records of this fallacy"
-									fallacyId={activeItem}
-									history={this.props.history}
-									icon="warning sign"
-									source="fallacy"
-								/>
-							</div>
-						) : (
-							<Segment.Group>{RenderFallacies}</Segment.Group>
-						)}
+									<Header as="h2">Examples</Header>
+									<FallaciesList
+										emptyMsgContent="There are no records of this fallacy"
+										fallacyId={activeItem}
+										history={this.props.history}
+										icon="warning sign"
+										source="fallacy"
+									/>
+								</div>
+							) : (
+								<Segment.Group>{RenderFallacies}</Segment.Group>
+							)}
+						</Segment>
 					</Container>
 					<PageFooter />
 				</div>

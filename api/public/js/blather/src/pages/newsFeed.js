@@ -149,12 +149,12 @@ class NewsFeed extends Component {
 						</Responsive>
 
 						<Responsive minWidth={1025}>
-							<Header className="activityHeader" size="huge">
-								Activity
-							</Header>
 							<Grid className="feedGrid">
 								<Grid.Column width={12}>
-									<Segment>
+									<Header as="h1" attached="top" className="activityHeader">
+										Activity
+									</Header>
+									<Segment attached>
 										<FeedComponent history={this.props.history} />
 									</Segment>
 								</Grid.Column>

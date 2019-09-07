@@ -298,10 +298,6 @@ a {
     padding-left: 0 !important;
     padding-right: 0 !important; } }
 
-.fallaciesPage .sub.header .icon.sidebar {
-  cursor: pointer;
-  float: left; }
-
 /* Fallacy page */
 .fallacyPage .fallacyGrid {
   margin-top: 10px !important; }
@@ -413,6 +409,7 @@ a {
           max-width: 300px !important; } }
 
 .feedPage .activityHeader {
+  line-height: 1.2;
   margin-bottom: 0; }
 
 .feedPage .ui.feed > .event > .content .meta .label {

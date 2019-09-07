@@ -506,13 +506,6 @@ a {
             padding-right: 0 !important;
         }
     }
-
-    .sub.header {
-        .icon.sidebar {
-            cursor: pointer;
-            float: left;
-        }
-    }
 }
 
 
@@ -699,6 +692,7 @@ a {
     }
 
     .activityHeader {
+        line-height: 1.2;
         margin-bottom: 0;
     }
 
