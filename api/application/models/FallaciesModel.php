@@ -466,8 +466,9 @@
         }
 
         public function getFallacies() {
-            $this->db->select('*');
-            return $this->db->get('fallacy_entries')->result_array();
+            $this->db->select('fe.*, f.name AS fallacy_name');
+            $this->db->join('fallacies f', 'f.id = fe.fallacy_id');
+            return $this->db->get('fallacy_entries fe')->result_array();
         }
 
         public function getFallacy($id, $just_count = false) {
