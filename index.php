@@ -5,9 +5,9 @@
 
     $dir = "/blather/";
     $base_url = "https://blather.io/";
-    $canonical_url = $uri;
+    $canonical_url = "https://blather.io".$uri;
     $title = "Assign a Logical Fallacy";
-    $description = "Blather is a website that lets users assign logical fallacies and analyze the logic and reasoning of claims made on social media. Make political memes out of tweets.";
+    $description = "Blather is a website and application that lets users assign logical fallacies to tweets. You can also make political memes out of tweets and fallacies.";
     $keywords = [
         "logical fallacies",
         "political memes",
