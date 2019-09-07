@@ -78,7 +78,7 @@
 					$date_created = $exists['date_created'];
 					$user_id = $exists['id'];
 					$bio = $exists['bio'];
-					$img = $s3Link;
+					$img = $s3Path;
 					$linkedYoutube = (int)$exists['linked_youtube'];
 				} else {
 					$register = $this->users->register([
@@ -101,7 +101,7 @@
 
 					$date_created = $register['user']['dateCreated'];
 					$user_id = $register['user']['id'];
-					$img = $s3Link;
+					$img = $s3Path;
 				}
 
 				$linkedYoutube = false;
