@@ -889,12 +889,14 @@ class Fallacy extends Component {
 									<Grid.Row>{CommentsSection(this.props)}</Grid.Row>
 									<Grid.Row>
 										{ShareSection(false)}
-										<Statistic
-											className="viewCount"
-											horizontal
-											label="Views"
-											value={this.props.viewCount}
-										/>
+										{this.props.id && (
+											<Statistic
+												className="viewCount"
+												horizontal
+												label="Views"
+												value={this.props.viewCount}
+											/>
+										)}
 									</Grid.Row>
 									<Grid.Row>{SimilarSection(this.props)}</Grid.Row>
 								</Grid>

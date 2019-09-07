@@ -68,22 +68,6 @@
       ]
    },
    {
-      "id":"55",
-      "description":"When following the law is assumed to be the morally correct thing to do, without justification, or when breaking the law is assumed to be the morally wrong thing to do, without justification. This can also happen when one equates supporting the legalization of something with actually supporting it.",
-      "key":"appeal-to-the-law",
-      "name":"Appeal to the Law",
-      "dialogue": [
-         {
-            "name": "Rational Rob",
-            "message": "Last night I was seduced by a woman and ended up cheating on Katie."
-         },
-         {
-            "name": "Blathering Bill",
-            "message": "Don't worry. Adultery isn't illegal."
-         }
-      ]
-   },
-   {
       "id":"67",
       "description":"The belief that some people should have to suffer because other people have had to suffer. Usually, the person using this argument will claim that it's a 'slap in the face' to people that have suffered that others aren't suffering just like they did.",
       "key":"appeal-to-suffering",
@@ -112,6 +96,22 @@
       ]
    },
    {
+      "id":"55",
+      "description":"When following the law is assumed to be the morally correct thing to do, without justification, or when breaking the law is assumed to be the morally wrong thing to do, without justification. This can also happen when one equates supporting the legalization of something with actually supporting it.",
+      "key":"appeal-to-the-law",
+      "name":"Appeal to the Law",
+      "dialogue": [
+         {
+            "name": "Rational Rob",
+            "message": "Last night I was seduced by a woman and ended up cheating on Katie."
+         },
+         {
+            "name": "Blathering Bill",
+            "message": "Don't worry. Adultery isn't illegal."
+         }
+      ]
+   },
+   {
       "id":"8",
       "description":"This form of argument tries to persaude the listener that an idea must be true because it has been believed or practiced for a long time.",
       "key": "appeal-to-tradition",
@@ -130,7 +130,7 @@
    {
       "id":"4",
       "description":"Where something is claimed to be true or good solely because lots of others believe it to be so.",
-      "key": "bandwagon",
+      "key": "bandwagoning",
       "name":"Bandwagoning",
       "dialogue": [
          {
@@ -763,23 +763,6 @@
          }
       ]
    },
-   
-   {
-      "id":"51",
-      "description":"This happens when someone changes the definition of a word in such a way that reality conforms to their biases or lies.",
-      "key":"word-redefinition",
-      "name":"Word Redefinition",
-      "dialogue": [
-         {
-            "name": "Rational Rob",
-            "message": "I think it's really messed up that you stole our neighbor's car a few nights ago."
-         },
-         {
-            "name": "Blathering Bill",
-            "message": "It wasn't stealing. My definition of stealing is when you take something that belongs to someone else without their permission and have no plan of returning it. I was going to return her car until I crashed it."
-         }
-      ]
-   },
    {
       "id":"52",
       "description":"A deflection tactic that is used to shift the focus of attention away from what is being criticized on to other stuff that is totally irrelevant.",
@@ -793,6 +776,22 @@
          {
             "name": "Blathering Bill",
             "message": "But, what about what's going on right here in America?"
+         }
+      ]
+   },
+   {
+      "id":"51",
+      "description":"This happens when someone changes the definition of a word in such a way that reality conforms to their biases or lies.",
+      "key":"word-redefinition",
+      "name":"Word Redefinition",
+      "dialogue": [
+         {
+            "name": "Rational Rob",
+            "message": "I think it's really messed up that you stole our neighbor's car a few nights ago."
+         },
+         {
+            "name": "Blathering Bill",
+            "message": "It wasn't stealing. My definition of stealing is when you take something that belongs to someone else without their permission and have no plan of returning it. I was going to return her car until I crashed it."
          }
       ]
    },
