@@ -36,6 +36,11 @@ const target = (state = initial(), action) => {
 			}
 
 		case constants.FETCH_PAGE:
+			let pageLink = `/pages/${payload.page.type}/`
+			pageLink +=
+				payload.page.type === "twitter"
+					? payload.page.username
+					: payload.page.social_media_id
 			return {
 				...state,
 				error: false,
@@ -43,6 +48,7 @@ const target = (state = initial(), action) => {
 				hasLoaded: true,
 				id: 0,
 				page: {
+					link: pageLink,
 					name: payload.page.name,
 					pic: payload.page.profile_pic
 				},
@@ -89,7 +95,7 @@ const target = (state = initial(), action) => {
 				id: parseInt(payload.review.id, 10),
 				page: {
 					id: payload.review.social_media_id,
-					link: link,
+					link,
 					name: payload.review.page_name,
 					network: payload.review.type,
 					pic: payload.review.page_profile_pic,

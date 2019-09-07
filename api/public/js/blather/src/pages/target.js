@@ -115,7 +115,7 @@ class Target extends Component {
 	}
 
 	render() {
-		const { auth, editing, exists, loading, myId, userId } = this.state
+		const { editing, exists, loading, myId, userId } = this.state
 		const { error, page, user } = this.props
 
 		const readonly = userId !== myId
@@ -360,7 +360,7 @@ class Target extends Component {
 												className="targetImg user"
 												inline
 												onClick={() => {
-													if (auth) {
+													if (user.username) {
 														this.props.history.push(
 															`/users/${user.username}`
 														)
