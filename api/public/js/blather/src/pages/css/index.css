@@ -512,8 +512,7 @@ a {
 /* Post page */
 .postPage .ui.container.mainContainer {
   font-size: 13px;
-  margin-top: 70px;
-  padding: 25px 0 0 0 !important; }
+  margin-top: 70px; }
   .postPage .ui.container.mainContainer .fallacyFormWrapper {
     margin: 20px 0; }
   .postPage .ui.container.mainContainer .placeholderContainer {
@@ -533,6 +532,11 @@ a {
     width: 100%; }
   .postPage .ui.container.mainContainer .fallaciesWrapper {
     width: 100%; }
+  .postPage .ui.container.mainContainer .relatedRow {
+    padding-top: 0; }
+  @media only screen and (max-width: 1025px) {
+    .postPage .ui.container.mainContainer .grid {
+      margin: 0; } }
 
 .postPage .sticky div {
   z-index: 1000; }
