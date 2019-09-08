@@ -868,7 +868,7 @@ a {
 
 /* Post page */
 .postPage {
-    .ui.text.container.mainContainer {
+    .ui.container.mainContainer {
         font-size: 13px;
         margin-top: 70px;
         padding: 25px 0 0 0 !important;
@@ -898,6 +898,14 @@ a {
                     text-decoration: underline;
                 }
             }
+        }
+
+        .tweetWrapper {
+            width: 100%;
+        }
+
+        .fallaciesWrapper {
+            width: 100%;
         }
     }
 

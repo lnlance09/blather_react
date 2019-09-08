@@ -42,9 +42,7 @@ export const changeProfilePic = ({ bearer, file }) => dispatch => {
 					chunked: false,
 					data: [
 						{
-							"Content-Disposition": `form-data; name="file"; filename="${
-								file.name
-							}"`,
+							"Content-Disposition": `form-data; name="file"; filename="${file.name}"`,
 							body: event.target.result
 						}
 					]

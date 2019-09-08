@@ -148,6 +148,7 @@ class Home extends Component {
 												<Tweet
 													bearer={bearer}
 													created_at={info.created_at}
+													displayTextRange={info.display_text_range}
 													extended_entities={info.extended_entities}
 													externalLink
 													highlight={highlightedText !== ""}

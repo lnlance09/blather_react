@@ -4,7 +4,20 @@ import { formatTime } from "utils/dateFunctions"
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { downloadVideo, fetchPostData } from "pages/actions/post"
 import { Provider, connect } from "react-redux"
-import { Container, Divider, Icon, Image, Message, Segment } from "semantic-ui-react"
+import {
+	Card,
+	Container,
+	Divider,
+	Grid,
+	Header,
+	Icon,
+	Image,
+	List,
+	Message,
+	Responsive,
+	Segment
+} from "semantic-ui-react"
+import { stopWords } from "stopWords"
 import html2canvas from "html2canvas"
 import FallacyForm from "components/fallacyForm/v1/"
 import FallaciesList from "components/fallaciesList/v1/"
@@ -14,6 +27,7 @@ import LazyLoad from "components/lazyLoad/v1/"
 import PropTypes from "prop-types"
 import queryString from "query-string"
 import React, { Component } from "react"
+import removeWords from "remove-words"
 import store from "store"
 import ThumbnailPic from "images/images/image-square.png"
 import Tweet from "components/tweet/v1/"
@@ -169,9 +183,7 @@ class Post extends Component {
 		this.setState({ highlightedText: text })
 	}
 
-	handleSubmit = () => {
-		this.setState({ submitted: !this.state.submitted })
-	}
+	handleSubmit = () => this.setState({ submitted: !this.state.submitted })
 
 	postType(id, path) {
 		switch (path) {
@@ -217,6 +229,7 @@ class Post extends Component {
 			startTime,
 			type
 		} = this.state
+
 		if (this.props.needToRefresh) {
 			this.props.refreshYouTubeToken({
 				bearer
@@ -227,16 +240,18 @@ class Post extends Component {
 		}
 
 		const { error, errorCode, info } = this.props
-		const containerClassName = info ? "mainContainer bc" : "mainContainer"
+
 		const tweetExists = error && network === "twitter" ? false : true
+
 		const videoExists = error && errorCode === 404 && network === "youtube" ? false : true
+
 		const user = info ? (network === "twitter" ? info.user : info.channel) : null
 
 		const DisplayFallacies = ({ props }) => {
 			if (props.info) {
 				return (
 					<div className="fallaciesWrapper">
-						<Divider />
+						<Header size="large">Fallacies</Header>
 						<FallaciesList
 							commentId={type === "comment" ? id : null}
 							emptyMsgContent={`No fallacies have been assigned to this ${type}`}
@@ -304,15 +319,16 @@ class Post extends Component {
 									source="post"
 									videoId={props.info.id}
 								/>
-								<Divider />
+								<Divider hidden />
 							</div>
 						)
 					}
 					break
+
 				case "tweet":
 					if (props.info) {
 						return (
-							<div>
+							<div className="tweetWrapper">
 								<div id="captureTweet">
 									<Tweet
 										archive={props.archive}
@@ -320,6 +336,7 @@ class Post extends Component {
 										bearer={bearer}
 										canArchive
 										created_at={props.info.created_at}
+										displayTextRange={props.info.display_text_range}
 										extended_entities={props.info.extended_entities}
 										externalLink
 										highlight={highlightedText !== ""}
@@ -361,6 +378,7 @@ class Post extends Component {
 					} else {
 						return <LazyLoad />
 					}
+
 				case "video":
 					if (props.info && videoExists) {
 						return (
@@ -388,16 +406,18 @@ class Post extends Component {
 									stats={props.info.stats}
 									title={props.info.title}
 								/>
+								<Divider hidden />
 								{DisplayFallacyForm(props)}
 							</div>
 						)
 					} else {
 						return (
-							<Segment className="lazyLoadSegment">
+							<Segment className="lazyLoadSegment" fluid>
 								<Image centered size="large" src={ThumbnailPic} />
 							</Segment>
 						)
 					}
+
 				case "youtube_comment":
 					return null
 				default:
@@ -405,23 +425,105 @@ class Post extends Component {
 			}
 		}
 
+		const RelatedSearches = props => {
+			if (props.info) {
+				const start = props.info.display_text_range[0]
+				const end = props.info.display_text_range[1]
+				const related = removeWords(
+					props.info.full_text.substring(start, end),
+					true,
+					stopWords
+				)
+				return (
+					<Card fluid>
+						<Card.Content>
+							<Card.Header>Search for contradictions</Card.Header>
+						</Card.Content>
+						<Card.Content>
+							<List relaxed>
+								{related.map(word => (
+									<List.Item key={word}>
+										<a
+											href={`https://twitter.com/search?q=${word} from:${props.info.user.screen_name}&src=typed_query`}
+											rel="noopener noreferrer"
+											target="_blank"
+										>
+											{word}
+										</a>
+									</List.Item>
+								))}
+							</List>
+						</Card.Content>
+					</Card>
+				)
+			}
+			return null
+		}
+
 		return (
 			<Provider store={store}>
 				<div className="postPage">
 					<DisplayMetaTags page="post" props={this.props} state={this.state} />
 					<PageHeader {...this.props} />
-					<Container className={containerClassName} text>
-						<Segment>
-							{DisplayPost(this.props)}
-							{!tweetExists && <Message content="This tweet does not exist" error />}
-							{!videoExists && <Message content="This video does not exist" error />}
-							{!this.props.error && (
-								<div>
-									<DisplayFallacies props={this.props} />
-								</div>
-							)}
-						</Segment>
+
+					<Container className="mainContainer" textAlign="left">
+						{type === "video" && (
+							<Segment>
+								{DisplayPost(this.props)}
+								{!videoExists && (
+									<Message content="This video does not exist" error />
+								)}
+								{!this.props.error && <DisplayFallacies props={this.props} />}
+							</Segment>
+						)}
+
+						{type === "tweet" && (
+							<div>
+								<Responsive maxWidth={1024}>
+									<Grid>
+										<Grid.Row>
+											{DisplayPost(this.props)}
+											{!tweetExists && (
+												<Message
+													content="This tweet does not exist"
+													error
+												/>
+											)}
+										</Grid.Row>
+										<Grid.Row>{RelatedSearches(this.props)}</Grid.Row>
+										<Grid.Row>
+											{!this.props.error && (
+												<DisplayFallacies props={this.props} />
+											)}
+										</Grid.Row>
+									</Grid>
+								</Responsive>
+
+								<Responsive minWidth={1025}>
+									<Grid>
+										<Grid.Column className="leftSide" width={12}>
+											<Segment>
+												{DisplayPost(this.props)}
+												{!tweetExists && (
+													<Message
+														content="This tweet does not exist"
+														error
+													/>
+												)}
+												{!this.props.error && (
+													<DisplayFallacies props={this.props} />
+												)}
+											</Segment>
+										</Grid.Column>
+										<Grid.Column className="rightSide" width={4}>
+											{RelatedSearches(this.props)}
+										</Grid.Column>
+									</Grid>
+								</Responsive>
+							</div>
+						)}
 					</Container>
+
 					<PageFooter />
 				</div>
 			</Provider>

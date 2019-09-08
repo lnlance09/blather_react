@@ -273,6 +273,7 @@ class SearchResults extends Component {
 						<div key={`tweet_${i}`} style={{ marginTop: `${marginTop}px` }}>
 							<Tweet
 								created_at={tweet.created_at}
+								displayTextRange={tweet.display_text_range}
 								extended_entities={tweet.extended_entities}
 								full_text={tweet.full_text}
 								highlight={true}

@@ -263,9 +263,15 @@ class Tweet extends Component {
 			)
 		}
 
-		const TweetText = Parser(
-			retweeted_status ? retweeted_status.full_text : this.props.full_text
-		)
+		const TweetText = props => {
+			const start = props.displayTextRange[0]
+			const end = props.displayTextRange[1]
+			return Parser(
+				retweeted_status
+					? retweeted_status.full_text.substring(start, end)
+					: props.full_text.substring(start, end)
+			)
+		}
 
 		const LinkifiedTweet = (
 			<Linkify
@@ -275,8 +281,8 @@ class Tweet extends Component {
 				sanitize
 			>
 				{highlight && this.props.id
-					? getHighlightedText(TweetText, this.props.highlightedText)
-					: TweetText}
+					? getHighlightedText(TweetText(this.props), this.props.highlightedText)
+					: TweetText(this.props)}
 			</Linkify>
 		)
 
@@ -331,10 +337,7 @@ class Tweet extends Component {
 																name="twitter"
 																onClick={() =>
 																	window.open(
-																		`https://twitter.com/${
-																			this.props.user
-																				.screen_name
-																		}/status/${this.props.id}`,
+																		`https://twitter.com/${this.props.user.screen_name}/status/${this.props.id}`,
 																		"_blank"
 																	)
 																}
@@ -373,6 +376,7 @@ Tweet.propTypes = {
 	color: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
 	createArchive: PropTypes.func,
 	created_at: PropTypes.string,
+	displayTextRange: PropTypes.array,
 	extended_entities: PropTypes.shape({
 		media: PropTypes.array
 	}),
@@ -451,6 +455,7 @@ Tweet.defaultProps = {
 	canArchive: false,
 	color: null,
 	createArchive,
+	displayTextRange: [0, 280],
 	extended_entities: {
 		media: []
 	},

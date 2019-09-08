@@ -114,9 +114,7 @@ class Breakdown extends Component {
 					<div>
 						<Segment basic className="breakdownSegment">
 							<Message
-								content={`These are the logical fallacies that ${
-									this.props.name
-								} has committed`}
+								content={`These are the logical fallacies that ${this.props.name} has committed`}
 								header="How reputable is this source?"
 								icon="question"
 							/>

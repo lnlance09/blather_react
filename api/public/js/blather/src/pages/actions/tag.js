@@ -18,9 +18,7 @@ export const addPic = ({ bearer, file, id }) => dispatch => {
 					chunked: false,
 					data: [
 						{
-							"Content-Disposition": `form-data; name="file"; filename="${
-								file.name
-							}"`,
+							"Content-Disposition": `form-data; name="file"; filename="${file.name}"`,
 							body: event.target.result
 						}
 					]

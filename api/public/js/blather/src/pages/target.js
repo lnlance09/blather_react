@@ -128,9 +128,7 @@ class Target extends Component {
 				<FallaciesList
 					assignedBy={userId}
 					assignedTo={props.page.id}
-					emptyMsgContent={`${props.user.name} hasn't assigned any fallacies to ${
-						props.page.name
-					}`}
+					emptyMsgContent={`${props.user.name} hasn't assigned any fallacies to ${props.page.name}`}
 					history={props.history}
 					icon="warning sign"
 					itemsPerRow={2}
@@ -396,9 +394,7 @@ class Target extends Component {
 
 								{showMessage && (
 									<Message
-										content={`You must assign at least 5 fallacies to ${
-											this.props.page.name
-										} before you can submit a review`}
+										content={`You must assign at least 5 fallacies to ${this.props.page.name} before you can submit a review`}
 										warning
 									/>
 								)}

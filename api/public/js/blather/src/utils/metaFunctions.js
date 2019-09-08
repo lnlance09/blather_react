@@ -118,9 +118,7 @@ export const DisplayMetaTags = ({ page, props, state }) => {
 					title = props.info.title
 				}
 				metaTags = {
-					description: `Does the logic in this ${
-						props.type
-					} make sense? Call out fallacious reasoning and ask this creator of this content to explain his or her self.`,
+					description: `Does the logic in this ${props.type} make sense? Call out fallacious reasoning and ask this creator of this content to explain his or her self.`,
 					img,
 					title: title
 				}
@@ -168,9 +166,7 @@ export const DisplayMetaTags = ({ page, props, state }) => {
 			break
 		case "users":
 			metaTags = {
-				description: `${
-					props.user.name
-				}'s discussions, fallacies and archived links on Blather`,
+				description: `${props.user.name}'s discussions, fallacies and archived links on Blather`,
 				img,
 				title: props.user.name
 			}
