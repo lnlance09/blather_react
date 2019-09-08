@@ -148,9 +148,7 @@ class FeedComponent extends Component {
 									{result.type === "video" && (
 										<span>
 											<Link
-												to={`/${result.type}/${result.video_id}?a=${
-													result.id
-												}&x=${result.start_time}&y=${result.end_time}`}
+												to={`/${result.type}/${result.video_id}?a=${result.id}&x=${result.start_time}&y=${result.end_time}`}
 											>
 												{duration} {formatPlural(duration, "second")}
 											</Link>{" "}
@@ -182,11 +180,7 @@ class FeedComponent extends Component {
 												className="videoImg"
 												onClick={() =>
 													this.props.history.push(
-														`/video/${result.video_id}?a=${
-															result.id
-														}&x=${result.start_time}&y=${
-															result.end_time
-														}`
+														`/video/${result.video_id}?a=${result.id}&x=${result.start_time}&y=${result.end_time}`
 													)
 												}
 												onError={i => (i.target.src = ImagePic)}
@@ -210,6 +204,7 @@ class FeedComponent extends Component {
 									<Feed.Extra className="archiveExtra" text>
 										<Tweet
 											created_at={tweet.created_at}
+											displayTextRange={tweet.display_text_range}
 											extended_entities={tweet.extended_entities}
 											full_text={tweet.full_text}
 											id={tweet.id_str}

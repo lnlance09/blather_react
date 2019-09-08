@@ -510,25 +510,29 @@ a {
     padding: 0 !important; }
 
 /* Post page */
-.postPage .ui.text.container.mainContainer {
+.postPage .ui.container.mainContainer {
   font-size: 13px;
   margin-top: 70px;
   padding: 25px 0 0 0 !important; }
-  .postPage .ui.text.container.mainContainer .fallacyFormWrapper {
+  .postPage .ui.container.mainContainer .fallacyFormWrapper {
     margin: 20px 0; }
-  .postPage .ui.text.container.mainContainer .placeholderContainer {
+  .postPage .ui.container.mainContainer .placeholderContainer {
     text-align: center; }
-  .postPage .ui.text.container.mainContainer .screenshotMsg {
+  .postPage .ui.container.mainContainer .screenshotMsg {
     margin-top: 10px; }
-    .postPage .ui.text.container.mainContainer .screenshotMsg .icon.camera {
+    .postPage .ui.container.mainContainer .screenshotMsg .icon.camera {
       font-size: 15px; }
-    .postPage .ui.text.container.mainContainer .screenshotMsg span {
+    .postPage .ui.container.mainContainer .screenshotMsg span {
       cursor: pointer;
       font-size: 13px;
       line-height: 15px;
       margin-left: 4px; }
-      .postPage .ui.text.container.mainContainer .screenshotMsg span:hover {
+      .postPage .ui.container.mainContainer .screenshotMsg span:hover {
         text-decoration: underline; }
+  .postPage .ui.container.mainContainer .tweetWrapper {
+    width: 100%; }
+  .postPage .ui.container.mainContainer .fallaciesWrapper {
+    width: 100%; }
 
 .postPage .sticky div {
   z-index: 1000; }

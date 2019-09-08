@@ -403,9 +403,7 @@ class FallacyExample extends Component {
 			}
 			if (material.tweet) {
 				if (props.rawSources) {
-					const tweetLink = `https://twitter.com/${
-						material.tweet.user.screen_name
-					}/status/${material.tweet.id_str}`
+					const tweetLink = `https://twitter.com/${material.tweet.user.screen_name}/status/${material.tweet.id_str}`
 					return (
 						<List.Item>
 							<List.Icon className="twitterIcon" name="twitter" />
@@ -423,6 +421,7 @@ class FallacyExample extends Component {
 							archive={material.tweet.archive}
 							bearer={props.bearer}
 							created_at={material.tweet.created_at}
+							displayTextRange={material.tweet.display_text_range}
 							extended_entities={material.tweet.extended_entities}
 							externalLink
 							full_text={material.tweet.full_text}

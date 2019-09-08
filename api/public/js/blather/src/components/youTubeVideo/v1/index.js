@@ -383,16 +383,14 @@ class YouTubeVideo extends Component {
 								ref={this.ref}
 								url={
 									this.props.existsOnYt
-										? `https://www.youtube.com/watch?v=${this.props.id}&t=${
-												this.props.startTime
-										  }&end=${this.props.endTime}`
+										? `https://www.youtube.com/watch?v=${this.props.id}&t=${this.props.startTime}&end=${this.props.endTime}`
 										: this.props.s3Link
 								}
+								width="900"
 							/>
 							{!this.props.existsOnYt && auth && this.props.id ? (
 								<Message
-									content="You are watching an archived version"
-									header="This video has either been deleted or made private"
+									header="You are watching an archived version of this video"
 									info
 								/>
 							) : null}
@@ -415,9 +413,9 @@ class YouTubeVideo extends Component {
 
 							{this.props.canArchive && (
 								<div>
-									<Divider />
+									<Divider hidden />
 									{ArchiveForm(this.props)}
-									<Divider />
+									<Divider hidden />
 									{ArchivesList(this.props)}
 								</div>
 							)}

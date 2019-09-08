@@ -296,9 +296,7 @@ class UserPage extends Component {
 																name="patreon"
 															/>{" "}
 															<a
-																href={`https://patreon.com/${
-																	user.patreonUsername
-																}`}
+																href={`https://patreon.com/${user.patreonUsername}`}
 																rel="noopener noreferrer"
 																target="_blank"
 															>

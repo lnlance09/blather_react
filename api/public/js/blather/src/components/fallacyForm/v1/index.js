@@ -107,15 +107,11 @@ class FallacyForm extends Component {
 		switch (type) {
 			case "comment":
 				if ((c.type === "comment" || c.type === "video") && page.id !== c.pageId) {
-					msg = `Only comments and/or videos from ${
-						page.name
-					} can be used as evidence in cases of doublethink.`
+					msg = `Only comments and/or videos from ${page.name} can be used as evidence in cases of doublethink.`
 					valid = false
 				}
 				if (c.type === "tweet") {
-					msg = `Only comments and/or videos from ${
-						page.name
-					} can be used as evidence in cases of doublethink.`
+					msg = `Only comments and/or videos from ${page.name} can be used as evidence in cases of doublethink.`
 					valid = false
 				}
 				break
@@ -133,9 +129,7 @@ class FallacyForm extends Component {
 
 			case "video":
 				if (c.type === "comment" && page.id !== c.pageId) {
-					msg = `Comments can be used as evidence of doublethink. But, they have to be from ${
-						page.name
-					}.`
+					msg = `Comments can be used as evidence of doublethink. But, they have to be from ${page.name}.`
 					valid = false
 				}
 				break
@@ -331,6 +325,7 @@ class FallacyForm extends Component {
 					return (
 						<Tweet
 							created_at={tweet.created_at}
+							displayTextRange={tweet.display_text_range}
 							extended_entities={tweet.extended_entities}
 							full_text={tweet.full_text}
 							handleHoverOn={this.handleHoverOn}

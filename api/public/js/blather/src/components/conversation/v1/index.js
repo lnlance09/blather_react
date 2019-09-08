@@ -108,15 +108,11 @@ class Conversation extends Component {
 				break
 			case 2:
 				extraText = "This conversation is a waste of time."
-				placeholder = `Why wasn't this conversation with ${
-					this.props.createdBy.name
-				} productive?`
+				placeholder = `Why wasn't this conversation with ${this.props.createdBy.name} productive?`
 				break
 			case 3:
 				extraText = "I've heard enough to be convinced."
-				placeholder = `What was it that ${
-					this.props.createdBy.name
-				} said that changed your mind?`
+				placeholder = `What was it that ${this.props.createdBy.name} said that changed your mind?`
 				break
 			default:
 		}
@@ -181,9 +177,7 @@ class Conversation extends Component {
 				<Form.Field
 					autoHeight
 					control={TextArea}
-					label={`Before you can participate in this discussion, you must provide the most charitable explanation of ${
-						props.createdBy.name
-					}'s argument first.`}
+					label={`Before you can participate in this discussion, you must provide the most charitable explanation of ${props.createdBy.name}'s argument first.`}
 					onChange={this.onChangeAcceptance}
 					placeholder={`What is the ${props.createdBy.name}'s argument?`}
 					rows={6}
@@ -305,9 +299,7 @@ class Conversation extends Component {
 										trigger={
 											<CopyToClipboard
 												onCopy={() => this.setState({ copied: true })}
-												text={`${window.location.origin}discussions/${
-													props.discussionId
-												}`}
+												text={`${window.location.origin}discussions/${props.discussionId}`}
 											>
 												<Icon color="yellow" name="copy" />
 											</CopyToClipboard>
