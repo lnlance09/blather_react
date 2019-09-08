@@ -62,6 +62,18 @@ class Breakdown extends Component {
 			userId
 		} = this.props
 
+		const ReviewButton = props => (
+			<Button
+				primary
+				onClick={() =>
+					props.history.push(`/targets/${authenticated ? userId : "create"}/${dbId}`)
+				}
+			>
+				<Icon name="pencil" />
+				Write a review
+			</Button>
+		)
+
 		const RenderFallacies = () => {
 			return options.map((result, i) => {
 				if (result.key) {
@@ -139,9 +151,10 @@ class Breakdown extends Component {
 					</Segment>
 				)}
 
-				{placeholder.id && (
+				<Header size="large">Reviews</Header>
+
+				{placeholder.id ? (
 					<div>
-						<Divider hidden />
 						<Segment basic className="questionnaire">
 							<Header className="first" size="medium">
 								Here's how{" "}
@@ -190,20 +203,15 @@ class Breakdown extends Component {
 							</Header>
 
 							<Header size="medium" style={{ marginTop: "16px" }}>
-								<Button
-									color="blue"
-									onClick={() =>
-										this.props.history.push(
-											`/targets/${authenticated ? userId : "create"}/${dbId}`
-										)
-									}
-								>
-									<Icon color="yellow" name="star" />
-									Create a review
-								</Button>
+								{ReviewButton(this.props)}
 							</Header>
 						</Segment>
 					</div>
+				) : (
+					<Segment placeholder>
+						<Header icon>There aren't any reviews yet...</Header>
+						{ReviewButton(this.props)}
+					</Segment>
 				)}
 			</div>
 		)

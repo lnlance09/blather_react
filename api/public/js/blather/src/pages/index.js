@@ -209,7 +209,7 @@ class Page extends Component {
 				>
 					Fallacies{" "}
 					{props.fallacyCount > 0 && (
-						<Label color="blue" floating>
+						<Label color="red" floating>
 							{formatNumber(props.fallacyCount)}
 						</Label>
 					)}
@@ -330,7 +330,6 @@ class Page extends Component {
 											</div>
 										</Container>
 										<Segment basic>
-											<Divider hidden />
 											<Breakdown
 												authenticated={authenticated}
 												count={this.props.fallacyCount}
