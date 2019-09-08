@@ -267,7 +267,7 @@ class Target extends Component {
 						)}
 
 						<Header as="h2" size="medium">
-							Does {props.page.name} sincerely believe most of what they talks about?
+							Does {props.page.name} sincerely believe most of what they talk about?
 							{props.sincerity !== null && (
 								<Header.Subheader>
 									{props.sincerity ? "Yes" : "No"}
