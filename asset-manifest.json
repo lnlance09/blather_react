@@ -1,13 +1,13 @@
 {
   "main.css": "/static/css/main.e52fbc78.chunk.css",
-  "main.js": "/static/js/main.bc0abeb8.chunk.js",
-  "main.js.map": "/static/js/main.bc0abeb8.chunk.js.map",
+  "main.js": "/static/js/main.d52d2e0b.chunk.js",
+  "main.js.map": "/static/js/main.d52d2e0b.chunk.js.map",
   "static/css/1.e40e395f.chunk.css": "/static/css/1.e40e395f.chunk.css",
   "static/js/1.e16e9c60.chunk.js": "/static/js/1.e16e9c60.chunk.js",
   "static/js/1.e16e9c60.chunk.js.map": "/static/js/1.e16e9c60.chunk.js.map",
   "runtime~main.js": "/static/js/runtime~main.229c360f.js",
   "runtime~main.js.map": "/static/js/runtime~main.229c360f.js.map",
-  "static/media/index.css": "/static/media/10.c1229334.svg",
+  "static/media/index.css": "/static/media/05.c3e53643.svg",
   "static/media/trump-white.png": "/static/media/trump-white.b65f57d1.png",
   "static/media/logo.svg": "/static/media/logo.014d7d9d.svg",
   "static/media/brain-fart.gif": "/static/media/brain-fart.d8a44fba.gif",
@@ -16,9 +16,9 @@
   "static/media/sound.ogg": "/static/media/sound.b8da6d65.ogg",
   "static/media/app.css": "/static/media/Merriweather-Regular.202792c4.otf",
   "static/media/semantic.min.css": "/static/media/brand-icons.a1a749e8.svg",
-  "static/css/1.e40e395f.chunk.css.map": "/static/css/1.e40e395f.chunk.css.map",
   "static/css/main.e52fbc78.chunk.css.map": "/static/css/main.e52fbc78.chunk.css.map",
+  "static/css/1.e40e395f.chunk.css.map": "/static/css/1.e40e395f.chunk.css.map",
   "index.html": "/index.html",
-  "precache-manifest.34ed262563fb26d3f6201e154e5d5dc2.js": "/precache-manifest.34ed262563fb26d3f6201e154e5d5dc2.js",
+  "precache-manifest.ac95d8b3fc716c7a86873a24cb088b52.js": "/precache-manifest.ac95d8b3fc716c7a86873a24cb088b52.js",
   "service-worker.js": "/service-worker.js"
 }
