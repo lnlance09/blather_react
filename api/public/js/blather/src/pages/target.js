@@ -123,7 +123,10 @@ class Target extends Component {
 
 		const DisplayFallacies = ({ props }) => (
 			<div className="fallaciesWrapper">
-				<Divider />
+				<Divider hidden />
+				<Header size="large">
+					{props.user.name}'s criticisms
+				</Header>
 				<FallaciesList
 					assignedBy={userId}
 					assignedTo={props.page.id}
@@ -391,7 +394,7 @@ class Target extends Component {
 										)}
 									</Header.Subheader>
 								</Header>
-								<Divider />
+								<Divider hidden />
 
 								{showMessage && (
 									<Message

@@ -330,7 +330,7 @@ class Page extends Component {
 											</div>
 										</Container>
 										<Segment basic>
-											<Divider />
+											<Divider hidden />
 											<Breakdown
 												authenticated={authenticated}
 												count={this.props.fallacyCount}
@@ -346,7 +346,7 @@ class Page extends Component {
 												userId={userId}
 												username={this.props.username}
 											/>
-											<Divider section />
+											<Divider hidden section />
 											{PageMenu(this.props)}
 											<Container className="profileContentContainer">
 												<ShowContent props={this.props} />
