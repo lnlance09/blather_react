@@ -151,8 +151,6 @@ class Breakdown extends Component {
 					</Segment>
 				)}
 
-				<Header size="large">Reviews</Header>
-
 				{placeholder.id ? (
 					<div>
 						<Segment basic className="questionnaire">
