@@ -38,6 +38,7 @@
                     border: solid 1px $midWhite;
 
                     .content .description span b {
+                        border-bottom: solid 2px $red;
                         white-space: pre !important;
                     }
                 }

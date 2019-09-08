@@ -108,12 +108,6 @@
             margin-bottom: 0;
         }
 
-        .fallacyRefContainer.downloading {
-            .fallacySegment {
-                // opacity: 0.95;
-            }
-        }
-
         &.basic, &.art02, &.art04, &.art07 {
             .watermarkLabel, .fallacyExplanation, .fallacyHeader, #fallacyDateDiff {
                 color: $white;

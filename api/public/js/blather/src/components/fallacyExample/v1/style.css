@@ -24,6 +24,7 @@
   .fallacyExample .fallacyMaterial.downloading .tweet .card {
     border: solid 1px #DCDDDE; }
     .fallacyExample .fallacyMaterial.downloading .tweet .card .content .description span b {
+      border-bottom: solid 2px #DB2828;
       white-space: pre !important; }
   .fallacyExample .fallacyMaterial .sourceList .item {
     margin-bottom: 8px; }
