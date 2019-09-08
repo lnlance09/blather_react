@@ -376,7 +376,11 @@ class Post extends Component {
 							</div>
 						)
 					} else {
-						return <LazyLoad />
+						return (
+							<div className="tweetWrapper">
+								<LazyLoad />
+							</div>
+						)
 					}
 
 				case "video":
@@ -490,7 +494,7 @@ class Post extends Component {
 												/>
 											)}
 										</Grid.Row>
-										<Grid.Row>{RelatedSearches(this.props)}</Grid.Row>
+										<Grid.Row className="relatedRow">{RelatedSearches(this.props)}</Grid.Row>
 										<Grid.Row>
 											{!this.props.error && (
 												<DisplayFallacies props={this.props} />
