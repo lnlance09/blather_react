@@ -151,6 +151,8 @@ class Breakdown extends Component {
 					</Segment>
 				)}
 
+				<Divider hidden />
+
 				{placeholder.id ? (
 					<div>
 						<Segment basic className="questionnaire">
