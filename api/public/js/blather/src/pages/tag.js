@@ -212,10 +212,7 @@ class Tag extends Component {
 							This tag is empty
 						</Header>
 						{!authenticated && (
-							<Button
-								onClick={() => props.history.push("/signin")}
-								primary
-							>
+							<Button onClick={() => props.history.push("/signin")} primary>
 								<Icon name="pencil" />
 								Edit this article
 							</Button>

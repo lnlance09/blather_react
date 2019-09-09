@@ -30,7 +30,7 @@ const test = (state = initial(), action) => {
 						id: quote.user.id,
 						location: quote.user.location,
 						name: quote.user.name,
-						profile_image_url: quote.user.profile_image_url,
+						profile_image_url: quote.user.profile_image_url_https,
 						screen_name: quote.user.screen_name
 					}
 				}

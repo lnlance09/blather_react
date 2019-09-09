@@ -19,6 +19,7 @@ import {
 	Divider,
 	Dropdown,
 	Form,
+	Header,
 	Icon,
 	Input,
 	Message,
@@ -478,40 +479,41 @@ class FallacyForm extends Component {
 							<Icon color="green" name="check" /> Your fallacy has been assigned
 						</Modal.Header>
 						<Modal.Content>
-							<p>
-								<a
-									href={`/pages/${page.type}/${assigneeLink}`}
-									onClick={() => {
-										props.clearContradiction()
-										props.history.push(`/pages/${page.type}/${assigneeLink}`)
-									}}
-								>
-									{page.name}
-								</a>{" "}
-								will have the opportunity to respond to this accusation of
-								fallacious reasoning and counter your claim.
-							</p>
-							<div className="modalBtnWrapper">
-								<Button.Group>
-									<Button
-										color="blue"
-										content="View this fallacy"
+							<Modal.Description>
+								<Header size="small">
+									<a
+										href={`/pages/${page.type}/${assigneeLink}`}
 										onClick={() => {
-											props.toggleModal()
 											props.clearContradiction()
-											props.history.push(`/fallacies/${props.fallacy.id}`)
+											props.history.push(
+												`/pages/${page.type}/${assigneeLink}`
+											)
 										}}
-									/>
-									<Button.Or />
-									<Button
-										color="red"
-										content="Assign another one"
-										onClick={this.closeModal}
-										positive
-									/>
-								</Button.Group>
-							</div>
+									>
+										{page.name}
+									</a>{" "}
+									will have the opportunity to respond to this accusation of
+									fallacious reasoning and counter your claim.
+								</Header>
+							</Modal.Description>
 						</Modal.Content>
+						<Modal.Actions>
+							<Button
+								color="blue"
+								content="View this fallacy"
+								onClick={() => {
+									props.toggleModal()
+									props.clearContradiction()
+									props.history.push(`/fallacies/${props.fallacy.id}`)
+								}}
+							/>
+							<Button
+								color="red"
+								content="Assign another one"
+								onClick={this.closeModal}
+								positive
+							/>
+						</Modal.Actions>
 					</Modal>
 				)
 			}

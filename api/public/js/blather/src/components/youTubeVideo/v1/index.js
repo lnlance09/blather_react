@@ -386,7 +386,6 @@ class YouTubeVideo extends Component {
 										? `https://www.youtube.com/watch?v=${this.props.id}&t=${this.props.startTime}&end=${this.props.endTime}`
 										: this.props.s3Link
 								}
-								width="900"
 							/>
 							{!this.props.existsOnYt && auth && this.props.id ? (
 								<Message
