@@ -66,17 +66,17 @@
         }
 
         public function assignFallacy(
-            $assigned_by, 
-            $comment_id, 
+            $assigned_by,
+            $comment_id,
             $endTime,
-            $explanation, 
-            $fallacy_id, 
+            $explanation,
+            $fallacy_id,
             $highlightedText,
-            $media_id, 
-            $network, 
-            $page_id, 
-            $startTime, 
-            $title, 
+            $media_id,
+            $network,
+            $page_id,
+            $startTime,
+            $title,
             $contradiction = null
         ) {
             $this->db->insert('fallacy_entries', [
@@ -93,9 +93,13 @@
                 'start_time' => is_numeric($startTime) ? $startTime : null,
                 'title' => $title
             ]);
+
             $id = $this->db->insert_id();
+            $name = $this->fallacyTypeExists($fallacy_id);
+            $slug = slugify($title.' '.$name.' logical fallacy');
+
             $this->update($id, [
-                'slug' => slugify($title).'-'.$id,
+                'slug' => $slug.'-'.$id
             ]);
 
             if ($contradiction) {
@@ -468,6 +472,7 @@
         public function getFallacies() {
             $this->db->select('fe.*, f.name AS fallacy_name');
             $this->db->join('fallacies f', 'f.id = fe.fallacy_id');
+            $this->db->order_by('fe.id');
             return $this->db->get('fallacy_entries fe')->result_array();
         }
 

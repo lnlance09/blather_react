@@ -13,7 +13,20 @@
 		}
 
 		public function index() {
-			
+			/*
+			$fallacies = $this->fallacies->getFallacies();
+			for ($i=0;$i<count($fallacies);$i++) {
+				$id = $fallacies[$i]['id'];
+				$title = $fallacies[$i]['title'];
+				$name = $fallacies[$i]['fallacy_name'];
+				$slug = slugify($title.' '.$name.' logical fallacy');
+				echo $slug.'-'.$id.'<br>';
+
+				$this->fallacies->update($id, [
+					'slug' => $slug.'-'.$id
+				]);
+			}
+			*/
 		}
 
 		public function feed() {

@@ -168,6 +168,7 @@
 				$title,
 				$contradiction
 			);
+
 			echo json_encode([
 				'error' => false,
 				'fallacy' => [
@@ -783,13 +784,14 @@
 			$endTime = empty($endTime) ? $fallacy['end_time'] : $endTime;
 			$contradictionStartTime = empty($contradictionStartTime) ? $fallacy['contradiction_start_time'] : $contradictionStartTime;
 			$contradictionEndTime = empty($contradictionEndTime) ? $fallacy['contradiction_end_time'] : $contradictionEndTime;
+			$slug = slugify($title.' '.$fallacyName.' logical fallacy');
 
 			$data = [
 				'end_time' => $endTime,
 				'explanation' => $explanation,
 				'fallacy_id' => $fallacyId,
 				'last_updated' => date('Y-m-d H:i:s'),
-				'slug' => slugify($title).'-'.$id,
+				'slug' => $slug.'-'.$id,
 				'start_time' => $startTime,
 				'title' => $title
 			];
