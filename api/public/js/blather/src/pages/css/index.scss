@@ -722,6 +722,7 @@ a {
 
 .homePage {
     background: linear-gradient($blue, $lightBlue);
+    background: $red;
     padding: 0;
 
     .mainContainer {
@@ -730,15 +731,15 @@ a {
     }
 
     .heroSegment {
-        opacity: 0.95;
+        // opacity: 0.95;
     }
 
     .heroHeader {
-        color: $white;
+        color: $offWhite;
         padding-left: 6px !important;
 
         .sub.header {
-            color: $white;
+            color: $offWhite;
         }
     }
 

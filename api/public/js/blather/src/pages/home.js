@@ -124,8 +124,11 @@ class Home extends Component {
 					<Container className="mainContainer" textAlign="left">
 						<div>
 							<Header as="h1" className="heroHeader">
-								Pick a tweet. Any tweet.
-								<Header.Subheader>Assign a logical fallacy</Header.Subheader>
+								<Icon color="yellow" name="gavel" />
+								<Header.Content>
+									Pick a tweet. Any tweet.
+									<Header.Subheader>Assign a logical fallacy</Header.Subheader>
+								</Header.Content>
 							</Header>
 							<Segment className="heroSegment">
 								<Input
@@ -297,7 +300,7 @@ class Home extends Component {
 							<Link to="/activity">See more examples</Link>
 						</div>
 
-						<Divider section />
+						<Divider hidden section />
 
 						<Header as="h2" icon textAlign="center">
 							<Icon color="yellow" name="trophy" />
@@ -332,19 +335,19 @@ Home.defaultProps = {
 	examples: [
 		{
 			img:
-				"https://s3.amazonaws.com/blather22/screenshots/cj-pearson-doesnt-know-what-truth-is-756.png",
+				"https://s3.amazonaws.com/blather22/screenshots/cj-pearson-truth-doublethink-logical-fallacy-756.png",
 			key: "cj-pearson-doesnt-know-what-truth-is-756",
 			link: "cj-pearson-doesnt-know-what-truth-is-756"
 		},
 		{
 			img:
-				"https://s3.amazonaws.com/blather22/screenshots/charlie-kirks-doublethink-about-the-border-again-676.png",
+				"https://s3.amazonaws.com/blather22/screenshots/charlie-kirks-doublethink-border-logical-fallacy-676.png",
 			key: "charlie-kirks-doublethink-about-the-border-again-676",
 			link: "charlie-kirks-doublethink-about-the-border-again-676"
 		},
 		{
 			img:
-				"https://s3.amazonaws.com/blather22/screenshots/dylan-wheeler-cant-decide-if-hes-a-republican-231.png",
+				"https://s3.amazonaws.com/blather22/screenshots/dylan-wheeler-decide-republican-doublethink-logical-fallacy-231.png",
 			key: "dylan-wheeler-cant-decide-if-hes-a-republican-231",
 			link: "dylan-wheeler-cant-decide-if-hes-a-republican-231"
 		}
