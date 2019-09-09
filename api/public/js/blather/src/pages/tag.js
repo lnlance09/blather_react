@@ -208,9 +208,18 @@ class Tag extends Component {
 				return (
 					<Segment placeholder>
 						<Header icon>
-							<Icon name="newspaper" />
+							<Icon name="warning sign" />
 							This tag is empty
 						</Header>
+						{!authenticated && (
+							<Button
+								onClick={() => props.history.push("/signin")}
+								primary
+							>
+								<Icon name="pencil" />
+								Edit this article
+							</Button>
+						)}
 					</Segment>
 				)
 			}
@@ -285,7 +294,7 @@ class Tag extends Component {
 					) : (
 						<Segment placeholder>
 							<Header icon>
-								<Icon name="image" />
+								<Icon color="blue" name="image" />
 								There are no images yet
 							</Header>
 						</Segment>
