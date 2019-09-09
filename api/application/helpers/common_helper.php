@@ -277,6 +277,19 @@
 		return false;
 	}
 
+	function removeStopWords($string) {
+		require('stop_words.php');
+		$exp = explode(' ', strtolower($string));
+		for ($i=0;$i<count($exp);$i++) {
+			if (in_array($exp[$i], $stop_words)) {
+				unset($exp[$i]);
+			}
+		}
+
+		$unique = array_unique($exp);
+		return implode(' ', $unique);
+	}
+
 	function savePic($pic, $path) {
 		if (!file_exists($path)) {
 			if (!is_dir(dirname($path))) {
@@ -289,6 +302,7 @@
 	}
 
 	function slugify($text) {
+		$text = removeStopWords($text);
 		$text = str_replace("'", '', $text);
 		$text = str_replace('"', '', $text);
 		$text = preg_replace('~[^\\pL\d]+~u', '-', $text);
