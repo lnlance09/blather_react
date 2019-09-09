@@ -431,17 +431,16 @@ a {
 
 .homePage {
   background: linear-gradient(#2185D0, #54C8FF);
+  background: #DB2828;
   padding: 0; }
   .homePage .mainContainer {
     min-height: 70vh;
     padding-bottom: 40px; }
-  .homePage .heroSegment {
-    opacity: 0.95; }
   .homePage .heroHeader {
-    color: #FFFFFF;
+    color: #F9FAFB;
     padding-left: 6px !important; }
     .homePage .heroHeader .sub.header {
-      color: #FFFFFF; }
+      color: #F9FAFB; }
   .homePage .heroInput .icon.twitter {
     color: #0084b4; }
   .homePage .heroInput .icon.youtube {
