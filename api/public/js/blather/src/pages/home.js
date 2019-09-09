@@ -88,7 +88,7 @@ class Home extends Component {
 
 	onKeyUp = e => {
 		if (e.keyCode === 8) {
-			this.setState({ tweetId: null, url: "", videoId: null })
+			this.setState({ url: "", videoId: null })
 		}
 	}
 
@@ -141,7 +141,7 @@ class Home extends Component {
 								/>
 								<Divider />
 
-								{validPost ? (
+								{validPost && url !== "" ? (
 									<div>
 										<div className="postContainer">
 											{type === "tweet" && (

@@ -52,7 +52,9 @@ const home = (state = initial(), action) => {
 				info = payload.data
 				page = {
 					id: info.user.id_str,
+					img: info.user.profile_image_url_https,
 					name: info.user.name,
+					type: "twitter",
 					username: info.user.screen_name
 				}
 				profileImg = payload.data.user.profile_image_url_https

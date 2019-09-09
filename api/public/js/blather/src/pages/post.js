@@ -494,7 +494,9 @@ class Post extends Component {
 												/>
 											)}
 										</Grid.Row>
-										<Grid.Row className="relatedRow">{RelatedSearches(this.props)}</Grid.Row>
+										<Grid.Row className="relatedRow">
+											{RelatedSearches(this.props)}
+										</Grid.Row>
 										<Grid.Row>
 											{!this.props.error && (
 												<DisplayFallacies props={this.props} />
