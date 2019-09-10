@@ -118,8 +118,9 @@ class Target extends Component {
 		const { editing, exists, loading, myId, userId } = this.state
 		const { error, page, user } = this.props
 
+		const disabled = this.props.fallacyCount < 5
 		const readonly = userId !== myId
-		const showMessage = (userId === myId && this.props.fallacyCount < 5) || !exists
+		const showMessage = (userId === myId && disabled) || !exists
 
 		const DisplayFallacies = ({ props }) => (
 			<div className="fallaciesWrapper">
@@ -141,7 +142,7 @@ class Target extends Component {
 
 		const Questionnaire = props => (
 			<Form className="questionnaire" onSubmit={this.submitForm}>
-				<Form.Field disabled={props.fallacyCount < 5}>
+				<Form.Field disabled={disabled}>
 					<Header size="small">Summary</Header>
 					<Form.TextArea
 						autoHeight
@@ -151,7 +152,7 @@ class Target extends Component {
 						value={props.summary}
 					/>
 				</Form.Field>
-				<Form.Field disabled={props.fallacyCount < 5}>
+				<Form.Field disabled={disabled}>
 					<Header size="small">
 						Does {props.page.name} sincerely believe most of what they talk about?
 					</Header>
@@ -159,7 +160,7 @@ class Target extends Component {
 				<Form.Group inline>
 					<Form.Radio
 						checked={props.sincerity === true}
-						disabled={props.fallacyCount < 5}
+						disabled={disabled}
 						label="Yes"
 						name="sincerity"
 						onChange={this.handleSincerityChange}
@@ -168,7 +169,7 @@ class Target extends Component {
 					/>
 					<Form.Radio
 						checked={props.sincerity === false}
-						disabled={props.fallacyCount < 5}
+						disabled={disabled}
 						label="No"
 						name="sincerity"
 						onChange={this.handleSincerityChange}
@@ -178,13 +179,13 @@ class Target extends Component {
 				</Form.Group>
 				<Form.TextArea
 					autoHeight
-					disabled={props.fallacyCount < 5}
+					disabled={disabled}
 					onChange={this.changeSincerityExplanation}
 					readOnly={readonly}
 					rows={5}
 					value={props.sincerityExplanation}
 				/>
-				<Form.Field disabled={props.fallacyCount < 5}>
+				<Form.Field disabled={disabled}>
 					<Header size="small">
 						Can {props.page.name} pass an{" "}
 						<a
@@ -200,7 +201,7 @@ class Target extends Component {
 				<Form.Group inline>
 					<Form.Radio
 						checked={props.turingTest === true}
-						disabled={props.fallacyCount < 5}
+						disabled={disabled}
 						label="Yes"
 						name="turingTest"
 						onChange={this.handleTuringChange}
@@ -209,7 +210,7 @@ class Target extends Component {
 					/>
 					<Form.Radio
 						checked={props.turingTest === false}
-						disabled={props.fallacyCount < 5}
+						disabled={disabled}
 						label="No"
 						name="turingTest"
 						onChange={this.handleTuringChange}
@@ -219,7 +220,7 @@ class Target extends Component {
 				</Form.Group>
 				<Form.TextArea
 					autoHeight
-					disabled={props.fallacyCount < 5}
+					disabled={disabled}
 					onChange={this.changeTuringExplanation}
 					readOnly={readonly}
 					rows={5}
@@ -228,6 +229,7 @@ class Target extends Component {
 				<Button
 					color="blue"
 					content="Update"
+					disabled={disabled}
 					fluid
 					loading={loading && !props.hasSubmitted}
 					type="submit"
@@ -241,13 +243,13 @@ class Target extends Component {
 					<div className="answers">
 						<Header as="h2" className="summaryHeader" size="medium">
 							Summary
-							{userId === myId && (
+							{userId === myId && !disabled ? (
 								<Icon
 									name="pencil"
 									onClick={() => this.setState({ editing: true })}
 									size="tiny"
 								/>
-							)}
+							) : null}
 						</Header>
 						{exists ? (
 							<div

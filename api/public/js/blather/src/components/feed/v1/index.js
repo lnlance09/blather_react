@@ -101,7 +101,9 @@ class FeedComponent extends Component {
 											if (!e.metaKey) {
 												props.history.push(`/fallacies/${result.slug}`)
 											} else {
-												window.open(`/fallacies/${result.slug}`, "_blank").focus()
+												window
+													.open(`/fallacies/${result.slug}`, "_blank")
+													.focus()
 											}
 										}}
 									/>

@@ -388,24 +388,25 @@ class Fallacy extends Component {
 								</div>
 							)}
 
-							{props.canMakeVideo || props.canScreenshot ? (
+							{props.canScreenshot && (
 								<Button
 									className="downloadBtn"
 									color="blue"
-									content={`Create ${
-										props.canMakeVideo ? "video" : "screenshot"
-									}`}
+									content="Create screenshot"
 									fluid={side === "right"}
 									loading={props.creating}
-									onClick={() => {
-										if (props.canScreenshot) {
-											this.toggleModal()
-										}
+									onClick={this.toggleModal}
+								/>
+							)}
 
-										if (props.canMakeVideo) {
-											this.captureScreenshot()
-										}
-									}}
+							{props.canMakeVideo && canEdit ? (
+								<Button
+									className="downloadBtn"
+									color="blue"
+									content="Create video"
+									fluid={side === "right"}
+									loading={props.creating}
+									onClick={this.captureScreenshot}
 								/>
 							) : null}
 						</div>
