@@ -102,7 +102,8 @@ class Fallacies extends Component {
 								fluid
 								onChange={this.onChangeFallacy}
 								options={fallacyOptions}
-								placeholder="Search fallacies"
+								placeholder="Select a fallacy"
+								search
 								selection
 								size="large"
 								value={activeItem}
