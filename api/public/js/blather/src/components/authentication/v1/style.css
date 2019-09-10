@@ -15,7 +15,7 @@
 .authComponent .registerText {
   background: #FFFFFF;
   border-top: solid 1px #DCDDDE;
-  text-align: left; }
+  text-align: center; }
   .authComponent .registerText .registerLink {
     color: #2185D0;
     cursor: pointer; }
