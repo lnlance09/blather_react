@@ -197,7 +197,7 @@ class Authentication extends Component {
 
 		const HeaderText = props => {
 			if (!props.verify) {
-				return login ? "Sign In" : "Create an account"
+				return login ? "Sign in" : "Create an account"
 			}
 			return "Please verify your email"
 		}
