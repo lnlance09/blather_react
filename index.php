@@ -657,7 +657,7 @@
         <meta property="og:site_name" content="Blather" />
         <meta property="og:title" content="<?php echo htmlentities($title); ?> - Blather">
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://blather.io<?php echo $uri; ?>">
+        <meta property="og:url" content="<?php echo $canonical_url; ?>">
 
         <meta name="twitter:card" content="summary_large_image">
         <meta name="twitter:site" content="@blatherio">
