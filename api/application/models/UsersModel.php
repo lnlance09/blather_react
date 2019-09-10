@@ -301,11 +301,18 @@
 						'dateCreated' => $data['date_created'],
 						'email' => $data['email'],
 						'emailVerified' => false,
+						'fbUrl' => null,
 						'id' => $this->db->insert_id(),
 						'img' => null,
+						'linkedTwitter' => false,
+						'linkedYoutube' => false,
 						'name' => $data['name'],
+						'twitterOauthSecret' => null,
+						'twitterOauthToken' => null,
+						'twitterUrl' => null,
 						'username' => $data['username'],
-						'verificationCode' => $data['verification_code']
+						'verificationCode' => $data['verification_code'],
+						'youtubeUrl' => $this->youtube->getTokenUrl()
 					]
 				];
 			}
