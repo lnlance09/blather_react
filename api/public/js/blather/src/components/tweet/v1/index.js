@@ -12,6 +12,7 @@ import NumberFormat from "react-number-format"
 import Parser from "html-react-parser"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
+import runes from "runes"
 import store from "store"
 
 class Tweet extends Component {
@@ -266,10 +267,11 @@ class Tweet extends Component {
 		const TweetText = props => {
 			const start = props.displayTextRange[0]
 			const end = props.displayTextRange[1]
+			const length = parseInt(end, 10) - parseInt(start, 10)
 			return Parser(
 				retweeted_status
-					? retweeted_status.full_text.substring(start, end)
-					: props.full_text.substring(start, end)
+					? runes.substr(retweeted_status.full_text, start, length)
+					: runes.substr(props.full_text, start, length)
 			)
 		}
 
