@@ -97,9 +97,13 @@ class FeedComponent extends Component {
 										dangerouslySetInnerHTML={{
 											__html: Marked(result.explanation)
 										}}
-										onClick={() =>
-											props.history.push(`/fallacies/${result.id}`)
-										}
+										onClick={e => {
+											if (!e.metaKey) {
+												props.history.push(`/fallacies/${result.slug}`)
+											} else {
+												window.open(`/fallacies/${result.slug}`, "_blank").focus()
+											}
+										}}
 									/>
 									{result.s3_link && result.network === "twitter" ? (
 										<Image
