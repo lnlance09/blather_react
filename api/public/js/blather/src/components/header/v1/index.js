@@ -78,7 +78,7 @@ class Header extends Component {
 						circular
 						onError={i => (i.target.src = ImagePic)}
 						rounded
-						src={props.data.img}
+						src={props.data.img ? props.data.img : ImagePic}
 					/>
 				)
 				return (

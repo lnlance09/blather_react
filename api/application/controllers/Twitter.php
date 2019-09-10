@@ -19,37 +19,27 @@
 			$verifier = $this->input->post('oauth_verifier');
 			$access = $this->twitter->getAccessToken($verifier, $token, $secret);
 
-			if ($access) {
-				$linkedTwitter = true;
-				$oauthToken = $access['oauth_token'];
-				$oauthSecret = $access['oauth_token_secret'];
-				$twitterDate = date('Y-m-d H:i:s');
-				$twitterId = $access['user_id'];
-				$twitterUsername = $access['screen_name'];
-			} else {
-				$linkedTwitter = false;
-				$twitterDate = null;
-				$twitterId = null;
-				$twitterUsername = null;
-				$token = $this->twitter->getRequestToken();
-
-				if ($token) {
-					$oauthToken = $token['oauth_token'];
-					$oauthSecret = $token['oauth_token_secret'];
-					/*TODO */
-					// Is this needed?
-					$twitterUrl = $this->twitter->authorizeUrl.'?oauth_token='.$token['oauth_token'];
-				}
+			if (!array_key_exists('oauth_token', $access)) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'Your twitter account could not be linked'
+				]);
+				exit;
 			}
 
+			$oauthToken = $access['oauth_token'];
+			$oauthSecret = $access['oauth_token_secret'];
+
+			$linkedTwitter = true;
+			$twitterDate = date('Y-m-d H:i:s');
+			$twitterId = $access['user_id'];
+			$twitterUsername = $access['screen_name'];
 
 			if ($user) {
-				$user_id = $user->id;
 				$date_created = date('Y-m-d H:i:s');
 				$linkedYoutube = false;
-			}
-
-			if (!$user) {
+				$user_id = $user->id;
+			} else {
 				$userInfo = $this->twitter->verifyCredentials($oauthToken, $oauthSecret);
 				if (empty($userInfo)) {
 					$this->output->set_status_header(401);
@@ -59,9 +49,9 @@
 					exit;
 				}
 
+				$bio = $userInfo['description'];
 				$name = $userInfo['name'];
 				$username = $userInfo['screen_name'];
-				$bio = $userInfo['description'];
 
 
 				// Save pic
@@ -75,11 +65,11 @@
 
 				$exists = $this->users->userLookupByEmail($username);
 				if ($exists) {
-					$date_created = $exists['date_created'];
-					$user_id = $exists['id'];
 					$bio = $exists['bio'];
+					$date_created = $exists['date_created'];
 					$img = $s3Link;
 					$linkedYoutube = (int)$exists['linked_youtube'];
+					$user_id = $exists['id'];
 				} else {
 					$register = $this->users->register([
 						'bio' => $bio,
@@ -100,24 +90,30 @@
 					}
 
 					$date_created = $register['user']['dateCreated'];
-					$user_id = $register['user']['id'];
 					$img = $s3Link;
+					$user_id = $register['user']['id'];
+
+					$this->users->updateUser($user_id, [
+						'img' => $s3Path
+					]);
 				}
 
-				$linkedYoutube = false;
 				$linkedTwitter = true;
-				$data['id'] = $user_id;
-				$data['bio'] = $bio;
-				$data['img'] = $img;
-				$data['name'] = $name;
-				$data['username'] = $username;
+				$linkedYoutube = false;
+				$data = [
+					'bio' => $bio,
+					'id' => $user_id,
+					'img' => $img,
+					'name' => $name,
+					'username' => $username
+				];
 			}
 
 			$data['dateCreated'] = $date_created;
 			$data['email'] = null;
 			$data['emailVerified'] = true;
-			$data['linkedYoutube'] = $linkedYoutube;
 			$data['linkedTwitter'] = $linkedTwitter;
+			$data['linkedYoutube'] = $linkedYoutube;
 			$data['twitterAccessSecret'] = $oauthSecret;
 			$data['twitterAccessToken'] = $oauthToken;
 			$data['twitterDate'] = $twitterDate;
@@ -126,17 +122,16 @@
 			$data['youtubeUrl'] = $this->youtube->getTokenUrl();
 
 			$this->users->updateUser($user_id, [
-				'img' => $s3Path,
-				'linked_twitter' => $linkedTwitter,
+				'linked_twitter' => $linkedTwitter
 			]);
 
 			if ($linkedTwitter) {
 				$this->users->setTwitterDetails($user_id, [
-					'user_id' => $user_id,
 					'twitter_access_secret' => $oauthSecret,
 					'twitter_access_token' => $oauthToken,
 					'twitter_id' => $access['user_id'],
-					'twitter_username' => $access['screen_name']
+					'twitter_username' => $access['screen_name'],
+					'user_id' => $user_id
 				]);
 			}
 

@@ -80,29 +80,29 @@ export const linkTwitter = ({ bearer, secret, token, verifier }) => dispatch => 
 			json: true
 		},
 		function(err, response, body) {
-			let token = ""
-			if (bearer) {
-				let localData = parseJwt()
-				localData.twitterAccessSecret = body.twitterAccessSecret
-				localData.twitterAccessToken = body.twitterAccessToken
-				localData.twitterUrl = body.twitterUrl
-				if (body.linkedTwitter) {
-					localData.linkedTwitter = 1
-					localData.twitterDate = body.twitterDate
-					localData.twitterId = body.twitterId
-					localData.twitterUsername = body.twitterUsername
-				}
-				token = setToken(localData)
-				body.bearer = token
-
-				dispatch({
-					payload: body,
-					type: constants.LINK_TWITTER_ACCOUNT
-				})
-				return
-			}
-
 			if (!body.error) {
+				let token = ""
+				if (bearer) {
+					let localData = parseJwt()
+					localData.twitterAccessSecret = body.user.twitterAccessSecret
+					localData.twitterAccessToken = body.user.twitterAccessToken
+					localData.twitterUrl = body.user.twitterUrl
+					if (body.user.linkedTwitter) {
+						localData.linkedTwitter = 1
+						localData.twitterDate = body.user.twitterDate
+						localData.twitterId = body.user.twitterId
+						localData.twitterUsername = body.user.twitterUsername
+					}
+					token = setToken(localData)
+					body.bearer = token
+
+					dispatch({
+						payload: body,
+						type: constants.LINK_TWITTER_ACCOUNT
+					})
+					return
+				}
+
 				token = setToken(body.user)
 				body.bearer = token
 				dispatch({
