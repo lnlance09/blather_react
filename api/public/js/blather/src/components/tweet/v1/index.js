@@ -166,20 +166,16 @@ class Tweet extends Component {
 		const ParseMedia = (extEntities, props) =>
 			extEntities.media.map((item, i) => {
 				if (item.type === "photo" || item.type === "video") {
-					let mediaImg = item.media_url_https
-					if (props.useLocalProfilePic) {
-						mediaImg += `?v=${new Date().getTime()}`
-					}
-
 					return (
 						<div className="mediaPic" key={`embed_${i}`}>
 							<Image
 								bordered
 								className="mediaImg"
 								crossOrigin="anonymous"
+								onError={i => (i.target.src = ItemPic)}
 								rounded
 								size={props.imageSize}
-								src={mediaImg}
+								src={item.media_url_https}
 							/>
 						</div>
 					)

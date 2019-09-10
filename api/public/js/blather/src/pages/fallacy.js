@@ -14,6 +14,7 @@ import {
 	updateFallacy,
 	uploadBackgroundPic
 } from "pages/actions/fallacy"
+import { CirclePicker } from "react-color"
 import { FacebookProvider, Comments, Like } from "react-facebook"
 import { connect, Provider } from "react-redux"
 import { Link } from "react-router-dom"
@@ -81,6 +82,7 @@ class Fallacy extends Component {
 			active: false,
 			auth,
 			background: "basic",
+			backgroundColor: null,
 			bearer,
 			downloading: false,
 			editing: false,
@@ -225,6 +227,8 @@ class Fallacy extends Component {
 		})
 	}
 
+	handleColorChange = color => this.setState({ background: null, backgroundColor: color.hex })
+
 	handleExportChange = (e, { value }) => this.setState({ exportOpt: value })
 
 	handleHide = () => this.setState({ active: false })
@@ -240,6 +244,7 @@ class Fallacy extends Component {
 
 	onDrop(files) {
 		if (files.length > 0) {
+			this.setState({ backgroundColor: null })
 			this.props.uploadBackgroundPic({
 				file: files[0]
 			})
@@ -280,6 +285,7 @@ class Fallacy extends Component {
 		const {
 			active,
 			background,
+			backgroundColor,
 			bearer,
 			downloading,
 			exportOpt,
@@ -449,86 +455,88 @@ class Fallacy extends Component {
 			return null
 		}
 
-		const MaterialSection = props => {
-			return (
-				<div className="materialWrapper" id="materialWrapper">
-					{props.id ? (
-						<div>
-							{props.canScreenshot ? (
-								<div>
-									<FallacyExample
+		const MaterialSection = props => (
+			<div className="materialWrapper" id="materialWrapper">
+				{props.id ? (
+					<div>
+						{props.canScreenshot ? (
+							<div>
+								<FallacyExample
+									bearer={bearer}
+									canEdit={canEdit}
+									history={props.history}
+									id={id}
+								/>
+								{SourcesSection(props)}
+								<Responsive maxWidth={1024}>
+									<TagsCard
 										bearer={bearer}
 										canEdit={canEdit}
 										history={props.history}
-										id={id}
+										id={props.id}
+										tags={tags()}
+										type="fallacy"
 									/>
-									{SourcesSection(props)}
-									<Responsive maxWidth={1024}>
-										<TagsCard
+								</Responsive>
+								{ReferenceSection}
+							</div>
+						) : (
+							<div>
+								{props.id && (
+									<div>
+										{props.s3Link && props.canMakeVideo ? (
+											<div>
+												<ReactPlayer
+													className="exportEmbed"
+													controls
+													url={props.s3Link}
+												/>
+											</div>
+										) : (
+											<Image centered size="large" src={ImagePic} />
+										)}
+										<FallacyExample
 											bearer={bearer}
 											canEdit={canEdit}
-											history={this.props.history}
-											id={this.props.id}
-											tags={tags()}
-											type="fallacy"
+											history={props.history}
+											id={id}
+											showMaterial={false}
 										/>
-									</Responsive>
-									{ReferenceSection}
-								</div>
-							) : (
-								<div>
-									{props.id && (
-										<div>
-											{props.s3Link && props.canMakeVideo ? (
-												<div>
-													<ReactPlayer
-														className="exportEmbed"
-														controls
-														url={props.s3Link}
-													/>
-												</div>
-											) : (
-												<Image centered size="large" src={ImagePic} />
-											)}
-											<FallacyExample
+										{SourcesSection(props)}
+										<Responsive maxWidth={1024}>
+											<TagsCard
 												bearer={bearer}
 												canEdit={canEdit}
-												history={props.history}
-												id={id}
-												showMaterial={false}
+												history={this.props.history}
+												id={this.props.id}
+												tags={tags()}
+												type="fallacy"
 											/>
-											{SourcesSection(props)}
-											<Responsive maxWidth={1024}>
-												<TagsCard
-													bearer={bearer}
-													canEdit={canEdit}
-													history={this.props.history}
-													id={this.props.id}
-													tags={tags()}
-													type="fallacy"
-												/>
-											</Responsive>
-											{ReferenceSection}
-										</div>
-									)}
-								</div>
-							)}
-							<canvas id="materialCanvas" />
-						</div>
-					) : (
-						<div style={{ marginBottom: "30px" }}>
-							<LazyLoad header={false} />
-							<LazyLoad header={false} />
-						</div>
-					)}
-				</div>
-			)
-		}
+										</Responsive>
+										{ReferenceSection}
+									</div>
+								)}
+							</div>
+						)}
+						<canvas id="materialCanvas" />
+					</div>
+				) : (
+					<div style={{ marginBottom: "30px" }}>
+						<LazyLoad header={false} />
+						<LazyLoad header={false} />
+					</div>
+				)}
+			</div>
+		)
 
 		const PictureModal = props => {
 			const style = {
-				backgroundImage: props.backgroundImg ? `url(${props.backgroundImg})` : null,
-				backgroundSize: repeat ? "contain" : "cover"
+				backgroundColor
+			}
+
+			if (!backgroundColor) {
+				style.backgroundImage = props.backgroundImg ? `url(${props.backgroundImg})` : null
+				style.backgroundSize = repeat ? "contain" : "cover"
 			}
 
 			return (
@@ -579,24 +587,7 @@ class Fallacy extends Component {
 						</div>
 
 						<div className="advancedSettings">
-							<Header size="tiny">Opacity</Header>
-							<Segment>
-								<Slider
-									color="blue"
-									settings={{
-										min: 0,
-										max: 100,
-										start: 100,
-										step: 1,
-										onChange: opacity => {
-											this.setState({ opacity })
-										}
-									}}
-									value={opacity}
-								/>
-							</Segment>
-
-							<Header size="tiny">Background</Header>
+							<Header size="tiny">Background Image</Header>
 							<Segment>
 								<Grid columns={2} relaxed="very">
 									<Grid.Column>
@@ -630,6 +621,28 @@ class Fallacy extends Component {
 								<Divider fitted vertical>
 									or
 								</Divider>
+							</Segment>
+
+							<Header size="tiny">Background Color</Header>
+							<Segment>
+								<CirclePicker onChangeComplete={this.handleColorChange} />
+							</Segment>
+
+							<Header size="tiny">Opacity</Header>
+							<Segment>
+								<Slider
+									color="blue"
+									settings={{
+										min: 0,
+										max: 100,
+										start: 100,
+										step: 1,
+										onChange: opacity => {
+											this.setState({ opacity })
+										}
+									}}
+									value={opacity}
+								/>
 							</Segment>
 
 							<Header size="tiny">Repeat</Header>
