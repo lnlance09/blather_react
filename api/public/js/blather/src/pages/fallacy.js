@@ -311,12 +311,12 @@ class Fallacy extends Component {
 				{props.id && (
 					<div>
 						<FacebookProvider appId="498572440350555" style={{ width: "100%" }}>
-							<Comments href={window.location.href} width="100%" />
+							<Comments href={`https://blather.io/fallacies/${props.slug}`} width="100%" />
 						</FacebookProvider>
 
 						<div style={{ padding: "10px 6px" }}>
 							<FacebookProvider appId="498572440350555">
-								<Like href={window.location.href} colorScheme="dark" showFaces />
+								<Like href={`https://blather.io/fallacies/${props.slug}`} colorScheme="dark" showFaces />
 							</FacebookProvider>
 						</div>
 					</div>
