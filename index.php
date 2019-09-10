@@ -15,6 +15,7 @@
     ];
     $html = "";
 
+    $schema = false;
     $s3Path = "https://s3.amazonaws.com/blather22/";
     $img = $base_url."images/icons/icon-512x512.png";
     $appleIcon = $base_url."images/icons/icon-128x128.png";
@@ -23,22 +24,21 @@
     $author = false;
     $authorUrl = "";
 
-    $schema = [
-        "@context" => "https://schema.org",
-        "@type" => "Organization",
-        "name" => "Blather",
-        "url" => $base_url,
-        "potentialAction" => [
-            "@type" => "SearchAction",
-            "target" => $base_url."api/search/advanced?q={search_term_string}&type=fallacies",
-            "query-input" => "required name=search_term_string"
-        ],
-        "sameAs" => [
-            "https://twitter.com/blatherIO"
-        ]
-    ];
-
     switch ($uri) {
+        case "":
+            $schema = [
+                "@context" => "https://schema.org",
+                "@type" => "WebSite",
+                "name" => "Blather",
+                "url" => $base_url,
+                "potentialAction" => [
+                    "@type" => "SearchAction",
+                    "target" => $base_url."api/search/advanced?q={search_term_string}&type=fallacies",
+                    "query-input" => "required name=search_term_string"
+                ]
+            ];
+            break;
+
         case "/about":
             $title = "About";
             $set = true;
@@ -691,6 +691,15 @@
         <link rel="apple-touch-icon" sizes="128x128" href="/favicon.ico?v=3">
 
         <title><?php echo $title; ?> - Blather</title>
+<?php
+    if ($schema) {
+?>
+        <script type="application/ld+json">
+            <?php echo json_encode($schema); ?>
+        </script>
+<?php
+    }
+?>
     </head>
 
     <body>
@@ -704,16 +713,6 @@
     </body>
 
     <script src="static/js/main.c3e74a8e.js"></script>
-
-<?php
-    if ($schema) {
-?>
-    <script type="application/ld+json">
-        <?php echo json_encode($schema); ?>
-    </script>
-<?php
-    }
-?>
 
     <script>
         var sc_project=11316702;
