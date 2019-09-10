@@ -38,7 +38,7 @@
 
             .description {
                 font-size: 16px !important;
-                line-height: 1.6;
+                line-height: 1.4;
 
                 span {
                     color: $black;
@@ -72,7 +72,7 @@
                         }
 
                         .icon.like {
-                            color: $lightPink;
+                            color: $pink;
 
                             &:hover {
                                 opacity: 0.75;
@@ -80,7 +80,7 @@
                         }
 
                         .icon.retweet {
-                            color: $lightBlue;
+                            color: $blue;
                         }
 
                         .icon.twitter {
@@ -110,6 +110,10 @@
 
     .quotedTweet {
         margin-bottom: 5px !important;
+
+        &.clickable {
+            cursor: pointer;
+        }
 
         .quotedTweetContent {
             .quotedScreenName {
