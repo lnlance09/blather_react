@@ -48,8 +48,11 @@ class Tweet extends Component {
 
 	render() {
 		const { animation, duration, img, visible } = this.state
-		const { highlight, retweeted_status } = this.props
+		const { extended_entities, highlight, retweeted_status, stats } = this.props
 		const className = `tweet${this.props.redirect ? " clickable" : ""}`
+		const extEntities = retweeted_status
+			? retweeted_status.extended_entities
+			: extended_entities
 
 		const ArchiveIcon = props => {
 			if (props.canArchive && !props.archive) {
@@ -75,7 +78,7 @@ class Tweet extends Component {
 					</List.Item>
 				)
 			}
-			return false
+			return null
 		}
 
 		const ArchiveInfo = props => {
@@ -97,6 +100,7 @@ class Tweet extends Component {
 					</Transition>
 				)
 			}
+			return null
 		}
 
 		const CardHeader = props => {
@@ -106,6 +110,7 @@ class Tweet extends Component {
 			let name = props.user.name
 			let screenName = props.user.screen_name
 			let createdAt = new Date(props.created_at)
+
 			if (retweeted_status) {
 				createdAt = new Date(retweeted_status.created_at)
 				name = retweeted_status.user.name
@@ -158,69 +163,72 @@ class Tweet extends Component {
 			)
 		}
 
-		const ParseMedia = props => {
-			const extEntities = retweeted_status
-				? retweeted_status.extended_entities
-				: props.extended_entities
-			if (extEntities) {
-				return extEntities.media.map((item, i) => {
-					if (item.type === "photo" || item.type === "video") {
-						let mediaImg = item.media_url_https
-						if (props.useLocalProfilePic) {
-							mediaImg += `?v=${new Date().getTime()}`
-						}
-
-						return (
-							<div className="mediaPic" key={`embed_${i}`}>
-								<Image
-									bordered
-									className="mediaImg"
-									crossOrigin="anonymous"
-									rounded={false}
-									size={props.imageSize}
-									src={mediaImg}
-								/>
-							</div>
-						)
+		const ParseMedia = (extEntities, props) =>
+			extEntities.media.map((item, i) => {
+				if (item.type === "photo" || item.type === "video") {
+					let mediaImg = item.media_url_https
+					if (props.useLocalProfilePic) {
+						mediaImg += `?v=${new Date().getTime()}`
 					}
-					return null
-				})
-			}
-			return null
-		}
+
+					return (
+						<div className="mediaPic" key={`embed_${i}`}>
+							<Image
+								bordered
+								className="mediaImg"
+								crossOrigin="anonymous"
+								rounded
+								size={props.imageSize}
+								src={mediaImg}
+							/>
+						</div>
+					)
+				}
+				return null
+			})
 
 		const QuotedTweet = props => {
-			if (props.is_quote_status) {
-				let quotedName = props.quoted_status.user.name
-				let quotedScreenName = props.quoted_status.user.screen_name
-				let quotedFullText = props.quoted_status.full_text
-				if (props.quoted_status === undefined) {
-					quotedName = props.retweeted_status.user.name
-					quotedScreenName = props.retweeted_status.user.screen_name
-					quotedFullText = props.retweeted_status.full_text
-				}
-
-				return (
-					<Card className="quotedTweet" fluid>
-						<Card.Content className="quotedTweetContent">
-							<Card.Header className="quotedHeader">
-								{quotedName}{" "}
-								<span className="quotedScreenName">@{quotedScreenName}</span>
-							</Card.Header>
-							<Card.Description className="quotedTextTweet">
-								<Linkify
-									properties={{
-										target: "_blank"
-									}}
-								>
-									{quotedFullText}
-								</Linkify>
-							</Card.Description>
-						</Card.Content>
-					</Card>
-				)
+			let quotedExtEntities = props.quoted_status.extended_entities
+			let quotedFullText = props.quoted_status.full_text
+			let quotedName = props.quoted_status.user.name
+			let quotedScreenName = props.quoted_status.user.screen_name
+			let quotedTweetId = props.quoted_status.id_str
+			if (retweeted_status) {
+				quotedExtEntities = props.retweeted_status.quoted_status.extended_entities
+				quotedFullText = props.retweeted_status.quoted_status.full_text
+				quotedName = props.retweeted_status.quoted_status.user.name
+				quotedScreenName = props.retweeted_status.quoted_status.user.screen_name
+				quotedTweetId = props.retweeted_status.quoted_status.id_str
 			}
-			return null
+
+			return (
+				<Card className={`quotedTweet ${!props.redirect ? " clickable" : ""}`} fluid>
+					<Card.Content
+						className="quotedTweetContent"
+						onClick={e => {
+							if (!props.redirect) {
+								e.stopPropagation()
+								props.history.push(`/tweet/${quotedTweetId}`)
+							}
+						}}
+					>
+						<Card.Header className="quotedHeader">
+							{quotedName}{" "}
+							<span className="quotedScreenName">@{quotedScreenName}</span>
+						</Card.Header>
+						<Card.Description className="quotedTextTweet">
+							<Linkify
+								properties={{
+									target: "_blank"
+								}}
+							>
+								{quotedFullText}
+							</Linkify>
+							{quotedExtEntities && <div>{ParseMedia(quotedExtEntities, props)}</div>}
+						</Card.Description>
+					</Card.Content>
+				</Card>
+			)
 		}
 
 		const RetweetedText = props => {
@@ -237,32 +245,30 @@ class Tweet extends Component {
 			return false
 		}
 
-		const StatsBar = ({ favoriteCount, retweetCount }) => {
-			return (
-				<List floated="left" horizontal>
-					<List.Item>
-						<Label basic>
-							<Icon color="blue" name="retweet" size="large" />{" "}
-							<NumberFormat
-								displayType={"text"}
-								thousandSeparator={true}
-								value={retweetCount}
-							/>
-						</Label>
-					</List.Item>
-					<List.Item className="favoriteItem">
-						<Label basic>
-							<Icon name="like" size="large" />{" "}
-							<NumberFormat
-								displayType={"text"}
-								thousandSeparator={true}
-								value={favoriteCount}
-							/>
-						</Label>
-					</List.Item>
-				</List>
-			)
-		}
+		const StatsBar = ({ favoriteCount, retweetCount }) => (
+			<List floated="left" horizontal>
+				<List.Item>
+					<Label basic>
+						<Icon name="retweet" size="large" />{" "}
+						<NumberFormat
+							displayType={"text"}
+							thousandSeparator={true}
+							value={retweetCount}
+						/>
+					</Label>
+				</List.Item>
+				<List.Item className="favoriteItem">
+					<Label basic>
+						<Icon name="like" size="large" />{" "}
+						<NumberFormat
+							displayType={"text"}
+							thousandSeparator={true}
+							value={favoriteCount}
+						/>
+					</Label>
+				</List.Item>
+			</List>
+		)
 
 		const TweetText = props => {
 			const start = props.displayTextRange[0]
@@ -307,9 +313,9 @@ class Tweet extends Component {
 								onMouseUp={this.props.handleHoverOn}
 							>
 								{LinkifiedTweet}
-								<div>{ParseMedia(this.props)}</div>
+								{extEntities && <div>{ParseMedia(extEntities, this.props)}</div>}
 							</Card.Description>
-							{QuotedTweet(this.props)}
+							{this.props.is_quote_status && QuotedTweet(this.props)}
 						</Card.Content>
 						{this.props.showStats && (
 							<Card.Content extra>
@@ -317,12 +323,12 @@ class Tweet extends Component {
 									favoriteCount={
 										retweeted_status
 											? retweeted_status.favorite_count
-											: this.props.stats.favorite_count
+											: stats.favorite_count
 									}
 									retweetCount={
 										retweeted_status
 											? retweeted_status.retweet_count
-											: this.props.stats.retweet_count
+											: stats.retweet_count
 									}
 								/>
 								<List floated="right" horizontal>
