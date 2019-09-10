@@ -25,7 +25,7 @@
     $authorUrl = "";
 
     switch ($uri) {
-        case "":
+        case "/":
             $schema = [
                 "@context" => "https://schema.org",
                 "@type" => "WebSite",
