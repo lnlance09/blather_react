@@ -7,7 +7,6 @@ import {
 	twitterRequestToken,
 	verifyEmail
 } from "./actions"
-import { GoogleLogin } from "react-google-login"
 import { Provider, connect } from "react-redux"
 import { Redirect } from "react-router-dom"
 import {
@@ -183,18 +182,6 @@ class Authentication extends Component {
 			}
 		}
 
-		const GoogleLoginBtn = (
-			<GoogleLogin
-				buttonText={`${login ? "Sign in" : "Sign up"} with Google`}
-				className="googleBtn"
-				clientId="208834451570-uhnsvk3tb5cqr6uoipnrl9ks68cmeicp.apps.googleusercontent.com"
-				cookiePolicy={"single_host_origin"}
-				onFailure={e => console.log(e)}
-				onSuccess={this.googleResponse}
-				theme="dark"
-			/>
-		)
-
 		const HeaderText = props => {
 			if (!props.verify) {
 				return login ? "Sign in" : "Create an account"
@@ -305,7 +292,7 @@ class Authentication extends Component {
 				fluid
 				onClick={() => this.redirectToUrl(props.data.twitterUrl)}
 			>
-				<Icon name="twitter" size="large" /> {login ? "Sign in" : "Sign up"} with Twitter
+				<Icon name="twitter" /> {login ? "Sign in" : "Sign up"} with Twitter
 			</Button>
 		)
 
@@ -323,10 +310,7 @@ class Authentication extends Component {
 						{InfoBox(this.props)}
 					</Segment>
 					<Divider horizontal>Or</Divider>
-					<Segment>
-						{TwitterLogin(this.props)}
-						{GoogleLoginBtn}
-					</Segment>
+					<Segment>{TwitterLogin(this.props)}</Segment>
 				</div>
 			</Provider>
 		)

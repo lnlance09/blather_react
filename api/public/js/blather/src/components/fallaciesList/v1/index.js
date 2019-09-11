@@ -49,10 +49,12 @@ class FallaciesList extends Component {
 			page: this.props.page,
 			showFilter,
 			showTargets: false,
+			sortValue: "date",
 			value
 		}
 
 		this.onChangeSearch = this.onChangeSearch.bind(this)
+		this.onChangeSort = this.onChangeSort.bind(this)
 	}
 
 	componentDidMount() {
@@ -70,6 +72,7 @@ class FallaciesList extends Component {
 			objectId: this.props.objectId,
 			page: 0,
 			shuffle: this.props.shuffle,
+			sort: this.state.sortValue,
 			tagId: this.props.tagId
 		})
 		if (this.props.source === "users") {
@@ -90,6 +93,7 @@ class FallaciesList extends Component {
 				objectId: nextProps.objectId,
 				page: 0,
 				shuffle: nextProps.shuffle,
+				sort: this.state.sortValue,
 				tagId: nextProps.tagId
 			})
 		}
@@ -157,6 +161,7 @@ class FallaciesList extends Component {
 				objectId: this.props.objectId,
 				page: newPage,
 				shuffle: this.props.shuffle,
+				sort: this.state.sortValue,
 				tagId: this.props.tagId
 			})
 		}
@@ -178,11 +183,32 @@ class FallaciesList extends Component {
 			objectId: this.props.objectId,
 			page: 0,
 			shuffle: this.props.shuffle,
+			sort: this.state.sortValue,
 			tagId: this.props.tagId
 		})
 		if (this.props.changeUrl) {
 			this.props.setFallacyId(value)
 		}
+	}
+
+	onChangeSort = (e, { value }) => {
+		this.setState({ sortValue: value })
+		const assignedTo = this.props.source === "tag" ? this.state.value : this.props.assignedTo
+		const fallacies = this.props.source === "tag" ? null : this.state.value
+		this.props.getFallacies({
+			assignedBy: this.props.assignedBy,
+			assignedTo,
+			commentId: this.props.commentId,
+			exclude: this.props.exclude,
+			fallacies,
+			fallacyId: this.props.fallacyId,
+			network: this.props.network,
+			objectId: this.props.objectId,
+			page: 0,
+			shuffle: this.props.shuffle,
+			sort: value,
+			tagId: this.props.tagId
+		})
 	}
 
 	redirectToUrl = (e, url) => {
@@ -194,7 +220,7 @@ class FallaciesList extends Component {
 	}
 
 	render() {
-		const { options, showFilter, showTargets, value } = this.state
+		const { options, showFilter, showTargets, sortValue, value } = this.state
 		const placeholder = this.props.source === "tag" ? "Filter by page" : "Filter by fallacy"
 
 		const FilterSection = ({ props }) => {
@@ -226,17 +252,32 @@ class FallaciesList extends Component {
 					{filterVisible && (
 						<div>
 							<Form>
-								<Form.Field
-									clearable
-									control={Dropdown}
-									fluid
-									lazyLoad
-									onChange={this.onChangeSearch}
-									options={options}
-									placeholder={placeholder}
-									selection
-									value={value}
-								/>
+								<Form.Group widths="equal">
+									<Form.Field
+										clearable
+										control={Dropdown}
+										fluid
+										lazyLoad
+										onChange={this.onChangeSearch}
+										options={options}
+										placeholder={placeholder}
+										selection
+										value={value}
+									/>
+									<Form.Field
+										control={Dropdown}
+										fluid
+										lazyLoad
+										onChange={this.onChangeSort}
+										options={[
+											{ key: "date", text: "Date", value: "date" },
+											{ key: "views", text: "Views", value: "views" }
+										]}
+										placeholder="Sort by"
+										selection
+										value={sortValue}
+									/>
+								</Form.Group>
 							</Form>
 							<div style={{ margin: "16px 0" }}>
 								{value && (

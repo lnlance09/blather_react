@@ -976,7 +976,17 @@
                 if (array_key_exists('shuffle', $data) && $data['shuffle']) {
                     $this->db->order_by('RAND(351)');
                 } else {
-                    $this->db->order_by('fe.id DESC');
+                    if (array_key_exists('sort', $data)) {
+                        if ($data['sort'] == 'date') {
+                            $this->db->order_by('fe.date_created DESC');
+                        }
+
+                        if ($data['sort'] == 'views') {
+                            $this->db->order_by('fe.view_count DESC');
+                        }
+                    } else {
+                        $this->db->order_by('fe.id DESC');
+                    }
                 }
 
                 $this->db->limit($limit, $start);

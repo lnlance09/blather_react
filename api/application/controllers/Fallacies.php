@@ -613,6 +613,7 @@
 				'object_id' => $this->input->get('objectId'),
 				'page' => $page,
 				'q' => trim($this->input->get('q')),
+				'sort' => $this->input->get('sort'),
 				'tag_id' => trim($this->input->get('tagId'))
 			];
 

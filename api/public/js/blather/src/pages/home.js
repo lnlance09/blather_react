@@ -124,11 +124,8 @@ class Home extends Component {
 					<Container className="mainContainer" textAlign="left">
 						<div>
 							<Header as="h1" className="heroHeader">
-								<Icon color="yellow" name="gavel" />
-								<Header.Content>
-									Pick a tweet. Any tweet.
-									<Header.Subheader>Assign a logical fallacy</Header.Subheader>
-								</Header.Content>
+								Assign a Logical Fallacy
+								<Header.Subheader>Pick a tweet</Header.Subheader>
 							</Header>
 							<Segment className="heroSegment">
 								<Input

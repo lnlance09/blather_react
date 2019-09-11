@@ -168,7 +168,7 @@ NavSearch.defaultProps = {
 	disabled: false,
 	placeholder: "Search",
 	source: "header",
-	width: "450px"
+	width: "420px"
 }
 
 const mapStateToProps = (state, ownProps) => ({
