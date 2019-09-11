@@ -721,8 +721,7 @@ a {
 
 
 .homePage {
-    background: linear-gradient($blue, $lightBlue);
-    background: $red;
+    background: $blue;
     padding: 0;
 
     .mainContainer {
@@ -730,16 +729,12 @@ a {
         padding-bottom: 40px;
     }
 
-    .heroSegment {
-        // opacity: 0.95;
-    }
-
     .heroHeader {
-        color: $offWhite;
+        color: $white;
         padding-left: 6px !important;
 
         .sub.header {
-            color: $offWhite;
+            color: $white;
         }
     }
 
@@ -1233,9 +1228,7 @@ a {
         background: $white;
 
         .segment.coverPic {
-            background-color: $white;
-            background-image: url("../../images/art/isometric/07.svg");
-            background-size: cover;
+            background: $blue;
             border-bottom: solid 1px $lightGrey;
             height: 230px;
         }

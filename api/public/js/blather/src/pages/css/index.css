@@ -430,17 +430,16 @@ a {
   margin-top: 0; }
 
 .homePage {
-  background: linear-gradient(#2185D0, #54C8FF);
-  background: #DB2828;
+  background: #2185D0;
   padding: 0; }
   .homePage .mainContainer {
     min-height: 70vh;
     padding-bottom: 40px; }
   .homePage .heroHeader {
-    color: #F9FAFB;
+    color: #FFFFFF;
     padding-left: 6px !important; }
     .homePage .heroHeader .sub.header {
-      color: #F9FAFB; }
+      color: #FFFFFF; }
   .homePage .heroInput .icon.twitter {
     color: #0084b4; }
   .homePage .heroInput .icon.youtube {
@@ -718,9 +717,7 @@ a {
 .usersPage .segments {
   background: #FFFFFF; }
   .usersPage .segments .segment.coverPic {
-    background-color: #FFFFFF;
-    background-image: url("../../images/art/isometric/07.svg");
-    background-size: cover;
+    background: #2185D0;
     border-bottom: solid 1px #DCDDDE;
     height: 230px; }
   .usersPage .segments .imgContainer {
