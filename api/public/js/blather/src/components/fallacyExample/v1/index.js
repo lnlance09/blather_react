@@ -555,7 +555,7 @@ class FallacyExample extends Component {
 		}
 
 		return (
-			<div className="fallacyExample" id="fallacyExample">
+			<div className="fallacyExample" id="fallacyExample" style={{ width: this.props.width }}>
 				{this.props.showMaterial && Material(this.props)}
 				{Explanation(this.props)}
 			</div>
@@ -572,7 +572,8 @@ FallacyExample.propTypes = {
 	opacity: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 	rawSources: PropTypes.bool,
 	showExplanation: PropTypes.bool,
-	showMaterial: PropTypes.bool
+	showMaterial: PropTypes.bool,
+	width: PropTypes.string
 }
 
 FallacyExample.defaultProps = {
@@ -582,7 +583,8 @@ FallacyExample.defaultProps = {
 	opacity: 1,
 	rawSources: false,
 	showExplanation: true,
-	showMaterial: true
+	showMaterial: true,
+	width: "100%"
 }
 
 const mapStateToProps = (state, ownProps) => ({
