@@ -87,6 +87,7 @@
 
         case "/signin":
             $title = "Sign In";
+            $description = "Sign in to Blather. Create an account."
             $set = true;
             break;
     }

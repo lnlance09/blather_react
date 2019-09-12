@@ -31,6 +31,7 @@ import {
 	Header,
 	Icon,
 	Image,
+	Input,
 	List,
 	Message,
 	Modal,
@@ -95,6 +96,7 @@ class Fallacy extends Component {
 			twitterId,
 			userId,
 			value: "",
+			width: 100,
 			youtubeId
 		}
 
@@ -102,6 +104,7 @@ class Fallacy extends Component {
 		this.handleExportChange = this.handleExportChange.bind(this)
 		this.onDrop = this.onDrop.bind(this)
 		this.onSelectBackground = this.onSelectBackground.bind(this)
+		this.onChangeWidth = this.onChangeWidth.bind(this)
 	}
 
 	captureScreenshot() {
@@ -242,6 +245,12 @@ class Fallacy extends Component {
 		}
 	}
 
+	onChangeWidth = (e, { value }) => {
+		if (value < 101) {
+			this.setState({ width: value })
+		}
+	}
+
 	onDrop(files) {
 		if (files.length > 0) {
 			this.setState({ backgroundColor: null })
@@ -295,6 +304,7 @@ class Fallacy extends Component {
 			repeat,
 			twitterId,
 			userId,
+			width,
 			youtubeId
 		} = this.state
 
@@ -570,6 +580,7 @@ class Fallacy extends Component {
 								id={id}
 								opacity={opacity / 100}
 								showExplanation={exportOpt === "screenshotAll"}
+								width={`${width}%`}
 							/>
 							{exportOpt === "screenshotAndRef" && (
 								<div
@@ -651,6 +662,18 @@ class Fallacy extends Component {
 									value={opacity}
 								/>
 							</Segment>
+
+							<Header size="tiny">Width</Header>
+							<div>
+								<Input
+									icon="percent"
+									iconPosition="right"
+									onChange={this.onChangeWidth}
+									placeholder="Width"
+									type="number"
+									value={width}
+								/>
+							</div>
 
 							<Header size="tiny">Repeat</Header>
 							<List relaxed>
