@@ -19,10 +19,11 @@ class Fallacies extends Component {
 		const name = this.props.match.params.id
 		const option = fallacyOptions.filter(f => f.key === name)
 		const activeItem = option.length === 1 ? option[0].value : null
+		const activeItemName = option.length === 1 ? option[0].text : null
 
 		this.state = {
 			activeItem,
-			intervalId: 0,
+			activeItemName,
 			selected: activeItem !== null
 		}
 
@@ -37,40 +38,49 @@ class Fallacies extends Component {
 		const name = props.match.params.id
 		const option = fallacyOptions.filter(f => f.key === name)
 		const activeItem = option.length === 1 ? option[0].value : null
-		this.setState({ activeItem })
+		const activeItemName = option.length === 1 ? option[0].text : null
+		this.setState({ activeItem, activeItemName, selected: activeItem !== null })
 	}
 
 	onChangeFallacy = (e, { value }) => {
+		let activeItemName = ""
+		if (value !== "") {
+			const option = fallacyOptions.filter(f => f.value === value)
+			activeItemName = option.length === 1 ? option[0].text : null
+			const slug = option.length === 1 ? option[0].key : null
+			this.props.history.push(`/fallacies/${slug}`)
+		} else {
+			this.props.history.push("/fallacies")
+		}
+
 		this.setState({
 			activeItem: value,
+			activeItemName,
 			selected: value !== ""
 		})
 	}
 
 	onClickFallacy = id => {
-		window.scrollTo({ top: 0, behavior: "smooth" })
+		const option = fallacyOptions.filter(f => f.value === id)
+		const activeItemName = option.length === 1 ? option[0].text : null
+		const slug = option.length === 1 ? option[0].key : null
+
+		this.props.history.push(`/fallacies/${slug}`)
+		this.scrollToTop()
+
 		this.setState({
 			activeItem: id,
+			activeItemName,
 			selected: true
 		})
 	}
 
-	scrollStep() {
-		if (this.props.match.path === "/fallacies/:id") {
-			if (window.pageYOffset === 0) {
-				clearInterval(this.state.intervalId)
-			}
-			window.scroll(0, window.pageYOffset - 50)
-		}
-	}
-
 	scrollToTop() {
-		let intervalId = setInterval(this.scrollStep.bind(this), "16.66")
-		this.setState({ intervalId })
+		window.scrollTo({ top: 0, behavior: "smooth" })
 	}
 
 	render() {
-		const { activeItem, selected } = this.state
+		const { activeItem, activeItemName, selected } = this.state
 
 		const RenderFallacies = fallacies.map((fallacy, i) => (
 			<FallacyRef
@@ -95,7 +105,7 @@ class Fallacies extends Component {
 						ref={this.handleContextRef}
 						textAlign="left"
 					>
-						<Header as="h1">Reference</Header>
+						<Header as="h1">{activeItem ? activeItemName : "Reference"}</Header>
 						<Segment>
 							<Dropdown
 								clearable
@@ -116,7 +126,6 @@ class Fallacies extends Component {
 										canScreenshot={false}
 										className="fallacyRef"
 										id={parseInt(activeItem, 10)}
-										showImage={true}
 									/>
 
 									<Header as="h2">Examples</Header>

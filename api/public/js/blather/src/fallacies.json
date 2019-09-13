@@ -286,7 +286,7 @@
    {
       "id":"23",
       "description": "An inaccurate fact that is used to advance an argument.",
-      "key":"factual-innacuracy",
+      "key":"factual-inaccuracy",
       "name":"Factual Inaccuracy",
       "dialogue": [
          {
