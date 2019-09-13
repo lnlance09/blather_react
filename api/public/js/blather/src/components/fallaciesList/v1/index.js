@@ -1,5 +1,5 @@
 import "./style.css"
-import { getFallacies, getTargets, toggleLoading } from "./actions"
+import { getFallacies, getTargets, toggleLoading, updateSearchTerm } from "./actions"
 import { adjustTimezone } from "utils/dateFunctions"
 import { formatPlural } from "utils/textFunctions"
 import { DebounceInput } from "react-debounce-input"
@@ -47,7 +47,6 @@ class FallaciesList extends Component {
 			network: "",
 			objectId: null,
 			options: [],
-			q: "",
 			page: this.props.page,
 			showFilter,
 			showTargets: false,
@@ -55,7 +54,6 @@ class FallaciesList extends Component {
 			value
 		}
 
-		this.onChangeInput = this.onChangeInput.bind(this)
 		this.onChangeSearch = this.onChangeSearch.bind(this)
 		this.onChangeSort = this.onChangeSort.bind(this)
 	}
@@ -75,7 +73,7 @@ class FallaciesList extends Component {
 			network: this.props.network,
 			objectId: this.props.objectId,
 			page: 0,
-			q: this.state.q,
+			q: this.props.q,
 			shuffle: this.props.shuffle,
 			sort: this.state.sortValue,
 			tagId: this.props.tagId
@@ -98,7 +96,7 @@ class FallaciesList extends Component {
 				network: nextProps.network,
 				objectId: nextProps.objectId,
 				page: 0,
-				q: this.state.q,
+				q: nextProps.q,
 				shuffle: nextProps.shuffle,
 				sort: this.state.sortValue,
 				tagId: nextProps.tagId
@@ -167,7 +165,7 @@ class FallaciesList extends Component {
 				network: this.props.network,
 				objectId: this.props.objectId,
 				page: newPage,
-				q: this.state.q,
+				q: this.props.q,
 				shuffle: this.props.shuffle,
 				sort: this.state.sortValue,
 				tagId: this.props.tagId
@@ -176,7 +174,7 @@ class FallaciesList extends Component {
 	}
 
 	onChangeInput = q => {
-		this.setState({ q })
+		this.props.updateSearchTerm({ q })
 
 		const assignedTo = this.props.source === "tag" ? this.state.value : this.props.assignedTo
 		const fallacies = this.props.source === "tag" ? null : this.state.value
@@ -212,7 +210,7 @@ class FallaciesList extends Component {
 			network: this.props.network,
 			objectId: this.props.objectId,
 			page: 0,
-			q: this.state.q,
+			q: this.props.q,
 			shuffle: this.props.shuffle,
 			sort: this.state.sortValue,
 			tagId: this.props.tagId
@@ -238,7 +236,7 @@ class FallaciesList extends Component {
 			network: this.props.network,
 			objectId: this.props.objectId,
 			page: 0,
-			q: this.state.q,
+			q: this.props.q,
 			shuffle: this.props.shuffle,
 			sort: value,
 			tagId: this.props.tagId
@@ -254,7 +252,8 @@ class FallaciesList extends Component {
 	}
 
 	render() {
-		const { options, q, showFilter, showTargets, sortValue, value } = this.state
+		const { options, showFilter, showTargets, sortValue, value } = this.state
+		const { q } = this.props
 		const placeholder = this.props.source === "tag" ? "Filter by page" : "Filter by fallacy"
 
 		const FilterSection = ({ props }) => {
@@ -577,9 +576,9 @@ class FallaciesList extends Component {
 		return (
 			<Provider store={store}>
 				<div className="fallaciesList">
+					<FilterSection props={this.props} />
 					{this.props.results.length > 0 ? (
 						<div>
-							<FilterSection props={this.props} />
 							<Visibility
 								className="fallaciesWrapper"
 								continuous
@@ -649,6 +648,7 @@ FallaciesList.propTypes = {
 	network: PropTypes.string,
 	objectId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 	page: PropTypes.number,
+	q: PropTypes.string,
 	results: PropTypes.array,
 	setFallacyId: PropTypes.func,
 	showPics: PropTypes.bool,
@@ -664,6 +664,7 @@ FallaciesList.propTypes = {
 		results: PropTypes.array
 	}),
 	toggleLoading: PropTypes.func,
+	updateSearchTerm: PropTypes.func,
 	useCards: PropTypes.bool
 }
 
@@ -677,6 +678,7 @@ FallaciesList.defaultProps = {
 	itemsPerRow: 3,
 	loadingMore: false,
 	page: 0,
+	q: "",
 	results: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
 	showPics: true,
 	shuffle: false,
@@ -685,6 +687,7 @@ FallaciesList.defaultProps = {
 		results: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}]
 	},
 	toggleLoading,
+	updateSearchTerm,
 	useCards: true
 }
 
@@ -695,5 +698,5 @@ const mapStateToProps = (state, ownProps) => ({
 
 export default connect(
 	mapStateToProps,
-	{ getFallacies, getTargets, toggleLoading }
+	{ getFallacies, getTargets, toggleLoading, updateSearchTerm }
 )(FallaciesList)
