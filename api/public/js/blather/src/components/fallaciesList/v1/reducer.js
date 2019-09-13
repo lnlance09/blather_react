@@ -44,6 +44,12 @@ const fallacies = (state = initial(), action) => {
 				loadingMore: !state.loadingMore
 			}
 
+		case constants.UPDATE_SEARCH_TERM:
+			return {
+				...state,
+				q: action.payload.q
+			}
+
 		default:
 			return state
 	}

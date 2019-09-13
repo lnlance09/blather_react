@@ -70,3 +70,12 @@ export const toggleLoading = () => dispatch => {
 		type: constants.TOGGLE_LOADING
 	})
 }
+
+export const updateSearchTerm = ({ q }) => dispatch => {
+	dispatch({
+		type: constants.UPDATE_SEARCH_TERM,
+		payload: {
+			q
+		}
+	})
+}
