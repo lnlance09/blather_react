@@ -2,6 +2,7 @@ import "./style.css"
 import { getFallacies, getTargets, toggleLoading } from "./actions"
 import { adjustTimezone } from "utils/dateFunctions"
 import { formatPlural } from "utils/textFunctions"
+import { DebounceInput } from "react-debounce-input"
 import { connect, Provider } from "react-redux"
 import {
 	Card,
@@ -30,6 +31,7 @@ import store from "store"
 class FallaciesList extends Component {
 	constructor(props) {
 		super(props)
+
 		const showFilter = this.props.source !== "fallacy"
 		let value = this.props.fallacies ? this.props.fallacies : ""
 		if (this.props.source === "tag") {
@@ -53,6 +55,7 @@ class FallaciesList extends Component {
 			value
 		}
 
+		this.onChangeInput = this.onChangeInput.bind(this)
 		this.onChangeSearch = this.onChangeSearch.bind(this)
 		this.onChangeSort = this.onChangeSort.bind(this)
 	}
@@ -61,6 +64,7 @@ class FallaciesList extends Component {
 		if (this.props.source !== "fallacy") {
 			this.fetchFallacies(this.props)
 		}
+
 		this.props.getFallacies({
 			assignedBy: this.props.assignedBy,
 			assignedTo: this.props.assignedTo,
@@ -71,10 +75,12 @@ class FallaciesList extends Component {
 			network: this.props.network,
 			objectId: this.props.objectId,
 			page: 0,
+			q: this.state.q,
 			shuffle: this.props.shuffle,
 			sort: this.state.sortValue,
 			tagId: this.props.tagId
 		})
+
 		if (this.props.source === "users") {
 			this.props.getTargets({ id: this.props.assignedBy })
 		}
@@ -92,6 +98,7 @@ class FallaciesList extends Component {
 				network: nextProps.network,
 				objectId: nextProps.objectId,
 				page: 0,
+				q: this.state.q,
 				shuffle: nextProps.shuffle,
 				sort: this.state.sortValue,
 				tagId: nextProps.tagId
@@ -160,6 +167,7 @@ class FallaciesList extends Component {
 				network: this.props.network,
 				objectId: this.props.objectId,
 				page: newPage,
+				q: this.state.q,
 				shuffle: this.props.shuffle,
 				sort: this.state.sortValue,
 				tagId: this.props.tagId
@@ -167,32 +175,9 @@ class FallaciesList extends Component {
 		}
 	}
 
-	onChangeSearch = (e, { text, value }) => {
-		this.setState({ fallacies: value, page: 0, value })
-		const assignedTo = this.props.source === "tag" ? value : this.props.assignedTo
-		const fallacies = this.props.source === "tag" ? null : value
+	onChangeInput = q => {
+		this.setState({ q })
 
-		this.props.getFallacies({
-			assignedBy: this.props.assignedBy,
-			assignedTo,
-			commentId: this.props.commentId,
-			exclude: this.props.exclude,
-			fallacies,
-			fallacyId: this.props.fallacyId,
-			network: this.props.network,
-			objectId: this.props.objectId,
-			page: 0,
-			shuffle: this.props.shuffle,
-			sort: this.state.sortValue,
-			tagId: this.props.tagId
-		})
-		if (this.props.changeUrl) {
-			this.props.setFallacyId(value)
-		}
-	}
-
-	onChangeSort = (e, { value }) => {
-		this.setState({ sortValue: value })
 		const assignedTo = this.props.source === "tag" ? this.state.value : this.props.assignedTo
 		const fallacies = this.props.source === "tag" ? null : this.state.value
 		this.props.getFallacies({
@@ -205,6 +190,55 @@ class FallaciesList extends Component {
 			network: this.props.network,
 			objectId: this.props.objectId,
 			page: 0,
+			q,
+			shuffle: this.props.shuffle,
+			sort: this.state.sortValue,
+			tagId: this.props.tagId
+		})
+	}
+
+	onChangeSearch = (e, { text, value }) => {
+		this.setState({ fallacies: value, page: 0, value })
+
+		const assignedTo = this.props.source === "tag" ? value : this.props.assignedTo
+		const fallacies = this.props.source === "tag" ? null : value
+		this.props.getFallacies({
+			assignedBy: this.props.assignedBy,
+			assignedTo,
+			commentId: this.props.commentId,
+			exclude: this.props.exclude,
+			fallacies,
+			fallacyId: this.props.fallacyId,
+			network: this.props.network,
+			objectId: this.props.objectId,
+			page: 0,
+			q: this.state.q,
+			shuffle: this.props.shuffle,
+			sort: this.state.sortValue,
+			tagId: this.props.tagId
+		})
+
+		if (this.props.changeUrl) {
+			this.props.setFallacyId(value)
+		}
+	}
+
+	onChangeSort = (e, { value }) => {
+		this.setState({ sortValue: value })
+
+		const assignedTo = this.props.source === "tag" ? this.state.value : this.props.assignedTo
+		const fallacies = this.props.source === "tag" ? null : this.state.value
+		this.props.getFallacies({
+			assignedBy: this.props.assignedBy,
+			assignedTo,
+			commentId: this.props.commentId,
+			exclude: this.props.exclude,
+			fallacies,
+			fallacyId: this.props.fallacyId,
+			network: this.props.network,
+			objectId: this.props.objectId,
+			page: 0,
+			q: this.state.q,
 			shuffle: this.props.shuffle,
 			sort: value,
 			tagId: this.props.tagId
@@ -220,7 +254,7 @@ class FallaciesList extends Component {
 	}
 
 	render() {
-		const { options, showFilter, showTargets, sortValue, value } = this.state
+		const { options, q, showFilter, showTargets, sortValue, value } = this.state
 		const placeholder = this.props.source === "tag" ? "Filter by page" : "Filter by fallacy"
 
 		const FilterSection = ({ props }) => {
@@ -252,6 +286,18 @@ class FallaciesList extends Component {
 					{filterVisible && (
 						<div>
 							<Form>
+								<Form.Field>
+									<div className="ui icon input">
+										<DebounceInput
+											debounceTimeout={300}
+											minLength={2}
+											onChange={e => this.onChangeInput(e.target.value)}
+											placeholder="Search..."
+											value={q}
+										/>
+										<i aria-hidden="true" className="search icon" />
+									</div>
+								</Form.Field>
 								<Form.Group widths="equal">
 									<Form.Field
 										clearable
