@@ -217,7 +217,7 @@ class Page extends Component {
 			</Menu>
 		)
 
-		const ShowContent = ({ props }) => {
+		const ShowContent = props => {
 			if (props.id) {
 				if (activeItem === "fallacies") {
 					return (
@@ -348,7 +348,7 @@ class Page extends Component {
 											<Divider hidden section />
 											{PageMenu(this.props)}
 											<Container className="profileContentContainer">
-												<ShowContent props={this.props} />
+												{ShowContent(this.props)}
 											</Container>
 										</Segment>
 									</Segment.Group>

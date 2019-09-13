@@ -858,7 +858,8 @@
 				'network' => null,
 				'object_id' => null,
 				'page' => null,
-				'q' => null
+				'q' => null,
+				'tag_id' => null
 			];
 			$count = $this->fallacies->search($params, true);
 			if ($count < 5) {

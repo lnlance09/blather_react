@@ -154,9 +154,9 @@ class Breakdown extends Component {
 				{placeholder.id ? (
 					<div>
 						<Segment basic className="questionnaire">
-							<Header className="first" size="medium">
+							<Header size="medium">
 								Here's how{" "}
-								<Link to={`/users/${placeholder.user_id}`}>
+								<Link to={`/targets/${placeholder.user_id}/${dbId}`}>
 									{placeholder.user_name}
 								</Link>{" "}
 								has described this source

@@ -132,7 +132,7 @@ class Target extends Component {
 					emptyMsgContent={`${props.user.name} hasn't assigned any fallacies to ${props.page.name}`}
 					history={props.history}
 					icon="warning sign"
-					itemsPerRow={2}
+					itemsPerRow={3}
 					network={props.page.network}
 					showPics={false}
 					source="targets"
@@ -327,7 +327,7 @@ class Target extends Component {
 				<div className="targetsPage">
 					<DisplayMetaTags page="target" props={this.props} state={this.state} />
 					<PageHeader {...this.props} />
-					<Container className="mainContainer" text textAlign="left">
+					<Container className="mainContainer" textAlign="left">
 						{error ? (
 							<Container className="mainContainer" text textAlign="center">
 								<Image
