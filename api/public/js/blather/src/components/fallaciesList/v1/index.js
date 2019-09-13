@@ -85,7 +85,15 @@ class FallaciesList extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if (nextProps.tagId !== this.props.tagId || nextProps.fallacyId !== this.props.fallacyId) {
+		if (nextProps.source === "pages") {
+			this.setState({ value: nextProps.fallacies })
+		}
+
+		if (
+			nextProps.tagId !== this.props.tagId ||
+			nextProps.fallacyId !== this.props.fallacyId ||
+			nextProps.fallacies !== this.props.fallacies
+		) {
 			this.props.getFallacies({
 				assignedBy: nextProps.assignedBy,
 				assignedTo: nextProps.assignedTo,
@@ -158,8 +166,7 @@ class FallaciesList extends Component {
 				assignedTo: this.props.assignedTo,
 				commentId: this.props.commentId,
 				exclude: this.props.exclude,
-				fallacies:
-					this.props.fallacies === "" ? this.state.fallacies : this.props.fallacies,
+				fallacies: this.props.fallacies === "" ? this.state.value : this.props.fallacies,
 				fallacyId: this.props.fallacyId,
 				network: this.props.network,
 				objectId: this.props.objectId,
@@ -195,7 +202,7 @@ class FallaciesList extends Component {
 	}
 
 	onChangeSearch = (e, { text, value }) => {
-		this.setState({ fallacies: value, value })
+		this.setState({ value })
 
 		const assignedTo = this.props.source === "tag" ? value : this.props.assignedTo
 		const fallacies = this.props.source === "tag" ? null : value
@@ -252,14 +259,14 @@ class FallaciesList extends Component {
 
 	render() {
 		const { options, showFilter, showTargets, sortValue, value } = this.state
-		const { q } = this.props
-		const placeholder = this.props.source === "tag" ? "Filter by page" : "Filter by fallacy"
+		const { q, source } = this.props
+		const placeholder = source === "tag" ? "Filter by page" : "Filter by fallacy"
 
 		const FilterSection = props => {
 			const filterVisible = showFilter && !showTargets
 			return (
 				<div className="fallacyFilter">
-					{props.source === "users" && (
+					{source === "users" && (
 						<Message
 							className="targetMsg"
 							content={
@@ -442,7 +449,7 @@ class FallaciesList extends Component {
 
 				if (result.id) {
 					let img =
-						props.assignedBy || props.source === "fallacy" || props.source === "tag"
+						props.assignedBy || source === "fallacy" || source === "tag"
 							? result.page_profile_pic
 							: result.user_img
 					let meta = (
