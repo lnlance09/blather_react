@@ -8,7 +8,7 @@ import About from "pages/about"
 import Bot from "pages/bot"
 import Fallacy from "pages/fallacy"
 import Fallacies from "pages/fallacies"
-import FallaciesJSON from "fallacies.json"
+import FallaciesJSON from "fallacyOptions.json"
 import Home from "pages/home"
 import Logo from "./images/icons/icon-100x100.png"
 import NewsFeed from "pages/newsFeed"
@@ -147,21 +147,7 @@ class App extends Component {
 								path="/fallacies/:id"
 								render={props => {
 									const id = props.match.params.id
-									const idSlug = id.split("-").join(" ")
-									const inArray = FallaciesJSON.filter(f => f.name.toLowerCase() === idSlug)
-									if (inArray.length === 0) {
-										return <Fallacy {...props} />
-									}
-									return <Fallacies {...props} />
-								}}
-							/>
-							<Route
-								exact
-								path="/fallacies/:id/:tab"
-								render={props => {
-									const id = props.match.params.id
-									const idSlug = id.split("-").join(" ")
-									const inArray = FallaciesJSON.filter(f => f.name.toLowerCase() === idSlug)
+									const inArray = FallaciesJSON.filter(f => f.key === id)
 									if (inArray.length === 0) {
 										return <Fallacy {...props} />
 									}
