@@ -663,42 +663,42 @@ a {
     width: 50px; } }
 
 /* Targets page */
-.targetsPage .ui.text.container {
+.targetsPage .ui.container {
   font-size: 13px; }
-  .targetsPage .ui.text.container .summaryHeader .icon {
+  .targetsPage .ui.container .summaryHeader .icon {
     color: #2185D0;
     cursor: pointer;
     float: right;
     font-size: 19.5px;
     line-height: 19.5px; }
-  .targetsPage .ui.text.container .imgContainer {
+  .targetsPage .ui.container .imgContainer {
     height: 220px; }
-    .targetsPage .ui.text.container .imgContainer .targetImgDiv {
+    .targetsPage .ui.container .imgContainer .targetImgDiv {
       left: 0;
       margin: auto;
       padding-right: 50px;
       position: absolute;
       right: 0; }
-      .targetsPage .ui.text.container .imgContainer .targetImgDiv .targetImg {
+      .targetsPage .ui.container .imgContainer .targetImgDiv .targetImg {
         cursor: pointer;
         margin-top: 15px;
         position: absolute;
         width: 200px; }
-        .targetsPage .ui.text.container .imgContainer .targetImgDiv .targetImg + .header.large {
+        .targetsPage .ui.container .imgContainer .targetImgDiv .targetImg + .header.large {
           margin-top: 8px; }
-        .targetsPage .ui.text.container .imgContainer .targetImgDiv .targetImg.user {
+        .targetsPage .ui.container .imgContainer .targetImgDiv .targetImg.user {
           left: 0;
           right: 160px; }
-  .targetsPage .ui.text.container .answers, .targetsPage .ui.text.container .questionnaire {
+  .targetsPage .ui.container .answers, .targetsPage .ui.container .questionnaire {
     margin-bottom: 16px; }
-  .targetsPage .ui.text.container .questionnaire {
+  .targetsPage .ui.container .questionnaire {
     white-space: pre-line; }
-  .targetsPage .ui.text.container .answers .answerField {
+  .targetsPage .ui.container .answers .answerField {
     font-size: 14px; }
-  .targetsPage .ui.text.container .answers .header.sub {
+  .targetsPage .ui.container .answers .header.sub {
     margin-top: 5px; }
   @media only screen and (max-width: 1025px) {
-    .targetsPage .ui.text.container .answers .header {
+    .targetsPage .ui.container .answers .header {
       font-size: 16px !important; } }
 
 /* Users page */

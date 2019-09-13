@@ -47,7 +47,6 @@ class FallaciesList extends Component {
 			network: "",
 			objectId: null,
 			options: [],
-			page: this.props.page,
 			showFilter,
 			showTargets: false,
 			sortValue: "date",
@@ -59,6 +58,8 @@ class FallaciesList extends Component {
 	}
 
 	componentDidMount() {
+		this.props.updateSearchTerm({ q: "" })
+
 		if (this.props.source !== "fallacy") {
 			this.fetchFallacies(this.props)
 		}
@@ -73,7 +74,6 @@ class FallaciesList extends Component {
 			network: this.props.network,
 			objectId: this.props.objectId,
 			page: 0,
-			q: this.props.q,
 			shuffle: this.props.shuffle,
 			sort: this.state.sortValue,
 			tagId: this.props.tagId
@@ -84,7 +84,7 @@ class FallaciesList extends Component {
 		}
 	}
 
-	componentWillUpdate(nextProps) {
+	componentWillReceiveProps(nextProps) {
 		if (nextProps.tagId !== this.props.tagId || nextProps.fallacyId !== this.props.fallacyId) {
 			this.props.getFallacies({
 				assignedBy: nextProps.assignedBy,
@@ -152,7 +152,6 @@ class FallaciesList extends Component {
 	loadMore = () => {
 		if (this.props.hasMore && !this.props.loadingMore) {
 			const newPage = parseInt(this.props.page + 1, 10)
-			this.setState({ page: newPage })
 			this.props.toggleLoading()
 			this.props.getFallacies({
 				assignedBy: this.props.assignedBy,
@@ -196,7 +195,7 @@ class FallaciesList extends Component {
 	}
 
 	onChangeSearch = (e, { text, value }) => {
-		this.setState({ fallacies: value, page: 0, value })
+		this.setState({ fallacies: value, value })
 
 		const assignedTo = this.props.source === "tag" ? value : this.props.assignedTo
 		const fallacies = this.props.source === "tag" ? null : value
@@ -256,7 +255,7 @@ class FallaciesList extends Component {
 		const { q } = this.props
 		const placeholder = this.props.source === "tag" ? "Filter by page" : "Filter by fallacy"
 
-		const FilterSection = ({ props }) => {
+		const FilterSection = props => {
 			const filterVisible = showFilter && !showTargets
 			return (
 				<div className="fallacyFilter">
@@ -576,7 +575,7 @@ class FallaciesList extends Component {
 		return (
 			<Provider store={store}>
 				<div className="fallaciesList">
-					<FilterSection props={this.props} />
+					{FilterSection(this.props)}
 					{this.props.results.length > 0 ? (
 						<div>
 							<Visibility
