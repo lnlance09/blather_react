@@ -72,6 +72,17 @@
 
         case "/fallacies":
             $title = "Fallacies";
+            $description = "A list of logical fallacies along with their definitions and examples of how they're used";
+
+            $html = "<h1>Logical Fallacies</h1>";
+            $sql = "SELECT description, name FROM fallacies";
+            $result = $mysqli->query($sql);
+            while ($row = $result->fetch_assoc()) {
+                $slug = strtolower(str_replace(' ', '-', $row['name']));
+                $html .= "<h2><a href='".$base_url."fallacies/".$slug."'>".$row['name']."</a></h2><p>".$row['description']."</p>";
+            }
+            $result->close();
+
             $set = true;
             break;
 
