@@ -736,7 +736,16 @@ class Fallacy extends Component {
 				{this.props.id ? (
 					<div>
 						<Divider />
-						<FallacyRef id={this.props.fallacyId} imageFluid={true} justImage={true} />
+						<div
+							onClick={() => this.props.history.push(`/fallacies/${hyphenateText(this.props.fallacyName)}`)}
+							style={{ cursor: "pointer" }}
+						>
+							<FallacyRef
+								id={this.props.fallacyId}
+								imageFluid={true}
+								justImage={true}
+							/>
+						</div>
 					</div>
 				) : (
 					<LazyLoad header={false} />
