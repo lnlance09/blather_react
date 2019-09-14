@@ -319,6 +319,8 @@ a {
     width: 100%; }
     .fallacyPage .fallacyGrid .shareList .item {
       cursor: pointer; }
+      .fallacyPage .fallacyGrid .shareList .item .icon.linkify {
+        margin-right: 3px; }
 
 .fallacyPage .exportEmbed {
   display: inline;

@@ -15,6 +15,7 @@ import {
 	uploadBackgroundPic
 } from "pages/actions/fallacy"
 import { CirclePicker } from "react-color"
+import { CopyToClipboard } from "react-copy-to-clipboard"
 import { FacebookProvider, Comments, Like } from "react-facebook"
 import { connect, Provider } from "react-redux"
 import { Link } from "react-router-dom"
@@ -35,6 +36,7 @@ import {
 	List,
 	Message,
 	Modal,
+	Popup,
 	Radio,
 	Responsive,
 	Segment,
@@ -296,6 +298,7 @@ class Fallacy extends Component {
 			background,
 			backgroundColor,
 			bearer,
+			copied,
 			downloading,
 			exportOpt,
 			id,
@@ -308,7 +311,7 @@ class Fallacy extends Component {
 			youtubeId
 		} = this.state
 
-		const { createdBy, backgroundOptions, user } = this.props
+		const { backgroundOptions, createdBy, user } = this.props
 		const canEdit = createdBy ? createdBy.id === userId || createdBy.id === 6 : false
 
 		let userLink = ""
@@ -330,8 +333,8 @@ class Fallacy extends Component {
 						<div style={{ padding: "10px 6px" }}>
 							<FacebookProvider appId="498572440350555">
 								<Like
-									href={`https://blather.io/fallacies/${props.slug}`}
 									colorScheme="dark"
+									href={`https://blather.io/fallacies/${props.slug}`}
 									showFaces
 								/>
 							</FacebookProvider>
@@ -415,8 +418,9 @@ class Fallacy extends Component {
 								<Button
 									className="downloadBtn"
 									color="blue"
-									content="Create screenshot"
+									content="Create a meme"
 									fluid={side === "right"}
+									icon="image"
 									loading={props.creating}
 									onClick={this.toggleModal}
 								/>
@@ -667,7 +671,6 @@ class Fallacy extends Component {
 							<div>
 								<Input
 									icon="percent"
-									iconPosition="right"
 									onChange={this.onChangeWidth}
 									placeholder="Width"
 									type="number"
@@ -864,6 +867,35 @@ class Fallacy extends Component {
 									<Icon className="redditIcon" name="reddit" size="large" /> share
 									on reddit
 								</RedditShareButton>
+							</List.Item>
+							<List.Item>
+								<Popup
+									trigger={
+										<CopyToClipboard
+											onCopy={() => this.setState({ copied: true })}
+											text={`${window.location.origin}/fallacies/${id}`}
+										>
+											<div
+												onMouseLeave={() =>
+													this.setState({ copied: false })
+												}
+											>
+												<Icon color="blue" name="linkify" size="large" />{" "}
+												copy this URL
+											</div>
+										</CopyToClipboard>
+									}
+								>
+									<div>
+										{copied ? (
+											<p>
+												<Icon color="green" name="checkmark" /> Copied
+											</p>
+										) : (
+											"Copy this link"
+										)}
+									</div>
+								</Popup>
 							</List.Item>
 						</List>
 					) : (
