@@ -541,6 +541,10 @@ a {
 
             .item {
                 cursor: pointer;
+
+                .icon.linkify {
+                    margin-right: 3px;
+                }
             }
         }
     }
