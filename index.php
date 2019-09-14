@@ -407,7 +407,7 @@
                 $exp = explode('-', $id);
                 $id = end($exp);
 
-                $sql = "SELECT t.value, t.slug, tv.description, ti.s3_path, ti.caption, fe.title, fe.slug
+                $sql = "SELECT t.value, t.slug AS tag_slug, tv.description, ti.s3_path, ti.caption, fe.title, fe.slug
                         FROM tags t
 
                         INNER JOIN tag_versions tv ON t.id = tv.tag_id
@@ -427,7 +427,7 @@
 
                     while ($row = $result->fetch_assoc()) {
                         if ($i === 0) {
-                            $canonical_url = $base_url.'tags/'.$row['slug'];
+                            $canonical_url = $base_url.'tags/'.$row['tag_slug'];
                             $title = $row['value'];
                             $description = substr($row['description'], 0, 160);
 
