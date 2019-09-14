@@ -75,6 +75,12 @@
             $description = "A list of logical fallacies along with their definitions and examples of how they're used";
 
             $html = "<h1>Logical Fallacies</h1>";
+
+            $mysqli = new mysqli("127.0.0.1:8889", "root", "root", "blather_react");
+            if ($mysqli->connect_errno) {
+                printf("Connect failed: %s\n", $mysqli->connect_error);
+                exit();
+            }
             $sql = "SELECT description, name FROM fallacies";
             $result = $mysqli->query($sql);
             while ($row = $result->fetch_assoc()) {
