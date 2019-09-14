@@ -140,7 +140,11 @@
 	}
 ?>
 
-
+	<url>
+		<loc><?php echo $base_url; ?>bot</loc>
+		<changefreq>daily</changefreq>
+		<priority>0.4</priority>
+	</url>
 	<url>
 		<loc><?php echo $base_url; ?>about</loc>
 		<changefreq>daily</changefreq>
