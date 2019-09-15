@@ -14,7 +14,9 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
-  position: relative; }
+  overflow-y: scroll;
+  position: relative;
+  -webkit-overflow-scrolling: touch; }
 
 .app {
   background: #F9FAFB !important; }
