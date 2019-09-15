@@ -877,6 +877,8 @@ class Fallacy extends Component {
 							</List.Item>
 							<List.Item>
 								<Popup
+									position="left center"
+									style={{ zIndex: 999 }}
 									trigger={
 										<CopyToClipboard
 											onCopy={() => this.setState({ copied: true })}
