@@ -196,6 +196,7 @@ a {
 .aboutPage .aboutContainer {
   margin: 0 !important; }
 
+/* Bot page */
 .botPage .singleButtons {
   margin-top: 18px; }
 
@@ -362,7 +363,6 @@ a {
   width: 100%; }
 
 .fallacyPage .similarContent {
-  margin-bottom: 25px;
   width: 100%; }
 
 .fallacyPage .tagsCard {
