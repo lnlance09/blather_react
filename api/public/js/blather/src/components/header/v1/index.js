@@ -43,9 +43,7 @@ class Header extends Component {
 		this.props.history.push(`/fallacies/${name.split(" ").join("-")}`)
 	}
 
-	onChangeSearch = (e, { value }) => {
-		this.setState({ value })
-	}
+	onChangeSearch = (e, { value }) => this.setState({ value })
 
 	onLogout() {
 		this.props.logout()

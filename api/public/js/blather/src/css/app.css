@@ -7,10 +7,14 @@
   font-family: merriweather;
   src: url("fonts/merriweather/Merriweather-Regular.otf"); }
 
+html, body {
+  overflow-x: hidden; }
+
 body {
   height: 100%;
   margin: 0;
-  padding: 0; }
+  padding: 0;
+  position: relative; }
 
 .app {
   background: #F9FAFB !important; }
@@ -18,9 +22,7 @@ body {
 .mainContainer {
   min-height: 100vh;
   margin-top: 5.0em;
-  padding-left: 15px;
-  padding-right: 15px;
-  padding-top: 15px; }
+  padding: 15px 15px 0 15px; }
   .mainContainer.bc {
     margin-top: 2.4em; }
   .mainContainer.forText {
