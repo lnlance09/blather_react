@@ -73,7 +73,7 @@ class Page extends Component {
 	}
 
 	componentDidMount() {
-		window.scrollTo({ top: 0, behavior: "smooth" })
+		
 	}
 
 	componentWillReceiveProps(props) {
@@ -91,14 +91,11 @@ class Page extends Component {
 				id,
 				type: network
 			})
-
 			this.setState({
 				id,
 				network,
 				page: 0
 			})
-
-			window.scrollTo({ top: 0, behavior: "smooth" })
 		}
 
 		const label = this.determineItemsLabel(network)
@@ -120,20 +117,16 @@ class Page extends Component {
 		}
 	}
 
-	handleItemClick = (e, { name }) => {
-		this.setState({ activeItem: name })
-		this.props.history.push(`/pages/${this.state.network}/${this.state.id}/${name}`)
-	}
+	handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
-	scrollToTop() {
+	scrollToMenu() {
 		const element = document.getElementsByClassName("socialMediaPageMenu")
 		element[0].scrollIntoView({ behavior: "smooth" })
 	}
 
 	setFallacyId = id => {
-		this.scrollToTop()
+		this.scrollToMenu()
 		this.setState({ activeItem: "fallacies", fallacyId: id })
-		this.props.history.push(`/pages/${this.state.network}/${this.state.id}/fallacies/${id}`)
 	}
 
 	render() {
