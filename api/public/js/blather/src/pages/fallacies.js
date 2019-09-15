@@ -31,7 +31,7 @@ class Fallacies extends Component {
 	}
 
 	componentWillMount() {
-		window.scrollTo({ top: 0, behavior: "smooth" })
+		
 	}
 
 	componentWillReceiveProps(props) {
@@ -66,17 +66,11 @@ class Fallacies extends Component {
 		const slug = option.length === 1 ? option[0].key : null
 
 		this.props.history.push(`/fallacies/${slug}`)
-		this.scrollToTop()
-
 		this.setState({
 			activeItem: id,
 			activeItemName,
 			selected: true
 		})
-	}
-
-	scrollToTop() {
-		window.scrollTo({ top: 0, behavior: "smooth" })
 	}
 
 	render() {

@@ -3,6 +3,7 @@ import "semantic/dist/semantic.min.css"
 import { Provider } from "react-redux"
 import React, { Component } from "react"
 import { Route, Router, Switch } from "react-router-dom"
+import ScrollToTop from "react-router-scroll-top"
 import history from "history.js"
 import About from "pages/about"
 import Bot from "pages/bot"
@@ -97,133 +98,135 @@ class App extends Component {
 			<div className="app">
 				<Provider store={store}>
 					<Router history={history}>
-						<Route
-							exact
-							path="/"
-							render={props => (
-								<Home key={window.location.pathname} {...props} />
-							)}
-						/>
-
-						<Route component={NewsFeed} exact path="/activity" />
-
-						<Route
-							exact
-							path="/assign"
-							render={props => (
-								<Home key={window.location.pathname} {...props} />
-							)}
-						/>
-
-						<Route component={Bot} path="/bot" />
-
-						<Switch>
+						<ScrollToTop>
 							<Route
 								exact
-								path="/about"
+								path="/"
 								render={props => (
-									<About key={window.location.pathname} {...props} />
+									<Home key={window.location.pathname} {...props} />
 								)}
 							/>
+
+							<Route component={NewsFeed} exact path="/activity" />
+
 							<Route
-								path="/about/:tab(contact|privacy|rules)"
+								exact
+								path="/assign"
 								render={props => (
-									<About key={window.location.pathname} {...props} />
+									<Home key={window.location.pathname} {...props} />
 								)}
 							/>
-						</Switch>
 
-						<Switch>
-							<Route
-								path="/comment/:id"
-								render={props => <Post sendNotification={(title, body, url) => this.sendNotification(title, body, url)} {...props} />}
-							/>
-						</Switch>
+							<Route component={Bot} path="/bot" />
 
-						<Switch>
-							<Route component={Fallacies} exact path="/fallacies" />
-							<Route
-								exact
-								path="/fallacies/:id"
-								render={props => {
-									const id = props.match.params.id
-									const inArray = FallaciesJSON.filter(f => f.key === id)
-									if (inArray.length === 0) {
-										return <Fallacy {...props} />
-									}
-									return <Fallacies {...props} />
-								}}
-							/>
-						</Switch>
+							<Switch>
+								<Route
+									exact
+									path="/about"
+									render={props => (
+										<About key={window.location.pathname} {...props} />
+									)}
+								/>
+								<Route
+									path="/about/:tab(contact|privacy|rules)"
+									render={props => (
+										<About key={window.location.pathname} {...props} />
+									)}
+								/>
+							</Switch>
 
-						<Switch>
-							<Route
-								exact
-								path="/pages/:network/:id"
-								render={props => <Page {...props} />}
-							/>
-							<Route
-								path="/pages/:network/:id/:tab/:fallacyId"
-								render={props => <Page {...props} />}
-							/>
-							<Route
-								path="/pages/:network/:id/:tab"
-								render={props => <Page {...props} />}
-							/>
-						</Switch>
+							<Switch>
+								<Route
+									path="/comment/:id"
+									render={props => <Post sendNotification={(title, body, url) => this.sendNotification(title, body, url)} {...props} />}
+								/>
+							</Switch>
 
-						<Switch>
-							<Route exact path="/search" render={props => <SearchPage {...props} />} />
-							<Route path="/search/:type" render={props => <SearchPage {...props} />} />
-						</Switch>
+							<Switch>
+								<Route component={Fallacies} exact path="/fallacies" />
+								<Route
+									exact
+									path="/fallacies/:id"
+									render={props => {
+										const id = props.match.params.id
+										const inArray = FallaciesJSON.filter(f => f.key === id)
+										if (inArray.length === 0) {
+											return <Fallacy {...props} />
+										}
+										return <Fallacies {...props} />
+									}}
+								/>
+							</Switch>
 
-						<Switch>
-							<Route component={Settings} exact path="/settings" />
-							<Route component={Settings} path="/settings/:tab" />
-						</Switch>
+							<Switch>
+								<Route
+									exact
+									path="/pages/:network/:id"
+									render={props => <Page {...props} />}
+								/>
+								<Route
+									path="/pages/:network/:id/:tab/:fallacyId"
+									render={props => <Page {...props} />}
+								/>
+								<Route
+									path="/pages/:network/:id/:tab"
+									render={props => <Page {...props} />}
+								/>
+							</Switch>
 
-						<Route component={SignIn} path="/signin" />
+							<Switch>
+								<Route exact path="/search" render={props => <SearchPage {...props} />} />
+								<Route path="/search/:type" render={props => <SearchPage {...props} />} />
+							</Switch>
 
-						<Switch>
-							<Route component={Tag} exact path="/tags/create" />
-							<Route component={Tag} path="/tags/:id" />
-						</Switch>
+							<Switch>
+								<Route component={Settings} exact path="/settings" />
+								<Route component={Settings} path="/settings/:tab" />
+							</Switch>
 
-						<Switch>
-							<Route
-								path="/tweet/:id"
-								render={props => <Post sendNotification={(title, body, url) => this.sendNotification(title, body, url)} {...props} />}
-							/>
-						</Switch>
+							<Route component={SignIn} path="/signin" />
 
-						<Switch>
-							<Route component={Target} exact path="/targets/:userId/:pageId" />
-							<Route component={Target} exact path="/targets/create/:pageId" />
-						</Switch>
+							<Switch>
+								<Route component={Tag} exact path="/tags/create" />
+								<Route component={Tag} path="/tags/:id" />
+							</Switch>
 
-						<Switch>
-							<Route
-								exact
-								path="/users/:username"
-								render={props => {
-									return <Users {...props} />
-								}}
-							/>
-							<Route
-								path="/users/:username/:tab"
-								render={props => {
-									return <Users {...props} />
-								}}
-							/>
-						</Switch>
+							<Switch>
+								<Route
+									path="/tweet/:id"
+									render={props => <Post sendNotification={(title, body, url) => this.sendNotification(title, body, url)} {...props} />}
+								/>
+							</Switch>
 
-						<Switch>
-							<Route
-								exact
-								path="/video/:id"
-								render={props => <Post sendNotification={(title, body, url) => this.sendNotification(title, body, url)} {...props} />}
-							/>
-						</Switch>
+							<Switch>
+								<Route component={Target} exact path="/targets/:userId/:pageId" />
+								<Route component={Target} exact path="/targets/create/:pageId" />
+							</Switch>
+
+							<Switch>
+								<Route
+									exact
+									path="/users/:username"
+									render={props => {
+										return <Users {...props} />
+									}}
+								/>
+								<Route
+									path="/users/:username/:tab"
+									render={props => {
+										return <Users {...props} />
+									}}
+								/>
+							</Switch>
+
+							<Switch>
+								<Route
+									exact
+									path="/video/:id"
+									render={props => <Post sendNotification={(title, body, url) => this.sendNotification(title, body, url)} {...props} />}
+								/>
+							</Switch>
+						</ScrollToTop>
 					</Router>
 				</Provider>
 

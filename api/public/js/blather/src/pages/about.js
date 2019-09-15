@@ -38,7 +38,7 @@ class About extends Component {
 	}
 
 	componentDidMount() {
-		window.scrollTo({ top: 0, behavior: "smooth" })
+		
 	}
 
 	componentWillMount() {

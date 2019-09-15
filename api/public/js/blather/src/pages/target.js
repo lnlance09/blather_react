@@ -88,7 +88,7 @@ class Target extends Component {
 	}
 
 	componentWillMount() {
-		window.scrollTo({ top: 0, behavior: "smooth" })
+		
 	}
 
 	changeSincerityExplanation = (e, { value }) => this.props.changeSincerityExplanation({ value })

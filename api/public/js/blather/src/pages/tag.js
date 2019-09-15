@@ -96,7 +96,6 @@ class Tag extends Component {
 	}
 
 	componentDidMount() {
-		window.scrollTo({ top: 0, behavior: "smooth" })
 		this.props.toggleLoading()
 		this.props.fetchTagInfo({ id: this.state.id })
 		this.props.fetchTaggedUsers({ id: this.state.id })
@@ -148,11 +147,6 @@ class Tag extends Component {
 				})
 			})
 		}
-	}
-
-	scrollToTop() {
-		const element = document.getElementsByClassName("examplesContent")
-		element[0].scrollIntoView({ behavior: "smooth" })
 	}
 
 	setVersion = edit => {
@@ -397,7 +391,6 @@ class Tag extends Component {
 								props.reset()
 								props.toggleLoading()
 								props.history.push(`/tags/${tag.id}`)
-								window.scrollTo({ top: 0, behavior: "smooth" })
 							}
 						}}
 						raised={selected}
