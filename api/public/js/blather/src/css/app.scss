@@ -5,10 +5,17 @@
     src: url("fonts/merriweather/Merriweather-Regular.otf");
 }
 
+html, body {
+    overflow-x: hidden;
+}
+
 body {
     height: 100%;
     margin: 0;
     padding: 0;
+    overflow-y: scroll;
+    position: relative;
+    -webkit-overflow-scrolling: touch;
 }
 
 .app {
