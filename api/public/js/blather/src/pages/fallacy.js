@@ -16,7 +16,7 @@ import {
 } from "pages/actions/fallacy"
 import { CirclePicker } from "react-color"
 import { CopyToClipboard } from "react-copy-to-clipboard"
-import { FacebookProvider, Comments, Like } from "react-facebook"
+import { FacebookProvider, Comments, Initialize, Like } from "react-facebook"
 import { connect, Provider } from "react-redux"
 import { Link } from "react-router-dom"
 import { FacebookShareButton, RedditShareButton, TwitterShareButton } from "react-share"
@@ -322,21 +322,22 @@ class Fallacy extends Component {
 				{props.id && (
 					<div>
 						<FacebookProvider appId="498572440350555" style={{ width: "100%" }}>
-							<Comments
-								href={`https://blather.io/fallacies/${props.slug}`}
-								width="100%"
-							/>
-						</FacebookProvider>
-
-						<div style={{ padding: "10px 6px" }}>
-							<FacebookProvider appId="498572440350555">
+							<Initialize>
+								{({ isReady, api }) => (
+									<Comments
+										href={`https://blather.io/fallacies/${props.slug}`}
+										width="100%"
+									/>
+								)}
+							</Initialize>
+							<div style={{ padding: "10px 6px" }}>
 								<Like
 									colorScheme="dark"
 									href={`https://blather.io/fallacies/${props.slug}`}
 									showFaces
 								/>
-							</FacebookProvider>
-						</div>
+							</div>
+						</FacebookProvider>
 					</div>
 				)}
 			</div>
@@ -922,7 +923,9 @@ class Fallacy extends Component {
 			if (props.id) {
 				return (
 					<div className="similarContent">
-						<Divider />
+						<Header size="large">
+							Similar Fallacies
+						</Header>
 						<FallaciesList
 							emptyMsgContent="There are no similar fallacies"
 							exclude={[props.id]}
