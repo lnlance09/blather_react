@@ -29,6 +29,32 @@
 			*/
 		}
 
+		public function createArchive() {
+			$url = $this->input->post('url');
+			if (empty($url)) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'You must include a URL',
+				]);
+				exit;
+			}
+
+			$parse = parseUrl($url);
+			if (!$parse) {
+				$this->output->set_status_header(401);
+				echo json_encode([
+					'error' => 'This URL cannot be parsed',
+				]);
+				exit;
+			}
+
+			$code = createArchive($url);
+			echo json_encode([
+				'code' => $code,
+				'error' => $code ? false : true
+			]);
+		}
+
 		public function feed() {
 			$page = $this->input->get('page');
 

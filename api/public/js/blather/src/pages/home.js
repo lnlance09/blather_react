@@ -60,9 +60,7 @@ class Home extends Component {
 		this.onPaste = this.onPaste.bind(this)
 	}
 
-	componentDidMount() {
-		
-	}
+	componentDidMount() {}
 
 	componentWillMount(newProps) {
 		const qs = queryString.parse(this.props.location.search)

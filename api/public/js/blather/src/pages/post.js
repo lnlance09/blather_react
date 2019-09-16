@@ -94,9 +94,7 @@ class Post extends Component {
 		this.setClip = this.setClip.bind(this)
 	}
 
-	componentDidMount() {
-		
-	}
+	componentDidMount() {}
 
 	componentWillReceiveProps(newProps) {
 		const qs = queryString.parse(newProps.location.search)
