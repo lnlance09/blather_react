@@ -358,18 +358,17 @@ a {
   width: 100%; }
 
 .fallacyPage .commentsContent {
-  margin-bottom: 25px;
   overflow-x: hidden;
   width: 100%; }
 
 .fallacyPage .similarContent {
+  margin-top: 25px;
   width: 100%; }
 
 .fallacyPage .tagsCard {
   margin-top: 20px; }
 
 .fallacyPage .retractionContent {
-  margin-bottom: 25px;
   width: 100%; }
 
 .fallacyPage canvas {
