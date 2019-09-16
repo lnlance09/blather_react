@@ -37,9 +37,7 @@ class About extends Component {
 		this.sendContactMsg = this.sendContactMsg.bind(this)
 	}
 
-	componentDidMount() {
-		
-	}
+	componentDidMount() {}
 
 	componentWillMount() {
 		let tab = "about"

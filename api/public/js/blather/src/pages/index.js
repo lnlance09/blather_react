@@ -72,9 +72,7 @@ class Page extends Component {
 		this.setFallacyId = this.setFallacyId.bind(this)
 	}
 
-	componentDidMount() {
-		
-	}
+	componentDidMount() {}
 
 	componentWillReceiveProps(props) {
 		const id = props.match.params.id

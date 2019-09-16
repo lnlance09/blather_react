@@ -38,9 +38,7 @@ class NewsFeed extends Component {
 		this.props.mostFallacious()
 	}
 
-	componentDidMount() {
-		
-	}
+	componentDidMount() {}
 
 	render() {
 		const { auth } = this.state

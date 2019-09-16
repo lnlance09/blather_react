@@ -30,9 +30,7 @@ class Fallacies extends Component {
 		this.onChangeFallacy = this.onChangeFallacy.bind(this)
 	}
 
-	componentWillMount() {
-		
-	}
+	componentWillMount() {}
 
 	componentWillReceiveProps(props) {
 		const name = props.match.params.id

@@ -85,9 +85,7 @@ class SettingsPage extends Component {
 		this.setPassword = this.setPassword.bind(this)
 	}
 
-	componentDidMount() {
-		
-	}
+	componentDidMount() {}
 
 	componentWillReceiveProps(props) {
 		if (props.passwordChangeSuccessful) {

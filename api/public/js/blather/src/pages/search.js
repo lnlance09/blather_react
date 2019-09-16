@@ -37,9 +37,7 @@ class SearchPage extends Component {
 		}
 	}
 
-	componentDidMount() {
-		
-	}
+	componentDidMount() {}
 
 	componentWillReceiveProps(props) {
 		const _query = qs.parse(this.props.location.search)

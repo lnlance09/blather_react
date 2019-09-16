@@ -735,7 +735,11 @@ class Fallacy extends Component {
 					<div>
 						<Divider />
 						<div
-							onClick={() => this.props.history.push(`/fallacies/${hyphenateText(this.props.fallacyName)}`)}
+							onClick={() =>
+								this.props.history.push(
+									`/fallacies/${hyphenateText(this.props.fallacyName)}`
+								)
+							}
 							style={{ cursor: "pointer" }}
 						>
 							<FallacyRef

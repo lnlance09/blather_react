@@ -22,6 +22,7 @@ import LazyLoad from "components/lazyLoad/v1/"
 import Marked from "marked"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
+import request from "request"
 import TimeField from "react-simple-timefield"
 import Tweet from "components/tweet/v1/"
 import YouTubeCommentsSection from "components/youTubeVideo/v1/comments"
@@ -82,6 +83,25 @@ class FallacyExample extends Component {
 				contradictionStartTime: startTime > 0 ? formatTime(startTime) : ""
 			})
 		}
+	}
+
+	createArchive = url => {
+		request.post(
+			`${window.location.origin}/api/home/createArchive`,
+			{
+				form: {
+					url
+				},
+				json: true
+			},
+			function(err, response, body) {
+				if (body.error) {
+					console.log("error")
+				} else {
+					window.open(`http://archive.is/${body.code}`, "_blank").focus()
+				}
+			}
+		)
 	}
 
 	onChangeEndTime = (time, contradiction) => {
@@ -408,7 +428,17 @@ class FallacyExample extends Component {
 						<List.Item>
 							<List.Icon className="twitterIcon" name="twitter" />
 							<List.Content>
-								<a href={tweetLink} rel="noopener noreferrer" target="_blank">
+								<a
+									href={tweetLink}
+									onClick={e => {
+										e.preventDefault()
+										if (e.metaKey) {
+											this.createArchive(tweetLink)
+										} else {
+											window.open(tweetLink, "_blank").focus()
+										}
+									}}
+								>
 									{tweetLink}
 								</a>
 							</List.Content>
