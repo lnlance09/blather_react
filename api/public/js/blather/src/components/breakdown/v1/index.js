@@ -149,7 +149,7 @@ class Breakdown extends Component {
 					</Segment>
 				)}
 
-				<Divider hidden />
+				<Divider hidden section />
 
 				{placeholder.id ? (
 					<div>
