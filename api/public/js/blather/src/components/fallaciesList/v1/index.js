@@ -377,6 +377,7 @@ class FallaciesList extends Component {
 								<Card.Content>
 									{!props.usePics && (
 										<Image
+											bordered
 											circular
 											floated="right"
 											onError={i => (i.target.src = ImagePic)}
@@ -501,6 +502,7 @@ class FallaciesList extends Component {
 							<Card onClick={e => this.redirectToUrl(e, url)}>
 								{props.usePics && (
 									<Image
+										bordered
 										onError={i => (i.target.src = ImagePic)}
 										src={img}
 										ui={false}
@@ -510,6 +512,7 @@ class FallaciesList extends Component {
 								<Card.Content>
 									{!props.usePics && (
 										<Image
+											bordered
 											circular
 											floated="right"
 											onError={i => (i.target.src = ImagePic)}

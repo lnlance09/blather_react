@@ -29,6 +29,7 @@
 			$archive = false;
 			$contradiction_archive = false;
 			$similar_count = 0;
+			$similar_search_type = 'fallacy_type';
 
 			if ($user && $fallacy) {
 				if ($fallacy['ref_id'] == 1) {
@@ -47,18 +48,36 @@
 			}
 
 			if ($fallacy) {
+				$similar_search_type = 'page';
 				$similar_count = $this->fallacies->search([
 					'assigned_by' => null,
-					'assigned_to' => null,
+					'assigned_to' => $fallacy['page_id'],
 					'comment_id' => null,
 					'fallacies' => null,
-					'fallacy_id' => $fallacy['fallacy_id'],
+					'fallacy_id' => null,
 					'network' => null,
 					'object_id' => null,
 					'page' => null,
 					'q' => null,
 					'tag_id' => null
 				], true);
+
+				if ($similar_count < 6) {
+					$similar_search_type = 'fallacy_type';
+					$similar_count = $this->fallacies->search([
+						'assigned_by' => null,
+						'assigned_to' => null,
+						'comment_id' => null,
+						'fallacies' => null,
+						'fallacy_id' => $fallacy['fallacy_id'],
+						'network' => null,
+						'object_id' => null,
+						'page' => null,
+						'q' => null,
+						'tag_id' => null
+					], true);
+				}
+
 				$this->fallacies->updateViewCount($id);
 			}
 
@@ -71,7 +90,8 @@
 				'contradictionArchive' => $contradiction_archive,
 				'error' => !$fallacy,
 				'fallacy' => $fallacy,
-				'similarCount' => $similar_count
+				'similarCount' => $similar_count,
+				'similarSearchType' => $similar_search_type
 			]);
 		}
 

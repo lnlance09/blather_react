@@ -299,6 +299,7 @@ const fallacy = (state = initial(), action) => {
 				s3Updated: fallacy.s3_updated,
 				screenshotEl,
 				similarCount,
+				similarSearchType: payload.similarSearchType,
 				slug: fallacy.slug,
 				startTime: fallacy.start_time,
 				status: parseInt(fallacy.status, 10),

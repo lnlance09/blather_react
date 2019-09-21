@@ -370,6 +370,8 @@ a {
 
 .fallacyPage .retractionContent {
   width: 100%; }
+  .fallacyPage .retractionContent .card .content .image {
+    cursor: pointer; }
 
 .fallacyPage canvas {
   display: none;

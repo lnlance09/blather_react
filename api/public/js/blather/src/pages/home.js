@@ -214,7 +214,7 @@ class Home extends Component {
 													<Message.Header>Sign in</Message.Header>
 													This will be assigned anonymously. It is
 													recommended that you{" "}
-													<Link to="/signin">sign in</Link>
+													<Link to="/signin">sign in</Link>.
 												</Message.Content>
 											</Message>
 										)}
@@ -297,6 +297,43 @@ class Home extends Component {
 
 						<Divider hidden section />
 
+						<div>
+							<Header as="h2" icon textAlign="center">
+								<Icon color="red" name="crosshairs" />
+								<Header.Content>
+									Hit List
+									<Header.Subheader>
+										We need more ammunition to use against grifters and trolls
+									</Header.Subheader>
+								</Header.Content>
+							</Header>
+							<div>
+								<p>
+									This is a list of unsavory characters that traffic in
+									falsehoods, baseless conspiracies, and ideological dogma. For
+									many on this list, their presence on social media is part of a
+									much larger grift that brings them attention, clicks, and
+									opportunities to hawk merchandise to their followers. For
+									others, they may sincerely believe the outrageous things that
+									they say and social media is simply a tool for validating their
+									ideas. Either way, the poor ideas that are echoed by the people
+									on this list must be called out and it usually isn't that
+									difficult to do.
+								</p>
+								<Divider hidden />
+								<List bsize="medium">
+									{this.props.hitList.map(h => (
+										<List.Item key={h.key}>
+											<Link to={`/pages/${h.key}`}>{h.name}</Link> -{" "}
+											{h.description}
+										</List.Item>
+									))}
+								</List>
+							</div>
+						</div>
+
+						<Divider hidden section />
+
 						<Header as="h2" icon textAlign="center">
 							<Icon color="yellow" name="trophy" />
 							Coming soon
@@ -345,6 +382,116 @@ Home.defaultProps = {
 				"https://s3.amazonaws.com/blather22/screenshots/dylan-wheeler-decide-republican-doublethink-logical-fallacy-231.png",
 			key: "dylan-wheeler-cant-decide-if-hes-a-republican-231",
 			link: "dylan-wheeler-cant-decide-if-hes-a-republican-231"
+		}
+	],
+	hitList: [
+		{
+			description: "convicted felon, Christian apologist, and Trump sycophant",
+			key: "twitter/dineshdsouza",
+			name: "Dinesh D'Souza"
+		},
+		{
+			description: "rabid Trump supporter and conservative pseudo intellectual",
+			key: "twitter/kurtschlichter",
+			name: "Kurt Schlichter"
+		},
+		{
+			description:
+				"alt-right apologist and online talk show host who masquerades as a liberal in an attempt to make his guests' views appear less vile than they truly are",
+			key: "twitter/rubinreport",
+			name: "Dave Rubin"
+		},
+		{
+			description:
+				"scantily clad AOC wannabe who likes to take pictures of herself with assault rifles. She's currently running for congress in Florida",
+			key: "twitter/realannapaulina",
+			name: "Anna Paulina Luna"
+		},
+		{
+			description:
+				"bully and \x22journalist\x22 for InfoWars who siezes every opportunity imaginable to take pictures of herself holding a firearm while dressed in provocative attire",
+			key: "twitter/kaitmarieox",
+			name: "Kaitlin Bennett"
+		},
+		{
+			description:
+				"right-wing YouTuber who copies Dave Rubin's whole shtick of pretending to be a liberal",
+			key: "twitter/timcast",
+			name: "Tim Pool"
+		},
+		{
+			description:
+				"race realist, cult leader, and fringe pseudo intellectual who thinks that black people have smaller brains",
+			key: "twitter/stefanmolyneux",
+			name: "Stefan Molyneux"
+		},
+		{
+			description:
+				"evangelical Christian and anti-abortion activist who regularly compares abortion to genocide",
+			key: "twitter/lilagracerose",
+			name: "Lila Rose"
+		},
+		{
+			description:
+				"a fake university that regurgitates thoroughly debunked right-wing talking points",
+			key: "twitter/prageru",
+			name: "Prager University"
+		},
+		{
+			description:
+				"Canadian \x22comedian\x22 who hawks \x22socialism is for fags\x22 t-shirts online",
+			key: "twitter/scrowder",
+			name: "Steven Crowder"
+		},
+		{
+			description:
+				"the quintessential Fox News barbie babe, she's a vile young woman with a nationally syndicated talk show who likes to scream into the conservative echo chamber",
+			key: "twitter/tomilahren",
+			name: "Tomi Lahren"
+		},
+		{
+			description: "the poor man's version of Tomi Lahren",
+			key: "twitter/liz_wheeler",
+			name: "Liz Wheeler"
+		},
+		{
+			description: "alt-lite apologist and nutritional supplement salesman",
+			key: "twitter/benshapiro",
+			name: "Ben Shapiro"
+		},
+		{
+			description: "batshit crazy conspiracy theorist and Alex Jones pretege",
+			key: "twitter/prisonplanet",
+			name: "Paul Joseph Watson"
+		},
+		{
+			description:
+				"founder of Turning Point USA, an astroturf organization that repackages boomer talking points so that they're more appealing to millenials",
+			key: "twitter/charliekirk11",
+			name: "Charlie Kirk"
+		},
+		{
+			description: "partisan hack with her own show on Fox News",
+			key: "twitter/ingrahamangle",
+			name: "Laura Ingraham"
+		},
+		{
+			description:
+				"former cop turned hat salesman with a penchant for bootlicking and delivering rants from his car",
+			key: "twitter/theofficertatum",
+			name: "Brandon Tatum"
+		},
+		{
+			description:
+				"self-loathing homophobe who runs a prominent conspiracy theory website called \x22The Gateway Pundit\x22",
+			key: "twitter/gatewaypundit",
+			name: "Jim Hoft"
+		},
+		{
+			description:
+				"evangelical huckster who is the president of a diploma mill called Liberty University",
+			key: "twitter/jerryfalwelljr",
+			name: "Jerry Falwell Jr."
 		}
 	],
 	getPostFromUrl,
