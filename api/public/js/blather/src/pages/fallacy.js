@@ -978,6 +978,16 @@ class Fallacy extends Component {
 			return mapIdsToNames(this.props.tag_ids, this.props.tag_names)
 		}
 
+		const ViewCount = props => (
+			<Statistic className="viewCount" horizontal size="tiny">
+				<Statistic.Value>
+					<Icon color="red" name="eye" />{" "}
+					{props.viewCount}
+				</Statistic.Value>
+				<Statistic.Label>Views</Statistic.Label>
+			</Statistic>
+		)
+
 		return (
 			<Provider store={store}>
 				<div className="fallacyPage">
@@ -993,14 +1003,7 @@ class Fallacy extends Component {
 									<Grid.Row>{CommentsSection(this.props)}</Grid.Row>
 									<Grid.Row>
 										{ShareSection(false)}
-										{this.props.id && (
-											<Statistic
-												className="viewCount"
-												horizontal
-												label="Views"
-												value={this.props.viewCount}
-											/>
-										)}
+										{this.props.id && ViewCount(this.props)}
 									</Grid.Row>
 									<Grid.Row>{SimilarSection(this.props)}</Grid.Row>
 								</Grid>
@@ -1022,11 +1025,7 @@ class Fallacy extends Component {
 												<Segment className="exportContainer">
 													{ExportSection(this.props, "right")}
 												</Segment>
-												<Statistic
-													horizontal
-													label="Views"
-													value={this.props.viewCount}
-												/>
+												{ViewCount(this.props)}
 												{ShareSection(false)}
 												<TagsCard
 													bearer={bearer}
