@@ -764,8 +764,10 @@ class Fallacy extends Component {
 							<Card fluid>
 								<Card.Content>
 									<Image
+										bordered
 										circular
 										floated="right"
+										onClick={() => props.history.push(userLink)}
 										onError={i => (i.target.src = ImagePic)}
 										size="mini"
 										src={props.user.img}
@@ -924,12 +926,20 @@ class Fallacy extends Component {
 				return (
 					<div className="similarContent">
 						<Header size="large">
-							Similar Fallacies
+							{props.similarSearchType === "page" && (
+								<div>
+									More hot takes from <Link to={userLink}>{props.user.name}</Link>
+								</div>
+							)}
+							{props.similarSearchType === "fallacy_type" && "Similar Fallacies"}
 						</Header>
 						<FallaciesList
+							assignedTo={props.similarSearchType === "page" ? props.user.id : null}
 							emptyMsgContent="There are no similar fallacies"
 							exclude={[props.id]}
-							fallacyId={props.fallacyId}
+							fallacyId={
+								props.similarSearchType === "fallacy_type" ? props.fallacyId : null
+							}
 							history={props.history}
 							icon="warning sign"
 							itemsPerRow={2}
@@ -1101,6 +1111,8 @@ Fallacy.propTypes = {
 	s3Link: PropTypes.string,
 	s3Updated: PropTypes.string,
 	saveScreenshot: PropTypes.func,
+	similarCount: PropTypes.number,
+	similarSearchType: PropTypes.string,
 	slug: PropTypes.string,
 	status: PropTypes.number,
 	screenshotEl: PropTypes.string,

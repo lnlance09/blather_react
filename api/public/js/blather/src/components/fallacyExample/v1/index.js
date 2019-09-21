@@ -14,6 +14,7 @@ import {
 	Image,
 	Input,
 	List,
+	Message,
 	Segment,
 	TextArea
 } from "semantic-ui-react"
@@ -394,10 +395,25 @@ class FallacyExample extends Component {
 				{props.user ? (
 					<div>
 						{props.rawSources ? (
-							<List className="sourceList" size="large">
-								{ParseMaterial(props)}
-								{props.contradiction && ParseMaterial(props, true)}
-							</List>
+							<div>
+								<List className="sourceList" size="large">
+									{ParseMaterial(props)}
+									{props.contradiction && ParseMaterial(props, true)}
+								</List>
+								{props.tweet || props.contradiction.tweet ? (
+									<Message>
+										<b>command-click</b> or <b>shift-click</b> on the tweet link
+										to archive it on{" "}
+										<a
+											href="http://archive.is"
+											rel="noopener noreferrer"
+											target="_blank"
+										>
+											archive.is
+										</a>
+									</Message>
+								) : null}
+							</div>
 						) : (
 							<div>
 								{ParseMaterial(props)}
@@ -432,7 +448,7 @@ class FallacyExample extends Component {
 									href={tweetLink}
 									onClick={e => {
 										e.preventDefault()
-										if (e.metaKey) {
+										if (e.metaKey || e.shiftKey) {
 											this.createArchive(tweetLink)
 										} else {
 											window.open(tweetLink, "_blank").focus()

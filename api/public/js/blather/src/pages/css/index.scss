@@ -614,6 +614,14 @@ a {
 
     .retractionContent {
         width: 100%;
+
+        .card {
+            .content {
+                .image {
+                    cursor: pointer;
+                }
+            }
+        }
     }
 
     canvas {
