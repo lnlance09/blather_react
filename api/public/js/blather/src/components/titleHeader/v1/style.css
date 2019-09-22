@@ -3,28 +3,24 @@
 /*---   Neutrals  ---*/
 /*---   Misc  ---*/
 /*---   Social colors  ---*/
-.titleHeader .header .editHeaderIcon {
-  color: #2185D0;
-  cursor: pointer;
-  display: none !important;
-  float: right;
-  line-height: 47px; }
-  .titleHeader .header .editHeaderIcon.close {
-    color: #FF695E; }
-
-.titleHeader .header .titleInput {
-  width: 94% !important; }
-  .titleHeader .header .titleInput input {
-    font-size: 18px;
-    line-height: 24px;
-    padding: 9px 16px; }
-
-.titleHeader .header:hover .editHeaderIcon {
-  display: inline !important; }
-
-@media only screen and (max-width: 1025px) {
+.titleHeader {
+  margin: 0 -0.4rem; }
   .titleHeader .header .editHeaderIcon {
-    line-height: 18px; } }
-
-.titleHeader .emptyTitle {
-  height: 55px; }
+    color: #2185D0;
+    cursor: pointer;
+    display: none !important;
+    float: right;
+    line-height: 47px; }
+    .titleHeader .header .editHeaderIcon.close {
+      color: #FF695E; }
+  .titleHeader .header .titleInput {
+    width: 94% !important; }
+    .titleHeader .header .titleInput input {
+      font-size: 18px; }
+  .titleHeader .header:hover .editHeaderIcon {
+    display: inline !important; }
+  @media only screen and (max-width: 1025px) {
+    .titleHeader .header .editHeaderIcon {
+      line-height: 18px; } }
+  .titleHeader .emptyTitle {
+    height: 55px; }

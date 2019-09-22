@@ -79,11 +79,10 @@ class TitleHeader extends Component {
 							<div>
 								{this.props.title}
 								{EditIcon(this.props)}
+								{this.props.subheader && (
+									<Header.Subheader>{this.props.subheader}</Header.Subheader>
+								)}
 							</div>
-						)}
-
-						{this.props.subheader && (
-							<Header.Subheader>{this.props.subheader}</Header.Subheader>
 						)}
 					</Header>
 				)}
