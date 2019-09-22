@@ -460,7 +460,7 @@ Home.defaultProps = {
 			name: "Ben Shapiro"
 		},
 		{
-			description: "batshit crazy conspiracy theorist and Alex Jones pretege",
+			description: "batshit crazy conspiracy theorist and Alex Jones protégé",
 			key: "twitter/prisonplanet",
 			name: "Paul Joseph Watson"
 		},
