@@ -1,6 +1,8 @@
 @import '../../../css/colors.scss';
 
 .titleHeader {
+    margin: 0 -0.4rem;
+
     .header {
         .editHeaderIcon {
             color: $blue;
@@ -19,8 +21,6 @@
             
             input {
                 font-size: 18px;
-                line-height: 24px;
-                padding: 9px 16px;
             }
         }
 
