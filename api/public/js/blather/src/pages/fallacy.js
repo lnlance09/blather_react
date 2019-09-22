@@ -745,7 +745,6 @@ class Fallacy extends Component {
 						>
 							<FallacyRef
 								id={this.props.fallacyId}
-								imageFluid={true}
 								justImage={true}
 							/>
 						</div>
