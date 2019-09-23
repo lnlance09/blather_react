@@ -47,7 +47,7 @@ class TitleHeader extends Component {
 					<Icon
 						className="editHeaderIcon"
 						name={editing ? "close" : "pencil"}
-						onClick={() => this.setState({ editing: editing ? false : true })}
+						onClick={() => this.setState({ editing: !editing })}
 						size="small"
 					/>
 				)
@@ -56,7 +56,7 @@ class TitleHeader extends Component {
 		}
 
 		return (
-			<div className="titleHeader">
+			<div className={`titleHeader ${editing ? "editing" : ""}`}>
 				{this.props.title && (
 					<Header as="h1" dividing={this.props.dividing} textAlign={this.props.textAlign}>
 						{editing ? (

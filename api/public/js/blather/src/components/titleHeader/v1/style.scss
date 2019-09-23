@@ -1,7 +1,17 @@
 @import '../../../css/colors.scss';
 
 .titleHeader {
-    margin: 0 -0.4rem;
+    &.editing {
+        margin: 0 -0.4rem;
+
+        @media only screen and (max-width: 1025px) {
+            margin: 0 !important;
+        }
+
+        .editHeaderIcon {
+            line-height: 47px !important;
+        }
+    }
 
     .header {
         .editHeaderIcon {
@@ -17,8 +27,8 @@
         }
 
         .titleInput {
-            width: 94% !important;
-            
+            width: 92%;
+
             input {
                 font-size: 18px;
             }
@@ -31,8 +41,12 @@
         }
 
         @media only screen and (max-width: 1025px) {
+            .titleInput {
+                width: 88% !important;
+            }
+
             .editHeaderIcon {
-                line-height: 18px;
+                line-height: 30px;
             }
         }
     }

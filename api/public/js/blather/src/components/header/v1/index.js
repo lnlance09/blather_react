@@ -38,9 +38,9 @@ class Header extends Component {
 		this.onLogout = this.onLogout.bind(this)
 	}
 
-	handleItemClick = (e, { name }) => {
+	handleItemClick = (key, name) => {
 		this.setState({ activeItem: name, visible: false })
-		this.props.history.push(`/fallacies/${name.split(" ").join("-")}`)
+		this.props.history.push(`/fallacies/${key}`)
 	}
 
 	onChangeSearch = (e, { value }) => this.setState({ value })
@@ -61,7 +61,7 @@ class Header extends Component {
 				active={activeItem === fallacy.name.toLowerCase()}
 				key={fallacy.id}
 				name={fallacy.name.toLowerCase()}
-				onClick={this.handleItemClick}
+				onClick={() => this.handleItemClick(fallacy.key, fallacy.name)}
 			>
 				{`${fallacy.name}`}
 			</Menu.Item>
