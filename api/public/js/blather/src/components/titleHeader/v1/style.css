@@ -3,24 +3,36 @@
 /*---   Neutrals  ---*/
 /*---   Misc  ---*/
 /*---   Social colors  ---*/
-.titleHeader {
+.titleHeader.editing {
   margin: 0 -0.4rem; }
-  .titleHeader .header .editHeaderIcon {
-    color: #2185D0;
-    cursor: pointer;
-    display: none !important;
-    float: right;
-    line-height: 47px; }
-    .titleHeader .header .editHeaderIcon.close {
-      color: #FF695E; }
-  .titleHeader .header .titleInput {
-    width: 94% !important; }
-    .titleHeader .header .titleInput input {
-      font-size: 18px; }
-  .titleHeader .header:hover .editHeaderIcon {
-    display: inline !important; }
   @media only screen and (max-width: 1025px) {
-    .titleHeader .header .editHeaderIcon {
-      line-height: 18px; } }
-  .titleHeader .emptyTitle {
-    height: 55px; }
+    .titleHeader.editing {
+      margin: 0 !important; } }
+  .titleHeader.editing .editHeaderIcon {
+    line-height: 47px !important; }
+
+.titleHeader .header .editHeaderIcon {
+  color: #2185D0;
+  cursor: pointer;
+  display: none !important;
+  float: right;
+  line-height: 47px; }
+  .titleHeader .header .editHeaderIcon.close {
+    color: #FF695E; }
+
+.titleHeader .header .titleInput {
+  width: 92%; }
+  .titleHeader .header .titleInput input {
+    font-size: 18px; }
+
+.titleHeader .header:hover .editHeaderIcon {
+  display: inline !important; }
+
+@media only screen and (max-width: 1025px) {
+  .titleHeader .header .titleInput {
+    width: 88% !important; }
+  .titleHeader .header .editHeaderIcon {
+    line-height: 30px; } }
+
+.titleHeader .emptyTitle {
+  height: 55px; }

@@ -743,10 +743,7 @@ class Fallacy extends Component {
 							}
 							style={{ cursor: "pointer" }}
 						>
-							<FallacyRef
-								id={this.props.fallacyId}
-								justImage={true}
-							/>
+							<FallacyRef id={this.props.fallacyId} justImage={true} />
 						</div>
 					</div>
 				) : (
@@ -980,8 +977,7 @@ class Fallacy extends Component {
 		const ViewCount = props => (
 			<Statistic className="viewCount" horizontal size="tiny">
 				<Statistic.Value>
-					<Icon color="red" name="eye" />{" "}
-					{props.viewCount}
+					<Icon color="red" name="eye" /> {props.viewCount}
 				</Statistic.Value>
 				<Statistic.Label>Views</Statistic.Label>
 			</Statistic>

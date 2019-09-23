@@ -57,6 +57,10 @@
     }
 
     @media only screen and (max-width: 1025px) {
+        .ui.header.medium {
+            font-size: 18px !important;
+        }
+
         .ui.header.small {
             font-size: 14px !important;
         }
