@@ -737,7 +737,7 @@ a {
 
 
 .homePage {
-    background: $blue;
+    background: $offWhite;
     padding: 0;
 
     .mainContainer {
@@ -746,7 +746,6 @@ a {
     }
 
     .heroHeader {
-    	color: $white;
         padding-left: 6px !important;
     }
 
@@ -758,6 +757,10 @@ a {
         .icon.youtube {
             color: $youtube;
         }
+    }
+
+    .heroSegment {
+    	padding: 0;
     }
 }
 
