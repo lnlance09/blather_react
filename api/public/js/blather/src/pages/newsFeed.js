@@ -52,20 +52,30 @@ class NewsFeed extends Component {
 					onClick={() => props.history.push(`/tags/${result.tagId}`)}
 				>
 					<Card.Content>
-						<Grid columns={2} relaxed="very">
-							<Grid.Column textAlign="center" verticalAlign="middle">
-								<Header color="red" size="medium">
-									{result.text[0]}
-								</Header>
-							</Grid.Column>
-							<Grid.Column textAlign="center" verticalAlign="middle">
-								<Header color="green" size="medium">
-									{result.text[1]}
-								</Header>
-							</Grid.Column>
-						</Grid>
+						<Responsive maxWidth={1024}>
+							<Header color="red" size="medium">
+								{result.text[0]}
+							</Header>
+							<Header color="green" size="medium">
+								{result.text[1]}
+							</Header>
+						</Responsive>
 
-						<Divider vertical>Or</Divider>
+						<Responsive minWidth={1025}>
+							<Grid columns={2} relaxed="very" stackable>
+								<Grid.Column textAlign="center" verticalAlign="middle">
+									<Header color="red" size="medium">
+										{result.text[0]}
+									</Header>
+								</Grid.Column>
+								<Grid.Column textAlign="center" verticalAlign="middle">
+									<Header color="green" size="medium">
+										{result.text[1]}
+									</Header>
+								</Grid.Column>
+							</Grid>
+							<Divider vertical>Or</Divider>
+						</Responsive>
 					</Card.Content>
 				</Card>
 			))
@@ -168,6 +178,10 @@ class NewsFeed extends Component {
 								<Grid.Row className="feedRow">
 									<Segment>
 										<Header as="h1">Pick one</Header>
+										<Label as="a" attached="top right" color="red">
+											Conservative Edition
+										</Label>
+
 										{Contradictions(this.props)}
 										<Header as="h1">Activity</Header>
 										<FeedComponent history={this.props.history} size="small" />
