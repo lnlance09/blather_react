@@ -439,7 +439,7 @@ a {
   background: #F9FAFB;
   padding: 0; }
   .homePage .mainContainer {
-    min-height: 70vh;
+    min-height: 60vh;
     padding-bottom: 40px; }
   .homePage .heroHeader {
     padding-left: 6px !important; }
@@ -455,6 +455,7 @@ a {
 
 .competitionContainer {
   background: #FFFFFF;
+  border-top: solid 1px #F3F4F5;
   padding-top: 1.2rem; }
   .competitionContainer .container {
     padding: 10px 15px; }

@@ -741,7 +741,7 @@ a {
     padding: 0;
 
     .mainContainer {
-        min-height: 70vh;
+        min-height: 60vh;
         padding-bottom: 40px;
     }
 
@@ -770,6 +770,7 @@ a {
 
 .competitionContainer {
     background: $white;
+    border-top: solid 1px $darkWhite;
     padding-top: 1.2rem;
 
     .container {
