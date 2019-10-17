@@ -733,7 +733,7 @@
     </body>
 
     <script src="/static/js/1.8e1f44b9.chunk.js"></script>
-    <script src="/static/js/main.f70acb56.chunk.js"></script>
+    <script src="/static/js/main.8bea5927.chunk.js"></script>
     <script src="/static/js/runtime~main.229c360f.js"></script>
 
     <script>
