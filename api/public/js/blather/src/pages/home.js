@@ -112,7 +112,7 @@ class Home extends Component {
 							<Header as="h1" className="heroHeader">
 								Assign a Logical Fallacy
 							</Header>
-							<Segment className="heroSegment">
+							<Segment basic className="heroSegment">
 								<Input
 									className="heroInput"
 									fluid

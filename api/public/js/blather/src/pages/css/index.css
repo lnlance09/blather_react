@@ -436,18 +436,19 @@ a {
   margin-top: 0; }
 
 .homePage {
-  background: #2185D0;
+  background: #F9FAFB;
   padding: 0; }
   .homePage .mainContainer {
     min-height: 70vh;
     padding-bottom: 40px; }
   .homePage .heroHeader {
-    color: #FFFFFF;
     padding-left: 6px !important; }
   .homePage .heroInput .icon.twitter {
     color: #0084b4; }
   .homePage .heroInput .icon.youtube {
     color: #ff0000; }
+  .homePage .heroSegment {
+    padding: 0; }
 
 .pickOneSegment {
   cursor: pointer !important; }
