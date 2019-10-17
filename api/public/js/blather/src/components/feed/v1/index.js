@@ -107,21 +107,6 @@ class FeedComponent extends Component {
 											}
 										}}
 									/>
-									{result.s3_link && result.network === "twitter" ? (
-										<Image
-											bordered
-											inline
-											onClick={() => {
-												this.setState({
-													lightboxOpen: true,
-													currentImg: result.s3_link
-												})
-											}}
-											onError={i => (i.target.src = ImagePic)}
-											rounded
-											src={`${result.s3_link}?v=${new Date().getTime()}`}
-										/>
-									) : null}
 								</Feed.Extra>
 								{result.tag_ids !== null ? (
 									<Feed.Meta>

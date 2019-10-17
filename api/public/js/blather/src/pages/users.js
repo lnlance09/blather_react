@@ -9,14 +9,15 @@ import {
 	Button,
 	Container,
 	Dimmer,
+	Divider,
+	Grid,
 	Header,
 	Icon,
 	Image,
-	Label,
 	List,
-	Menu,
 	Placeholder,
-	Segment
+	Segment,
+	Statistic
 } from "semantic-ui-react"
 import defaultImg from "images/trump.svg"
 import ArchivesList from "components/archivesList/v1/"
@@ -110,7 +111,7 @@ class UserPage extends Component {
 		}
 	}
 
-	handleItemClick = (e, { name }) => {
+	handleItemClick = name => {
 		this.setState({ activeItem: name })
 		this.props.history.push(`/users/${this.state.username}/${name}`)
 	}
@@ -167,29 +168,25 @@ class UserPage extends Component {
 		const ProfilePic = props => {
 			if (isMyProfile) {
 				return (
-					<div className="profilePicContainer">
-						<Dimmer.Dimmable
-							as={Image}
-							centered
-							circular
-							className={`profilePic ${!user.img ? "default" : ""}`}
-							dimmed={active}
-							dimmer={{ active, content, inverted }}
-							onError={i => (i.target.src = ImagePic)}
-							onMouseEnter={this.handleShow}
-							onMouseLeave={this.handleHide}
-							size="medium"
-							src={pic}
-						/>
-					</div>
+					<Dimmer.Dimmable
+						as={Image}
+						className={`profilePic ${!user.img ? "default" : ""}`}
+						dimmed={active}
+						dimmer={{ active, content, inverted }}
+						onError={i => (i.target.src = ImagePic)}
+						onMouseEnter={this.handleShow}
+						onMouseLeave={this.handleHide}
+						rounded
+						size="medium"
+						src={pic}
+					/>
 				)
 			}
 			return (
 				<Image
-					centered
-					circular
 					className={`profilePic ${!user.img ? "default" : ""}`}
 					onError={i => (i.target.src = ImagePic)}
+					rounded
 					src={pic}
 				/>
 			)
@@ -221,35 +218,6 @@ class UserPage extends Component {
 			return null
 		}
 
-		const UserMenu = props => (
-			<Menu className="profileMenu" fluid pointing size="large" stackable>
-				<Menu.Item
-					active={activeItem === "fallacies"}
-					name="fallacies"
-					onClick={this.handleItemClick}
-				>
-					Fallacies{" "}
-					{user.fallacyCount > 0 && (
-						<Label color="blue" floating>
-							{formatNumber(user.fallacyCount)}
-						</Label>
-					)}
-				</Menu.Item>
-				<Menu.Item
-					active={activeItem === "archives"}
-					name="archives"
-					onClick={this.handleItemClick}
-				>
-					Archives{" "}
-					{user.archiveCount > 0 && (
-						<Label color="blue" floating>
-							{formatNumber(user.archiveCount)}
-						</Label>
-					)}
-				</Menu.Item>
-			</Menu>
-		)
-
 		return (
 			<Provider store={store}>
 				<div className="usersPage">
@@ -257,68 +225,92 @@ class UserPage extends Component {
 					<PageHeader {...this.props} />
 					{!this.props.error ? (
 						<Container className="mainContainer" textAlign="left">
-							<Segment.Group>
-								<Segment className="coverPic" />
-								<Container className="imgContainer" textAlign="center">
-									<Segment circular>
+							<Segment>
+								<Grid stackable>
+									<Grid.Column textAlign="left" width={3}>
 										{this.props.user.id ? (
 											<div>{ProfilePic(this.props)}</div>
 										) : (
-											<Placeholder className="profilePicPlaceholder">
+											<Placeholder className="profilePicPlaceholder square">
 												<Placeholder.Image square />
 											</Placeholder>
 										)}
-									</Segment>
-									<div className="userHeaderSection">
-										<TitleHeader textAlign="center" title={user.name} />
-										{this.props.user.id && (
-											<List horizontal>
-												<List.Item>
-													<List.Content>
-														<Icon name="at" /> {user.username}
-													</List.Content>
-												</List.Item>
-												<List.Item>
-													<List.Content>
-														<Icon name="clock outline" />
-														Joined{" "}
-														<Moment
-															date={adjustTimezone(user.dateCreated)}
-															fromNow
-														/>
-													</List.Content>
-												</List.Item>
-												{user.patreonUsername && (
+									</Grid.Column>
+									<Grid.Column textAlign="left" width={7}>
+										<div className="userHeaderSection">
+											<TitleHeader textAlign="left" title={user.name} />
+											{this.props.user.id && (
+												<List relaxed>
 													<List.Item>
 														<List.Content>
-															<Icon
-																className="patreonIcon"
-																name="patreon"
-															/>{" "}
-															<a
-																href={`https://patreon.com/${user.patreonUsername}`}
-																rel="noopener noreferrer"
-																target="_blank"
-															>
-																{user.patreonUsername}
-															</a>
+															<Icon name="at" /> {user.username}
 														</List.Content>
 													</List.Item>
-												)}
-											</List>
-										)}
-									</div>
-								</Container>
+													<List.Item>
+														<List.Content>
+															<Icon name="clock outline" />
+															Joined{" "}
+															<Moment
+																date={adjustTimezone(
+																	user.dateCreated
+																)}
+																fromNow
+															/>
+														</List.Content>
+													</List.Item>
+													{user.patreonUsername && (
+														<List.Item>
+															<List.Content>
+																<Icon
+																	className="patreonIcon"
+																	name="patreon"
+																/>{" "}
+																<a
+																	href={`https://patreon.com/${user.patreonUsername}`}
+																	rel="noopener noreferrer"
+																	target="_blank"
+																>
+																	{user.patreonUsername}
+																</a>
+															</List.Content>
+														</List.Item>
+													)}
+												</List>
+											)}
+										</div>
+									</Grid.Column>
+									<Grid.Column width={3}>
+										<Statistic
+											className="userStat"
+											onClick={() => this.handleItemClick("fallacies")}
+										>
+											<Statistic.Value>
+												{formatNumber(user.fallacyCount)}
+											</Statistic.Value>
+											<Statistic.Label>Fallacies</Statistic.Label>
+										</Statistic>
+									</Grid.Column>
+									<Grid.Column width={3}>
+										<Statistic
+											className="userStat"
+											onClick={() => this.handleItemClick("archives")}
+										>
+											<Statistic.Value>
+												{formatNumber(user.archiveCount)}
+											</Statistic.Value>
+											<Statistic.Label>archives</Statistic.Label>
+										</Statistic>
+									</Grid.Column>
+								</Grid>
 
-								<Segment basic>
-									{UserMenu(this.props)}
-									<Container className="profileContentContainer">
-										<Segment basic className="profileContentSegment">
-											{ShowContent(this.props)}
-										</Segment>
-									</Container>
-								</Segment>
-							</Segment.Group>
+								<Divider hidden />
+
+								<Container className="profileContentContainer">
+									<Segment basic className="profileContentSegment">
+										{ShowContent(this.props)}
+									</Segment>
+								</Container>
+							</Segment>
 						</Container>
 					) : (
 						<Container className="mainContainer" text textAlign="center">

@@ -11,6 +11,7 @@
   z-index: 9999; }
 
 .pageHeader .menu.globalHeader {
+  box-shadow: none;
   height: 72px;
   z-index: 1001 !important; }
   .pageHeader .menu.globalHeader .headerContainer .responsive {

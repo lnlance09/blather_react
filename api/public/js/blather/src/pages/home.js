@@ -3,19 +3,7 @@ import { getPostFromUrl } from "pages/actions/home"
 import { connect, Provider } from "react-redux"
 import { Link } from "react-router-dom"
 import { DisplayMetaTags } from "utils/metaFunctions"
-import {
-	Container,
-	Divider,
-	Grid,
-	Header,
-	Icon,
-	Image,
-	Input,
-	List,
-	Message,
-	Segment
-} from "semantic-ui-react"
-import ImagePic from "images/images/image-square.png"
+import { Container, Divider, Header, Icon, Input, List, Message, Segment } from "semantic-ui-react"
 import FallacyForm from "components/fallacyForm/v1/"
 import PageFooter from "components/footer/v1/"
 import PageHeader from "components/header/v1/"
@@ -123,7 +111,6 @@ class Home extends Component {
 						<div>
 							<Header as="h1" className="heroHeader">
 								Assign a Logical Fallacy
-								<Header.Subheader>Pick a tweet</Header.Subheader>
 							</Header>
 							<Segment className="heroSegment">
 								<Input
@@ -137,7 +124,6 @@ class Home extends Component {
 									size="large"
 									value={url}
 								/>
-								<Divider />
 
 								{validPost && url !== "" ? (
 									<div>
@@ -232,9 +218,7 @@ class Home extends Component {
 				</div>
 				<div className="competitionContainer">
 					<Container>
-						<Header size="huge" textAlign="center">
-							What is Blather?
-						</Header>
+						<Header size="huge">What is Blather?</Header>
 
 						<p>
 							Blather is a website that lets users assign logical fallacies and
@@ -271,34 +255,21 @@ class Home extends Component {
 							Examples
 						</Header>
 
-						<Grid stackable>
-							<Grid.Row columns={4}>
-								{this.props.examples.map(e => (
-									<Grid.Column key={e.key}>
-										<Image
-											bordered
-											onClick={() =>
-												this.props.history.push(`/fallacies/${e.link}`)
-											}
-											onError={i => (i.target.src = ImagePic)}
-											rounded
-											src={e.img}
-										/>
-									</Grid.Column>
-								))}
-							</Grid.Row>
-						</Grid>
-
-						<Divider hidden />
-
-						<div>
-							<Link to="/activity">See more examples</Link>
-						</div>
+						<List bulleted>
+							{this.props.examples.map(e => (
+								<List.Item>
+									<Link to={`/fallacies/${e.link}`}>{e.text}</Link>
+								</List.Item>
+							))}
+							<List.Item>
+								<Link to="/activity">See more examples</Link>
+							</List.Item>
+						</List>
 
 						<Divider hidden section />
 
 						<div>
-							<Header as="h2" icon textAlign="center">
+							<Header as="h1">
 								<Icon color="red" name="crosshairs" />
 								<Header.Content>
 									Hit List
@@ -321,7 +292,7 @@ class Home extends Component {
 									difficult to do.
 								</p>
 								<Divider hidden />
-								<List bsize="medium">
+								<List size="medium">
 									{this.props.hitList.map(h => (
 										<List.Item key={h.key}>
 											<Link to={`/pages/${h.key}`}>{h.name}</Link> -{" "}
@@ -366,22 +337,25 @@ Home.propTypes = {
 Home.defaultProps = {
 	examples: [
 		{
-			img:
-				"https://s3.amazonaws.com/blather22/screenshots/cj-pearson-truth-doublethink-logical-fallacy-756.png",
-			key: "cj-pearson-doesnt-know-what-truth-is-756",
-			link: "cj-pearson-doesnt-know-what-truth-is-756"
+			key: "tomi-lahrens-cheap-appeal-authority-logical-fallacy-305",
+			link: "tomi-lahrens-cheap-appeal-authority-logical-fallacy-305",
+			text: "Appeal to authority by Tomi Lahren"
 		},
 		{
-			img:
-				"https://s3.amazonaws.com/blather22/screenshots/charlie-kirks-doublethink-border-logical-fallacy-676.png",
-			key: "charlie-kirks-doublethink-about-the-border-again-676",
-			link: "charlie-kirks-doublethink-about-the-border-again-676"
+			key: "bernie-sanders-tired-ad-populum-bandwagoning-logical-fallacy-241",
+			link: "bernie-sanders-tired-ad-populum-bandwagoning-logical-fallacy-241",
+			text: "Bandwagoning by Bernie Sanders"
 		},
 		{
-			img:
-				"https://s3.amazonaws.com/blather22/screenshots/dylan-wheeler-decide-republican-doublethink-logical-fallacy-231.png",
+			key: "alley-stuckeys-shameless-circular-reasoning-begging-question-logical-fallacy-472",
+			link:
+				"alley-stuckeys-shameless-circular-reasoning-begging-question-logical-fallacy-472",
+			text: "Begging the question by Allie Beth Stuckey"
+		},
+		{
 			key: "dylan-wheeler-cant-decide-if-hes-a-republican-231",
-			link: "dylan-wheeler-cant-decide-if-hes-a-republican-231"
+			link: "dylan-wheeler-cant-decide-if-hes-a-republican-231",
+			text: "Doublethink by Dylan Wheeler"
 		}
 	],
 	hitList: [
