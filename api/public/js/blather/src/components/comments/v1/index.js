@@ -3,11 +3,13 @@ import { fetchComments, postComment } from "./actions"
 import { adjustTimezone } from "utils/dateFunctions"
 import { connect } from "react-redux"
 import { Button, Comment, Form, Message } from "semantic-ui-react"
+import ImagePic from "images/images/image-square.png"
 import Moment from "react-moment"
 import defaultImg from "images/trump.svg"
 import LazyLoad from "components/lazyLoad/v1/"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
+import Linkify from "react-linkify"
 
 class CommentsSection extends Component {
 	constructor(props) {
@@ -51,6 +53,7 @@ class CommentsSection extends Component {
 					return (
 						<Comment key={`fallacy_comment_${i}`}>
 							<Comment.Avatar
+								onError={i => (i.target.src = ImagePic)}
 								size="tiny"
 								src={comment.img ? comment.img : defaultImg}
 							/>
@@ -66,7 +69,11 @@ class CommentsSection extends Component {
 										<Moment date={adjustTimezone(comment.created_at)} fromNow />
 									</div>
 								</Comment.Metadata>
-								<Comment.Text>{comment.message}</Comment.Text>
+								<Comment.Text>
+									<Linkify properties={{ target: "_blank" }}>
+										{comment.message}
+									</Linkify>
+								</Comment.Text>
 							</Comment.Content>
 						</Comment>
 					)
@@ -90,14 +97,29 @@ class CommentsSection extends Component {
 					placeholder={placeholder}
 					value={message}
 				/>
-				<Button className="replyBtn" color="blue" compact content="Post" type="submit" />
+				{props.authenticated ? (
+					<Button
+						className="replyBtn"
+						color="blue"
+						content="Post"
+						disabled={!props.authenticated}
+						type="submit"
+					/>
+				) : (
+					<Button
+						className="replyBtn"
+						color="blue"
+						content="Sign In"
+						onClick={() => props.history.push(`/signin`)}
+					/>
+				)}
 				<div className="clearfix" />
 			</Form>
 		)
 
 		return (
 			<div className="commentsSection">
-				{this.props.authenticated && <div>{ReplyForm(this.props)}</div>}
+				{ReplyForm(this.props)}
 				<Comment.Group>{RenderComments(this.props)}</Comment.Group>
 			</div>
 		)

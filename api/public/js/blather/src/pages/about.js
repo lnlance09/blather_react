@@ -12,17 +12,14 @@ import {
 	List,
 	Menu,
 	Message,
-	Segment,
 	TextArea,
 	Transition
 } from "semantic-ui-react"
 import fallacies from "fallacies.json"
-import Logo from "components/header/v1/images/logo.svg"
 import PageFooter from "components/footer/v1/"
 import PageHeader from "components/header/v1/"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
-import ReactSVG from "react-svg"
 import store from "store"
 
 class About extends Component {
@@ -45,11 +42,6 @@ class About extends Component {
 			tab = this.props.match.params.tab
 		}
 		this.setState({ activeItem: tab })
-
-		const aScript = document.createElement("script")
-		aScript.type = "text/javascript"
-		aScript.src = "https://c6.patreon.com/becomePatronButton.bundle.js"
-		document.head.appendChild(aScript)
 	}
 
 	handleItemClick = (e, { name }) => {
@@ -101,14 +93,6 @@ class About extends Component {
 					it means to have a discussion; which is to change minds.
 				</p>
 				<Follow className="twitterFollowButton" username="blatherio" />
-				<p style={{ marginTop: "10px" }}>
-					<a
-						href="https://www.patreon.com/bePatron?u=3485613"
-						data-patreon-widget-type="become-patron-button"
-					>
-						Become a Patron!
-					</a>
-				</p>
 			</div>
 		)
 
@@ -242,20 +226,7 @@ class About extends Component {
 					<DisplayMetaTags page="about" props={this.props} state={this.state} />
 					<PageHeader {...this.props} />
 					<Container className="mainContainer" textAlign="left">
-						<Segment className="logoContainer" textAlign="center">
-							<Header className="aboutHeader" size="huge" textAlign="center">
-								<ReactSVG
-									className="blatherLogo"
-									evalScripts="always"
-									src={Logo}
-									svgClassName="blatherLogoSvg"
-								/>
-								Blather
-								<Header.Subheader>
-									It's not what you think. It's how you think.
-								</Header.Subheader>
-							</Header>
-						</Segment>
+						<Header as="h1">About Blather</Header>
 						<Menu pointing secondary>
 							<Menu.Item
 								active={activeItem === "about"}

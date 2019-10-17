@@ -269,7 +269,7 @@ class FallacyExample extends Component {
 			if (props.showExplanation && props.explanation) {
 				const explanationEl = (
 					<div>
-						<Divider />
+						<Divider hidden />
 						<Header as="h2" className="fallacyHeader" size="large">
 							{props.fallacyName} <EditButton props={props} />
 						</Header>

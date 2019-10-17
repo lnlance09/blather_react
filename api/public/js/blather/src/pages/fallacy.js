@@ -16,7 +16,6 @@ import {
 } from "pages/actions/fallacy"
 import { CirclePicker } from "react-color"
 import { CopyToClipboard } from "react-copy-to-clipboard"
-import { FacebookProvider, Comments, Initialize, Like } from "react-facebook"
 import { connect, Provider } from "react-redux"
 import { Link } from "react-router-dom"
 import { FacebookShareButton, RedditShareButton, TwitterShareButton } from "react-share"
@@ -45,6 +44,7 @@ import {
 import { Slider } from "react-semantic-ui-range"
 import { confetti } from "dom-confetti"
 import Dropzone from "react-dropzone"
+import FallacyComments from "components/comments/v1/"
 import FallacyExample from "components/fallacyExample/v1/"
 import FallaciesList from "components/fallaciesList/v1/"
 import FallacyRef from "components/fallacyRef/v1/"
@@ -293,6 +293,7 @@ class Fallacy extends Component {
 	render() {
 		const {
 			active,
+			auth,
 			background,
 			backgroundColor,
 			bearer,
@@ -321,23 +322,13 @@ class Fallacy extends Component {
 			<div className="commentsContent">
 				{props.id && (
 					<div>
-						<FacebookProvider appId="498572440350555" style={{ width: "100%" }}>
-							<Initialize>
-								{({ isReady, api }) => (
-									<Comments
-										href={`https://blather.io/fallacies/${props.slug}`}
-										width="100%"
-									/>
-								)}
-							</Initialize>
-							<div style={{ padding: "10px 6px" }}>
-								<Like
-									colorScheme="dark"
-									href={`https://blather.io/fallacies/${props.slug}`}
-									showFaces
-								/>
-							</div>
-						</FacebookProvider>
+						<Header size="large">Comments</Header>
+						<FallacyComments
+							authenticated={auth}
+							bearer={bearer}
+							history={props.history}
+							id={props.id}
+						/>
 					</div>
 				)}
 			</div>
@@ -415,11 +406,11 @@ class Fallacy extends Component {
 
 							{props.canScreenshot && (
 								<Button
+									basic
 									className="downloadBtn"
 									color="blue"
 									content="Create a meme"
 									fluid={side === "right"}
-									icon="image"
 									loading={props.creating}
 									onClick={this.toggleModal}
 								/>
@@ -427,6 +418,7 @@ class Fallacy extends Component {
 
 							{props.canMakeVideo && canEdit ? (
 								<Button
+									basic
 									className="downloadBtn"
 									color="blue"
 									content="Create video"
@@ -734,7 +726,7 @@ class Fallacy extends Component {
 			<div className="fallacyContent">
 				{this.props.id ? (
 					<div>
-						<Divider />
+						<Header size="large">Reference</Header>
 						<div
 							onClick={() =>
 								this.props.history.push(
@@ -743,7 +735,7 @@ class Fallacy extends Component {
 							}
 							style={{ cursor: "pointer" }}
 						>
-							<FallacyRef id={this.props.fallacyId} justImage={true} />
+							<FallacyRef canScreenshot={false} id={this.props.fallacyId} />
 						</div>
 					</div>
 				) : (
@@ -756,6 +748,7 @@ class Fallacy extends Component {
 			<div className="retractionContent">
 				{props.user ? (
 					<div>
+						<Header size="large">Retraction</Header>
 						<Container className="retractionContainer">
 							<Card fluid>
 								<Card.Content>
@@ -839,7 +832,7 @@ class Fallacy extends Component {
 								</Card.Content>
 							</Card>
 						</Container>
-						<Divider />
+						<Divider hidden />
 					</div>
 				) : (
 					<LazyLoad header={false} />
@@ -976,9 +969,7 @@ class Fallacy extends Component {
 
 		const ViewCount = props => (
 			<Statistic className="viewCount" horizontal size="tiny">
-				<Statistic.Value>
-					<Icon color="red" name="eye" /> {props.viewCount}
-				</Statistic.Value>
+				<Statistic.Value>{props.viewCount}</Statistic.Value>
 				<Statistic.Label>Views</Statistic.Label>
 			</Statistic>
 		)
