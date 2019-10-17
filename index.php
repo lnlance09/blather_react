@@ -718,6 +718,7 @@
 <?php
     }
 ?>
+        <script id="parsely-cfg" src="//cdn.parsely.com/keys/blather.io/p.js"></script>
     </head>
 
     <body>
