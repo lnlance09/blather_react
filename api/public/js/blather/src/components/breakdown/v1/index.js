@@ -150,9 +150,7 @@ class Breakdown extends Component {
 							{options.length > 0 ? (
 								<div>
 									{OverallReliability(this.props)}
-									<Divider horizontal section>
-										<Header as="h2">Breakdown</Header>
-									</Divider>
+									<Divider section />
 									<Segment basic className="percentages">
 										{RenderFallacies()}
 									</Segment>
