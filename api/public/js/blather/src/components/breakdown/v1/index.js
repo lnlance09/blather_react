@@ -74,6 +74,34 @@ class Breakdown extends Component {
 			</Button>
 		)
 
+		const OverallReliability = options => {
+			let color = "green"
+			let label = "Very Reliable"
+			let percent = 100
+
+			if (options.length > 5) {
+				color = "yellow"
+				label = "Borderline Grifter"
+				percent = 50
+			}
+
+			if (options.length > 10) {
+				color = "red"
+				label = "Grifter"
+				percent = 1
+			}
+
+			return (
+				<div className="credibilityLevel">
+					<Header size="small">
+						Credibility Level
+						<Label color={color}>{label}</Label>
+					</Header>
+					<Progress color={color} percent={percent} size="medium" />
+				</div>
+			)
+		}
+
 		const RenderFallacies = () => {
 			return options.map((result, i) => {
 				if (result.key) {
@@ -120,9 +148,15 @@ class Breakdown extends Component {
 							/>
 
 							{options.length > 0 ? (
-								<Segment basic className="percentages">
-									{RenderFallacies()}
-								</Segment>
+								<div>
+									{OverallReliability(options)}
+									<Divider horizontal>
+										<Header as="h2">Breakdown</Header>
+									</Divider>
+									<Segment basic className="percentages">
+										{RenderFallacies()}
+									</Segment>
+								</div>
 							) : (
 								<Message content="No fallacies have been assigned" />
 							)}
@@ -223,6 +257,7 @@ Breakdown.propTypes = {
 	id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 	name: PropTypes.string,
 	network: PropTypes.string,
+	options: PropTypes.array,
 	placeholder: PropTypes.oneOfType([
 		PropTypes.bool,
 		PropTypes.shape({
@@ -242,6 +277,7 @@ Breakdown.propTypes = {
 
 Breakdown.defaultProps = {
 	id: 0,
+	options: [],
 	placeholder: {},
 	sincerity: {},
 	turingTest: {}

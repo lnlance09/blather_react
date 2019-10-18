@@ -3,6 +3,9 @@
 /*---   Neutrals  ---*/
 /*---   Misc  ---*/
 /*---   Social colors  ---*/
+.breakdown .credibilityLevel {
+  margin-top: 20px; }
+
 .breakdown .breakdownSegment {
   margin-bottom: 0 !important;
   padding: 0 !important; }
