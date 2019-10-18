@@ -22,6 +22,7 @@ export const GET_DISCUSSION_CONVERSATION = "discussion:GET_DISCUSSION_COVERSATIO
 export const GET_FALLACY = "fallacy:GET_FALLACY"
 export const GET_FALLACY_COMMENT_COUNT = "fallacy:GET_FALLACY_COMMENT_COUNT"
 export const GET_FALLACY_CONVERSATION = "fallacy:GET_FALLACY_COVERSATION"
+export const GET_HIT_LIST = "home:GET_HIT_LIST"
 export const GET_PAGE_DATA = "page:GET_PAGE_DATA"
 export const GET_POST_DATA = "post:GET_POST_DATA"
 export const GET_POST_FROM_URL = "home:GET_POST_FROM_URL"

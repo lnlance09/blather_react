@@ -191,4 +191,13 @@
 				'token' => $token
 			]);
 		}
+
+		public function getAllStars() {
+			$pages = $this->twitter->getAllStars();
+
+			echo json_encode([
+				'error' => false,
+				'pages' => $pages
+			]);
+		}
 	}

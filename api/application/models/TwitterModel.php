@@ -178,6 +178,15 @@
             return $this->db->get('pages p')->result_array();
         }
 
+        public function getAllStars() {
+            $this->db->select("p.type, p.about, p.name, CONCAT('".$this->s3Path."', s3_pic) AS profile_pic, p.username, COUNT(*) AS fallacy_count");
+            $this->db->join('pages p', 'f.page_id = p.social_media_id');
+            $this->db->group_by('p.id');
+            $this->db->order_by('fallacy_count', 'DESC');
+            $this->db->where('p.all_star', 1);
+            return $this->db->get('fallacy_entries f')->result_array();
+        }
+
         public function getAllTweets() {
             $this->db->select('*');
             return $this->db->get('twitter_posts')->result_array();
