@@ -79,7 +79,7 @@ class Breakdown extends Component {
 			let label = "Very Reliable"
 			let percent = 100
 
-			if (options.length > 5) {
+			if (options.length > 5 && options.length < 11) {
 				color = "yellow"
 				label = "Borderline Grifter"
 				percent = 50
