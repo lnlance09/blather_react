@@ -1,6 +1,21 @@
 import * as constants from "../constants"
 import request from "request"
 
+export const getHitList = () => dispatch => {
+	request.get(
+		`${window.location.origin}/api/pages/getAllStars`,
+		{
+			json: true
+		},
+		function(err, response, body) {
+			dispatch({
+				type: constants.GET_HIT_LIST,
+				payload: body
+			})
+		}
+	)
+}
+
 export const getPostFromUrl = ({ bearer, url }) => dispatch => {
 	request.post(
 		`${window.location.origin}/api/fallacies/parseUrl`,

@@ -6,6 +6,12 @@ const home = (state = initial(), action) => {
 	const payload = action.payload
 
 	switch (action.type) {
+		case constants.GET_HIT_LIST:
+			return {
+				...state,
+				hitList: payload.pages
+			}
+
 		case constants.GET_POST_FROM_URL:
 			if (payload.error) {
 				return {
@@ -94,6 +100,7 @@ const home = (state = initial(), action) => {
 				profileImg,
 				type: payload.type
 			}
+
 		default:
 			return state
 	}

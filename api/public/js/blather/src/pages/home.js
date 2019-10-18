@@ -1,12 +1,26 @@
 import "pages/css/index.css"
-import { getPostFromUrl } from "pages/actions/home"
+import { getHitList, getPostFromUrl } from "pages/actions/home"
 import { connect, Provider } from "react-redux"
 import { Link } from "react-router-dom"
 import { DisplayMetaTags } from "utils/metaFunctions"
-import { Container, Divider, Header, Icon, Input, List, Message, Segment } from "semantic-ui-react"
+import {
+	Card,
+	Container,
+	Divider,
+	Grid,
+	Header,
+	Icon,
+	Input,
+	Label,
+	List,
+	Message,
+	Responsive,
+	Segment
+} from "semantic-ui-react"
 import FallacyForm from "components/fallacyForm/v1/"
 import PageFooter from "components/footer/v1/"
 import PageHeader from "components/header/v1/"
+import PageCard from "components/pageCard/v1/"
 import queryString from "query-string"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
@@ -42,6 +56,7 @@ class Home extends Component {
 			bearer: this.state.bearer,
 			url
 		})
+		this.props.getHitList()
 
 		this.handleHoverOn = this.handleHoverOn.bind(this)
 		this.onKeyUp = this.onKeyUp.bind(this)
@@ -101,6 +116,42 @@ class Home extends Component {
 		} = this.state
 		const { info, mediaId, page, type } = this.props
 		const validPost = type === "tweet"
+
+		const Contradictions = props =>
+			props.contradictions.map((result, i) => (
+				<Card
+					className="pickOneSegment"
+					fluid
+					onClick={() => props.history.push(`/tags/${result.tagId}`)}
+				>
+					<Card.Content>
+						<Responsive maxWidth={1024}>
+							<Header color="red" size="medium">
+								{result.text[0]}
+							</Header>
+							<Header color="green" size="medium">
+								{result.text[1]}
+							</Header>
+						</Responsive>
+
+						<Responsive minWidth={1025}>
+							<Grid columns={2} relaxed="very" stackable>
+								<Grid.Column textAlign="center" verticalAlign="middle">
+									<Header color="red" size="medium">
+										{result.text[0]}
+									</Header>
+								</Grid.Column>
+								<Grid.Column textAlign="center" verticalAlign="middle">
+									<Header color="green" size="medium">
+										{result.text[1]}
+									</Header>
+								</Grid.Column>
+							</Grid>
+							<Divider vertical>Or</Divider>
+						</Responsive>
+					</Card.Content>
+				</Card>
+			))
 
 		return (
 			<Provider store={store}>
@@ -266,52 +317,34 @@ class Home extends Component {
 							</List.Item>
 						</List>
 
-						<Divider hidden section />
+						<Divider hidden />
 
 						<div>
-							<Header as="h1">
-								<Icon color="red" name="crosshairs" />
-								<Header.Content>
-									Hit List
-									<Header.Subheader>
-										We need more ammunition to use against grifters and trolls
-									</Header.Subheader>
-								</Header.Content>
-							</Header>
-							<div>
-								<p>
-									This is a list of unsavory characters that traffic in
-									falsehoods, baseless conspiracies, and ideological dogma. For
-									many on this list, their presence on social media is part of a
-									much larger grift that brings them attention, clicks, and
-									opportunities to hawk merchandise to their followers. For
-									others, they may sincerely believe the outrageous things that
-									they say and social media is simply a tool for validating their
-									ideas. Either way, the poor ideas that are echoed by the people
-									on this list must be called out and it usually isn't that
-									difficult to do.
-								</p>
-								<Divider hidden />
-								<List size="medium">
-									{this.props.hitList.map(h => (
-										<List.Item key={h.key}>
-											<Link to={`/pages/${h.key}`}>{h.name}</Link> -{" "}
-											{h.description}
-										</List.Item>
-									))}
-								</List>
-							</div>
+							<Header as="h1">Republican All-Stars</Header>
+							<Card.Group>
+								{this.props.hitList.map(result => (
+									<PageCard
+										description={result.about}
+										fallacyCount={result.fallacy_count}
+										history={this.props.history}
+										img={result.profile_pic}
+										loading={result.loading}
+										name={result.name}
+										pageId={result.page_id}
+										type={result.type}
+										username={result.username}
+									/>
+								))}
+							</Card.Group>
 						</div>
 
-						<Divider hidden section />
+						<Divider hidden />
 
-						<Header as="h2" icon textAlign="center">
-							<Icon color="yellow" name="trophy" />
-							Coming soon
-							<Header.Subheader>
-								A cash reward for the best example of partisanship each month
-							</Header.Subheader>
+						<Header as="h1">
+							Pick One
+							<Label color="red">Conservative Edition</Label>
 						</Header>
+						<div>{Contradictions(this.props)}</div>
 					</Container>
 					<PageFooter />
 				</div>
@@ -321,8 +354,11 @@ class Home extends Component {
 }
 
 Home.propTypes = {
+	contradictions: PropTypes.array,
 	examples: PropTypes.array,
+	getHitList: PropTypes.func,
 	getPostFromUrl: PropTypes.func,
+	hitList: PropTypes.array,
 	info: PropTypes.object,
 	mediaId: PropTypes.string,
 	network: PropTypes.string,
@@ -335,6 +371,109 @@ Home.propTypes = {
 }
 
 Home.defaultProps = {
+	contradictions: [
+		{
+			key: "82",
+			text: ["Democrats are the party of the KKK", "Democrats hate white people"],
+			tagId: "82"
+		},
+		{
+			key: "58",
+			text: ["Obama was deporter-in-chief", "Obama was an open borders marxist!"],
+			tagId: "58"
+		},
+		{
+			key: "95",
+			text: [
+				"Private companies have the right to refuse service",
+				"YouTube must host my content according to my rules!"
+			],
+			tagId: "95"
+		},
+		{
+			key: "155",
+			text: [
+				"How can Trump be a fascist if he has Jewish relatives?",
+				"Even though George Soros is Jewish, he’s still a nazi!"
+			],
+			tagId: "155"
+		},
+		{
+			key: "118",
+			text: ["Innocent until proven guilty", "#LockHerUp"],
+			tagId: "118"
+		},
+		{
+			key: "146",
+			text: ["Tolerant liberals are boycotting Chik-fil-a", "Boycott the NFL!"],
+			tagId: "146"
+		},
+		{
+			key: "112",
+			text: [
+				"Libtards refuse to accept basic biology",
+				"Jesus lived, died, and then rose from the dead"
+			],
+			tagId: "112"
+		},
+		{
+			key: "117",
+			text: ["Fuck victim culture", "Conservative is the new gay"],
+			tagId: "117"
+		},
+		{
+			key: "194",
+			text: ["Europe is a socialist shit hole", "Scandinavia is capitalist"],
+			tagId: "194"
+		},
+		{
+			key: "120",
+			text: ["No one cares what celebrities think", "Kanye is a free thinker"],
+			tagId: "120"
+		},
+		{
+			key: "179",
+			text: [
+				"The constitution must be preserved at all costs",
+				"Get rid of the 14th amendment"
+			],
+			tagId: "179"
+		},
+		{
+			key: "1",
+			text: ["Sanctimonious virtue signaling", "Nike will never get another cent from me"],
+			tagId: "1"
+		},
+		{
+			key: "110",
+			text: [
+				"Gun control doesn’t work because criminals don’t obey laws",
+				"Making abortion illegal means that no one will get them"
+			],
+			tagId: "110"
+		},
+		{
+			key: "62",
+			text: ["Taxation is theft", "Illegal aliens aren’t paying taxes"],
+			tagId: "62"
+		},
+		{
+			key: "50",
+			text: [
+				"Stay in your own country and fix your own problems there",
+				"If you don’t like your country, then leave!"
+			],
+			tagId: "50"
+		},
+		{
+			key: "113",
+			text: [
+				"Immigrants are stealing Americans’ jobs",
+				"Immigrants are lazy and collect welfare"
+			],
+			tagId: "113"
+		}
+	],
 	examples: [
 		{
 			key: "tomi-lahrens-cheap-appeal-authority-logical-fallacy-305",
@@ -360,114 +499,16 @@ Home.defaultProps = {
 	],
 	hitList: [
 		{
-			description: "convicted felon, Christian apologist, and Trump sycophant",
-			key: "twitter/dineshdsouza",
-			name: "Dinesh D'Souza"
+			loading: true
 		},
 		{
-			description: "rabid Trump supporter and conservative pseudo intellectual",
-			key: "twitter/kurtschlichter",
-			name: "Kurt Schlichter"
+			loading: true
 		},
 		{
-			description:
-				"alt-right apologist and online talk show host who masquerades as a liberal in an attempt to make his guests' views appear less vile than they truly are",
-			key: "twitter/rubinreport",
-			name: "Dave Rubin"
-		},
-		{
-			description:
-				"scantily clad AOC wannabe who likes to take pictures of herself with assault rifles. She's currently running for congress in Florida",
-			key: "twitter/realannapaulina",
-			name: "Anna Paulina Luna"
-		},
-		{
-			description:
-				"bully and \x22journalist\x22 for InfoWars who siezes every opportunity imaginable to take pictures of herself holding a firearm while dressed in provocative attire",
-			key: "twitter/kaitmarieox",
-			name: "Kaitlin Bennett"
-		},
-		{
-			description:
-				"right-wing YouTuber who copies Dave Rubin's whole shtick of pretending to be a liberal",
-			key: "twitter/timcast",
-			name: "Tim Pool"
-		},
-		{
-			description:
-				"race realist, cult leader, and fringe pseudo intellectual who thinks that black people have smaller brains",
-			key: "twitter/stefanmolyneux",
-			name: "Stefan Molyneux"
-		},
-		{
-			description:
-				"evangelical Christian and anti-abortion activist who regularly compares abortion to genocide",
-			key: "twitter/lilagracerose",
-			name: "Lila Rose"
-		},
-		{
-			description:
-				"a fake university that regurgitates thoroughly debunked right-wing talking points",
-			key: "twitter/prageru",
-			name: "Prager University"
-		},
-		{
-			description:
-				"Canadian \x22comedian\x22 who hawks \x22socialism is for fags\x22 t-shirts online",
-			key: "twitter/scrowder",
-			name: "Steven Crowder"
-		},
-		{
-			description:
-				"the quintessential Fox News barbie babe, she's a vile young woman with a nationally syndicated talk show who likes to scream into the conservative echo chamber",
-			key: "twitter/tomilahren",
-			name: "Tomi Lahren"
-		},
-		{
-			description: "the poor man's version of Tomi Lahren",
-			key: "twitter/liz_wheeler",
-			name: "Liz Wheeler"
-		},
-		{
-			description: "alt-lite apologist and nutritional supplement salesman",
-			key: "twitter/benshapiro",
-			name: "Ben Shapiro"
-		},
-		{
-			description: "batshit crazy conspiracy theorist and Alex Jones protégé",
-			key: "twitter/prisonplanet",
-			name: "Paul Joseph Watson"
-		},
-		{
-			description:
-				"founder of Turning Point USA, an astroturf organization that repackages boomer talking points so that they're more appealing to millenials",
-			key: "twitter/charliekirk11",
-			name: "Charlie Kirk"
-		},
-		{
-			description: "partisan hack with her own show on Fox News",
-			key: "twitter/ingrahamangle",
-			name: "Laura Ingraham"
-		},
-		{
-			description:
-				"former cop turned hat salesman with a penchant for bootlicking and delivering rants from his car",
-			key: "twitter/theofficertatum",
-			name: "Brandon Tatum"
-		},
-		{
-			description:
-				"self-loathing homophobe who runs a prominent conspiracy theory website called \x22The Gateway Pundit\x22",
-			key: "twitter/gatewaypundit",
-			name: "Jim Hoft"
-		},
-		{
-			description:
-				"evangelical huckster who is the president of a diploma mill called Liberty University",
-			key: "twitter/jerryfalwelljr",
-			name: "Jerry Falwell Jr."
+			loading: true
 		}
 	],
+	getHitList,
 	getPostFromUrl,
 	info: {},
 	page: {}
@@ -483,6 +524,7 @@ const mapStateToProps = (state, ownProps) => {
 export default connect(
 	mapStateToProps,
 	{
+		getHitList,
 		getPostFromUrl
 	}
 )(Home)
