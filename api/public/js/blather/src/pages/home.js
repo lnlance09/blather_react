@@ -321,6 +321,7 @@ class Home extends Component {
 
 						<div>
 							<Header as="h1">Republican All-Stars</Header>
+							<Divider />
 							<Card.Group itemsPerRow={3} stackable>
 								{this.props.hitList.map(result => (
 									<PageCard
@@ -344,6 +345,7 @@ class Home extends Component {
 							Pick One
 							<Label color="red">Conservative Edition</Label>
 						</Header>
+						<Divider />
 						<div>{Contradictions(this.props)}</div>
 					</Container>
 					<PageFooter />
