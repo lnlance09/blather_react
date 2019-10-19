@@ -453,6 +453,10 @@ a {
 .pickOneSegment {
   cursor: pointer !important; }
 
+@media only screen and (max-width: 1025px) {
+  .hitListWrapper {
+    margin-top: 6px !important; } }
+
 .competitionContainer {
   background: #FFFFFF;
   border-top: solid 1px #F3F4F5;
