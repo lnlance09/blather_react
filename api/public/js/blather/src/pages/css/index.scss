@@ -768,6 +768,12 @@ a {
     cursor: pointer !important;
 }
 
+@media only screen and (max-width: 1025px) {
+    .hitListWrapper {
+        margin-top: 6px !important;
+    }
+}
+
 .competitionContainer {
     background: $white;
     border-top: solid 1px $darkWhite;
