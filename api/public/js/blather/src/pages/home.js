@@ -321,7 +321,7 @@ class Home extends Component {
 
 						<div>
 							<Header as="h1">Republican All-Stars</Header>
-							<Card.Group className="hitListWrapper" itemsPerRow={5} stackable>
+							<Card.Group className="hitListWrapper" itemsPerRow={4} stackable>
 								{this.props.hitList.map(result => (
 									<PageCard
 										description={result.about}
