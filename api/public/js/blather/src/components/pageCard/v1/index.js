@@ -35,6 +35,7 @@ class PageCard extends Component {
 
 		return (
 			<Card
+				className="pageCard"
 				fluid
 				onClick={() =>
 					this.props.history.push(
