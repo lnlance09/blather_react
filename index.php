@@ -735,7 +735,7 @@
 
     <script src="/static/js/1.4dc755c6.chunk.js"></script>
     <script src="/static/js/main.81e8c850.chunk.js"></script>
-    <script src="/static/js/main.81e8c850.chunk.js"></script>
+    <script src="/static/js/runtime~main.229c360f.js"></script>
 
     <script>
         var sc_project=11316702;
