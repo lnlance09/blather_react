@@ -316,35 +316,6 @@ class Home extends Component {
 								<Link to="/activity">See more examples</Link>
 							</List.Item>
 						</List>
-
-						<Divider hidden />
-
-						<div>
-							<Header as="h1">Republican All-Stars</Header>
-							<Card.Group className="hitListWrapper" itemsPerRow={4} stackable>
-								{this.props.hitList.map(result => (
-									<PageCard
-										description={result.about}
-										fallacyCount={result.fallacy_count}
-										history={this.props.history}
-										img={result.profile_pic}
-										loading={result.loading}
-										name={result.name}
-										pageId={result.page_id}
-										type={result.type}
-										username={result.username}
-									/>
-								))}
-							</Card.Group>
-						</div>
-
-						<Divider hidden />
-
-						<Header as="h1">
-							Pick One
-							<Label color="red">Conservative Edition</Label>
-						</Header>
-						<div>{Contradictions(this.props)}</div>
 					</Container>
 					<PageFooter />
 				</div>
