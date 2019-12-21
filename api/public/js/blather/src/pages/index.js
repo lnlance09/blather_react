@@ -1,8 +1,7 @@
-import "pages/css/index.css"
 import { refreshYouTubeToken } from "components/authentication/v1/actions"
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { formatNumber } from "utils/textFunctions"
-import { fetchFallacyCount, fetchPageData, reset } from "pages/actions/page"
+import { fetchFallacyCount, fetchPageData, reset } from "redux/actions/page"
 import { Provider, connect } from "react-redux"
 import {
 	Button,
@@ -35,6 +34,7 @@ import VideoList from "components/videoList/v1/"
 class Page extends Component {
 	constructor(props) {
 		super(props)
+
 		const id = this.props.match.params.id
 		const network = this.props.match.params.network
 		const fallacyId = this.props.match.params.fallacyId
@@ -46,11 +46,11 @@ class Page extends Component {
 		const userId = currentState.user.data.id
 
 		if (tab === undefined) {
-			tab = "fallacies"
+			tab = "credibility"
 		}
 
 		this.state = {
-			activeItem: tab === "fallacies" ? tab : label,
+			activeItem: tab === "credibility" ? tab : label,
 			authenticated,
 			bearer,
 			fallacyId,
@@ -74,34 +74,36 @@ class Page extends Component {
 
 	componentDidMount() {}
 
-	componentWillReceiveProps(props) {
-		const id = props.match.params.id
-		const network = props.match.params.network
-		let tab = props.match.params.tab
-		if (tab === undefined) {
-			tab = "fallacies"
-		}
+	componentDidUpdate(prevProps) {
+		if (this.props !== prevProps) {
+			const id = this.props.match.params.id
+			const network = this.props.match.params.network
+			let tab = this.props.match.params.tab
+			if (tab === undefined) {
+				tab = "credibility"
+			}
 
-		if (this.state.id !== id) {
-			this.props.reset()
-			this.props.fetchPageData({
-				bearer: this.state.bearer,
-				id,
-				type: network
-			})
+			if (this.state.id !== id) {
+				this.props.reset()
+				this.props.fetchPageData({
+					bearer: this.state.bearer,
+					id,
+					type: network
+				})
+				this.setState({
+					id,
+					network,
+					page: 0
+				})
+			}
+
+			const label = this.determineItemsLabel(network)
 			this.setState({
-				id,
-				network,
-				page: 0
+				activeItem: tab === "credibility" ? tab : label,
+				itemsLabel: label,
+				updated: !this.state.updated
 			})
 		}
-
-		const label = this.determineItemsLabel(network)
-		this.setState({
-			activeItem: tab === "fallacies" ? tab : label,
-			itemsLabel: label,
-			updated: !this.state.updated
-		})
 	}
 
 	determineItemsLabel(network) {
@@ -179,6 +181,7 @@ class Page extends Component {
 					</div>
 				</div>
 			)
+
 			return (
 				<div className="pageHeaderInfo">
 					<TitleHeader subheader={subheader} textAlign="center" title={props.name} />
@@ -187,7 +190,12 @@ class Page extends Component {
 		}
 
 		const PageMenu = props => (
-			<Menu className="socialMediaPageMenu" fluid pointing size="large" stackable>
+			<Menu attached className="socialMediaPageMenu" size="large" tabular>
+				<Menu.Item
+					active={activeItem === "credibility"}
+					name="credibility"
+					onClick={this.handleItemClick}
+				/>
 				<Menu.Item
 					active={activeItem === itemsLabel}
 					name={itemsLabel}
@@ -223,6 +231,26 @@ class Page extends Component {
 							setFallacyId={this.setFallacyId}
 							showPics={false}
 							source="pages"
+						/>
+					)
+				}
+
+				if (activeItem === "credibility") {
+					return (
+						<Breakdown
+							authenticated={authenticated}
+							count={props.fallacyCount}
+							dbId={props.dbId}
+							history={props.history}
+							id={props.id}
+							name={props.name}
+							network={network}
+							placeholder={props.placeholder}
+							setFallacyId={this.setFallacyId}
+							sincerity={props.sincerity}
+							turingTest={props.turingTest}
+							userId={userId}
+							username={props.username}
 						/>
 					)
 				}
@@ -263,6 +291,7 @@ class Page extends Component {
 						</Dimmer.Dimmable>
 					)
 				}
+
 				return (
 					<Dimmer.Dimmable as={Segment} className="signInPlaceholder" dimmed>
 						{LazyLoadDefault}
@@ -294,55 +323,38 @@ class Page extends Component {
 						<Container className="mainContainer" textAlign="left">
 							<Grid>
 								<Grid.Column width={16}>
-									<Segment.Group>
-										<Segment className="coverPic" />
-										<Container className="imgContainer" textAlign="center">
-											<div>
-												<Segment circular>
-													{this.props.id ? (
-														<Image
-															centered
-															circular
-															className="profilePic"
-															onError={i =>
-																(i.target.src = defaultImg)
-															}
-															rounded
-															size="medium"
-															src={this.props.img}
-														/>
-													) : (
-														<Placeholder className="profilePicPlaceholder">
-															<Placeholder.Image square />
-														</Placeholder>
-													)}
-												</Segment>
-												{PageHeaderInfo(this.props)}
-											</div>
+									<Container className="imgContainer" textAlign="center">
+										<div>
+											<Segment circular>
+												{this.props.id ? (
+													<Image
+														centered
+														circular
+														className="profilePic"
+														onError={i => (i.target.src = defaultImg)}
+														rounded
+														size="medium"
+														src={this.props.img}
+													/>
+												) : (
+													<Placeholder className="profilePicPlaceholder">
+														<Placeholder.Image square />
+													</Placeholder>
+												)}
+											</Segment>
+											{PageHeaderInfo(this.props)}
+										</div>
+									</Container>
+
+									<Divider hidden section />
+
+									{PageMenu(this.props)}
+
+									<Segment attached="bottom">
+										<Container className="profileContentContainer">
+											{ShowContent(this.props)}
 										</Container>
-										<Segment basic>
-											<Breakdown
-												authenticated={authenticated}
-												count={this.props.fallacyCount}
-												dbId={this.props.dbId}
-												history={this.props.history}
-												id={this.props.id}
-												name={this.props.name}
-												network={network}
-												placeholder={this.props.placeholder}
-												setFallacyId={this.setFallacyId}
-												sincerity={this.props.sincerity}
-												turingTest={this.props.turingTest}
-												userId={userId}
-												username={this.props.username}
-											/>
-											<Divider hidden section />
-											{PageMenu(this.props)}
-											<Container className="profileContentContainer">
-												{ShowContent(this.props)}
-											</Container>
-										</Segment>
-									</Segment.Group>
+									</Segment>
 								</Grid.Column>
 							</Grid>
 						</Container>

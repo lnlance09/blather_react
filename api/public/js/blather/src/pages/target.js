@@ -1,4 +1,3 @@
-import "pages/css/index.css"
 import {
 	changeSincerity,
 	changeSincerityExplanation,
@@ -8,7 +7,7 @@ import {
 	fetchPage,
 	fetchReview,
 	saveReview
-} from "./actions/target"
+} from "redux/actions/target"
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { connect, Provider } from "react-redux"
 import { Link } from "react-router-dom"

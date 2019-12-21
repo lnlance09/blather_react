@@ -1,8 +1,7 @@
-import "pages/css/index.css"
 import { refreshYouTubeToken } from "components/authentication/v1/actions"
 import { formatTime } from "utils/dateFunctions"
 import { DisplayMetaTags } from "utils/metaFunctions"
-import { downloadVideo, fetchPostData } from "pages/actions/post"
+import { downloadVideo, fetchPostData } from "redux/actions/post"
 import { Provider, connect } from "react-redux"
 import {
 	Card,

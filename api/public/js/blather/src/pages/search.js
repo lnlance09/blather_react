@@ -1,6 +1,5 @@
-import "pages/css/index.css"
 import { DisplayMetaTags } from "utils/metaFunctions"
-import { setValue } from "pages/actions/search"
+import { setValue } from "redux/actions/search"
 import { connect, Provider } from "react-redux"
 import { DebounceInput } from "react-debounce-input"
 import { Accordion, Container, Form, Grid, Icon, Menu, Responsive } from "semantic-ui-react"

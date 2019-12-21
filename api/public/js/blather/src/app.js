@@ -1,4 +1,5 @@
 import "css/app.css"
+import "css/index.css"
 import "semantic/dist/semantic.min.css"
 import { Provider } from "react-redux"
 import React, { Component } from "react"

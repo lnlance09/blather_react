@@ -19,7 +19,7 @@ class TweetList extends Component {
 		this.loadMoreItems = _.debounce(this.loadMoreItems.bind(this), 200)
 	}
 
-	componentWillMount() {
+	componentDidMount() {
 		this.props.fetchPagePosts({
 			bearer: this.props.bearer,
 			id: this.props.username,
@@ -27,11 +27,11 @@ class TweetList extends Component {
 		})
 	}
 
-	componentWillReceiveProps(props) {
-		if (this.props.username !== props.username) {
+	componentDidUpdate(prevProps) {
+		if (this.props.username !== prevProps.username) {
 			this.props.fetchPagePosts({
-				bearer: props.bearer,
-				id: props.username,
+				bearer: this.props.bearer,
+				id: this.props.username,
 				type: "twitter"
 			})
 		}
@@ -54,6 +54,7 @@ class TweetList extends Component {
 
 	render() {
 		const { loading } = this.state
+		const { posts } = this.props
 
 		const EmptyMsg = props => {
 			if (!props.posts.loading && props.posts.count === 0) {
@@ -66,7 +67,7 @@ class TweetList extends Component {
 			return null
 		}
 
-		const RenderTweets = this.props.posts.data.map((post, i) => {
+		const RenderTweets = posts.data.map((post, i) => {
 			let marginTop = i === 0 ? 0 : 12
 			if (post.id) {
 				return (

@@ -1,4 +1,3 @@
-import "pages/css/index.css"
 import "react-image-lightbox/style.css"
 import { adjustTimezone } from "utils/dateFunctions"
 import { DisplayMetaTags } from "utils/metaFunctions"
@@ -13,7 +12,7 @@ import {
 	toggleLoading,
 	updateDescription,
 	updateTag
-} from "./actions/tag"
+} from "redux/actions/tag"
 import Moment from "react-moment"
 import { connect, Provider } from "react-redux"
 import {

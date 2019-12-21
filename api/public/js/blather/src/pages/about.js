@@ -1,6 +1,5 @@
-import "pages/css/index.css"
 import { DisplayMetaTags } from "utils/metaFunctions"
-import { sendContactMsg } from "pages/actions/about"
+import { sendContactMsg } from "redux/actions/about"
 import { connect, Provider } from "react-redux"
 import { Link } from "react-router-dom"
 import { Follow } from "react-twitter-widgets"

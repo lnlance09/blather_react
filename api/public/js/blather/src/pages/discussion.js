@@ -1,4 +1,3 @@
-import "pages/css/index.css"
 import { mapIdsToNames } from "utils/arrayFunctions"
 import { adjustTimezone } from "utils/dateFunctions"
 import { DisplayMetaTags } from "utils/metaFunctions"
@@ -8,7 +7,7 @@ import {
 	updateDescription,
 	updateDiscussion,
 	updateExtra
-} from "pages/actions/discussion"
+} from "redux/actions/discussion"
 import { Provider, connect } from "react-redux"
 import { Link } from "react-router-dom"
 import {

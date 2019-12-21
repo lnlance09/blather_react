@@ -2,7 +2,7 @@ import "./style.css"
 import { fetchComments, postComment } from "./actions"
 import { adjustTimezone } from "utils/dateFunctions"
 import { connect } from "react-redux"
-import { Button, Comment, Form, Message } from "semantic-ui-react"
+import { Button, Comment, Form } from "semantic-ui-react"
 import ImagePic from "images/images/image-square.png"
 import Moment from "react-moment"
 import defaultImg from "images/trump.svg"
@@ -81,7 +81,7 @@ class CommentsSection extends Component {
 			}
 
 			if (props.comments.count === 0) {
-				return <Message content="There are no comments yet" />
+				return null
 			}
 
 			return [{}, {}, {}, {}, {}, {}, {}].map((comment, i) => (
@@ -93,6 +93,7 @@ class CommentsSection extends Component {
 			<Form onSubmit={this.onSubmitForm}>
 				<Form.TextArea
 					autoHeight
+					disabled={!props.authenticated}
 					onChange={this.onChangeMessage}
 					placeholder={placeholder}
 					value={message}
@@ -101,7 +102,7 @@ class CommentsSection extends Component {
 					<Button
 						className="replyBtn"
 						color="blue"
-						content="Post"
+						content="Add a comment"
 						disabled={!props.authenticated}
 						type="submit"
 					/>
@@ -109,7 +110,8 @@ class CommentsSection extends Component {
 					<Button
 						className="replyBtn"
 						color="blue"
-						content="Sign In"
+						content="Sign In to Comment"
+						fluid
 						onClick={() => props.history.push(`/signin`)}
 					/>
 				)}

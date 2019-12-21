@@ -1,6 +1,6 @@
 import "./style.css"
-import { updateDiscussion } from "pages/actions/discussion"
-import { updateFallacy } from "pages/actions/fallacy"
+import { updateDiscussion } from "redux/actions/discussion"
+import { updateFallacy } from "redux/actions/fallacy"
 import { connect } from "react-redux"
 import { Header, Icon, Input } from "semantic-ui-react"
 import PropTypes from "prop-types"
