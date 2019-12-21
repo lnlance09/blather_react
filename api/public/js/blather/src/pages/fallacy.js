@@ -1,4 +1,3 @@
-import "pages/css/index.css"
 import backgroundOptions from "backgroundOptions.json"
 import { mapIdsToNames } from "utils/arrayFunctions"
 import { adjustTimezone } from "utils/dateFunctions"
@@ -13,7 +12,7 @@ import {
 	toggleCreateMode,
 	updateFallacy,
 	uploadBackgroundPic
-} from "pages/actions/fallacy"
+} from "redux/actions/fallacy"
 import { CirclePicker } from "react-color"
 import { CopyToClipboard } from "react-copy-to-clipboard"
 import { connect, Provider } from "react-redux"
@@ -406,7 +405,6 @@ class Fallacy extends Component {
 
 							{props.canScreenshot && (
 								<Button
-									basic
 									className="downloadBtn"
 									color="blue"
 									content="Create a meme"
@@ -845,30 +843,38 @@ class Fallacy extends Component {
 				<div className="shareContent">
 					{useHeader && <Header size="large">Share</Header>}
 					{this.props.id ? (
-						<List className="shareList" relaxed size="large">
+						<List className="shareList" horizontal size="large">
 							<List.Item>
 								<TwitterShareButton
 									title={this.props.pageTitle}
 									url={`${window.location.origin}/fallacies/${id}`}
 								>
-									<Icon className="twitterIcon" name="twitter" size="large" />{" "}
-									tweet this fallacy
+									<Button circular color="twitter" icon="twitter" size="large" />
 								</TwitterShareButton>
 							</List.Item>
 							<List.Item>
 								<FacebookShareButton
 									url={`${window.location.origin}/fallacies/${id}`}
 								>
-									<Icon className="facebookIcon" name="facebook" size="large" />{" "}
-									share on facebook
+									<Button
+										circular
+										color="facebook"
+										icon="facebook"
+										size="large"
+									/>
 								</FacebookShareButton>
 							</List.Item>
 							<List.Item>
 								<RedditShareButton
 									url={`${window.location.origin}/fallacies/${id}`}
 								>
-									<Icon className="redditIcon" name="reddit" size="large" /> share
-									on reddit
+									<Button
+										circular
+										className="redditBtn"
+										color="white"
+										icon="reddit alien"
+										size="large"
+									/>
 								</RedditShareButton>
 							</List.Item>
 							<List.Item>
@@ -885,8 +891,12 @@ class Fallacy extends Component {
 													this.setState({ copied: false })
 												}
 											>
-												<Icon color="blue" name="linkify" size="large" />{" "}
-												copy this URL
+												<Button
+													circular
+													color="blue"
+													icon="linkify"
+													size="large"
+												/>{" "}
 											</div>
 										</CopyToClipboard>
 									}

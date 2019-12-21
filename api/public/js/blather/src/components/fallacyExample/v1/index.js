@@ -1,5 +1,5 @@
 import "./style.css"
-import { editExplanation, updateFallacy } from "pages/actions/fallacy"
+import { editExplanation, updateFallacy } from "redux/actions/fallacy"
 import { dateDifference, formatTime } from "utils/dateFunctions"
 import { fallacyDropdownOptions } from "utils/fallacyFunctions"
 import { convertTimeToSeconds, formatDuration, sanitizeText } from "utils/textFunctions"
@@ -269,7 +269,6 @@ class FallacyExample extends Component {
 			if (props.showExplanation && props.explanation) {
 				const explanationEl = (
 					<div>
-						<Divider hidden />
 						<Header as="h2" className="fallacyHeader" size="large">
 							{props.fallacyName} <EditButton props={props} />
 						</Header>

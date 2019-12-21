@@ -1,5 +1,5 @@
 import "./style.css"
-import { createArchive } from "pages/actions/post"
+import { createArchive } from "redux/actions/post"
 import { adjustTimezone } from "utils/dateFunctions"
 import { getHighlightedText } from "utils/textFunctions"
 import { linkHashtags, linkMentions } from "utils/linkifyAdditions"
@@ -28,6 +28,7 @@ class Tweet extends Component {
 
 		linkMentions("twitter")
 		linkHashtags("https://www.twitter.com/hashtag/")
+
 		this.onClickArchive = this.onClickArchive.bind(this)
 	}
 
@@ -35,8 +36,10 @@ class Tweet extends Component {
 		this.setState({ visible: this.props.archive ? true : false })
 	}
 
-	componentWillReceiveProps(nextProps) {
-		this.setState({ visible: nextProps.archive ? true : false })
+	componentDidUpdate(prevProps) {
+		if (this.props !== prevProps) {
+			this.setState({ visible: this.props.archive ? true : false })
+		}
 	}
 
 	onClickArchive = () => {
@@ -49,6 +52,7 @@ class Tweet extends Component {
 	render() {
 		const { animation, duration, img, visible } = this.state
 		const { extended_entities, highlight, retweeted_status, stats } = this.props
+
 		const className = `tweet${this.props.redirect ? " clickable" : ""}`
 		const extEntities = retweeted_status
 			? retweeted_status.extended_entities

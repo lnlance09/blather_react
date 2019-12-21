@@ -5,7 +5,7 @@ import {
 	fetchVideoComments,
 	insertComment,
 	unsetComment
-} from "pages/actions/post"
+} from "redux/actions/post"
 import { clearContradiction } from "components/fallacyForm/v1/actions"
 import { connect } from "react-redux"
 import {

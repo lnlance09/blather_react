@@ -1,4 +1,3 @@
-import "pages/css/index.css"
 import "components/tweet/v1/style.css"
 import { DisplayMetaTags } from "utils/metaFunctions"
 import React, { Component } from "react"

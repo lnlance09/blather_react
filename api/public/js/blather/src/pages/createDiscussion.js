@@ -1,6 +1,5 @@
-import "pages/css/index.css"
 import { DisplayMetaTags } from "utils/metaFunctions"
-import { setTags, submitDiscussion } from "pages/actions/discussion"
+import { setTags, submitDiscussion } from "redux/actions/discussion"
 import { Provider, connect } from "react-redux"
 import { Redirect } from "react-router-dom"
 import {

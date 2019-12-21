@@ -1,6 +1,6 @@
 import "./style.css"
-import { removeFallacyTag, updateFallacy } from "pages/actions/fallacy"
-import { removeDiscussionTag, updateDiscussion } from "pages/actions/discussion"
+import { removeFallacyTag, updateFallacy } from "redux/actions/fallacy"
+import { removeDiscussionTag, updateDiscussion } from "redux/actions/discussion"
 import { connect, Provider } from "react-redux"
 import { Link } from "react-router-dom"
 import { Button, Dropdown, Header, Icon, List, Modal } from "semantic-ui-react"

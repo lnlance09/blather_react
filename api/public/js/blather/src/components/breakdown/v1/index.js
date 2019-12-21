@@ -156,7 +156,12 @@ class Breakdown extends Component {
 									</Segment>
 								</div>
 							) : (
-								<Message content="No fallacies have been assigned" />
+								<Segment placeholder>
+									<Header icon>
+										<Icon color="red" name="warning sign" />
+										No fallacies have been assigned
+									</Header>
+								</Segment>
 							)}
 						</Segment>
 					</div>
@@ -181,7 +186,9 @@ class Breakdown extends Component {
 					</Segment>
 				)}
 
-				<Divider hidden section />
+				<Divider hidden />
+
+				<Header size="large">Reviews</Header>
 
 				{placeholder.id ? (
 					<div>

@@ -1,6 +1,5 @@
-import "pages/css/index.css"
 import { DisplayMetaTags } from "utils/metaFunctions"
-import { mostFallacious } from "pages/actions/feed"
+import { mostFallacious } from "redux/actions/feed"
 import { Provider, connect } from "react-redux"
 import { Link } from "react-router-dom"
 import { FacebookShareButton, RedditShareButton, TwitterShareButton } from "react-share"
@@ -10,7 +9,6 @@ import {
 	Divider,
 	Feed,
 	Grid,
-	Header,
 	Icon,
 	List,
 	Responsive,
@@ -140,7 +138,6 @@ class NewsFeed extends Component {
 								<Grid.Row>{TopCard(this.props)}</Grid.Row>
 								<Grid.Row className="feedRow">
 									<Segment>
-										<Header as="h1">Activity</Header>
 										<FeedComponent history={this.props.history} size="small" />
 									</Segment>
 								</Grid.Row>
@@ -151,7 +148,6 @@ class NewsFeed extends Component {
 							<Grid className="feedGrid">
 								<Grid.Column width={12}>
 									<Segment>
-										<Header as="h1">Activity</Header>
 										<FeedComponent history={this.props.history} />
 									</Segment>
 								</Grid.Column>

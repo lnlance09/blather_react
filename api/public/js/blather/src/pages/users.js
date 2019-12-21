@@ -1,9 +1,8 @@
-import "pages/css/index.css"
 import { changeProfilePic, updateAbout } from "components/authentication/v1/actions"
 import { adjustTimezone } from "utils/dateFunctions"
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { formatNumber } from "utils/textFunctions"
-import { fetchUserData, reset } from "pages/actions/user"
+import { fetchUserData, reset } from "redux/actions/user"
 import { Provider, connect } from "react-redux"
 import {
 	Button,
@@ -14,10 +13,11 @@ import {
 	Header,
 	Icon,
 	Image,
+	Label,
 	List,
+	Menu,
 	Placeholder,
-	Segment,
-	Statistic
+	Segment
 } from "semantic-ui-react"
 import defaultImg from "images/trump.svg"
 import ArchivesList from "components/archivesList/v1/"
@@ -111,7 +111,7 @@ class UserPage extends Component {
 		}
 	}
 
-	handleItemClick = name => {
+	handleItemClick = (e, { name }) => {
 		this.setState({ activeItem: name })
 		this.props.history.push(`/users/${this.state.username}/${name}`)
 	}
@@ -225,91 +225,90 @@ class UserPage extends Component {
 					<PageHeader {...this.props} />
 					{!this.props.error ? (
 						<Container className="mainContainer" textAlign="left">
-							<Segment>
-								<Grid stackable>
-									<Grid.Column textAlign="left" width={3}>
-										{this.props.user.id ? (
-											<div>{ProfilePic(this.props)}</div>
-										) : (
-											<Placeholder className="profilePicPlaceholder square">
-												<Placeholder.Image square />
-											</Placeholder>
+							<Grid stackable>
+								<Grid.Column textAlign="left" width={3}>
+									{this.props.user.id ? (
+										<div>{ProfilePic(this.props)}</div>
+									) : (
+										<Placeholder className="profilePicPlaceholder square">
+											<Placeholder.Image square />
+										</Placeholder>
+									)}
+								</Grid.Column>
+								<Grid.Column textAlign="left" width={7}>
+									<div className="userHeaderSection">
+										<TitleHeader textAlign="left" title={user.name} />
+										{this.props.user.id && (
+											<List relaxed>
+												<List.Item>
+													<List.Content>
+														<Icon name="at" /> {user.username}
+													</List.Content>
+												</List.Item>
+												<List.Item>
+													<List.Content>
+														<Icon name="clock outline" />
+														Joined{" "}
+														<Moment
+															date={adjustTimezone(user.dateCreated)}
+															fromNow
+														/>
+													</List.Content>
+												</List.Item>
+												{user.patreonUsername && (
+													<List.Item>
+														<List.Content>
+															<Icon
+																className="patreonIcon"
+																name="patreon"
+															/>{" "}
+															<a
+																href={`https://patreon.com/${user.patreonUsername}`}
+																rel="noopener noreferrer"
+																target="_blank"
+															>
+																{user.patreonUsername}
+															</a>
+														</List.Content>
+													</List.Item>
+												)}
+											</List>
 										)}
-									</Grid.Column>
-									<Grid.Column textAlign="left" width={7}>
-										<div className="userHeaderSection">
-											<TitleHeader textAlign="left" title={user.name} />
-											{this.props.user.id && (
-												<List relaxed>
-													<List.Item>
-														<List.Content>
-															<Icon name="at" /> {user.username}
-														</List.Content>
-													</List.Item>
-													<List.Item>
-														<List.Content>
-															<Icon name="clock outline" />
-															Joined{" "}
-															<Moment
-																date={adjustTimezone(
-																	user.dateCreated
-																)}
-																fromNow
-															/>
-														</List.Content>
-													</List.Item>
-													{user.patreonUsername && (
-														<List.Item>
-															<List.Content>
-																<Icon
-																	className="patreonIcon"
-																	name="patreon"
-																/>{" "}
-																<a
-																	href={`https://patreon.com/${user.patreonUsername}`}
-																	rel="noopener noreferrer"
-																	target="_blank"
-																>
-																	{user.patreonUsername}
-																</a>
-															</List.Content>
-														</List.Item>
-													)}
-												</List>
-											)}
-										</div>
-									</Grid.Column>
-									<Grid.Column width={3}>
-										<Statistic
-											className="userStat"
-											onClick={() => this.handleItemClick("fallacies")}
-										>
-											<Statistic.Value>
-												{formatNumber(user.fallacyCount)}
-											</Statistic.Value>
-											<Statistic.Label>Fallacies</Statistic.Label>
-										</Statistic>
-									</Grid.Column>
-									<Grid.Column width={3}>
-										<Statistic
-											className="userStat"
-											onClick={() => this.handleItemClick("archives")}
-										>
-											<Statistic.Value>
-												{formatNumber(user.archiveCount)}
-											</Statistic.Value>
-											<Statistic.Label>archives</Statistic.Label>
-										</Statistic>
-									</Grid.Column>
-								</Grid>
+									</div>
+								</Grid.Column>
+							</Grid>
 
-								<Divider hidden />
+							<Divider hidden section />
 
-								<Container className="profileContentContainer">
-									<Segment basic className="profileContentSegment">
-										{ShowContent(this.props)}
-									</Segment>
-								</Container>
+							<Menu attached size="large" tabular>
+								<Menu.Item
+									active={activeItem === "fallacies"}
+									name="fallacies"
+									onClick={this.handleItemClick}
+								>
+									Fallacies{" "}
+									{user.fallacyCount > 0 && (
+										<Label color="blue" floating>
+											{formatNumber(user.fallacyCount)}
+										</Label>
+									)}
+								</Menu.Item>
+								<Menu.Item
+									active={activeItem === "archives"}
+									name="archives"
+									onClick={this.handleItemClick}
+								>
+									Archives{" "}
+									{user.archiveCount > 0 && (
+										<Label color="blue" floating>
+											{formatNumber(user.archiveCount)}
+										</Label>
+									)}
+								</Menu.Item>
+							</Menu>
+
+							<Segment attached="bottom" className="profileContentSegment">
+								{ShowContent(this.props)}
 							</Segment>
 						</Container>
 					) : (
