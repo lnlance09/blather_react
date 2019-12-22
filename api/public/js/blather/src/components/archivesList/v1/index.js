@@ -32,9 +32,9 @@ class ArchivesList extends Component {
 		})
 	}
 
-	componentWillReceiveProps(newProps) {
-		if (this.props.q !== newProps.q) {
-			this.setState({ q: newProps.q })
+	componentDidUpdate(prevProps) {
+		if (this.props.q !== prevProps.q) {
+			this.setState({ q: this.rops.q })
 		}
 	}
 

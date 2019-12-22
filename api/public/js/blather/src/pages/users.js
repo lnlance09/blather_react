@@ -79,34 +79,36 @@ class UserPage extends Component {
 		this.reloadAbout = this.reloadAbout.bind(this)
 	}
 
-	componentWillReceiveProps(newProps) {
-		const username = newProps.match.params.username
-		if (this.state.username !== username) {
-			this.props.reset()
-			this.props.fetchUserData({
-				bearer: this.state.bearer,
-				username
-			})
-		}
+	componentDidUpdate(prevProps) {
+		if (prevProps !== this.props) {
+			const username = this.props.match.params.username
+			if (this.state.username !== username) {
+				this.props.reset()
+				this.props.fetchUserData({
+					bearer: this.state.bearer,
+					username
+				})
+			}
 
-		const isMyProfile = username === this.state.myUsername
-		let tab = newProps.match.params.tab
-		if (!this.state.tabs.includes(tab)) {
-			tab = "fallacies"
-		}
+			const isMyProfile = username === this.state.myUsername
+			let tab = this.props.match.params.tab
+			if (!this.state.tabs.includes(tab)) {
+				tab = "fallacies"
+			}
 
-		if (this.state.username !== username || this.state.tab !== tab) {
-			this.setState({
-				activeItem: tab,
-				isMyProfile,
-				tab,
-				username
-			})
+			if (this.state.username !== username || this.state.tab !== tab) {
+				this.setState({
+					activeItem: tab,
+					isMyProfile,
+					tab,
+					username
+				})
 
-			if (isMyProfile) {
-				const currentState = store.getState()
-				const user = currentState.user
-				this.setState({ about: user.data.bio })
+				if (isMyProfile) {
+					const currentState = store.getState()
+					const user = currentState.user
+					this.setState({ about: user.data.bio })
+				}
 			}
 		}
 	}

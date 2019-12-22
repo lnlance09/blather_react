@@ -84,31 +84,33 @@ class FallaciesList extends Component {
 		}
 	}
 
-	componentWillReceiveProps(nextProps) {
-		if (nextProps.source === "pages") {
-			this.setState({ value: nextProps.fallacies })
-		}
+	componentDidUpdate(prevProps) {
+		if (prevProps !== this.props) {
+			if (this.props.source === "pages") {
+				this.setState({ value: this.props.fallacies })
+			}
 
-		if (
-			nextProps.tagId !== this.props.tagId ||
-			nextProps.fallacyId !== this.props.fallacyId ||
-			nextProps.fallacies !== this.props.fallacies
-		) {
-			this.props.getFallacies({
-				assignedBy: nextProps.assignedBy,
-				assignedTo: nextProps.assignedTo,
-				commentId: nextProps.commentId,
-				exclude: nextProps.exclude,
-				fallacies: nextProps.fallacies,
-				fallacyId: nextProps.fallacyId,
-				network: nextProps.network,
-				objectId: nextProps.objectId,
-				page: 0,
-				q: nextProps.q,
-				shuffle: nextProps.shuffle,
-				sort: this.state.sortValue,
-				tagId: nextProps.tagId
-			})
+			if (
+				prevProps.tagId !== this.props.tagId ||
+				prevProps.fallacyId !== this.props.fallacyId ||
+				prevProps.fallacies !== this.props.fallacies
+			) {
+				this.props.getFallacies({
+					assignedBy: this.props.assignedBy,
+					assignedTo: this.props.assignedTo,
+					commentId: this.props.commentId,
+					exclude: this.props.exclude,
+					fallacies: this.props.fallacies,
+					fallacyId: this.props.fallacyId,
+					network: this.props.network,
+					objectId: this.props.objectId,
+					page: 0,
+					q: this.props.q,
+					shuffle: this.props.shuffle,
+					sort: this.state.sortValue,
+					tagId: this.props.tagId
+				})
+			}
 		}
 	}
 

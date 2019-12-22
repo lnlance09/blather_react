@@ -4,8 +4,6 @@ import PropTypes from "prop-types"
 import React, { Component } from "react"
 
 class LazyLoad extends Component {
-	componentWillMount() {}
-
 	render() {
 		if (this.props.segment) {
 			return (

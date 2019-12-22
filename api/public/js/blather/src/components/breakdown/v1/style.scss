@@ -1,76 +1,76 @@
 @import '../../../css/colors.scss';
 
 .breakdown {
-    .credibilityLevel {
-        margin-top: 20px;
-    }
+	.credibilityLevel {
+		margin-top: 20px;
+	}
 
-    .breakdownSegment {
-        margin-bottom: 0 !important;
-        padding: 0 !important;
+	.breakdownSegment {
+		margin-bottom: 0 !important;
+		padding: 0 !important;
 
-        .percentages {
-            padding: 0 !important;
+		.percentages {
+			padding: 0 !important;
 
-            .ui.header.small {
-                margin-bottom: 8px !important;
-            }
+			.ui.header.small {
+				margin-bottom: 8px !important;
+			}
 
-            .fallacyPercentage {
-                cursor: pointer;
-                margin-top: 15px;
+			.fallacyPercentage {
+				cursor: pointer;
+				margin-top: 15px;
 
-                &:first-of-type {
-                    margin-top: 0;
-                }
+				&:first-of-type {
+					margin-top: 0;
+				}
 
-                .progress {
-                    margin-bottom: 0;
+				.progress {
+					margin-bottom: 0;
 
-                    .bar {
-                        background: $blue;
-                        min-width: 50px;
+					.bar {
+						background: $blue;
+						min-width: 50px;
 
-                        .progress {
-                            color: $white;
-                        }
-                    }
-                }
-            }
-        }
-    }
+						.progress {
+							color: $white;
+						}
+					}
+				}
+			}
+		}
+	}
 
-    .questionnaire {
-        margin-top: 0;
-        padding: 0 !important;
+	.questionnaire {
+		margin-top: 0;
+		padding: 0 !important;
 
-        .ui.header.medium {
-            margin-top: 0;
-        }
-    }
+		.ui.header.medium {
+			margin-top: 0;
+		}
+	}
 
-    .placeholderDiv {
-        color: $lightBlack;
-        font-size: 16px;
-        line-height: 1.6;
-        margin-bottom: 12px;
-    }
+	.placeholderDiv {
+		color: $lightBlack;
+		font-size: 16px;
+		line-height: 1.6;
+		margin-bottom: 12px;
+	}
 
-    .icon.question {
-        color: $red;
-    }
+	.icon.question {
+		color: $red;
+	}
 
-    @media only screen and (max-width: 1025px) {
-        .ui.header.medium {
-            font-size: 18px !important;
-        }
+	@media only screen and (max-width: 1025px) {
+		.ui.header.medium {
+			font-size: 18px !important;
+		}
 
-        .ui.header.small {
-            font-size: 14px !important;
-        }
+		.ui.header.small {
+			font-size: 14px !important;
+		}
 
-        .reviewAvatar {
-            display: none !important;
-        }
-    }
+		.reviewAvatar {
+			display: none !important;
+		}
+	}
 }

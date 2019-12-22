@@ -106,8 +106,10 @@ class DiscussionsList extends Component {
 		}
 	}
 
-	componentWillReceiveProps() {
-		this.setState({ loadingMore: false })
+	componentDidUpdate(prevProps) {
+		if (prevProps !== this.props) {
+			this.setState({ loadingMore: false })
+		}
 	}
 	fetchTags() {
 		return fetch(`${window.location.origin}/api/tags/getTags`, {

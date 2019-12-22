@@ -29,14 +29,14 @@ class Fallacies extends Component {
 		this.onChangeFallacy = this.onChangeFallacy.bind(this)
 	}
 
-	componentWillMount() {}
-
-	componentWillReceiveProps(props) {
-		const name = props.match.params.id
-		const option = fallacyOptions.filter(f => f.key === name)
-		const activeItem = option.length === 1 ? option[0].value : null
-		const activeItemName = option.length === 1 ? option[0].text : null
-		this.setState({ activeItem, activeItemName, selected: activeItem !== null })
+	componentDidUpdate(prevProps) {
+		if (prevProps !== this.props) {
+			const name = this.props.match.params.id
+			const option = fallacyOptions.filter(f => f.key === name)
+			const activeItem = option.length === 1 ? option[0].value : null
+			const activeItemName = option.length === 1 ? option[0].text : null
+			this.setState({ activeItem, activeItemName, selected: activeItem !== null })
+		}
 	}
 
 	onChangeFallacy = (e, { value }) => {

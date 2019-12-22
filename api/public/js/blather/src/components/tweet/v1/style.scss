@@ -1,205 +1,205 @@
 @import '../../../css/colors.scss';
 
 .tweet {
-    line-height: 1.4;
-    width: 100%;
+	line-height: 1.4;
+	width: 100%;
 
-    &.clickable {
-        cursor: pointer;
-    }
+	&.clickable {
+		cursor: pointer;
+	}
 
-    &:first-of-type {
-        margin-top: 0;
-    }
+	&:first-of-type {
+		margin-top: 0;
+	}
 
-    .archivePopup {
-        border-radius: 0;
-        box-shadow: none;
-        padding: 0.8em;
-    }
+	.archivePopup {
+		border-radius: 0;
+		box-shadow: none;
+		padding: 0.8em;
+	}
 
-    .archiveMsg {
-        margin-bottom: 0 !important;
-    }
+	.archiveMsg {
+		margin-bottom: 0 !important;
+	}
 
-    .retweetedText {
-        color: $lightBlack;
-        font-size: 13px;
-        padding: 6px 10px;
+	.retweetedText {
+		color: $lightBlack;
+		font-size: 13px;
+		padding: 6px 10px;
 
-        .icon {
-            margin-right: 5px;
-        }
-    }
+		.icon {
+			margin-right: 5px;
+		}
+	}
 
-    .card {
-        .content {
-            white-space: pre-line;
+	.card {
+		.content {
+			white-space: pre-line;
 
-            .description {
-                font-size: 16px !important;
-                line-height: 1.4;
+			.description {
+				font-size: 16px !important;
+				line-height: 1.4;
 
-                span {
-                    color: $black;
+				span {
+					color: $black;
 
-                    b {
-                        border-bottom: solid 2px $red;
-                    }
-                }
-            }
+					b {
+						border-bottom: solid 2px $red;
+					}
+				}
+			}
 
-            &.extra {
-                cursor: default;
-                padding: 1px 3px !important;
+			&.extra {
+				cursor: default;
+				padding: 1px 3px !important;
 
-                .list {
-                    .item {
-                        display: inline-block;
+				.list {
+					.item {
+						display: inline-block;
 
-                        &.favoriteItem {
-                            margin-left: 0;
-                        }
+						&.favoriteItem {
+							margin-left: 0;
+						}
 
-                        .label {
-                            border: none;
-                        }
+						.label {
+							border: none;
+						}
 
-                        .icon {
-                            cursor: default;
-                            display: inline-block;
-                            margin-right: 5px;
-                        }
+						.icon {
+							cursor: default;
+							display: inline-block;
+							margin-right: 5px;
+						}
 
-                        .icon.like {
-                            color: $pink;
+						.icon.like {
+							color: $pink;
 
-                            &:hover {
-                                opacity: 0.75;
-                            }
-                        }
+							&:hover {
+								opacity: 0.75;
+							}
+						}
 
-                        .icon.retweet {
-                            color: $blue;
-                        }
+						.icon.retweet {
+							color: $blue;
+						}
 
-                        .icon.twitter {
-                            color: $twitter;
-                            cursor: pointer;
-                            margin-right: 0;
-                        }
+						.icon.twitter {
+							color: $twitter;
+							cursor: pointer;
+							margin-right: 0;
+						}
 
-                        .icon.sticky.note {
-                            cursor: pointer;
-                        }
+						.icon.sticky.note {
+							cursor: pointer;
+						}
 
-                        &.archiveListItem {
-                            .content {
-                                padding-right: 0 !important;
-                            }
-                        }
+						&.archiveListItem {
+							.content {
+								padding-right: 0 !important;
+							}
+						}
 
-                        .content {
-                            padding: 7px;
-                        }
-                    }
-                }
-            }
-        }
-    }
+						.content {
+							padding: 7px;
+						}
+					}
+				}
+			}
+		}
+	}
 
-    .quotedTweet {
-        margin-bottom: 5px !important;
+	.quotedTweet {
+		margin-bottom: 5px !important;
 
-        &.clickable {
-            cursor: pointer;
-        }
+		&.clickable {
+			cursor: pointer;
+		}
 
-        .quotedTweetContent {
-            .quotedScreenName {
-                font-weight: normal;
-                margin-left: 4px;
-            }
+		.quotedTweetContent {
+			.quotedScreenName {
+				font-weight: normal;
+				margin-left: 4px;
+			}
 
-            .quotedTextTweet {
-                font-size: 14px;
-            }
+			.quotedTextTweet {
+				font-size: 14px;
+			}
 
-            .quotedHeader {
-                font-size: 14px !important;
-            }
-        }
-    }
+			.quotedHeader {
+				font-size: 14px !important;
+			}
+		}
+	}
 
-    .mediaPic {
-        display: inline-block;
-        margin-top: 8px;
-    }
+	.mediaPic {
+		display: inline-block;
+		margin-top: 8px;
+	}
 
-    .tweetUserImg {
-        margin-right: 9px !important;
-        width: 48px;
-    }
+	.tweetUserImg {
+		margin-right: 9px !important;
+		width: 48px;
+	}
 
-    .tweetUserName {
-        display: inline;
-        font-size: 18px !important;
-        height: auto !important;
+	.tweetUserName {
+		display: inline;
+		font-size: 18px !important;
+		height: auto !important;
 
-        &.link {
-            cursor: pointer;
-        }
-    }
+		&.link {
+			cursor: pointer;
+		}
+	}
 
-    .tweetUserScreenName {
-        font-size: 14px !important;
-        line-height: 14px;
-        margin-top: 0px;
-    }
+	.tweetUserScreenName {
+		font-size: 14px !important;
+		line-height: 14px;
+		margin-top: 0px;
+	}
 
-    .tweetTime {
-        margin-left: 4px;
-    }
+	.tweetTime {
+		margin-left: 4px;
+	}
 
-    .mediaImg {
-        margin-top: 10px;
-    }
+	.mediaImg {
+		margin-top: 10px;
+	}
 
-    .mediaVideo {
-        margin-top: 10px;
-    }
+	.mediaVideo {
+		margin-top: 10px;
+	}
 
-    @media only screen and (max-width: 1025px) {
-        .tweetUserName {
-            font-size: 16px !important;
-        }
+	@media only screen and (max-width: 1025px) {
+		.tweetUserName {
+			font-size: 16px !important;
+		}
 
-        .tweetUserScreenName {
-            font-size: 13px !important;
-        }
+		.tweetUserScreenName {
+			font-size: 13px !important;
+		}
 
-        .tweetUserImg {
-            width: 36px;
-        }
+		.tweetUserImg {
+			width: 36px;
+		}
 
-        .card {
-            .content {
-                .description {
-                    font-size: 14px !important;
-                }
+		.card {
+			.content {
+				.description {
+					font-size: 14px !important;
+				}
 
-                .list {
-                    .item {
-                        .icon {
-                            font-size: 16px;
-                        }
-                    }
-                }
-            }
+				.list {
+					.item {
+						.icon {
+							font-size: 16px;
+						}
+					}
+				}
+			}
 
-            .mediaImg {
-                width: 250px;
-            }
-        }
-    }
+			.mediaImg {
+				width: 250px;
+			}
+		}
+	}
 }

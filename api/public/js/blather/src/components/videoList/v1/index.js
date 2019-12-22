@@ -21,7 +21,7 @@ class VideoList extends Component {
 		this.loadMoreItems = _.debounce(this.loadMoreItems.bind(this), 200)
 	}
 
-	componentWillMount() {
+	componentDidMount() {
 		this.props.fetchPagePosts({
 			bearer: this.props.bearer,
 			id: this.props.channelId,

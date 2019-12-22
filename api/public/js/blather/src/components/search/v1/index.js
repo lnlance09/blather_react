@@ -19,7 +19,7 @@ class NavSearch extends Component {
 		this.onClick = this.onClick.bind(this)
 	}
 
-	componentWillMount() {
+	componentDidMount() {
 		this.resetComponent()
 	}
 

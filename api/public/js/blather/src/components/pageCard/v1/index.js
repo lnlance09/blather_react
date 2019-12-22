@@ -6,8 +6,6 @@ import PropTypes from "prop-types"
 import React, { Component, Fragment } from "react"
 
 class PageCard extends Component {
-	componentWillMount() {}
-
 	render() {
 		const OverallReliability = (props, progress) => {
 			let color = "green"

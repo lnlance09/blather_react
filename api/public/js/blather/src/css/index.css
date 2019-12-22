@@ -380,6 +380,10 @@ a {
   .fallacyPage .retractionContent .card .content .image {
     cursor: pointer; }
 
+.fallacyPage .ui.container.retractionContainer {
+  margin-left: 0 !important;
+  margin-right: 0 !important; }
+
 .fallacyPage canvas {
   display: none;
   height: 720px;
@@ -497,20 +501,20 @@ a {
   .socialMediaPage .pageHeaderInfo .twitterIcon, .socialMediaPage .pageHeaderInfo .youtubeIcon {
     margin-top: 8px; }
 
-.socialMediaPage .profileContentContainer {
+.socialMediaPage .ui.container.profileContentContainer {
   margin: 0 !important;
   padding: 0 !important;
   width: 100% !important; }
-  .socialMediaPage .profileContentContainer .dimmer {
+  .socialMediaPage .ui.container.profileContentContainer .dimmer {
     background: rgba(255, 255, 255, 0.8) !important; }
-  .socialMediaPage .profileContentContainer .signInPlaceholder {
+  .socialMediaPage .ui.container.profileContentContainer .signInPlaceholder {
     border: none;
     box-shadow: none !important;
     padding: 0; }
   @media only screen and (max-width: 1025px) {
-    .socialMediaPage .profileContentContainer .signInPlaceholder {
+    .socialMediaPage .ui.container.profileContentContainer .signInPlaceholder {
       height: 250px; } }
-  .socialMediaPage .profileContentContainer .segment.basic {
+  .socialMediaPage .ui.container.profileContentContainer .segment.basic {
     padding: 0 !important; }
 
 /* Post page */
@@ -587,7 +591,7 @@ a {
   line-height: 14px;
   vertical-align: middle; }
 
-.searchPage .searchContentContainer {
+.searchPage .ui.container.searchContentContainer {
   min-height: 300px;
   margin: 0 !important;
   padding: 0 !important; }

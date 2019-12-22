@@ -62,7 +62,11 @@ class Home extends Component {
 		this.setState({ highlightedText: text })
 	}
 
-	onChangeSearch = value => this.setState({ q: value })
+	onKeyUp = e => {
+		if (e.keyCode === 8) {
+			this.setState({ url: "", videoId: null })
+		}
+	}
 
 	onPaste = e => {
 		const url = e.clipboardData.getData("Text")

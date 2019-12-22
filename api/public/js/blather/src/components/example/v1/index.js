@@ -6,8 +6,6 @@ import PropTypes from "prop-types"
 import React, { Component } from "react"
 
 class Example extends Component {
-	componentWillMount() {}
-
 	render() {
 		return (
 			<div className="example">

@@ -208,25 +208,27 @@ class Fallacy extends Component {
 		})
 	}
 
-	componentWillReceiveProps(newProps) {
-		let newId = newProps.match.params.id
-		if (isNaN(newId)) {
-			const split = newId.split("-")
-			newId = split[split.length - 1]
-		}
+	componentDidUpdate(prevProps) {
+		if (prevProps !== this.props) {
+			let newId = this.props.match.params.id
+			if (isNaN(newId)) {
+				const split = newId.split("-")
+				newId = split[split.length - 1]
+			}
 
-		if (newId !== this.state.id) {
-			this.props.reset()
-			this.props.fetchFallacy({
-				bearer: this.state.bearer,
-				id: newId
+			if (newId !== this.state.id) {
+				this.props.reset()
+				this.props.fetchFallacy({
+					bearer: this.state.bearer,
+					id: newId
+				})
+				this.setState({ id: newId })
+			}
+
+			this.setState({
+				exportOpt: this.props.canMakeVideo ? "video" : "screenshot"
 			})
-			this.setState({ id: newId })
 		}
-
-		this.setState({
-			exportOpt: newProps.canMakeVideo ? "video" : "screenshot"
-		})
 	}
 
 	handleColorChange = color => this.setState({ background: null, backgroundColor: color.hex })

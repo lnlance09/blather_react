@@ -66,16 +66,16 @@ class YouTubeCommentsSection extends Component {
 		}
 	}
 
-	componentWillReceiveProps(newProps) {
+	componentDidUpdate(prevProps) {
 		if (
-			newProps.videoId !== this.props.videoId &&
-			newProps.videoId !== undefined &&
-			newProps.auth &&
+			prevProps.videoId !== this.props.videoId &&
+			this.props.videoId !== undefined &&
+			this.props.auth &&
 			this.props.source === "post"
 		) {
 			this.props.fetchVideoComments({
-				bearer: newProps.bearer,
-				id: newProps.videoId
+				bearer: this.props.bearer,
+				id: this.props.videoId
 			})
 			this.loadMore = _.debounce(this.loadMore.bind(this), 200)
 		}
