@@ -24,7 +24,9 @@ import store from "store"
 class About extends Component {
 	constructor(props) {
 		super(props)
+
 		this.state = {
+			activeItem: "about",
 			msg: "",
 			messageSent: false
 		}
@@ -33,9 +35,7 @@ class About extends Component {
 		this.sendContactMsg = this.sendContactMsg.bind(this)
 	}
 
-	componentDidMount() {}
-
-	componentWillMount() {
+	componentDidMount() {
 		let tab = "about"
 		if (this.props.match.params.tab) {
 			tab = this.props.match.params.tab

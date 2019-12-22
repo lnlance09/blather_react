@@ -36,12 +36,9 @@ class SearchPage extends Component {
 		}
 	}
 
-	componentDidMount() {}
-
-	componentWillReceiveProps(props) {
-		const _query = qs.parse(this.props.location.search)
-		const query = qs.parse(props.location.search)
-		if (_query.q !== query.q) {
+	componentDidUpdate(prevProps) {
+		if (prevProps !== this.props) {
+			const query = qs.parse(this.props.location.search)
 			this.setState({ q: query.q })
 		}
 	}

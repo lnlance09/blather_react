@@ -27,9 +27,9 @@ class Breakdown extends Component {
 		this.fetchFallacies(this.props)
 	}
 
-	componentWillReceiveProps(props) {
-		if (this.props.id !== props.id) {
-			this.fetchFallacies(props)
+	componentDidUpdate(prevProps) {
+		if (this.props.id !== prevProps.id) {
+			this.fetchFallacies(this.props)
 		}
 	}
 

@@ -24,9 +24,9 @@ class FallacyRef extends Component {
 		})
 	}
 
-	componentWillReceiveProps(newProps) {
-		if (this.props.id !== newProps.id) {
-			this.matchFallacy(newProps.id)
+	componentDidUpdate(prevProps) {
+		if (this.props.id !== prevProps.id) {
+			this.matchFallacy(this.props.id)
 		}
 	}
 

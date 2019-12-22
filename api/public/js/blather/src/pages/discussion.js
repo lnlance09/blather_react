@@ -71,7 +71,7 @@ class DiscussionPage extends Component {
 		this.updateExtra = this.updateExtra.bind(this)
 	}
 
-	componentWillMount() {
+	componentDidMount() {
 		if (this.props.id === undefined) {
 			this.props.fetchDiscussion({
 				bearer: this.state.bearer,

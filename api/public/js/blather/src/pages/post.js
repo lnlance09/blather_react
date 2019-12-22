@@ -93,59 +93,60 @@ class Post extends Component {
 		this.setClip = this.setClip.bind(this)
 	}
 
-	componentDidMount() {}
+	componentDidUpdate(prevProps) {
+		if (prevProps !== this.props) {
+			const qs = queryString.parse(this.props.location.search)
+			const path = this.props.match.path
+			let id = this.props.match.params.id
 
-	componentWillReceiveProps(newProps) {
-		const qs = queryString.parse(newProps.location.search)
-		const path = newProps.match.path
-		let id = newProps.match.params.id
-		if (id.substring(id.length - 1, id.length) === "&") {
-			id = id.slice(0, -1)
-		}
-
-		let a = ""
-		if (qs.a) {
-			a = qs.a
-		}
-
-		let startTime = "00:00:00"
-		if (qs.x) {
-			startTime = qs.x
-		}
-
-		let endTime = "00:00:00"
-		if (qs.y) {
-			endTime = qs.y
-		}
-
-		if (this.state.id !== id) {
-			const currentState = store.getState()
-			const auth = currentState.user.authenticated
-			const bearer = currentState.user.bearer
-			const { network, type, url } = this.postType(id, path)
-			this.setState({
-				auth,
-				bearer,
-				endTime,
-				id,
-				network,
-				startTime,
-				type
-			})
-
-			this.props.fetchPostData({
-				a,
-				bearer,
-				url
-			})
-
-			if (type === "video" && newProps.existsOnYt) {
-				this.props.downloadVideo({ audio: 0, id })
+			if (id.substring(id.length - 1, id.length) === "&") {
+				id = id.slice(0, -1)
 			}
-		}
 
-		if (this.state.a !== a) {
-			this.setState({ a })
+			let a = ""
+			if (qs.a) {
+				a = qs.a
+			}
+
+			let startTime = "00:00:00"
+			if (qs.x) {
+				startTime = qs.x
+			}
+
+			let endTime = "00:00:00"
+			if (qs.y) {
+				endTime = qs.y
+			}
+
+			if (this.state.id !== id) {
+				const currentState = store.getState()
+				const auth = currentState.user.authenticated
+				const bearer = currentState.user.bearer
+				const { network, type, url } = this.postType(id, path)
+				this.setState({
+					auth,
+					bearer,
+					endTime,
+					id,
+					network,
+					startTime,
+					type
+				})
+
+				this.props.fetchPostData({
+					a,
+					bearer,
+					url
+				})
+
+				if (type === "video" && this.props.existsOnYt) {
+					this.props.downloadVideo({ audio: 0, id })
+				}
+			}
+
+			if (this.state.a !== a) {
+				this.setState({ a })
+			}
 		}
 	}
 

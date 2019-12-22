@@ -634,6 +634,11 @@ a {
 		}
 	}
 
+	.ui.container.retractionContainer {
+		margin-left: 0 !important;
+		margin-right: 0 !important;
+	}
+
 	canvas {
 		display: none;
 		height: 720px;
@@ -844,7 +849,7 @@ a {
 		}
 	}
 
-	.profileContentContainer {
+	.ui.container.profileContentContainer {
 		margin: 0 !important;
 		padding: 0 !important;
 		width: 100% !important;
@@ -999,7 +1004,7 @@ a {
 		}
 	}
 
-	.searchContentContainer {
+	.ui.container.searchContentContainer {
 		min-height: 300px;
 		margin: 0 !important;
 		padding: 0 !important;

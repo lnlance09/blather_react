@@ -75,16 +75,16 @@ class YouTubeVideo extends Component {
 		// this.player.seekTo(this.props.st)
 	}
 
-	componentWillReceiveProps(props) {
+	componentDidUpdate(prevProps) {
 		if (
 			this.state.auth &&
-			props.source === "post" &&
-			props.id !== this.props.id &&
-			props.id !== undefined
+			this.props.source === "post" &&
+			prevProps.id !== this.props.id &&
+			this.props.id !== undefined
 		) {
 			this.props.getVideoArchives({
 				archiveId: this.props.archiveId,
-				id: props.id,
+				id: this.props.id,
 				userId: this.state.user.id
 			})
 		}

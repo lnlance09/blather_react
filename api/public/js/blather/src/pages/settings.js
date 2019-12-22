@@ -84,20 +84,20 @@ class SettingsPage extends Component {
 		this.setPassword = this.setPassword.bind(this)
 	}
 
-	componentDidMount() {}
-
-	componentWillReceiveProps(props) {
-		if (props.passwordChangeSuccessful) {
-			this.setState({
-				confirmPassword: "",
-				loading: false,
-				newPassword: "",
-				password: ""
-			})
-			const self = this
-			setTimeout(() => {
-				self.props.resetPasswordProps()
-			}, 4000)
+	componentDidUpdate(prevProps) {
+		if (prevProps !== this.props) {
+			if (this.props.passwordChangeSuccessful) {
+				this.setState({
+					confirmPassword: "",
+					loading: false,
+					newPassword: "",
+					password: ""
+				})
+				const self = this
+				setTimeout(() => {
+					self.props.resetPasswordProps()
+				}, 4000)
+			}
 		}
 	}
 

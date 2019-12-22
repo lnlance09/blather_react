@@ -86,8 +86,6 @@ class Target extends Component {
 		this.submitForm = this.submitForm.bind(this)
 	}
 
-	componentWillMount() {}
-
 	changeSincerityExplanation = (e, { value }) => this.props.changeSincerityExplanation({ value })
 
 	changeSummary = (e, { value }) => this.props.changeSummary({ value })
