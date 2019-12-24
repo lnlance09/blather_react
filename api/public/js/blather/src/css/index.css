@@ -463,6 +463,10 @@ a {
     padding: 0 !important; }
   .homePage .translationContainer {
     background: #2185D0; }
+    @media only screen and (max-width: 1025px) {
+      .homePage .translationContainer .ui.grid .row .column {
+        padding-left: 0 !important;
+        padding-right: 0 !important; } }
 
 .competitionContainer {
   background: #FFFFFF;
