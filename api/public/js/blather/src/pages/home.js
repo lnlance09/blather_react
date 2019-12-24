@@ -2,7 +2,21 @@ import { getPostFromUrl } from "redux/actions/home"
 import { connect, Provider } from "react-redux"
 import { Link } from "react-router-dom"
 import { DisplayMetaTags } from "utils/metaFunctions"
-import { Container, Divider, Header, Icon, Input, List, Message, Segment } from "semantic-ui-react"
+import { translateToShit } from "utils/textFunctions"
+import {
+	Button,
+	Container,
+	Divider,
+	Form,
+	Grid,
+	Header,
+	Icon,
+	Input,
+	List,
+	Message,
+	Segment,
+	TextArea
+} from "semantic-ui-react"
 import FallacyForm from "components/fallacyForm/v1/"
 import PageFooter from "components/footer/v1/"
 import PageHeader from "components/header/v1/"
@@ -32,6 +46,8 @@ class Home extends Component {
 			formVisible: true,
 			highlightedText: "IF YOU ARE NOT HAPPY HERE, YOU CAN LEAVE!",
 			startTime: "",
+			text: "",
+			translation: "",
 			type: null,
 			url,
 			user
@@ -62,6 +78,10 @@ class Home extends Component {
 		this.setState({ highlightedText: text })
 	}
 
+	onChangeText = (e, { value }) => {
+		this.setState({ text: value })
+	}
+
 	onKeyUp = e => {
 		if (e.keyCode === 8) {
 			this.setState({ url: "", videoId: null })
@@ -77,6 +97,11 @@ class Home extends Component {
 		})
 	}
 
+	translate = text => {
+		const translation = translateToShit(text)
+		this.setState({ translation })
+	}
+
 	render() {
 		const {
 			auth,
@@ -86,6 +111,8 @@ class Home extends Component {
 			highlightedText,
 			id,
 			startTime,
+			text,
+			translation,
 			url,
 			user
 		} = this.state
@@ -98,8 +125,8 @@ class Home extends Component {
 				<div className="homePage">
 					<DisplayMetaTags page="home" props={this.props} state={this.state} />
 					<PageHeader {...this.props} />
-					<Container className="mainContainer" textAlign="left">
-						<div>
+					<div className="assignContainer">
+						<Container className="mainContainer" textAlign="left">
 							<Header as="h1" className="heroHeader">
 								Assign a Logical Fallacy
 							</Header>
@@ -207,60 +234,177 @@ class Home extends Component {
 									</Segment>
 								)}
 							</Segment>
-						</div>
-					</Container>
-				</div>
+						</Container>
+					</div>
 
-				<div className="competitionContainer">
-					<Container>
-						<Header size="huge">What is Blather?</Header>
+					<div className="competitionContainer">
+						<Container>
+							<Header size="huge">What is Blather?</Header>
 
-						<p>
-							Blather is a website that lets users assign logical fallacies and
-							analyze the logic and reasoning of claims made on social media. You can
-							use it to make memes out of tweets and sharpen your critical thinking
-							skills too.
-						</p>
+							<p>
+								Blather is a website that lets users assign logical fallacies and
+								analyze the logic and reasoning of claims made on social media. You
+								can use it to make memes out of tweets and sharpen your critical
+								thinking skills too.
+							</p>
 
-						<Header size="medium" textAlign="left">
-							Rules
-						</Header>
+							<Header size="medium" textAlign="left">
+								Rules
+							</Header>
 
-						<List bulleted size="medium">
-							<List.Item>
-								You can select from{" "}
-								<Link to="/fallacies">46 logical fallacies</Link>.
-							</List.Item>
-							<List.Item>
-								If you're assigning a doublethink, keep in mind that sometimes
-								people genuinely have a change of heart. Use your own best
-								judgement.
-							</List.Item>
-							<List.Item>
-								Tweets can be used to show how they contradict other tweets but they
-								have to be from the same account.
-							</List.Item>
-							<List.Item>
-								Learn to understand what the fallacy actually is and how it's used
-								before assigning it.
-							</List.Item>
-						</List>
-
-						<Header size="medium" textAlign="left">
-							Examples
-						</Header>
-
-						<List bulleted>
-							{this.props.examples.map((e, i) => (
-								<List.Item key={`fallacyItem${i}`}>
-									<Link to={`/fallacies/${e.link}`}>{e.text}</Link>
+							<List bulleted size="medium">
+								<List.Item>
+									You can select from{" "}
+									<Link to="/fallacies">46 logical fallacies</Link>.
 								</List.Item>
-							))}
-							<List.Item>
-								<Link to="/activity">See more examples</Link>
-							</List.Item>
-						</List>
-					</Container>
+								<List.Item>
+									If you're assigning a doublethink, keep in mind that sometimes
+									people genuinely have a change of heart. Use your own best
+									judgement.
+								</List.Item>
+								<List.Item>
+									Tweets can be used to show how they contradict other tweets but
+									they have to be from the same account.
+								</List.Item>
+								<List.Item>
+									Learn to understand what the fallacy actually is and how it's
+									used before assigning it.
+								</List.Item>
+							</List>
+
+							<Header>Examples</Header>
+
+							<List bulleted>
+								{this.props.examples.map((e, i) => (
+									<List.Item key={`fallacyItem${i}`}>
+										<Link to={`/fallacies/${e.link}`}>{e.text}</Link>
+									</List.Item>
+								))}
+								<List.Item>
+									<Link to="/activity">See more examples</Link>
+								</List.Item>
+							</List>
+						</Container>
+
+						<Divider hidden />
+
+						<Container>
+							<Header icon size="huge" textAlign="center">
+								<Icon color="red" name="translate" />
+								Translator
+								<Header.Subheader>
+									Take your tweets to the next level
+								</Header.Subheader>
+							</Header>
+						</Container>
+
+						<div className="translationContainer">
+							<Container>
+								<Segment vertical>
+									<Form inverted size="small">
+										<Grid columns="equal" stackable>
+											<Grid.Row textAlign="center">
+												<Grid.Column>
+													<TextArea
+														onChange={this.onChangeText}
+														placeholder="Enter text here"
+														rows={10}
+														value={text}
+													/>
+												</Grid.Column>
+												<Grid.Column>
+													<TextArea
+														disabled
+														placeholder=""
+														rows={10}
+														value={translation}
+													/>
+												</Grid.Column>
+											</Grid.Row>
+										</Grid>
+										<Divider hidden />
+										<Button
+											color="red"
+											fluid
+											onClick={() => this.translate(text)}
+										>
+											Translate
+										</Button>
+									</Form>
+								</Segment>
+							</Container>
+						</div>
+
+						<Container style={{ marginTop: "12px" }}>
+							<List size="large">
+								<List.Item>
+									<List.Icon color="green" name="checkmark" />{" "}
+									<List.Content>
+										<List.Header>
+											Capitalizes random words for no apparent reason
+										</List.Header>
+									</List.Content>
+								</List.Item>
+								<List.Item>
+									<List.Icon color="green" name="checkmark" />{" "}
+									<List.Content>
+										<List.Header>
+											Omits periods so that it's not clear where one sentence
+											ends and another one begins
+										</List.Header>
+									</List.Content>
+								</List.Item>
+								<List.Item>
+									<List.Icon color="green" name="checkmark" />
+									<List.Content>
+										<List.Header>
+											Deliberately misuses the following words so that your
+											comments will have that authentic Trumpanzee feel
+										</List.Header>
+										<List.List>
+											<List.Item>
+												<List.Content>
+													<List.Header>
+														<i>"you're"</i> and <i>"your"</i>
+													</List.Header>
+												</List.Content>
+											</List.Item>
+											<List.Item>
+												<List.Content>
+													<List.Header>
+														<i>"to"</i>, <i>"too"</i>, and <i>"two"</i>
+													</List.Header>
+												</List.Content>
+											</List.Item>
+											<List.Item>
+												<List.Content>
+													<List.Header>
+														<i>"there"</i>, <i>"their"</i>, and{" "}
+														<i>"they're"</i>
+													</List.Header>
+												</List.Content>
+											</List.Item>
+											<List.Item>
+												<List.Content>
+													<List.Header>
+														<i>"it's"</i> and <i>"its"</i>
+													</List.Header>
+												</List.Content>
+											</List.Item>
+											<List.Item>
+												<List.Content>
+													<List.Header>
+														<i>"could have"</i> and <i>"could of"</i>
+													</List.Header>
+												</List.Content>
+											</List.Item>
+										</List.List>
+									</List.Content>
+								</List.Item>
+							</List>
+						</Container>
+					</div>
+
 					<PageFooter />
 				</div>
 			</Provider>
