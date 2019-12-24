@@ -11,8 +11,10 @@ import store from "store"
 class SignInPage extends Component {
 	constructor(props) {
 		super(props)
+
 		const qs = queryString.parse(this.props.location.search)
 		const currentState = store.getState()
+
 		if (
 			currentState.user.authenticated &&
 			(!currentState.user.verify || currentState.user.emailVerified)
@@ -32,7 +34,7 @@ class SignInPage extends Component {
 			<Provider store={store}>
 				<div className="loginContainer">
 					<DisplayMetaTags page="signin" props={this.props} state={this.state} />
-					<Container className="signInPageHeader" textAlign="center">
+					<Container className="signInPageHeader" fluid textAlign="center">
 						<ReactSVG
 							className="mainLogo"
 							evalScripts="always"

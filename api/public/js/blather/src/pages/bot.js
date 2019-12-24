@@ -1,4 +1,3 @@
-import "components/tweet/v1/style.css"
 import { DisplayMetaTags } from "utils/metaFunctions"
 import React, { Component } from "react"
 import { Provider } from "react-redux"
@@ -267,9 +266,9 @@ class Bot extends Component {
 
 		return (
 			<Provider store={store}>
-				<div className="loginContainer botPage">
+				<div className="botPage">
 					<DisplayMetaTags page="bot" props={this.props} state={this.state} />
-					<Container className="signInPageHeader" textAlign="center">
+					<Container className="signInPageHeader" fluid textAlign="center">
 						<ReactSVG
 							className="mainLogo"
 							evalScripts="always"

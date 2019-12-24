@@ -217,8 +217,10 @@ a {
 
 .botPage .pickOneContainer {
   margin-top: 5px; }
-  .botPage .pickOneContainer .buttons .button {
-    width: 50%; }
+  .botPage .pickOneContainer .buttons {
+    padding: 4px 0; }
+    .botPage .pickOneContainer .buttons .button {
+      width: 50%; }
 
 .botPage .ui.grid {
   margin-top: 5px; }
@@ -444,8 +446,9 @@ a {
   margin-top: 0; }
 
 .homePage {
-  background: #1652f0;
-  padding: 0; }
+  background: #FFFFFF; }
+  .homePage .assignContainer {
+    background: #1652f0; }
   .homePage .mainContainer {
     min-height: 60vh;
     padding-bottom: 40px; }
@@ -458,13 +461,8 @@ a {
     color: #ff0000; }
   .homePage .heroSegment {
     padding: 0 !important; }
-
-.pickOneSegment {
-  cursor: pointer !important; }
-
-@media only screen and (max-width: 1025px) {
-  .hitListWrapper {
-    margin-top: 6px !important; } }
+  .homePage .translationContainer {
+    background: #2185D0; }
 
 .competitionContainer {
   background: #FFFFFF;
@@ -612,20 +610,6 @@ a {
 .loginContainer {
   background: #F9FAFB;
   height: 100vh; }
-  .loginContainer .signInPageHeader {
-    background: #FFFFFF;
-    border-bottom: solid 1px #DCDDDE;
-    margin: 0 !important;
-    padding: 10px;
-    width: 100%; }
-    .loginContainer .signInPageHeader .svgMainLogo, .loginContainer .signInPageHeader .mainLogo {
-      cursor: pointer;
-      display: inline;
-      fill: #2185D0;
-      height: 36px;
-      line-height: 4;
-      vertical-align: middle;
-      width: 36px; }
   .loginContainer .loginForm {
     height: 100%;
     padding-top: 10px; }
@@ -757,3 +741,18 @@ a {
     font-size: 24px !important; }
     .usersPage .titleHeader .ui.header .sub.header {
       font-size: 16px !important; } }
+
+.signInPageHeader {
+  background: #FFFFFF;
+  border-bottom: solid 1px #DCDDDE;
+  margin: 0 !important;
+  padding: 10px;
+  width: 100%; }
+  .signInPageHeader .svgMainLogo, .signInPageHeader .mainLogo {
+    cursor: pointer;
+    display: inline;
+    fill: #2185D0;
+    height: 36px;
+    line-height: 4;
+    vertical-align: middle;
+    width: 36px; }

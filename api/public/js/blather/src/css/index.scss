@@ -348,6 +348,8 @@ a {
 		margin-top: 5px;
 
 		.buttons {
+			padding: 4px 0;
+
 			.button {
 				width: 50%;
 			}
@@ -747,8 +749,11 @@ a {
 
 
 .homePage {
-	background: rgb(22, 82, 240);
-	padding: 0;
+	background: $white;
+
+	.assignContainer {
+		background: rgb(22, 82, 240);
+	}
 
 	.mainContainer {
 		min-height: 60vh;
@@ -773,15 +778,9 @@ a {
 	.heroSegment {
 		padding: 0 !important;
 	}
-}
 
-.pickOneSegment {
-	cursor: pointer !important;
-}
-
-@media only screen and (max-width: 1025px) {
-	.hitListWrapper {
-		margin-top: 6px !important;
+	.translationContainer {
+		background: $blue;
 	}
 }
 
@@ -1039,24 +1038,6 @@ a {
 	background: $offWhite;
 	height: 100vh;
 
-	.signInPageHeader {
-		background: $white;
-		border-bottom: solid 1px $lightGrey;
-		margin: 0 !important;
-		padding: 10px;
-		width: 100%;
-
-		.svgMainLogo, .mainLogo {
-			cursor: pointer;
-			display: inline;
-			fill: $blue;
-			height: 36px;
-			line-height: 4;
-			vertical-align: middle;
-			width: 36px;
-		}
-	}
-
 	.loginForm {
 		height: 100%;
 		padding-top: 10px;
@@ -1292,5 +1273,23 @@ a {
 				}
 			}
 		}
+	}
+}
+
+.signInPageHeader {
+	background: $white;
+	border-bottom: solid 1px $lightGrey;
+	margin: 0 !important;
+	padding: 10px;
+	width: 100%;
+
+	.svgMainLogo, .mainLogo {
+		cursor: pointer;
+		display: inline;
+		fill: $blue;
+		height: 36px;
+		line-height: 4;
+		vertical-align: middle;
+		width: 36px;
 	}
 }

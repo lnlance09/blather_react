@@ -82,3 +82,71 @@ export const sanitizeText = html => {
 		allowedIframeHostnames: ["www.youtube.com"]
 	})
 }
+
+export const translateToShit = text => {
+	let newWords = []
+	const words = text.split(" ")
+
+	words.map((item, i) => {
+		let word = item.trim().toLowerCase()
+		let prevWord = words[i - i].trim().toLowerCase()
+
+		if (word === "your") {
+			word = "you're"
+		}
+
+		if (word === "you're") {
+			word = "your"
+		}
+
+		if (word === "it's") {
+			word = "its"
+		}
+
+		if (word === "its") {
+			word = "it's"
+		}
+
+		if (word === "too") {
+			word = "to"
+		}
+
+		if (word === "to") {
+			word = "too"
+		}
+
+		if (word === "two") {
+			word = "too"
+		}
+
+		if (word === "there") {
+			word = "their"
+		}
+
+		if (word === "they're") {
+			word = "there"
+		}
+
+		if (word === "their") {
+			word = "there"
+		}
+
+		if (word === "have" && (prevWord === "could" || prevWord === "would")) {
+			word = "of"
+		}
+
+		if (i % 5 === 1 || i % 5 === 4) {
+			word = word.slice(0, 1).toUpperCase() + word.slice(1)
+		}
+
+		newWords.push(word)
+		return null
+	})
+
+	let sentence = newWords
+		.join(" ")
+		.split(".")
+		.join("")
+	sentence = sentence.replace(/(\r\n|\n|\r)/gm, "")
+	return sentence
+}
