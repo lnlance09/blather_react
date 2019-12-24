@@ -82,7 +82,6 @@ class Fallacies extends Component {
 				key={fallacy.key}
 				onClick={this.onClickFallacy}
 				showDialogue={false}
-				showImage={true}
 			/>
 		))
 
