@@ -126,6 +126,30 @@ class NewsFeed extends Component {
 			</Card>
 		)
 
+		const BlogsCard = (
+			<Card fluid>
+				<Card.Content>
+					<Card.Header>Good Sources</Card.Header>
+				</Card.Content>
+				<Card.Content>
+					<List relaxed>
+						<List.Item>
+							<a href="https://rationalwiki.org/" rel="noopener noreferrer" target="_blank">RationalWiki</a>
+						</List.Item>
+						<List.Item>
+							<a href="https://www.theseventhdegree.net/" rel="noopener noreferrer" target="_blank">The Seventh Degree</a>
+						</List.Item>
+						<List.Item>
+							<a href="https://medium.com/@mboedy" rel="noopener noreferrer" target="_blank">Matthew Boedy</a>
+						</List.Item>
+						<List.Item>
+							<a href="https://www.facebook.com/adam.bates.9216" rel="noopener noreferrer" target="_blank">Adam Bates</a>
+						</List.Item>
+					</List>
+				</Card.Content>
+			</Card>
+		)
+
 		return (
 			<Provider store={store}>
 				<div className="feedPage">
@@ -136,6 +160,7 @@ class NewsFeed extends Component {
 							<Grid className="feedGrid">
 								<Grid.Row>{InfoCard(this.props)}</Grid.Row>
 								<Grid.Row>{TopCard(this.props)}</Grid.Row>
+								<Grid.Row>{BlogsCard}</Grid.Row>
 								<Grid.Row className="feedRow">
 									<Segment>
 										<FeedComponent history={this.props.history} size="small" />
@@ -154,6 +179,7 @@ class NewsFeed extends Component {
 								<Grid.Column width={4}>
 									{InfoCard(this.props)}
 									{TopCard(this.props)}
+									{BlogsCard}
 								</Grid.Column>
 							</Grid>
 						</Responsive>
