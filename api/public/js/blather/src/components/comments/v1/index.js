@@ -93,7 +93,7 @@ class CommentsSection extends Component {
 			<Form onSubmit={this.onSubmitForm}>
 				<Form.TextArea
 					autoHeight
-					disabled={!props.authenticated}
+					// disabled={!props.authenticated}
 					onChange={this.onChangeMessage}
 					placeholder={placeholder}
 					value={message}
