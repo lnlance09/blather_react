@@ -861,7 +861,7 @@ class Fallacy extends Component {
 									<Button
 										circular
 										color="facebook"
-										icon="facebook"
+										icon="facebook f"
 										size="large"
 									/>
 								</FacebookShareButton>
