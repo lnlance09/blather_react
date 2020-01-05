@@ -20,8 +20,8 @@ class MediaModel extends CI_Model {
 
 	/**
 	 * Add a file to s3
-	 * @param [string] $key         The path/name of the file that will be stored in s3
-	 * @param [string] $file        The path to the file on the local server
+	 * @param [string] $key The path/name of the file that will be stored in s3
+	 * @param [string] $file The path to the file on the local server
 	 */
 	public function addToS3($key, $file, $remove = true, $update = false) {
 		$exists = $this->existsInS3($key);
@@ -67,7 +67,7 @@ class MediaModel extends CI_Model {
 		$font_size = 48,
 		$background_transparent = false,
 		$center_text = true,
-		$font = 'public/fonts/LaPresse.ttf'
+		$font = 'public/fonts/Spongebob.ttf'
 	) {
 		$file = $path.$file_name;
 		if (!file_exists($file)) {
@@ -116,10 +116,13 @@ class MediaModel extends CI_Model {
 			$text_dash.'.png',
 			$text
 		);
+
 		$key = 'labels/'.$text_dash.'.mp4';
 		$text_video = $this->placeholderVideoPath.$text_dash.'.mp4';
+
 		$this->createVideoFromImg($text_pic, $text_video);
 		$this->addToS3($key, $text_video);
+
 		return [
 			'key' => $key,
 			'src' => $text_video
@@ -146,6 +149,7 @@ class MediaModel extends CI_Model {
 	public function downloadYouTubeVideo($video_id, $audio_only = false) {
 		$file_type = $audio_only ? 'mp3' : 'mp4';
 		$file = $this->youtubePath.$video_id.'.'.$file_type;
+
 		if (!file_exists($file)) {
 			$command = '/usr/local/bin/youtube-dl -o "'.$file.'" ';
 			if ($audio_only) {
