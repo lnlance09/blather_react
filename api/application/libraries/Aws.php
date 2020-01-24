@@ -59,7 +59,8 @@ class Aws {
 			'Output' => [
 				'Key' => $output['name'],
 				'Rotate' => '0',
-				'PresetId' => '1556047671318-ockbm9',
+				'PresetId' => '1579824043285-gnenc4',
+
 				// 'ThumbnailPattern' => 'string',
 				// 'ThumbnailEncryption' => $encryption,
 				// 'SegmentDuration' => '00:00:12',
@@ -77,7 +78,7 @@ class Aws {
 		if (array_key_exists('watermark', $output)) {
 			$data['Output']['Watermarks'] = [
 				[
-					'PresetWatermarkId' => 'TopRight',
+					'PresetWatermarkId' => 'Center',
 					'InputKey' => $output['watermark'],
 					// 'Encryption' => $this->encryption
 				]
@@ -96,8 +97,10 @@ class Aws {
 		}
 
 		$input_count = count($input);
+
 		if ($input_count > 1) {
 			$inputs = [];
+
 			for ($i=0;$i<$input_count;$i++) {
 				$array = [
 					'Key' => $input[$i]['name'],
@@ -183,9 +186,11 @@ class Aws {
 		if (!$bucket) {
 			$bucket = $this->CI->config->item('s3bucket');
 		}
+
 		if (!$this->exist($name, $bucket)) {
 			exit("File not exist: ".$name);
 		}
+
 		$info = $this->s3hd->getObject([
 			'Bucket' => $bucket,
 			'Key' => $name

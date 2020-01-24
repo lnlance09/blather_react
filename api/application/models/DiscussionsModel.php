@@ -1,244 +1,245 @@
-<?php 
-    class DiscussionsModel extends CI_Model {
-        public function __construct() {
-            parent:: __construct();
+<?php
+class DiscussionsModel extends CI_Model {
+	public function __construct() {
+		parent:: __construct();
 
-            $this->baseUrl = $this->config->base_url();
-            $this->imgUrl = $this->baseUrl.'api/public/img/';
-            $this->load->database();
-            $this->load->helper('common_helper');
-            $this->db->query("SET time_zone='+0:00'");
-        }
+		$this->baseUrl = $this->config->base_url();
+		$this->imgUrl = $this->baseUrl.'api/public/img/';
 
-        public function acceptConvo($id, $acceptance) {
-            $this->db->where('id', $id);
-            $this->db->update('discussions', [
-                'acceptance' => $acceptance
-            ]);
-        }
+		$this->load->database();
+		$this->load->helper('common_helper');
+		$this->db->query("SET time_zone='+0:00'");
+	}
 
-        public function createDiscussion($title, $description, $extra, $userId, $tags = null) {
-            $insert = $this->db->insert('discussions', [
-                'created_by' => $userId,
-                'date_created' => date('Y-m-d H:i:s'),
-                'description' => $description,
-                'extra' => $extra,
-                'title' => $title
-            ]);
+	public function acceptConvo($id, $acceptance) {
+		$this->db->where('id', $id);
+		$this->db->update('discussions', [
+			'acceptance' => $acceptance
+		]);
+	}
 
-            if(!$insert) {
-                return false;
-            }
+	public function createDiscussion($title, $description, $extra, $userId, $tags = null) {
+		$insert = $this->db->insert('discussions', [
+			'created_by' => $userId,
+			'date_created' => date('Y-m-d H:i:s'),
+			'description' => $description,
+			'extra' => $extra,
+			'title' => $title
+		]);
 
-            $id = $this->db->insert_id();
-            if($tags) {
-                $this->tags->insertTags($id, $tags, 'discussion', $userId);
-            }
-            $discussion = $this->getDiscussion($id, false, true, true);
-            return $discussion;
-        }
+		if(!$insert) {
+			return false;
+		}
 
-        public function getDiscussions() {
-            $this->db->select('*');
-            return $this->db->get('discussions')->result_array();
-        }
+		$id = $this->db->insert_id();
+		if($tags) {
+			$this->tags->insertTags($id, $tags, 'discussion', $userId);
+		}
+		$discussion = $this->getDiscussion($id, false, true, true);
+		return $discussion;
+	}
 
-        public function getConversation($id) {
-            $this->db->select("dc.date_created, dc.message, dc.user_id, u.name, CONCAT('".$this->imgUrl."profile_pics/', u.img) AS img, u.username");
-            $this->db->join('users u', 'dc.user_id = u.id');
-            $this->db->where('dc.discussion_id', $id);
-            $this->db->order_by('date_created', 'ASC');
-            return $this->db->get('discussion_conversations dc')->result_array();
-        }
+	public function getDiscussions() {
+		$this->db->select('*');
+		return $this->db->get('discussions')->result_array();
+	}
 
-        public function getDiscussion($id, $just_count = false, $include_user = false, $include_tags = false) {
-            $select = "d.id AS discussion_id, acceptance, title, d.description, extra, status, d.created_by AS discussion_created_by, d.accepted_by AS accepted_by, d.date_created AS discussion_created_at";
+	public function getConversation($id) {
+		$this->db->select("dc.date_created, dc.message, dc.user_id, u.name, CONCAT('".$this->imgUrl."profile_pics/', u.img) AS img, u.username");
+		$this->db->join('users u', 'dc.user_id = u.id');
+		$this->db->where('dc.discussion_id', $id);
+		$this->db->order_by('date_created', 'ASC');
+		return $this->db->get('discussion_conversations dc')->result_array();
+	}
 
-            if($include_tags) {
-                $select .= ", GROUP_CONCAT(DISTINCT t.id SEPARATOR ', ') tag_ids, GROUP_CONCAT(DISTINCT t.value SEPARATOR ', ') AS tag_names";
-            }
+	public function getDiscussion($id, $just_count = false, $include_user = false, $include_tags = false) {
+		$select = "d.id AS discussion_id, acceptance, title, d.description, extra, status, d.created_by AS discussion_created_by, d.accepted_by AS accepted_by, d.date_created AS discussion_created_at";
 
-            if($include_user) {
-                $select .= ", cu.name AS created_by_name, cu.username AS created_by_username, CONCAT('".$this->imgUrl."profile_pics/', cu.img) AS created_by_profile_pic,
+		if($include_tags) {
+			$select .= ", GROUP_CONCAT(DISTINCT t.id SEPARATOR ', ') tag_ids, GROUP_CONCAT(DISTINCT t.value SEPARATOR ', ') AS tag_names";
+		}
 
-                    au.name AS accepted_by_name, au.username AS accepted_by_username, CONCAT('".$this->imgUrl."profile_pics/', au.img) AS accepted_by_profile_pic";
-            }
+		if($include_user) {
+			$select .= ", cu.name AS created_by_name, cu.username AS created_by_username, CONCAT('".$this->imgUrl."profile_pics/', cu.img) AS created_by_profile_pic,
 
-            if($just_count) {
-                $select = "d.id AS discussion_id, accepted_by, created_by, status";
-            }
+				au.name AS accepted_by_name, au.username AS accepted_by_username, CONCAT('".$this->imgUrl."profile_pics/', au.img) AS accepted_by_profile_pic";
+		}
 
-            $this->db->select($select);
-            $this->db->where(['d.id' => $id]);
+		if($just_count) {
+			$select = "d.id AS discussion_id, accepted_by, created_by, status";
+		}
 
-            if(!$just_count) {
-                if($include_user) {
-                    $this->db->join('users cu', 'd.created_by=cu.id');
-                    $this->db->join('users au', 'd.accepted_by=au.id', 'left');
-                }
+		$this->db->select($select);
+		$this->db->where(['d.id' => $id]);
 
-                if($include_tags) {
-                    $this->db->join('discussion_tags dt', 'd.id=dt.discussion_id', 'left');
-                    $this->db->join('tags t', 'dt.tag_id=t.id', 'left');
-                }
-            }
+		if(!$just_count) {
+			if($include_user) {
+				$this->db->join('users cu', 'd.created_by=cu.id');
+				$this->db->join('users au', 'd.accepted_by=au.id', 'left');
+			}
 
-            $query = $this->db->get('discussions d');
-            $results = $query->result_array();
-            return count($results) === 1 ? $results[0] : false;
-        }
+			if($include_tags) {
+				$this->db->join('discussion_tags dt', 'd.id=dt.discussion_id', 'left');
+				$this->db->join('tags t', 'dt.tag_id=t.id', 'left');
+			}
+		}
 
-        public function getDiscussionUsers($startedBy = true, $withUser = false, $both = false, $img = true) {
-            $select = 'u.name AS text, u.id AS value';
-            if($img) {
-                $select .= ", CONCAT('".$this->imgUrl."profile_pics/', u.img) AS img";
-            }
+		$query = $this->db->get('discussions d');
+		$results = $query->result_array();
+		return count($results) === 1 ? $results[0] : false;
+	}
 
-            $this->db->select($select);
-            $join = 'u.id = d.created_by';
-            if($withUser) {
-                $join = 'u.id = d.accepted_by';
-            }
-            if($both) {
-                $join = 'u.id = d.created_by OR u.id = d.accepted_by';
-            }
+	public function getDiscussionUsers($startedBy = true, $withUser = false, $both = false, $img = true) {
+		$select = 'u.name AS text, u.id AS value';
+		if($img) {
+			$select .= ", CONCAT('".$this->imgUrl."profile_pics/', u.img) AS img";
+		}
 
-            $this->db->join('discussions d', $join);
-            $this->db->group_by('u.id');
-            $query = $this->db->get('users u');
-            $results = $query->result_array();
+		$this->db->select($select);
+		$join = 'u.id = d.created_by';
+		if($withUser) {
+			$join = 'u.id = d.accepted_by';
+		}
+		if($both) {
+			$join = 'u.id = d.created_by OR u.id = d.accepted_by';
+		}
 
-            if($img) {
-                for($i=0;$i<count($results);$i++) {
-                    $results[$i]['image'] = [
-                        'avatar' => true,
-                        'src' => $results[$i]['img']
-                    ];
-                    unset($results[$i]['img']);
-                }
-            }
-            return $results;
-        }
+		$this->db->join('discussions d', $join);
+		$this->db->group_by('u.id');
+		$query = $this->db->get('users u');
+		$results = $query->result_array();
 
-        public function lastConvoExchange($id) {
-            $this->db->select('*');
-            $this->db->where('discussion_id', $id);
-            $this->db->order_by('date_created', 'DESC');
-            $this->db->limit(1);
-            $results = $this->db->get('discussion_conversations')->result_array();
-            return count($results) === 1 ? $results[0] : false;
-        }
+		if($img) {
+			for($i=0;$i<count($results);$i++) {
+				$results[$i]['image'] = [
+					'avatar' => true,
+					'src' => $results[$i]['img']
+				];
+				unset($results[$i]['img']);
+			}
+		}
+		return $results;
+	}
 
-        public function search($data, $just_count = false) {
-            $select = "d.id AS discussion_id, 
-                d.description, 
-                d.date_created AS discussion_date, 
-                status,
-                title, 
-                d.created_by AS creator_id,
-                cu.name AS creator_user_name, 
-                CONCAT('".$this->imgUrl."profile_pics/', cu.img) AS creator_img, 
-                d.accepted_by AS acceptor_id,
-                au.name AS acceptor_user_name, 
-                CONCAT('".$this->imgUrl."profile_pics/', au.img) AS acceptor_img";
+	public function lastConvoExchange($id) {
+		$this->db->select('*');
+		$this->db->where('discussion_id', $id);
+		$this->db->order_by('date_created', 'DESC');
+		$this->db->limit(1);
+		$results = $this->db->get('discussion_conversations')->result_array();
+		return count($results) === 1 ? $results[0] : false;
+	}
 
-            if($data['tags']) {
-                $select .= ",GROUP_CONCAT(t.value) AS tags";
-            }
+	public function search($data, $just_count = false) {
+		$select = "d.id AS discussion_id, 
+			d.description, 
+			d.date_created AS discussion_date, 
+			status,
+			title, 
+			d.created_by AS creator_id,
+			cu.name AS creator_user_name, 
+			CONCAT('".$this->imgUrl."profile_pics/', cu.img) AS creator_img, 
+			d.accepted_by AS acceptor_id,
+			au.name AS acceptor_user_name, 
+			CONCAT('".$this->imgUrl."profile_pics/', au.img) AS acceptor_img";
 
-            if($just_count) {
-                $select = 'COUNT(DISTINCT(d.id)) AS count';
-            }
+		if($data['tags']) {
+			$select .= ",GROUP_CONCAT(t.value) AS tags";
+		}
 
-            $this->db->select($select);
+		if($just_count) {
+			$select = 'COUNT(DISTINCT(d.id)) AS count';
+		}
 
-            if($data['tags']) {
-                $this->db->join('discussion_tags dt', 'd.id = dt.discussion_id', 'left');
-                $this->db->join('tags t', 'dt.tag_id = t.id', 'left');
-            }
+		$this->db->select($select);
 
-            $this->db->join('users cu', 'd.created_by = cu.id');
-            $this->db->join('users au', 'd.accepted_by = au.id', 'left');
+		if($data['tags']) {
+			$this->db->join('discussion_tags dt', 'd.id = dt.discussion_id', 'left');
+			$this->db->join('tags t', 'dt.tag_id = t.id', 'left');
+		}
 
-            if($data['q']) {
-                $this->db->where("title LIKE '%".$data['q']."%' OR d.description LIKE '%".$data['q']."%' OR cu.username LIKE '%".$data['q']."%' OR au.username LIKE '%".$data['q']."%'");
-            }
+		$this->db->join('users cu', 'd.created_by = cu.id');
+		$this->db->join('users au', 'd.accepted_by = au.id', 'left');
 
-            if($data['by']) {
-                if($data['both']) {
-                    $this->db->group_start();
-                    $this->db->where('d.created_by', (int)$data['by']);
-                    $this->db->or_where('d.accepted_by', (int)$data['by']);
-                    $this->db->group_end();
-                } else {
-                    $this->db->where('d.created_by', (int)$data['by']);
-                }
-            }
+		if($data['q']) {
+			$this->db->where("title LIKE '%".$data['q']."%' OR d.description LIKE '%".$data['q']."%' OR cu.username LIKE '%".$data['q']."%' OR au.username LIKE '%".$data['q']."%'");
+		}
 
-            if($data['with']) {
-                $this->db->where('d.accepted_by', (int)$data['with']);
-            }
+		if($data['by']) {
+			if($data['both']) {
+				$this->db->group_start();
+				$this->db->where('d.created_by', (int)$data['by']);
+				$this->db->or_where('d.accepted_by', (int)$data['by']);
+				$this->db->group_end();
+			} else {
+				$this->db->where('d.created_by', (int)$data['by']);
+			}
+		}
 
-            if($data['status'] !== null) {
-                $this->db->where('d.status', $data['status']);
-            }
+		if($data['with']) {
+			$this->db->where('d.accepted_by', (int)$data['with']);
+		}
 
-            if(is_array($data['tags'])) {
-                $this->db->where_in('t.value', $data['tags']);
-            }
+		if($data['status'] !== null) {
+			$this->db->where('d.status', $data['status']);
+		}
 
-            if(!$just_count) {
-                $limit = 10;
-                $start = $data['page']*$limit;
-                $this->db->order_by('d.id DESC');
-                $this->db->limit($limit, $start);
-            }
+		if(is_array($data['tags'])) {
+			$this->db->where_in('t.value', $data['tags']);
+		}
 
-            if($just_count) {
-                $result = $this->db->get('discussions d')->result();
-                return (int)$result[0]->count;
-            }
-            
-            $this->db->group_by('d.id');
-            return $this->db->get('discussions d')->result_array();
-        }
+		if(!$just_count) {
+			$limit = 10;
+			$start = $data['page']*$limit;
+			$this->db->order_by('d.id DESC');
+			$this->db->limit($limit, $start);
+		}
 
-        public function submitConversation($id, $userId, $msg) {
-            $this->db->insert('discussion_conversations', [
-                'date_created' => date('Y-m-d H:i:s'),
-                'discussion_id' => $id,
-                'message' => $msg,
-                'user_id' => $userId
-            ]);
-        }
+		if($just_count) {
+			$result = $this->db->get('discussions d')->result();
+			return (int)$result[0]->count;
+		}
+		
+		$this->db->group_by('d.id');
+		return $this->db->get('discussions d')->result_array();
+	}
 
-        public function updateDiscussion(
-            $id, 
-            $title, 
-            $description, 
-            $extra, 
-            $userId, 
-            $tags = null
-        ) {
-            $this->db->where('id', $id);
-            $this->db->update('discussions', [
-                'description' => $description,
-                'extra' => $extra,
-                'last_updated' => date('Y-m-d H:i:s'),
-                'title' => $title
-            ]);
+	public function submitConversation($id, $userId, $msg) {
+		$this->db->insert('discussion_conversations', [
+			'date_created' => date('Y-m-d H:i:s'),
+			'discussion_id' => $id,
+			'message' => $msg,
+			'user_id' => $userId
+		]);
+	}
 
-            if($tags) {
-                $this->tags->insertTags($id, $tags, 'discussion', $userId);
-            }
-        }
+	public function updateDiscussion(
+		$id, 
+		$title, 
+		$description, 
+		$extra, 
+		$userId, 
+		$tags = null
+	) {
+		$this->db->where('id', $id);
+		$this->db->update('discussions', [
+			'description' => $description,
+			'extra' => $extra,
+			'last_updated' => date('Y-m-d H:i:s'),
+			'title' => $title
+		]);
 
-        public function updateStatus($id, $status, $accepted_by = null) {
-            $data['status'] = $status;
-            if($accepted_by) {
-                $data['accepted_by'] = $accepted_by;
-            }
-            $this->db->where('id', $id);
-            $this->db->update('discussions', $data);
-        }
-    }
+		if($tags) {
+			$this->tags->insertTags($id, $tags, 'discussion', $userId);
+		}
+	}
+
+	public function updateStatus($id, $status, $accepted_by = null) {
+		$data['status'] = $status;
+		if($accepted_by) {
+			$data['accepted_by'] = $accepted_by;
+		}
+		$this->db->where('id', $id);
+		$this->db->update('discussions', $data);
+	}
+}

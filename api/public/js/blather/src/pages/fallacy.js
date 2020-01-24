@@ -111,8 +111,11 @@ class Fallacy extends Component {
 	captureScreenshot() {
 		const { createdAt, fallacyName, id, refId, user } = this.props
 		const filename = `${fallacyName}-by-${user.name}-${createdAt}`
+		const scale = 2
 		let duration = ""
-		let scale = 2
+		let el = "screenshotPicWrapper"
+
+		this.setState({ downloading: true })
 
 		if (refId === 4 || refId === 5) {
 			this.props.toggleCreateMode()
@@ -139,25 +142,21 @@ class Fallacy extends Component {
 			return
 		}
 
-		let el = "screenshotPicWrapper"
 		if (this.props.canMakeVideo) {
 			duration = document.getElementById("fallacyDateDiff").textContent
 			el = this.props.screenshotEl
-			scale = 1.5
 		}
-
-		this.setState({ downloading: true })
 
 		html2canvas(document.getElementById(el), {
 			allowTaint: false,
 			scale,
 			useCORS: true
 		}).then(canvas => {
-			if (this.props.canScreenshot) {
-				const ctx = canvas.getContext("2d")
-				ctx.globalAlpha = 1
-				let img = canvas.toDataURL("image/png")
+			const ctx = canvas.getContext("2d")
+			ctx.globalAlpha = 1
+			const img = canvas.toDataURL("image/png")
 
+			if (this.props.canScreenshot) {
 				this.props.saveScreenshot({
 					id,
 					img,
@@ -174,25 +173,11 @@ class Fallacy extends Component {
 			} else if (this.props.canMakeVideo) {
 				this.props.toggleCreateMode()
 
-				const newCanvas = document.getElementById("materialCanvas")
-				newCanvas.width = 1920
-				newCanvas.height = 1080
-
-				const canvasContent = newCanvas.getContext("2d")
-				canvasContent.fillStyle = "#66dd30"
-				canvasContent.fillRect(0, 0, 1920, 1080)
-				canvasContent.drawImage(
-					canvas,
-					1920 / 2 - canvas.width / 2,
-					1080 / 2 - canvas.height / 2
-				)
-				const newImg = newCanvas.toDataURL("image/png")
-
 				this.props.createVideoFallacy({
 					contradiction: this.props.contradictionPayload,
 					duration,
 					id,
-					img: newImg,
+					img,
 					original: this.props.originalPayload,
 					refId
 				})
