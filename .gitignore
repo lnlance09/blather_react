@@ -17,7 +17,8 @@ api/public/img/tag_pics/*
 api/public/img/tweet_pics/*
 api/public/img/tweets/*
 
-api/public/videos/*
+api/public/videos/fallacies/*
+api/public/videos/youtube/*
 
 api/user_guide_src/build/*
 api/user_guide_src/cilexer/build/*
