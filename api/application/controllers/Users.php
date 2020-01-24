@@ -7,8 +7,6 @@
 			parent:: __construct();
 
 			$this->baseUrl = $this->config->base_url();
-			$this->imgUrl = $this->baseUrl.'api/public/img/';
-			$this->s3Path = 'https://s3.amazonaws.com/blather22/';
 
 			$this->load->model('DiscussionsModel', 'discussions');
 			$this->load->model('FallaciesModel', 'fallacies');
@@ -242,7 +240,7 @@
 
 		public function getInfo() {
 			$username = $this->input->get('username');
-			$select = "bio, date_created, email_verified AS emailVerified, u.id AS id, CONCAT('".$this->s3Path."', u.img) AS img, linked_twitter AS linkedTwitter, linked_youtube AS linkedYoutube, patreon_username AS patreonUsername, name, username";
+			$select = "bio, date_created, email_verified AS emailVerified, u.id AS id, CONCAT('".S3_PATH."', u.img) AS img, linked_twitter AS linkedTwitter, linked_youtube AS linkedYoutube, patreon_username AS patreonUsername, name, username";
 			$info = $this->users->getUserInfo($username, $select);
 
 			if (!$info) {

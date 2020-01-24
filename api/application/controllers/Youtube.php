@@ -8,8 +8,6 @@
 			$this->load->helper('common_helper');
 			$this->load->model('MediaModel', 'media');
 			$this->load->model('YouTubeModel', 'youtube');
-
-			$this->s3Path = 'https://s3.amazonaws.com/blather22/';
 		}
 
 		public function archive() {
@@ -100,7 +98,7 @@
 			];
 			$archive = $this->users->createArchive($data);
 			$data['id'] = $this->users->alreadyArchived($data, true);
-			$data['s3_link'] = $this->s3Path.$output_file;
+			$data['s3_link'] = S3_PATH.$output_file;
 
 			echo json_encode([
 				'archive' => $data,

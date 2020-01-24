@@ -3,8 +3,6 @@
         public function __construct() {
             parent::__construct();
 
-            $this->s3Path = 'https://s3.amazonaws.com/blather22/';
-
             $this->apiKey = 'AIzaSyAxGMJJB1_uUQWHBXZG9TCCwjsVTPBIDLE';
             $this->clientId = '208834451570-uhnsvk3tb5cqr6uoipnrl9ks68cmeicp.apps.googleusercontent.com';
             $this->clientSecret = 'La5tIudFHoDWMz62OWzOl8xg';
@@ -417,7 +415,7 @@
         }
 
         public function getVideoArchives($id, $user_id = null) {
-            $select = 'a.description, a.end_time, a.id, CONCAT("'.$this->s3Path.'", a.s3_link) AS s3_link, a.start_time, CONCAT("'.$this->s3Path.'", u.img) AS img, u.id AS user_id';
+            $select = 'a.description, a.end_time, a.id, CONCAT("'.S3_PATH.'", a.s3_link) AS s3_link, a.start_time, CONCAT("'.S3_PATH.'", u.img) AS img, u.id AS user_id';
             $data = [
                 'network' => 'youtube',
                 'object_id' => $id
@@ -591,7 +589,7 @@
                 'duration' => $item['duration'],
                 'id' => $item['video_id'],
                 'img' => $item['img'],
-                's3_link' => $this->s3Path.$item['s3_link'],
+                's3_link' => S3_PATH.$item['s3_link'],
                 'stats' => [
                     'commentCount' => 0,
                     'dislikeCount' => (int)$dislikeCount,

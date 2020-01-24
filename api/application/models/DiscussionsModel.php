@@ -5,6 +5,7 @@
 
             $this->baseUrl = $this->config->base_url();
             $this->imgUrl = $this->baseUrl.'api/public/img/';
+
             $this->load->database();
             $this->load->helper('common_helper');
             $this->db->query("SET time_zone='+0:00'");

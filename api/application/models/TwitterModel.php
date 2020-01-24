@@ -5,8 +5,6 @@
         public function __construct() {
             parent::__construct();
 
-            $this->s3Path = 'https://s3.amazonaws.com/blather22/';
-
             // Load the models
             $this->load->model('MediaModel', 'media');
 
@@ -179,7 +177,7 @@
         }
 
         public function getAllStars() {
-            $this->db->select("p.type, p.about, p.name, CONCAT('".$this->s3Path."', s3_pic) AS profile_pic, p.username, COUNT(*) AS fallacy_count");
+            $this->db->select("p.type, p.about, p.name, CONCAT('".S3_PATH."', s3_pic) AS profile_pic, p.username, COUNT(*) AS fallacy_count");
             $this->db->join('pages p', 'f.page_id = p.social_media_id');
             $this->db->group_by('p.id');
             $this->db->order_by('fallacy_count', 'DESC');
@@ -273,7 +271,7 @@
          * @return [array|boolan]       [An array containing data about the given page OR false if no rows are returned]
          */
         public function getPageInfoFromDB($id, $just_count = false) {
-            $select = "about, name, id, social_media_id, username, CONCAT('".$this->s3Path."', s3_pic) AS profile_pic";
+            $select = "about, name, id, social_media_id, username, CONCAT('".S3_PATH."', s3_pic) AS profile_pic";
             if ($just_count) {
                 $select = 'COUNT(*) AS count';
             }
@@ -448,7 +446,7 @@
          * @return [array|boolean]     [An array containing data about the given Tweet OR false if the row doesn't exist]
          */
         public function getTweetFromDB($id, $archive = false) {
-            $select = "tweet_json, CONCAT('".$this->s3Path."', p.s3_pic) AS profile_pic";
+            $select = "tweet_json, CONCAT('".S3_PATH."', p.s3_pic) AS profile_pic";
             if ($archive) {
                 $select .= ', a.code, a.date_created';
             }
@@ -663,7 +661,7 @@
         }
 
         public function searchPagesFromDb($q, $page = 0, $just_count = false) {
-            $select = "about, name, CONCAT('".$this->s3Path."', s3_pic) AS profile_pic, social_media_id, type, username";
+            $select = "about, name, CONCAT('".S3_PATH."', s3_pic) AS profile_pic, social_media_id, type, username";
             if ($just_count) {
                 $select = 'COUNT(*) AS count';
             }

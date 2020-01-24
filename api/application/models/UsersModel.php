@@ -3,10 +3,9 @@
 		public function __construct() {
 			parent:: __construct();
 
-			$this->s3Path = 'https://s3.amazonaws.com/blather22/';
+			$this->load->helper('common_helper');
 
 			$this->load->database();
-			$this->load->helper('common_helper');
 			$this->db->query("SET time_zone='+0:00'");
 		}
 
@@ -99,7 +98,7 @@
 			}
 
 			$params = [];
-			$select = 'a.code, a.comment_id, a.date_created, a.description, a.end_time, a.id, a.link, a.network, a.start_time, a.type, u.id AS user_id, u.name AS user_name, CONCAT("'.$this->s3Path.'", u.img) AS user_img, "archive" AS item_type ';
+			$select = 'a.code, a.comment_id, a.date_created, a.description, a.end_time, a.id, a.link, a.network, a.start_time, a.type, u.id AS user_id, u.name AS user_name, CONCAT("'.S3_PATH.'", u.img) AS user_img, "archive" AS item_type ';
 
 			if ($just_count) {
 				$select = 'COUNT(*) AS count';
@@ -111,7 +110,7 @@
 			}
 
 			if ($unique) {
-				$select = "p.id AS `value`, p.id AS `key`, CONCAT(p.name, ' (', COUNT(*), ')') AS text, p.social_media_id, p.type AS page_type, CONCAT('".$this->s3Path."', p.s3_pic) AS page_pic";
+				$select = "p.id AS `value`, p.id AS `key`, CONCAT(p.name, ' (', COUNT(*), ')') AS text, p.social_media_id, p.type AS page_type, CONCAT('".S3_PATH."', p.s3_pic) AS page_pic";
 			}
 
 			$sql = 'SELECT '.$select.' 
@@ -256,7 +255,7 @@
 		 */
 		public function login($email, $password) {
 			$column = filter_var($email, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
-			$select = "users.id, name, username, CONCAT('".$this->s3Path."', img) AS img, bio, email, email_verified AS emailVerified, linked_youtube AS linkedYoutube, linked_fb AS linkedFb, linked_twitter AS linkedTwitter, verification_code AS verificationCode, users.date_created AS dateCreated, patreon_username AS patreonUsername, 
+			$select = "users.id, name, username, CONCAT('".S3_PATH."', img) AS img, bio, email, email_verified AS emailVerified, linked_youtube AS linkedYoutube, linked_fb AS linkedFb, linked_twitter AS linkedTwitter, verification_code AS verificationCode, users.date_created AS dateCreated, patreon_username AS patreonUsername, 
 				twitter_users.date_linked AS twitterDate, twitter_users.twitter_access_token AS twitterAccessToken, twitter_users.twitter_access_secret AS twitterAccessSecret, twitter_users.twitter_id AS twitterId,
 				youtube_users.youtube_access_token AS youtubeAccessToken, youtube_users.date_linked AS youtubeDate, youtube_users.youtube_refresh_token AS youtubeRefreshToken,youtube_users.youtube_id AS youtubeId";
 			$this->db->select($select);
@@ -338,7 +337,7 @@
 			$params = [];
 			$select = "u.id, u.name, username, bio AS about, 
 					CASE
-						WHEN img IS NOT NULL THEN CONCAT('".$this->s3Path."', img)
+						WHEN img IS NOT NULL THEN CONCAT('".S3_PATH."', img)
 					END AS profile_pic,
 					fallacy_count, discussion_count";
 			if ($just_count) {
@@ -508,7 +507,7 @@
 		 * @return [array|boolean]      [Either an array containing the user's first name or FALSE depending on whether or not a row was returned]
 		 */
 		public function userLookupByEmail($email) {
-			$this->db->select("bio, date_created, id, CONCAT('".$this->s3Path."', img) AS img, linked_youtube, name");
+			$this->db->select("bio, date_created, id, CONCAT('".S3_PATH."', img) AS img, linked_youtube, name");
 			$this->db->where('email', $email);
 			$this->db->or_where('username', $email);
 			$query = $this->db->get('users')->result_array();

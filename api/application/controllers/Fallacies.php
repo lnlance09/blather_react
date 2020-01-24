@@ -6,10 +6,8 @@
 			parent:: __construct();
 			
 			$this->baseUrl = $this->config->base_url();
-			$this->basePath = '/Applications/MAMP/htdocs/blather/api/';
 			$this->imgUrl = $this->baseUrl.'api/public/img/';
-			$this->screenshotPath = $this->basePath.'public/img/screenshots/';
-			$this->s3Path = 'https://s3.amazonaws.com/blather22/';
+			$this->screenshotPath = BASE_PATH.'public/img/screenshots/';
 
 			$this->load->model('FallaciesModel', 'fallacies');
 			$this->load->model('MediaModel', 'media');
@@ -593,7 +591,7 @@
 
 			$this->media->createPicFromData($img_file, $this->screenshotPath, $img);
 			$this->aws->upload($key, $this->screenshotPath.$img_file);
-			$s3Link = $this->s3Path.$key;
+			$s3Link = S3_PATH.$key;
 
 			$this->fallacies->update($id, [
 				's3_link' => $key,

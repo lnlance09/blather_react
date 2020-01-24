@@ -84,33 +84,8 @@ defined('EXIT_DATABASE')       OR define('EXIT_DATABASE', 8); // database error
 defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
 
-// Custom definitions 
-$css = [
-			[
-				'file' => 'http://fonts.googleapis.com/css?family=Open+Sans:400,600,700)'
-			],
-			[
-				'file' => 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css',
-			],
-			[
-				'file' => 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'
-			],
-			[
-				'file' => 'https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css'
-			],
-		];
-defined('CSS') OR define('CSS', $css);
-
-$scripts = [
-				[
-					'file' => 'https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'
-				],
-				[
-					'file' => 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js',
-				],
-				[
-					'file' => 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'
-				],
-			];
-defined('SCRIPTS') OR define('SCRIPTS', $scripts);
-
+// Custom definitions
+defined('S3_PATH') OR define('S3_PATH', 'https://s3.amazonaws.com/blather22/');
+defined('BASE_PATH') OR define('BASE_PATH', '/Applications/MAMP/htdocs/blather/api/');
+defined('FFMPEG') OR define('FFMPEG', '/usr/local/bin/ffmpeg');
+// defined('FFMPEG') OR define('FFMPEG', APPPATH.'ffmpeg/ffmpeg');

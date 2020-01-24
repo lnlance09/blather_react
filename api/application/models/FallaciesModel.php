@@ -1,18 +1,17 @@
-<?php 
+<?php
 class FallaciesModel extends CI_Model {
 	public function __construct() {
 		parent:: __construct();
 
-		$this->basePath = '/Applications/MAMP/htdocs/blather/api/';
-		$this->commentPath = $this->basePath.'public/img/comments/';
-		$this->tweetPath = $this->basePath.'public/img/tweet_pics/';
-		$this->placeholderVideoPath = $this->basePath.'public/videos/placeholders/';
-		$this->placeholderImgPath = $this->basePath.'public/img/placeholders/';
-
-		$this->s3Path = 'https://s3.amazonaws.com/blather22/';
+		$this->commentPath = BASE_PATH.'public/img/comments/';
+		$this->tweetPath = BASE_PATH.'public/img/tweet_pics/';
+		$this->placeholderVideoPath = BASE_PATH.'public/videos/placeholders/';
+		$this->placeholderImgPath = BASE_PATH.'public/img/placeholders/';
 
 		$this->load->database();
 		$this->db->query("SET time_zone='+0:00'");
+
+		$this->load->library('aws');
 	}
 
 	public function assignedAlready($assigned_by, $comment_id, $media_id, $page_id) {
@@ -40,6 +39,7 @@ class FallaciesModel extends CI_Model {
 		$pageId = $decode['pageId'];
 
 		$exists = $this->contradictionExists($id);
+
 		if ($exists) {
 			$this->db->where('id', $id);
 			$this->db->update('contradictions', [
@@ -131,11 +131,6 @@ class FallaciesModel extends CI_Model {
 		return count($result) === 0 ? false : $result[0]['id'];
 	}
 
-	/**
-	 * [postCommentFallacy description]
-	 * @param  [type] $data [description]
-	 * @return [type]       [description]
-	 */
 	public function createComment($data) {
 		$this->db->insert('fallacy_comments', $data);
 	}
@@ -153,7 +148,6 @@ class FallaciesModel extends CI_Model {
 		string $text = null
 	) {
 		$output_file = 'fallacy_videos/'.$id.'/'.date('Y-m-d_H_i_s').'.mp4';
-		$text_obj = $this->media->createTextVideo($text);
 
 		$watermark_key = 'labels/'.$id.'.png';
 		$watermark_pic = $this->media->createTextPic(
@@ -183,21 +177,6 @@ class FallaciesModel extends CI_Model {
 
 				$input = [
 					[
-						'name' => 'intro.mp4',
-						'start_time' => null,
-						'duration' => null
-					],
-					[
-						'name' => $screenshot,
-						'start_time' => null,
-						'duration' => null
-					],
-					[
-						'name' => $text_obj['key'],
-						'start_time' => null,
-						'duration' => null
-					],
-					[
 						'name' => 'youtube_videos/'.$contradiction['id'].'.mp4',
 						'start_time' => gmdate('H:i:s', $contradiction['startTime']),
 						'duration' => gmdate('H:i:s', $contradiction['endTime']-$contradiction['startTime'])
@@ -207,7 +186,7 @@ class FallaciesModel extends CI_Model {
 					'name' => $output_file,
 					'start_time' => null,
 					'duration' => null,
-					'watermark' => $watermark_key,
+					'watermark' => $screenshot,
 					'thumbnail' => false
 				];
 				$this->media->createVideo($input, $output);
@@ -215,18 +194,16 @@ class FallaciesModel extends CI_Model {
 
 			// Just a video
 			case 4:
+
 			// A video but a twitter user assigned
 			case 5:
 
 				$video = $this->media->downloadYouTubeVideo($original['id']);
 				$this->media->addToS3('youtube_videos/'.$original['id'].'.mp4', $video);
 
+				$text_obj = $this->media->createTextVideo($text);
+
 				$input = [
-					[
-						'name' => 'intro.mp4',
-						'start_time' => null,
-						'duration' => null
-					],
 					[
 						'name' => $text_obj['key'],
 						'start_time' => null,
@@ -257,12 +234,9 @@ class FallaciesModel extends CI_Model {
 				$video_two = $this->media->downloadYouTubeVideo($contradiction['id']);
 				$this->media->addToS3('youtube_videos/'.$contradiction['id'].'.mp4', $video_two);
 
+				$text_obj = $this->media->createTextVideo($text);
+
 				$input = [
-					[
-						'name' => 'intro.mp4',
-						'start_time' => null,
-						'duration' => null
-					],
 					[
 						'name' => 'youtube_videos/'.$original['id'].'.mp4',
 						'start_time' => gmdate('H:i:s', $original['startTime']),
@@ -283,7 +257,6 @@ class FallaciesModel extends CI_Model {
 					'name' => $output_file,
 					'start_time' => null,
 					'duration' => null,
-					'watermark' => $watermark_key,
 					'thumbnail' => false
 				];
 				$this->media->createVideo($input, $output);
@@ -300,31 +273,16 @@ class FallaciesModel extends CI_Model {
 
 				$input = [
 					[
-						'name' => 'intro.mp4',
-						'start_time' => null,
-						'duration' => null
-					],
-					[
 						'name' => 'youtube_videos/'.$original['id'].'.mp4',
 						'start_time' => gmdate('H:i:s', $original['startTime']),
 						'duration' => gmdate('H:i:s', $original['endTime']-$original['startTime'])
-					],
-					[
-						'name' => $text_obj['key'],
-						'start_time' => null,
-						'duration' => null
-					],
-					[
-						'name' => $screenshot,
-						'start_time' => null,
-						'duration' => null
 					]
 				];
 				$output = [
 					'name' => $output_file,
 					'start_time' => null,
 					'duration' => null,
-					'watermark' => $watermark_key,
+					'watermark' => $screenshot,
 					'thumbnail' => false
 				];
 				$this->media->createVideo($input, $output);
@@ -341,31 +299,16 @@ class FallaciesModel extends CI_Model {
 
 				$input = [
 					[
-						'name' => 'intro.mp4',
-						'start_time' => null,
-						'duration' => null
-					],
-					[
 						'name' => 'youtube_videos/'.$original['id'].'.mp4',
 						'start_time' => gmdate('H:i:s', $original['startTime']),
 						'duration' => gmdate('H:i:s', $original['endTime']-$original['startTime'])
-					],
-					[
-						'name' => $text_obj['key'],
-						'start_time' => null,
-						'duration' => null
-					],
-					[
-						'name' => $screenshot,
-						'start_time' => null,
-						'duration' => null
 					]
 				];
 				$output = [
 					'name' => $output_file,
 					'start_time' => null,
 					'duration' => null,
-					'watermark' => $watermark_key,
+					'watermark' => $screenshot,
 					'thumbnail' => false
 				];
 				$this->media->createVideo($input, $output);
@@ -382,21 +325,6 @@ class FallaciesModel extends CI_Model {
 
 				$input = [
 					[
-						'name' => 'intro.mp4',
-						'start_time' => null,
-						'duration' => null
-					],
-					[
-						'name' => $screenshot,
-						'start_time' => null,
-						'duration' => null
-					],
-					[
-						'name' => $text_obj['key'],
-						'start_time' => null,
-						'duration' => null
-					],
-					[
 						'name' => 'youtube_videos/'.$contradiction['id'].'.mp4',
 						'start_time' => gmdate('H:i:s', $contradiction['startTime']),
 						'duration' => gmdate('H:i:s', $contradiction['endTime']-$contradiction['startTime'])
@@ -406,7 +334,7 @@ class FallaciesModel extends CI_Model {
 					'name' => $output_file,
 					'start_time' => null,
 					'duration' => null,
-					'watermark' => $watermark_key,
+					'watermark' => $screenshot,
 					'thumbnail' => false
 				];
 				$this->media->createVideo($input, $output);
@@ -415,7 +343,7 @@ class FallaciesModel extends CI_Model {
 
 		return [
 			'key' => $output_file,
-			'src' => $this->s3Path.$output_file
+			'src' => S3_PATH.$output_file
 		];
 	}
 
@@ -429,14 +357,8 @@ class FallaciesModel extends CI_Model {
 		return $result[0]['name'];
 	}
 
-	/**
-	 * [getFallacyComments description]
-	 * @param  [type] $id      [description]
-	 * @param  [type] $page    [description]
-	 * @return [type]          [description]
-	 */
 	public function getComments($id, $page = null, $just_count = false) {
-		$select = "f.created_at, f.message, f.user_id, CONCAT('".$this->s3Path."', u.img) AS img, u.name, u.username";
+		$select = "f.created_at, f.message, f.user_id, CONCAT('".S3_PATH."', u.img) AS img, u.name, u.username";
 		if ($just_count) {
 			$select = 'COUNT(*) AS count';
 		}
@@ -462,7 +384,7 @@ class FallaciesModel extends CI_Model {
 	}
 
 	public function getConversation($id) {
-		$this->db->select("fc.date_created, fc.message, fc.user_id, u.name, CONCAT('".$this->s3Path."', u.img) AS img, u.username");
+		$this->db->select("fc.date_created, fc.message, fc.user_id, u.name, CONCAT('".S3_PATH."', u.img) AS img, u.username");
 		$this->db->join('users u', 'fc.user_id = u.id');
 		$this->db->where('fc.fallacy_id', $id);
 		$this->db->order_by('date_created', 'ASC');
@@ -490,7 +412,7 @@ class FallaciesModel extends CI_Model {
 			fe.media_id,
 			fe.network,
 			fe.retracted,
-			CONCAT('".$this->s3Path."', fe.s3_link) AS s3_link,
+			CONCAT('".S3_PATH."', fe.s3_link) AS s3_link,
 			fe.s3_updated,
 			fe.slug,
 			fe.start_time,
@@ -506,7 +428,7 @@ class FallaciesModel extends CI_Model {
 
 			u.name AS user_name, 
 			u.username AS user_username, 
-			CONCAT('".$this->s3Path."', u.img) AS user_img, 
+			CONCAT('".S3_PATH."', u.img) AS user_img, 
 			u.id AS user_id, 
 
 			GROUP_CONCAT(DISTINCT t.id ORDER BY t.id ASC SEPARATOR '| ') tag_ids, 
@@ -724,7 +646,7 @@ class FallaciesModel extends CI_Model {
 	}
 
 	public function getReview($user_id, $page_id, $id = null, $by_id = false) {
-		$this->db->select("p.name AS page_name, p.username, p.social_media_id, p.id AS page_id, CONCAT('".$this->s3Path."', p.s3_pic) AS page_profile_pic, p.type, u.id AS user_id, u.name AS user_name, CONCAT('".$this->s3Path."', u.img) AS user_pic, u.username AS user_username, c.id, c.summary, c.sincerity, c.sincerity_explanation, c.turing_test, c.turing_test_explanation");
+		$this->db->select("p.name AS page_name, p.username, p.social_media_id, p.id AS page_id, CONCAT('".S3_PATH."', p.s3_pic) AS page_profile_pic, p.type, u.id AS user_id, u.name AS user_name, CONCAT('".S3_PATH."', u.img) AS user_pic, u.username AS user_username, c.id, c.summary, c.sincerity, c.sincerity_explanation, c.turing_test, c.turing_test_explanation");
 		$this->db->join('pages p', 'c.page_id = p.id');
 		$this->db->join('users u', 'c.user_id = u.id');
 
@@ -749,7 +671,7 @@ class FallaciesModel extends CI_Model {
 	}
 
 	public function getReviewPlaceholder($page_id) {
-		$this->db->select("u.id AS user_id, CONCAT('".$this->s3Path."', u.img) AS user_img, u.name AS user_name, c.id, c.summary");
+		$this->db->select("u.id AS user_id, CONCAT('".S3_PATH."', u.img) AS user_img, u.name AS user_name, c.id, c.summary");
 		$this->db->join('users u', 'c.user_id = u.id');
 		$this->db->where('page_id', $page_id);
 		$this->db->where('summary != ""');
@@ -873,7 +795,7 @@ class FallaciesModel extends CI_Model {
 			fe.fallacy_id,
 			fe.last_updated,
 			fe.network,
-			CONCAT('".$this->s3Path."', fe.s3_link) AS s3_link,
+			CONCAT('".S3_PATH."', fe.s3_link) AS s3_link,
 			fe.slug,
 			fe.start_time,
 			fe.status,
@@ -881,14 +803,14 @@ class FallaciesModel extends CI_Model {
 			fe.view_count,
 
 			p.name AS page_name,
-			CONCAT('".$this->s3Path."', p.s3_pic) AS page_profile_pic,
+			CONCAT('".S3_PATH."', p.s3_pic) AS page_profile_pic,
 			p.social_media_id AS page_id,
 			p.type AS page_type,
 			p.username AS page_username,
 
 			u.name AS user_name,
 			u.username AS user_username,
-			CONCAT('".$this->s3Path."', u.img) AS user_img,
+			CONCAT('".S3_PATH."', u.img) AS user_img,
 			u.id AS user_id,
 
 			a.code AS archive_code,

@@ -3,26 +3,52 @@ class MediaModel extends CI_Model {
 	public function __construct() {
 		parent:: __construct();
 
-		// Define the paths
-		$this->basePath = '/Applications/MAMP/htdocs/blather/api/';
-		$this->commentPath = $this->basePath.'public/img/comments/';
-		$this->placeholderVideoPath = $this->basePath.'public/videos/placeholders/';
-		$this->placeholderImgPath = $this->basePath.'public/img/placeholders/';
-		$this->tweetPath = $this->basePath.'public/img/tweet_pics/';
-		$this->youtubePath = $this->basePath.'public/videos/youtube/';
-
-		// $this->ffmpeg = APPPATH.'ffmpeg/ffmpeg';
-		$this->ffmpeg = '/usr/local/bin/ffmpeg';
-		$this->s3Path = 'https://s3.amazonaws.com/blather22/';
+		$this->commentPath = BASE_PATH.'public/img/comments/';
+		$this->placeholderVideoPath = BASE_PATH.'public/videos/placeholders/';
+		$this->placeholderImgPath = BASE_PATH.'public/img/placeholders/';
+		$this->tweetPath = BASE_PATH.'public/img/tweet_pics/';
+		$this->youtubePath = BASE_PATH.'public/videos/youtube/';
 
 		$this->load->library('aws');
 	}
 
-	/**
-	 * Add a file to s3
-	 * @param [string] $key The path/name of the file that will be stored in s3
-	 * @param [string] $file The path to the file on the local server
-	 */
+	public function addImageOverlay($video, $image, $output) {
+		$command = FFMPEG.' 
+				-i '.BASE_PATH.$image.' 
+				-i '.BASE_PATH.$video.' 
+				-filter_complex "[0]crop=352:480:144:0[bg];[bg][1]overlay=main_w-overlay_w-10:main_h-overlay_h-10[v]" 
+				-map "[v]" 
+				-map 0:a 
+				-c:a copy '.BASE_PATH.$output;
+		exec($command, $output);
+		// echo $command;
+		// print_r($output);
+	}
+
+	public function addMusicToClip($clip_file, $music_file, $output) {
+		$command = '/usr/local/bin/ffmpeg -i /Applications/MAMP/htdocs/blather/api/public/videos/fallacies/489.mp4 -i /Applications/MAMP/htdocs/blather/api/public/videos/placeholders/horlepiep.mp3 -filter_complex "[0:a]volume=0.99[a0];[1:a]volume=0.08[a1];[a0][a1]amerge,pan=stereo|c0<c0+c2|c1<c1+c3[out]" -map 0:v -map "[out]" -c:v copy -c:a aac -shortest /Applications/MAMP/htdocs/blather/api/public/videos/fallacies/489_n.mp4';
+
+		$command = FFMPEG.' 
+				-i '.BASE_PATH.$clip_file.'
+				-i '.BASE_PATH.$music_file;
+
+		$command .= '-codec:v copy
+					-codec:a aac
+					-b:a 192k \
+					-strict experimental
+					-filter_complex "[0:a]volume=0.390625[a1];[1:a]volume=0.781250[a2];amerge,pan=stereo|c0<c0+c2|c1<c1+c3" \
+					-shortest '.$output;
+				/*
+				'-filter_complex "[0:a][1:a]amerge,pan=stereo|c0<c0+c2|c1<c1+c3[out]"
+				-map 1:v
+				-map "[out]"
+				-c:v copy
+				-c:a libfdk_aac 
+				-shortest '.$output;
+				*/
+		exec($command, $output);
+	}
+
 	public function addToS3($key, $file, $remove = true, $update = false) {
 		$exists = $this->existsInS3($key);
 		if (!$exists) {
@@ -38,7 +64,7 @@ class MediaModel extends CI_Model {
 			unlink($file);
 		}
 
-		return $this->s3Path.$key;
+		return S3_PATH.$key;
 	}
 
 	public function createPicFromData(
@@ -60,8 +86,8 @@ class MediaModel extends CI_Model {
 		$path,
 		$file_name,
 		$text,
-		$img_width = 1920,
-		$img_height = 1080,
+		$img_width = 1280,
+		$img_height = 720,
 		$color = [25, 25, 112],
 		$text_color = [255, 255, 255],
 		$font_size = 48,
@@ -76,9 +102,12 @@ class MediaModel extends CI_Model {
 			}
 
 			$angle = 0;
-			$im = imagecreatetruecolor($img_width, $img_height);
+
 			if ($background_transparent) {
+				$im = imagecreatetruecolor($img_width, $img_height);
 				imagesavealpha($im, true);
+			} else {
+				$im = imagecreatefromjpeg('public/img/placeholders/spongebob.jpg');
 			}
 
 			$text_color = imagecolorallocate($im, $text_color[0], $text_color[1], $text_color[2]);
@@ -102,7 +131,7 @@ class MediaModel extends CI_Model {
 			}
 
 			imagettftext($im, $font_size, 0, $x, $y, $text_color, $font, $text);
-			imagepng($im, $file);
+			imagejpeg($im, $file);
 		}
 
 		return $file;
@@ -114,7 +143,12 @@ class MediaModel extends CI_Model {
 		$text_pic = $this->media->createTextPic(
 			$this->placeholderImgPath,
 			$text_dash.'.png',
-			$text
+			$text,
+			1280,
+			720,
+			[25, 25, 112],
+			[255, 255, 77],
+			72
 		);
 
 		$key = 'labels/'.$text_dash.'.mp4';
@@ -135,17 +169,14 @@ class MediaModel extends CI_Model {
 	}
 
 	public function createVideoFromImg($input, $output) {
-		$command = $this->ffmpeg.' -loop 1 -framerate 20 -t 4 -i '.$input.' \
-				-f lavfi -t 1 -i anullsrc '.$output;
-		exec($command);
+		$command = FFMPEG.' \
+				-i '.$input.' \
+				-i '.$this->placeholderVideoPath.'spongebob_fail.mp3 \
+				-loop 1 -framerate 20 -t 3 \
+				-c:v copy -map 0:v:0 -map 1:a:0 -c:a aac -b:a 192k '.$output;
+		exec($command, $output);
 	}
 
-	/**
-	 * Download a youtube video and store it locally
-	 * @param  [string]  $video_id
-	 * @param  [boolean] $audio_only
-	 * @return [string] The path to the youtube video that has been downloaded
-	 */
 	public function downloadYouTubeVideo($video_id, $audio_only = false) {
 		$file_type = $audio_only ? 'mp3' : 'mp4';
 		$file = $this->youtubePath.$video_id.'.'.$file_type;
@@ -167,11 +198,6 @@ class MediaModel extends CI_Model {
 		return $file;
 	}
 
-	/**
-	 * Check to see if a file exists in s3
-	 * @param  [string] $file  The path to the file
-	 * @return [boolean]       Whether or not the file exists
-	 */
 	public function existsInS3($file) {
 		return $this->aws->exist($file);
 	}
@@ -186,11 +212,9 @@ class MediaModel extends CI_Model {
 
 	public function saveScreenshot($id, $path, $img, $folder) {
 		$img_file = $id.'.png';
-		$mp4_file = $id.'.mp4';
-		$key = $folder.'/'.$mp4_file;
+		$key = $folder.'/'.$img_file;
 		$this->createPicFromData($img_file, $path, $img);
-		$this->createVideoFromImg($path.$img_file, $path.$mp4_file);
-		$this->addToS3($key, $path.$mp4_file);
+		$this->addToS3($key, $path.$img_file, false);
 		return $key;
 	}
 }

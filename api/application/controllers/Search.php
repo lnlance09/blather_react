@@ -6,6 +6,7 @@
             parent:: __construct();
 
             $this->base_url = $this->config->base_url();
+
             $this->load->model('DiscussionsModel', 'discussions');
             $this->load->model('FallaciesModel', 'fallacies');
             $this->load->model('FacebookModel', 'fb');

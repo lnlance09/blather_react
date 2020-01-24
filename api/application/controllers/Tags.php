@@ -6,7 +6,6 @@
 			parent:: __construct();
 			
 			$this->baseUrl = $this->config->base_url();
-			$this->imgUrl = $this->baseUrl.'api/public/img/';
 
 			$this->load->model('MediaModel', 'media');
 			$this->load->model('TagsModel', 'tags');
