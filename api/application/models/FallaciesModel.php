@@ -219,7 +219,6 @@ class FallaciesModel extends CI_Model {
 					'name' => $output_file,
 					'start_time' => null,
 					'duration' => null,
-					'watermark' => $watermark_key,
 					'thumbnail' => false
 				];
 				$this->media->createVideo($input, $output);
