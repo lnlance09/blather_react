@@ -32,11 +32,11 @@ class NewsFeed extends Component {
 		this.state = {
 			auth
 		}
-
-		this.props.mostFallacious()
 	}
 
-	componentDidMount() {}
+	componentDidMount() {
+		this.props.mostFallacious()
+	}
 
 	render() {
 		const { auth } = this.state

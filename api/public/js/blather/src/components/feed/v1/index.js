@@ -5,7 +5,7 @@ import { adjustTimezone } from "utils/dateFunctions"
 import { formatGrammar, formatPlural } from "utils/textFunctions"
 import { connect } from "react-redux"
 import { Link } from "react-router-dom"
-import { Feed, Image, Label, Visibility } from "semantic-ui-react"
+import { Feed, Icon, Image, Label, Visibility } from "semantic-ui-react"
 import ImagePic from "images/images/image-square.png"
 import LazyLoad from "components/lazyLoad/v1/"
 import Lightbox from "react-image-lightbox"
@@ -91,6 +91,11 @@ class FeedComponent extends Component {
 											fromNow
 										/>
 									</Feed.Date>
+									<Icon
+										className={result.network === "twitter" ? "twitterIcon" : "youtubeIcon"}
+										name={result.network === "twitter" ? "twitter" : "youtube"}
+										style={{ float: "right" }}
+									/>
 								</Feed.Summary>
 								<Feed.Extra images>
 									<div
