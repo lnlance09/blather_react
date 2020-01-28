@@ -9,6 +9,7 @@ class YouTubeModel extends CI_Model {
 		$this->redirectUrl = 'http://localhost:3000/settings/youtube';
 
 		// Define the API endpoints
+		$this->captionsUrl = 'https://www.googleapis.com/youtube/v3/captions';
 		$this->commentUrl = 'https://www.googleapis.com/youtube/v3/comments';
 		$this->commentsUrl = 'https://www.googleapis.com/youtube/v3/commentThreads';
 		$this->loginUrl = 'https://accounts.google.com/o/oauth2/auth';
@@ -20,6 +21,8 @@ class YouTubeModel extends CI_Model {
 		$this->videosUrl = 'https://www.googleapis.com/youtube/v3/videos';
 
 		$this->db->query("SET time_zone='+0:00'");
+
+		$this->load->library('elasticsearch');
 	}
 
 	public function getAllPages($only_with_fallacies = false) {
@@ -312,6 +315,42 @@ class YouTubeModel extends CI_Model {
 				'error' => false
 			];
 		}
+	}
+
+	public function getCaptions($video_id) {
+		$url = 'https://www.youtube.com/get_video_info?&video_id='.$video_id;
+		$video = file_get_contents($url);
+		parse_str($video, $video_info);
+		$player_response = $video_info['player_response'];
+		$decode = @json_decode($player_response, true);
+		// FormatArray($decode);
+
+		if (!array_key_exists('captions', $decode)) {
+			return false;
+		}
+
+		$captions = $decode['captions']['playerCaptionsTracklistRenderer'];
+		$tracks = $captions['captionTracks'];
+		if (count($tracks) === 0) {
+			return false;
+		}
+
+		$url = $tracks[0]['baseUrl'];
+		$doc = new DOMDocument();
+		$doc->load($url);
+		$texts = [];
+
+		foreach ($doc->getElementsByTagName('text') as $node) {
+			$text = trim(preg_replace('/(?:<|&lt;).*?(?:>|&gt;)/', '', html_entity_decode($node->nodeValue)));
+			// $dur = $node->getAttribute('dur');
+			$start = $node->getAttribute('start');
+			$texts[] = $text;
+			// var_dump($text);
+			// var_dump($start);
+			// var_dump($dur);
+		}
+
+		return $texts;
 	}
 
 	/**
@@ -854,6 +893,45 @@ class YouTubeModel extends CI_Model {
 		}
 
 		return $results;
+	}
+
+	public function searchVideosForTerms($q, $channel_id, $video_id = null) {
+		$term = [
+			'channel_id.keyword' => $channel_id,
+		];
+
+		if ($video_id) {
+			$term['video_id.keyword'] = $video_id;
+		}
+
+		$body = [
+			'size' => 100,
+			'sort' => 'date_created',
+			'_source' => ['channel_id', 'channel_title', 'date_created', 'description', 'highlight'],
+			'query' => [
+				 'bool' => [
+					'must' => [
+						'multi_match' => [
+							'query' => $q,
+							'fields' => [
+								'text'
+							]
+						]
+					],
+					'filter' => [
+						'term' => $term
+					]
+				]
+			],
+			'highlight' => [
+				'pre_tags' => ['<b>'],
+				'post_tags' => ['</b>'],
+				'fields' => [
+					"text" => ['fragment_size' => 180]
+				]
+			]
+		];
+		$results = $this->elasticsearch->searchDocs(ES_INDEX, $body);
 	}
 
 	/**

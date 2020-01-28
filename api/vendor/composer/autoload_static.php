@@ -7,16 +7,23 @@ namespace Composer\Autoload;
 class ComposerStaticInit1bf84a9bc29000b01897143bdb657882
 {
     public static $files = array (
+        '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
         'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
+        'ad155f8f1cf0d418fe49e248db8c661b' => __DIR__ . '/..' . '/react/promise/src/functions_include.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         'decc78cc4436b1292c6c0d151b19445c' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/bootstrap.php',
+        '8592c7b0947d8a0965a9e8c3d16f9c24' => __DIR__ . '/..' . '/elasticsearch/elasticsearch/src/autoload.php',
     );
 
     public static $prefixLengthsPsr4 = array (
         'p' => 
         array (
             'phpseclib\\' => 10,
+        ),
+        'R' => 
+        array (
+            'React\\Promise\\' => 14,
         ),
         'P' => 
         array (
@@ -30,6 +37,8 @@ class ComposerStaticInit1bf84a9bc29000b01897143bdb657882
         ),
         'G' => 
         array (
+            'GuzzleHttp\\Stream\\' => 18,
+            'GuzzleHttp\\Ring\\' => 16,
             'GuzzleHttp\\Psr7\\' => 16,
             'GuzzleHttp\\Promise\\' => 19,
             'GuzzleHttp\\' => 11,
@@ -39,12 +48,20 @@ class ComposerStaticInit1bf84a9bc29000b01897143bdb657882
         array (
             'Firebase\\JWT\\' => 13,
         ),
+        'E' => 
+        array (
+            'Elasticsearch\\' => 14,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
         'phpseclib\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib',
+        ),
+        'React\\Promise\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/react/promise/src',
         ),
         'Psr\\Log\\' => 
         array (
@@ -61,6 +78,14 @@ class ComposerStaticInit1bf84a9bc29000b01897143bdb657882
         'Monolog\\' => 
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
+        ),
+        'GuzzleHttp\\Stream\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/guzzlehttp/streams/src',
+        ),
+        'GuzzleHttp\\Ring\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/guzzlehttp/ringphp/src',
         ),
         'GuzzleHttp\\Psr7\\' => 
         array (
@@ -81,6 +106,10 @@ class ComposerStaticInit1bf84a9bc29000b01897143bdb657882
         'Firebase\\JWT\\' => 
         array (
             0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
+        ),
+        'Elasticsearch\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/elasticsearch/elasticsearch/src/Elasticsearch',
         ),
     );
 

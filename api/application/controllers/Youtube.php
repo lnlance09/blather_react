@@ -480,6 +480,60 @@ class YouTube extends CI_Controller {
 		]);
 	}
 
+	public function translateChannelVideos() {
+		$channelId = $this->input->get('channel_id');
+		// $channelId = "UCG749Dj4V2fKa143f8sE60Q"; // Tim Pool
+		// $channelId = "UCJdKr0Bgd_5saZYqLCa9mng"; // Rubin report
+
+		$token = "ya29.ImC7B_TCouE40bSf4FxSj2jfBobvfTLG4Irc6HOmMJba2ZvcXDPevOyiGy7F2yDQ-ejPPOQ9Fels8Zpxh9RcNSrqVDXrcHXUj2p8Hafadr9_ign2E2zwxlZZ0NIVwyWFZFo";
+		$page = 1;
+
+		$posts = $this->youtube->getVideos([
+			'channelId' => $channelId,
+			'maxResults' => 50,
+			'pageToken' => null,
+			'order' => 'date',
+			'part' => 'id,snippet',
+			'type' => 'video'
+		], $token, $page, true, true);
+		// FormatArray($posts);
+		// die;
+
+		$data = $posts['data'];
+		$count = count($data);
+
+		if ($count == 0) {
+			exit;
+		}
+
+		for ($i=0;$i<$count;$i++) {
+			$item = $data[$i];
+			$channel_title = $item['channelTitle'];
+			$date_created = $item['date_created'];
+			$description = $item['description'];
+			$video_id = $item['id'];
+			$video_title = $item['title'];
+
+			$captions = $this->youtube->getCaptions($video_id);
+			// FormatArray($captions);
+
+			if ($captions) {
+				$text = implode(' ', $captions);
+				// var_dump($text);
+
+				$body = [
+					'channel_id' => $channelId,
+					'channel_title' => $channel_title,
+					'date_created' => $date_created,
+					'description' => $description,
+					'text' => $text,
+					'video_id' => $video_id
+				];
+				$this->elasticsearch->indexDoc(ES_INDEX, $video_id, $body);
+			}
+		}
+	}
+
 	public function video() {
 		$id = $this->input->get('id');
 		if (substr($id, -1) == '&') {
