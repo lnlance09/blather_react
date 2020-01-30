@@ -701,7 +701,7 @@
 ?>
 
         <link rel="stylesheet" type="text/css" href="/static/css/1.8c4ec239.chunk.css">
-        <link rel="stylesheet" type="text/css" href="/static/css/main.5e9fd3af.chunk.css">
+        <link rel="stylesheet" type="text/css" href="/static/css/main.829edf2e.chunk.css">
 
         <link rel="canonical" href="<?php echo $canonical_url; ?>" />
         <link rel="home" href="<?php echo $base_url; ?>" />
@@ -733,8 +733,8 @@
         </div>
     </body>
 
-    <script src="/static/js/1.6cb32d84.chunk.js"></script>
-    <script src="/static/js/main.13295b86.chunk.js"></script>
+    <script src="/static/js/1.c280eae0.chunk.js"></script>
+    <script src="/static/js/main.f56f99e1.chunk.js"></script>
     <script src="/static/js/runtime~main.229c360f.js"></script>
 
     <script>
