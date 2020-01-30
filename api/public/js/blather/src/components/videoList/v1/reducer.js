@@ -42,6 +42,37 @@ const videoList = (state = initial(), action) => {
 				}
 			}
 
+		case constants.SEARCH_VIDEOS_BY_TEXT:
+			if (payload.timed_out) {
+				let data = []
+				return {
+					...state,
+					posts: {
+						...state.posts,
+						count: 0,
+						data,
+						error: true,
+						errorMsg: true,
+						errorType: "There was an error",
+						loading: false
+					}
+				}
+			}
+
+			const hits =
+				payload.page > 0 ? [...state.posts.data, ...payload.hits.hits] : payload.hits.hits
+			return {
+				...state,
+				posts: {
+					count: payload.hits.total.value,
+					data: hits,
+					error: false,
+					errorMsg: "",
+					hasMore: payload.hits.hits.length === 50,
+					loading: false
+				}
+			}
+
 		default:
 			return state
 	}

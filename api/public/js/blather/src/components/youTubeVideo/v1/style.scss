@@ -42,6 +42,10 @@
 
             .sub.header {
                 font-size: 12px !important;
+
+                &:hover {
+                    text-decoration: none;
+                }
             }
         }
 
@@ -117,6 +121,35 @@
 
     .editVideoTimes {
         margin: 20px 0 0 0 !important;
+    }
+
+    .transcriptHeader {
+        margin-top: 0 !important;
+    }
+
+    .transcriptContent {
+        font {
+            color: $black !important;
+        }
+
+        &.default {
+            display: -webkit-box;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            -webkit-line-clamp: 10;
+            -webkit-box-orient: vertical;
+        }
+    }
+
+    .seeMore {
+        color: $blue;
+        cursor: pointer;
+        display: inline-block;
+        margin-top: 10px;
+
+        &:hover {
+            text-decoration: underline;
+        }
     }
 }
 

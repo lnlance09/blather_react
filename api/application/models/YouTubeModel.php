@@ -317,13 +317,17 @@ class YouTubeModel extends CI_Model {
 		}
 	}
 
-	public function getCaptions($video_id) {
+	public function getStandardVideoInfo($video_id) {
 		$url = 'https://www.youtube.com/get_video_info?&video_id='.$video_id;
 		$video = file_get_contents($url);
 		parse_str($video, $video_info);
+		return $video_info;
+	}
+
+	public function getCaptions($video_id) {
+		$video_info = $this->getStandardVideoInfo($video_id);
 		$player_response = $video_info['player_response'];
 		$decode = @json_decode($player_response, true);
-		// FormatArray($decode);
 
 		if (!array_key_exists('captions', $decode)) {
 			return false;
@@ -342,12 +346,8 @@ class YouTubeModel extends CI_Model {
 
 		foreach ($doc->getElementsByTagName('text') as $node) {
 			$text = trim(preg_replace('/(?:<|&lt;).*?(?:>|&gt;)/', '', html_entity_decode($node->nodeValue)));
-			// $dur = $node->getAttribute('dur');
 			$start = $node->getAttribute('start');
-			$texts[] = $text;
-			// var_dump($text);
-			// var_dump($start);
-			// var_dump($dur);
+			$texts[] = '<span start="'.$start.'">'.$text.'</span>';
 		}
 
 		return $texts;
@@ -677,7 +677,7 @@ class YouTubeModel extends CI_Model {
 			}
 
 			$data['count'] = $count;
-			$data['hasMore'] = $count > ($page+1)*18;
+			$data['hasMore'] = $count > ($page+1)*50;
 			$data['nextPageToken'] = array_key_exists('nextPageToken', $results) ? $results['nextPageToken'] : null;
 			$data['data'] = $return;
 			return $data;
@@ -895,34 +895,51 @@ class YouTubeModel extends CI_Model {
 		return $results;
 	}
 
-	public function searchVideosForTerms($q, $channel_id, $video_id = null) {
-		$term = [
-			'channel_id.keyword' => $channel_id,
+	public function searchVideosForTerms($per_page, $from, $q, $channel_id, $video_id = null) {
+		$query = [
+			'bool' => [
+
+			]
 		];
 
+		$source = ['channel_id', 'channel_title', 'date_created', 'description', 'highlight', 'img', 'video_id', 'video_title'];
+
+		$term = [];
+
+		if ($channel_id) {
+			$term['channel_id.keyword'] = $channel_id;
+		}
+
 		if ($video_id) {
+			$source = ['text'];
 			$term['video_id.keyword'] = $video_id;
 		}
 
+		if (!empty($term)) {
+			$query['bool']['filter']['term'] = $term;
+		}
+
+		if (!empty($q)) {
+			$query['bool']['must'] = [
+				'multi_match' => [
+					'query' => $q,
+					'fields' => [
+						'text'
+					]
+				]
+			];
+		}
+
 		$body = [
-			'size' => 100,
-			'sort' => 'date_created',
-			'_source' => ['channel_id', 'channel_title', 'date_created', 'description', 'highlight'],
-			'query' => [
-				 'bool' => [
-					'must' => [
-						'multi_match' => [
-							'query' => $q,
-							'fields' => [
-								'text'
-							]
-						]
-					],
-					'filter' => [
-						'term' => $term
+			'sort' => [
+				[
+					"date_created" => [
+						"order" => "desc"
 					]
 				]
 			],
+			'_source' => $source,
+			'query' => $query,
 			'highlight' => [
 				'pre_tags' => ['<b>'],
 				'post_tags' => ['</b>'],
@@ -931,7 +948,14 @@ class YouTubeModel extends CI_Model {
 				]
 			]
 		];
+
+		if (empty($video_id)) {
+			$body['from'] = $from;
+			$body['size'] = $per_page;
+		}
+
 		$results = $this->elasticsearch->searchDocs(ES_INDEX, $body);
+		return $results;
 	}
 
 	/**

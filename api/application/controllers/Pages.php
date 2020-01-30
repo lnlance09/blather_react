@@ -169,7 +169,7 @@ class Pages extends CI_Controller {
 				$token = $this->user->youtubeAccessToken;
 				$posts = $this->youtube->getVideos([
 					'channelId' => $id,
-					'maxResults' => 18,
+					'maxResults' => 50,
 					'pageToken' => $nextPageToken,
 					'order' => 'date',
 					'part' => 'id,snippet',

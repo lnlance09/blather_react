@@ -25,3 +25,24 @@ export const fetchPagePosts = ({ bearer, id, lastId, nextPageToken, page, type }
 		}
 	)
 }
+
+export const searchVideosByText = ({ channelId, page, q, videoId }) => dispatch => {
+	request.get(
+		`${window.location.origin}/api/youtube/searchVideosForText`,
+		{
+			qs: {
+				channelId,
+				page,
+				q,
+				videoId
+			},
+			json: true
+		},
+		function(err, response, body) {
+			dispatch({
+				type: constants.SEARCH_VIDEOS_BY_TEXT,
+				payload: body
+			})
+		}
+	)
+}

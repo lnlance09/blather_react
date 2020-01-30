@@ -255,19 +255,24 @@ class Page extends Component {
 					)
 				}
 
+				if (activeItem === "videos") {
+					return (
+						<Segment basic>
+							<VideoList
+								bearer={bearer}
+								channelId={id}
+								emptyMsgContent="No videos"
+								history={props.history}
+							/>
+						</Segment>
+					)
+				}
+
 				if (authenticated) {
 					if (activeItem === "tweets" && props.data.linkedTwitter) {
 						return (
 							<Segment basic>
 								<TweetList bearer={bearer} history={props.history} username={id} />
-							</Segment>
-						)
-					}
-
-					if (activeItem === "videos" && props.data.linkedYoutube) {
-						return (
-							<Segment basic>
-								<VideoList bearer={bearer} channelId={id} history={props.history} />
 							</Segment>
 						)
 					}

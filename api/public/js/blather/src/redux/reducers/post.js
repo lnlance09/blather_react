@@ -54,11 +54,10 @@ const post = (state = initial(), action) => {
 				}
 			}
 
+			let transcript = ""
 			let pageInfo = {}
 			let profileImg = ""
 			let s3Pic = ""
-			let existsOnYt = true
-			let needToRefresh = false
 			let info = {}
 
 			if (payload.type === "comment") {
@@ -94,9 +93,8 @@ const post = (state = initial(), action) => {
 			}
 
 			if (payload.type === "video") {
+				transcript = payload.transcript
 				info = payload.data
-				existsOnYt = payload.exists_on_yt
-				needToRefresh = payload.need_to_refresh
 				if (!payload.error) {
 					profileImg = payload.data.channel.img
 				}
@@ -115,12 +113,11 @@ const post = (state = initial(), action) => {
 				archives,
 				error: payload.error,
 				errorCode: payload.code,
-				existsOnYt,
 				info,
-				needToRefresh,
 				pageInfo,
 				profileImg,
 				s3Pic,
+				transcript,
 				type: payload.type
 			}
 

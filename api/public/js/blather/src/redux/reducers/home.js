@@ -28,8 +28,6 @@ const home = (state = initial(), action) => {
 			let info = {}
 			let page = {}
 			let profileImg = ""
-			let existsOnYt = true
-			let needToRefresh = false
 
 			if (payload.type === "comment") {
 				profileImg = payload.data.commenter.img
@@ -71,8 +69,6 @@ const home = (state = initial(), action) => {
 
 			if (payload.type === "video") {
 				info = payload.data
-				existsOnYt = payload.exists_on_yt
-				needToRefresh = payload.need_to_refresh
 				if (!payload.error) {
 					profileImg = payload.data.channel.img
 				}
@@ -91,10 +87,8 @@ const home = (state = initial(), action) => {
 				archives,
 				error: payload.error,
 				errorCode: payload.code,
-				existsOnYt,
 				info,
 				mediaId,
-				needToRefresh,
 				network,
 				page,
 				profileImg,

@@ -312,6 +312,8 @@ a {
   margin-top: 10px !important; }
   .fallacyPage .fallacyGrid .leftSide, .fallacyPage .fallacyGrid .rightSide {
     padding: 0 8px !important; }
+  .fallacyPage .fallacyGrid .fallacyExample {
+    margin-top: 5px; }
   .fallacyPage .fallacyGrid .materialWrapper {
     width: 100%; }
   .fallacyPage .fallacyGrid .row:first-of-type {
