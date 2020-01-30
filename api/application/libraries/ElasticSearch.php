@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 require_once APPPATH.'vendor/autoload.php';
 use Elasticsearch\ClientBuilder;
 
-class ElasticSearch {
+class Elasticsearch {
 	public function indexDoc($index, $id, $body) {
 		$client = ClientBuilder::create()->build();
 		$params = [
