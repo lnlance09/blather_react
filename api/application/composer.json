@@ -2,6 +2,7 @@
   "require" : {
     "facebook/php-sdk-v4" : "~5.0",
     "firebase/php-jwt": "^5.0",
-    "aws/aws-sdk-php": "^3.90"
+    "aws/aws-sdk-php": "^3.90",
+    "elasticsearch/elasticsearch": "^7.0"
   }
 }

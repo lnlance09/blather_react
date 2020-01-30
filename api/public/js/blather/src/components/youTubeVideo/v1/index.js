@@ -16,6 +16,7 @@ import { connect } from "react-redux"
 import { Link } from "react-router-dom"
 import {
 	Button,
+	Card,
 	Divider,
 	Form,
 	Header,
@@ -27,9 +28,9 @@ import {
 	Message,
 	Progress,
 	Segment,
-	Statistic,
-	Transition
+	Statistic
 } from "semantic-ui-react"
+import ImagePic from "images/images/image-square.png"
 import LazyLoad from "components/lazyLoad/v1/"
 import Moment from "react-moment"
 import PropTypes from "prop-types"
@@ -45,6 +46,7 @@ class YouTubeVideo extends Component {
 		const currentState = store.getState()
 		const auth = currentState.user.authenticated
 		const user = currentState.user.data
+
 		this.state = {
 			activeItem: auth ? "Mine" : "All",
 			archiveEndTime: 0,
@@ -53,6 +55,7 @@ class YouTubeVideo extends Component {
 			currentState,
 			currentTime: this.props.startTime,
 			playing: true,
+			showMore: false,
 			user
 		}
 
@@ -72,7 +75,20 @@ class YouTubeVideo extends Component {
 
 	componentDidMount() {
 		this.setState({ archiveVisible: !this.props.archive })
-		// this.player.seekTo(this.props.st)
+
+		const captions = document.querySelectorAll(".transcriptContent span")
+		const forEach = (array, callback, scope) => {
+			for (let i = 0; i < array.length; i++) {
+				callback.call(scope, i, array[i])
+			}
+		}
+
+		forEach(captions, (index, value) => {
+			value.addEventListener("click", e => {
+				const start = e.target.getAttribute("start")
+				this.player.seekTo(start)
+			})
+		})
 	}
 
 	componentDidUpdate(prevProps) {
@@ -151,8 +167,12 @@ class YouTubeVideo extends Component {
 		})
 	}
 
+	toggleShowMore = () => {
+		this.setState({ showMore: !this.state.showMore })
+	}
+
 	render() {
-		const { activeItem, archiveVisible, auth, playing, user } = this.state
+		const { activeItem, auth, playing, showMore, user } = this.state
 
 		const ArchiveForm = props => (
 			<div className="archiveForm">
@@ -198,7 +218,7 @@ class YouTubeVideo extends Component {
 						value={props.archiveDescription}
 					/>
 					{props.archiveError && <Message error content={props.archiveErrorMsg} />}
-					<Button color="blue" compact fluid>
+					<Button color="blue" fluid>
 						Archive
 					</Button>
 				</Form>
@@ -236,63 +256,61 @@ class YouTubeVideo extends Component {
 							}
 						/>
 					) : (
-						<Transition animation="scale" duration={400} visible={archiveVisible}>
-							<Item.Group className="archivesList" divided>
-								{archives.map((a, i) => {
-									if (a !== undefined) {
-										return (
-											<Item
-												className={`archiveItem ${
-													props.archiveId === a.id ? "selected" : ""
-												}`}
-												key={`${a.start_time}_${a.end_time}`}
-												onClick={() => this.seekTo(a)}
-											>
-												<Item.Content>
-													<Item.Header>
-														{formatTime(a.start_time)} -{" "}
-														{formatTime(a.end_time)}
-													</Item.Header>
-													<Item.Description>
-														{a.description}
-													</Item.Description>
-													<Item.Extra>
-														<List bulleted horizontal link>
-															{a.user_id === user.id && (
-																<List.Item
-																	as="a"
-																	className="deleteArchive"
-																	onClick={e => {
-																		e.stopPropagation()
-																		this.deleteArchive(a.id)
-																	}}
-																>
-																	Delete
-																</List.Item>
-															)}
+						<Item.Group className="archivesList" divided>
+							{archives.map((a, i) => {
+								if (a !== undefined) {
+									return (
+										<Item
+											className={`archiveItem ${
+												props.archiveId === a.id ? "selected" : ""
+											}`}
+											key={`${a.start_time}_${a.end_time}`}
+											onClick={() => this.seekTo(a)}
+										>
+											<Item.Content>
+												<Item.Header>
+													{formatTime(a.start_time)} -{" "}
+													{formatTime(a.end_time)}
+												</Item.Header>
+												<Item.Description>
+													{a.description}
+												</Item.Description>
+												<Item.Extra>
+													<List bulleted horizontal link>
+														{a.user_id === user.id && (
 															<List.Item
 																as="a"
+																className="deleteArchive"
 																onClick={e => {
 																	e.stopPropagation()
-																	props.setClip(
-																		a.start_time,
-																		a.end_time
-																	)
-																	this.scrollToTop()
+																	this.deleteArchive(a.id)
 																}}
 															>
-																Use
+																Delete
 															</List.Item>
-														</List>
-													</Item.Extra>
-												</Item.Content>
-											</Item>
-										)
-									}
-									return null
-								})}
-							</Item.Group>
-						</Transition>
+														)}
+														<List.Item
+															as="a"
+															onClick={e => {
+																e.stopPropagation()
+																props.setClip(
+																	a.start_time,
+																	a.end_time
+																)
+																this.scrollToTop()
+															}}
+														>
+															Use
+														</List.Item>
+													</List>
+												</Item.Extra>
+											</Item.Content>
+										</Item>
+									)
+								}
+								return null
+							})}
+						</Item.Group>
 					)}
 				</div>
 			)
@@ -309,9 +327,10 @@ class YouTubeVideo extends Component {
 							<Image
 								bordered
 								circular
+								onError={i => (i.target.src = ImagePic)}
 								floated="left"
 								size="tiny"
-								src={props.channel.img}
+								src={props.channel.img ? props.channel.img : ImagePic}
 							/>
 							<Header.Content>
 								{props.channel.title}
@@ -369,98 +388,113 @@ class YouTubeVideo extends Component {
 
 		return (
 			<div className="youTubeVideo">
-				<Segment>
-					{this.props.showVideo && (
+				{this.props.showVideo && (
+					<div>
+						<ReactPlayer
+							className="videoPlayer"
+							controls={this.props.controls}
+							loop={this.props.loop}
+							onDuration={e => this.props.setDuration({ duration: e })}
+							onError={this.showBackupMsg}
+							onProgress={this.setTime}
+							playing={this.props.playing && playing}
+							ref={this.ref}
+							url={
+								this.props.existsOnYt
+									? `https://www.youtube.com/watch?v=${this.props.id}&t=${this.props.startTime}&end=${this.props.endTime}`
+									: this.props.s3Link
+							}
+						/>
+
+						<Header className="youTubeTitle" size="medium">
+							{this.props.redirect ? (
+								<Link to={`/video/${this.props.id}`}>{this.props.title}</Link>
+							) : (
+								this.props.title
+							)}
+							{this.props.stats && (
+								<Header.Subheader>
+									{formatNumber(this.props.stats.viewCount)}{" "}
+									{formatPlural(this.props.stats.viewCount, "view")}
+								</Header.Subheader>
+							)}
+						</Header>
+
+						{this.props.showChannel && <div>{ChannelCard(this.props)}</div>}
+
 						<div>
-							<ReactPlayer
-								className="videoPlayer"
-								controls={this.props.controls}
-								loop={this.props.loop}
-								onDuration={e => this.props.setDuration({ duration: e })}
-								onError={this.showBackupMsg}
-								onProgress={this.setTime}
-								playing={this.props.playing && playing}
-								ref={this.ref}
-								url={
-									this.props.existsOnYt
-										? `https://www.youtube.com/watch?v=${this.props.id}&t=${this.props.startTime}&end=${this.props.endTime}`
-										: this.props.s3Link
-								}
+							<Divider />
+							<Header className="transcriptHeader">Transcript</Header>
+							<div
+								className={`transcriptContent ${showMore ? "" : "default"}`}
+								dangerouslySetInnerHTML={{
+									__html: this.props.transcript
+								}}
 							/>
-							{!this.props.existsOnYt && auth && this.props.id ? (
-								<Message
-									header="You are watching an archived version of this video"
-									info
-								/>
-							) : null}
-
-							<Header className="youTubeTitle" size="medium">
-								{this.props.redirect ? (
-									<Link to={`/video/${this.props.id}`}>{this.props.title}</Link>
-								) : (
-									this.props.title
-								)}
-								{this.props.stats && (
-									<Header.Subheader>
-										{formatNumber(this.props.stats.viewCount)}{" "}
-										{formatPlural(this.props.stats.viewCount, "view")}
-									</Header.Subheader>
-								)}
-							</Header>
-
-							{this.props.showChannel && <div>{ChannelCard(this.props)}</div>}
-
-							{this.props.canArchive && (
-								<div>
-									<Divider hidden />
-									{ArchiveForm(this.props)}
-									<Divider hidden />
-									{ArchivesList(this.props)}
-								</div>
-							)}
-
-							{this.props.showTimes && (
-								<Form.Group className="editVideoTimes" widths="equal">
-									<Form.Field>
-										<TimeField
-											input={
-												<Input
-													icon="hourglass start"
-													placeholder="Start time"
-												/>
-											}
-											onChange={this.props.changeStartTime}
-											showSeconds
-											style={{ width: "100%", fontSize: 14 }}
-											value={this.props.startTime}
-										/>
-									</Form.Field>
-									<Form.Field>
-										<TimeField
-											input={
-												<Input
-													icon="hourglass end"
-													placeholder="End time"
-												/>
-											}
-											onChange={this.props.changeEndTime}
-											showSeconds
-											style={{ width: "100%", fontSize: 14 }}
-											value={this.props.endTime}
-										/>
-									</Form.Field>
-								</Form.Group>
-							)}
-
-							{this.props.showStats && (
-								<div>
-									{PopularityBar(this.props)}
-									{DisplayStats(this.props)}
-								</div>
-							)}
+							<span
+								className="seeMore"
+								onClick={() => this.toggleShowMore()}
+							>
+								See {showMore ? "less" : "more"}
+							</span>
 						</div>
-					)}
-				</Segment>
+
+						{this.props.canArchive && (
+							<div>
+								<Divider hidden />
+								<Header size="large">
+									Archives
+								</Header>
+								<Card className="fluid">
+									<Card.Content>
+										{ArchiveForm(this.props)}
+										{ArchivesList(this.props)}
+									</Card.Content>
+								</Card>
+							</div>
+						)}
+
+						{this.props.showTimes && (
+							<Form.Group className="editVideoTimes" widths="equal">
+								<Form.Field>
+									<TimeField
+										input={
+											<Input
+												icon="hourglass start"
+												placeholder="Start time"
+											/>
+										}
+										onChange={this.props.changeStartTime}
+										showSeconds
+										style={{ width: "100%", fontSize: 14 }}
+										value={this.props.startTime}
+									/>
+								</Form.Field>
+								<Form.Field>
+									<TimeField
+										input={
+											<Input
+												icon="hourglass end"
+												placeholder="End time"
+											/>
+										}
+										onChange={this.props.changeEndTime}
+										showSeconds
+										style={{ width: "100%", fontSize: 14 }}
+										value={this.props.endTime}
+									/>
+								</Form.Field>
+							</Form.Group>
+						)}
+
+						{this.props.showStats && (
+							<div>
+								{PopularityBar(this.props)}
+								{DisplayStats(this.props)}
+							</div>
+						)}
+					</div>
+				)}
 			</div>
 		)
 	}
@@ -517,6 +551,7 @@ YouTubeVideo.propTypes = {
 		viewCount: PropTypes.number
 	}),
 	title: PropTypes.string,
+	transcript: PropTypes.string,
 	updateArchiveDescription: PropTypes.func,
 	updateArchiveEndTime: PropTypes.func,
 	updateArchiveStartTime: PropTypes.func
@@ -550,6 +585,7 @@ YouTubeVideo.defaultProps = {
 	showVideo: true,
 	source: "post",
 	statists: {},
+	transcript: "",
 	updateArchiveDescription,
 	updateArchiveEndTime,
 	updateArchiveStartTime

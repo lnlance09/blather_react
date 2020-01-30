@@ -124,15 +124,15 @@ class ResultItem extends Component {
 									) : (
 										<div>
 											{props.highlight ? (
-												<span>
+												<div>
 													{getHighlightedText(
 														props.description,
 														props.highlightText,
 														props.id
 													)}
-												</span>
+												</div>
 											) : (
-												<span>{props.description}</span>
+												<div>{props.description}</div>
 											)}
 										</div>
 									)}

@@ -28,7 +28,7 @@ class Google_Service_PolyService_Resource_Assets extends Google_Service_Resource
   /**
    * Returns detailed information about an asset given its name. PRIVATE assets
    * are returned only if  the currently authenticated user (via OAuth token) is
-   * the author of the asset. (assets.get)
+   * the author of the  asset. (assets.get)
    *
    * @param string $name Required. An asset's name in the form
    * `assets/{ASSET_ID}`.
@@ -47,13 +47,6 @@ class Google_Service_PolyService_Resource_Assets extends Google_Service_Resource
    *
    * @param array $optParams Optional parameters.
    *
-   * @opt_param string format Return only assets with the matching format.
-   * Acceptable values are: `BLOCKS`, `FBX`, `GLTF`, `GLTF2`, `OBJ`, `TILT`.
-   * @opt_param bool curated Return only assets that have been curated by the Poly
-   * team.
-   * @opt_param string category Filter assets based on the specified category.
-   * Supported values are: `animals`, `architecture`, `art`, `food`, `nature`,
-   * `objects`, `people`, `scenes`, `technology`, and `transport`.
    * @opt_param string maxComplexity Returns assets that are of the specified
    * complexity or less. Defaults to COMPLEX. For example, a request for MEDIUM
    * assets also includes SIMPLE assets.
@@ -68,6 +61,13 @@ class Google_Service_PolyService_Resource_Assets extends Google_Service_Resource
    * @opt_param string orderBy Specifies an ordering for assets. Acceptable values
    * are: `BEST`, `NEWEST`, `OLDEST`. Defaults to `BEST`, which ranks assets based
    * on a combination of popularity and other features.
+   * @opt_param string format Return only assets with the matching format.
+   * Acceptable values are: `BLOCKS`, `FBX`, `GLTF`, `GLTF2`, `OBJ`, `TILT`.
+   * @opt_param bool curated Return only assets that have been curated by the Poly
+   * team.
+   * @opt_param string category Filter assets based on the specified category.
+   * Supported values are: `animals`, `architecture`, `art`, `food`, `nature`,
+   * `objects`, `people`, `scenes`, `technology`, and `transport`.
    * @return Google_Service_PolyService_ListAssetsResponse
    */
   public function listAssets($optParams = array())

@@ -30,6 +30,8 @@
       margin-right: 2px; }
     .youTubeVideo .channelSegment .header .sub.header {
       font-size: 12px !important; }
+      .youTubeVideo .channelSegment .header .sub.header:hover {
+        text-decoration: none; }
   .youTubeVideo .channelSegment .videoDescription {
     color: #767676; }
 
@@ -71,6 +73,27 @@
 
 .youTubeVideo .editVideoTimes {
   margin: 20px 0 0 0 !important; }
+
+.youTubeVideo .transcriptHeader {
+  margin-top: 0 !important; }
+
+.youTubeVideo .transcriptContent font {
+  color: #1B1C1D !important; }
+
+.youTubeVideo .transcriptContent.default {
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 10;
+  -webkit-box-orient: vertical; }
+
+.youTubeVideo .seeMore {
+  color: #2185D0;
+  cursor: pointer;
+  display: inline-block;
+  margin-top: 10px; }
+  .youTubeVideo .seeMore:hover {
+    text-decoration: underline; }
 
 .youtubeCommentsSection .toggleComments {
   float: right;

@@ -32,8 +32,8 @@ class Google_Service_Dataproc_Resource_ProjectsRegionsJobs extends Google_Servic
    *
    * @param string $projectId Required. The ID of the Google Cloud Platform
    * project that the job belongs to.
-   * @param string $region Required. The Cloud Dataproc region in which to handle
-   * the request.
+   * @param string $region Required. The Dataproc region in which to handle the
+   * request.
    * @param string $jobId Required. The job ID.
    * @param Google_Service_Dataproc_CancelJobRequest $postBody
    * @param array $optParams Optional parameters.
@@ -51,8 +51,8 @@ class Google_Service_Dataproc_Resource_ProjectsRegionsJobs extends Google_Servic
    *
    * @param string $projectId Required. The ID of the Google Cloud Platform
    * project that the job belongs to.
-   * @param string $region Required. The Cloud Dataproc region in which to handle
-   * the request.
+   * @param string $region Required. The Dataproc region in which to handle the
+   * request.
    * @param string $jobId Required. The job ID.
    * @param array $optParams Optional parameters.
    * @return Google_Service_Dataproc_DataprocEmpty
@@ -68,8 +68,8 @@ class Google_Service_Dataproc_Resource_ProjectsRegionsJobs extends Google_Servic
    *
    * @param string $projectId Required. The ID of the Google Cloud Platform
    * project that the job belongs to.
-   * @param string $region Required. The Cloud Dataproc region in which to handle
-   * the request.
+   * @param string $region Required. The Dataproc region in which to handle the
+   * request.
    * @param string $jobId Required. The job ID.
    * @param array $optParams Optional parameters.
    * @return Google_Service_Dataproc_Job
@@ -81,12 +81,29 @@ class Google_Service_Dataproc_Resource_ProjectsRegionsJobs extends Google_Servic
     return $this->call('get', array($params), "Google_Service_Dataproc_Job");
   }
   /**
+   * Gets the access control policy for a resource. Returns an empty policy if the
+   * resource exists and does not have a policy set. (jobs.getIamPolicy)
+   *
+   * @param string $resource REQUIRED: The resource for which the policy is being
+   * requested. See the operation documentation for the appropriate value for this
+   * field.
+   * @param Google_Service_Dataproc_GetIamPolicyRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Dataproc_Policy
+   */
+  public function getIamPolicy($resource, Google_Service_Dataproc_GetIamPolicyRequest $postBody, $optParams = array())
+  {
+    $params = array('resource' => $resource, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('getIamPolicy', array($params), "Google_Service_Dataproc_Policy");
+  }
+  /**
    * Lists regions/{region}/jobs in a project. (jobs.listProjectsRegionsJobs)
    *
    * @param string $projectId Required. The ID of the Google Cloud Platform
    * project that the job belongs to.
-   * @param string $region Required. The Cloud Dataproc region in which to handle
-   * the request.
+   * @param string $region Required. The Dataproc region in which to handle the
+   * request.
    * @param array $optParams Optional parameters.
    *
    * @opt_param string filter Optional. A filter constraining the jobs to list.
@@ -118,8 +135,8 @@ class Google_Service_Dataproc_Resource_ProjectsRegionsJobs extends Google_Servic
    *
    * @param string $projectId Required. The ID of the Google Cloud Platform
    * project that the job belongs to.
-   * @param string $region Required. The Cloud Dataproc region in which to handle
-   * the request.
+   * @param string $region Required. The Dataproc region in which to handle the
+   * request.
    * @param string $jobId Required. The job ID.
    * @param Google_Service_Dataproc_Job $postBody
    * @param array $optParams Optional parameters.
@@ -138,12 +155,30 @@ class Google_Service_Dataproc_Resource_ProjectsRegionsJobs extends Google_Servic
     return $this->call('patch', array($params), "Google_Service_Dataproc_Job");
   }
   /**
+   * Sets the access control policy on the specified resource. Replaces any
+   * existing policy.Can return Public Errors: NOT_FOUND, INVALID_ARGUMENT and
+   * PERMISSION_DENIED (jobs.setIamPolicy)
+   *
+   * @param string $resource REQUIRED: The resource for which the policy is being
+   * specified. See the operation documentation for the appropriate value for this
+   * field.
+   * @param Google_Service_Dataproc_SetIamPolicyRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Dataproc_Policy
+   */
+  public function setIamPolicy($resource, Google_Service_Dataproc_SetIamPolicyRequest $postBody, $optParams = array())
+  {
+    $params = array('resource' => $resource, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('setIamPolicy', array($params), "Google_Service_Dataproc_Policy");
+  }
+  /**
    * Submits a job to a cluster. (jobs.submit)
    *
    * @param string $projectId Required. The ID of the Google Cloud Platform
    * project that the job belongs to.
-   * @param string $region Required. The Cloud Dataproc region in which to handle
-   * the request.
+   * @param string $region Required. The Dataproc region in which to handle the
+   * request.
    * @param Google_Service_Dataproc_SubmitJobRequest $postBody
    * @param array $optParams Optional parameters.
    * @return Google_Service_Dataproc_Job
@@ -153,5 +188,25 @@ class Google_Service_Dataproc_Resource_ProjectsRegionsJobs extends Google_Servic
     $params = array('projectId' => $projectId, 'region' => $region, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
     return $this->call('submit', array($params), "Google_Service_Dataproc_Job");
+  }
+  /**
+   * Returns permissions that a caller has on the specified resource. If the
+   * resource does not exist, this will return an empty set of permissions, not a
+   * NOT_FOUND error.Note: This operation is designed to be used for building
+   * permission-aware UIs and command-line tools, not for authorization checking.
+   * This operation may "fail open" without warning. (jobs.testIamPermissions)
+   *
+   * @param string $resource REQUIRED: The resource for which the policy detail is
+   * being requested. See the operation documentation for the appropriate value
+   * for this field.
+   * @param Google_Service_Dataproc_TestIamPermissionsRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Dataproc_TestIamPermissionsResponse
+   */
+  public function testIamPermissions($resource, Google_Service_Dataproc_TestIamPermissionsRequest $postBody, $optParams = array())
+  {
+    $params = array('resource' => $resource, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('testIamPermissions', array($params), "Google_Service_Dataproc_TestIamPermissionsResponse");
   }
 }

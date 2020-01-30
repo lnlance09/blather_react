@@ -28,7 +28,7 @@ import queryString from "query-string"
 import React, { Component } from "react"
 import removeWords from "remove-words"
 import store from "store"
-import ThumbnailPic from "images/images/image-square.png"
+import TrumpImg from "images/trump-white.png"
 import Tweet from "components/tweet/v1/"
 import YouTubeCommentsSection from "components/youTubeVideo/v1/comments"
 import YouTubeVideo from "components/youTubeVideo/v1/"
@@ -292,6 +292,7 @@ class Post extends Component {
 					sendNotification={props.sendNotification}
 					startTime={startTime}
 					type={type}
+					useCard={type === "tweet"}
 					user={user}
 				/>
 			</div>
@@ -382,19 +383,18 @@ class Post extends Component {
 					}
 
 				case "video":
-					if (props.info && videoExists) {
+					if (props.info) {
 						return (
 							<div>
 								<YouTubeVideo
 									archives={props.archives}
 									archiveId={a}
 									bearer={bearer}
-									canArchive
+									canArchive={false}
 									channel={props.info.channel}
 									dateCreated={props.info.date_created}
 									description={props.info.description}
 									endTime={endTime}
-									existsOnYt={props.existsOnYt}
 									history={props.history}
 									id={props.info.id}
 									placeholder={props.info.img}
@@ -407,18 +407,16 @@ class Post extends Component {
 									startTime={startTime}
 									stats={props.info.stats}
 									title={props.info.title}
+									transcript={props.transcript}
 								/>
-								<Divider hidden />
+								<Divider section/>
+								<Header size="large">Call out bullshit</Header>
 								{DisplayFallacyForm(props)}
 							</div>
 						)
-					} else {
-						return (
-							<Segment className="lazyLoadSegment" fluid>
-								<Image centered size="large" src={ThumbnailPic} />
-							</Segment>
-						)
 					}
+
+					return null
 
 				case "youtube_comment":
 					return null
@@ -470,13 +468,17 @@ class Post extends Component {
 
 					<Container className="mainContainer" textAlign="left">
 						{type === "video" && (
-							<Segment>
-								{DisplayPost(this.props)}
-								{!videoExists && (
-									<Message content="This video does not exist" error />
-								)}
-								{!this.props.error && <DisplayFallacies props={this.props} />}
-							</Segment>
+							videoExists ? (
+								<Segment>
+									{DisplayPost(this.props)}
+									{!this.props.error && <DisplayFallacies props={this.props} />}
+								</Segment>
+							) : (
+								<div>
+									<Image centered className="trumpImg404" size="medium" src={TrumpImg} />
+									<Header size="large" textAlign="center">This video does not exist</Header>
+								</div>
+							)
 						)}
 
 						{type === "tweet" && (
@@ -548,26 +550,24 @@ Post.propTypes = {
 	downloadVideo: PropTypes.func,
 	error: PropTypes.bool,
 	errorCode: PropTypes.number,
-	existsOnYt: PropTypes.bool,
 	info: PropTypes.object,
 	fallacyCount: PropTypes.number,
 	myArchives: PropTypes.array,
-	needToRefresh: PropTypes.bool,
 	pageInfo: PropTypes.object,
 	profileImg: PropTypes.string,
 	refreshYouTubeToken: PropTypes.func,
 	s3Pic: PropTypes.string,
 	sendNotification: PropTypes.func,
+	transcript: PropTypes.string,
 	type: PropTypes.string
 }
 
 Post.defaultProps = {
 	archives: [],
 	downloadVideo,
-	existsOnYt: true,
 	myArchives: [],
-	needToRefresh: false,
-	refreshYouTubeToken
+	refreshYouTubeToken,
+	transcript: ""
 }
 
 const mapStateToProps = (state, ownProps) => {

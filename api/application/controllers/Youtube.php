@@ -478,10 +478,108 @@ class YouTube extends CI_Controller {
 		$this->users->updateUser($this->user->id, [
 			'linked_youtube' => null,
 		]);
+
 		echo json_encode([
 			'error' => false,
 			'youtubeUrl' => $this->youtube->getTokenUrl()
 		]);
+	}
+
+	public function searchVideosForText() {
+		$q = $this->input->get('q');
+		$page = $this->input->get('page');
+		$channelId = $this->input->get('channelId');
+		$videoId = $this->input->get('videoId');
+
+		$per_page = 50;
+		$from = $page*$per_page;
+
+		$results = $this->youtube->searchVideosForTerms($per_page, $from, $q, $channelId, $videoId);
+		$results['page'] = (int)$page;
+		echo json_encode($results);
+	}
+
+	public function translateChannelVideos() {
+		ini_set('max_execution_time', 0);
+		$channelId = $this->input->get('channelId');
+		$token = $this->input->get('token');
+		$page = 1;
+
+		$videos = $this->insertTranslations($token, $channelId, $page);
+		$pages = $videos['pages'];
+
+		for ($i=0;$i<$pages;$i++) {
+			if ($videos['hasMore']) {
+				$page++;
+				echo 'Page: '.$page.'<br><br>';
+
+				$videos = $this->insertTranslations($token, $channelId, $page, $videos['nextPageToken']);
+				FormatArray($videos);
+
+				sleep(1);
+			}
+		}
+	}
+
+	private function insertTranslations($access_token, $channel_id, $page, $next_page_token = null) {
+		$per_page = 50;
+		$posts = $this->youtube->getVideos([
+			'channelId' => $channel_id,
+			'maxResults' => $per_page,
+			'pageToken' => $next_page_token,
+			'order' => 'date',
+			'part' => 'id,snippet',
+			'type' => 'video'
+		], $access_token, $page, true, true);
+
+		$nextPageToken = $posts['nextPageToken'];
+		$data = $posts['data'];
+		$count = $posts['count'];
+
+		if (empty($data)) {
+			echo json_encode([
+				'error' => 'There are no results'
+			]);
+			exit;
+		}
+
+		$data_count = count($data);
+		$hasMore = $data_count >= $per_page;
+		$pages = ceil($count/$per_page);
+
+		for ($i=0;$i<$data_count;$i++) {
+			$item = $data[$i];
+			$channel_title = $item['channelTitle'];
+			$date_created = $item['date_created'];
+			$description = $item['description'];
+			$img = $item['img'];
+			$video_id = $item['id'];
+			$video_title = $item['title'];
+
+			$captions = $this->youtube->getCaptions($video_id);
+
+			if ($captions) {
+				$text = implode(' ', $captions);
+
+				$body = [
+					'channel_id' => $channel_id,
+					'channel_title' => $channel_title,
+					'date_created' => $date_created,
+					'description' => $description,
+					'img' => $img,
+					'text' => $text,
+					'video_id' => $video_id,
+					'video_title' => $video_title
+				];
+				$this->elasticsearch->indexDoc(ES_INDEX, $video_id, $body);
+			}
+		}
+
+		return [
+			'hasMore' => $hasMore,
+			'nextPageToken' => $nextPageToken,
+			'pages' => $pages
+		];
 	}
 
 	public function video() {
@@ -498,46 +596,91 @@ class YouTube extends CI_Controller {
 			exit;
 		}
 
-		$user = $this->user;
-		$auth = $user ? $user->linkedYoutube : false;
-		$token = $auth ? $user->youtubeAccessToken : null;
-		$exists_on_yt = true;
-		$need_to_refresh = false;
+		$video = $this->youtube->getStandardVideoInfo($id);
 
-		if ($auth) {
-			$video = $this->youtube->getVideoExtended($id, true, $token);
-			if ($video['error']) {
-				if ($video['code'] === 401) {
-					$exists_on_yt = false;
-					$need_to_refresh = true;
-				} else {
-					// get video from db
-					$video = $this->youtube->getVideoExtended($id, false);
-					$exists_on_yt = false;
-				}
-			}
+		if ($video['status'] != 'ok') {
+			$this->output->set_status_header(404);
+			echo json_encode([
+				'code' => 404,
+				'error' => true,
+			]);
+			exit;
+		}
+
+		$player_response = $video['player_response'];
+		$decode = @json_decode($player_response, true);
+		$video_details = $decode['videoDetails'];
+		$microformat = $decode['microformat'];
+		// FormatArray($video_details);
+
+		$channelId = $video_details['channelId'];
+		$channelName = $video_details['author'];
+		$dateCreated = $microformat['playerMicroformatRenderer']['uploadDate'];
+		$description = $video_details['shortDescription'];
+		$duration = $video_details['lengthSeconds'];
+		$img = $video_details['thumbnail']['thumbnails'][0]['url'];
+		$title = $video_details['title'];
+		$viewCount = (int)$video_details['viewCount'];
+
+		$this->youtube->insertVideo([
+			'channel_id' => $channelId,
+			'date_created' => $dateCreated,
+			'description' => $description,
+			'duration' => $duration,
+			'dislike_count' => null,
+			'img' => $img,
+			'like_count' => null,
+			'title' => $title,
+			'video_id' => $id,
+			'view_count' => $viewCount
+		]);
+
+		$this->youtube->insertPage([
+			'about' => null,
+			'is_verified' => null,
+			'name' => $channelName,
+			'social_media_id' => $channelId,
+			'type' => 'youtube',
+			'username' => null
+		]);
+
+		$captions = $this->youtube->searchVideosForTerms(null, null, null, null, $id);
+		if ($captions['hits']['total']['value'] == 1) {
+			$transcript = $captions['hits']['hits'][0]['_source']['text'];
 		} else {
-			$video = $this->youtube->getVideoExtended($id, false);
-			$exists_on_yt = false;
+			$transcript = '';
 		}
 
-		if ($video['error']) {
-			$this->output->set_status_header($video['code']);
-		}
-
-		$archives = [];
-		if (!$video['error']) {
-			$archives = $this->youtube->getVideoArchives($id);
-		}
+		$data = [
+			'channel' => [
+				'about' => null,
+				'db_id' => null,
+				'id' => $channelId,
+				'img' => null,
+				'title' => $channelName
+			],
+			'date_created' => $dateCreated,
+			'description' => $description,
+			'duration' => $duration,
+			'id' => $id,
+			'img' => $img,
+			's3_link' => null,
+			'stats' => [
+				'commentCount' => 0,
+				'dislikeCount' => null,
+				'likeCount' => null,
+				'likePct' => null,
+				'viewCount' => $viewCount
+			],
+			'title' => $title
+		];
 
 		echo json_encode([
-			'archives' => $archives,
-			'code' => $video['error'] ? $video['code'] : 0,
-			'data' => !$video['error'] ? $video['data'] : [],
-			'error' => $video['error'] ? true : false,
-			'exists_on_yt' => $exists_on_yt,
-			'is_live_search' => $auth,
-			'need_to_refresh' => $need_to_refresh && $auth,
+			'archives' => [],
+			'code' => 200,
+			'data' => $data,
+			'error' => false,
+			'transcript' => $transcript,
 			'type' => 'video'
 		]);
 	}

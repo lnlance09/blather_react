@@ -19,11 +19,11 @@
  * Service definition for IAMCredentials (v1).
  *
  * <p>
- * IAM Service Account Credentials API</p>
+ * Creates short-lived, limited-privilege credentials for IAM service accounts.</p>
  *
  * <p>
  * For more information about this service, see the API
- * <a href="https://developers.google.com/identity/protocols/OAuth2ServiceAccount" target="_blank">Documentation</a>
+ * <a href="https://cloud.google.com/iam/docs/creating-short-lived-service-account-credentials" target="_blank">Documentation</a>
  * </p>
  *
  * @author Google, Inc.
@@ -39,13 +39,15 @@ class Google_Service_IAMCredentials extends Google_Service
   /**
    * Constructs the internal representation of the IAMCredentials service.
    *
-   * @param Google_Client $client
+   * @param Google_Client $client The client used to deliver requests.
+   * @param string $rootUrl The root URL used for requests to the service.
    */
-  public function __construct(Google_Client $client)
+  public function __construct(Google_Client $client, $rootUrl = null)
   {
     parent::__construct($client);
-    $this->rootUrl = 'https://iamcredentials.googleapis.com/';
+    $this->rootUrl = $rootUrl ?: 'https://iamcredentials.googleapis.com/';
     $this->servicePath = '';
+    $this->batchPath = 'batch';
     $this->version = 'v1';
     $this->serviceName = 'iamcredentials';
 

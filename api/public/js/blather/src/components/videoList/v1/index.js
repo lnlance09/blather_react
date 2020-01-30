@@ -1,5 +1,6 @@
 import "./style.css"
-import { fetchPagePosts } from "./actions"
+import { fetchPagePosts, searchVideosByText } from "./actions"
+import { DebounceInput } from "react-debounce-input"
 import { Provider, connect } from "react-redux"
 import { Header, Icon, Item, Segment, Visibility } from "semantic-ui-react"
 import _ from "lodash"
@@ -14,38 +15,47 @@ class VideoList extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
+			isSearching: false,
 			loading: false,
-			page: 0
+			page: 0,
+			q: ""
 		}
 
 		this.loadMoreItems = _.debounce(this.loadMoreItems.bind(this), 200)
 	}
 
 	componentDidMount() {
-		this.props.fetchPagePosts({
-			bearer: this.props.bearer,
-			id: this.props.channelId,
-			type: "youtube"
+		this.props.searchVideosByText({
+			channelId: this.props.channelId
 		})
 	}
 
 	loadMoreItems = () => {
 		if (this.props.posts.hasMore) {
-			const nextPageToken = this.props.posts.nextPageToken
 			const newPage = parseInt(this.state.page + 1, 10)
 			this.setState({ loading: true, page: newPage })
-			this.props.fetchPagePosts({
-				bearer: this.props.bearer,
-				id: this.props.channelId,
-				nextPageToken,
-				page: newPage,
-				type: "youtube"
+			this.props.searchVideosByText({
+				channelId: this.props.channelId,
+				q: this.state.q,
+				page: newPage
 			})
 		}
 	}
 
+	onChangeYouTubeSearch = value => {
+		const isSearching = value !== ""
+		this.setState({ isSearching, page: 0, q: value }, () => {
+			this.props.searchVideosByText({
+				channelId: this.props.channelId,
+				q: value
+			})
+		})
+	}
+
+
 	render() {
-		const { loading } = this.state
+		const { isSearching, loading, q } = this.state
+
 		const EmptyMsg = props => {
 			if (!props.posts.loading && props.posts.count === 0) {
 				return (
@@ -59,23 +69,47 @@ class VideoList extends Component {
 			}
 			return null
 		}
+
 		const RenderVideos = this.props.posts.data.map((post, i) => {
-			let dateCreated = <Moment date={post.date_created} fromNow />
+			const date = post._source ? post._source.date_created : null
+			const dateCreated = <Moment date={date} fromNow />
+			let description = post._source ? post._source.description : null
+			const id = post._source ? post._source.video_id : null
+			const img = post._source ? post._source.img : null
+			const title = post._source ? post._source.video_title : null
+
+			if (isSearching) {
+				if (post.highlight) {
+					description = (
+						post.highlight.text.map((text, i) => (
+							<p
+								dangerouslySetInnerHTML={{
+									__html: text
+								}}
+								key={`transcript${i}`}
+							/>
+						))
+					)
+				}
+			}
+
 			return (
 				<ResultItem
-					description={post.description}
+					description={description}
 					history={this.props.history}
-					id={`video_id_${i}`}
-					img={post.img}
-					key={`video_${i}`}
+					id={`videoId${i}`}
+					img={img}
+					key={`videoId${i}`}
 					meta={dateCreated}
 					sanitize={false}
-					title={_.unescape(post.title)}
-					type={post.id ? "video" : "lazyLoad"}
-					url={`/video/${post.id}`}
+					title={_.unescape(title)}
+					truncate={false}
+					type={id ? "video" : "lazyLoad"}
+					url={`/video/${id}`}
 				/>
 			)
 		})
+
 		const lazyLoadMore = props => {
 			if (loading && props.posts.hasMore) {
 				return <LazyLoad />
@@ -85,7 +119,20 @@ class VideoList extends Component {
 		return (
 			<Provider store={store}>
 				<div className="videoList">
-					<Visibility continuous offset={[50, 50]} onBottomVisible={this.loadMoreItems}>
+					<Visibility
+						continuous
+						offset={[50, 50]}
+						onBottomVisible={this.loadMoreItems}
+					>
+						<div className="ui icon input large fluid">
+							<DebounceInput
+								debounceTimeout={300}
+								minLength={2}
+								onChange={e => this.onChangeYouTubeSearch(e.target.value)}
+								placeholder="Search videos for phrases"
+								value={q}
+							/>
+						</div>
 						<Item.Group divided>{RenderVideos}</Item.Group>
 						{lazyLoadMore(this.props)}
 					</Visibility>
@@ -114,7 +161,8 @@ VideoList.propTypes = {
 			hasMore: PropTypes.bool,
 			loading: PropTypes.bool
 		})
-	])
+	]),
+	searchVideosByText: PropTypes.func
 }
 
 VideoList.defaultProps = {
@@ -127,7 +175,8 @@ VideoList.defaultProps = {
 		error: false,
 		data: [{}, {}, {}, {}, {}],
 		loading: true
-	}
+	},
+	searchVideosByText
 }
 
 const mapStateToProps = (state, ownProps) => ({
@@ -137,5 +186,5 @@ const mapStateToProps = (state, ownProps) => ({
 
 export default connect(
 	mapStateToProps,
-	{ fetchPagePosts }
+	{ fetchPagePosts, searchVideosByText }
 )(VideoList)
