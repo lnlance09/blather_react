@@ -11,8 +11,6 @@ class Home extends CI_Controller {
 		$this->load->model('YouTubeModel', 'youtube');
 		$this->load->model('TagsModel', 'tags');
 		$this->load->model('UsersModel', 'users');
-
-		$this->load->library('elasticsearch');
 	}
 
 	public function index() {
