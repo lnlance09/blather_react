@@ -22,7 +22,7 @@ class YouTubeModel extends CI_Model {
 
 		$this->db->query("SET time_zone='+0:00'");
 
-		$this->load->library('Elasticsearch');
+		// $this->load->library('Elasticsearch');
 	}
 
 	public function getAllPages($only_with_fallacies = false) {

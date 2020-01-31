@@ -644,12 +644,15 @@ class YouTube extends CI_Controller {
 			'username' => null
 		]);
 
+		$transcript = '';
+		/*
 		$captions = $this->youtube->searchVideosForTerms(null, null, null, null, $id);
 		if ($captions['hits']['total']['value'] == 1) {
 			$transcript = $captions['hits']['hits'][0]['_source']['text'];
 		} else {
 			$transcript = '';
 		}
+		*/
 
 		$data = [
 			'channel' => [
