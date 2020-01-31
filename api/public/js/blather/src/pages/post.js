@@ -404,6 +404,7 @@ class Post extends Component {
 									setClip={this.setClip}
 									showComments
 									showStats={false}
+									showTranscript
 									startTime={startTime}
 									stats={props.info.stats}
 									title={props.info.title}

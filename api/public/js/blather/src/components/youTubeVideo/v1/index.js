@@ -422,22 +422,24 @@ class YouTubeVideo extends Component {
 
 						{this.props.showChannel && <div>{ChannelCard(this.props)}</div>}
 
-						<div>
-							<Divider />
-							<Header className="transcriptHeader">Transcript</Header>
-							<div
-								className={`transcriptContent ${showMore ? "" : "default"}`}
-								dangerouslySetInnerHTML={{
-									__html: this.props.transcript
-								}}
-							/>
-							<span
-								className="seeMore"
-								onClick={() => this.toggleShowMore()}
-							>
-								See {showMore ? "less" : "more"}
-							</span>
-						</div>
+						{this.props.showTranscript && (
+							<div>
+								<Divider />
+								<Header className="transcriptHeader">Transcript</Header>
+								<div
+									className={`transcriptContent ${showMore ? "" : "default"}`}
+									dangerouslySetInnerHTML={{
+										__html: this.props.transcript
+									}}
+								/>
+								<span
+									className="seeMore"
+									onClick={() => this.toggleShowMore()}
+								>
+									See {showMore ? "less" : "more"}
+								</span>
+							</div>
+						)}
 
 						{this.props.canArchive && (
 							<div>
@@ -540,6 +542,7 @@ YouTubeVideo.propTypes = {
 	showChannel: PropTypes.bool,
 	showStats: PropTypes.bool,
 	showTimes: PropTypes.bool,
+	showTranscript: PropTypes.bool,
 	showVideo: PropTypes.bool,
 	source: PropTypes.string,
 	startTime: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -582,6 +585,7 @@ YouTubeVideo.defaultProps = {
 	showChannel: true,
 	showStats: true,
 	showTimes: false,
+	showTranscript: false,
 	showVideo: true,
 	source: "post",
 	statists: {},
