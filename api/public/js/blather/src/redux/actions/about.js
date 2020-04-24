@@ -1,7 +1,12 @@
-import * as constants from "../constants"
+import { toast } from "react-toastify"
 import request from "request"
 
-export const sendContactMsg = ({ msg }) => dispatch => {
+toast.configure({
+	autoClose: 4000,
+	draggable: false
+})
+
+export const sendContactMsg = ({ callback, msg }) => dispatch => {
 	request.post(
 		`${window.location.origin}/api/contact/send`,
 		{
@@ -11,17 +16,9 @@ export const sendContactMsg = ({ msg }) => dispatch => {
 			json: true
 		},
 		function(err, response, body) {
-			dispatch({
-				type: constants.SEND_CONTACT_MSG,
-				payload: body
-			})
-
 			if (!body.error) {
-				setTimeout(() => {
-					dispatch({
-						type: constants.RESET_CONTACT_FORM
-					})
-				}, 5000)
+				callback()
+				toast.success("Your message has been sent")
 			}
 		}
 	)

@@ -10,9 +10,7 @@ import {
 	Header,
 	List,
 	Menu,
-	Message,
-	TextArea,
-	Transition
+	TextArea
 } from "semantic-ui-react"
 import fallacies from "fallacies.json"
 import PageFooter from "components/footer/v1/"
@@ -27,8 +25,7 @@ class About extends Component {
 
 		this.state = {
 			activeItem: "about",
-			msg: "",
-			messageSent: false
+			msg: ""
 		}
 
 		this.onChangeMsg = this.onChangeMsg.bind(this)
@@ -51,10 +48,11 @@ class About extends Component {
 
 	onChangeMsg = (e, { value }) => this.setState({ msg: value })
 
+	resetForm = () => this.setState({ msg: "" })
+
 	sendContactMsg = e => {
 		if (this.state.msg !== "") {
-			this.props.sendContactMsg({ msg: this.state.msg })
-			this.setState({ msg: "" })
+			this.props.sendContactMsg({ callback: this.resetForm, msg: this.state.msg })
 		}
 	}
 
@@ -100,7 +98,6 @@ class About extends Component {
 				<Form
 					className="contactForm"
 					onSubmit={this.sendContactMsg}
-					success={props.messageSent}
 				>
 					<Form.Field>
 						<p>Drop us a message and let us know what's on your mind.</p>
@@ -111,13 +108,6 @@ class About extends Component {
 							value={msg}
 						/>
 					</Form.Field>
-					<Transition visible={props.messageSent} animation="fade down" duration={500}>
-						<Message
-							content="You should receive a response within a few days"
-							header="Message Sent"
-							success
-						/>
-					</Transition>
 					<Button color="blue" type="submit">
 						Send
 					</Button>
@@ -258,12 +248,10 @@ class About extends Component {
 }
 
 About.propTypes = {
-	messageSent: PropTypes.bool,
 	sendContactMsg: PropTypes.func
 }
 
 About.defaultProps = {
-	messageSent: false,
 	sendContactMsg
 }
 

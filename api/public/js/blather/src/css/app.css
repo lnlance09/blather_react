@@ -38,3 +38,763 @@ body {
   .mainContainer {
     padding-left: 0 !important;
     padding-right: 0 !important; } }
+
+.rightSide {
+  margin-left: 0;
+  padding-left: 0 !important; }
+
+.ui.vertical.menu .item {
+  font-weight: normal !important; }
+  .ui.vertical.menu .item.active {
+    background: #2185D0 !important;
+    color: #FFFFFF !important;
+    font-weight: bold !important; }
+    .ui.vertical.menu .item.active:hover {
+      color: #FFFFFF; }
+
+.search.selection.dropdown .ui.label {
+  background: #2185D0;
+  border: none !important;
+  box-shadow: none !important;
+  color: #FFFFFF;
+  padding: 6px 12px; }
+
+.tagPicModal .content .form {
+  text-align: center;
+  width: 100% !important; }
+  .tagPicModal .content .form img {
+    margin-bottom: 25px; }
+  .tagPicModal .content .form .container {
+    height: 120px;
+    padding-top: 38px; }
+    .tagPicModal .content .form .container .header {
+      cursor: pointer;
+      margin: 0; }
+
+.ui.secondary.pointing.menu .item .label {
+  background: #F9FAFB;
+  color: #1B1C1D; }
+
+.search.selection.active.dropdown {
+  border-color: #96c8da !important; }
+
+.externalUrl {
+  color: #2185D0;
+  cursor: pointer; }
+  .externalUrl:hover {
+    color: #2d92de; }
+
+.profilePicPlaceholder {
+  border-radius: 50%;
+  display: inline-block;
+  max-width: none;
+  text-align: center; }
+  .profilePicPlaceholder.square {
+    border-radius: 0%; }
+  .profilePicPlaceholder .square {
+    height: 220px;
+    width: 220px; }
+
+.pageHeaderPlaceholder {
+  display: inline-block;
+  margin-top: 30px;
+  text-align: center;
+  width: 360px; }
+  .pageHeaderPlaceholder .placeholder {
+    text-align: center; }
+
+.screenshotModal .screenshotPicWrapper {
+  background-color: #F9FAFB;
+  padding: 20px; }
+  .screenshotModal .screenshotPicWrapper .watermarkLabel {
+    margin-bottom: 0; }
+  .screenshotModal .screenshotPicWrapper.basic .watermarkLabel, .screenshotModal .screenshotPicWrapper.basic .fallacyExplanation, .screenshotModal .screenshotPicWrapper.basic .fallacyHeader, .screenshotModal .screenshotPicWrapper.basic #fallacyDateDiff, .screenshotModal .screenshotPicWrapper.art02 .watermarkLabel, .screenshotModal .screenshotPicWrapper.art02 .fallacyExplanation, .screenshotModal .screenshotPicWrapper.art02 .fallacyHeader, .screenshotModal .screenshotPicWrapper.art02 #fallacyDateDiff, .screenshotModal .screenshotPicWrapper.art04 .watermarkLabel, .screenshotModal .screenshotPicWrapper.art04 .fallacyExplanation, .screenshotModal .screenshotPicWrapper.art04 .fallacyHeader, .screenshotModal .screenshotPicWrapper.art04 #fallacyDateDiff, .screenshotModal .screenshotPicWrapper.art07 .watermarkLabel, .screenshotModal .screenshotPicWrapper.art07 .fallacyExplanation, .screenshotModal .screenshotPicWrapper.art07 .fallacyHeader, .screenshotModal .screenshotPicWrapper.art07 #fallacyDateDiff {
+    color: #FFFFFF; }
+  .screenshotModal .screenshotPicWrapper.basic {
+    background: #2185D0; }
+  .screenshotModal .screenshotPicWrapper.art01 {
+    background-image: url("../images/art/isometric/01.svg"); }
+  .screenshotModal .screenshotPicWrapper.art02 {
+    background-image: url("../images/art/isometric/02.svg"); }
+  .screenshotModal .screenshotPicWrapper.art03 {
+    background-image: url("../images/art/isometric/03.svg"); }
+  .screenshotModal .screenshotPicWrapper.art04 {
+    background-image: url("../images/art/isometric/04.svg"); }
+  .screenshotModal .screenshotPicWrapper.art05 {
+    background-image: url("../images/art/isometric/05.svg"); }
+  .screenshotModal .screenshotPicWrapper.art06 {
+    background-image: url("../images/art/isometric/06.svg"); }
+  .screenshotModal .screenshotPicWrapper.art07 {
+    background-image: url("../images/art/isometric/07.svg"); }
+  .screenshotModal .screenshotPicWrapper.art08 {
+    background-image: url("../images/art/isometric/08.svg"); }
+  .screenshotModal .screenshotPicWrapper.art09 {
+    background-image: url("../images/art/isometric/09.svg"); }
+  .screenshotModal .screenshotPicWrapper.art10 {
+    background-image: url("../images/art/isometric/10.svg"); }
+
+.screenshotModal .advancedSettings {
+  margin-top: 25px; }
+
+.screenshotModal .advancedSettingsHeader a {
+  float: right;
+  font-size: 13px; }
+
+@media only screen and (max-width: 1025px) {
+  .pageHeaderPlaceholder {
+    width: 250px; } }
+
+a {
+  color: #2185D0; }
+
+.Linkify {
+  color: #1B1C1D !important; }
+  .Linkify a {
+    color: #2185D0 !important; }
+
+.clearfix {
+  clear: both; }
+
+.facebookIcon {
+  color: #3b5998; }
+
+.twitterIcon {
+  color: #0084b4; }
+
+.youtubeIcon {
+  color: #ff0000; }
+
+.patreonIcon {
+  color: #f96854; }
+
+.redditIcon {
+  color: #FF5700; }
+
+.redditBtn {
+  background: #FF5700 !important;
+  color: #FFFFFF !important; }
+
+.sticky.noteIcon {
+  color: #FBBD08; }
+
+.warning.sign {
+  color: #DB2828; }
+
+.modals.dimmer .ui.scrolling.modal {
+  margin: 60px 0 70px 0 !important; }
+
+.dimmable.dimmed .page.modals.dimmer.transition.visible.active {
+  z-index: 1002 !important; }
+
+.editButton {
+  color: #2185D0;
+  cursor: pointer;
+  display: none !important;
+  float: right;
+  font-size: 18px;
+  margin-right: 0 !important; }
+  .editButton.close {
+    color: #FF695E; }
+
+.dropzone {
+  border: none;
+  height: 100%;
+  text-align: center;
+  width: 100%; }
+
+.postContainer {
+  margin-top: 12px; }
+
+@media only screen and (max-width: 1025px) {
+  .titleHeader {
+    width: 100%; }
+  .ui.header {
+    font-size: 20px !important; }
+  .sub.header {
+    font-size: 13px !important; } }
+
+/* About page */
+.aboutPage .logoContainer {
+  background: #FFFFFF;
+  padding: 16px 0; }
+  .aboutPage .logoContainer .header.aboutHeader {
+    line-height: 1; }
+    .aboutPage .logoContainer .header.aboutHeader .sub.header {
+      margin-top: 6px; }
+    .aboutPage .logoContainer .header.aboutHeader .blatherLogo {
+      margin-bottom: 8px; }
+      .aboutPage .logoContainer .header.aboutHeader .blatherLogo .blatherLogoSvg {
+        fill: #2185D0;
+        height: 84px;
+        line-height: 96px;
+        vertical-align: middle;
+        width: 84px; }
+    .aboutPage .logoContainer .header.aboutHeader span {
+      line-height: 96px; }
+
+.aboutPage .contactForm button {
+  float: right; }
+
+.aboutPage .aboutContainer {
+  margin: 0 !important; }
+
+/* Bot page */
+.botPage .singleButtons {
+  margin-top: 18px; }
+
+.botPage .tweetContainer {
+  margin-top: 20px;
+  padding: 0 40px; }
+  .botPage .tweetContainer .card .content {
+    font-size: 16px;
+    min-height: 150px; }
+  .botPage .tweetContainer .button {
+    margin-bottom: 7px; }
+
+.botPage .pickOneContainer {
+  margin-top: 5px; }
+  .botPage .pickOneContainer .buttons {
+    padding: 4px 0; }
+    .botPage .pickOneContainer .buttons .button {
+      width: 50%; }
+
+.botPage .ui.grid {
+  margin-top: 5px; }
+  .botPage .ui.grid .row {
+    padding: 4px 0; }
+    .botPage .ui.grid .row .column .button {
+      height: 100%;
+      margin-bottom: 0; }
+
+/* Create discussion page */
+.createDiscussionPage .contentContainer {
+  padding: 0 !important; }
+  .createDiscussionPage .contentContainer .segment {
+    margin: 0;
+    padding: 0; }
+    .createDiscussionPage .contentContainer .segment .ui.form .field label {
+      font-size: 15px; }
+    .createDiscussionPage .contentContainer .segment .ui.form .provenWrongTextArea {
+      margin-top: 1em; }
+    .createDiscussionPage .contentContainer .segment .ui.form .titleInput input, .createDiscussionPage .contentContainer .segment .ui.form textarea {
+      padding: 8px; }
+    .createDiscussionPage .contentContainer .segment .extraWrapper {
+      margin-top: 15px; }
+    .createDiscussionPage .contentContainer .segment.dimmed.dimmable {
+      padding: 10px; }
+      .createDiscussionPage .contentContainer .segment.dimmed.dimmable .dimmer {
+        background: rgba(255, 255, 255, 0.8) !important; }
+  .createDiscussionPage .contentContainer .btnWrapper {
+    margin-top: 15px; }
+  .createDiscussionPage .contentContainer .previewSegment .descriptionTitle, .createDiscussionPage .contentContainer .previewSegment .extraTitle {
+    margin-bottom: 5px; }
+  .createDiscussionPage .contentContainer .previewSegment .descriptionPreview, .createDiscussionPage .contentContainer .previewSegment .extraPreview {
+    min-height: 80px;
+    padding: 0; }
+  .createDiscussionPage .contentContainer .exitPreviewButton {
+    float: right; }
+
+@media only screen and (max-width: 1025px) {
+  .createDiscussionPage .contentContainer {
+    margin: 0 !important;
+    width: 100% !important; }
+  .createDiscussionPage .discussionHeader {
+    margin-left: -0.5em; } }
+
+.createDiscussionPage .rightSide .discussionTagsHeader {
+  font-size: 24px !important; }
+
+/* Discussion page */
+.discussionPage .header .editButton {
+  font-size: 18px;
+  line-height: 30px; }
+
+.discussionPage .header:hover .editButton {
+  display: inline !important; }
+
+@media only screen and (max-width: 1025px) {
+  .discussionPage .ui.grid {
+    margin: 0; } }
+
+.discussionPage .evidenceSection .evidenceSegment,
+.discussionPage .evidenceSection .extraSegment {
+  font-size: 16px !important; }
+
+.discussionPage .extraLazyLoad {
+  margin-top: 20px; }
+
+.discussionPage .ui.grid {
+  margin-top: 0 !important; }
+
+/* Discussion page */
+.discussionsPage .discussionsContainer {
+  padding: 0; }
+
+@media only screen and (max-width: 1025px) {
+  .discussionsPage .discussionsContainer {
+    margin: 0 !important; } }
+
+.discussionsPage .emptyDiscussionContainer {
+  margin-top: 20px; }
+
+/* Fallacies page */
+@media only screen and (max-width: 1025px) {
+  .fallaciesPage .ui.container.mainContainer {
+    padding-left: 0 !important;
+    padding-right: 0 !important; } }
+
+/* Fallacy page */
+.fallacyPage .fallacyGrid {
+  margin-top: 10px !important; }
+  .fallacyPage .fallacyGrid .leftSide, .fallacyPage .fallacyGrid .rightSide {
+    padding: 0 8px !important; }
+  .fallacyPage .fallacyGrid .fallacyExample {
+    margin-top: 5px; }
+  .fallacyPage .fallacyGrid .materialWrapper {
+    width: 100%; }
+  .fallacyPage .fallacyGrid .row:first-of-type {
+    padding-top: 0; }
+  .fallacyPage .fallacyGrid .materialRow {
+    padding: 0 !important;
+    width: 100%; }
+  .fallacyPage .fallacyGrid .divider.seperator {
+    margin: 1rem 0 !important; }
+  .fallacyPage .fallacyGrid .callToSignUp {
+    margin-top: 10px; }
+  .fallacyPage .fallacyGrid .shareList {
+    margin-top: 0 !important;
+    width: 100%; }
+    .fallacyPage .fallacyGrid .shareList .item {
+      cursor: pointer; }
+      .fallacyPage .fallacyGrid .shareList .item .icon.linkify {
+        margin-right: 3px; }
+
+.fallacyPage .exportEmbed {
+  display: inline;
+  text-align: center; }
+
+.fallacyPage .exportSection {
+  margin-top: 16px; }
+  .fallacyPage .exportSection .downloadBtn {
+    margin-top: 14px; }
+  .fallacyPage .exportSection .downloadDimmer {
+    cursor: pointer; }
+  .fallacyPage .exportSection .screenshotCaption {
+    color: #767676;
+    font-size: 12px;
+    font-style: italic;
+    margin-bottom: 14px;
+    margin-left: 3px;
+    margin-top: 4px; }
+
+.fallacyPage .exportContainer {
+  margin-bottom: 0; }
+  .fallacyPage .exportContainer .exportSection {
+    margin-top: 0; }
+
+.fallacyPage .shareContent {
+  line-height: 0;
+  width: 100%; }
+
+.fallacyPage .fallacyContent {
+  margin-bottom: 25px;
+  margin-top: 25px;
+  width: 100%; }
+
+.fallacyPage .sourcesContent {
+  width: 100%; }
+
+.fallacyPage .commentsContent {
+  overflow-x: hidden;
+  width: 100%; }
+
+.fallacyPage .similarContent {
+  margin-top: 25px;
+  width: 100%; }
+
+.fallacyPage .tagsCard {
+  margin-top: 20px; }
+
+.fallacyPage .retractionContent {
+  width: 100%; }
+  .fallacyPage .retractionContent .card .content .image {
+    cursor: pointer; }
+
+.fallacyPage .ui.container.retractionContainer {
+  margin-left: 0 !important;
+  margin-right: 0 !important; }
+
+.fallacyPage canvas {
+  display: none;
+  height: 720px;
+  width: 1280px; }
+
+@media only screen and (max-width: 1025px) {
+  .fallacyPage .mainContainer .ui.grid {
+    margin: 10px 0 !important; }
+  .fallacyPage .statusActionSegment .header {
+    font-size: 14px !important; }
+  .fallacyPage .statusActionSegment .twitterButton, .fallacyPage .statusActionSegment .youtubeButton {
+    font-size: 12px; }
+  .fallacyPage .row {
+    padding-bottom: 0 !important;
+    padding-top: 0 !important; }
+  .fallacyPage .retractionContainer {
+    margin: 0 !important; }
+  .fallacyPage .downloadBtn {
+    display: none; }
+  .fallacyPage .captureScreenshot {
+    display: none; }
+  .fallacyPage .tagsCard {
+    margin: 25px 0; }
+  .fallacyPage .commentsContent {
+    margin-bottom: 10px; } }
+
+/* Feed page */
+@media only screen and (max-width: 1025px) {
+  .feedPage .grid {
+    margin-left: 0 !important;
+    margin-right: 0 !important; }
+    .feedPage .grid .segment {
+      width: 100% !important; }
+      .feedPage .grid .segment .feedRow {
+        word-break: break-word; }
+        .feedPage .grid .segment .feedRow .tweet {
+          max-width: 300px !important; } }
+
+.feedPage .activityHeader {
+  line-height: 1.2;
+  margin-top: 0 !important; }
+
+.feedPage .ui.feed > .event > .content .meta .label {
+  cursor: pointer; }
+
+.feedPage .mostFallacious .feedEvent .meta {
+  margin-top: 0 !important; }
+
+.feedPage .topList .item {
+  cursor: pointer; }
+
+.feedPage .feedWrapper {
+  width: 100%; }
+  .feedPage .feedWrapper .feed {
+    width: 100%; }
+
+.feedPage .feedGrid {
+  margin-top: 0; }
+
+.homePage {
+  background: #FFFFFF; }
+  .homePage .assignContainer {
+    background: #2185D0; }
+  .homePage .mainContainer {
+    min-height: 60vh;
+    padding-bottom: 40px; }
+  .homePage .heroHeader {
+    color: #FFFFFF !important;
+    padding-left: 6px !important; }
+  .homePage .heroInput .icon.twitter {
+    color: #0084b4; }
+  .homePage .heroInput .icon.youtube {
+    color: #ff0000; }
+  .homePage .heroSegment {
+    padding: 0 !important; }
+  .homePage .translationContainer {
+    background: #2185D0; }
+    @media only screen and (max-width: 1025px) {
+      .homePage .translationContainer .ui.grid .row .column {
+        padding-left: 0 !important;
+        padding-right: 0 !important; } }
+
+.competitionContainer {
+  background: #FFFFFF;
+  border-top: solid 1px #F3F4F5;
+  padding-top: 1.2rem; }
+  .competitionContainer .container {
+    padding: 10px 15px; }
+  .competitionContainer .grid img {
+    cursor: pointer; }
+
+/* Pages page */
+@media only screen and (max-width: 1025px) {
+  .socialMediaPage .grid.column {
+    padding: 0; }
+  .socialMediaPage .pageContentRow {
+    padding-top: 0 !important; }
+  .socialMediaPage .titleHeader .ui.header {
+    font-size: 24px !important; }
+    .socialMediaPage .titleHeader .ui.header .sub.header {
+      font-size: 16px !important; } }
+
+.socialMediaPage .imgContainer .segment.circular {
+  display: inline-block;
+  padding: 5px; }
+  .socialMediaPage .imgContainer .segment.circular .image.profilePic {
+    height: 185px;
+    width: 185px; }
+
+.socialMediaPage .pageHeaderInfo {
+  margin-top: 0;
+  text-align: center; }
+  .socialMediaPage .pageHeaderInfo p {
+    margin-top: 15px; }
+  .socialMediaPage .pageHeaderInfo .twitterIcon, .socialMediaPage .pageHeaderInfo .youtubeIcon {
+    margin-top: 8px; }
+
+.socialMediaPage .ui.container.profileContentContainer {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important; }
+  .socialMediaPage .ui.container.profileContentContainer .dimmer {
+    background: rgba(255, 255, 255, 0.8) !important; }
+  .socialMediaPage .ui.container.profileContentContainer .signInPlaceholder {
+    border: none;
+    box-shadow: none !important;
+    padding: 0; }
+  @media only screen and (max-width: 1025px) {
+    .socialMediaPage .ui.container.profileContentContainer .signInPlaceholder {
+      height: 250px; } }
+  .socialMediaPage .ui.container.profileContentContainer .segment.basic {
+    padding: 0 !important; }
+
+/* Post page */
+.postPage .ui.container.mainContainer {
+  font-size: 13px;
+  margin-top: 70px; }
+  .postPage .ui.container.mainContainer .fallacyFormWrapper {
+    margin: 20px 0; }
+  .postPage .ui.container.mainContainer .placeholderContainer {
+    text-align: center; }
+  .postPage .ui.container.mainContainer .screenshotMsg {
+    margin-top: 10px; }
+    .postPage .ui.container.mainContainer .screenshotMsg .icon.camera {
+      font-size: 15px; }
+    .postPage .ui.container.mainContainer .screenshotMsg span {
+      cursor: pointer;
+      font-size: 13px;
+      line-height: 15px;
+      margin-left: 4px; }
+      .postPage .ui.container.mainContainer .screenshotMsg span:hover {
+        text-decoration: underline; }
+  .postPage .ui.container.mainContainer .tweetWrapper {
+    width: 100%; }
+  .postPage .ui.container.mainContainer .fallaciesWrapper {
+    width: 100%; }
+  .postPage .ui.container.mainContainer .relatedRow {
+    padding-top: 0; }
+  @media only screen and (max-width: 1025px) {
+    .postPage .ui.container.mainContainer .grid {
+      margin: 0; } }
+
+.postPage .sticky div {
+  z-index: 1000; }
+
+.postPage .sticky .breadcrumbContainer {
+  background: #FFFFFF;
+  border-bottom: solid 1px #DCDDDE;
+  margin-top: 72px;
+  padding: 8px 30px;
+  width: 100%; }
+  .postPage .sticky .breadcrumbContainer .breadcrumb {
+    line-height: 20px;
+    margin-left: 15px !important;
+    margin-right: 15px !important;
+    padding: 0; }
+
+@media only screen and (max-width: 1025px) {
+  .postPage .sticky .breadcrumbContainer {
+    padding: 8px 15px; }
+    .postPage .sticky .breadcrumbContainer .breadcrumb {
+      margin-left: auto !important;
+      margin-right: auto !important; }
+    .postPage .sticky .breadcrumbContainer .container {
+      margin-left: 0 !important;
+      margin-right: 0 !important; } }
+
+/* Search page */
+@media only screen and (max-width: 1025px) {
+  .searchPage .mainContainer {
+    padding-top: 0; }
+    .searchPage .mainContainer .ui.grid {
+      margin: 0 !important; } }
+
+.searchPage .searchMenu .item.searchItem {
+  padding: 6px 0 10px 18px; }
+  .searchPage .searchMenu .item.searchItem input {
+    padding: 0; }
+
+.searchPage .searchMenu .item .ui.icon.input input {
+  border: none; }
+
+.searchPage .searchMenu .item .icon {
+  font-size: 18px;
+  line-height: 14px;
+  vertical-align: middle; }
+
+.searchPage .ui.container.searchContentContainer {
+  min-height: 300px;
+  margin: 0 !important;
+  padding: 0 !important; }
+
+.searchPage .searchResults {
+  width: 100%; }
+
+/* Settings page */
+.settingsPage .settingsMenu {
+  margin-bottom: 0; }
+
+.settingsPage .settingsContent {
+  width: 100%; }
+  .settingsPage .settingsContent .patreonMsg .icon {
+    color: #f96854; }
+
+/* Signin page */
+.loginContainer {
+  background: #F9FAFB;
+  height: 100vh; }
+  .loginContainer .loginForm {
+    height: 100%;
+    padding-top: 10px; }
+    .loginContainer .loginForm .header {
+      margin-top: 0; }
+    .loginContainer .loginForm .grid .column {
+      max-width: 450px; }
+
+/* Tags page */
+.tagsPage .tagsWrapper {
+  width: 100%; }
+  .tagsPage .tagsWrapper .menu.tagMenu {
+    margin-top: 12px !important; }
+    .tagsPage .tagsWrapper .menu.tagMenu .list .item {
+      cursor: pointer; }
+      .tagsPage .tagsWrapper .menu.tagMenu .list .item.selected {
+        background: #FFFFFF; }
+  .tagsPage .tagsWrapper .editButtonWrapper .editButton {
+    display: inline !important;
+    font-size: 16px !important; }
+  .tagsPage .tagsWrapper .commentsContent .segment {
+    padding-top: 5px; }
+  .tagsPage .tagsWrapper .galleryContent .galleryWrapper {
+    width: 100%; }
+    .tagsPage .tagsWrapper .galleryContent .galleryWrapper img {
+      cursor: pointer; }
+  .tagsPage .tagsWrapper .segment.placeholder .icon {
+    height: auto !important; }
+  .tagsPage .tagsWrapper .tagsList, .tagsPage .tagsWrapper .usersList {
+    margin-top: 12px !important; }
+  .tagsPage .tagsWrapper .divider .cameraIcon, .tagsPage .tagsWrapper .divider .photoIcon {
+    background: #2185D0;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-size: 20px;
+    margin-top: 0 !important; }
+  .tagsPage .tagsWrapper .divider .photoIcon {
+    background: #FFFFFF;
+    color: #2185D0; }
+
+@media only screen and (max-width: 1025px) {
+  .tagsPage .tagsWrapper .segment.stacked img {
+    width: 300px; }
+  .tagsPage .ui.image.userPic {
+    width: 50px; } }
+
+/* Targets page */
+.targetsPage .ui.container .summaryHeader .icon {
+  color: #2185D0;
+  cursor: pointer;
+  float: right;
+  font-size: 19.5px;
+  line-height: 19.5px; }
+
+.targetsPage .ui.container .imgContainer {
+  height: 220px; }
+  .targetsPage .ui.container .imgContainer .targetImgDiv {
+    left: 0;
+    margin: auto;
+    padding-right: 50px;
+    position: absolute;
+    right: 0; }
+    .targetsPage .ui.container .imgContainer .targetImgDiv .targetImg {
+      cursor: pointer;
+      margin-top: 15px;
+      position: absolute;
+      width: 200px; }
+      .targetsPage .ui.container .imgContainer .targetImgDiv .targetImg + .header.large {
+        margin-top: 8px; }
+      .targetsPage .ui.container .imgContainer .targetImgDiv .targetImg.user {
+        left: 0;
+        right: 160px; }
+
+.targetsPage .ui.container .answers, .targetsPage .ui.container .questionnaire {
+  margin-bottom: 16px; }
+
+.targetsPage .ui.container .questionnaire {
+  white-space: pre-line; }
+
+.targetsPage .ui.container .answers .answerField {
+  font-size: 14px; }
+
+.targetsPage .ui.container .answers .header.sub {
+  margin-top: 5px; }
+
+@media only screen and (max-width: 1025px) {
+  .targetsPage .ui.container .answers .header {
+    font-size: 16px !important; } }
+
+/* Users page */
+.usersPage .userHeaderSection p {
+  margin-top: 15px; }
+
+@media only screen and (max-width: 1025px) {
+  .usersPage .userContentRow {
+    padding-top: 0 !important; } }
+
+.usersPage .profileMenu {
+  margin-top: 20px !important; }
+
+.usersPage .profilePic {
+  height: 185px;
+  width: auto !important; }
+  .usersPage .profilePic img {
+    height: 185px;
+    text-align: center;
+    width: 185px; }
+  .usersPage .profilePic.default {
+    background: #FFFFFF;
+    height: 185px !important;
+    overflow: hidden;
+    padding: 7px;
+    width: 185px !important; }
+
+.usersPage .profileContentContainer {
+  margin: 0 !important;
+  padding: 0 !important; }
+  .usersPage .profileContentContainer .profileContentSegment {
+    height: 100%;
+    padding: 0; }
+
+.usersPage .userStat {
+  cursor: pointer; }
+  .usersPage .userStat:hover .value, .usersPage .userStat:hover .label {
+    color: #2185D0 !important; }
+
+@media only screen and (max-width: 1025px) {
+  .usersPage .titleHeader .ui.header {
+    font-size: 24px !important; }
+    .usersPage .titleHeader .ui.header .sub.header {
+      font-size: 16px !important; } }
+
+.signInPageHeader {
+  background: #FFFFFF;
+  border-bottom: solid 1px #DCDDDE;
+  margin: 0 !important;
+  padding: 10px;
+  width: 100%; }
+  .signInPageHeader .svgMainLogo, .signInPageHeader .mainLogo {
+    cursor: pointer;
+    display: inline;
+    fill: #2185D0;
+    height: 36px;
+    line-height: 4;
+    vertical-align: middle;
+    width: 36px; }
