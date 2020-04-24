@@ -14,6 +14,9 @@
   .navSearch .result .searchItem .header {
     margin-bottom: 3px !important;
     margin-top: 0 !important; }
+    @media only screen and (max-width: 1025px) {
+      .navSearch .result .searchItem .header {
+        font-size: 13px !important; } }
   .navSearch .result .searchItem .dropDownItemPic {
     float: left !important;
     height: 50px !important;
