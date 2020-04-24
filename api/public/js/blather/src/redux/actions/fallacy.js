@@ -12,7 +12,7 @@ export const createVideoFallacy = ({
 	refId
 }) => dispatch => {
 	request.post(
-		"https://media.blather.io/api/fallacies/createVideo",
+		`${window.location.origin}/api/fallacies/createVideo`,
 		{
 			form: {
 				contradiction,
