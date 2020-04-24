@@ -7,6 +7,31 @@
         margin-top: 72px;
         position: fixed;
         z-index: 9999;
+
+        @media only screen and (max-width: 1025px) {
+            margin-top: 135px;
+        }
+    }
+
+    .menu.subHeader {
+        border: none;
+        border-bottom: solid 1px $lightGrey;
+        border-radius: 0;
+        box-shadow: none !important;
+        margin-top: 72px;
+        width: 100%;
+        z-index: 1001 !important;
+
+        .subHeaderContainer {
+            .searchItem {
+                @media only screen and (min-width: 450px) {
+                    padding-left: 0;
+                    padding-right: 0;
+                }
+
+                width: 100%;
+            }
+        }
     }
 
     .menu.globalHeader {
@@ -36,6 +61,10 @@
             }
 
             .sidebarItem {
+                .button {
+                    margin-right: 18px;
+                }
+
                 .icon {
                     cursor: pointer;
 
@@ -79,7 +108,11 @@
     }
 
     .sidebar.menu {
-        padding-top: 70px;
+        padding-top: 135px;
+
+        .fallacySidebarItem {
+            text-align: left;
+        }
 
         .sidebarSearchBtn {
             margin-top: 8px;

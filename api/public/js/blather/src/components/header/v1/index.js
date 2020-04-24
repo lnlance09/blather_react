@@ -1,4 +1,5 @@
 import "./style.css"
+import { hyphenateText } from "utils/textFunctions"
 import { logout } from "components/authentication/v1/actions"
 import { Provider, connect } from "react-redux"
 import { Link } from "react-router-dom"
@@ -10,12 +11,11 @@ import {
 	Grid,
 	Icon,
 	Image,
-	Input,
+	Label,
 	Menu,
 	Responsive,
 	Sidebar
 } from "semantic-ui-react"
-import fallacies from "fallacies.json"
 import ImagePic from "images/avatar/brain-fart.gif"
 import LoadingBar from "react-redux-loading-bar"
 import Logo from "./images/logo.svg"
@@ -31,19 +31,40 @@ class Header extends Component {
 		super(props)
 		this.state = {
 			activeItem: "",
-			value: "",
+			fallacies: [],
 			visible: false
 		}
 
 		this.onLogout = this.onLogout.bind(this)
 	}
 
-	handleItemClick = (key, name) => {
-		this.setState({ activeItem: name, visible: false })
-		this.props.history.push(`/fallacies/${key}`)
+	componentDidMount() {
+		this.getFallacies()
 	}
 
-	onChangeSearch = (e, { value }) => this.setState({ value })
+	getFallacies = () => {
+		return fetch(
+			`${window.location.origin}/api/fallacies/getFallacyRefs`,
+			{
+				json: true
+			}
+		)
+			.then(response => {
+				if (response.ok) {
+					response.json().then(data => {
+						this.setState({ fallacies: data.fallacies })
+					})
+				}
+			})
+			.catch(err => console.log(err))
+	}
+
+	handleItemClick = name => {
+		this.setState({ activeItem: name, visible: false }, () => {
+			const key = hyphenateText(name.toLowerCase())
+			this.props.history.push(`/fallacies/${key}`)
+		})
+	}
 
 	onLogout() {
 		this.props.logout()
@@ -54,16 +75,33 @@ class Header extends Component {
 	}
 
 	render() {
-		const { activeItem, value, visible } = this.state
+		const { activeItem, fallacies, visible } = this.state
+
+		const SubHeader = (
+			<Responsive className="responsive" maxWidth={1024}>
+				<Menu borderless className="subHeader" fitted="vertically" fixed="top">
+					<Container className="subHeaderContainer">
+						<Menu.Item className="searchItem">
+							<NavSearch history={this.props.history} width="100%" />
+						</Menu.Item>
+					</Container>
+				</Menu>
+			</Responsive>
+		)
 
 		const FallaciesSidebar = fallacies.map(fallacy => (
 			<Menu.Item
 				active={activeItem === fallacy.name.toLowerCase()}
+				className="fallacySidebarItem"
 				key={fallacy.id}
 				name={fallacy.name.toLowerCase()}
-				onClick={() => this.handleItemClick(fallacy.key, fallacy.name)}
+				onClick={() => this.handleItemClick(fallacy.name)}
 			>
-				{`${fallacy.name}`}
+				{fallacy.name}
+
+				<Label color="red">
+					{fallacy.count}
+				</Label>
 			</Menu.Item>
 		))
 
@@ -79,6 +117,7 @@ class Header extends Component {
 						src={props.data.img ? props.data.img : ImagePic}
 					/>
 				)
+
 				return (
 					<Menu.Item position="right">
 						<Dropdown
@@ -119,27 +158,27 @@ class Header extends Component {
 						</Dropdown>
 					</Menu.Item>
 				)
-			} else {
-				return (
-					<Menu.Item className="signInLink" direction="right" position="right">
-						<Grid columns={2} relaxed="very">
-							<Grid.Column>
-								<Link to="/signin?type=signin">Sign In</Link>
-							</Grid.Column>
-							<Grid.Column>
-								<Button
-									color="green"
-									content="Join"
-									onClick={() => props.history.push("/signin?type=join")}
-								/>
-							</Grid.Column>
-						</Grid>
-						<Divider fitted vertical>
-							or
-						</Divider>
-					</Menu.Item>
-				)
 			}
+
+			return (
+				<Menu.Item className="signInLink" direction="right" position="right">
+					<Grid columns={2} relaxed="very">
+						<Grid.Column>
+							<Link to="/signin?type=signin">Sign In</Link>
+						</Grid.Column>
+						<Grid.Column>
+							<Button
+								color="green"
+								content="Join"
+								onClick={() => props.history.push("/signin?type=join")}
+							/>
+						</Grid.Column>
+					</Grid>
+					<Divider fitted vertical>
+						or
+					</Divider>
+				</Menu.Item>
+			)
 		}
 
 		return (
@@ -160,6 +199,12 @@ class Header extends Component {
 									/>
 								</Menu.Item>
 								<Menu.Item className="sidebarItem" position="right">
+									<Button
+										color="red"
+										compact
+										content="Sign In"
+										onClick={() => this.props.history.push("/signin")}
+									/>
 									<Icon
 										name="sidebar"
 										onClick={() =>
@@ -198,7 +243,11 @@ class Header extends Component {
 							</Responsive>
 						</Container>
 					</Menu>
+
+					{SubHeader}
+
 					<LoadingBar className="loadingBar" />
+
 					<Sidebar
 						as={Menu}
 						animation="overlay"
@@ -207,45 +256,18 @@ class Header extends Component {
 						visible={visible}
 						width="wide"
 					>
-						<Menu.Item as="div" name="search">
-							<Input
-								className="sidebarSearch"
-								onChange={this.onChangeSearch}
-								placeholder="Search..."
-								value={value}
-							/>
-							<Button
-								className="sidebarSearchBtn"
-								color="blue"
-								content="Search"
-								fluid
-								icon="search"
-								onClick={() => {
-									this.setState({ visible: false })
-									this.props.history.push(`/search?q=${value}`)
-								}}
-							/>
-						</Menu.Item>
-						{!this.props.authenticated ? (
-							<Menu.Item>
-								<Button
-									color="green"
-									content="Sign In"
-									fluid
-									icon="sign in"
-									onClick={() => this.props.history.push("/signin?type=join")}
-								/>
-							</Menu.Item>
-						) : (
+						{this.props.authenticated && (
 							<Menu.Item onClick={this.onLogout}>Sign Out</Menu.Item>
 						)}
-						<Menu.Item
-							name="activity"
-							onClick={() => {
-								this.props.history.push(`/assign`)
-							}}
-						>
-							<b>Assign</b>
+
+						<Menu.Item>
+							<Button
+								color="blue"
+								content="Assign a fallacy"
+								fluid
+								icon="pencil"
+								onClick={() => this.props.history.push("/assign")}
+							/>
 						</Menu.Item>
 						{FallaciesSidebar}
 					</Sidebar>

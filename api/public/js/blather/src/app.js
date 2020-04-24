@@ -1,6 +1,6 @@
 import "css/app.css"
-import "css/index.css"
 import "semantic/dist/semantic.min.css"
+import "react-toastify/dist/ReactToastify.css"
 import { Provider } from "react-redux"
 import React, { Component } from "react"
 import { Route, Router, Switch } from "react-router-dom"
