@@ -9,6 +9,24 @@
   margin-top: 72px;
   position: fixed;
   z-index: 9999; }
+  @media only screen and (max-width: 1025px) {
+    .pageHeader .loadingBar {
+      margin-top: 135px; } }
+
+.pageHeader .menu.subHeader {
+  border: none;
+  border-bottom: solid 1px #DCDDDE;
+  border-radius: 0;
+  box-shadow: none !important;
+  margin-top: 72px;
+  width: 100%;
+  z-index: 1001 !important; }
+  .pageHeader .menu.subHeader .subHeaderContainer .searchItem {
+    width: 100%; }
+    @media only screen and (min-width: 450px) {
+      .pageHeader .menu.subHeader .subHeaderContainer .searchItem {
+        padding-left: 0;
+        padding-right: 0; } }
 
 .pageHeader .menu.globalHeader {
   box-shadow: none;
@@ -28,6 +46,8 @@
       margin-right: 12px;
       vertical-align: middle;
       width: 36px; }
+  .pageHeader .menu.globalHeader .headerContainer .sidebarItem .button {
+    margin-right: 18px; }
   .pageHeader .menu.globalHeader .headerContainer .sidebarItem .icon {
     cursor: pointer; }
     .pageHeader .menu.globalHeader .headerContainer .sidebarItem .icon:hover {
@@ -51,6 +71,8 @@
     z-index: 1001; }
 
 .pageHeader .sidebar.menu {
-  padding-top: 70px; }
+  padding-top: 135px; }
+  .pageHeader .sidebar.menu .fallacySidebarItem {
+    text-align: left; }
   .pageHeader .sidebar.menu .sidebarSearchBtn {
     margin-top: 8px; }

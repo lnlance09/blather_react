@@ -267,6 +267,13 @@ class Fallacies extends CI_Controller {
 		]);
 	}
 
+	public function getFallacyRefs() {
+		$fallacies = $this->fallacies->getFallacyRefs();
+		echo json_encode([
+			'fallacies' => $fallacies
+		]);
+	}
+
 	public function getReview() {
 		$userId = (int)$this->input->get('userId');
 		$pageId = (int)$this->input->get('pageId');

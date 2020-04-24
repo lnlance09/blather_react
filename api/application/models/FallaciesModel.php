@@ -639,6 +639,14 @@ class FallaciesModel extends CI_Model {
 		return (int)$result[0]['count'];
 	}
 
+	public function getFallacyRefs() {
+		$this->db->select("f.id, f.name, COUNT(fe.id) AS count");
+		$this->db->join('fallacies f', 'fe.fallacy_id = f.id');
+		$this->db->group_by('f.id');
+		$this->db->order_by('f.name', 'ASC');
+		return $this->db->get('fallacy_entries fe')->result_array();
+	}
+
 	public function getFallacyTypes() {
 		$this->db->select('*');
 		return $this->db->get('fallacies')->result_array();
