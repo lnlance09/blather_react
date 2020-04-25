@@ -487,7 +487,7 @@ a {
 .homePage {
   background: #FFFFFF; }
   .homePage .assignContainer {
-    background: #2185D0; }
+    background: #1e7abe; }
   .homePage .mainContainer {
     min-height: 60vh;
     padding-bottom: 40px; }
@@ -501,7 +501,7 @@ a {
   .homePage .heroSegment {
     padding: 0 !important; }
   .homePage .translationContainer {
-    background: #2185D0; }
+    background: #1e7abe; }
     @media only screen and (max-width: 1025px) {
       .homePage .translationContainer .ui.grid .row .column {
         padding-left: 0 !important;
