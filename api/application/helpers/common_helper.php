@@ -55,16 +55,38 @@
 
 	function curlGetContents($url) {
 		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_HEADER, false);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_URL, $url);
-		curl_setopt($ch, CURLOPT_COOKIEFILE, APPPATH.'third_party/cookies.txt');
-		curl_setopt($ch, CURLOPT_COOKIEJAR, APPPATH.'third_party/cookies.txt');
-		curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:17.0) Gecko/20100101 Firefox/17.0');
-		curl_setopt($ch, CURLOPT_REFERER, 'https://youtube.com/');
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_ENCODING, 'gzip, deflate');
+
+		$headers = [];
+		$headers[] = 'Authority: www.youtube.com';
+		$headers[] = 'Pragma: no-cache';
+		$headers[] = 'Cache-Control: no-cache';
+		$headers[] = 'X-Youtube-Device: cbr=Chrome&cbrver=80.0.3987.149&ceng=WebKit&cengver=537.36&cos=Macintosh&cosver=10_15_3';
+		$headers[] = 'X-Youtube-Page-Label: youtube.ytfe.desktop_20200423_6_RC0';
+		$headers[] = 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36';
+		$headers[] = 'X-Youtube-Variants-Checksum: 433bb42f710dedc85fdce1a9a46183e7';
+		$headers[] = 'X-Youtube-Page-Cl: 308102149';
+		$headers[] = 'X-Youtube-Utc-Offset: -240';
+		$headers[] = 'X-Youtube-Client-Name: 1';
+		$headers[] = 'X-Youtube-Client-Version: 2.20200424.06.00';
+		$headers[] = 'Sec-Fetch-Dest: empty';
+		$headers[] = 'X-Youtube-Identity-Token: QUFFLUhqbTNodUJzYnpqNUxTbklLYVBDMkluMkJrSE9nZ3w=';
+		$headers[] = 'X-Youtube-Time-Zone: America/New_York';
+		$headers[] = 'X-Youtube-Ad-Signals: dt=1587788132862&flash=0&frm&u_tz=-240&u_his=3&u_java&u_h=900&u_w=1440&u_ah=877&u_aw=1410&u_cd=24&u_nplug=3&u_nmime=4&bc=31&bih=374&biw=1395&brdim=30%2C23%2C30%2C23%2C1410%2C23%2C1410%2C877%2C1410%2C374&vis=1&wgl=true&ca_type=image&bid=ANyPxKoC6Z6-Fl9IDpBiYv0paGahm-x_QH3ZBCD6z29ytfD_WlKbIyT_XQ0_gxvas5BYBZKcZrq4mJWLOkEoe00UuiwDnFSS1Q';
+		$headers[] = 'Accept: */*';
+		$headers[] = 'X-Client-Data: CJe2yQEIorbJAQjBtskBCKmdygEIt6rKAQjLrsoBCM+vygEIvLDKAQiGtcoBCJe1ygEI7bXKAQiOusoBCMC6ygEI6bvKAQjnxsoBGK+zygE=';
+		$headers[] = 'Sec-Fetch-Site: same-origin';
+		$headers[] = 'Sec-Fetch-Mode: cors';
+		$headers[] = 'Referer: https://www.youtube.com/watch?v=C92LlAnGScc';
+		$headers[] = 'Accept-Language: en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7';
+		$headers[] = 'Cookie: VISITOR_INFO1_LIVE=1t8tc8sO0QM; LOGIN_INFO=AFmmF2swRAIgRWMRfcRyKTyl9cMXnvC07pXonhDYxdpy5tVpZN4Dk8oCIDSHUpGXc8Ks0E8K9GzLSbwj1XvaGGQEeKegvS0kVWfO:QUQ3MjNmeV85emp2ZkdzWktLQnNEOHozVDMyb3NRMDBsZ0dpWUlWVUd1UjBxZUZ2bzNCZ3dVWklFMldyeU8ybVVkUVB1YVE1Qnl3VmRpMVRxaERmRHVEbks4QWdaUzVsb2NHejgzbERHd2ZWTzFaUlVfWGFVdmJLN2tCV1dIQUpGZlNuaE02RFNCSTZsR3g1THdvcHQzWWQxMU5MZmxqZ055SXVCeDhZSUkySElVaVlhbFFiZXZB; _ga=GA1.2.234000833.1580862792; YSC=ltAs996Ym_w; wide=1; SID=vwc6CA4Fa92yUf1UBqHgcMXTjHm4tKgRwMPnAkHonadk8IqMbPX9QZx3R_LY18LHEW6ooQ.; __Secure-3PSID=vwc6CA4Fa92yUf1UBqHgcMXTjHm4tKgRwMPnAkHonadk8IqMraOpwV3KU4_fZYLvIlzFGQ.; HSID=AUgUvK2x0pObbJ80p; SSID=A6KAPo--wd5Ih3wOq; APISID=rQT6b7QvfKi0QHnB/AkHAe8xmC6lh_1Dpv; SAPISID=TF2MmAi7i89gsEky/As9sLwYtHTPL22mP0; __Secure-HSID=AUgUvK2x0pObbJ80p; __Secure-SSID=A6KAPo--wd5Ih3wOq; __Secure-APISID=rQT6b7QvfKi0QHnB/AkHAe8xmC6lh_1Dpv; __Secure-3PAPISID=TF2MmAi7i89gsEky/As9sLwYtHTPL22mP0; PREF=f6=80&f5=30&al=en&f4=4000000; SIDCC=AJi4QfGUITBSol-yEDbkINCSTV5RIjvkA7q77QYykkuepwFinJxyZs9sJYXVpKMVJcUQA1SSRaw';
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
 		$data = curl_exec($ch);
 		curl_close($ch);
-		return $data;
+		return $data
 	}
 
 	/**
