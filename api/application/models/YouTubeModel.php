@@ -3,9 +3,9 @@ class YouTubeModel extends CI_Model {
 	public function __construct() {
 		parent::__construct();
 
-		$this->apiKey = 'AIzaSyAxGMJJB1_uUQWHBXZG9TCCwjsVTPBIDLE';
+		$this->apiKey = 'AIzaSyDArCL_59nenZmhsD8v2NsbpuJzi9VRucg';
 		$this->clientId = '208834451570-uhnsvk3tb5cqr6uoipnrl9ks68cmeicp.apps.googleusercontent.com';
-		$this->clientSecret = 'La5tIudFHoDWMz62OWzOl8xg';
+		$this->clientSecret = 'gyA0h4m5779nKQMrTzeoHPrw';
 		$this->redirectUrl = 'http://localhost:3000/settings/youtube';
 
 		// Define the API endpoints

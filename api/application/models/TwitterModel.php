@@ -9,8 +9,8 @@ class TwitterModel extends CI_Model {
 		$this->load->model('MediaModel', 'media');
 
 		// Define the API settings
-		$this->appId = '5S2buTVsPQb13zCvJfVmnYWm8';
-		$this->appSecret = 'Jr5Lb3oHB8akqCYJnOLnArofpcKxjpdF9Bynu979O3tyuUb09n';
+		$this->appId = 'XSipJjO7jW6XUK1bgIF6FrZze';
+		$this->appSecret = 'tacMq6YGC1MIzc98X8Cq2cDGiIOM8ooCC4s40DQne2ctoCqfEv';
 		$this->version = '1.0';
 		$this->hash = 'HMAC-SHA1';
 		$this->redirectUrl = $this->config->base_url().'settings/twitter';
