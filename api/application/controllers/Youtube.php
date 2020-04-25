@@ -282,6 +282,10 @@ class YouTube extends CI_Controller {
 	}
 
 	public function download() {
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: origin, content-type, accept, authorization");
+		header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS, HEAD");
+
 		$id = $this->input->post('id');
 		$audio = (int)$this->input->post('audio');
 		if (!$id) {
@@ -501,8 +505,10 @@ class YouTube extends CI_Controller {
 		$token = $this->input->get('token');
 		$page = 1;
 
+		/*
 		$token = 'ya29.a0Adw1xeU5ba2h49QvaN1QMn4cmt2MdiTKXgAaCIybvdPwQAmE63TfKHXZZkTO9EvGmPp8V1bJzP8QocPDGkVEdfqIB3TZTRtCAxaxkGWMo7fa2bYn_4m64VODcN-w08PUZi9pvX67UFy0gE7RXOY9v4NSCK-GJfiYiFS6qQ';
 		$channelId = 'UCG749Dj4V2fKa143f8sE60Q';
+		*/
 
 		$videos = $this->insertTranslations($token, $channelId, $page);
 		$pages = $videos['pages'];
@@ -522,12 +528,7 @@ class YouTube extends CI_Controller {
 		}
 	}
 
-	private function insertTranslations() {
-		$access_token = $this->input->get('access_token');
-		$channel_id = $this->input->get('channel_id');
-		$page = $this->input->get('page');
-		$next_page_token = $this->input->get('next_page_token');
-
+	private function insertTranslations($access_token, $channel_id, $page, $next_page_token = null) {
 		$per_page = 50;
 		$posts = $this->youtube->getVideos([
 			'channelId' => $channel_id,
