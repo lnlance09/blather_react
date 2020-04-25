@@ -86,7 +86,7 @@
 
 		$data = curl_exec($ch);
 		curl_close($ch);
-		return $data
+		return $data;
 	}
 
 	/**
