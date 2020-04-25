@@ -22,7 +22,7 @@ class YouTubeModel extends CI_Model {
 
 		$this->db->query("SET time_zone='+0:00'");
 
-		// $this->load->library('Elasticsearch');
+		$this->load->library('Elasticsearch');
 	}
 
 	public function getAllPages($only_with_fallacies = false) {
@@ -920,12 +920,21 @@ class YouTubeModel extends CI_Model {
 		}
 
 		if (!empty($q)) {
+			/*
 			$query['bool']['must'] = [
-				'multi_match' => [
+				'match_phrase' => [
 					'query' => $q,
 					'fields' => [
 						'text'
 					]
+				]
+			];
+
+			unset($query);
+			*/
+			$query['bool']['must'] = [
+				'match_phrase' => [
+					'text' => $q
 				]
 			];
 		}
@@ -944,7 +953,12 @@ class YouTubeModel extends CI_Model {
 				'pre_tags' => ['<b>'],
 				'post_tags' => ['</b>'],
 				'fields' => [
-					"text" => ['fragment_size' => 180]
+					'text' => [
+						'fragment_size' => 180,
+						// "type" => "text",
+						// "term_vector" => "with_positions_offsets"
+						// 'number_of_fragments' => 9,
+					]
 				]
 			]
 		];

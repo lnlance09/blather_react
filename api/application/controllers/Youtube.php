@@ -501,6 +501,9 @@ class YouTube extends CI_Controller {
 		$token = $this->input->get('token');
 		$page = 1;
 
+		$token = 'ya29.a0Adw1xeU5ba2h49QvaN1QMn4cmt2MdiTKXgAaCIybvdPwQAmE63TfKHXZZkTO9EvGmPp8V1bJzP8QocPDGkVEdfqIB3TZTRtCAxaxkGWMo7fa2bYn_4m64VODcN-w08PUZi9pvX67UFy0gE7RXOY9v4NSCK-GJfiYiFS6qQ';
+		$channelId = 'UCG749Dj4V2fKa143f8sE60Q';
+
 		$videos = $this->insertTranslations($token, $channelId, $page);
 		$pages = $videos['pages'];
 
@@ -513,6 +516,8 @@ class YouTube extends CI_Controller {
 				FormatArray($videos);
 
 				sleep(1);
+			} else {
+				break;
 			}
 		}
 	}
@@ -641,14 +646,31 @@ class YouTube extends CI_Controller {
 		]);
 
 		$transcript = '';
-		/*
 		$captions = $this->youtube->searchVideosForTerms(null, null, null, null, $id);
+		// FormatArray($captions);
+
 		if ($captions['hits']['total']['value'] == 1) {
 			$transcript = $captions['hits']['hits'][0]['_source']['text'];
 		} else {
 			$transcript = '';
+
+			$captions = $this->youtube->getCaptions($id);
+
+			if ($captions) {
+				$transcript = implode(' ', $captions);
+				$body = [
+					'channel_id' => $channelId,
+					'channel_title' => $title,
+					'date_created' => $dateCreated,
+					'description' => $description,
+					'img' => $img,
+					'text' => $transcript,
+					'video_id' => $id,
+					'video_title' => $title
+				];
+				$this->elasticsearch->indexDoc(ES_INDEX, $id, $body);
+			}
 		}
-		*/
 
 		$data = [
 			'channel' => [
