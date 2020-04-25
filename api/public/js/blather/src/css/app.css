@@ -21,7 +21,7 @@ body {
 
 .mainContainer {
   min-height: 100vh;
-  margin-top: 5.7em;
+  margin-top: 5.0em;
   padding: 15px 15px 0 15px; }
   .mainContainer.bc {
     margin-top: 2.4em; }
@@ -489,12 +489,8 @@ a {
   .homePage .assignContainer {
     background: #1e7abe; }
   .homePage .mainContainer {
-    margin-top: 5.0em;
     min-height: 60vh;
     padding-bottom: 40px; }
-    @media only screen and (max-width: 1025px) {
-      .homePage .mainContainer {
-        margin-top: 9.8em; } }
   .homePage .heroHeader {
     color: #FFFFFF !important;
     padding-left: 6px !important; }
@@ -564,7 +560,8 @@ a {
 
 /* Post page */
 .postPage .ui.container.mainContainer {
-  font-size: 13px; }
+  font-size: 13px;
+  padding-top: 30px; }
   .postPage .ui.container.mainContainer .fallacyFormWrapper {
     margin: 20px 0; }
   .postPage .ui.container.mainContainer .placeholderContainer {
