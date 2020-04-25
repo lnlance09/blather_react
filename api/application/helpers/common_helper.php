@@ -58,6 +58,8 @@
 		curl_setopt($ch, CURLOPT_HEADER, false);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_COOKIEFILE, APPPATH.'third_party/cookies.txt');
+		curl_setopt($ch, CURLOPT_COOKIEJAR, APPPATH.'third_party/cookies.txt');
 		curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:17.0) Gecko/20100101 Firefox/17.0');
 		curl_setopt($ch, CURLOPT_REFERER, 'https://youtube.com/');
 		$data = curl_exec($ch);
