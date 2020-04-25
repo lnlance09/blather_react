@@ -60,17 +60,14 @@ class YouTubeVideo extends Component {
 		}
 
 		if (auth && props.source === "post" && this.props.id !== undefined) {
+			/*
 			this.props.getVideoArchives({
 				archiveId: this.props.archiveId,
 				id: this.props.id,
 				userId: user.id
 			})
+			*/
 		}
-
-		this.handleItemClick = this.handleItemClick.bind(this)
-		this.onSubmitArchive = this.onSubmitArchive.bind(this)
-		this.seekTo = this.seekTo.bind(this)
-		this.setTime = this.setTime.bind(this)
 	}
 
 	componentDidMount() {
@@ -98,11 +95,13 @@ class YouTubeVideo extends Component {
 			prevProps.id !== this.props.id &&
 			this.props.id !== undefined
 		) {
+			/*
 			this.props.getVideoArchives({
 				archiveId: this.props.archiveId,
 				id: this.props.id,
 				userId: this.state.user.id
 			})
+			*/
 		}
 	}
 

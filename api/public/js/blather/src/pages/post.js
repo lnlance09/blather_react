@@ -1,7 +1,7 @@
 import { refreshYouTubeToken } from "components/authentication/v1/actions"
 import { formatTime } from "utils/dateFunctions"
 import { DisplayMetaTags } from "utils/metaFunctions"
-import { downloadVideo, fetchPostData } from "redux/actions/post"
+import { fetchPostData } from "redux/actions/post"
 import { Provider, connect } from "react-redux"
 import {
 	Card,
@@ -82,15 +82,6 @@ class Post extends Component {
 			bearer,
 			url
 		})
-
-		if (type === "video" && this.props.existsOnYt) {
-			this.props.downloadVideo({ audio: 0, id })
-		}
-
-		this.captureScreenshot = this.captureScreenshot.bind(this)
-		this.handleHoverOn = this.handleHoverOn.bind(this)
-		this.handleSubmit = this.handleSubmit.bind(this)
-		this.setClip = this.setClip.bind(this)
 	}
 
 	componentDidUpdate(prevProps) {
@@ -138,10 +129,6 @@ class Post extends Component {
 					bearer,
 					url
 				})
-
-				if (type === "video" && this.props.existsOnYt) {
-					this.props.downloadVideo({ audio: 0, id })
-				}
 			}
 
 			if (this.state.a !== a) {
@@ -150,7 +137,7 @@ class Post extends Component {
 		}
 	}
 
-	captureScreenshot() {
+	captureScreenshot = () => {
 		const filename = "blather-tweet-screenshot"
 		html2canvas(document.getElementById("captureTweet"), {
 			allowTaint: false,
@@ -228,6 +215,8 @@ class Post extends Component {
 			type
 		} = this.state
 
+		const { error, errorCode, info } = this.props
+
 		if (this.props.needToRefresh) {
 			this.props.refreshYouTubeToken({
 				bearer
@@ -236,8 +225,6 @@ class Post extends Component {
 				window.location.reload()
 			}, 1000)
 		}
-
-		const { error, errorCode, info } = this.props
 
 		const tweetExists = error && network === "twitter" ? false : true
 
@@ -395,6 +382,7 @@ class Post extends Component {
 									dateCreated={props.info.date_created}
 									description={props.info.description}
 									endTime={endTime}
+									existsOnYt={props.existsOnYt}
 									history={props.history}
 									id={props.info.id}
 									placeholder={props.info.img}
@@ -548,9 +536,9 @@ Post.propTypes = {
 		})
 	]),
 	archives: PropTypes.array,
-	downloadVideo: PropTypes.func,
 	error: PropTypes.bool,
 	errorCode: PropTypes.number,
+	existsOnYt: PropTypes.bool,
 	info: PropTypes.object,
 	fallacyCount: PropTypes.number,
 	myArchives: PropTypes.array,
@@ -565,7 +553,6 @@ Post.propTypes = {
 
 Post.defaultProps = {
 	archives: [],
-	downloadVideo,
 	myArchives: [],
 	refreshYouTubeToken,
 	transcript: ""
@@ -581,5 +568,5 @@ const mapStateToProps = (state, ownProps) => {
 
 export default connect(
 	mapStateToProps,
-	{ downloadVideo, fetchPostData, refreshYouTubeToken }
+	{ fetchPostData, refreshYouTubeToken }
 )(Post)
