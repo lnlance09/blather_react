@@ -606,10 +606,12 @@ class YouTube extends CI_Controller {
 		$existsOnYt = false;
 		$video = $this->youtube->getStandardVideoInfo($id);
 
-		if (is_array($video) ? $video['status'] == 'ok' : false) {
-			$player_response = $video['player_response'];
-			$decode = @json_decode($player_response, true);
-			$existsOnYt = array_key_exists('videoDetails', $decode);
+		if (is_array($video) ? array_key_exists('status', $video) : false) {
+			if ($video['status'] == 'ok') {
+				$player_response = $video['player_response'];
+				$decode = @json_decode($player_response, true);
+				$existsOnYt = array_key_exists('videoDetails', $decode);
+			}
 		}
 
 		if ($existsOnYt) {
