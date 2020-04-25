@@ -605,6 +605,15 @@ class YouTube extends CI_Controller {
 
 		$video = $this->youtube->getStandardVideoInfo($id);
 
+		if (empty($video)) {
+			$this->output->set_status_header(404);
+			echo json_encode([
+				'code' => 404,
+				'error' => true,
+			]);
+			exit;
+		}
+
 		if ($video['status'] != 'ok') {
 			$this->output->set_status_header(404);
 			echo json_encode([
