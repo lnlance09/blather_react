@@ -21,7 +21,7 @@ body {
 
 .mainContainer {
   min-height: 100vh;
-  margin-top: 5.0em;
+  margin-top: 5.7em;
   padding: 15px 15px 0 15px; }
   .mainContainer.bc {
     margin-top: 2.4em; }
@@ -560,8 +560,7 @@ a {
 
 /* Post page */
 .postPage .ui.container.mainContainer {
-  font-size: 13px;
-  margin-top: 70px; }
+  font-size: 13px; }
   .postPage .ui.container.mainContainer .fallacyFormWrapper {
     margin: 20px 0; }
   .postPage .ui.container.mainContainer .placeholderContainer {
