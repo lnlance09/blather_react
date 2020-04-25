@@ -526,7 +526,12 @@ class YouTube extends CI_Controller {
 		}
 	}
 
-	private function insertTranslations($access_token, $channel_id, $page, $next_page_token = null) {
+	private function insertTranslations() {
+		$access_token = $this->input->get('access_token');
+		$channel_id = $this->input->get('channel_id');
+		$page = $this->input->get('page');
+		$next_page_token = $this->input->get('next_page_token');
+
 		$per_page = 50;
 		$posts = $this->youtube->getVideos([
 			'channelId' => $channel_id,
