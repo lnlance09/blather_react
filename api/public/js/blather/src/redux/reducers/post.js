@@ -54,6 +54,7 @@ const post = (state = initial(), action) => {
 				}
 			}
 
+			let existsOnYt = false
 			let transcript = ""
 			let pageInfo = {}
 			let profileImg = ""
@@ -93,6 +94,7 @@ const post = (state = initial(), action) => {
 			}
 
 			if (payload.type === "video") {
+				existsOnYt = payload.exists_on_yt
 				transcript = payload.transcript
 				info = payload.data
 				if (!payload.error) {
@@ -113,6 +115,7 @@ const post = (state = initial(), action) => {
 				archives,
 				error: payload.error,
 				errorCode: payload.code,
+				existsOnYt,
 				info,
 				pageInfo,
 				profileImg,

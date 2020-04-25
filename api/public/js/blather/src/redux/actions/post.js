@@ -100,6 +100,10 @@ export const fetchPostData = ({ a, bearer, url }) => dispatch => {
 			json: true
 		},
 		function(err, response, body) {
+			if (!body.error && body.type === "video" && body.exists_on_yt) {
+				dispatch(downloadVideo({ audio: 0, id: body.data.id }))
+			}
+
 			dispatch({
 				a,
 				type: constants.GET_POST_DATA,

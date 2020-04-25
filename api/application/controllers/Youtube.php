@@ -603,72 +603,91 @@ class YouTube extends CI_Controller {
 			exit;
 		}
 
+		$existsOnYt = false;
 		$video = $this->youtube->getStandardVideoInfo($id);
 
-		if (empty($video)) {
-			$this->output->set_status_header(404);
-			echo json_encode([
-				'code' => 404,
-				'error' => true,
-			]);
-			exit;
+		if (is_array($video) ? $video['status'] == 'ok' : false) {
+			$player_response = $video['player_response'];
+			$decode = @json_decode($player_response, true);
+			$existsOnYt = array_key_exists('videoDetails', $decode);
 		}
 
-		if ($video['status'] != 'ok') {
-			$this->output->set_status_header(404);
-			echo json_encode([
-				'code' => 404,
-				'error' => true,
+		if ($existsOnYt) {
+			$video_details = $decode['videoDetails'];
+			$microformat = $decode['microformat'];
+
+			$channelId = $video_details['channelId'];
+			$channelName = $video_details['author'];
+			$dateCreated = $microformat['playerMicroformatRenderer']['uploadDate'];
+			$description = $video_details['shortDescription'];
+			$duration = $video_details['lengthSeconds'];
+			$img = $video_details['thumbnail']['thumbnails'][0]['url'];
+			$title = $video_details['title'];
+			$viewCount = (int)$video_details['viewCount'];
+
+			$this->youtube->insertVideo([
+				'channel_id' => $channelId,
+				'date_created' => $dateCreated,
+				'description' => $description,
+				'duration' => $duration,
+				'dislike_count' => null,
+				'img' => $img,
+				'like_count' => null,
+				'title' => $title,
+				'video_id' => $id,
+				'view_count' => $viewCount
 			]);
-			exit;
+
+			$this->youtube->insertPage([
+				'about' => null,
+				'is_verified' => null,
+				'name' => $channelName,
+				'social_media_id' => $channelId,
+				'type' => 'youtube',
+				'username' => null
+			]);
+
+			$data = [
+				'channel' => [
+					'about' => null,
+					'db_id' => null,
+					'id' => $channelId,
+					'img' => null,
+					'title' => $channelName
+				],
+				'date_created' => $dateCreated,
+				'description' => $description,
+				'duration' => $duration,
+				'id' => $id,
+				'img' => $img,
+				's3_link' => null,
+				'stats' => [
+					'commentCount' => 0,
+					'dislikeCount' => null,
+					'likeCount' => null,
+					'likePct' => null,
+					'viewCount' => $viewCount
+				],
+				'title' => $title
+			];
+		} else {
+			$data = $this->youtube->getVideoFromDB($id);
+			if (!$data) {
+				$this->output->set_status_header(404);
+				echo json_encode([
+					'code' => 404,
+					'error' => true
+				]);
+				exit;
+			}
 		}
-
-		$player_response = $video['player_response'];
-		$decode = @json_decode($player_response, true);
-		$video_details = $decode['videoDetails'];
-		$microformat = $decode['microformat'];
-		// FormatArray($video_details);
-
-		$channelId = $video_details['channelId'];
-		$channelName = $video_details['author'];
-		$dateCreated = $microformat['playerMicroformatRenderer']['uploadDate'];
-		$description = $video_details['shortDescription'];
-		$duration = $video_details['lengthSeconds'];
-		$img = $video_details['thumbnail']['thumbnails'][0]['url'];
-		$title = $video_details['title'];
-		$viewCount = (int)$video_details['viewCount'];
-
-		$this->youtube->insertVideo([
-			'channel_id' => $channelId,
-			'date_created' => $dateCreated,
-			'description' => $description,
-			'duration' => $duration,
-			'dislike_count' => null,
-			'img' => $img,
-			'like_count' => null,
-			'title' => $title,
-			'video_id' => $id,
-			'view_count' => $viewCount
-		]);
-
-		$this->youtube->insertPage([
-			'about' => null,
-			'is_verified' => null,
-			'name' => $channelName,
-			'social_media_id' => $channelId,
-			'type' => 'youtube',
-			'username' => null
-		]);
 
 		$transcript = '';
 		$captions = $this->youtube->searchVideosForTerms(null, null, null, null, $id);
-		// FormatArray($captions);
 
 		if ($captions['hits']['total']['value'] == 1) {
 			$transcript = $captions['hits']['hits'][0]['_source']['text'];
 		} else {
-			$transcript = '';
-
 			$captions = $this->youtube->getCaptions($id);
 
 			if ($captions) {
@@ -687,35 +706,12 @@ class YouTube extends CI_Controller {
 			}
 		}
 
-		$data = [
-			'channel' => [
-				'about' => null,
-				'db_id' => null,
-				'id' => $channelId,
-				'img' => null,
-				'title' => $channelName
-			],
-			'date_created' => $dateCreated,
-			'description' => $description,
-			'duration' => $duration,
-			'id' => $id,
-			'img' => $img,
-			's3_link' => null,
-			'stats' => [
-				'commentCount' => 0,
-				'dislikeCount' => null,
-				'likeCount' => null,
-				'likePct' => null,
-				'viewCount' => $viewCount
-			],
-			'title' => $title
-		];
-
 		echo json_encode([
 			'archives' => [],
 			'code' => 200,
 			'data' => $data,
 			'error' => false,
+			'exists_on_yt' => $existsOnYt,
 			'transcript' => $transcript,
 			'type' => 'video'
 		]);

@@ -18,9 +18,9 @@
   border-bottom: solid 1px #DCDDDE;
   border-radius: 0;
   box-shadow: none !important;
-  margin-top: 72px;
+  margin-top: 71px;
   width: 100%;
-  z-index: 1001 !important; }
+  z-index: 999 !important; }
   .pageHeader .menu.subHeader .subHeaderContainer .searchItem {
     width: 100%; }
     @media only screen and (min-width: 450px) {
