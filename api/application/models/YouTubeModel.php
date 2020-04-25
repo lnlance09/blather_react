@@ -318,7 +318,7 @@ class YouTubeModel extends CI_Model {
 	}
 
 	public function getStandardVideoInfo($video_id) {
-		$url = 'https://www.youtube.com/get_video_info?&video_id='.$video_id;
+		$url = 'https://www.youtube.com/get_video_info?video_id='.$video_id;
 		$video = file_get_contents($url);
 		parse_str($video, $video_info);
 		return $video_info;
