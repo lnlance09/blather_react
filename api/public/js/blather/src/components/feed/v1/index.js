@@ -92,7 +92,11 @@ class FeedComponent extends Component {
 										/>
 									</Feed.Date>
 									<Icon
-										className={result.network === "twitter" ? "twitterIcon" : "youtubeIcon"}
+										className={
+											result.network === "twitter"
+												? "twitterIcon"
+												: "youtubeIcon"
+										}
 										name={result.network === "twitter" ? "twitter" : "youtube"}
 										style={{ float: "right" }}
 									/>
@@ -309,7 +313,4 @@ const mapStateToProps = (state, ownProps) => ({
 	...ownProps
 })
 
-export default connect(
-	mapStateToProps,
-	{ getFeed }
-)(FeedComponent)
+export default connect(mapStateToProps, { getFeed })(FeedComponent)

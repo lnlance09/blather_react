@@ -283,7 +283,4 @@ const mapStateToProps = (state, ownProps) => ({
 	...ownProps
 })
 
-export default connect(
-	mapStateToProps,
-	{ getArchives, toggleLoading }
-)(ArchivesList)
+export default connect(mapStateToProps, { getArchives, toggleLoading })(ArchivesList)

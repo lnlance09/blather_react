@@ -398,7 +398,7 @@ class Post extends Component {
 									title={props.info.title}
 									transcript={props.transcript}
 								/>
-								<Divider section/>
+								<Divider section />
 								<Header size="large">Call out bullshit</Header>
 								{DisplayFallacyForm(props)}
 							</div>
@@ -456,19 +456,25 @@ class Post extends Component {
 					<PageHeader {...this.props} />
 
 					<Container className="mainContainer" textAlign="left">
-						{type === "video" && (
-							videoExists ? (
+						{type === "video" &&
+							(videoExists ? (
 								<Segment>
 									{DisplayPost(this.props)}
 									{!this.props.error && <DisplayFallacies props={this.props} />}
 								</Segment>
 							) : (
 								<div>
-									<Image centered className="trumpImg404" size="medium" src={TrumpImg} />
-									<Header size="large" textAlign="center">This video does not exist</Header>
+									<Image
+										centered
+										className="trumpImg404"
+										size="medium"
+										src={TrumpImg}
+									/>
+									<Header size="large" textAlign="center">
+										This video does not exist
+									</Header>
 								</div>
-							)
-						)}
+							))}
 
 						{type === "tweet" && (
 							<div>
@@ -566,7 +572,4 @@ const mapStateToProps = (state, ownProps) => {
 	}
 }
 
-export default connect(
-	mapStateToProps,
-	{ fetchPostData, refreshYouTubeToken }
-)(Post)
+export default connect(mapStateToProps, { fetchPostData, refreshYouTubeToken })(Post)

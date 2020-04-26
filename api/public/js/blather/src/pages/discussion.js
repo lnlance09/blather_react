@@ -376,12 +376,9 @@ const mapStateToProps = (state, ownProps) => {
 	}
 }
 
-export default connect(
-	mapStateToProps,
-	{
-		fetchDiscussion,
-		updateDescription,
-		updateDiscussion,
-		updateExtra
-	}
-)(DiscussionPage)
+export default connect(mapStateToProps, {
+	fetchDiscussion,
+	updateDescription,
+	updateDiscussion,
+	updateExtra
+})(DiscussionPage)

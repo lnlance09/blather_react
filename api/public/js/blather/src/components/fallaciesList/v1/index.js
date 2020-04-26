@@ -707,7 +707,9 @@ const mapStateToProps = (state, ownProps) => ({
 	...ownProps
 })
 
-export default connect(
-	mapStateToProps,
-	{ getFallacies, getTargets, toggleLoading, updateSearchTerm }
-)(FallaciesList)
+export default connect(mapStateToProps, {
+	getFallacies,
+	getTargets,
+	toggleLoading,
+	updateSearchTerm
+})(FallaciesList)

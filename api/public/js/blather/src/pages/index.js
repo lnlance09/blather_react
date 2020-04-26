@@ -444,12 +444,9 @@ const mapStateToProps = (state, ownProps) => {
 	}
 }
 
-export default connect(
-	mapStateToProps,
-	{
-		fetchFallacyCount,
-		fetchPageData,
-		refreshYouTubeToken,
-		reset
-	}
-)(Page)
+export default connect(mapStateToProps, {
+	fetchFallacyCount,
+	fetchPageData,
+	refreshYouTubeToken,
+	reset
+})(Page)

@@ -473,16 +473,13 @@ const mapStateToProps = (state, ownProps) => {
 	}
 }
 
-export default connect(
-	mapStateToProps,
-	{
-		changeSincerity,
-		changeSincerityExplanation,
-		changeSummary,
-		changeTuring,
-		changeTuringExplanation,
-		fetchPage,
-		fetchReview,
-		saveReview
-	}
-)(Target)
+export default connect(mapStateToProps, {
+	changeSincerity,
+	changeSincerityExplanation,
+	changeSummary,
+	changeTuring,
+	changeTuringExplanation,
+	fetchPage,
+	fetchReview,
+	saveReview
+})(Target)

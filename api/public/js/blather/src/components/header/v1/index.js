@@ -43,12 +43,9 @@ class Header extends Component {
 	}
 
 	getFallacies = () => {
-		return fetch(
-			`${window.location.origin}/api/fallacies/getFallacyRefs`,
-			{
-				json: true
-			}
-		)
+		return fetch(`${window.location.origin}/api/fallacies/getFallacyRefs`, {
+			json: true
+		})
 			.then(response => {
 				if (response.ok) {
 					response.json().then(data => {
@@ -99,9 +96,7 @@ class Header extends Component {
 			>
 				{fallacy.name}
 
-				<Label color="red">
-					{fallacy.count}
-				</Label>
+				<Label color="red">{fallacy.count}</Label>
 			</Menu.Item>
 		))
 
@@ -292,7 +287,4 @@ const mapStateToProps = (state, ownProps) => ({
 	...ownProps
 })
 
-export default connect(
-	mapStateToProps,
-	{ logout }
-)(Header)
+export default connect(mapStateToProps, { logout })(Header)

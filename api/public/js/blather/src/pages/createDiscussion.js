@@ -357,10 +357,7 @@ const mapStateToProps = (state, ownProps) => {
 	}
 }
 
-export default connect(
-	mapStateToProps,
-	{
-		setTags,
-		submitDiscussion
-	}
-)(CreateDiscussionPage)
+export default connect(mapStateToProps, {
+	setTags,
+	submitDiscussion
+})(CreateDiscussionPage)

@@ -117,7 +117,4 @@ const mapStateToProps = (state, ownProps) => ({
 	...ownProps
 })
 
-export default connect(
-	mapStateToProps,
-	{ updateAbout }
-)(AboutCard)
+export default connect(mapStateToProps, { updateAbout })(AboutCard)

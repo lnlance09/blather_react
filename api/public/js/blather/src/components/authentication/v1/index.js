@@ -378,14 +378,11 @@ const mapStateToProps = (state, ownProps) => ({
 	...ownProps
 })
 
-export default connect(
-	mapStateToProps,
-	{
-		submitGoogleForm,
-		submitLoginForm,
-		submitRegistrationForm,
-		switchTab,
-		twitterRequestToken,
-		verifyEmail
-	}
-)(Authentication)
+export default connect(mapStateToProps, {
+	submitGoogleForm,
+	submitLoginForm,
+	submitRegistrationForm,
+	switchTab,
+	twitterRequestToken,
+	verifyEmail
+})(Authentication)

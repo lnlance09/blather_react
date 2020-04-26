@@ -491,7 +491,4 @@ const mapStateToProps = (state, ownProps) => ({
 	...ownProps
 })
 
-export default connect(
-	mapStateToProps,
-	{ createArchive }
-)(Tweet)
+export default connect(mapStateToProps, { createArchive })(Tweet)

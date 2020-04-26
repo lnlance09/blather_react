@@ -134,16 +134,40 @@ class NewsFeed extends Component {
 				<Card.Content>
 					<List relaxed>
 						<List.Item>
-							<a href="https://rationalwiki.org/" rel="noopener noreferrer" target="_blank">RationalWiki</a>
+							<a
+								href="https://rationalwiki.org/"
+								rel="noopener noreferrer"
+								target="_blank"
+							>
+								RationalWiki
+							</a>
 						</List.Item>
 						<List.Item>
-							<a href="https://www.theseventhdegree.net/" rel="noopener noreferrer" target="_blank">The Seventh Degree</a>
+							<a
+								href="https://www.theseventhdegree.net/"
+								rel="noopener noreferrer"
+								target="_blank"
+							>
+								The Seventh Degree
+							</a>
 						</List.Item>
 						<List.Item>
-							<a href="https://medium.com/@mboedy" rel="noopener noreferrer" target="_blank">Matthew Boedy</a>
+							<a
+								href="https://medium.com/@mboedy"
+								rel="noopener noreferrer"
+								target="_blank"
+							>
+								Matthew Boedy
+							</a>
 						</List.Item>
 						<List.Item>
-							<a href="https://www.facebook.com/adam.bates.9216" rel="noopener noreferrer" target="_blank">Adam Bates</a>
+							<a
+								href="https://www.facebook.com/adam.bates.9216"
+								rel="noopener noreferrer"
+								target="_blank"
+							>
+								Adam Bates
+							</a>
 						</List.Item>
 					</List>
 				</Card.Content>
@@ -208,9 +232,6 @@ const mapStateToProps = (state, ownProps) => {
 	}
 }
 
-export default connect(
-	mapStateToProps,
-	{
-		mostFallacious
-	}
-)(NewsFeed)
+export default connect(mapStateToProps, {
+	mostFallacious
+})(NewsFeed)

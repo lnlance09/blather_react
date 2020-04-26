@@ -37,7 +37,4 @@ const mapDispatchToProps = dispatch => ({
 	// doSomething: () => dispatch(Actions.doSomething())
 })
 
-export default connect(
-	mapStateToProps,
-	{ fetchData }
-)(Example)
+export default connect(mapStateToProps, { fetchData })(Example)

@@ -504,7 +504,4 @@ const mapStateToProps = (state, ownProps) => ({
 	...ownProps
 })
 
-export default connect(
-	mapStateToProps,
-	{ fetchDiscussions }
-)(DiscussionsList)
+export default connect(mapStateToProps, { fetchDiscussions })(DiscussionsList)

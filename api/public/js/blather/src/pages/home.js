@@ -462,9 +462,6 @@ const mapStateToProps = (state, ownProps) => {
 	}
 }
 
-export default connect(
-	mapStateToProps,
-	{
-		getPostFromUrl
-	}
-)(Home)
+export default connect(mapStateToProps, {
+	getPostFromUrl
+})(Home)

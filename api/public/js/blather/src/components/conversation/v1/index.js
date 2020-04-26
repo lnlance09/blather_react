@@ -471,13 +471,10 @@ const mapStateToProps = (state, ownProps) => {
 	}
 }
 
-export default connect(
-	mapStateToProps,
-	{
-		acceptDiscussionConvo,
-		fetchDiscussionConversation,
-		fetchFallacyConversation,
-		submitDiscussionConversation,
-		submitFallacyConversation
-	}
-)(Conversation)
+export default connect(mapStateToProps, {
+	acceptDiscussionConvo,
+	fetchDiscussionConversation,
+	fetchFallacyConversation,
+	submitDiscussionConversation,
+	submitFallacyConversation
+})(Conversation)

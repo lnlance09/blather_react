@@ -639,10 +639,7 @@ const mapStateToProps = (state, ownProps) => ({
 	...ownProps
 })
 
-export default connect(
-	mapStateToProps,
-	{
-		editExplanation,
-		updateFallacy
-	}
-)(FallacyExample)
+export default connect(mapStateToProps, {
+	editExplanation,
+	updateFallacy
+})(FallacyExample)

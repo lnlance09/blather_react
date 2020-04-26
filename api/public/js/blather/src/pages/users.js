@@ -363,12 +363,9 @@ const mapStateToProps = (state, ownProps) => {
 	}
 }
 
-export default connect(
-	mapStateToProps,
-	{
-		changeProfilePic,
-		fetchUserData,
-		reset,
-		updateAbout
-	}
-)(UserPage)
+export default connect(mapStateToProps, {
+	changeProfilePic,
+	fetchUserData,
+	reset,
+	updateAbout
+})(UserPage)
