@@ -271,9 +271,7 @@ class YouTubeVideo extends Component {
 													{formatTime(a.start_time)} -{" "}
 													{formatTime(a.end_time)}
 												</Item.Header>
-												<Item.Description>
-													{a.description}
-												</Item.Description>
+												<Item.Description>{a.description}</Item.Description>
 												<Item.Extra>
 													<List bulleted horizontal link>
 														{a.user_id === user.id && (
@@ -431,10 +429,7 @@ class YouTubeVideo extends Component {
 										__html: this.props.transcript
 									}}
 								/>
-								<span
-									className="seeMore"
-									onClick={() => this.toggleShowMore()}
-								>
+								<span className="seeMore" onClick={() => this.toggleShowMore()}>
 									See {showMore ? "less" : "more"}
 								</span>
 							</div>
@@ -443,9 +438,7 @@ class YouTubeVideo extends Component {
 						{this.props.canArchive && (
 							<div>
 								<Divider hidden />
-								<Header size="large">
-									Archives
-								</Header>
+								<Header size="large">Archives</Header>
 								<Card className="fluid">
 									<Card.Content>
 										{ArchiveForm(this.props)}
@@ -474,10 +467,7 @@ class YouTubeVideo extends Component {
 								<Form.Field>
 									<TimeField
 										input={
-											<Input
-												icon="hourglass end"
-												placeholder="End time"
-											/>
+											<Input icon="hourglass end" placeholder="End time" />
 										}
 										onChange={this.props.changeEndTime}
 										showSeconds
@@ -599,17 +589,14 @@ const mapStateToProps = (state, ownProps) => ({
 	...ownProps
 })
 
-export default connect(
-	mapStateToProps,
-	{
-		createVideoArchive,
-		deleteArchive,
-		getVideoArchives,
-		setCurrentVideoTime,
-		setDuration,
-		setContradictionVideoTime,
-		updateArchiveDescription,
-		updateArchiveEndTime,
-		updateArchiveStartTime
-	}
-)(YouTubeVideo)
+export default connect(mapStateToProps, {
+	createVideoArchive,
+	deleteArchive,
+	getVideoArchives,
+	setCurrentVideoTime,
+	setDuration,
+	setContradictionVideoTime,
+	updateArchiveDescription,
+	updateArchiveEndTime,
+	updateArchiveStartTime
+})(YouTubeVideo)

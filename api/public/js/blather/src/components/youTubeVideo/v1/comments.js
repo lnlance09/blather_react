@@ -526,13 +526,10 @@ const mapStateToProps = (state, ownProps) => ({
 	...ownProps
 })
 
-export default connect(
-	mapStateToProps,
-	{
-		clearContradiction,
-		createCommentArchive,
-		fetchVideoComments,
-		insertComment,
-		unsetComment
-	}
-)(YouTubeCommentsSection)
+export default connect(mapStateToProps, {
+	clearContradiction,
+	createCommentArchive,
+	fetchVideoComments,
+	insertComment,
+	unsetComment
+})(YouTubeCommentsSection)

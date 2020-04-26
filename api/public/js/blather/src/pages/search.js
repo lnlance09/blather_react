@@ -275,9 +275,6 @@ const mapStateToProps = (state, ownProps) => {
 	}
 }
 
-export default connect(
-	mapStateToProps,
-	{
-		setValue
-	}
-)(SearchPage)
+export default connect(mapStateToProps, {
+	setValue
+})(SearchPage)

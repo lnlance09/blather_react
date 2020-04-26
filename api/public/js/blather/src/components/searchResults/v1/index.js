@@ -418,12 +418,9 @@ const mapStateToProps = (state, ownProps) => ({
 	...ownProps
 })
 
-export default connect(
-	mapStateToProps,
-	{
-		fetchSearchResults,
-		refreshYouTubeToken,
-		resetSearchData,
-		toggleSearchLoading
-	}
-)(SearchResults)
+export default connect(mapStateToProps, {
+	fetchSearchResults,
+	refreshYouTubeToken,
+	resetSearchData,
+	toggleSearchLoading
+})(SearchResults)

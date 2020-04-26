@@ -3,15 +3,7 @@ import { sendContactMsg } from "redux/actions/about"
 import { connect, Provider } from "react-redux"
 import { Link } from "react-router-dom"
 import { Follow } from "react-twitter-widgets"
-import {
-	Button,
-	Container,
-	Form,
-	Header,
-	List,
-	Menu,
-	TextArea
-} from "semantic-ui-react"
+import { Button, Container, Form, Header, List, Menu, TextArea } from "semantic-ui-react"
 import fallacies from "fallacies.json"
 import PageFooter from "components/footer/v1/"
 import PageHeader from "components/header/v1/"
@@ -95,10 +87,7 @@ class About extends Component {
 
 		const ContactSection = props => (
 			<div>
-				<Form
-					className="contactForm"
-					onSubmit={this.sendContactMsg}
-				>
+				<Form className="contactForm" onSubmit={this.sendContactMsg}>
 					<Form.Field>
 						<p>Drop us a message and let us know what's on your mind.</p>
 						<TextArea
@@ -262,9 +251,6 @@ const mapStateToProps = (state, ownProps) => {
 	}
 }
 
-export default connect(
-	mapStateToProps,
-	{
-		sendContactMsg
-	}
-)(About)
+export default connect(mapStateToProps, {
+	sendContactMsg
+})(About)

@@ -102,10 +102,6 @@ class Fallacy extends Component {
 		}
 
 		this.captureScreenshot = this.captureScreenshot.bind(this)
-		this.handleExportChange = this.handleExportChange.bind(this)
-		this.onDrop = this.onDrop.bind(this)
-		this.onSelectBackground = this.onSelectBackground.bind(this)
-		this.onChangeWidth = this.onChangeWidth.bind(this)
 	}
 
 	captureScreenshot() {
@@ -168,8 +164,9 @@ class Fallacy extends Component {
 				link.href = img
 				link.click()
 
-				this.setState({ downloading: false })
-				this.toggleModal()
+				this.setState({ downloading: false }, () => {
+					this.toggleModal()
+				})
 			} else if (this.props.canMakeVideo) {
 				this.props.toggleCreateMode()
 
@@ -237,7 +234,7 @@ class Fallacy extends Component {
 		}
 	}
 
-	onDrop(files) {
+	onDrop = files => {
 		if (files.length > 0) {
 			this.setState({ backgroundColor: null })
 			this.props.uploadBackgroundPic({
@@ -858,7 +855,6 @@ class Fallacy extends Component {
 									<Button
 										circular
 										className="redditBtn"
-										color="white"
 										icon="reddit alien"
 										size="large"
 									/>
@@ -1142,16 +1138,13 @@ const mapStateToProps = (state, ownProps) => {
 	}
 }
 
-export default connect(
-	mapStateToProps,
-	{
-		createVideoFallacy,
-		fetchFallacy,
-		reset,
-		retractLogic,
-		saveScreenshot,
-		toggleCreateMode,
-		updateFallacy,
-		uploadBackgroundPic
-	}
-)(Fallacy)
+export default connect(mapStateToProps, {
+	createVideoFallacy,
+	fetchFallacy,
+	reset,
+	retractLogic,
+	saveScreenshot,
+	toggleCreateMode,
+	updateFallacy,
+	uploadBackgroundPic
+})(Fallacy)

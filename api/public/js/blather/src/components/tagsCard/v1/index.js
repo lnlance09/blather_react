@@ -210,12 +210,9 @@ const mapStateToProps = (state, ownProps) => {
 	}
 }
 
-export default connect(
-	mapStateToProps,
-	{
-		removeDiscussionTag,
-		removeFallacyTag,
-		updateDiscussion,
-		updateFallacy
-	}
-)(TagsCard)
+export default connect(mapStateToProps, {
+	removeDiscussionTag,
+	removeFallacyTag,
+	updateDiscussion,
+	updateFallacy
+})(TagsCard)

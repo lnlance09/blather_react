@@ -52,7 +52,6 @@ class VideoList extends Component {
 		})
 	}
 
-
 	render() {
 		const { isSearching, loading, q } = this.state
 
@@ -80,16 +79,14 @@ class VideoList extends Component {
 
 			if (isSearching) {
 				if (post.highlight) {
-					description = (
-						post.highlight.text.map((text, i) => (
-							<p
-								dangerouslySetInnerHTML={{
-									__html: text
-								}}
-								key={`transcript${i}`}
-							/>
-						))
-					)
+					description = post.highlight.text.map((text, i) => (
+						<p
+							dangerouslySetInnerHTML={{
+								__html: text
+							}}
+							key={`transcript${i}`}
+						/>
+					))
 				}
 			}
 
@@ -119,11 +116,7 @@ class VideoList extends Component {
 		return (
 			<Provider store={store}>
 				<div className="videoList">
-					<Visibility
-						continuous
-						offset={[50, 50]}
-						onBottomVisible={this.loadMoreItems}
-					>
+					<Visibility continuous offset={[50, 50]} onBottomVisible={this.loadMoreItems}>
 						<div className="ui icon input large fluid">
 							<DebounceInput
 								debounceTimeout={300}
@@ -184,7 +177,4 @@ const mapStateToProps = (state, ownProps) => ({
 	...ownProps
 })
 
-export default connect(
-	mapStateToProps,
-	{ fetchPagePosts, searchVideosByText }
-)(VideoList)
+export default connect(mapStateToProps, { fetchPagePosts, searchVideosByText })(VideoList)

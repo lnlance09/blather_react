@@ -677,19 +677,16 @@ const mapStateToProps = (state, ownProps) => ({
 	...ownProps
 })
 
-export default connect(
-	mapStateToProps,
-	{
-		assignFallacy,
-		clearContradiction,
-		parseContradiction,
-		refreshYouTubeToken,
-		selectAssignee,
-		setBeginTime,
-		setContradictionBeginTime,
-		setContradictionEndTime,
-		setContradictionHighlight,
-		setEndTime,
-		toggleModal
-	}
-)(FallacyForm)
+export default connect(mapStateToProps, {
+	assignFallacy,
+	clearContradiction,
+	parseContradiction,
+	refreshYouTubeToken,
+	selectAssignee,
+	setBeginTime,
+	setContradictionBeginTime,
+	setContradictionEndTime,
+	setContradictionHighlight,
+	setEndTime,
+	toggleModal
+})(FallacyForm)

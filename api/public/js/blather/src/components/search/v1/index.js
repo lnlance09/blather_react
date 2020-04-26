@@ -176,7 +176,4 @@ const mapStateToProps = (state, ownProps) => ({
 	...ownProps
 })
 
-export default connect(
-	mapStateToProps,
-	{ selectAssignee }
-)(NavSearch)
+export default connect(mapStateToProps, { selectAssignee })(NavSearch)

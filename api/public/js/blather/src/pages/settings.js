@@ -458,17 +458,14 @@ const mapStateToProps = (state, ownProps) => {
 	}
 }
 
-export default connect(
-	mapStateToProps,
-	{
-		changePassword,
-		linkTwitter,
-		linkYouTube,
-		removeTwitter,
-		removeYouTube,
-		resetPasswordProps,
-		setPatreonUsername,
-		togglePatreonLoading,
-		twitterRequestToken
-	}
-)(SettingsPage)
+export default connect(mapStateToProps, {
+	changePassword,
+	linkTwitter,
+	linkYouTube,
+	removeTwitter,
+	removeYouTube,
+	resetPasswordProps,
+	setPatreonUsername,
+	togglePatreonLoading,
+	twitterRequestToken
+})(SettingsPage)

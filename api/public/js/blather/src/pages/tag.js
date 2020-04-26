@@ -573,17 +573,14 @@ const mapStateToProps = (state, ownProps) => {
 	}
 }
 
-export default connect(
-	mapStateToProps,
-	{
-		addPic,
-		fetchHistory,
-		fetchTaggedUsers,
-		fetchTagInfo,
-		getRelatedTags,
-		reset,
-		toggleLoading,
-		updateDescription,
-		updateTag
-	}
-)(Tag)
+export default connect(mapStateToProps, {
+	addPic,
+	fetchHistory,
+	fetchTaggedUsers,
+	fetchTagInfo,
+	getRelatedTags,
+	reset,
+	toggleLoading,
+	updateDescription,
+	updateTag
+})(Tag)

@@ -166,7 +166,4 @@ const mapStateToProps = (state, ownProps) => ({
 	...ownProps
 })
 
-export default connect(
-	mapStateToProps,
-	{ fetchPagePosts }
-)(TweetList)
+export default connect(mapStateToProps, { fetchPagePosts })(TweetList)

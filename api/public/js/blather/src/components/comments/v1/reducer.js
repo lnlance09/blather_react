@@ -27,6 +27,24 @@ const fallacyComments = (state = initial(), action) => {
 				}
 			}
 
+		case constants.VOTE_ON_COMMENT:
+			let _comments = state.comments.results
+			let _comment = _comments.filter(c => c.id === payload.commentId)
+			let finalComment = _comment[0]
+			if (payload.upvote) {
+				finalComment.likes = parseInt(finalComment.likes, 10) + 1
+			} else {
+				finalComment.dislikes = parseInt(finalComment.dislikes, 10) + 1
+			}
+
+			return {
+				...state,
+				comments: {
+					...state.comments,
+					results: _comments
+				}
+			}
+
 		default:
 			return state
 	}
