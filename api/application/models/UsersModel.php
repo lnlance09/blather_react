@@ -67,7 +67,7 @@ class UsersModel extends CI_Model {
 
 	public function generateBearerToken($data, $token = null) {
 		$this->load->library('firebasetoken');
-		$secret = 'secret';
+		$secret = 'lancebass';
 		if (!$token) {
 			return $this->firebasetoken->encode($data, $secret);
 		}
