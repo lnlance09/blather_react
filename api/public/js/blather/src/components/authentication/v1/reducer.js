@@ -5,7 +5,7 @@ let authenticated = false
 let localData = {}
 let verify = false
 const token = localStorage.getItem("jwtToken")
-jwt.verify(token, "secret", (err, decoded) => {
+jwt.verify(token, "lancebass", (err, decoded) => {
 	if (decoded) {
 		authenticated = true
 		localData = decoded.data
