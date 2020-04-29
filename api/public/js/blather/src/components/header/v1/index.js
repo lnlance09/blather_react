@@ -194,7 +194,7 @@ class Header extends Component {
 									/>
 								</Menu.Item>
 								<Menu.Item className="sidebarItem" position="right">
-									{this.props.authenticated && (
+									{!this.props.authenticated && (
 										<Button
 											color="red"
 											compact
