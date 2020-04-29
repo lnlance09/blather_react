@@ -76,7 +76,7 @@
 
             $html = "<h1>Logical Fallacies</h1>";
 
-            $mysqli = new mysqli("blather.cni5l9jtlymn.us-west-2.rds.amazonaws.com:3306", "lnlance09", "kVQ63hewQNi0bXg", "blather");
+            $mysqli = new mysqli("blather.cni5l9jtlymn.us-west-2.rds.amazonaws.com:3306", "lnlance09", ":~dYCVk'9_W9arZ", "blather");
             if ($mysqli->connect_errno) {
                 printf("Connect failed: %s\n", $mysqli->connect_error);
                 exit();
