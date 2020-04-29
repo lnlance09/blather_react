@@ -194,12 +194,14 @@ class Header extends Component {
 									/>
 								</Menu.Item>
 								<Menu.Item className="sidebarItem" position="right">
-									<Button
-										color="red"
-										compact
-										content="Sign In"
-										onClick={() => this.props.history.push("/signin")}
-									/>
+									{this.props.authenticated && (
+										<Button
+											color="red"
+											compact
+											content="Sign In"
+											onClick={() => this.props.history.push("/signin")}
+										/>
+									)}
 									<Icon
 										name="sidebar"
 										onClick={() =>
@@ -251,10 +253,6 @@ class Header extends Component {
 						visible={visible}
 						width="wide"
 					>
-						{this.props.authenticated && (
-							<Menu.Item onClick={this.onLogout}>Sign Out</Menu.Item>
-						)}
-
 						<Menu.Item>
 							<Button
 								color="blue"
@@ -265,6 +263,9 @@ class Header extends Component {
 							/>
 						</Menu.Item>
 						{FallaciesSidebar}
+						{this.props.authenticated && (
+							<Menu.Item onClick={this.onLogout}>Sign Out</Menu.Item>
+						)}
 					</Sidebar>
 				</div>
 			</Provider>
