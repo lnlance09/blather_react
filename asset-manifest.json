@@ -1,7 +1,7 @@
 {
   "main.css": "/static/css/main.e9f3734f.chunk.css",
-  "main.js": "/static/js/main.b7d1bcbb.chunk.js",
-  "main.js.map": "/static/js/main.b7d1bcbb.chunk.js.map",
+  "main.js": "/static/js/main.f1599227.chunk.js",
+  "main.js.map": "/static/js/main.f1599227.chunk.js.map",
   "static/css/1.fd40afcb.chunk.css": "/static/css/1.fd40afcb.chunk.css",
   "static/js/1.23927d5c.chunk.js": "/static/js/1.23927d5c.chunk.js",
   "static/js/1.23927d5c.chunk.js.map": "/static/js/1.23927d5c.chunk.js.map",
@@ -13,11 +13,11 @@
   "static/media/trump.svg": "/static/media/trump.d6fed37c.svg",
   "static/media/sound.mp3": "/static/media/sound.ec792557.mp3",
   "static/media/sound.ogg": "/static/media/sound.b8da6d65.ogg",
-  "static/media/app.css": "/static/media/08.90679edb.svg",
+  "static/media/app.css": "/static/media/10.c1229334.svg",
   "static/media/semantic.min.css": "/static/media/brand-icons.a1a749e8.svg",
   "static/css/1.fd40afcb.chunk.css.map": "/static/css/1.fd40afcb.chunk.css.map",
   "static/css/main.e9f3734f.chunk.css.map": "/static/css/main.e9f3734f.chunk.css.map",
   "index.html": "/index.html",
-  "precache-manifest.bc90c4f8b82fb3555adfacb839d9fe21.js": "/precache-manifest.bc90c4f8b82fb3555adfacb839d9fe21.js",
+  "precache-manifest.bc9328cb0907646e68e2e31a68db7e8a.js": "/precache-manifest.bc9328cb0907646e68e2e31a68db7e8a.js",
   "service-worker.js": "/service-worker.js"
 }
