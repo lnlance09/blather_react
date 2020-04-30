@@ -41,6 +41,10 @@ export const formatPlural = (count, term) => {
 }
 
 export const getHighlightedText = (text, higlight, className = "") => {
+	if (!text || text === undefined) {
+		return
+	}
+
 	const parts = text.split(new RegExp(`(${higlight.replace(/[()]/g, "")})`, "gi"))
 	return parts.map((part, i) =>
 		part.toLowerCase() === higlight.toLowerCase() ? (

@@ -59,7 +59,7 @@ class Aws {
 			'Output' => [
 				'Key' => $output['name'],
 				'Rotate' => '0',
-				'PresetId' => '1579824043285-gnenc4',
+				'PresetId' => '1587667195748-yf3ylt',
 
 				// 'ThumbnailPattern' => 'string',
 				// 'ThumbnailEncryption' => $encryption,
