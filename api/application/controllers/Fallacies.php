@@ -205,7 +205,7 @@ class Fallacies extends CI_Controller {
 	public function createVideo() {
 		$id = $this->input->post('id');
 		$img = $this->input->post('img');
-		$ref_id = $this->input->post('refId');
+		$ref_id = (int)$this->input->post('refId');
 		$duration = $this->input->post('duration');
 		$original = $this->input->post('original');
 		$contradiction = $this->input->post('contradiction');
