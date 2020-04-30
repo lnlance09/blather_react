@@ -41,7 +41,7 @@ export const formatPlural = (count, term) => {
 }
 
 export const getHighlightedText = (text, higlight, className = "") => {
-	if (!text || text === undefined) {
+	if (typeof text !== "string") {
 		return
 	}
 
