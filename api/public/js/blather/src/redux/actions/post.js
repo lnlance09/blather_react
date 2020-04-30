@@ -71,7 +71,7 @@ export const createVideoArchive = ({ bearer, description, endTime, id, startTime
 
 export const downloadVideo = ({ audio, id }) => dispatch => {
 	request.post(
-		"https://media.blather.io/api/youtube/download",
+		`${window.location.origin}/api/youtube/download`,
 		{
 			form: {
 				audio,
