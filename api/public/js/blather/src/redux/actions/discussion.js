@@ -16,8 +16,8 @@ export const acceptDiscussionConvo = ({ acceptance, bearer, id }) => dispatch =>
 		},
 		function(err, response, body) {
 			dispatch({
-				type: constants.ACCEPT_DISCUSSION,
-				payload: body
+				payload: body,
+				type: constants.ACCEPT_DISCUSSION
 			})
 		}
 	)
@@ -37,8 +37,8 @@ export const fetchDiscussion = ({ bearer, id }) => dispatch => {
 		},
 		function(err, response, body) {
 			dispatch({
-				type: constants.GET_DISCUSSION,
-				payload: body
+				payload: body,
+				type: constants.GET_DISCUSSION
 			})
 		}
 	)
@@ -58,8 +58,8 @@ export const fetchDiscussionConversation = ({ bearer, id }) => dispatch => {
 		},
 		function(err, response, body) {
 			dispatch({
-				type: constants.GET_DISCUSSION_CONVERSATION,
-				payload: body
+				payload: body,
+				type: constants.GET_DISCUSSION_CONVERSATION
 			})
 		}
 	)
@@ -80,11 +80,11 @@ export const removeDiscussionTag = ({ bearer, id, tagId, tagName }) => dispatch 
 		},
 		function(err, response, body) {
 			dispatch({
-				type: constants.REMOVE_DISCUSSION_TAG,
 				payload: {
 					id: tagId,
 					name: tagName
-				}
+				},
+				type: constants.REMOVE_DISCUSSION_TAG
 			})
 		}
 	)
@@ -92,8 +92,8 @@ export const removeDiscussionTag = ({ bearer, id, tagId, tagName }) => dispatch 
 
 export const setTags = ({ value, text }) => dispatch => {
 	dispatch({
-		type: constants.SET_DISCUSSION_TAGS,
-		payload: { text, value }
+		payload: { text, value },
+		type: constants.SET_DISCUSSION_TAGS
 	})
 }
 
@@ -122,8 +122,8 @@ export const submitDiscussion = ({
 		},
 		function(err, response, body) {
 			dispatch({
-				type: constants.SUBMIT_DISCUSSION,
-				payload: body
+				payload: body,
+				type: constants.SUBMIT_DISCUSSION
 			})
 		}
 	)
@@ -145,11 +145,11 @@ export const submitDiscussionConversation = ({ bearer, id, msg, status }) => dis
 		},
 		function(err, response, body) {
 			dispatch({
-				type: constants.SUBMIT_DISCUSSION_CONVERSATION,
 				payload: {
 					body,
 					status
-				}
+				},
+				type: constants.SUBMIT_DISCUSSION_CONVERSATION
 			})
 		}
 	)
@@ -157,19 +157,19 @@ export const submitDiscussionConversation = ({ bearer, id, msg, status }) => dis
 
 export const updateDescription = ({ description }) => dispatch => {
 	dispatch({
-		type: constants.UPDATE_DESCRIPTION,
 		payload: {
 			description
-		}
+		},
+		type: constants.UPDATE_DESCRIPTION
 	})
 }
 
 export const updateExtra = ({ extra }) => dispatch => {
 	dispatch({
-		type: constants.UPDATE_EXTRA,
 		payload: {
 			extra
-		}
+		},
+		type: constants.UPDATE_EXTRA
 	})
 }
 
@@ -191,8 +191,8 @@ export const updateDiscussion = ({ bearer, description, extra, id, tags, title }
 		},
 		function(err, response, body) {
 			dispatch({
-				type: constants.UPDATE_DISCUSSION,
-				payload: body
+				payload: body,
+				type: constants.UPDATE_DISCUSSION
 			})
 		}
 	)

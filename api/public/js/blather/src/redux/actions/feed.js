@@ -9,8 +9,8 @@ export const mostFallacious = () => dispatch => {
 		},
 		function(err, response, body) {
 			dispatch({
-				type: constants.MOST_FALLACIOUS,
-				payload: body
+				payload: body,
+				type: constants.MOST_FALLACIOUS
 			})
 		}
 	)

@@ -13,8 +13,8 @@ export const fetchFallacyCount = ({ id }) => dispatch => {
 		},
 		function(err, response, body) {
 			dispatch({
-				type: constants.SET_FALLACY_COUNT,
-				payload: body
+				payload: body,
+				type: constants.SET_FALLACY_COUNT
 			})
 		}
 	)
@@ -37,8 +37,8 @@ export const fetchPageData = ({ bearer, id, type }) => dispatch => {
 		},
 		function(err, response, body) {
 			dispatch({
-				type: constants.GET_PAGE_DATA,
-				payload: body
+				payload: body,
+				type: constants.GET_PAGE_DATA
 			})
 
 			if (!body.error) {

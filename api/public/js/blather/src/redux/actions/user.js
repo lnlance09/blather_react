@@ -15,8 +15,8 @@ export const fetchUserData = ({ bearer, username }) => dispatch => {
 		},
 		function(err, response, body) {
 			dispatch({
-				type: constants.GET_USER_DATA,
-				payload: body
+				payload: body,
+				type: constants.GET_USER_DATA
 			})
 
 			dispatch(hideLoading())

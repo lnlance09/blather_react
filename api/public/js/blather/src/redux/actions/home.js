@@ -9,8 +9,8 @@ export const getHitList = () => dispatch => {
 		},
 		function(err, response, body) {
 			dispatch({
-				type: constants.GET_HIT_LIST,
-				payload: body
+				payload: body,
+				type: constants.GET_HIT_LIST
 			})
 		}
 	)
@@ -30,8 +30,8 @@ export const getPostFromUrl = ({ bearer, url }) => dispatch => {
 		},
 		function(err, response, body) {
 			dispatch({
-				type: constants.GET_POST_FROM_URL,
-				payload: body
+				payload: body,
+				type: constants.GET_POST_FROM_URL
 			})
 		}
 	)
