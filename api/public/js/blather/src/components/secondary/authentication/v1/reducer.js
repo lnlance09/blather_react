@@ -22,7 +22,7 @@ const initial = () => ({
 	verify
 })
 
-const test = (state = initial(), action) => {
+const user = (state = initial(), action) => {
 	switch (action.type) {
 		case constants.CHANGE_PASSWORD:
 			return {
@@ -274,4 +274,4 @@ const test = (state = initial(), action) => {
 	}
 }
 
-export default test
+export default user

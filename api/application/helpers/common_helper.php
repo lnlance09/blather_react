@@ -12,20 +12,26 @@ function camelCase($array) {
 
 function createArchive($url) {
 	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, 'http://archive.vn/submit/');
+	curl_setopt($ch, CURLOPT_URL, 'http://archive.is/submit/');
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 	curl_setopt($ch, CURLOPT_HEADER, true);
-	curl_setopt($ch, CURLOPT_REFERER, 'http://archive.vn/');
+	curl_setopt($ch, CURLOPT_REFERER, 'http://archive.is/');
 	curl_setopt($ch, CURLOPT_POST, true);
 	curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
 		'url' => $url
 	]));
 	curl_setopt($ch, CURLOPT_HTTPHEADER, [
-		'Accept-Encoding: gzip, deflate',
-		'Content-Type: application/x-www-form-urlencoded',
-		'Host: archive.vn',
+		'Connection: keep-alive',
+		'Cache-Control: max-age=0',
+		'Upgrade-Insecure-Requests: 1',
 		'Origin: http://archive.is',
-		'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36'
+		'Content-Type: application/x-www-form-urlencoded',
+		'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.122 Safari/537.36',
+		'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+		'Referer: http://archive.is/',
+		'Accept-Encoding: gzip, deflate',
+		'Accept-Language: en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+		'Cookie: tmr_lvid=73076233ddddf67ed739588526bd79a0; tmr_lvidTS=1577293445863; _ga=GA1.2.661111166.1588369031; tmr_detect=0%7C1588369033698; tmr_reqNum=105'
 	]);
 	$data = curl_exec($ch);
 	$code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
