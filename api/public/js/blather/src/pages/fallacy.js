@@ -43,22 +43,22 @@ import {
 import { Slider } from "react-semantic-ui-range"
 import { confetti } from "dom-confetti"
 import Dropzone from "react-dropzone"
-import FallacyComments from "components/comments/v1/"
-import FallacyExample from "components/fallacyExample/v1/"
-import FallaciesList from "components/fallaciesList/v1/"
-import FallacyRef from "components/fallacyRef/v1/"
+import FallacyComments from "components/secondary/comments/v1/"
+import FallacyExample from "components/primary/fallacyExample/v1/"
+import FallaciesList from "components/secondary/lists/fallaciesList/v1/"
+import FallacyRef from "components/primary/fallacyRef/v1/"
 import html2canvas from "html2canvas"
 import ImagePic from "images/images/image-square.png"
-import LazyLoad from "components/lazyLoad/v1/"
+import LazyLoad from "components/primary/lazyLoad/v1/"
 import Moment from "react-moment"
-import PageFooter from "components/footer/v1/"
-import PageHeader from "components/header/v1/"
+import PageFooter from "components/primary/footer/v1/"
+import PageHeader from "components/secondary/header/v1/"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import ReactPlayer from "react-player"
 import store from "store"
-import TagsCard from "components/tagsCard/v1/"
-import TitleHeader from "components/titleHeader/v1/"
+import TagsCard from "components/primary/tagsCard/v1/"
+import TitleHeader from "components/primary/titleHeader/v1/"
 import TrumpImg from "images/trump-white.png"
 
 class Fallacy extends Component {
@@ -100,11 +100,9 @@ class Fallacy extends Component {
 			width: 100,
 			youtubeId
 		}
-
-		this.captureScreenshot = this.captureScreenshot.bind(this)
 	}
 
-	captureScreenshot() {
+	captureScreenshot = () => {
 		const { createdAt, fallacyName, id, refId, user } = this.props
 		const filename = `${fallacyName}-by-${user.name}-${createdAt}`
 		const scale = 2

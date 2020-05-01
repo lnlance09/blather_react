@@ -1,4 +1,4 @@
-import { refreshYouTubeToken } from "components/authentication/v1/actions"
+import { refreshYouTubeToken } from "components/secondary/authentication/v1/actions"
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { formatNumber } from "utils/textFunctions"
 import { fetchFallacyCount, fetchPageData, reset } from "redux/actions/page"
@@ -17,19 +17,19 @@ import {
 	Placeholder,
 	Segment
 } from "semantic-ui-react"
-import Breakdown from "components/breakdown/v1/"
+import Breakdown from "components/primary/breakdown/v1/"
 import defaultImg from "images/images/square-image.png"
-import FallaciesList from "components/fallaciesList/v1/"
-import LazyLoad from "components/lazyLoad/v1/"
-import PageFooter from "components/footer/v1/"
-import PageHeader from "components/header/v1/"
+import FallaciesList from "components/secondary/lists/fallaciesList/v1/"
+import LazyLoad from "components/primary/lazyLoad/v1/"
+import PageFooter from "components/primary/footer/v1/"
+import PageHeader from "components/secondary/header/v1/"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import store from "../store"
-import TitleHeader from "components/titleHeader/v1/"
+import TitleHeader from "components/primary/titleHeader/v1/"
 import TrumpImg from "images/trump-white.png"
-import TweetList from "components/tweetList/v1/"
-import VideoList from "components/videoList/v1/"
+import TweetList from "components/secondary/lists/tweetList/v1/"
+import VideoList from "components/secondary/lists/videoList/v1/"
 
 class Page extends Component {
 	constructor(props) {
@@ -68,8 +68,6 @@ class Page extends Component {
 			id,
 			type: network
 		})
-
-		this.setFallacyId = this.setFallacyId.bind(this)
 	}
 
 	componentDidMount() {}

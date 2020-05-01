@@ -5,8 +5,8 @@ import { Link } from "react-router-dom"
 import { Follow } from "react-twitter-widgets"
 import { Button, Container, Form, Header, List, Menu, TextArea } from "semantic-ui-react"
 import fallacies from "fallacies.json"
-import PageFooter from "components/footer/v1/"
-import PageHeader from "components/header/v1/"
+import PageFooter from "components/primary/footer/v1/"
+import PageHeader from "components/secondary/header/v1/"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import store from "store"
@@ -19,9 +19,6 @@ class About extends Component {
 			activeItem: "about",
 			msg: ""
 		}
-
-		this.onChangeMsg = this.onChangeMsg.bind(this)
-		this.sendContactMsg = this.sendContactMsg.bind(this)
 	}
 
 	componentDidMount() {
