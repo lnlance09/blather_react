@@ -4,36 +4,36 @@ import { showLoading, hideLoading } from "react-redux-loading-bar"
 
 export const changeSincerity = ({ value }) => dispatch => {
 	dispatch({
-		type: constants.CHANGE_SINCERITY,
-		payload: value
+		payload: value,
+		type: constants.CHANGE_SINCERITY
 	})
 }
 
 export const changeSincerityExplanation = ({ value }) => dispatch => {
 	dispatch({
-		type: constants.CHANGE_SINCERITY_EXPLANATION,
-		payload: value
+		payload: value,
+		type: constants.CHANGE_SINCERITY_EXPLANATION
 	})
 }
 
 export const changeSummary = ({ value }) => dispatch => {
 	dispatch({
-		type: constants.CHANGE_SUMMARY,
-		payload: value
+		payload: value,
+		type: constants.CHANGE_SUMMARY
 	})
 }
 
 export const changeTuring = ({ value }) => dispatch => {
 	dispatch({
-		type: constants.CHANGE_TURING,
-		payload: value
+		payload: value,
+		type: constants.CHANGE_TURING
 	})
 }
 
 export const changeTuringExplanation = ({ value }) => dispatch => {
 	dispatch({
-		type: constants.CHANGE_TURING_EXPLANATION,
-		payload: value
+		payload: value,
+		type: constants.CHANGE_TURING_EXPLANATION
 	})
 }
 
@@ -50,8 +50,8 @@ export const fetchPage = id => dispatch => {
 		},
 		function(err, response, body) {
 			dispatch({
-				type: constants.FETCH_PAGE,
-				payload: body
+				payload: body,
+				type: constants.FETCH_PAGE
 			})
 
 			dispatch(hideLoading())
@@ -73,8 +73,8 @@ export const fetchReview = ({ pageId, userId }) => dispatch => {
 		},
 		function(err, response, body) {
 			dispatch({
-				type: constants.FETCH_REVIEW,
-				payload: body
+				payload: body,
+				type: constants.FETCH_REVIEW
 			})
 
 			dispatch(hideLoading())
@@ -124,8 +124,8 @@ export const saveReview = ({
 		},
 		function(err, response, body) {
 			dispatch({
-				type: constants.SAVE_REVIEW,
-				payload: body
+				payload: body,
+				type: constants.SAVE_REVIEW
 			})
 		}
 	)

@@ -89,3 +89,10 @@ defined('S3_PATH') OR define('S3_PATH', 'https://s3.amazonaws.com/blather22/');
 defined('BASE_PATH') OR define('BASE_PATH', '/var/www/html/api/');
 defined('FFMPEG') OR define('FFMPEG', 'sudo /usr/bin/ffmpeg');
 defined('ES_INDEX') OR define('ES_INDEX', 'captions2');
+
+defined('EMAILS_SENT_FROM') OR define('EMAILS_SENT_FROM', [
+	[
+		'email' => 'admin@blather.io',
+		'name' => 'Blather'
+	]
+]);

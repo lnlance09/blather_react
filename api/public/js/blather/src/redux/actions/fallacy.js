@@ -27,8 +27,8 @@ export const createVideoFallacy = ({
 		},
 		function(err, response, body) {
 			dispatch({
-				type: constants.CREATE_FALLACY_VIDEO,
-				payload: body
+				payload: body,
+				type: constants.CREATE_FALLACY_VIDEO
 			})
 		}
 	)
@@ -36,10 +36,10 @@ export const createVideoFallacy = ({
 
 export const editExplanation = ({ explanation }) => dispatch => {
 	dispatch({
-		type: constants.EDIT_EXPLANATION,
 		payload: {
 			explanation
-		}
+		},
+		type: constants.EDIT_EXPLANATION
 	})
 }
 
@@ -54,8 +54,8 @@ export const fetchCommentCount = ({ id }) => dispatch => {
 		},
 		function(err, response, body) {
 			dispatch({
-				type: constants.GET_FALLACY_COMMENT_COUNT,
-				payload: body
+				payload: body,
+				type: constants.GET_FALLACY_COMMENT_COUNT
 			})
 		}
 	)
@@ -75,8 +75,8 @@ export const fetchFallacyConversation = ({ bearer, id }) => dispatch => {
 		},
 		function(err, response, body) {
 			dispatch({
-				type: constants.GET_FALLACY_CONVERSATION,
-				payload: body
+				payload: body,
+				type: constants.GET_FALLACY_CONVERSATION
 			})
 		}
 	)
@@ -98,8 +98,8 @@ export const fetchFallacy = ({ bearer, id }) => dispatch => {
 		},
 		function(err, response, body) {
 			dispatch({
-				type: constants.GET_FALLACY,
-				payload: body
+				payload: body,
+				type: constants.GET_FALLACY
 			})
 			dispatch(hideLoading())
 		}
@@ -121,11 +121,11 @@ export const removeFallacyTag = ({ bearer, id, tagId, tagName }) => dispatch => 
 		},
 		function(err, response, body) {
 			dispatch({
-				type: constants.REMOVE_FALLACY_TAG,
 				payload: {
 					id: tagId,
 					name: tagName
-				}
+				},
+				type: constants.REMOVE_FALLACY_TAG
 			})
 		}
 	)
@@ -173,8 +173,8 @@ export const saveScreenshot = ({ id, img, slug }) => dispatch => {
 		},
 		function(err, response, body) {
 			dispatch({
-				type: constants.SAVE_SCREENSHOT,
-				payload: body
+				payload: body,
+				type: constants.SAVE_SCREENSHOT
 			})
 		}
 	)
@@ -182,8 +182,8 @@ export const saveScreenshot = ({ id, img, slug }) => dispatch => {
 
 export const setTags = ({ value, text }) => dispatch => {
 	dispatch({
-		type: constants.SET_FALLACY_TAGS,
-		payload: { text, value }
+		payload: { text, value },
+		type: constants.SET_FALLACY_TAGS
 	})
 }
 
@@ -202,8 +202,8 @@ export const submitFallacyConversation = ({ bearer, id, msg }) => dispatch => {
 		},
 		function(err, response, body) {
 			dispatch({
-				type: constants.SUBMIT_FALLACY_CONVERSATION,
-				payload: body
+				payload: body,
+				type: constants.SUBMIT_FALLACY_CONVERSATION
 			})
 		}
 	)
@@ -253,8 +253,8 @@ export const updateFallacy = ({
 				body.fallacy.fallacyName = fallacyName
 			}
 			dispatch({
-				type: constants.UPDATE_FALLACY,
-				payload: body
+				payload: body,
+				type: constants.UPDATE_FALLACY
 			})
 		}
 	)
@@ -283,8 +283,8 @@ export const uploadBackgroundPic = ({ file }) => dispatch => {
 			},
 			function(err, response, body) {
 				dispatch({
-					type: constants.UPLOAD_BACKGROUND_PIC,
-					payload: body
+					payload: body,
+					type: constants.UPLOAD_BACKGROUND_PIC
 				})
 			}
 		)

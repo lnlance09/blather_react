@@ -15,9 +15,9 @@ import {
 	Segment
 } from "semantic-ui-react"
 import ImagePic from "images/images/image-square.png"
-import FeedComponent from "components/feed/v1/"
-import PageFooter from "components/footer/v1/"
-import PageHeader from "components/header/v1/"
+import FeedComponent from "components/secondary/feed/v1/"
+import PageFooter from "components/primary/footer/v1/"
+import PageHeader from "components/secondary/header/v1/"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import store from "store"

@@ -11,7 +11,7 @@ import {
 	setPatreonUsername,
 	togglePatreonLoading,
 	twitterRequestToken
-} from "components/authentication/v1/actions"
+} from "components/secondary/authentication/v1/actions"
 import { Provider, connect } from "react-redux"
 import { Redirect } from "react-router-dom"
 import {
@@ -26,8 +26,8 @@ import {
 	Segment
 } from "semantic-ui-react"
 import Moment from "react-moment"
-import PageFooter from "components/footer/v1/"
-import PageHeader from "components/header/v1/"
+import PageFooter from "components/primary/footer/v1/"
+import PageHeader from "components/secondary/header/v1/"
 import PropTypes from "prop-types"
 import qs from "query-string"
 import React, { Component } from "react"
@@ -75,13 +75,6 @@ class SettingsPage extends Component {
 			password: "",
 			patreonUsername: this.props.data.patreonUsername
 		}
-
-		this.onChangeConfirmPassword = this.onChangeConfirmPassword.bind(this)
-		this.onChangeNewPassword = this.onChangeNewPassword.bind(this)
-		this.onChangePassword = this.onChangePassword.bind(this)
-		this.onChangePatroenUsername = this.onChangePatroenUsername.bind(this)
-		this.redirectToUrl = this.redirectToUrl.bind(this)
-		this.setPassword = this.setPassword.bind(this)
 	}
 
 	componentDidUpdate(prevProps) {
@@ -135,7 +128,7 @@ class SettingsPage extends Component {
 		}
 	}
 
-	setPassword(e) {
+	setPassword = e => {
 		e.preventDefault()
 		this.setState({ loading: true })
 		this.props.changePassword({

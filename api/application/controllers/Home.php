@@ -7,36 +7,23 @@ class Home extends CI_Controller {
 
 		$this->baseUrl = $this->config->base_url();
 
+		$this->load->helper('common');
+		$this->load->helper('validation');
+
 		$this->load->model('FallaciesModel', 'fallacies');
 		$this->load->model('YouTubeModel', 'youtube');
 		$this->load->model('TagsModel', 'tags');
 		$this->load->model('UsersModel', 'users');
 	}
 
-	public function index() {
-
-	}
-
 	public function createArchive() {
 		$url = $this->input->post('url');
-		if (empty($url)) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'You must include a URL',
-			]);
-			exit;
-		}
 
 		$parse = parseUrl($url);
-		if (!$parse) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'This URL cannot be parsed',
-			]);
-			exit;
-		}
+		validateIsTrue($parse, 'This URL cannot be parsed', 100, 401, $this->output);
 
 		$code = createArchive($url);
+
 		echo json_encode([
 			'code' => $code,
 			'error' => $code ? false : true

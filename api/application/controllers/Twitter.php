@@ -5,7 +5,9 @@ class Twitter extends CI_Controller {
 	public function __construct() {
 		parent:: __construct();
 
-		$this->load->helper('common_helper');
+		$this->load->helper('common');
+		$this->load->helper('validation');
+
 		$this->load->model('TwitterModel', 'twitter');
 		$this->load->model('UsersModel', 'users');
 		$this->load->model('YouTubeModel', 'youtube');
@@ -81,13 +83,7 @@ class Twitter extends CI_Controller {
 					'verification_code' => null
 				]);
 
-				if ($register['error']) {
-					$this->output->set_status_header(401);
-					echo json_encode([
-						'error' => $register['msg']
-					]);
-					exit;
-				}
+				validateIsFalse($register['error'], $register['msg'], 100, 401, $this->output);
 
 				$date_created = $register['user']['dateCreated'];
 				$img = $s3Link;
@@ -144,15 +140,10 @@ class Twitter extends CI_Controller {
 	public function nextTweetsPage() {
 		$id = $this->input->post('id');
 		$since = $this->input->post('since');
-
 		$user = $this->user;
-		if (!($user ? $user->linkedTwitter : false)) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'You must link your twitter account'
-			]);
-			exit;
-		}
+
+		$linkedTwitter = $user ? $user->linkedTwitter : false;
+		validateIsTrue($linkedTwitter, 'You must link your twitter account', 100, 401, $this->output);
 
 		$token = $user->twitterAccessToken;
 		$secret = $user->twitterAccessSecret;
@@ -172,18 +163,15 @@ class Twitter extends CI_Controller {
 
 	public function remove() {
 		$user = $this->user;
-		if (!($user ? $user->linkedTwitter : false)) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'You must link your twitter account'
-			]);
-			exit;
-		}
+
+		$linkedTwitter = $user ? $user->linkedTwitter : false;
+		validateIsTrue($linkedTwitter, 'You must link your twitter account', 100, 401, $this->output);
 
 		$this->users->updateUser($user->id, [
 			'linked_twitter' => 0
 		]);
 		$token = $this->twitter->getRequestToken();
+
 		echo json_encode([
 			'error' => false,
 			'twitterAccessSecret' => $token['oauth_token_secret'],
@@ -194,13 +182,8 @@ class Twitter extends CI_Controller {
 
 	public function requestToken() {
 		$token = $this->twitter->getRequestToken();
-		if (!$token) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'Cannot generate token'
-			]);
-			exit;
-		}
+
+		validateEmptyField($token, 'Cannot generate token', 100, 401, $this->output);
 
 		echo json_encode([
 			'error' => false,
@@ -211,17 +194,13 @@ class Twitter extends CI_Controller {
 
 	public function tweet() {
 		$id = $this->input->get('id');
-		if (!$id) {
-			$this->output->set_status_header(404);
-			echo json_encode([
-				'error' => 'This tweet does not exist'
-			]);
-			exit;
-		}
+		$user = $this->user;
 
-		$auth = $this->user ? $this->user->linkedTwitter : false;
-		$token = $auth ? $this->user->twitterAccessToken : null;
-		$secret = $auth ? $this->user->twitterAccessSecret : null;
+		validateEmptyField($id, 'This tweet does not exist', 100, 404, $this->output);
+
+		$auth = $user ? $user->linkedTwitter : false;
+		$token = $auth ? $user->twitterAccessToken : null;
+		$secret = $auth ? $user->twitterAccessSecret : null;
 
 		// See if the tweet exists in the DB first since it may have been deleted
 		$tweet = $this->twitter->getTweetExtended($id, false, $token, $secret);
@@ -232,10 +211,10 @@ class Twitter extends CI_Controller {
 		}
 
 		$archive = false;
-		if (!$tweet['error'] && $this->user) {
+		if (!$tweet['error'] && $user) {
 			$archive = $this->users->getArchivedLinks([
 				'object_id' => $id,
-				'user_id' => $this->user->id
+				'user_id' => $user->id
 			]);
 		}
 
@@ -252,20 +231,14 @@ class Twitter extends CI_Controller {
 
 	public function tweetFromExtension() {
 		$id = $this->input->get('id');
+		$user = $this->user;
 
-		if (!$id) {
-			$this->output->set_status_header(404);
-			echo json_encode([
-				'error' => 'This tweet does not exist'
-			]);
-			exit;
-		}
+		validateEmptyField($id, 'This tweet does not exist', 100, 404, $this->output);
 
-		$auth = $this->user ? $this->user->linkedTwitter : false;
-
+		$auth = $user ? $user->linkedTwitter : false;
 		if ($auth) {
-			$token = $auth ? $this->user->twitterAccessToken : null;
-			$secret = $auth ? $this->user->twitterAccessSecret : null;
+			$token = $auth ? $user->twitterAccessToken : null;
+			$secret = $auth ? $user->twitterAccessSecret : null;
 		} else {
 			$tokens = $this->users->getDefaultTwitterTokens();
 			$token = $tokens->twitter_access_token;

@@ -17,8 +17,8 @@ import {
 	Transition
 } from "semantic-ui-react"
 import Marked from "marked"
-import PageFooter from "components/footer/v1/"
-import PageHeader from "components/header/v1/"
+import PageFooter from "components/primary/footer/v1/"
+import PageHeader from "components/secondary/header/v1/"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import store from "store"
@@ -26,9 +26,11 @@ import store from "store"
 class CreateDiscussionPage extends Component {
 	constructor(props) {
 		super(props)
+
 		const currentState = store.getState()
 		const bearer = currentState.user.bearer
 		const authenticated = currentState.user.authenticated
+
 		this.state = {
 			authenticated,
 			bearer,
@@ -59,14 +61,6 @@ class CreateDiscussionPage extends Component {
 			smartypants: false,
 			xhtml: false
 		})
-
-		this.onChangeDescription = this.onChangeDescription.bind(this)
-		this.onChangeExtra = this.onChangeExtra.bind(this)
-		this.onChangeTitle = this.onChangeTitle.bind(this)
-		this.submitDiscussion = this.submitDiscussion.bind(this)
-		this.handleAddition = this.handleAddition.bind(this)
-		this.handleChange = this.handleChange.bind(this)
-		this.togglePreview = this.togglePreview.bind(this)
 	}
 
 	componentDidMount() {
@@ -93,12 +87,16 @@ class CreateDiscussionPage extends Component {
 		this.setState({
 			options: [{ text: value, value }, ...this.state.options]
 		})
+
 	handleChange = (e, { value }) => this.setState({ tags: value })
+
 	onChangeDescription = (e, { value }) => this.setState({ description: value })
+
 	onChangeExtra = (e, { value }) => this.setState({ extra: value })
+
 	onChangeTitle = (e, { value }) => this.setState({ title: value })
 
-	submitDiscussion(e) {
+	submitDiscussion = e => {
 		this.props.submitDiscussion({
 			bearer: this.state.bearer,
 			description: this.state.description,

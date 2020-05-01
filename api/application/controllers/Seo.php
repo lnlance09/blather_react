@@ -7,6 +7,9 @@ class Seo extends CI_Controller {
 
 		$this->base_url = $this->config->base_url();
 
+		$this->load->helper('common');
+		$this->load->helper('validation');
+
 		$this->load->model('DiscussionsModel', 'discussions');
 		$this->load->model('FallaciesModel', 'fallacies');
 		$this->load->model('TagsModel', 'tags');

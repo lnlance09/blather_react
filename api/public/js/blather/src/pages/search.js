@@ -3,18 +3,19 @@ import { setValue } from "redux/actions/search"
 import { connect, Provider } from "react-redux"
 import { DebounceInput } from "react-debounce-input"
 import { Accordion, Container, Form, Grid, Icon, Menu, Responsive } from "semantic-ui-react"
-import PageFooter from "components/footer/v1/"
-import PageHeader from "components/header/v1/"
+import PageFooter from "components/primary/footer/v1/"
+import PageHeader from "components/secondary/header/v1/"
 import PropTypes from "prop-types"
 import qs from "query-string"
 import rawFallacies from "fallacies.json"
 import React, { Component } from "react"
-import SearchResults from "components/searchResults/v1/"
+import SearchResults from "components/secondary/searchResults/v1/"
 import store from "store"
 
 class SearchPage extends Component {
 	constructor(props) {
 		super(props)
+
 		const query = qs.parse(this.props.location.search)
 		const type = this.props.match.params.type
 		const currentState = store.getState()

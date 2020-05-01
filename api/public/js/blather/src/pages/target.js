@@ -23,12 +23,12 @@ import {
 	Placeholder
 } from "semantic-ui-react"
 import BrainPic from "images/avatar/brain-fart.gif"
-import FallaciesList from "components/fallaciesList/v1/"
+import FallaciesList from "components/secondary/lists/fallaciesList/v1/"
 import ImagePic from "images/images/image-square.png"
-import LazyLoad from "components/lazyLoad/v1/"
+import LazyLoad from "components/primary/lazyLoad/v1/"
 import Marked from "marked"
-import PageFooter from "components/footer/v1/"
-import PageHeader from "components/header/v1/"
+import PageFooter from "components/primary/footer/v1/"
+import PageHeader from "components/secondary/header/v1/"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import store from "store"
@@ -77,13 +77,6 @@ class Target extends Component {
 			smartypants: false,
 			xhtml: false
 		})
-
-		this.changeSincerityExplanation = this.changeSincerityExplanation.bind(this)
-		this.changeSummary = this.changeSummary.bind(this)
-		this.changeTuringExplanation = this.changeTuringExplanation.bind(this)
-		this.handleSincerityChange = this.handleSincerityChange.bind(this)
-		this.handleTuringChange = this.handleTuringChange.bind(this)
-		this.submitForm = this.submitForm.bind(this)
 	}
 
 	changeSincerityExplanation = (e, { value }) => this.props.changeSincerityExplanation({ value })

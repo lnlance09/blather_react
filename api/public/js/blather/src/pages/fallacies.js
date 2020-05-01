@@ -2,11 +2,11 @@ import { DisplayMetaTags } from "utils/metaFunctions"
 import { Provider } from "react-redux"
 import { Container, Divider, Dropdown, Header, Segment } from "semantic-ui-react"
 import fallacies from "fallacies.json"
-import FallaciesList from "components/fallaciesList/v1/"
+import FallaciesList from "components/secondary/lists/fallaciesList/v1/"
 import fallacyOptions from "fallacyOptions.json"
-import FallacyRef from "components/fallacyRef/v1/"
-import PageFooter from "components/footer/v1/"
-import PageHeader from "components/header/v1/"
+import FallacyRef from "components/primary/fallacyRef/v1/"
+import PageFooter from "components/primary/footer/v1/"
+import PageHeader from "components/secondary/header/v1/"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import store from "store"
@@ -25,8 +25,6 @@ class Fallacies extends Component {
 			activeItemName,
 			selected: activeItem !== null
 		}
-
-		this.onChangeFallacy = this.onChangeFallacy.bind(this)
 	}
 
 	componentDidUpdate(prevProps) {

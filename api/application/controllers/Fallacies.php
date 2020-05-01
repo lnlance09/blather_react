@@ -9,27 +9,32 @@ class Fallacies extends CI_Controller {
 		$this->imgUrl = $this->baseUrl.'api/public/img/';
 		$this->screenshotPath = BASE_PATH.'public/img/screenshots/';
 
+		$this->load->helper('common');
+		$this->load->helper('validation');
+
+		$this->load->library('aws');
+
 		$this->load->model('FallaciesModel', 'fallacies');
 		$this->load->model('MediaModel', 'media');
 		$this->load->model('TagsModel', 'tags');
 		$this->load->model('TwitterModel', 'twitter');
 		$this->load->model('UsersModel', 'users');
 		$this->load->model('YouTubeModel', 'youtube');
-
-		$this->load->helper('common_helper');
 	}
 
 	public function index() {
 		$id = $this->input->get('id');
-		$fallacy = $this->fallacies->getFallacy($id);
-
 		$user = $this->user;
+
+		$fallacy = $this->fallacies->getFallacy($id);
+		validateEmptyField($fallacy, 'This fallacy does not exist', 100, 404, $this->output);
+
 		$archive = false;
 		$contradiction_archive = false;
 		$similar_count = 0;
 		$similar_search_type = 'fallacy_type';
 
-		if ($user && $fallacy) {
+		if ($user) {
 			if ($fallacy['ref_id'] == 1) {
 				$archive = $this->users->getArchivedLinks([
 					'object_id' => $fallacy['media_id'],
@@ -45,43 +50,37 @@ class Fallacies extends CI_Controller {
 			}
 		}
 
-		if ($fallacy) {
-			$similar_search_type = 'page';
+		$similar_search_type = 'page';
+		$similar_count = $this->fallacies->search([
+			'assigned_by' => null,
+			'assigned_to' => $fallacy['page_id'],
+			'comment_id' => null,
+			'fallacies' => null,
+			'fallacy_id' => null,
+			'network' => null,
+			'object_id' => null,
+			'page' => null,
+			'q' => null,
+			'tag_id' => null
+		], true);
+
+		if ($similar_count < 6) {
+			$similar_search_type = 'fallacy_type';
 			$similar_count = $this->fallacies->search([
 				'assigned_by' => null,
-				'assigned_to' => $fallacy['page_id'],
+				'assigned_to' => null,
 				'comment_id' => null,
 				'fallacies' => null,
-				'fallacy_id' => null,
+				'fallacy_id' => $fallacy['fallacy_id'],
 				'network' => null,
 				'object_id' => null,
 				'page' => null,
 				'q' => null,
 				'tag_id' => null
 			], true);
-
-			if ($similar_count < 6) {
-				$similar_search_type = 'fallacy_type';
-				$similar_count = $this->fallacies->search([
-					'assigned_by' => null,
-					'assigned_to' => null,
-					'comment_id' => null,
-					'fallacies' => null,
-					'fallacy_id' => $fallacy['fallacy_id'],
-					'network' => null,
-					'object_id' => null,
-					'page' => null,
-					'q' => null,
-					'tag_id' => null
-				], true);
-			}
-
-			$this->fallacies->updateViewCount($id);
 		}
 
-		if (!$fallacy) {
-			$this->output->set_status_header(404);
-		}
+		$this->fallacies->updateViewCount($id);
 
 		echo json_encode([
 			'archive' => $archive,
@@ -109,41 +108,13 @@ class Fallacies extends CI_Controller {
 		$user = $this->user;
 		$userId = $user ? $user->id : 6;
 
-		if (!$this->fallacies->fallacyTypeExists($fallacyId)) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'code' => 102,
-				'error' => 'You must specify which kind of fallacy this is'
-			]);
-			exit;
-		}
+		$fallacyTypeExists = $this->fallacies->fallacyTypeExists($fallacyId);
+		$pageExists = $this->fallacies->pageExists($pageId);
 
-		if (empty($title)) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'code' => 103,
-				'error' => 'You must provide a title'
-			]);
-			exit;
-		}
-
-		if (empty($explanation)) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'code' => 104,
-				'error' => 'You must explain why this is a fallacy'
-			]);
-			exit;
-		}
-
-		if (!$this->fallacies->pageExists($pageId)) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'code' => 104,
-				'error' => 'You must assign this to someone'
-			]);
-			exit;
-		}
+		validateIsTrue($fallacyTypeExists, 'You must specify which kind of fallacy this is', 102, 401, $this->output);
+		validateEmptyField($title, 'You must provide a title', 103, 401, $this->output);
+		validateEmptyField($explanation, 'You must explain why this is a fallacy', 104, 401, $this->output);
+		validateIsTrue($pageExists, 'You must assign this to someone', 104, 401, $this->output);
 
 		if ($user) {
 			switch ($network) {
@@ -239,7 +210,9 @@ class Fallacies extends CI_Controller {
 
 	public function getCommentCount() {
 		$id = $this->input->get('id');
+
 		$count = $this->fallacies->getComments($id, null, true);
+
 		echo json_encode([
 			'count' => (int)$count
 		]);
@@ -251,6 +224,7 @@ class Fallacies extends CI_Controller {
 
 		$count = $this->fallacies->getComments($id, null, true);
 		$comments = $this->fallacies->getComments($id, $page);
+
 		$per_page = 10;
 		$pages = ceil($count/$per_page);
 		$has_more = ($page+1) < $pages ? true : false;
@@ -267,7 +241,9 @@ class Fallacies extends CI_Controller {
 
 	public function getConversation() {
 		$id = $this->input->get('id');
+
 		$convo = $this->fallacies->getConversation($id);
+
 		echo json_encode([
 			'conversation' => $convo
 		]);
@@ -325,28 +301,18 @@ class Fallacies extends CI_Controller {
 
 	public function getTargets() {
 		$id = (int)$this->input->get('id');
-		$include_data = $this->input->get('include_data');
-
-		if (empty($id)) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'You need to specify a user'
-			]);
-			exit;
-		}
+		validateEmptyField($id, 'You need to specify a user', 100, 401, $this->output);
 
 		$targets = $this->fallacies->getTargetsData($id);
+
 		echo json_encode([
 			'targets' => $targets
 		]);
 	}
 
-	public function insertReference() {
-		$this->fallacies->insertFallacyRefs();
-	}
-
 	public function mostFallacious() {
 		$results = $this->fallacies->getMostFallacious();
+
 		echo json_encode([
 			'results' => $results
 		]);
@@ -354,21 +320,15 @@ class Fallacies extends CI_Controller {
 
 	public function parseUrl() {
 		$url = $this->input->post('url');
+		$user = $this->user;
 
 		$parse = false;
 		if (filter_var($url, FILTER_VALIDATE_URL)) {
 			$parse = parseUrl(rawurldecode($url));
 		}
 
-		if (!$parse) {
-			$this->output->set_status_header(400);
-			echo json_encode([
-				'error' => 'Please link to a Tweet or a comment or a video on YouTube'
-			]);
-			exit;
-		}
+		validateIsTrue($parse, 'Please link to a Tweet or a comment or a video on YouTube', 100, 400, $this->output);
 
-		$user = $this->user;
 		$network = $parse['network'];
 
 		switch ($network) {
@@ -470,23 +430,10 @@ class Fallacies extends CI_Controller {
 	public function postComment() {
 		$id = $this->input->post('id');
 		$msg = $this->input->post('message');
-
 		$user = $this->user;
-		if (!$user) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'You must be logged in'
-			]);
-			exit;
-		}
 
-		if (empty($msg)) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'Your comment cannot be blank'
-			]);
-			exit;
-		}
+		validateLoggedIn($user, 'You must be logged in', 100, 401, $this->output);
+		validateEmptyField($msg, 'Your comment cannot be blank', 100, 401, $this->output);
 
 		$this->fallacies->createComment([
 			'created_at' => date('Y-m-d H:i:s'),
@@ -510,36 +457,14 @@ class Fallacies extends CI_Controller {
 	public function removeTag() {
 		$id = $this->input->post('id');
 		$tagId = $this->input->post('tagId');
-
-		if (!$this->user) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'You must be logged in'
-			]);
-			exit;
-		}
-
-		if (empty($tagId)) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'You must include a tag'
-			]);
-		}
+		$user = $this->user;
 
 		$fallacy = $this->fallacies->getFallacy($id);
-		if (!$fallacy) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'This fallacy does not exist'
-			]);
-		}
 
-		if ($fallacy['assigned_by'] !== $this->user->id) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'You do not have permission to edit this fallacy'
-			]);
-		}
+		validateLoggedIn($user, 'You must be logged in', 100, 401, $this->output);
+		validateEmptyField($tagId, 'You must include a tag', 100, 401, $this->output);
+		validateIsTrue($fallacy, 'This fallacy does not exist', 100, 401, $this->output);
+		validateItemsMatch($fallacy['assigned_by'], $user->id, 'You do not have permission to edit this fallacy', 100, 401, $this->output);
 
 		$this->tags->removeTag($id, $tagId, 'fallacy');
 		echo json_encode([
@@ -550,34 +475,14 @@ class Fallacies extends CI_Controller {
 	public function retractLogic() {
 		$id = $this->input->post('id');
 		$type = $this->input->post('type');
-
 		$user = $this->user;
-		if (!$user) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'You must be logged in'
-			]);
-			exit;
-		}
 
-		if (empty($id)) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'You must include a fallacy ID'
-			]);
-			exit;
-		}
+		validateLoggedIn($user, 'You must be logged in', 100, 401, $this->output);
+		validateEmptyField($id, 'You must include a fallacy ID', 100, 401, $this->output);
 
-		$page_id = $type == 'twitter' ? $user->twitterId : $user->youtubeId;
-		$can_retract = $this->fallacies->canRetract($id, $page_id);
-
-		if (!$can_retract) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'You do not have permission to retract this logic'
-			]);
-			exit;
-		}
+		$pageId = $type == 'twitter' ? $user->twitterId : $user->youtubeId;
+		$canRetract = $this->fallacies->canRetract($id, $pageId);
+		validateIsTrue($canRetract, 'You do not have permission to retract this logic', 100, 401, $this->output);
 
 		$this->fallacies->update($id, [
 			'retracted' => 1
@@ -589,21 +494,15 @@ class Fallacies extends CI_Controller {
 	}
 
 	public function saveScreenshot() {
-		header("Access-Control-Allow-Origin: *");
-		header("Access-Control-Allow-Headers: origin, content-type, accept, authorization");
-		header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS, HEAD");
-
-		$this->load->library('aws');
-
 		$id = $this->input->post('id');
 		$img = $this->input->post('img');
 		$slug = $this->input->post('slug');
 
-		$img_file = $slug.'.png';
-		$key = 'screenshots/'.$img_file;
+		$imgFile = $slug.'.png';
+		$key = 'screenshots/'.$imgFile;
 
-		$this->media->createPicFromData($img_file, $this->screenshotPath, $img);
-		$this->aws->upload($key, $this->screenshotPath.$img_file);
+		$this->media->createPicFromData($imgFile, $this->screenshotPath, $img);
+		$this->aws->upload($key, $this->screenshotPath.$imgFile);
 		$s3Link = S3_PATH.$key;
 
 		$this->fallacies->update($id, [
@@ -622,6 +521,7 @@ class Fallacies extends CI_Controller {
 	public function search() {
 		$shuffle = (int)$this->input->get('shuffle');
 		$page = $this->input->get('page');
+
 		$results = null;
 		$limit = 10;
 		$start = $page*$limit;
@@ -663,77 +563,37 @@ class Fallacies extends CI_Controller {
 		$id = $this->input->post('id');
 		$msg = $this->input->post('msg');
 		$status = (int)$this->input->post('status');
-
-		if (!$this->user) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'You must be logged in'
-			]);
-			exit;
-		}
-
-		if (!in_array($status, [1,2,3])) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'That status is not supported'
-			]);
-			exit;
-		}
+		$user = $this->user;
 
 		$fallacy = $this->fallacies->getFallacy($id);
-		if (!$fallacy) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'This fallacy does not exist'
-			]);
-			exit;
-		}
 
-		if ((int)$fallacy['status'] === 2 || (int)$fallacy['status'] === 3) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'This conversation has ended'
-			]);
-			exit;
-		}
+		validateLoggedIn($user, 'You must be logged in', 100, 401, $this->output);
+		validateInArray($status, [1,2,3], 'That status is not supported', 100, 401, $this->output);
+		validateEmptyField($fallacy, 'This fallacy does not exist', 100, 401, $this->output);
+		validateItemsDifferent($fallacy['status'], 2, 'This conversation has ended', 100, 401, $this->output);
+		validateItemsDifferent($fallacy['status'], 3, 'This conversation has ended', 100, 401, $this->output);
 
 		$lastPost = $this->fallacies->lastConvoExchange($id);
-		if (!$lastPost && (int)$fallacy['assigned_by'] === $this->user->id) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'You cannot have a conversation with yourself'
-			]);
-			exit;
+		if (!$lastPost) {
+			validateItemsDifferent($fallacy['assigned_by'], $user->id, 'You cannot have a conversation with yourself', 100, 401, $this->output);
 		}
 
-		if ((int)$lastPost['user_id'] === $this->user->id) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'You have to wait your turn'
-			]);
-			exit;
-		}
+		validateItemsDifferent($lastPost['user_id'], $user->id, 'You have to wait your turn', 100, 401, $this->output);
+		validateEmptyField($msg, 'Your response cannot be blank', 100, 401, $this->output);
 
-		if (empty($msg)) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'Your response cannot be blank'
-			]);
-			exit;
-		}
+		$acceptedBy = (int)$fallacy['status'] === 0 ? $user->id : null;
+		$this->fallacies->updateStatus($id, $status, $acceptedBy);
+		$this->fallacies->submitConversation($id, $user->id, $msg);
 
-		$accepted_by = (int)$fallacy['status'] === 0 ? $this->user->id : null;
-		$this->fallacies->updateStatus($id, $status, $accepted_by);
-		$this->fallacies->submitConversation($id, $this->user->id, $msg);
 		echo json_encode([
 			'conversation' => [
 				[
 					'date_created' => date('Y-m-d H:i:s'),
-					'img' => $this->user->img ? $this->imgUrl.'profile_pics/'.$this->user->img : null,
+					'img' => $user->img ? $this->imgUrl.'profile_pics/'.$user->img : null,
 					'message' => $msg,
-					'name' => $this->user->name,
+					'name' => $user->name,
 					'status' => 1,
-					'user_id' => $this->user->id
+					'user_id' => $user->id
 				]
 			],
 			'error' => false
@@ -746,15 +606,10 @@ class Fallacies extends CI_Controller {
 		$type = $this->input->get('type');
 		$network = $this->input->get('network');
 
-		if (empty($id)) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'You need to specify a page'
-			]);
-			exit;
-		}
+		validateEmptyField($id, 'You need to specify a page', 100, 401, $this->output);
 
 		$fallacies = $this->fallacies->getUniqueFallacies($id, $assigned_by, $type, $network);
+
 		echo json_encode([
 			'fallacies' => $fallacies
 		]);
@@ -770,31 +625,15 @@ class Fallacies extends CI_Controller {
 		$startTime = $this->input->post('startTime');
 		$tags = $this->input->post('tags');
 		$title = $this->input->post('title');
-
 		$user = $this->user;
-		if (!$user) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'You are not logged in'
-			]);
-			exit;
-		}
 
 		$fallacy = $this->fallacies->getFallacy($id);
-		if (!$fallacy) {
-			$this->output->set_status_header(404);
-			echo json_encode([
-				'error' => 'This fallacy does not exist'
-			]);
-			exit;
-		}
 
-		if ($fallacy['assigned_by'] !== $user->id && $fallacy['assigned_by'] != 6) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'You do not have permission to edit this fallacy'
-			]);
-			exit;
+		validateLoggedIn($user, 'You must be logged in', 100, 401, $this->output);
+		validateEmptyField($fallacy, 'This fallacy does not exist', 100, 404, $this->output);
+
+		if ($fallacy['assigned_by'] != 6) {
+			validateItemsMatch($fallacy['assigned_by'], $user->id, 'You do not have permission to edit this fallacy', 100, 401, $this->output);
 		}
 
 		$fallacyName = $this->fallacies->fallacyTypeExists($fallacyId);
@@ -847,31 +686,13 @@ class Fallacies extends CI_Controller {
 		$sincerityExplanation = $this->input->post('sincerityExplanation');
 		$turingTest = $this->input->post('turingTest');
 		$turingTestExplanation = $this->input->post('turingTestExplanation');
-
-		if (!$this->user) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'You are not logged in'
-			]);
-			exit;
-		}
+		$user = $this->user;
 
 		$review = $this->fallacies->getReview(null, null, $id, true);
-		if (empty($review)) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'This review does not exist'
-			]);
-			exit;
-		}
 
-		if ($review[0]['user_id'] != $this->user->id) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'You cannot edit this review'
-			]);
-			exit;
-		}
+		validateLoggedIn($user, 'You must be logged in', 100, 401, $this->output);
+		validateEmptyField($review, 'This review does not exist', 100, 401, $this->output);
+		validateItemsMatch($review[0]['user_id'], $user->id, 'You cannot edit this review', 100, 401, $this->output);
 
 		$params = [
 			'assigned_by' => $review[0]['user_id'],
@@ -886,13 +707,8 @@ class Fallacies extends CI_Controller {
 			'tag_id' => null
 		];
 		$count = $this->fallacies->search($params, true);
-		if ($count < 5) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'You must assign at least 5 fallacies first'
-			]);
-			exit;
-		}
+
+		validateGreaterThan($count, 5, 'You must assign at least 5 fallacies first', 100, 401, $this->output);
 
 		if (empty($sincerity) && $sincerity != '0') {
 			$sincerity = null;
@@ -910,16 +726,13 @@ class Fallacies extends CI_Controller {
 			'turing_test_explanation' => $turingTestExplanation
 		];
 		$this->fallacies->updateReview($id, $data);
+
 		echo json_encode([
 			'review' => $data
 		]);
 	}
 
 	public function uploadBackgroundPic() {
-		header("Access-Control-Allow-Origin: *");
-		header("Access-Control-Allow-Headers: x-requested-with, origin, content-type, accept, authorization, enctype");
-		header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS, HEAD");
-
 		$this->load->library('upload', [
 			'allowed_types' => 'jpg|jpeg|png',
 			'file_ext_tolower' => true,

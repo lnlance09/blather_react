@@ -218,6 +218,7 @@ class Aws {
 			'Bucket' => $bucket,
 			'Key' => $name
 		]);
+
 		return $result;
 	}
 

@@ -49,8 +49,8 @@ export const fetchHistory = ({ id }) => dispatch => {
 		},
 		function(err, response, body) {
 			dispatch({
-				type: constants.FETCH_TAG_HISTORY,
-				payload: body
+				payload: body,
+				type: constants.FETCH_TAG_HISTORY
 			})
 		}
 	)
@@ -67,8 +67,8 @@ export const fetchTaggedUsers = ({ id }) => dispatch => {
 		},
 		function(err, response, body) {
 			dispatch({
-				type: constants.FETCH_TAGGED_USERS,
-				payload: body
+				payload: body,
+				type: constants.FETCH_TAGGED_USERS
 			})
 		}
 	)
@@ -87,8 +87,8 @@ export const fetchTagInfo = ({ id }) => dispatch => {
 		},
 		function(err, response, body) {
 			dispatch({
-				type: constants.FETCH_TAG_INFO,
-				payload: body
+				payload: body,
+				type: constants.FETCH_TAG_INFO
 			})
 			dispatch(hideLoading())
 		}
@@ -106,8 +106,8 @@ export const getRelatedTags = ({ q }) => dispatch => {
 		},
 		function(err, response, body) {
 			dispatch({
-				type: constants.GET_RELATED_TAGS,
-				payload: body
+				payload: body,
+				type: constants.GET_RELATED_TAGS
 			})
 		}
 	)
@@ -127,8 +127,8 @@ export const toggleLoading = () => dispatch => {
 
 export const updateDescription = ({ description }) => dispatch => {
 	dispatch({
-		type: constants.UPDATE_TAG_DESCRIPTION,
-		payload: description
+		payload: description,
+		type: constants.UPDATE_TAG_DESCRIPTION
 	})
 }
 
@@ -147,8 +147,8 @@ export const updateTag = ({ bearer, description, id }) => dispatch => {
 		},
 		function(err, response, body) {
 			dispatch({
-				type: constants.UPDATE_TAG,
-				payload: body
+				payload: body,
+				type: constants.UPDATE_TAG
 			})
 		}
 	)

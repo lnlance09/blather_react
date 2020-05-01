@@ -16,8 +16,8 @@ export const createArchive = ({ bearer, url }) => dispatch => {
 		},
 		function(err, response, body) {
 			dispatch({
-				type: constants.CREATE_ARCHIVE,
-				payload: body
+				payload: body,
+				type: constants.CREATE_ARCHIVE
 			})
 		}
 	)
@@ -38,8 +38,8 @@ export const createCommentArchive = ({ bearer, commentId, id }) => dispatch => {
 		},
 		function(err, response, body) {
 			dispatch({
-				type: constants.CREATE_COMMENT_ARCHIVE,
-				payload: body
+				payload: body,
+				type: constants.CREATE_COMMENT_ARCHIVE
 			})
 		}
 	)
@@ -62,8 +62,8 @@ export const createVideoArchive = ({ bearer, description, endTime, id, startTime
 		},
 		function(err, response, body) {
 			dispatch({
-				type: constants.CREATE_VIDEO_ARCHIVE,
-				payload: body
+				payload: body,
+				type: constants.CREATE_VIDEO_ARCHIVE
 			})
 		}
 	)
@@ -81,8 +81,8 @@ export const downloadVideo = ({ audio, id }) => dispatch => {
 		},
 		function(err, response, body) {
 			dispatch({
-				type: constants.DOWNLOAD_VIDEO,
-				payload: body
+				payload: body,
+				type: constants.DOWNLOAD_VIDEO
 			})
 		}
 	)
@@ -106,8 +106,8 @@ export const fetchPostData = ({ a, bearer, url }) => dispatch => {
 
 			dispatch({
 				a,
-				type: constants.GET_POST_DATA,
-				payload: body
+				payload: body,
+				type: constants.GET_POST_DATA
 			})
 
 			dispatch(hideLoading())
@@ -131,8 +131,8 @@ export const fetchVideoComments = ({ bearer, id, nextPageToken, page }) => dispa
 		},
 		function(err, response, body) {
 			dispatch({
-				type: constants.FETCH_VIDEO_COMMENTS,
-				payload: body
+				payload: body,
+				type: constants.FETCH_VIDEO_COMMENTS
 			})
 		}
 	)

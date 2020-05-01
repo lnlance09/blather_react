@@ -17,14 +17,14 @@ import {
 	Segment,
 	TextArea
 } from "semantic-ui-react"
-import FallacyForm from "components/fallacyForm/v1/"
-import PageFooter from "components/footer/v1/"
-import PageHeader from "components/header/v1/"
+import FallacyForm from "components/secondary/fallacyForm/v1/"
+import PageFooter from "components/primary/footer/v1/"
+import PageHeader from "components/secondary/header/v1/"
 import queryString from "query-string"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import store from "store"
-import Tweet from "components/tweet/v1/"
+import Tweet from "components/primary/tweet/v1/"
 
 class Home extends Component {
 	constructor(props) {
@@ -52,9 +52,6 @@ class Home extends Component {
 			url,
 			user
 		}
-
-		this.handleHoverOn = this.handleHoverOn.bind(this)
-		this.onPaste = this.onPaste.bind(this)
 	}
 
 	componentDidMount() {

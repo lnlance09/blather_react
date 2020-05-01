@@ -31,18 +31,18 @@ import {
 	TextArea
 } from "semantic-ui-react"
 import Dropzone from "react-dropzone"
-import FallaciesList from "components/fallaciesList/v1/"
+import FallaciesList from "components/secondary/lists/fallaciesList/v1/"
 import ImageMasonry from "react-image-masonry"
 import ImagePic from "images/images/image-square.png"
 import Lightbox from "react-image-lightbox"
 import Marked from "marked"
-import LazyLoad from "components/lazyLoad/v1/"
-import PageFooter from "components/footer/v1/"
-import PageHeader from "components/header/v1/"
+import LazyLoad from "components/primary/lazyLoad/v1/"
+import PageFooter from "components/primary/footer/v1/"
+import PageHeader from "components/secondary/header/v1/"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import store from "store"
-import TitleHeader from "components/titleHeader/v1/"
+import TitleHeader from "components/primary/titleHeader/v1/"
 import TrumpImg from "images/trump-white.png"
 
 class Tag extends Component {
@@ -85,13 +85,6 @@ class Tag extends Component {
 			smartypants: false,
 			xhtml: false
 		})
-
-		this.onChangeDescription = this.onChangeDescription.bind(this)
-		this.onChangeRelatedSearchVal = this.onChangeRelatedSearchVal.bind(this)
-		this.onClickEdit = this.onClickEdit.bind(this)
-		this.onDrop = this.onDrop.bind(this)
-		this.setVersion = this.setVersion.bind(this)
-		this.updateTag = this.updateTag.bind(this)
 	}
 
 	componentDidMount() {

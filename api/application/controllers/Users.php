@@ -8,6 +8,9 @@ class Users extends CI_Controller {
 
 		$this->baseUrl = $this->config->base_url();
 
+		$this->load->helper('common');
+		$this->load->helper('validation');
+
 		$this->load->model('DiscussionsModel', 'discussions');
 		$this->load->model('FallaciesModel', 'fallacies');
 		$this->load->model('FacebookModel', 'fb');
@@ -20,55 +23,17 @@ class Users extends CI_Controller {
 		$currentPassword = $this->input->post('current_password');
 		$newPassword = $this->input->post('new_password');
 		$confirmPassword = $this->input->post('confirm_password');
+		$user = $this->user;
 
-		if (!$this->user) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'You must be logged in to change your password'
-			]);
-			exit;
-		}
-		
-		if (empty($currentPassword)) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'You must enter your current password'
-			]);
-			exit;
-		}
+		validateLoggedIn($user, 'You must be logged in to change your password', 100, 401, $this->output);
+		validateEmptyField($currentPassword, 'You must enter your current password', 100, 401, $this->output);
 
-		$exists = $this->users->getUserByCurrentPassword($this->user->id, $currentPassword);
-		if (!$exists) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'Your current password is incorrect'
-			]);
-			exit;
-		}
+		$exists = $this->users->getUserByCurrentPassword($user->id, $currentPassword);
+		validateIsTrue($exists, 'Your current password is incorrect', 100, 401, $this->output);
 
-		if (strlen($newPassword) < 7) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'Your password must be at least 7 characters long'
-			]);
-			exit;
-		}
-
-		if ($newPassword !== $confirmPassword) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'Your passwords do not match'
-			]);
-			exit;
-		}
-
-		if ($newPassword === $currentPassword) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'Your password must be different than your old one'
-			]);
-			exit;
-		}
+		validatePassword($newPassword, 'Your password must be at least 7 characters long', 100, 401, $this->output);
+		validateItemsMatch($newPassword, $confirmPassword, 'Your passwords do not match', 100, 401, $this->output);
+		validateItemsDifferent($newPassword, $currentPassword, 'Your password must be different than your old one', 100, 401, $this->output);
 
 		$this->users->updateUser($this->user->id, [
 			'password' => sha1($newPassword),
@@ -81,13 +46,8 @@ class Users extends CI_Controller {
 
 	public function changeProfilePic() {
 		$user = $this->user;
-		if (!$user) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'You must be logged in to change your picture'
-			]);
-			exit;
-		}
+
+		validateLoggedIn($user, 'You must be logged in to change your picture', 100, 401, $this->output);
 
 		$this->load->library('upload', [
 			'allowed_types' => 'jpg|jpeg|png',
@@ -153,26 +113,14 @@ class Users extends CI_Controller {
 
 	public function createArchive() {
 		$url = $this->input->post('url');
-		if (empty($url)) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'You must include a URL',
-			]);
-			exit;
-		}
+		$user = $this->user;
 
 		$parse = parseUrl($url);
-		if (!$parse) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'This URL cannot be parsed',
-			]);
-			exit;
-		}
+		validateEmptyField($parse, 'This URL cannot be parsed', 100, 401, $this->output);
 
-		$user = $this->user;
 		$code = createArchive($url);
 		$data = [];
+
 		if ($code && $user) {
 			$page = null;
 			$network = $parse['network'];
@@ -180,13 +128,7 @@ class Users extends CI_Controller {
 				$page = $this->twitter->getPageInfoFromDB($parse['username']);
 			}
 
-			if (!$page) {
-				$this->output->set_status_header(401);
-				echo json_encode([
-					'error' => 'This page does not exist',
-				]);
-				exit;
-			}
+			validateEmptyField($page, 'This page does not exist', 100, 401, $this->output);
 
 			$data = [
 				'code' => $code,
@@ -198,7 +140,7 @@ class Users extends CI_Controller {
 				'type' => 'tweet',
 				'user_id' => $this->user->id
 			];
-			$archive = $this->users->createArchive($data);
+			$this->users->createArchive($data);
 		}
 
 		echo json_encode([
@@ -218,6 +160,7 @@ class Users extends CI_Controller {
 			'q' => $q,
 			'user_id' => $id
 		];
+
 		if ($pageId) {
 			$where['p.id'] = $pageId;
 		}
@@ -240,16 +183,10 @@ class Users extends CI_Controller {
 
 	public function getInfo() {
 		$username = $this->input->get('username');
+
 		$select = "bio, date_created, email_verified AS emailVerified, u.id AS id, CONCAT('".S3_PATH."', u.img) AS img, linked_twitter AS linkedTwitter, linked_youtube AS linkedYoutube, patreon_username AS patreonUsername, name, username";
 		$info = $this->users->getUserInfo($username, $select);
-
-		if (!$info) {
-			$this->output->set_status_header(404);
-			echo json_encode([
-				'error' => 'That user does not exist'
-			]);
-			exit;
-		}
+		validateEmptyField($info, 'That user does not exist', 100, 404, $this->output);
 
 		if (empty($info['bio'])) {
 			$info['bio'] = $info['name']." does not have a bio yet";
@@ -282,30 +219,11 @@ class Users extends CI_Controller {
 		$email = $this->input->post('email');
 		$password = $this->input->post('password');
 
-		if (empty($email)) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'Username or email is required'
-			]);
-			exit;
-		}
-
-		if (empty($password)) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'Password is required'
-			]);
-			exit;
-		}
+		validateEmptyField($email, 'Username or email is required', 100, 401, $this->output);
+		validateEmptyField($password, 'Password is required', 100, 401, $this->output);
 
 		$login = $this->users->login($email, $password);
-		if (!$login) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'Incorrect login credentials'
-			]);
-			exit;
-		}
+		validateEmptyField($login, 'Incorrect login credentials', 100, 401, $this->output);
 
 		$user = $login[0];
 		$user['emailVerified'] = $user['emailVerified'] === '1';
@@ -337,10 +255,12 @@ class Users extends CI_Controller {
 	public function lookUp() {
 		$id = $this->input->get('id');
 		$type = $this->input->get('type');
+
 		$user = $this->users->userLookUp([
 			'id' => $id,
 			'type' => $type
 		]);
+
 		echo json_encode([
 			'exists' => $user ? true : false
 		]);
@@ -355,100 +275,30 @@ class Users extends CI_Controller {
 			'verification_code' => generateAlphaNumString(10)
 		];
 
-		if (empty($params['name'])) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'A name is required'
-			]);
-			exit;
-		}
-
-		if (preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $params['name'])) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'Your name cannot contain special characters'
-			]);
-			exit;
-		}
-
-		if (!filter_var($params['email'], FILTER_VALIDATE_EMAIL)) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'A valid email is required'
-			]);
-			exit;
-		}
-
-		if (empty($params['username'])) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'A username is required'
-			]);
-			exit;
-		}
-
-		if (preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $params['username'])
-		|| strpos($params['username'], " ")) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'Your username cannot contain special characters or spaces'
-			]);
-			exit;
-		}
-
-		if (strlen($params['username']) > 18) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'Your username is too long'
-			]);
-			exit;
-		}
-
-		if (strlen($params['password']) < 7) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'Your password is not long enough'
-			]);
-			exit;
-		}
+		validateEmptyField($params['name'], 'A name is required', 100, 401, $this->output);
+		validateName($params['name'], 'Your name cannot contain special characters', 100, 401, $this->output);
+		validateEmail($params['email'], 'A valid email is required', 100, 401, $this->output);
+		validateEmptyField($params['username'], 'A username is required', 100, 401, $this->output);
+		validateUsername($params['username'], 'Your username cannot contain special characters or spaces', 100, 401, $this->output);
+		validatePassword($params['password'], 'Your password is not long enough', 100, 401, $this->output);
 
 		$register = $this->users->register($params);
-		if (!$register) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'Something went wrong. Please try again.'
-			]);
-			exit;
-		}
+		validateEmptyField($register, 'Something went wrong. Please try again.', 100, 401, $this->output);
+		validateIsFalse($register['error'], $register['msg'], 100, 401, $this->output);
 
-		if ($register['error']) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => $register['msg']
-			]);
-			exit;
-		}
-		
+		$subject = 'Please verify your email';
 		$msg = "Hi ".$params['name'].',<br><br>Your verification code is '.$params['verification_code'];
-		$this->load->library('My_PHPMailer');
-		$mail = new PHPMailer();
-		$mail->IsSMTP();
-		$mail->SMTPAuth = true;
-		$mail->SMTPSecure = 'ssl';
-		$mail->Host = 'smtpout.secureserver.net';
-		$mail->Port = 465;
-		$mail->Username = 'admin@blather.io';
-		$mail->Password = 'Jl8RdSLz7DF8:PJ';
-		$mail->SetFrom('admin@blather.io', 'Blather');
-		$mail->Subject = 'Please verify your email';
-		$mail->Body = $msg;
-		$mail->AltBody = $msg;
-		$mail->AddAddress($params['email'], $params['name']);
-		
-		if ($mail->Send()) {
-			echo json_encode($register);
-			exit;
-		}
+		$from = EMAILS_SENT_FROM;
+		$to = [
+			[
+				'email' => $params['email'],
+				'name' => $params['name']
+			]
+		];
+		$mail = $this->media->sendEmail($subject, $msg, $from, $to);
+		validateIsTrue($mail, 'Something went wrong. Please try again.', 100, 400, $this->output);
+
+		echo json_encode($register);
 	}
 
 	public function registerWithGoogle() {
@@ -459,21 +309,8 @@ class Users extends CI_Controller {
 		$img = $this->input->post('img');
 		$name = $this->input->post('name');
 
-		if (!is_numeric($id)) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'A valid Google ID is required'
-			]);
-			exit;
-		}
-
-		if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'A valid email is required'
-			]);
-			exit;
-		}
+		validateNumber($id, 'A valid Google ID is required', 100, 401, $this->output);
+		validateEmail($email, 'A valid email is required', 100, 401, $this->output);
 
 		$exists = $this->users->userLookupByEmail($email);
 		if ($exists) {
@@ -541,13 +378,7 @@ class Users extends CI_Controller {
 			'verification_code' => null
 		]);
 
-		if ($register['error']) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => $register['msg']
-			]);
-			exit;
-		}
+		validateIsFalse($register['error'], $register['msg'], 100, 401, $this->output);
 
 		$date_created = $register['user']['dateCreated'];
 		$user_id = $register['user']['id'];
@@ -584,13 +415,8 @@ class Users extends CI_Controller {
 
 	public function uniqueFallacies() {
 		$id = $this->input->get('id');
-		if (empty($id)) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'You need to specify a user'
-			]);
-			exit;
-		}
+
+		validateEmptyField($id, 'You need to specify a user', 100, 401, $this->output);
 
 		$fallacies = $this->fallacies->getUniqueFallacies($id);
 		echo json_encode([
@@ -601,15 +427,9 @@ class Users extends CI_Controller {
 	public function update() {
 		$bio = $this->input->post('bio');
 		$patreonUsername = $this->input->post('patreonUsername');
-
 		$user = $this->user;
-		if (!$user) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'You must login to update your account'
-			]);
-			exit;
-		}
+
+		validateLoggedIn($user, 'You must login to update your account', 100, 401, $this->output);
 
 		$data = [];
 		if (!empty($bio)) {
@@ -621,6 +441,7 @@ class Users extends CI_Controller {
 		}
 
 		$this->users->updateUser($user->id, $data);
+
 		echo json_encode([
 			'data' => $data,
 			'error' => false
@@ -628,27 +449,17 @@ class Users extends CI_Controller {
 	}
 
 	public function verifyEmail() {
+		$code = $this->input->post('code');
 		$user = $this->user;
-		if (!$user) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'You must login to verify your account'
-			]);
-			exit;
-		}
 
-		if ($this->input->post('code') !== $user->verificationCode) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'Incorrect verification code'
-			]);
-			exit;
-		}
+		validateLoggedIn($user, 'You must login to verify your account', 100, 401, $this->output);
+		validateItemsMatch($code, $user->verificationCode, 'Incorrect verification code', 100, 401, $this->output);
 
 		$this->users->updateUser($user->id, [
 			'email_verified' => 1
 		]);
 		$this->user->emailVerified = true;
+
 		echo json_encode([
 			'error' => false,
 			'user' => $user

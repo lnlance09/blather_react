@@ -24,14 +24,14 @@ import {
 } from "semantic-ui-react"
 import Marked from "marked"
 import Moment from "react-moment"
-import Conversation from "components/conversation/v1/"
-import PageFooter from "components/footer/v1/"
-import PageHeader from "components/header/v1/"
+import Conversation from "components/secondary/conversation/v1/"
+import PageFooter from "components/primary/footer/v1/"
+import PageHeader from "components/secondary/header/v1/"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import store from "store"
-import TagsCard from "components/tagsCard/v1/"
-import TitleHeader from "components/titleHeader/v1/"
+import TagsCard from "components/primary/tagsCard/v1/"
+import TitleHeader from "components/primary/titleHeader/v1/"
 import TrumpImg from "images/trump-white.png"
 
 class DiscussionPage extends Component {
@@ -64,11 +64,6 @@ class DiscussionPage extends Component {
 			id,
 			user
 		}
-
-		this.onClickEditDescription = this.onClickEditDescription.bind(this)
-		this.onClickEditExtra = this.onClickEditExtra.bind(this)
-		this.updateDescription = this.updateDescription.bind(this)
-		this.updateExtra = this.updateExtra.bind(this)
 	}
 
 	componentDidMount() {

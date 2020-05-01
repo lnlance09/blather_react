@@ -7,6 +7,9 @@ class Tags extends CI_Controller {
 		
 		$this->baseUrl = $this->config->base_url();
 
+		$this->load->helper('common');
+		$this->load->helper('validation');
+
 		$this->load->model('MediaModel', 'media');
 		$this->load->model('TagsModel', 'tags');
 	}
@@ -15,13 +18,7 @@ class Tags extends CI_Controller {
 		$id = (int)$this->input->get('id');
 		$tag = $this->tags->getTagInfo($id);
 
-		if (!$tag) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'This tag does not exist'
-			]);
-			exit;
-		}
+		validateEmptyField($tag, 'This tag does not exist', 100, 401, $this->output);
 
 		$images = $this->tags->getImages($id);
 		$tag['images'] = $images;
@@ -38,14 +35,9 @@ class Tags extends CI_Controller {
 
 	public function addPic() {
 		$id = $this->input->get('id');
+		$user = $this->user;
 
-		if (!$this->user) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'You must be logged in add pics'
-			]);
-			exit;
-		}
+		validateLoggedIn($user, 'You must be logged in add pics', 100, 401, $this->output);
 
 		$this->load->library('upload', [
 			'allowed_types' => 'jpg|jpeg|png|gif',
@@ -80,6 +72,7 @@ class Tags extends CI_Controller {
 			's3_path' => $s3Path,
 			'tag_id' => $id
 		]);
+
 		echo json_encode([
 			'error' => false,
 			'img' => [
@@ -93,7 +86,9 @@ class Tags extends CI_Controller {
 
 	public function getHistory() {
 		$id = $this->input->get('id');
+
 		$history = $this->tags->getHistory($id);
+
 		echo json_encode([
 			'error' => false,
 			'history' => $history
@@ -102,6 +97,7 @@ class Tags extends CI_Controller {
 
 	public function getRelatedTags() {
 		$q = $this->input->get('q');
+
 		$related = $this->tags->getRelated($q);
 
 		echo json_encode([
@@ -112,6 +108,7 @@ class Tags extends CI_Controller {
 
 	public function getTags() {
 		$tags = $this->tags->getTags();
+
 		echo json_encode([
 			'error' => false,
 			'tags' => $tags
@@ -120,7 +117,9 @@ class Tags extends CI_Controller {
 
 	public function getTaggedUsers() {
 		$id = $this->input->get('id');
+
 		$pages = $this->tags->getTaggedUsers($id);
+
 		echo json_encode([
 			'error' => false,
 			'users' => $pages
@@ -130,21 +129,17 @@ class Tags extends CI_Controller {
 	public function update() {
 		$id = $this->input->post('id');
 		$description = $this->input->post('description');
+		$user = $this->user;
 
-		if (!$this->user) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'You must be logged in to edit tags'
-			]);
-			exit;
-		}
+		validateLoggedIn($user, 'You must be logged in to edit tags', 100, 401, $this->output);
 
 		$this->tags->updateTag($id, [
 			'date_updated' => date('Y-m-d H:i:s'),
 			'description' => $description,
 			'tag_id' => $id,
-			'updated_by' => $this->user->id
+			'updated_by' => $user->id
 		]);
+
 		echo json_encode([
 			'error' => false,
 			'tag' => [

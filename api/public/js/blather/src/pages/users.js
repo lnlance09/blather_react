@@ -1,4 +1,4 @@
-import { changeProfilePic, updateAbout } from "components/authentication/v1/actions"
+import { changeProfilePic, updateAbout } from "components/secondary/authentication/v1/actions"
 import { adjustTimezone } from "utils/dateFunctions"
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { formatNumber } from "utils/textFunctions"
@@ -20,17 +20,17 @@ import {
 	Segment
 } from "semantic-ui-react"
 import defaultImg from "images/trump.svg"
-import ArchivesList from "components/archivesList/v1/"
+import ArchivesList from "components/secondary/lists/archivesList/v1/"
 import Dropzone from "react-dropzone"
-import FallaciesList from "components/fallaciesList/v1/"
+import FallaciesList from "components/secondary/lists/fallaciesList/v1/"
 import ImagePic from "images/images/image-square.png"
 import Moment from "react-moment"
-import PageFooter from "components/footer/v1/"
-import PageHeader from "components/header/v1/"
+import PageFooter from "components/primary/footer/v1/"
+import PageHeader from "components/secondary/header/v1/"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import store from "store"
-import TitleHeader from "components/titleHeader/v1/"
+import TitleHeader from "components/primary/titleHeader/v1/"
 import TrumpImg from "images/trump-white.png"
 
 class UserPage extends Component {
@@ -73,10 +73,6 @@ class UserPage extends Component {
 			bearer,
 			username
 		})
-
-		this.onChangeAbout = this.onChangeAbout.bind(this)
-		this.onDrop = this.onDrop.bind(this)
-		this.reloadAbout = this.reloadAbout.bind(this)
 	}
 
 	componentDidUpdate(prevProps) {
@@ -124,7 +120,7 @@ class UserPage extends Component {
 
 	onChangeAbout = (e, { value }) => this.setState({ about: value })
 
-	onDrop(files) {
+	onDrop = files => {
 		this.setState({ files })
 		if (files.length > 0) {
 			this.props.changeProfilePic({
