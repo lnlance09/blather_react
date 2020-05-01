@@ -6,41 +6,27 @@ class Contact extends CI_Controller {
 		parent:: __construct();
 
 		$this->baseUrl = $this->config->base_url();
-		$this->load->helper('common_helper');
+
+		$this->load->helper('common');
+		$this->load->helper('validation');
+
+		$this->load->model('MediaModel', 'media');
 	}
 
 	public function send() {
 		$msg = $this->input->post('msg');
-		if (empty($msg)) {
-			$this->output->set_status_header(400);
-			echo json_encode([
-				'error' => 'you must include a message'
-			]);
-			exit;
-		}
+		validateEmptyField($msg, 'you must include a message', 100, 400, $this->output);
 
-		$this->load->library('My_PHPMailer');
-		$mail = new PHPMailer();
-		$mail->IsSMTP();
-		$mail->SMTPAuth = true;
-		$mail->SMTPSecure = 'ssl';
-		$mail->Host = 'smtpout.secureserver.net';
-		$mail->Port = 465;
-		$mail->Username = 'admin@blather.io';
-		$mail->Password = 'Jl8RdSLz7DF8:PJ';
-		$mail->SetFrom('admin@blather.io', 'Blather');
-		$mail->Subject = 'Someone from Blather has contacted you';
-		$mail->Body = $msg;
-		$mail->AltBody = $msg;
-		$mail->AddAddress('lnlance09@gmail.com', 'Lance Newman');
-
-		if (!$mail->Send()) {
-			$this->output->set_status_header(400);
-			echo json_encode([
-				'error' => 'your message could not be sent'
-			]);
-			exit;
-		}
+		$subject = 'Someone from Blather has contacted you';
+		$from = EMAILS_SENT_FROM;
+		$to = [
+			[
+				'email' => 'lnlance09@gmail.com',
+				'name' => 'Lance Newman'
+			]
+		];
+		$mail = $this->media->sendEmail($subject, $msg, $from, $to);
+		validateIsTrue($mail, 'your message could not be sent', 100, 400, $this->output);
 
 		echo json_encode([
 			'error' => false,

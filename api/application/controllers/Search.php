@@ -7,6 +7,9 @@ class Search extends CI_Controller {
 
 		$this->base_url = $this->config->base_url();
 
+		$this->load->helper('common');
+		$this->load->helper('validation');
+
 		$this->load->model('DiscussionsModel', 'discussions');
 		$this->load->model('FallaciesModel', 'fallacies');
 		$this->load->model('FacebookModel', 'fb');
@@ -144,6 +147,7 @@ class Search extends CI_Controller {
 		}
 
 		$pages = ceil($count/$limit);
+
 		echo json_encode([
 			'count' => (int)$count,
 			'error' => $error,

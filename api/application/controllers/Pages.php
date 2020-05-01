@@ -7,6 +7,9 @@ class Pages extends CI_Controller {
 
 		$this->base_url = $this->config->base_url();
 
+		$this->load->helper('common');
+		$this->load->helper('validation');
+
 		$this->load->model('FallaciesModel', 'fallacies');
 		$this->load->model('FacebookModel', 'fb');
 		$this->load->model('TwitterModel', 'twitter');
@@ -16,18 +19,12 @@ class Pages extends CI_Controller {
 	public function index() {
 		$id = $this->input->get('id');
 		$type = $this->input->get('type');
+		$user = $this->user;
 
 		$networks = ['twitter', 'youtube'];
-		if (!$id || !in_array($type, $networks)) {
-			$this->output->set_status_header(400);
-			echo json_encode([
-				'error' => 'This page does not exist',
-				'type' => 101
-			]);
-			exit;
-		}
 
-		$user = $this->user;
+		validateEmptyField($id, 'This page does not exist', 101, 400, $this->output);
+		validateInArray($type, $networks, 'This page does not exist', 101, 400, $this->output);
 
 		switch ($type) {
 			case 'twitter':
@@ -62,7 +59,9 @@ class Pages extends CI_Controller {
 
 	public function getFallacyCount() {
 		$id = $this->input->get('id');
+
 		$count = $this->fallacies->getFallacyCount($id);
+
 		echo json_encode([
 			'count' => (int)$count,
 			'error' => false
@@ -71,7 +70,9 @@ class Pages extends CI_Controller {
 
 	public function getPageByDbId() {
 		$id = $this->input->get('id');
+
 		$page = $this->fallacies->getPageByDbId($id);
+
 		echo json_encode([
 			'error' => empty($page),
 			'page' => $page
@@ -84,47 +85,27 @@ class Pages extends CI_Controller {
 		$nextPageToken = $this->input->get('nextPageToken');
 		$page = $this->input->get('page');
 		$type = $this->input->get('type');
+		$user = $this->user;
 
-		if (!$this->user) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'Please sign in to view',
-				'type' => 101
-			]);
-			exit;
-		}
+		validateLoggedIn($user, 'Please sign in to view', 101, 401, $this->output);
 
 		switch ($type) {
 			case'fb':
 
-				if (!$this->user->linkedFb) {
-					$this->output->set_status_header(401);
-					echo json_encode([
-						'error' => 'You have not linked your Facebook account',
-						'type' => 102
-					]);
-					exit;
-				}
+				validateIsTrue($user->linkedFb, 'You have not linked your Facebook account', 102, 401, $this->output);
 
-				$token = $this->user->fbAccessToken;
+				$token = $user->fbAccessToken;
 				$posts = $this->fb->parsePostsData($id, $token, false);
 				echo $posts;
 				break;
 
 			case 'twitter':
 
-				if (!$this->user->linkedTwitter) {
-					$this->output->set_status_header(401);
-					echo json_encode([
-						'error' => "You need to link your Twitter account to view this user's tweets.",
-						'type' => 103
-					]);
-					exit;
-				}
+				validateIsTrue($user->linkedTwitter, 'You have not linked your Facebook account', 103, 401, $this->output);
 
 				$error = false;
-				$token = $this->user->twitterAccessToken;
-				$secret = $this->user->twitterAccessSecret;
+				$token = $user->twitterAccessToken;
+				$secret = $user->twitterAccessSecret;
 				$data = [
 					'count' => 18,
 					'exclude_replies' => false,
@@ -156,17 +137,10 @@ class Pages extends CI_Controller {
 
 			case'youtube':
 
-				if (!$this->user->linkedYoutube) {
-					$this->output->set_status_header(401);
-					echo json_encode([
-						'error' => "You need to link your YouTube account to view this user's videos.",
-						'type' => 104
-					]);
-					exit;
-				}
+				validateIsTrue($user->linkedYoutube, 'You have not linked your Facebook account', 104, 401, $this->output);
 
 				$error = false;
-				$token = $this->user->youtubeAccessToken;
+				$token = $user->youtubeAccessToken;
 				$posts = $this->youtube->getVideos([
 					'channelId' => $id,
 					'maxResults' => 50,

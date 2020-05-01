@@ -5,7 +5,9 @@ class YouTube extends CI_Controller {
 	public function __construct() {
 		parent:: __construct();
 
-		$this->load->helper('common_helper');
+		$this->load->helper('common');
+		$this->load->helper('validation');
+
 		$this->load->model('MediaModel', 'media');
 		$this->load->model('YouTubeModel', 'youtube');
 	}
@@ -15,21 +17,11 @@ class YouTube extends CI_Controller {
 		$end_time = timeToSecs($this->input->post('endTime'));
 		$id = $this->input->post('id');
 		$start_time = timeToSecs($this->input->post('startTime'));
+		$user = $this->user;
 
-		if (empty($id)) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'You must include a video id',
-			]);
-			exit;
-		}
-		if (empty($description)) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'You must include a description',
-			]);
-			exit;
-		}
+		validateEmptyField($id, 'You must include a video id', 100, 401, $this->output);
+		validateEmptyField($description, 'You must include a description', 100, 401, $this->output);
+
 		if (strlen($description) > 250) {
 			$this->output->set_status_header(401);
 			echo json_encode([
@@ -39,13 +31,8 @@ class YouTube extends CI_Controller {
 		}
 
 		$video = $this->youtube->getVideoExtended($id, false);
-		if ($video['error']) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'This video does not exist',
-			]);
-			exit;
-		}
+		validateIsFalse($video['error'], 'This video does not exist', 100, 401, $this->output);
+
 		if ($start_time > $video['data']['duration']) {
 			$this->output->set_status_header(401);
 			echo json_encode([
@@ -53,6 +40,7 @@ class YouTube extends CI_Controller {
 			]);
 			exit;
 		}
+
 		if ($end_time <= 0 || $end_time > $video['data']['duration'] || $end_time <= $start_time) {
 			$this->output->set_status_header(401);
 			echo json_encode([
@@ -61,7 +49,6 @@ class YouTube extends CI_Controller {
 			exit;
 		}
 
-		$user = $this->user;
 		$data = [];
 		$error = true;
 		$user_id = $user ? $user->id : 6;
@@ -72,16 +59,9 @@ class YouTube extends CI_Controller {
 			'user_id' => $user_id
 		]);
 
-		if ($archive) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'You have already archived this time frame',
-			]);
-			exit;
-		}
+		validateIsFalse($archive, 'You have already archived this time frame', 100, 401, $this->output);
 
 		$error = false;
-
 		$output_file = 'youtube_videos/'.$id.'_'.$start_time.'_'.$end_time.'.mp4';
 		$data = [
 			'code' => null,
@@ -108,75 +88,36 @@ class YouTube extends CI_Controller {
 
 	public function archiveComment() {
 		$id = $this->input->post('id');
-		$comment_id = $this->input->post('commentId');
-
-		if (empty($id)) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'You must include a video id',
-			]);
-			exit;
-		}
-
-		if (empty($comment_id)) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'You must include a comment id',
-			]);
-			exit;
-		}
-
-		$comment = $this->youtube->getCommentFromDB($comment_id);
-		if (!$comment) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'This comment does not exist',
-			]);
-			exit;
-		}
-
+		$commentId = $this->input->post('commentId');
 		$user = $this->user;
-		if (!$user) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'You must login',
-			]);
-			exit;
-		}
 
-		$url = 'https://www.youtube.com/watch?v='.$id.'&lc='.$comment_id;
+		validateLoggedIn($user, 'You must be logged in', 100, 401, $this->output);
+		validateEmptyField($id, 'You must include a video id', 100, 401, $this->output);
+		validateEmptyField($commentId, 'You must include a comment id', 100, 401, $this->output);
+
+		$comment = $this->youtube->getCommentFromDB($commentId);
+		validateEmptyField($comment, 'This comment does not exist', 100, 401, $this->output);
+
+		$url = 'https://www.youtube.com/watch?v='.$id.'&lc='.$commentId;
 		$code = createArchive($url);
 		$data = [];
+
 		if ($code) {
 			$archive = $this->users->alreadyArchived([
-				'comment_id' => $comment_id,
+				'comment_id' => $commentId,
 				'object_id' => $id,
 				'type' => 'comment',
 				'user_id' => $user->id
 			]);
+			validateIsFalse($archive, 'You have already archived this comment', 100, 401, $this->output);
 
-			if ($archive) {
-				$this->output->set_status_header(401);
-				echo json_encode([
-					'error' => 'You have already archived this comment',
-				]);
-				exit;
-			}
-
-
-			$commenter_id = $comment['commenter']['id'];
+			$commenterId = $comment['commenter']['id'];
 			$page = $this->youtube->getPageInfoFromDB($commenter_id);
-			if (!$page) {
-				$this->output->set_status_header(401);
-				echo json_encode([
-					'error' => 'You commenter does not exist',
-				]);
-				exit;
-			}
+			validateEmptyField($page, 'Commenter does not exist', 100, 401, $this->output);
 
 			$data = [
 				'code' => $code,
-				'comment_id' => $comment_id,
+				'comment_id' => $commentId,
 				'link' => $url,
 				'network' => 'youtube',
 				'object_id' => $id,
@@ -186,6 +127,7 @@ class YouTube extends CI_Controller {
 			];
 			$this->users->createArchive($data);
 		}
+
 		echo json_encode([
 			'archive' => $data,
 			'error' => false
@@ -200,20 +142,14 @@ class YouTube extends CI_Controller {
 	public function comment() {
 		$id = $this->input->get('id');
 		$videoId = $this->input->get('videoId');
+		$user = $this->user;
 
-		if (!$id) {
-			$this->output->set_status_header(404);
-			echo json_encode([
-				'error' => 'You must provide an id'
-			]);
-			exit;
-		}
+		validateEmptyField($id, 'You must provide a video id', 100, 401, $this->output);
 
 		if (empty($videoId)) {
 			$videoId = null;
 		}
 
-		$user = $this->user;
 		$auth = $user ? $user->linkedYoutube : false;
 		$token = $auth ? $this->user->youtubeAccessToken : null;
 
@@ -247,24 +183,11 @@ class YouTube extends CI_Controller {
 	}
 
 	public function deleteArchive() {
-		$user = $this->user;
 		$id = $this->input->post('id');
+		$user = $this->user;
 
-		if (!$id) {
-			$this->output->set_status_header(404);
-			echo json_encode([
-				'error' => 'You must provide an id'
-			]);
-			exit;
-		}
-
-		if (!$user) {
-			$this->output->set_status_header(404);
-			echo json_encode([
-				'error' => 'You must be logged in'
-			]);
-			exit;
-		}
+		validateLoggedIn($user, 'You must be logged in', 100, 401, $this->output);
+		validateEmptyField($id, 'You must provide an id', 100, 401, $this->output);
 
 		$archive = $this->users->alreadyArchived([
 			'id' => $id,
@@ -282,19 +205,10 @@ class YouTube extends CI_Controller {
 	}
 
 	public function download() {
-		header("Access-Control-Allow-Origin: *");
-		header("Access-Control-Allow-Headers: origin, content-type, accept, authorization");
-		header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS, HEAD");
-
 		$id = $this->input->post('id');
 		$audio = (int)$this->input->post('audio');
-		if (!$id) {
-			$this->output->set_status_header(404);
-			echo json_encode([
-				'error' => 'You must provide an id'
-			]);
-			exit;
-		}
+
+		validateEmptyField($id, 'You must provide an id', 100, 401, $this->output);
 
 		$ext = $audio ? 'mp3' : 'mp4';
 		$key = 'youtube_videos/'.$id.'.'.$ext;
@@ -312,41 +226,30 @@ class YouTube extends CI_Controller {
 	}
 
 	public function getCommentReplies() {
-		$user = $this->user;
-		$linkedYoutube = $user ? $user->linkedYoutube : false;
-		if (!$linkedYoutube) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'code' => 101,
-				'error' => 'You have not linked your YouTube account'
-			]);
-			exit;
-		}
-
 		$id = $this->input->get('id');
+		$user = $this->user;
+
+		$linkedYoutube = $user ? $user->linkedYoutube : false;
+		validateIsTrue($linkedYoutube, 'You have not linked your YouTube account', 101, 401, $this->output);
+
 		$replies = $this->youtube->getCommentReplies($id, $this->token, true);
+
 		echo json_encode([
 			'error' => false,
-			'replies' => $replies,
+			'replies' => $replies
 		]);
 	}
 
 	public function getComments() {
-		$user = $this->user;
-		$linkedYoutube = $user ? $user->linkedYoutube : false;
-		if (!$linkedYoutube) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'code' => 101,
-				'error' => 'You have not linked your YouTube account'
-			]);
-			exit;
-		}
-
-		$token = $user->youtubeAccessToken;
 		$id = $this->input->get('id');
 		$page = $this->input->get('page');
 		$nextPageToken = $this->input->get('nextPageToken');
+		$user = $this->user;
+
+		$linkedYoutube = $user ? $user->linkedYoutube : false;
+		validateIsTrue($linkedYoutube, 'You have not linked your YouTube account', 101, 401, $this->output);
+
+		$token = $user->youtubeAccessToken;
 		$comments = $this->youtube->getVideoComments($token, $id, null, $nextPageToken, 20);
 
 		if (array_key_exists('error', $comments)) {
@@ -359,6 +262,7 @@ class YouTube extends CI_Controller {
 		}
 
 		$comments['count'] = $comments['pageInfo']['totalResults'];
+
 		echo json_encode([
 			'comments' => $comments,
 			'error' => false,
@@ -368,17 +272,12 @@ class YouTube extends CI_Controller {
 
 	public function getVideoArchives() {
 		$id = $this->input->get('id');
-		$user_id = $this->input->get('userId');
+		$userId = $this->input->get('userId');
 
-		if (!$id) {
-			$this->output->set_status_header(404);
-			echo json_encode([
-				'error' => 'You must provide an id'
-			]);
-			exit;
-		}
+		validateEmptyField($id, 'You must provide an id', 100, 401, $this->output);
 
-		$archives = $this->youtube->getVideoArchives($id, $user_id);
+		$archives = $this->youtube->getVideoArchives($id, $userId);
+
 		echo json_encode([
 			'archives' => $archives,
 			'error' => false
@@ -386,20 +285,16 @@ class YouTube extends CI_Controller {
 	}
 
 	public function redirect() {
-		$user = $this->user;
 		$code = $this->input->post('code');
-		if (!$user) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'You must login'
-			]);
-			exit;
-		}
+		$user = $this->user;
+
+		validateLoggedIn($user, 'You must be logged in', 100, 401, $this->output);
 
 		$linkedYouTube = false;
 		$data = $this->youtube->GetToken($code);
 		$accessToken = $data['access_token'];
 		$refreshToken = $data['refresh_token'];
+
 		if ($accessToken && $refreshToken) {
 			$linkedYouTube = true;
 		}
@@ -430,6 +325,7 @@ class YouTube extends CI_Controller {
 
 	public function refresh() {
 		$user = $this->user;
+
 		if (!$user) {
 			$this->output->set_status_header(401);
 			echo json_encode([
@@ -467,15 +363,10 @@ class YouTube extends CI_Controller {
 	public function remove() {
 		$user = $this->user;
 		$linkedYoutube = $user ? $user->linkedYoutube : false;
-		if (!$linkedYoutube) {
-			$this->output->set_status_header(401);
-			echo json_encode([
-				'error' => 'You must link your youtube account'
-			]);
-			exit;
-		}
 
-		$this->users->updateUser($this->user->id, [
+		validateIsTrue($linkedYoutube, 'You have not linked your YouTube account', 101, 401, $this->output);
+
+		$this->users->updateUser($user->id, [
 			'linked_youtube' => null,
 		]);
 
@@ -496,11 +387,13 @@ class YouTube extends CI_Controller {
 
 		$results = $this->youtube->searchVideosForTerms($per_page, $from, $q, $channelId, $videoId);
 		$results['page'] = (int)$page;
+
 		echo json_encode($results);
 	}
 
 	public function translateChannelVideos() {
 		ini_set('max_execution_time', 0);
+
 		$channelId = $this->input->get('channelId');
 		$token = $this->input->get('token');
 		$page = 1;
@@ -591,17 +484,12 @@ class YouTube extends CI_Controller {
 
 	public function video() {
 		$id = $this->input->get('id');
+
 		if (substr($id, -1) == '&') {
 			$id = rtrim($id, '&');
 		}
 
-		if (!$id) {
-			$this->output->set_status_header(404);
-			echo json_encode([
-				'error' => 'You must provide an id'
-			]);
-			exit;
-		}
+		validateEmptyField($id, 'You must provide an id', 100, 401, $this->output);
 
 		$existsOnYt = false;
 		$video = $this->youtube->getStandardVideoInfo($id);

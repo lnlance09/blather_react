@@ -7,7 +7,10 @@ class Fb extends CI_Controller {
 
 		$this->baseUrl = $this->config->base_url();
 		$this->imgUrl = $this->baseUrl.'api/public/img/';
-		$this->load->helper('common_helper');
+		
+		$this->load->helper('common');
+		$this->load->helper('validation');
+
 		$this->load->model('DiscussionsModel', 'discussions');
 		$this->load->model('FacebookModel', 'fb');
 		$this->load->model('TwitterModel', 'twitter');

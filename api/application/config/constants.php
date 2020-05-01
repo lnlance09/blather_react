@@ -90,3 +90,10 @@ defined('BASE_PATH') OR define('BASE_PATH', '/Applications/MAMP/htdocs/blather/a
 defined('FFMPEG') OR define('FFMPEG', '/usr/local/bin/ffmpeg');
 // defined('FFMPEG') OR define('FFMPEG', APPPATH.'ffmpeg/ffmpeg');
 defined('ES_INDEX') OR define('ES_INDEX', 'captions2');
+
+defined('EMAILS_SENT_FROM') OR define('EMAILS_SENT_FROM', [
+	[
+		'email' => 'admin@blather.io',
+		'name' => 'Blather'
+	]
+]);
