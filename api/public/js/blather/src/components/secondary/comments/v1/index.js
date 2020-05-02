@@ -2,7 +2,7 @@ import "./style.css"
 import { fetchComments, postComment, voteOnComment } from "./actions"
 import { adjustTimezone } from "utils/dateFunctions"
 import { connect } from "react-redux"
-import { Button, Comment, Form, Header, Segment } from "semantic-ui-react"
+import { Button, Comment, Form, Header, Icon, Segment } from "semantic-ui-react"
 import ImagePic from "images/images/image-square.png"
 import Moment from "react-moment"
 import defaultImg from "images/trump.svg"
@@ -115,7 +115,10 @@ class CommentsSection extends Component {
 					<Comment.Group size="large">{RenderComments(this.props)}</Comment.Group>
 				) : (
 					<Segment placeholder>
-						<Header textAlign="center">There aren't any comments yet</Header>
+						<Header icon textAlign="center">
+							<Icon color="blue" name="comment outline" />
+							There aren't any comments yet
+						</Header>
 					</Segment>
 				)}
 			</div>
