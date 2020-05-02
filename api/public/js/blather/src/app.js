@@ -10,10 +10,11 @@ import About from "pages/about"
 import Bot from "pages/bot"
 import Fallacy from "pages/fallacy"
 import Fallacies from "pages/fallacies"
-import FallaciesJSON from "fallacyOptions.json"
+import FallaciesJSON from "options/fallacyOptions.json"
 import Home from "pages/home"
 import Logo from "./images/icons/icon-100x100.png"
 import NewsFeed from "pages/newsFeed"
+import NotFound from "pages/notFound"
 import Page from "pages/"
 import Post from "pages/post"
 import SearchPage from "pages/search"
@@ -29,6 +30,7 @@ import Users from "pages/users"
 class App extends Component {
 	constructor(props) {
 		super(props)
+
 		this.state = {
 			ignore: true,
 			title: ""
@@ -87,6 +89,7 @@ class App extends Component {
 			sound: "./sound.mp3",
 			tag
 		}
+
 		this.setState({
 			options,
 			title,
@@ -100,27 +103,15 @@ class App extends Component {
 				<Provider store={store}>
 					<Router history={history}>
 						<ScrollToTop>
-							<Route
-								exact
-								path="/"
-								render={props => (
-									<Home key={window.location.pathname} {...props} />
-								)}
-							/>
-
-							<Route component={NewsFeed} exact path="/activity" />
-
-							<Route
-								exact
-								path="/assign"
-								render={props => (
-									<Home key={window.location.pathname} {...props} />
-								)}
-							/>
-
-							<Route component={Bot} path="/bot" />
-
 							<Switch>
+								<Route
+									exact
+									path="/"
+									render={props => (
+										<Home key={window.location.pathname} {...props} />
+									)}
+								/>
+
 								<Route
 									exact
 									path="/about"
@@ -128,23 +119,33 @@ class App extends Component {
 										<About key={window.location.pathname} {...props} />
 									)}
 								/>
+
 								<Route
 									path="/about/:tab(contact|privacy|rules)"
 									render={props => (
 										<About key={window.location.pathname} {...props} />
 									)}
 								/>
-							</Switch>
 
-							<Switch>
+								<Route component={NewsFeed} exact path="/activity" />
+
+								<Route
+									exact
+									path="/assign"
+									render={props => (
+										<Home key={window.location.pathname} {...props} />
+									)}
+								/>
+
+								<Route component={Bot} path="/bot" />
+
 								<Route
 									path="/comment/:id"
 									render={props => <Post sendNotification={(title, body, url) => this.sendNotification(title, body, url)} {...props} />}
 								/>
-							</Switch>
 
-							<Switch>
 								<Route component={Fallacies} exact path="/fallacies" />
+
 								<Route
 									exact
 									path="/fallacies/:id"
@@ -157,54 +158,42 @@ class App extends Component {
 										return <Fallacies {...props} />
 									}}
 								/>
-							</Switch>
 
-							<Switch>
 								<Route
 									exact
 									path="/pages/:network/:id"
 									render={props => <Page {...props} />}
 								/>
+
 								<Route
 									path="/pages/:network/:id/:tab/:fallacyId"
 									render={props => <Page {...props} />}
 								/>
+
 								<Route
 									path="/pages/:network/:id/:tab"
 									render={props => <Page {...props} />}
 								/>
-							</Switch>
 
-							<Switch>
 								<Route exact path="/search" render={props => <SearchPage {...props} />} />
 								<Route path="/search/:type" render={props => <SearchPage {...props} />} />
-							</Switch>
 
-							<Switch>
 								<Route component={Settings} exact path="/settings" />
 								<Route component={Settings} path="/settings/:tab" />
-							</Switch>
 
-							<Route component={SignIn} path="/signin" />
+								<Route component={SignIn} path="/signin" />
 
-							<Switch>
 								<Route component={Tag} exact path="/tags/create" />
 								<Route component={Tag} path="/tags/:id" />
-							</Switch>
 
-							<Switch>
 								<Route
 									path="/tweet/:id"
 									render={props => <Post sendNotification={(title, body, url) => this.sendNotification(title, body, url)} {...props} />}
 								/>
-							</Switch>
 
-							<Switch>
 								<Route component={Target} exact path="/targets/:userId/:pageId" />
 								<Route component={Target} exact path="/targets/create/:pageId" />
-							</Switch>
 
-							<Switch>
 								<Route
 									exact
 									path="/users/:username"
@@ -218,13 +207,18 @@ class App extends Component {
 										return <Users {...props} />
 									}}
 								/>
-							</Switch>
 
-							<Switch>
 								<Route
 									exact
 									path="/video/:id"
 									render={props => <Post sendNotification={(title, body, url) => this.sendNotification(title, body, url)} {...props} />}
+								/>
+
+								<Route
+									path="*"
+									render={props => (
+										<NotFound />
+									)}
 								/>
 							</Switch>
 						</ScrollToTop>

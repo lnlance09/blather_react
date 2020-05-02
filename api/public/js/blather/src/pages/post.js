@@ -16,7 +16,7 @@ import {
 	Responsive,
 	Segment
 } from "semantic-ui-react"
-import { stopWords } from "stopWords"
+import { stopWords } from "options/stopWords"
 import html2canvas from "html2canvas"
 import FallacyForm from "components/secondary/fallacyForm/v1/"
 import FallaciesList from "components/secondary/lists/fallaciesList/v1/"

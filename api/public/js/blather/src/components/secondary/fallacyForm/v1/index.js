@@ -29,7 +29,7 @@ import {
 import { fallacyDropdownOptions } from "utils/fallacyFunctions"
 import { convertTimeToSeconds } from "utils/textFunctions"
 import _ from "lodash"
-import fallacies from "fallacies.json"
+import fallacies from "options/fallacies.json"
 import FallacyRef from "components/primary/fallacyRef/v1/"
 import PropTypes from "prop-types"
 import React, { Component } from "react"

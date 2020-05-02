@@ -1,4 +1,3 @@
-import backgroundOptions from "backgroundOptions.json"
 import { mapIdsToNames } from "utils/arrayFunctions"
 import { adjustTimezone } from "utils/dateFunctions"
 import { DisplayMetaTags } from "utils/metaFunctions"
@@ -42,6 +41,7 @@ import {
 } from "semantic-ui-react"
 import { Slider } from "react-semantic-ui-range"
 import { confetti } from "dom-confetti"
+import backgroundOptions from "options/backgroundOptions.json"
 import Dropzone from "react-dropzone"
 import FallacyComments from "components/secondary/comments/v1/"
 import FallacyExample from "components/primary/fallacyExample/v1/"
