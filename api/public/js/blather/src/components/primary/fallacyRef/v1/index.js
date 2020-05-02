@@ -1,7 +1,7 @@
 import "./style.css"
 import { Comment, Header, Icon, Image, Segment } from "semantic-ui-react"
 import BillPic from "images/avatar/small/mark.png"
-import fallacies from "fallacies.json"
+import fallacies from "options/fallacies.json"
 import html2canvas from "html2canvas"
 import ImagePic from "images/images/image-square.png"
 import PropTypes from "prop-types"
@@ -30,7 +30,7 @@ class FallacyRef extends Component {
 		}
 	}
 
-	captureScreenshot(filename) {
+	captureScreenshot = filename => {
 		html2canvas(document.getElementById("fallacySegment"), {
 			scale: 2
 		}).then(canvas => {

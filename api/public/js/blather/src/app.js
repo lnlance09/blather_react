@@ -10,7 +10,7 @@ import About from "pages/about"
 import Bot from "pages/bot"
 import Fallacy from "pages/fallacy"
 import Fallacies from "pages/fallacies"
-import FallaciesJSON from "fallacyOptions.json"
+import FallaciesJSON from "options/fallacyOptions.json"
 import Home from "pages/home"
 import Logo from "./images/icons/icon-100x100.png"
 import NewsFeed from "pages/newsFeed"
@@ -29,6 +29,7 @@ import Users from "pages/users"
 class App extends Component {
 	constructor(props) {
 		super(props)
+
 		this.state = {
 			ignore: true,
 			title: ""
@@ -108,18 +109,6 @@ class App extends Component {
 								)}
 							/>
 
-							<Route component={NewsFeed} exact path="/activity" />
-
-							<Route
-								exact
-								path="/assign"
-								render={props => (
-									<Home key={window.location.pathname} {...props} />
-								)}
-							/>
-
-							<Route component={Bot} path="/bot" />
-
 							<Switch>
 								<Route
 									exact
@@ -135,6 +124,18 @@ class App extends Component {
 									)}
 								/>
 							</Switch>
+
+							<Route component={NewsFeed} exact path="/activity" />
+
+							<Route
+								exact
+								path="/assign"
+								render={props => (
+									<Home key={window.location.pathname} {...props} />
+								)}
+							/>
+
+							<Route component={Bot} path="/bot" />
 
 							<Switch>
 								<Route

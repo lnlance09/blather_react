@@ -13,6 +13,7 @@ import Linkify from "react-linkify"
 class CommentsSection extends Component {
 	constructor(props) {
 		super(props)
+
 		this.state = {
 			message: ""
 		}
