@@ -733,8 +733,8 @@
         </div>
     </body>
 
-    <script src="/static/js/1.d19f71ba.chunk.js"></script>
-    <script src="/static/js/main.867397a1.chunk.js"></script>
+    <script src="/static/js/1.b526248c.chunk.js"></script>
+    <script src="/static/js/main.d9373403.chunk.js"></script>
     <script src="/static/js/runtime~main.229c360f.js"></script>
 
     <script>
