@@ -295,6 +295,7 @@ class UsersModel extends CI_Model {
 
 			return [
 				'error' => false,
+				'msg' => null,
 				'user' => [
 					'bio' => null,
 					'dateCreated' => $data['date_created'],
