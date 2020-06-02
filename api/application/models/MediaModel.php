@@ -227,8 +227,8 @@ class MediaModel extends CI_Model {
 		$mail->SMTPSecure = 'ssl';
 		$mail->Host = 'smtpout.secureserver.net';
 		$mail->Port = 465;
-		$mail->Username = 'admin@blather.io';
-		$mail->Password = 'Jl8RdSLz7DF8:PJ';
+		$mail->Username = 'admin@tpusa.pro';
+		$mail->Password = '5240#vK8S=7r1\d';
 		$mail->SetFrom('admin@blather.io', 'Blather');
 		$mail->Subject = $subject;
 		$mail->Body = $msg;
