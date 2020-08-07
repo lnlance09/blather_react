@@ -1,19 +1,21 @@
-@import '../../../css/colors.scss';
+@import "../../../../css/colors.scss";
 
 .searchResults {
-    .resultsCount {
-        .ui.statistic {
-            display: inline-block;
-            float: right;
-            margin-right: 3px;
-        }
-    }
+	.resultsCount {
+    	.ui.statistic {
+      		display: inline-block;
+      		float: right;
+      		margin-right: 3px;
+    	}
+  	}
 
-    .ui.active.transition.visible.dimmer {
-        background: $dimmer-background !important;
-    }
+  	.ui.active.transition.visible.dimmer {
+    	background: $dimmer-background !important;
+  	}
 
-    .resultsSegment, .linkAccountMsg, .emptyMsg  {
-        margin-top: 14px !important;
-    }
+  	.resultsSegment,
+  	.linkAccountMsg,
+  	.emptyMsg {
+    	margin-top: 14px !important;
+  	}
 }

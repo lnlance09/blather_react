@@ -1,31 +1,31 @@
-@import '../../../css/colors.scss';
+@import "../../../../css/colors.scss";
 
 .ui.bottom.attached.segment.footerSegment {
-    background: $white !important;
-    border-bottom: none;
-    border-top: solid 1px $lightGrey;
-    box-shadow: none !important;
-    margin-top: 2.5em !important;
-    padding: 1em 0em !important;
-    text-align: center;
+  	background: $invertedBackgroundColor !important;
+  	border-bottom: none;
+  	border-top: solid 1px $twitterExtraExtraLightGrey1;
+  	box-shadow: none !important;
+  	margin-top: 2.5em !important;
+  	padding: 1em 0em !important;
+  	text-align: center;
 
-    .container {
-        padding-left: 30px;
-        padding-right: 30px;
-    }
+  	.container {
+    	padding-left: 30px;
+    	padding-right: 30px;
+  	}
 
-    .ui.inverted.list .item a:not(.ui) {
-        color: $lightBlack !important;
-        font-weight: bold;
+  	.ui.inverted.list .item a:not(.ui) {
+    	color: $offWhite !important;
+    	font-weight: bold;
 
-        &:hover {
-            color: $lightBlack;
-        }
-    }
+    	&:hover {
+      		color: $lightBlack;
+    	}
+  	}
 
-    p {
-        color: $grey !important;
-        font-size: 12px;
-        margin-bottom: 7px;
-    }
+  	p {
+    	color: $white !important;
+    	font-size: 12px;
+    	margin-bottom: 7px;
+  	}
 }

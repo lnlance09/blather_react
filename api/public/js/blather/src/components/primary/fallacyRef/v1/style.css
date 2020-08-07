@@ -1,12 +1,13 @@
 /*---  Colors  ---*/
 /*---  Light Colors  ---*/
 /*---   Neutrals  ---*/
+/*--- Twitter ---*/
 /*---   Misc  ---*/
 /*---   Social colors  ---*/
 .fallacySegment .header {
   margin-bottom: 5px; }
 
-.fallacySegment p:not(.header) {
+.fallacySegment p:not(.header):not(:last-of-type) {
   margin-bottom: 12px !important; }
 
 .fallacySegment .captureScreenshot {
@@ -14,6 +15,9 @@
 
 .fallacySegment.click {
   cursor: pointer; }
+
+.fallacySegment .comments .comment .content .author, .fallacySegment .comments .comment .content .text {
+  color: #ffffff !important; }
 
 @media only screen and (max-width: 1025px) {
   .fallacySegment .header {

@@ -1,17 +1,18 @@
 /*---  Colors  ---*/
 /*---  Light Colors  ---*/
 /*---   Neutrals  ---*/
+/*--- Twitter ---*/
 /*---   Misc  ---*/
 /*---   Social colors  ---*/
 .tagsCard .header .editTagsIcon {
-  color: #2185D0;
+  color: #2185d0;
   cursor: pointer;
   display: none !important;
   float: right;
   font-size: 18px;
   margin-right: 0 !important; }
   .tagsCard .header .editTagsIcon.editing {
-    color: #FF695E; }
+    color: #ff695e; }
 
 .tagsCard .header:hover .editTagsIcon {
   display: inline !important; }
@@ -24,7 +25,7 @@
   cursor: pointer; }
 
 .tagsCard .tagsList .item .icon {
-  color: #FF695E !important;
+  color: #ff695e !important;
   display: none; }
 
 .tagsCard .tagsList .item:hover .icon {

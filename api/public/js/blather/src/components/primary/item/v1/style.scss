@@ -1,121 +1,125 @@
-@import '../../../css/colors.scss';
+@import "../../../../css/colors.scss";
 
 .resultItem {
-    background: $white;
-    cursor: pointer;
-    width: 100%;
+	border-bottom: solid 1px $twitterExtraExtraLightGrey1 !important;
+  	cursor: pointer;
+  	width: 100%;
 
-    .placeholderSegment {
-        width: 100% !important;
-    }
+  	.placeholderSegment {
+    	width: 100% !important;
+  	}
 
-    .meta {
-        margin-top: 3px !important;
+  	.meta {
+		color: $white !important;
+    	margin-top: 3px !important;
 
-        .label {
-            background: $lightBlue !important;
-            color: $white;
-        }
+    	.label {
+      		background: $lightBlue !important;
+      		color: $white;
+    	}
 
-        p {
-            font-size: 13px;
-            line-height: 13px;
+    	p {
+			color: $white !important;
+      		font-size: 13px;
+      		line-height: 13px;
 
-            .icon {
-                font-size: 13px !important;
+      		.icon {
+        		font-size: 13px !important;
 
-                &.arrow {
-                    color: $green;
-                    margin-right: .3em !important;
-                }
+        		&.arrow {
+          			color: $green;
+         	 		margin-right: 0.3em !important;
+        		}
 
-                &.clock {
-                    color: $grey;
-                }
-            }
-        }
-    }
+        		&.clock {
+          			color: $grey;
+        		}
+      		}
+    	}
+  	}
 
-    .content {
-        .header {
-            width: 100%;
+  	.content {
+    	.header {
+			color: $white !important;
+      		width: 100%;
 
-            .archiveItemMenu {
-                float: right;
+      		.archiveItemMenu {
+        		float: right;
 
-                .icon.ellipsis.vertical {
-                    color: $lightGrey;
-                }
+        		.icon.ellipsis.vertical {
+          			color: $lightGrey;
+        		}
 
-                .icon.twitter {
-                    color: $twitter;
-                }
+        		.icon.twitter {
+         	 		color: $twitter;
+        		}
 
-                .icon.youtube {
-                    color: $youtube;
-                }
+        		.icon.youtube {
+          			color: $youtube;
+        		}
 
-                .icon.sticky.note {
-                    color: $yellow;
-                }
-            }
-        }
+        		.icon.sticky.note {
+          			color: $yellow;
+        		}
+      		}
+    	}
 
-        .description {
-            white-space: pre-line;
-            word-break: break-word;
+    	.description {
+			color: $white !important;
+      		white-space: pre-line;
+      		word-break: break-word;
 
-            span {
-                color: $black;
+      		span {
+        		color: $black;
 
-                b {
-                    background: $higlighterYellow;
-                }
-            }
-        }
-    }
+        		b {
+          			background: $higlighterYellow;
+        		}
+      		}
+    	}
+  	}
 
-    @media only screen and (max-width: 1025px) {
-        .content {
-            padding: 0 !important;
-        }
-    }
+  	@media only screen and (max-width: 1025px) {
+    	.content {
+      		padding: 0 !important;
+    	}
+  	}
 
-    .extra {
-        .extraList {
-            margin-bottom: 0;
-            margin-top: 0;
+  	.extra {
+    	.extraList {
+      		margin-bottom: 0;
+      		margin-top: 0;
 
-            .item {
-                margin-bottom: 0 !important;
+      		.item {
+        		margin-bottom: 0 !important;
 
-                &:nth-of-type(2) {
-                    margin-left: 8px !important;
-                }
-            }
-        }
-    }
+        		&:nth-of-type(2) {
+          			margin-left: 8px !important;
+        		}
+      		}
+    	}
+  	}
 
-    .image {
-        .label {
-            &.check {
-                border-color: $green;
-            }
+  	.image {
+    	.label {
+     		&.check {
+        		border-color: $green;
+      		}
 
-            &.close {
-                border-color: $lightRed;
-            }
+      		&.close {
+        		border-color: $lightRed;
+      		}
 
-            .icon {
-                color: $white;
-                opacity: 0.8;
-            }
-        }
-    }
+      		.icon {
+        		color: $white;
+        		opacity: 0.8;
+      		}
+    	}
+  	}
 
-    @media only screen and (max-width: 1025px) {
-        .image {
-            display: none !important;
-        }
-    }
+  	@media only screen and (max-width: 1025px) {
+    	.image {
+      		display: none !important;
+    	}
+  	}
 }

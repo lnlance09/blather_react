@@ -1,6 +1,7 @@
 /*---  Colors  ---*/
 /*---  Light Colors  ---*/
 /*---   Neutrals  ---*/
+/*--- Twitter ---*/
 /*---   Misc  ---*/
 /*---   Social colors  ---*/
 .searchResults .resultsCount .ui.statistic {
@@ -9,7 +10,9 @@
   margin-right: 3px; }
 
 .searchResults .ui.active.transition.visible.dimmer {
-  background: rgba(255, 255, 255, 0.8) !important; }
+  background: rgba(21, 32, 43, 0.96) !important; }
 
-.searchResults .resultsSegment, .searchResults .linkAccountMsg, .searchResults .emptyMsg {
+.searchResults .resultsSegment,
+.searchResults .linkAccountMsg,
+.searchResults .emptyMsg {
   margin-top: 14px !important; }

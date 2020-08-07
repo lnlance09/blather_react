@@ -3,7 +3,20 @@
   "version": "1.1.0",
   "private": true,
   "proxy": "http://localhost:8888/blather/",
+  "scripts": {
+    "build-semantic": "cd src/semantic && gulp build-css build-assets",
+    "watch-semantic": "cd src/semantic && yarn run build-semantic && gulp watch",
+    "build-css": "node-sass-chokidar src/ -o src/",
+    "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
+    "prettify": "prettier --print-width 100 --tab-width 4 --use-tabs true --no-semi true --trailing-comma none --jsx-bracket-same-line false --parser flow --write 'src/!(semantic)/**/*.js'",
+    "start": "react-scripts start",
+    "start-server": "node server/bootstrap.js",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
   "dependencies": {
+    "axios": "^0.19.2",
     "babel-preset-react-app": "^7.0.2",
     "depcheck": "^0.7.2",
     "dom-confetti": "^0.1.1",
@@ -62,18 +75,6 @@
     "sanitize-html": "^1.20.1",
     "semantic-ui-react": "^0.84.0",
     "url-parse": "^1.4.7"
-  },
-  "scripts": {
-    "build-semantic": "cd src/semantic && gulp build-css build-assets",
-    "watch-semantic": "cd src/semantic && yarn run build-semantic && gulp watch",
-    "build-css": "node-sass-chokidar src/ -o src/",
-    "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
-    "prettify": "prettier --print-width 100 --tab-width 4 --use-tabs true --no-semi true --trailing-comma none --jsx-bracket-same-line false --parser flow --write 'src/!(semantic)/**/*.js'",
-    "start": "react-scripts start",
-    "start-server": "node server/bootstrap.js",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
   },
   "devDependencies": {
     "@babel/core": "^7.6.0",

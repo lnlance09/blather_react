@@ -1,52 +1,62 @@
 /*---  Colors  ---*/
-$red              : #DB2828;
-$orange           : #F2711C;
-$yellow           : #FBBD08;
-$olive            : #B5CC18;
-$green            : #21BA45;
-$teal             : #00B5AD;
-$blue             : #2185D0;
-$violet           : #6435C9;
-$purple           : #A333C8;
-$pink             : #E03997;
-$brown            : #A5673F;
-$grey             : #767676;
-$black            : #1B1C1D;
+$red: #db2828;
+$orange: #f2711c;
+$yellow: #fbbd08;
+$olive: #b5cc18;
+$green: #21ba45;
+$teal: #00b5ad;
+$blue: #2185d0;
+$violet: #6435c9;
+$purple: #a333c8;
+$pink: #e03997;
+$brown: #a5673f;
+$grey: #767676;
+$black: #1b1c1d;
 
 /*---  Light Colors  ---*/
-$lightRed         : #FF695E;
-$lightOrange      : #FF851B;
-$lightYellow      : #FFE21F;
-$lightOlive       : #D9E778;
-$lightGreen       : #2ECC40;
-$lightTeal        : #6DFFFF;
-$lightBlue        : #54C8FF;
-$lightViolet      : #A291FB;
-$lightPurple      : #DC73FF;
-$lightPink        : #FF8EDF;
-$lightBrown       : #D67C1C;
-$lightGrey        : #DCDDDE;
-$lightBlack       : #545454;
+$lightRed: #ff695e;
+$lightOrange: #ff851b;
+$lightYellow: #ffe21f;
+$lightOlive: #d9e778;
+$lightGreen: #2ecc40;
+$lightTeal: #6dffff;
+$lightBlue: #54c8ff;
+$lightViolet: #a291fb;
+$lightPurple: #dc73ff;
+$lightPink: #ff8edf;
+$lightBrown: #d67c1c;
+$lightGrey: #dcddde;
+$lightBlack: #545454;
 
 /*---   Neutrals  ---*/
-$fullBlack        : #000000;
-$offWhite         : #F9FAFB;
-$darkWhite        : #F3F4F5;
-$midWhite         : #DCDDDE;
-$white            : #FFFFFF;
+$fullBlack: #000000;
+$offWhite: #f9fafb;
+$darkWhite: #f3f4f5;
+$midWhite: #dcddde;
+$white: #ffffff;
+
+/*--- Twitter ---*/
+$twitterExtraExtraLightGrey: rgb(245,248,250);
+$twitterExtraLightGrey: rgb(225,232,237);
+$twitterLightGrey: rgb(170,184,194);
+$twitterDarkGrey: rgb(101,119,134);
+
+$twitterExtraExtraLightGrey1: rgba(245,248,250,0.1);
+$twitterExtraExtraLightGrey2: rgba(245,248,250,0.2);
 
 /*---   Misc  ---*/
 $higlighterYellow: #ffff00;
-$dimmer-background: rgba(255, 255, 255,0.8);
-$dimmer-border: rgba(245, 246, 250,0.5);
-$card-header: rgba(0,0,0,.85);
+$dimmer-background: rgba(21, 32, 43, 0.96);
+$dimmer-border: rgba(245,248,250,0.1);
+$card-header: rgba(0, 0, 0, 0.85);
+
+$invertedBackgroundColor: rgb(21, 32, 43);
 
 /*---   Social colors  ---*/
 $facebook: #3b5998;
 $twitter: #0084b4;
 $youtube: #ff0000;
-$reddit: #FF5700;
+$reddit: #ff5700;
 $patreon: #f96854;
 
 $dividerMargin: 25px;
-

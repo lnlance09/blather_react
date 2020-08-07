@@ -1,12 +1,19 @@
 /*---  Colors  ---*/
 /*---  Light Colors  ---*/
 /*---   Neutrals  ---*/
+/*--- Twitter ---*/
 /*---   Misc  ---*/
 /*---   Social colors  ---*/
-.navSearch .input {
+.navSearch .ui.icon.input {
   width: 100%; }
+  .navSearch .ui.icon.input input {
+    background: #15202b !important;
+    border: solid 1px rgba(245, 248, 250, 0.2); }
+  .navSearch .ui.icon.input .icon {
+    color: #ffffff; }
 
 .navSearch .results {
+  background: #15202b !important;
   width: 100% !important; }
 
 .navSearch .result {
@@ -23,4 +30,4 @@
     margin-right: 8px;
     width: 50px !important; }
   .navSearch .result .searchItem .tagIcon {
-    color: #2185D0; }
+    color: #2185d0; }

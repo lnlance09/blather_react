@@ -1,13 +1,18 @@
-@import '../../../css/colors.scss';
+@import "../../../../css/colors.scss";
 
 .breakdown {
+	.credMessage {
+		background: $invertedBackgroundColor !important;
+		border: solid 1px $twitterExtraExtraLightGrey2;
+		color: $white !important;
+	}
+
 	.credibilityLevel {
 		margin-top: 20px;
 	}
 
 	.breakdownSegment {
 		margin-bottom: 0 !important;
-		padding: 0 !important;
 
 		.percentages {
 			padding: 0 !important;
@@ -28,7 +33,7 @@
 					margin-bottom: 0;
 
 					.bar {
-						background: $blue;
+						background: $lightBlue;
 						min-width: 50px;
 
 						.progress {
@@ -39,7 +44,6 @@
 			}
 		}
 	}
-
 	.questionnaire {
 		margin-top: 0;
 		padding: 0 !important;
@@ -68,7 +72,7 @@
 		.ui.header.small {
 			font-size: 14px !important;
 		}
-
+		
 		.reviewAvatar {
 			display: none !important;
 		}

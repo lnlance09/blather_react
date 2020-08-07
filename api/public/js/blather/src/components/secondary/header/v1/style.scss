@@ -1,121 +1,119 @@
-@import '../../../css/colors.scss';
+@import "../../../../css/colors.scss";
 
 .pageHeader {
-    .loadingBar {
-        background: $blue;
-        height: 5px;
-        margin-top: 72px;
-        position: fixed;
-        z-index: 9999;
+	.loadingBar {
+    	background: $blue;
+    	height: 5px;
+    	margin-top: 72px;
+    	position: fixed;
+    	z-index: 9999;
 
-        @media only screen and (max-width: 1025px) {
-            margin-top: 135px;
-        }
-    }
+    	@media only screen and (max-width: 1025px) {
+      		margin-top: 135px;
+    	}
+  	}
 
-    .menu.subHeader {
-        border: none;
-        border-bottom: solid 1px $lightGrey;
-        border-radius: 0;
-        box-shadow: none !important;
-        margin-top: 71px;
-        width: 100%;
-        z-index: 999 !important;
+  	.topHeader {
+    	align-items: center;
+    	background: darken($invertedBackgroundColor, 1%);
+    	display: flex;
+    	justify-content: center;
+    	max-width: none !important;
+    	opacity: 0.95;
+    	padding: 14px 13px 14px 13px;
+    	position: fixed;
+    	top: 0;
+    	width: 100% !important;
+    	z-index: 9999;
 
-        .subHeaderContainer {
-            .searchItem {
-                @media only screen and (min-width: 450px) {
-                    padding-left: 0;
-                    padding-right: 0;
-                }
+    	.container.mobile {
+      		margin: 0 !important;
+      		width: 100% !important;
 
-                width: 100%;
-            }
-        }
-    }
+      		.allyButton {
+        		margin-right: 18px;
+      		}
 
-    .menu.globalHeader {
-        box-shadow: none;
-        height: 72px;
-        z-index: 1001 !important;
+      		.icon.ellipsis {
+        		margin-right: 0;
+      		}
+    	}
 
-        .headerContainer {
-            .responsive {
-                display: flex;
-                width: 100%;
-            }
+    	img {
+      		cursor: pointer;
+      		height: 48px;
+      		width: 48px;
+    	}
 
-            .headerMenuItem {
-                margin-right: 0 !important;
-                
-                .headerLogo {
-                    cursor: pointer;
-                    display: inline;
-                    fill: $blue;
-                    height: 36px;
-                    line-height: 4;
-                    margin-right: 12px;
-                    vertical-align: middle;
-                    width: 36px;
-                }
-            }
+    	.container.basic {
+      		display: flex;
+      		justify-content: center;
+      		padding: 8px 0;
+    	}
 
-            .sidebarItem {
-                .button {
-                    margin-right: 18px;
-                }
+    	.grid .column {
+      		&.logoColumn {
+        		align-items: center;
+        		display: flex;
+        		padding-left: 32px;
+      		}
 
-                .icon {
-                    cursor: pointer;
+      		input {
+        		line-height: 25px;
+      		}
+    	}
 
-                    &:hover {
-                        color: $blue;
-                    }
-                }
-            }
+    	.headerContainer {
+      		.headerLogo {
+        		cursor: pointer;
+        		display: inline;
+        		fill: $blue;
+        		height: 36px;
+        		line-height: 4;
+        		margin-right: 12px;
+        		vertical-align: middle;
+        		width: 36px;
+      		}
 
-            .fallaciesLink a {
-                color: $lightBlack;
-                font-size: 15px !important;
-                font-weight: bold !important;
-            }
+      		.sidebarItem {
+        		.button {
+          			margin-right: 18px;
+        		}
 
-            .signInLink {
-                text-align: right;
+        		.icon {
+          			cursor: pointer;
 
-                .ui.grid.relaxed {
-                    margin-right: -1.4rem;
+          			&:hover {
+            			color: $blue;
+          			}
+        		}
+      		}
+    	}
 
-                    .column:first-of-type {
-                        padding-right: 1.4rem;
-                    }
-                }
+    	@media only screen and (max-width: 1025px) {
+      		opacity: 0.95;
 
-                a {
-                    color: $lightBlack;
-                    font-size: 15px !important;
-                    font-weight: bold !important;
-                    line-height: 35.5px;
-                }
-            }
+      		.container.desktop {
+        		display: none;
+      		}
+    	}
 
-            .dropDownMenu {
-                .menu.visible {
-                    z-index: 1001;
-                }
-            }
-        }
-    }
+    	@media only screen and (min-width: 1025px) {
+      		.container.mobile {
+        		display: none;
+      		}
+    	}
+  	}
 
-    .sidebar.menu {
-        padding-top: 135px;
+  	.sidebar.menu {
+    	padding-top: 135px;
 
-        .fallacySidebarItem {
-            text-align: left;
-        }
+    	.fallacySidebarItem {
+      		text-align: left;
+    	}
 
-        .sidebarSearchBtn {
-            margin-top: 8px;
-        }
-    }
+    	.sidebarSearchBtn {
+      		margin-top: 8px;
+    	}
+  	}
 }

@@ -1,14 +1,16 @@
-@import '../../../css/colors.scss';
+@import "../../../../css/colors.scss";
 
 .commentsSection {
-    width: 100%;
+	width: 100%;
 
-    .replyBtn {
-        float: right;
-        margin-right: 0;
-    }
-
-    .ui.comments {
-        max-width: none;
-    }
+  	.ui.comments {
+		margin-top: 20px !important;
+		max-width: none;
+		
+		.comment {
+			.metadata {
+				color: $lightGrey !important;
+			}
+		}
+  	}
 }

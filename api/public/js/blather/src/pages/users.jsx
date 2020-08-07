@@ -1,0 +1,388 @@
+import { changeProfilePic, updateAbout } from "components/secondary/authentication/v1/actions"
+import { adjustTimezone } from "utils/dateFunctions"
+import { DisplayMetaTags } from "utils/metaFunctions"
+import { formatNumber } from "utils/textFunctions"
+import { fetchUserData, reset } from "redux/actions/user"
+import { Provider, connect } from "react-redux"
+import {
+	Button,
+	Container,
+	Dimmer,
+	Divider,
+	Grid,
+	Header,
+	Icon,
+	Image,
+	Label,
+	List,
+	Menu,
+	Placeholder,
+	Segment
+} from "semantic-ui-react"
+import defaultImg from "images/trump.svg"
+import DefaultLayout from "layouts"
+import ArchivesList from "components/secondary/lists/archivesList/v1/"
+import Dropzone from "react-dropzone"
+import FallaciesList from "components/secondary/lists/fallaciesList/v1/"
+import ImagePic from "images/images/image-square.png"
+import Moment from "react-moment"
+import PropTypes from "prop-types"
+import React, { Component } from "react"
+import store from "store"
+import TitleHeader from "components/primary/titleHeader/v1/"
+import TrumpImg from "images/trump-white.png"
+
+class UserPage extends Component {
+	constructor(props) {
+		super(props)
+		const tabs = ["fallacies", "archives"]
+		let tab = props.match.params.tab
+		const username = props.match.params.username
+		const id = props.match.params.id
+		const currentState = store.getState()
+		const user = currentState.user
+		const authenticated = user.authenticated
+		const bearer = user.bearer
+		const myUsername = authenticated ? user.data.username : null
+		const isMyProfile = username === myUsername
+
+		if (!tabs.includes(tab)) {
+			tab = "fallacies"
+		}
+
+		this.state = {
+			activeItem: tab,
+			about: user.data.bio ? user.data.bio : "",
+			active: false,
+			authenticated,
+			bearer,
+			editing: false,
+			files: [],
+			id,
+			inverted: true,
+			isMyProfile,
+			myUsername,
+			tab,
+			tabs,
+			username
+		}
+
+		this.props.reset()
+		this.props.fetchUserData({
+			bearer,
+			username
+		})
+	}
+
+	componentDidUpdate(prevProps) {
+		if (prevProps !== this.props) {
+			const username = this.props.match.params.username
+			if (this.state.username !== username) {
+				this.props.reset()
+				this.props.fetchUserData({
+					bearer: this.state.bearer,
+					username
+				})
+			}
+
+			const isMyProfile = username === this.state.myUsername
+			let tab = this.props.match.params.tab
+			if (!this.state.tabs.includes(tab)) {
+				tab = "fallacies"
+			}
+
+			if (this.state.username !== username || this.state.tab !== tab) {
+				this.setState({
+					activeItem: tab,
+					isMyProfile,
+					tab,
+					username
+				})
+
+				if (isMyProfile) {
+					const currentState = store.getState()
+					const user = currentState.user
+					this.setState({ about: user.data.bio })
+				}
+			}
+		}
+	}
+
+	handleItemClick = (e, { name }) => {
+		this.setState({ activeItem: name })
+		this.props.history.push(`/users/${this.state.username}/${name}`)
+	}
+
+	handleHide = () => this.setState({ active: false })
+
+	handleShow = () => this.setState({ active: true })
+
+	onChangeAbout = (e, { value }) => this.setState({ about: value })
+
+	onDrop = files => {
+		this.setState({ files })
+		if (files.length > 0) {
+			this.props.changeProfilePic({
+				bearer: this.state.bearer,
+				file: files[0]
+			})
+		}
+	}
+
+	reloadAbout = () => this.setState({ reaload: !this.state.reload })
+
+	updateAbout = () => {
+		this.setState({ editing: false })
+		this.props.updateAbout({
+			bearer: this.state.bearer,
+			bio: this.state.about
+		})
+	}
+
+	render() {
+		const { active, activeItem, id, inverted, isMyProfile } = this.state
+		const { data, user } = this.props
+
+		let pic = !user.img ? defaultImg : user.img
+		if (isMyProfile) {
+			pic = !data.img ? defaultImg : data.img
+		}
+
+		const content = (
+			<Dropzone className="dropdown" onDrop={this.onDrop}>
+				{({ getRootProps, getInputProps }) => (
+					<div {...getRootProps()}>
+						<input {...getInputProps()} />
+						<Header as="h2">Change your pic</Header>
+						<Button className="changePicBtn" color="blue" icon>
+							<Icon name="image" />
+						</Button>
+					</div>
+				)}
+			</Dropzone>
+		)
+
+		const ProfilePic = props => {
+			if (isMyProfile) {
+				return (
+					<Dimmer.Dimmable
+						as={Image}
+						className={`profilePic ${!user.img ? "default" : ""}`}
+						dimmed={active}
+						dimmer={{ active, content, inverted }}
+						onError={i => (i.target.src = ImagePic)}
+						onMouseEnter={this.handleShow}
+						onMouseLeave={this.handleHide}
+						rounded
+						size="medium"
+						src={pic}
+					/>
+				)
+			}
+			return (
+				<Image
+					className={`profilePic ${!user.img ? "default" : ""}`}
+					onError={i => (i.target.src = ImagePic)}
+					rounded
+					src={pic}
+				/>
+			)
+		}
+
+		const ShowContent = props => {
+			if (props.user.id) {
+				switch (activeItem) {
+					case "archives":
+						return <ArchivesList history={props.history} id={props.user.id} />
+
+					case "fallacies":
+						return (
+							<FallaciesList
+								assignedBy={props.user.id}
+								emptyMsgContent={`${props.user.name} hasn't assigned any fallacies`}
+								fallacyId={id}
+								history={props.history}
+								icon="warning sign"
+								itemsPerRow={2}
+								name={props.user.name}
+								source="users"
+							/>
+						)
+
+					default:
+						return null
+				}
+			}
+			return null
+		}
+
+		return (
+			<Provider store={store}>
+				<div className="usersPage">
+					<DisplayMetaTags page="users" props={this.props} state={this.state} />
+
+					<DefaultLayout
+						activeItem=""
+						containerClassName="notFoundPage"
+						history={this.props.history}
+					>
+						{!this.props.error ? (
+							<Container className="mainContainer" textAlign="left">
+								<Grid stackable>
+									<Grid.Column textAlign="left" width={5}>
+										{this.props.user.id ? (
+											<div>{ProfilePic(this.props)}</div>
+										) : (
+											<Placeholder className="profilePicPlaceholder square">
+												<Placeholder.Image square />
+											</Placeholder>
+										)}
+									</Grid.Column>
+									<Grid.Column textAlign="left" width={7}>
+										<div className="userHeaderSection">
+											<TitleHeader textAlign="left" title={user.name} />
+											{this.props.user.id && (
+												<List inverted>
+													<List.Item>
+														<List.Content>
+															<Icon name="at" /> {user.username}
+														</List.Content>
+													</List.Item>
+													<List.Item>
+														<List.Content>
+															<Icon name="clock outline" />
+															Joined{" "}
+															<Moment
+																date={adjustTimezone(
+																	user.dateCreated
+																)}
+																fromNow
+															/>
+														</List.Content>
+													</List.Item>
+													{user.patreonUsername && (
+														<List.Item>
+															<List.Content>
+																<Icon
+																	className="patreonIcon"
+																	name="patreon"
+																/>{" "}
+																<a
+																	href={`https://patreon.com/${user.patreonUsername}`}
+																	rel="noopener noreferrer"
+																	target="_blank"
+																>
+																	{user.patreonUsername}
+																</a>
+															</List.Content>
+														</List.Item>
+													)}
+												</List>
+											)}
+										</div>
+									</Grid.Column>
+								</Grid>
+
+								<Menu
+									attached
+									inverted
+									pointing
+									secondary
+									size="big"
+									style={{ marginTop: "40px" }}
+								>
+									<Menu.Item
+										active={activeItem === "fallacies"}
+										name="fallacies"
+										onClick={this.handleItemClick}
+									>
+										Fallacies{" "}
+										{user.fallacyCount > 0 && (
+											<Label color="blue" floating>
+												{formatNumber(user.fallacyCount)}
+											</Label>
+										)}
+									</Menu.Item>
+									<Menu.Item
+										active={activeItem === "archives"}
+										name="archives"
+										onClick={this.handleItemClick}
+									>
+										Archives{" "}
+										{user.archiveCount > 0 && (
+											<Label color="blue" floating>
+												{formatNumber(user.archiveCount)}
+											</Label>
+										)}
+									</Menu.Item>
+								</Menu>
+
+								<Segment
+									attached="bottom"
+									className="profileContentSegment"
+									inverted
+								>
+									{ShowContent(this.props)}
+								</Segment>
+							</Container>
+						) : (
+							<Container className="mainContainer" text textAlign="center">
+								<Image
+									centered
+									className="trumpImg404"
+									size="medium"
+									src={TrumpImg}
+								/>
+								<Header size="medium">This user does not exist!</Header>
+							</Container>
+						)}
+					</DefaultLayout>
+				</div>
+			</Provider>
+		)
+	}
+}
+
+UserPage.propTypes = {
+	changeProfilePic: PropTypes.func,
+	error: PropTypes.bool,
+	fetchUserData: PropTypes.func,
+	reset: PropTypes.func,
+	user: PropTypes.shape({
+		archiveCount: PropTypes.number,
+		bio: PropTypes.string,
+		dateCreated: PropTypes.string,
+		discussionCount: PropTypes.number,
+		emailVerified: PropTypes.bool,
+		fallacyCount: PropTypes.number,
+		id: PropTypes.number,
+		img: PropTypes.string,
+		linkedTwitter: PropTypes.bool,
+		linkedYoutube: PropTypes.bool,
+		patreonUsername: PropTypes.string,
+		name: PropTypes.string,
+		username: PropTypes.string
+	})
+}
+
+UserPage.defaultProps = {
+	changeProfilePic,
+	fetchUserData,
+	reset,
+	user: {}
+}
+
+const mapStateToProps = (state, ownProps) => {
+	return {
+		...state.pageUser,
+		...state.user,
+		...ownProps
+	}
+}
+
+export default connect(mapStateToProps, {
+	changeProfilePic,
+	fetchUserData,
+	reset,
+	updateAbout
+})(UserPage)

@@ -1,6 +1,7 @@
 /*---  Colors  ---*/
 /*---  Light Colors  ---*/
 /*---   Neutrals  ---*/
+/*--- Twitter ---*/
 /*---   Misc  ---*/
 /*---   Social colors  ---*/
 .conversation {
@@ -13,25 +14,25 @@
     .conversation .form .actionSegment .actionOptions {
       display: inline-block; }
   .conversation .form .menu .item .icon.paper.plane {
-    color: #2185D0 !important; }
+    color: #2185d0 !important; }
   .conversation .form .menu .item .icon.close {
-    color: #DB2828 !important; }
+    color: #db2828 !important; }
   .conversation .form .menu .item .icon.check {
-    color: #21BA45 !important; }
+    color: #21ba45 !important; }
   .conversation .form .convoRespondBtn {
-    color: #FFFFFF;
+    color: #ffffff;
     float: right;
     margin-right: 0; }
     .conversation .form .convoRespondBtn.respond {
-      background: #2185D0 !important; }
+      background: #2185d0 !important; }
       .conversation .form .convoRespondBtn.respond:hover {
         background: #1e77ba !important; }
     .conversation .form .convoRespondBtn.close {
-      background: #DB2828 !important; }
+      background: #db2828 !important; }
       .conversation .form .convoRespondBtn.close:hover {
         background: #c82121 !important; }
     .conversation .form .convoRespondBtn.convince {
-      background: #21BA45 !important; }
+      background: #21ba45 !important; }
       .conversation .form .convoRespondBtn.convince:hover {
         background: #1da43d !important; }
   .conversation .form .acceptBtn {
@@ -40,39 +41,39 @@
   .conversation .form .extraText {
     font-weight: bold; }
     .conversation .form .extraText.respond {
-      color: #2185D0 !important; }
+      color: #2185d0 !important; }
     .conversation .form .extraText.close {
-      color: #DB2828 !important; }
+      color: #db2828 !important; }
     .conversation .form .extraText.convince {
-      color: #21BA45 !important; }
+      color: #21ba45 !important; }
   .conversation .form .ui.error.message.convoErrorMsg {
     margin-bottom: 0; }
   .conversation .form .convoTextArea.close:focus {
-    border: solid 1px #DB2828; }
+    border: solid 1px #db2828; }
     .conversation .form .convoTextArea.close:focus::-webkit-input-placeholder {
-      color: #DB2828; }
+      color: #db2828; }
     .conversation .form .convoTextArea.close:focus::-moz-placeholder {
-      color: #DB2828; }
+      color: #db2828; }
     .conversation .form .convoTextArea.close:focus:-ms-input-placeholder {
-      color: #DB2828; }
+      color: #db2828; }
     .conversation .form .convoTextArea.close:focus:-moz-placeholder {
-      color: #DB2828; }
+      color: #db2828; }
   .conversation .form .convoTextArea.convince:focus {
-    border: solid 1px #21BA45; }
+    border: solid 1px #21ba45; }
     .conversation .form .convoTextArea.convince:focus::-webkit-input-placeholder {
-      color: #21BA45; }
+      color: #21ba45; }
     .conversation .form .convoTextArea.convince:focus::-moz-placeholder {
-      color: #21BA45; }
+      color: #21ba45; }
     .conversation .form .convoTextArea.convince:focus:-ms-input-placeholder {
-      color: #21BA45; }
+      color: #21ba45; }
     .conversation .form .convoTextArea.convince:focus:-moz-placeholder {
-      color: #21BA45; }
+      color: #21ba45; }
   .conversation .convoContainer {
     margin-bottom: 18px; }
   .conversation .convoResponseSection {
     margin-top: 0; }
     .conversation .convoResponseSection .ui.icon.message.waitMsg .icon {
-      color: #1B1C1D; }
+      color: #1b1c1d; }
   .conversation .findOpponent p {
     text-align: center; }
     .conversation .findOpponent p .icon {

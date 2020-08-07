@@ -1,14 +1,19 @@
 /*---  Colors  ---*/
 /*---  Light Colors  ---*/
 /*---   Neutrals  ---*/
+/*--- Twitter ---*/
 /*---   Misc  ---*/
 /*---   Social colors  ---*/
+.breakdown .credMessage {
+  background: #15202b !important;
+  border: solid 1px rgba(245, 248, 250, 0.2);
+  color: #ffffff !important; }
+
 .breakdown .credibilityLevel {
   margin-top: 20px; }
 
 .breakdown .breakdownSegment {
-  margin-bottom: 0 !important;
-  padding: 0 !important; }
+  margin-bottom: 0 !important; }
   .breakdown .breakdownSegment .percentages {
     padding: 0 !important; }
     .breakdown .breakdownSegment .percentages .ui.header.small {
@@ -21,10 +26,10 @@
       .breakdown .breakdownSegment .percentages .fallacyPercentage .progress {
         margin-bottom: 0; }
         .breakdown .breakdownSegment .percentages .fallacyPercentage .progress .bar {
-          background: #2185D0;
+          background: #54c8ff;
           min-width: 50px; }
           .breakdown .breakdownSegment .percentages .fallacyPercentage .progress .bar .progress {
-            color: #FFFFFF; }
+            color: #ffffff; }
 
 .breakdown .questionnaire {
   margin-top: 0;
@@ -39,7 +44,7 @@
   margin-bottom: 12px; }
 
 .breakdown .icon.question {
-  color: #DB2828; }
+  color: #db2828; }
 
 @media only screen and (max-width: 1025px) {
   .breakdown .ui.header.medium {

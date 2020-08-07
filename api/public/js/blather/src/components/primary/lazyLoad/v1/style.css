@@ -1,7 +1,12 @@
 /*---  Colors  ---*/
 /*---  Light Colors  ---*/
 /*---   Neutrals  ---*/
+/*--- Twitter ---*/
 /*---   Misc  ---*/
 /*---   Social colors  ---*/
-.placeholder .placeholderHeader {
-  width: 100px; }
+.ui.inverted.placeholder.fluid {
+  background-color: #15202b !important; }
+  .ui.inverted.placeholder.fluid .image.header:after, .ui.inverted.placeholder.fluid .line, .ui.inverted.placeholder.fluid .line:after, .ui.inverted.placeholder.fluid > :before {
+    background-color: #15202b !important; }
+  .ui.inverted.placeholder.fluid .placeholderHeader {
+    width: 100px; }

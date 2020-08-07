@@ -1,177 +1,186 @@
-@import '../../../css/colors.scss';
+@import "../../../../css/colors.scss";
 
 .conversation {
-    margin-top: 40px;
+	margin-top: 40px;
 
-    .interpretationHeader {
-        font-size: 16px;
-    }
+  	.interpretationHeader {
+    	font-size: 16px;
+  	}
 
-    .form {
-        .actionSegment {
-            line-height: 30.5px;
-            margin-top: 15px;
+  	.form {
+    	.actionSegment {
+      		line-height: 30.5px;
+      		margin-top: 15px;
 
-            .actionOptions {
-                display: inline-block;
-            }
-        }
+      		.actionOptions {
+        		display: inline-block;
+      		}
+    	}
 
-        .menu {
-            .item {
-                .icon {
-                    &.paper.plane {
-                        color: $blue !important;
-                    }
+    	.menu {
+      		.item {
+        		.icon {
+          			&.paper.plane {
+            			color: $blue !important;
+          			}
 
-                    &.close {
-                        color: $red !important;
-                    }
+          			&.close {
+            			color: $red !important;
+          			}
 
-                    &.check {
-                        color: $green !important;
-                    }
-                }
-            }
-        }
+          			&.check {
+            			color: $green !important;
+          			}
+        		}
+      		}
+    	}
 
-        .convoRespondBtn {
-            color: $white;
-            float: right;
-            margin-right: 0;
+    	.convoRespondBtn {
+      		color: $white;
+      		float: right;
+      		margin-right: 0;
 
-            &.respond {
-                background: $blue !important;
-                &:hover {
-                    background: darken($blue, 5%) !important;
-                }
-            }
+      		&.respond {
+        		background: $blue !important;
+		
+				&:hover {
+          			background: darken($blue, 5%) !important;
+        		}
+      		}
 
-            &.close {
-                background: $red !important;
-                &:hover {
-                    background: darken($red, 5%) !important;
-                }
-            }
+      		&.close {
+        		background: $red !important;
+		
+				&:hover {
+          			background: darken($red, 5%) !important;
+        		}
+      		}
 
-            &.convince {
-                background: $green !important;
-                &:hover {
-                    background: darken($green, 5%) !important;
-                }
-            }
-        }
+      		&.convince {
+        		background: $green !important;
+		
+				&:hover {
+          			background: darken($green, 5%) !important;
+        		}
+      		}
+    	}
 
-        .acceptBtn {
-            float: right;
-            margin-right: 0;
-        }
+    	.acceptBtn {
+      		float: right;
+      		margin-right: 0;
+    	}
 
-        .extraText {
-            font-weight: bold;
+    	.extraText {
+      		font-weight: bold;
 
-            &.respond {
-                color: $blue !important;
-            }
+      		&.respond {
+        		color: $blue !important;
+      		}
 
-            &.close {
-                color: $red !important;
-            }
+      		&.close {
+        		color: $red !important;
+      		}
 
-            &.convince {
-                color: $green !important;
-            }
-        }
+      		&.convince {
+        		color: $green !important;
+      		}
+    	}
 
-        .ui.error.message.convoErrorMsg {
-            margin-bottom: 0;
-        }
+    	.ui.error.message.convoErrorMsg {
+      		margin-bottom: 0;
+    	}
 
-        .convoTextArea {
-            &.close {
-                &:focus {
-                    border: solid 1px $red;
+    	.convoTextArea {
+      		&.close {
+        		&:focus {
+          			border: solid 1px $red;
 
-                    &::-webkit-input-placeholder {
-                        color: $red;
-                    }
-                    &::-moz-placeholder {
-                        color: $red;
-                    }
-                    &:-ms-input-placeholder {
-                        color: $red;
-                    }
-                    &:-moz-placeholder {
-                        color: $red;
-                    }
-                }
-            }
+          			&::-webkit-input-placeholder {
+            			color: $red;
+          			}
+		  
+				  	&::-moz-placeholder {
+            			color: $red;
+          			}
+		  
+					&:-ms-input-placeholder {
+						color: $red;
+					}
+			
+					&:-moz-placeholder {
+						color: $red;
+					}
+				}
+			}
 
-            &.convince {
-                &:focus {
-                    border: solid 1px $green;
+			&.convince {
+				&:focus {
+					border: solid 1px $green;
 
-                    &::-webkit-input-placeholder {
-                        color: $green;
-                    }
-                    &::-moz-placeholder {
-                        color: $green;
-                    }
-                    &:-ms-input-placeholder {
-                        color: $green;
-                    }
-                    &:-moz-placeholder {
-                        color: $green;
-                    }
-                }
-            }
-        }
-    }
+					&::-webkit-input-placeholder {
+						color: $green;
+					}
+			
+					&::-moz-placeholder {
+						color: $green;
+					}
+			
+					&:-ms-input-placeholder {
+						color: $green;
+					}
+				
+					&:-moz-placeholder {
+						color: $green;
+					}
+				}
+			}
+		}
+	}
 
-    .convoContainer {
-        margin-bottom: 18px;
-    }
+	.convoContainer {
+		margin-bottom: 18px;
+	}
 
-    .convoResponseSection {
-        margin-top: 0;
+	.convoResponseSection {
+		margin-top: 0;
 
-        .ui.icon.message.waitMsg {
-            .icon {
-                color: $black;
-            }
-        }
-    }
+		.ui.icon.message.waitMsg {
+			.icon {
+				color: $black;
+			}
+		}
+	}
 
-    .findOpponent {
-        p {
-            text-align: center;
+	.findOpponent {
+		p {
+			text-align: center;
 
-            .icon {
-                cursor: pointer;
-                font-size: 18px;
-            }
-        }
-    }
+			.icon {
+				cursor: pointer;
+				font-size: 18px;
+			}
+		}
+	}
 
-    @media only screen and (max-width: 1025px) {
-        .findOpponent {
-            p {
-                font-size: 13px;
-            }
-        }
-    }
+	@media only screen and (max-width: 1025px) {
+		.findOpponent {
+			p {
+				font-size: 13px;
+			}
+		}
+	}
 
-    .convoSegment {
-        .header {
-            font-size: 16px !important;
+	.convoSegment {
+		.header {
+			font-size: 16px !important;
 
-            .sub.header {
-                font-size: 12px !important;
-            }
+			.sub.header {
+				font-size: 12px !important;
+			}
 
-            .ui.image {
-                height: 35px;
-            }
-        }
-    }
+			.ui.image {
+				height: 35px;
+			}
+		}
+	}
 }

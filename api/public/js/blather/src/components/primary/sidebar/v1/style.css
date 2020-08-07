@@ -1,0 +1,42 @@
+/*---  Colors  ---*/
+/*---  Light Colors  ---*/
+/*---   Neutrals  ---*/
+/*--- Twitter ---*/
+/*---   Misc  ---*/
+/*---   Social colors  ---*/
+.pageSidebar {
+  position: sticky;
+  top: 80px; }
+  .pageSidebar .ui.inverted.menu.globalSidebar {
+    background: #ffffff;
+    box-shadow: none;
+    margin-top: 0;
+    z-index: 1001 !important; }
+    .pageSidebar .ui.inverted.menu.globalSidebar.inverted {
+      background: #15202b; }
+    .pageSidebar .ui.inverted.menu.globalSidebar .headerMenuItem {
+      color: #ffffff !important;
+      cursor: pointer;
+      font-weight: bold !important; }
+      .pageSidebar .ui.inverted.menu.globalSidebar .headerMenuItem.signIn {
+        margin-top: 15px;
+        padding: 0 2px !important; }
+      .pageSidebar .ui.inverted.menu.globalSidebar .headerMenuItem.active {
+        background: #1c2a39 !important;
+        border-radius: 4px !important;
+        color: #fbbd08 !important; }
+      .pageSidebar .ui.inverted.menu.globalSidebar .headerMenuItem:hover {
+        background: #1a2835 !important;
+        border-radius: 4px !important; }
+  .pageSidebar .ui.list.aboutList {
+    margin-bottom: 12px;
+    text-align: center;
+    width: 100%; }
+    .pageSidebar .ui.list.aboutList .item {
+      color: #dcddde; }
+      .pageSidebar .ui.list.aboutList .item a {
+        color: #dcddde; }
+        .pageSidebar .ui.list.aboutList .item a:hover {
+          border-bottom: solid 1px #ffffff;
+          color: #dcddde !important;
+          padding-bottom: 3px; }

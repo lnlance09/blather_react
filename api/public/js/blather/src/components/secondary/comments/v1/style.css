@@ -1,12 +1,13 @@
 /*---  Colors  ---*/
 /*---  Light Colors  ---*/
 /*---   Neutrals  ---*/
+/*--- Twitter ---*/
 /*---   Misc  ---*/
 /*---   Social colors  ---*/
 .commentsSection {
   width: 100%; }
-  .commentsSection .replyBtn {
-    float: right;
-    margin-right: 0; }
   .commentsSection .ui.comments {
+    margin-top: 20px !important;
     max-width: none; }
+    .commentsSection .ui.comments .comment .metadata {
+      color: #dcddde !important; }

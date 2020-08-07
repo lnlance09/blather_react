@@ -1,10 +1,8 @@
 import { toast } from "react-toastify"
+import { getConfig } from "options/toast"
 import request from "request"
 
-toast.configure({
-	autoClose: 4000,
-	draggable: false
-})
+toast.configure(getConfig())
 
 export const sendContactMsg = ({ callback, msg }) => dispatch => {
 	request.post(

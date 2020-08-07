@@ -1,110 +1,111 @@
-@import '../../../css/colors.scss';
+@import "../../../../css/colors.scss";
 
 .fallacyExample {
-    overflow: hidden;
-    padding: 1px !important;
+	overflow: hidden;
+	padding: 1px !important;
 
-    &.downloading {
-        padding-top: 3px;
-    }
+  	&.downloading {
+		padding-top: 3px;
+  	}
 
-    .fallacyHeader {
-        margin-top: 0;
+  	.fallacyHeader {
+		margin-top: 0;
 
-        .editButton {
-            color: $blue;
-            cursor: pointer;
-            display: none !important;
-            float: right;
-            font-size: 18px;
-            margin-left: 2px;
+		.editButton {
+	  		color: $blue;
+	  		cursor: pointer;
+	  		display: none !important;
+	  		float: right;
+	  		font-size: 18px;
+	  		margin-left: 2px;
 
-            &.editing {
-                color: $lightRed;
-            }
-        }
+	  		&.editing {
+				color: $lightRed;
+	  		}
+		}
 
-        &:hover {
-            .editButton {
-                display: inline !important;
-            }
-        }
-    }
+		&:hover {
+	  		.editButton {
+				display: inline !important;
+	  		}
+		}
+  	}
 
-    .fallacyMaterial {
-        &.downloading {
-            .tweet {
-                .card {
-                    border: solid 1px $midWhite;
+  	.fallacyMaterial {
+		&.downloading {
+	  		.tweet {
+				.card {
+		  			border: solid 1px $midWhite;
 
-                    .content .description span b {
-                        border-bottom: solid 2px $red;
-                        white-space: pre !important;
-                    }
-                }
-            }
-        }
+		  			.content .description span b {
+						border-bottom: solid 2px $red;
+						white-space: pre !important;
+		  			}
+				}
+	  		}
+		}
 
-        .sourceList {
-            .item {
-                margin-bottom: 8px;
-            }
-        }
-    }
+		.sourceList {
+	  		.item {
+				margin-bottom: 8px;
+	  		}
+		}
+  	}
 
-    .fallacyExplanation {
-        padding: 0;
-        width: 100%;
+  	.fallacyExplanation {
+		padding: 0;
+		width: 100%;
 
-        &.downloading {
-            padding: 5px;
-        }
-    }
+		&.downloading {
+	  		padding: 5px;
+		}
+  	}
 
-    span.clearfix {
-        display: block;
-    }
+  	span.clearfix {
+		display: block;
+  	}
 
-    .commonMarkLink {
-        margin: 0.5em 0.3em 0 !important;
+  	.commonMarkLink {
+		margin: 0.5em 0.3em 0 !important;
 
-        a {
-            color: $lightBlack;
-            float: right;
-            font-size: 12px;
+		a {
+	  		color: $lightBlack;
+	  		float: right;
+	  		font-size: 12px;
 
-            &:hover {
-                text-decoration: underline;
-            }
-        }
-    }
+	  		&:hover {
+				text-decoration: underline;
+	  		}
+		}
+  	}
 
-    @media only screen and (max-width: 1025px) {
-        .fallacyExplanation {
-            .header {
-                font-size: 18px;
-            }
-        }
-    }
+  	@media only screen and (max-width: 1025px) {
+		.fallacyExplanation {
+	  		.header {
+				font-size: 18px;
+	  		}
+		}
+  	}
 
-    .explanation {
-        white-space: pre-line;
+  	.explanation {
+		white-space: pre-line;
 
-        p {
-            font-size: 15px;
-            margin: 0;
-        }
-    }
+		p {
+	  		color: $white !important;
+	  		font-size: 15px;
+	  		margin: 0;
+		}
+  	}
 
-    .editTimesForm {
-        margin-top: 12px !important;
+  	.editTimesForm {
+		margin-top: 12px !important;
 
-        .fields {
-            margin-bottom: 0;
-        }
+		.fields {
+	  		margin-bottom: 0;
+		}
 
-        .button {
-            margin-top: 12px;
-        }
-    }
+		.button {
+	  		margin-top: 12px;
+		}
+  	}
 }
