@@ -1,10 +1,8 @@
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { setValue } from "redux/actions/search"
 import { connect, Provider } from "react-redux"
-import { DebounceInput } from "react-debounce-input"
-import { Accordion, Container, Form, Grid, Icon, Menu, Responsive } from "semantic-ui-react"
-import PageFooter from "components/primary/footer/v1/"
-import PageHeader from "components/secondary/header/v1/"
+import { Accordion, Container, Form, Grid, Menu, Responsive, Segment } from "semantic-ui-react"
+import DefaultLayout from "layouts"
 import PropTypes from "prop-types"
 import qs from "query-string"
 import rawFallacies from "options/fallacies.json"
@@ -123,7 +121,7 @@ class SearchPage extends Component {
 		))
 
 		const FallacyForm = (
-			<Form>
+			<Form inverted>
 				<Form.Group grouped>
 					<Form.Checkbox
 						checked={all}
@@ -152,74 +150,33 @@ class SearchPage extends Component {
 		)
 
 		const SearchMenu = props => (
-			<Accordion as={Menu} borderless className="searchMenu" fluid vertical>
-				<Menu.Item className="searchItem">
-					<div className="ui icon input">
-						<DebounceInput
-							debounceTimeout={500}
-							minLength={2}
-							onChange={e => this.onChangeSearchValue(e.target.value)}
-							placeholder="Search..."
-							value={q}
-						/>
-						<i aria-hidden="true" className="search icon" />
-					</div>
-				</Menu.Item>
-				<Menu.Item>
-					Twitter
-					<Icon className="twitterIcon" name="twitter" />
-					<Menu.Menu>
-						<Menu.Item
-							active={activeItem === "profiles"}
-							name="profiles"
-							onClick={this.handleItemClick}
-						/>
-						<Menu.Item
-							active={activeItem === "tweets"}
-							name="tweets"
-							onClick={this.handleItemClick}
-						/>
-					</Menu.Menu>
-				</Menu.Item>
-				<Menu.Item>
-					YouTube
-					<Icon className="youtubeIcon" name="youtube" />
-					<Menu.Menu>
-						<Menu.Item
-							active={activeItem === "channels"}
-							name="channels"
-							onClick={this.handleItemClick}
-						/>
-						<Menu.Item
-							active={activeItem === "videos"}
-							name="videos"
-							onClick={this.handleItemClick}
-						/>
-					</Menu.Menu>
-				</Menu.Item>
+			<Accordion
+				as={Menu}
+				borderless
+				className="searchMenu"
+				fluid
+				inverted
+				size="big"
+				vertical
+			>
 				<Menu.Item
-					active={activeItem === "tags"}
-					name="tags"
+					active={activeItem === "profiles"}
+					name="profiles"
 					onClick={this.handleItemClick}
 				>
-					Tags
-					<Icon
-						className="tagsIcon"
-						color={activeItem === "tags" ? "white" : "blue"}
-						name="tag"
-					/>
+					Twitter users
 				</Menu.Item>
+				<Menu.Item
+					active={activeItem === "tweets"}
+					name="tweets"
+					onClick={this.handleItemClick}
+				/>
 				<Menu.Item
 					active={activeItem === "users"}
 					name="users"
 					onClick={this.handleItemClick}
 				>
 					Users
-					<Icon
-						className="usersIcon"
-						color={activeItem === "users" ? "white" : "orange"}
-						name="user circle"
-					/>
 				</Menu.Item>
 				<Menu.Item>
 					<Accordion.Title active content="Fallacies" index={0} name="fallacies" />
@@ -232,25 +189,33 @@ class SearchPage extends Component {
 			<Provider store={store}>
 				<div className="searchPage">
 					<DisplayMetaTags page="search" props={this.props} state={this.state} />
-					<PageHeader {...this.props} />
-					<Container className="mainContainer" textAlign="left">
-						<Responsive maxWidth={1024}>
-							<Grid>
-								<Grid.Row>{SearchMenu(this.props)}</Grid.Row>
-								<Grid.Row>{SearchItems()}</Grid.Row>
-							</Grid>
-						</Responsive>
+					<DefaultLayout
+						activeItem="search"
+						containerClassName="searchPage"
+						history={this.props.history}
+					>
+						<Container className="mainContainer" textAlign="left">
+							<Responsive maxWidth={1024}>
+								<Grid>
+									<Grid.Row>{SearchMenu(this.props)}</Grid.Row>
+									<Grid.Row>{SearchItems()}</Grid.Row>
+								</Grid>
+							</Responsive>
 
-						<Responsive minWidth={1025}>
-							<Grid>
-								<Grid.Column width={4}>{SearchMenu(this.props)}</Grid.Column>
-								<Grid.Column className="rightSide" width={12}>
-									{SearchItems()}
-								</Grid.Column>
-							</Grid>
-						</Responsive>
-					</Container>
-					<PageFooter />
+							<Responsive minWidth={1025}>
+								<Grid>
+									<Grid.Column className="rightSide" width={11}>
+										{SearchItems()}
+									</Grid.Column>
+									<Grid.Column style={{ paddingRight: 0 }} width={5}>
+										<Segment className="searchSegment" inverted>
+											{SearchMenu(this.props)}
+										</Segment>
+									</Grid.Column>
+								</Grid>
+							</Responsive>
+						</Container>
+					</DefaultLayout>
 				</div>
 			</Provider>
 		)

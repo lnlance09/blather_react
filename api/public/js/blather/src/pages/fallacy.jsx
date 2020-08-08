@@ -28,7 +28,6 @@ import {
 	Image,
 	List,
 	Message,
-	Popup,
 	Radio,
 	Responsive,
 	Segment
@@ -232,7 +231,6 @@ class Fallacy extends Component {
 			active,
 			auth,
 			bearer,
-			copied,
 			downloading,
 			exportOpt,
 			id,
@@ -261,109 +259,12 @@ class Fallacy extends Component {
 							bearer={bearer}
 							history={props.history}
 							id={props.id}
+							showEmptyMsg={false}
 						/>
 					</div>
 				)}
 			</div>
 		)
-
-		const ExportSection = (props, side) => {
-			const content = (
-				<div>
-					<Icon color="green" name="download" size="big" />
-				</div>
-			)
-			return (
-				<div className="exportSection">
-					{side === "left" && (
-						<Header dividing size="large">
-							Export Options
-						</Header>
-					)}
-					{props.id && (
-						<div>
-							{props.canScreenshot &&
-								(props.s3Link ? (
-									<div>
-										<Dimmer.Dimmable
-											as={Image}
-											bordered
-											className="downloadDimmer"
-											dimmed={active}
-											dimmer={{ active, content }}
-											onClick={() => window.open(props.s3Link, "_blank")}
-											onMouseEnter={this.handleShow}
-											onMouseLeave={this.handleHide}
-											rounded
-											size="big"
-											src={`${props.s3Link}?v=${new Date().getTime()}`}
-										/>
-										{props.s3Updated && (
-											<p className="screenshotCaption">
-												Created{" "}
-												<Moment
-													date={adjustTimezone(props.s3Updated)}
-													fromNow
-													interval={60000}
-												/>
-											</p>
-										)}
-									</div>
-								) : (
-									<Image src={ImagePic} />
-								))}
-
-							{!props.canScreenshot && (
-								<div>
-									<Form>
-										<Form.Field>
-											<Radio
-												checked={exportOpt === "video"}
-												disabled={!props.canMakeVideo}
-												label="Download a video"
-												name="exportOption"
-												onChange={this.handleExportChange}
-												value="video"
-											/>
-										</Form.Field>
-									</Form>
-									{!props.canMakeVideo && (
-										<Message
-											content="A time frame in the video(s) must be specified that is 60 seconds or less"
-											header="This clip is too large to make a video"
-											warning
-										/>
-									)}
-								</div>
-							)}
-
-							{props.canScreenshot && (
-								<Button
-									className="downloadBtn"
-									color="blue"
-									content="Create a meme"
-									fluid={side === "right"}
-									loading={props.creating}
-									onClick={this.toggleModal}
-								/>
-							)}
-
-							{props.canMakeVideo && canEdit ? (
-								<Button
-									basic
-									className="downloadBtn"
-									color="blue"
-									content="Create video"
-									fluid={side === "right"}
-									loading={props.creating}
-									onClick={this.captureScreenshot}
-								/>
-							) : null}
-						</div>
-					)}
-				</div>
-			)
-		}
 
 		const FallacyTitle = ({ props }) => {
 			if (props.id) {
@@ -395,16 +296,6 @@ class Fallacy extends Component {
 									id={id}
 								/>
 								{SourcesSection(props)}
-								<Responsive maxWidth={1024}>
-									<TagsCard
-										bearer={bearer}
-										canEdit={canEdit}
-										history={props.history}
-										id={props.id}
-										tags={tags()}
-										type="fallacy"
-									/>
-								</Responsive>
 								{ReferenceSection}
 							</div>
 						) : (
@@ -430,16 +321,6 @@ class Fallacy extends Component {
 											showMaterial={false}
 										/>
 										{SourcesSection(props)}
-										<Responsive maxWidth={1024}>
-											<TagsCard
-												bearer={bearer}
-												canEdit={canEdit}
-												history={this.props.history}
-												id={this.props.id}
-												tags={tags()}
-												type="fallacy"
-											/>
-										</Responsive>
 										{ReferenceSection}
 									</div>
 								)}
@@ -493,7 +374,7 @@ class Fallacy extends Component {
 							Retraction
 						</Header>
 						<Container className="retractionContainer">
-							<Card fluid>
+							<Card className="retractionCard" fluid>
 								<Card.Content>
 									<Image
 										bordered
@@ -594,14 +475,6 @@ class Fallacy extends Component {
 					{this.props.id ? (
 						<List className="shareList" horizontal size="large">
 							<List.Item>
-								<TwitterShareButton
-									title={this.props.pageTitle}
-									url={`${window.location.origin}/fallacies/${id}`}
-								>
-									<Button circular color="twitter" icon="twitter" size="large" />
-								</TwitterShareButton>
-							</List.Item>
-							<List.Item>
 								<FacebookShareButton
 									url={`${window.location.origin}/fallacies/${id}`}
 								>
@@ -609,9 +482,17 @@ class Fallacy extends Component {
 										circular
 										color="facebook"
 										icon="facebook f"
-										size="large"
+										size="big"
 									/>
 								</FacebookShareButton>
+							</List.Item>
+							<List.Item>
+								<TwitterShareButton
+									title={this.props.pageTitle}
+									url={`${window.location.origin}/fallacies/${id}`}
+								>
+									<Button circular color="twitter" icon="twitter" size="large" />
+								</TwitterShareButton>
 							</List.Item>
 							<List.Item>
 								<RedditShareButton
@@ -621,44 +502,16 @@ class Fallacy extends Component {
 										circular
 										className="redditBtn"
 										icon="reddit alien"
-										size="large"
+										size="big"
 									/>
 								</RedditShareButton>
 							</List.Item>
 							<List.Item>
-								<Popup
-									position="left center"
-									style={{ zIndex: 999 }}
-									trigger={
-										<CopyToClipboard
-											onCopy={() => this.setState({ copied: true })}
-											text={`${window.location.origin}/fallacies/${id}`}
-										>
-											<div
-												onMouseLeave={() =>
-													this.setState({ copied: false })
-												}
-											>
-												<Button
-													circular
-													color="blue"
-													icon="linkify"
-													size="large"
-												/>{" "}
-											</div>
-										</CopyToClipboard>
-									}
-								>
+								<CopyToClipboard text={`${window.location.origin}/fallacies/${id}`}>
 									<div>
-										{copied ? (
-											<p>
-												<Icon color="green" name="checkmark" /> Copied
-											</p>
-										) : (
-											"Copy this link"
-										)}
+										<Button circular color="red" icon="paperclip" size="big" />{" "}
 									</div>
-								</Popup>
+								</CopyToClipboard>
 							</List.Item>
 							<List.Item>
 								<Button
@@ -768,12 +621,6 @@ class Fallacy extends Component {
 											{CommentsSection(this.props)}
 											{SimilarSection(this.props)}
 										</Fragment>
-									)}
-
-									{this.props.id && (
-										<Segment className="exportContainer">
-											{ExportSection(this.props, "right")}
-										</Segment>
 									)}
 								</Segment>
 							</Container>

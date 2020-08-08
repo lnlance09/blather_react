@@ -8,7 +8,6 @@ import {
 	Container,
 	Dimmer,
 	Divider,
-	Grid,
 	Header,
 	Icon,
 	Image,

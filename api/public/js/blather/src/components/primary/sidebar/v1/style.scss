@@ -14,6 +14,13 @@
       		background: $invertedBackgroundColor;
     	}
 
+		.userItemImg {
+			height: 24px;
+			float: right;
+			right: -4px;
+			width: 24px;
+		}
+
     	.headerMenuItem {
       		color: $white !important;
       		cursor: pointer;
@@ -33,26 +40,6 @@
       		&:hover {
         		background: lighten($invertedBackgroundColor, 3%) !important;
         		border-radius: 4px !important;
-      		}
-    	}
-  	}
-
-  	.ui.list.aboutList {
-    	margin-bottom: 12px;
-    	text-align: center;
-    	width: 100%;
-
-    	.item {
-      		color: $lightGrey;
-
-      		a {
-        		color: $lightGrey;
-
-        		&:hover {
-          			border-bottom: solid 1px $white;
-          			color: $lightGrey !important;
-          			padding-bottom: 3px;
-        		}
       		}
     	}
   	}

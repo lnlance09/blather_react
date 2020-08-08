@@ -67,11 +67,25 @@ export const DisplayMetaTags = ({ page, props, state }) => {
 				title: "Home"
 			}
 			break
+		case "grifters":
+			metaTags = {
+				description: "",
+				img,
+				title: "Grifters"
+			}
+			break
 		case "home":
 			metaTags = {
 				description: "",
 				img,
 				title: "Assign a Logical Fallacy"
+			}
+			break
+		case "notifications":
+			metaTags = {
+				description: "",
+				img,
+				title: "Notifications"
 			}
 			break
 		case "pages":
@@ -148,11 +162,18 @@ export const DisplayMetaTags = ({ page, props, state }) => {
 				title: "Sign in"
 			}
 			break
-		case "tags":
+		case "tag":
 			metaTags = {
 				description: `${props.name} tag on Blather`,
 				img,
 				title: props.name
+			}
+			break
+		case "tags":
+			metaTags = {
+				description: "",
+				img,
+				title: "Tags"
 			}
 			break
 		case "target":

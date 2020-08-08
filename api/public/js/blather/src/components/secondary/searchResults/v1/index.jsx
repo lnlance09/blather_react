@@ -103,15 +103,9 @@ class SearchResults extends Component {
 					let dateCreated = (
 						<div>
 							<p>
-								<Icon name="arrow right" />{" "}
 								<span>
 									Assigned to <b>{result.page_name}</b>
 								</span>
-								<Icon className={`${result.network}Icon`} name={result.network} />
-							</p>
-							<p>
-								<Icon name="clock outline" />
-								<Moment date={adjustTimezone(result.date_created)} fromNow />
 							</p>
 						</div>
 					)
@@ -143,37 +137,9 @@ class SearchResults extends Component {
 						useMarked: false
 					}
 
-				case "tags":
-					return {
-						description: result.description,
-						extra: null,
-						img: result.tag_img,
-						meta: (
-							<div>
-								<p>
-									<Icon name="clock outline" /> edited{" "}
-									<Moment date={adjustTimezone(result.date_updated)} fromNow />
-								</p>
-							</div>
-						),
-						sanitize: true,
-						tags: [],
-						title: result.value,
-						truncate: true,
-						url: `/tags/${result.slug}`,
-						useMarked: false
-					}
-
 				case "users":
 					return {
 						description: result.about,
-						extra: [
-							{
-								count: result.discussion_count,
-								term: "discussion"
-							},
-							{ count: result.fallacy_count, term: "fallacy" }
-						],
 						img: result.profile_pic ? result.profile_pic : itemPic,
 						meta: `@${result.username}`,
 						tags: [],
@@ -244,13 +210,6 @@ class SearchResults extends Component {
 
 			return null
 		}
-
-		const ResultsHeader = count => (
-			<Statistic size="tiny">
-				<Statistic.Value>{formatNumber(count)}</Statistic.Value>
-				<Statistic.Label>{formatPlural(count, "result")}</Statistic.Label>
-			</Statistic>
-		)
 
 		const ResultItems = props => {
 			if (props.count > 0) {
@@ -348,10 +307,6 @@ class SearchResults extends Component {
 		return (
 			<Provider store={store}>
 				<div className="searchResults">
-					<div>
-						<div className="resultsCount">{ResultsHeader(this.props.count)}</div>
-						<div className="clearfix" />
-					</div>
 					{LinkAccountMsg(this.props)}
 					<Container className="searchContentContainer">
 						<Visibility continuous onBottomVisible={this.loadMore}>

@@ -22,7 +22,7 @@ import {
 	Message,
 	Placeholder
 } from "semantic-ui-react"
-import BrainPic from "images/avatar/brain-fart.gif"
+import defaultImg from "images/avatar/large/steve.jpg"
 import DefaultLayout from "layouts"
 import FallaciesList from "components/secondary/lists/fallaciesList/v1/"
 import ImagePic from "images/images/image-square.png"
@@ -112,14 +112,16 @@ class Target extends Component {
 		const DisplayFallacies = ({ props }) => (
 			<div className="fallaciesWrapper">
 				<Divider hidden />
-				<Header size="large">{props.user.name}'s criticisms</Header>
+				<Header inverted size="large">
+					{props.user.name}'s criticisms
+				</Header>
 				<FallaciesList
 					assignedBy={userId}
 					assignedTo={props.page.id}
 					emptyMsgContent={`${props.user.name} hasn't assigned any fallacies to ${props.page.name}`}
 					history={props.history}
 					icon="warning sign"
-					itemsPerRow={3}
+					itemsPerRow={2}
 					network={props.page.network}
 					showPics={false}
 					source="targets"
@@ -228,7 +230,7 @@ class Target extends Component {
 			<div>
 				{props.hasLoaded ? (
 					<div className="answers">
-						<Header as="h2" className="summaryHeader" size="medium">
+						<Header as="h2" className="summaryHeader" inverted size="medium">
 							Summary
 							{userId === myId && !disabled ? (
 								<Icon
@@ -253,7 +255,7 @@ class Target extends Component {
 							</div>
 						)}
 
-						<Header as="h2" size="medium">
+						<Header as="h2" inverted size="medium">
 							Does {props.page.name} sincerely believe most of what they talk about?
 							{props.sincerity !== null && (
 								<Header.Subheader>
@@ -274,7 +276,7 @@ class Target extends Component {
 							<LazyLoad header={false} />
 						)}
 
-						<Header as="h2" size="medium">
+						<Header as="h2" inverted size="medium">
 							Can {props.page.name} pass an{" "}
 							<a
 								href="https://www.econlib.org/archives/2011/06/the_ideological.html"
@@ -361,9 +363,9 @@ class Target extends Component {
 															)
 														}
 													}}
-													onError={i => (i.target.src = BrainPic)}
+													onError={i => (i.target.src = defaultImg)}
 													size="small"
-													src={user.img ? user.img : BrainPic}
+													src={user.img ? user.img : defaultImg}
 												/>
 											</div>
 										</Container>
@@ -375,7 +377,7 @@ class Target extends Component {
 										</Container>
 									)}
 
-									<Header as="h1" size="large" textAlign="center">
+									<Header as="h1" inverted size="large" textAlign="center">
 										{page.name}
 										<Header.Subheader>
 											Review by{" "}

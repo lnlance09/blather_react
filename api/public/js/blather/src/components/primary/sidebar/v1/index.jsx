@@ -1,7 +1,9 @@
 import "./style.css"
+import { parseJwt } from "utils/tokenFunctions"
 import { logout } from "components/secondary/authentication/v1/actions"
-import { Button, Divider, Icon, Menu } from "semantic-ui-react"
+import { Button, Divider, Icon, Image, Menu } from "semantic-ui-react"
 import { Provider, connect } from "react-redux"
+import defaultImg from "images/avatar/small/steve.jpg"
 import PropTypes from "prop-types"
 import React, { Fragment, useEffect, useState } from "react"
 import store from "store"
@@ -11,36 +13,42 @@ const Sidebar = ({ activeItem, basic, history, inverted, logout }) => {
 	const [authenticated, setAuthenticated] = useState(null)
 	const [user, setUser] = useState({})
 
-	useEffect(() => {}, [])
+	useEffect(() => {
+		let userData = parseJwt()
+		if (userData === false) {
+			setAuthenticated(false)
+		} else {
+			setAuthenticated(true)
+			setUser(userData)
+		}
+	}, [])
 
 	const { username } = user
 
 	const onLogout = () => {
-		this.props.logout()
+		logout()
 		const parsed = new Url(window.location)
-		if (parsed.pathname !== "/") {
-			window.location.reload()
-		}
+		window.location.reload()
 	}
 
 	const LoginButton = () => {
 		if (authenticated) {
 			return (
 				<Fragment>
-					<Divider inverted={inverted} />
 					<Menu.Item
 						active={activeItem === "profile"}
 						className="headerMenuItem profile"
-						onClick={() => history.push(`/${username}`)}
+						onClick={() => history.push(`/users/${username}`)}
 					>
+						<Image
+							avatar
+							className="userItemImg"
+							onError={i => (i.target.src = defaultImg)}
+							src={user.img === null ? defaultImg : user.img}
+						/>
 						Profile
 					</Menu.Item>
-					<Menu.Item
-						className="headerMenuItem signout"
-						onClick={() => {
-							logout()
-						}}
-					>
+					<Menu.Item className="headerMenuItem signout" onClick={onLogout}>
 						Sign out
 					</Menu.Item>
 				</Fragment>
@@ -121,9 +129,21 @@ const Sidebar = ({ activeItem, basic, history, inverted, logout }) => {
 								<Icon
 									color={activeItem === "interactions" ? "yellow" : null}
 									inverted={inverted}
-									name="user circle"
+									name="user"
 								/>
 								Grifters
+							</Menu.Item>
+							<Menu.Item
+								active={activeItem === "tags"}
+								className="headerMenuItem tags"
+								onClick={() => history.push("/tags")}
+							>
+								<Icon
+									color={activeItem === "tags" ? "yellow" : null}
+									inverted={inverted}
+									name="tag"
+								/>
+								Tags
 							</Menu.Item>
 							<Menu.Item
 								active={activeItem === "reference"}
@@ -138,16 +158,16 @@ const Sidebar = ({ activeItem, basic, history, inverted, logout }) => {
 								Reference
 							</Menu.Item>
 							<Menu.Item
-								active={activeItem === "tags"}
-								className="headerMenuItem tags"
-								onClick={() => history.push("/tags")}
+								active={activeItem === "search"}
+								className="headerMenuItem search"
+								onClick={() => history.push("/search")}
 							>
 								<Icon
-									color={activeItem === "tags" ? "yellow" : null}
+									color={activeItem === "search" ? "yellow" : null}
 									inverted={inverted}
-									name="tag"
+									name="search"
 								/>
-								Tags
+								Search
 							</Menu.Item>
 							<Menu.Item
 								active={activeItem === "notifications"}

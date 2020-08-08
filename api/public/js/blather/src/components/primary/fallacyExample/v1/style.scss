@@ -9,7 +9,7 @@
   	}
 
   	.fallacyHeader {
-		margin-top: 0;
+		margin-top: 10px !important;
 
 		.editButton {
 	  		color: $blue;
@@ -52,18 +52,23 @@
 		}
   	}
 
-  	.fallacyExplanation {
+	.fallacyExplanationSegment {
+		background: lighten($invertedBackgroundColor, 4%) !important;
+		margin-bottom: 25px !important;
+	}
+
+	.fallacyExplanation {
 		padding: 0;
 		width: 100%;
 
 		&.downloading {
-	  		padding: 5px;
+			padding: 5px;
 		}
-  	}
+	}
 
-  	span.clearfix {
+	span.clearfix {
 		display: block;
-  	}
+	}
 
   	.commonMarkLink {
 		margin: 0.5em 0.3em 0 !important;

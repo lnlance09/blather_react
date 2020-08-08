@@ -23,6 +23,7 @@
   	}
 
   	.retweetedText {
+		background: darken($invertedBackgroundColor, 2%) !important;
 		color: $lightGrey;
 		font-size: 13px;
 		padding: 6px 10px;

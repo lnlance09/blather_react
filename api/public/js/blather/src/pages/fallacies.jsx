@@ -83,6 +83,7 @@ class Fallacies extends Component {
 				key={fallacy.key}
 				onClick={this.onClickFallacy}
 				showDialogue={false}
+				size="medium"
 			/>
 		))
 
@@ -92,7 +93,7 @@ class Fallacies extends Component {
 					<DisplayMetaTags page="fallacies" props={this.props} state={this.state} />
 
 					<DefaultLayout
-						activeItem="fallacies"
+						activeItem="reference"
 						containerClassName="fallaciesPage"
 						history={this.props.history}
 					>

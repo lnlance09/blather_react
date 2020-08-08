@@ -336,6 +336,7 @@ class FallaciesList extends Component {
 										canScreenshot={false}
 										className="fallacyRef"
 										id={parseInt(value, 10)}
+										size="medium"
 									/>
 								)}
 							</div>
@@ -417,15 +418,7 @@ class FallaciesList extends Component {
 									</Placeholder>
 								)}
 								<Card.Content>
-									<Placeholder>
-										<Placeholder.Header>
-											<Placeholder.Line length="very long" />
-											<Placeholder.Line length="medium" />
-										</Placeholder.Header>
-										<Placeholder.Paragraph>
-											<Placeholder.Line length="short" />
-										</Placeholder.Paragraph>
-									</Placeholder>
+									<LazyLoad segment={false} />
 								</Card.Content>
 							</Card>
 						)

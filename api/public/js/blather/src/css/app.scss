@@ -74,6 +74,16 @@
 	border-radius: 4px !important;
 }
 
+.ui.message.warning, .ui.message.error {
+	background: $red !important;
+	box-shadow: none !important;
+	color: $white !important;
+
+	.header {
+		color: $white !important;
+	}
+}
+
 body {
 	background: $invertedBackgroundColor !important;
 	height: 100%;
@@ -116,6 +126,10 @@ body {
 .segment.inverted {
 	background: $invertedBackgroundColor !important;
 	border: solid 1px $twitterExtraExtraLightGrey2 !important;
+
+	&.placeholder {
+		background: lighten($invertedBackgroundColor, 3%) !important;
+	}
 }
 
 .ui.card {
@@ -167,7 +181,7 @@ body {
 		font-weight: normal !important;
 
 		&.active {
-			background: $blue !important;
+			background: lighten($invertedBackgroundColor, 4%) !important;
 			color: $white !important;
 			font-weight: bold !important;
 
@@ -511,11 +525,13 @@ a {
 	.mainContainer {
 		padding: 10px 0;
 
-		.fallacySegment {
-			border-bottom: none !important;
+		.segments {
+			.fallacySegment {
+				border-bottom: none !important;
 
-			&:last-of-type {
-				border-bottom: solid 1px $twitterExtraExtraLightGrey1 !important;
+				&:last-of-type {
+					border-bottom: solid 1px $twitterExtraExtraLightGrey1 !important;
+				}
 			}
 		}
 	}
@@ -630,7 +646,7 @@ a {
 	}
 
 	.tagsCard {
-		margin-top: 20px;
+		margin: 20px 0;
 	}
 
 	.retractionContent {
@@ -638,6 +654,10 @@ a {
 
 		.card {
 			.content {
+				&.extra {
+					border-top: solid 1px $twitterExtraExtraLightGrey1 !important;
+				}
+
 				.image {
 					cursor: pointer;
 				}
@@ -970,26 +990,34 @@ a {
 		}
 	}
 
-	.searchMenu {
-		.item {
-			&.searchItem {
-				padding: 6px 0 10px 18px;
+	.searchSegment {
+		padding: 0 !important;
 
-				input {
-					padding: 0;
+		.searchMenu {
+			background: $invertedBackgroundColor !important;
+	
+			.item {
+				color: $white !important;
+
+				&.searchItem {
+					padding: 6px 0 10px 18px;
+	
+					input {
+						padding: 0;
+					}
 				}
-			}
-
-			.ui.icon.input {
-				input {
-					border: none;
+	
+				.ui.icon.input {
+					input {
+						border: none;
+					}
 				}
-			}
-
-			.icon {
-				font-size: 18px;
-				line-height: 14px;
-				vertical-align: middle;
+	
+				.icon {
+					font-size: 18px;
+					line-height: 14px;
+					vertical-align: middle;
+				}
 			}
 		}
 	}
@@ -1184,7 +1212,8 @@ a {
 
 		.answers {
 			.answerField {
-				font-size: 14px;
+				color: $white;
+				font-size: 15px;
 			}
 
 			.header.sub {
@@ -1218,24 +1247,24 @@ a {
 		margin-top: 20px !important;
 	}
 
-	$profile-pic-height: 185px;
+	// $profile-pic-height: 200px;
 
 	.profilePic {
-		height: $profile-pic-height;
-		width: auto !important;
+		// height: $profile-pic-height;
+		// width: auto !important;
 
 		img {
-			height: $profile-pic-height;
+			// height: $profile-pic-height;
 			text-align: center;
-			width: $profile-pic-height;
+			// width: $profile-pic-height;
 		}
 
 		&.default {
-			background: $white;
-			height: $profile-pic-height !important;
+			background: $twitterLightGrey;
+			// height: $profile-pic-height !important;
 			overflow: hidden;
 			padding: 7px;
-			width: $profile-pic-height !important;
+			// width: $profile-pic-height !important;
 		}
 	}
 

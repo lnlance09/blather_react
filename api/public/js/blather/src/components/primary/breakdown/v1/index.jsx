@@ -139,7 +139,7 @@ class Breakdown extends Component {
 
 		return (
 			<div className="breakdown">
-				<Segment className="breakdownSegment" inverted>
+				<div className="breakdownSegment">
 					{this.props.id ? (
 						<div>
 							<Message
@@ -158,7 +158,7 @@ class Breakdown extends Component {
 									</Segment>
 								</div>
 							) : (
-								<Segment placeholder>
+								<Segment inverted placeholder>
 									<Header icon>
 										<Icon color="red" name="warning sign" />
 										No fallacies have been assigned
@@ -186,8 +186,6 @@ class Breakdown extends Component {
 							</Placeholder>
 						</Segment>
 					)}
-
-					<Divider hidden inverted />
 
 					<Header inverted size="large">
 						Reviews
@@ -221,11 +219,11 @@ class Breakdown extends Component {
 									/>
 								</blockquote>
 
-								<Icon name="quote right" />
+								<Icon inverted name="quote right" />
 
 								<Divider hidden />
 
-								<Header size="medium">
+								<Header inverted size="medium">
 									Can pass an{" "}
 									<a
 										href="https://www.econlib.org/archives/2011/06/the_ideological.html"
@@ -237,7 +235,7 @@ class Breakdown extends Component {
 									?<Header.Subheader>{Stats(turingTest)}</Header.Subheader>
 								</Header>
 
-								<Header size="medium">
+								<Header inverted size="medium">
 									Believes most of what they talk about?
 									<Header.Subheader>{Stats(sincerity)}</Header.Subheader>
 								</Header>
@@ -255,7 +253,7 @@ class Breakdown extends Component {
 							{ReviewButton(this.props)}
 						</Segment>
 					)}
-				</Segment>
+				</div>
 			</div>
 		)
 	}

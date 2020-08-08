@@ -17,5 +17,11 @@
   	.linkAccountMsg,
   	.emptyMsg {
     	margin-top: 14px !important;
-  	}
+	}
+	  
+	.resultsSegment {
+		background: $invertedBackgroundColor !important;
+		padding: 0 !important;
+		margin-top: 0 !important;
+	}
 }

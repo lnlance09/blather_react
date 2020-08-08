@@ -2,8 +2,7 @@ import "./style.css"
 import { removeFallacyTag, updateFallacy } from "redux/actions/fallacy"
 import { removeDiscussionTag, updateDiscussion } from "redux/actions/discussion"
 import { connect, Provider } from "react-redux"
-import { Link } from "react-router-dom"
-import { Button, Dropdown, Header, Icon, List, Modal, Segment } from "semantic-ui-react"
+import { Button, Dropdown, Header, Icon, Label, Message, Modal } from "semantic-ui-react"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import store from "store"
@@ -130,32 +129,24 @@ class TagsCard extends Component {
 		)
 
 		const RenderTags = this.props.tags.map(tag => (
-			<List.Item key={`tag_${tag.name}`}>
-				<Link to={`/tags/${tag.id.trim()}`}>{tag.name.trim()}</Link>
+			<Label
+				color="yellow"
+				onClick={() => this.props.history.push(`/tags/${tag.id.trim()}`)}
+				size="large"
+				tag
+			>
+				{tag.name.trim()}
 				{this.props.canEdit && (
-					<List.Content floated="right">
-						<Icon name="close" onClick={() => this.deleteTag(tag.id, tag.name)} />
-					</List.Content>
+					<Icon name="close" onClick={() => this.deleteTag(tag.id, tag.name)} />
 				)}
-			</List.Item>
+			</Label>
 		))
 
 		const ShowTags = props => {
 			if (props.tags.length > 0) {
-				return (
-					<List className="tagsList" relaxed>
-						{RenderTags}
-					</List>
-				)
+				return <div>{RenderTags}</div>
 			}
-			return (
-				<Segment inverted placeholder>
-					<Header icon inverted>
-						<Icon color="blue" inverted name="tag" />
-						No tags have been added
-					</Header>
-				</Segment>
-			)
+			return <Message content="No tags have been added" inverted size="big" />
 		}
 
 		return (

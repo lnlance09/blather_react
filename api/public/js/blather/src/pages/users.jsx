@@ -1,5 +1,4 @@
 import { changeProfilePic, updateAbout } from "components/secondary/authentication/v1/actions"
-import { adjustTimezone } from "utils/dateFunctions"
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { formatNumber } from "utils/textFunctions"
 import { fetchUserData, reset } from "redux/actions/user"
@@ -8,13 +7,11 @@ import {
 	Button,
 	Container,
 	Dimmer,
-	Divider,
 	Grid,
 	Header,
 	Icon,
 	Image,
 	Label,
-	List,
 	Menu,
 	Placeholder,
 	Segment
@@ -25,7 +22,6 @@ import ArchivesList from "components/secondary/lists/archivesList/v1/"
 import Dropzone from "react-dropzone"
 import FallaciesList from "components/secondary/lists/fallaciesList/v1/"
 import ImagePic from "images/images/image-square.png"
-import Moment from "react-moment"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import store from "store"
@@ -182,6 +178,7 @@ class UserPage extends Component {
 			return (
 				<Image
 					className={`profilePic ${!user.img ? "default" : ""}`}
+					fluid
 					onError={i => (i.target.src = ImagePic)}
 					rounded
 					src={pic}
@@ -233,58 +230,23 @@ class UserPage extends Component {
 										{this.props.user.id ? (
 											<div>{ProfilePic(this.props)}</div>
 										) : (
-											<Placeholder className="profilePicPlaceholder square">
+											<Placeholder className="profilePicPlaceholder" inverted>
 												<Placeholder.Image square />
 											</Placeholder>
 										)}
 									</Grid.Column>
 									<Grid.Column textAlign="left" width={7}>
 										<div className="userHeaderSection">
-											<TitleHeader textAlign="left" title={user.name} />
-											{this.props.user.id && (
-												<List inverted>
-													<List.Item>
-														<List.Content>
-															<Icon name="at" /> {user.username}
-														</List.Content>
-													</List.Item>
-													<List.Item>
-														<List.Content>
-															<Icon name="clock outline" />
-															Joined{" "}
-															<Moment
-																date={adjustTimezone(
-																	user.dateCreated
-																)}
-																fromNow
-															/>
-														</List.Content>
-													</List.Item>
-													{user.patreonUsername && (
-														<List.Item>
-															<List.Content>
-																<Icon
-																	className="patreonIcon"
-																	name="patreon"
-																/>{" "}
-																<a
-																	href={`https://patreon.com/${user.patreonUsername}`}
-																	rel="noopener noreferrer"
-																	target="_blank"
-																>
-																	{user.patreonUsername}
-																</a>
-															</List.Content>
-														</List.Item>
-													)}
-												</List>
-											)}
+											<TitleHeader
+												subheader={<div>@{user.username}</div>}
+												textAlign="left"
+												title={user.name}
+											/>
 										</div>
 									</Grid.Column>
 								</Grid>
 
 								<Menu
-									attached
 									inverted
 									pointing
 									secondary
@@ -310,18 +272,14 @@ class UserPage extends Component {
 									>
 										Archives{" "}
 										{user.archiveCount > 0 && (
-											<Label color="blue" floating>
+											<Label color="yellow" floating>
 												{formatNumber(user.archiveCount)}
 											</Label>
 										)}
 									</Menu.Item>
 								</Menu>
 
-								<Segment
-									attached="bottom"
-									className="profileContentSegment"
-									inverted
-								>
+								<Segment className="profileContentSegment" inverted>
 									{ShowContent(this.props)}
 								</Segment>
 							</Container>
@@ -333,7 +291,9 @@ class UserPage extends Component {
 									size="medium"
 									src={TrumpImg}
 								/>
-								<Header size="medium">This user does not exist!</Header>
+								<Header inverted size="medium">
+									This user does not exist!
+								</Header>
 							</Container>
 						)}
 					</DefaultLayout>

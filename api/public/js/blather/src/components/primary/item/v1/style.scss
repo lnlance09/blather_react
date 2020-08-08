@@ -1,6 +1,7 @@
 @import "../../../../css/colors.scss";
 
 .resultItem {
+	background: $invertedBackgroundColor !important;
 	border-bottom: solid 1px $twitterExtraExtraLightGrey1 !important;
   	cursor: pointer;
   	width: 100%;

@@ -131,7 +131,6 @@ class NavSearch extends Component {
 				className="navSearch"
 				defaultValue={value}
 				disabled={props.disabled}
-				inverted
 				loading={isLoading}
 				minCharacters={4}
 				onResultSelect={this.onClick}

@@ -16,3 +16,8 @@
 .searchResults .linkAccountMsg,
 .searchResults .emptyMsg {
   margin-top: 14px !important; }
+
+.searchResults .resultsSegment {
+  background: #15202b !important;
+  padding: 0 !important;
+  margin-top: 0 !important; }

@@ -26,7 +26,12 @@
     	.header {
       		font-size: 20px !important;
     	}
-  	}
+	}
+	  
+	.ui.message {
+		background: lighten($invertedBackgroundColor, 4%) !important;
+		color: $white;
+	}
 
   	.tagsList {
     	.item {

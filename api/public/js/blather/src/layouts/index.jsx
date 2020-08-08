@@ -37,7 +37,7 @@ const DefaultLayout = ({
 				</Container>
 			) : (
 				<Fragment>
-					<PageHeader />
+					<PageHeader history={history} />
 
 					<Container
 						// className={`mainContainer ${containerClassName}`}

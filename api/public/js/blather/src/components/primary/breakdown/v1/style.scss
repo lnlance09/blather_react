@@ -2,7 +2,7 @@
 
 .breakdown {
 	.credMessage {
-		background: $invertedBackgroundColor !important;
+		background: lighten($invertedBackgroundColor, 3%) !important;
 		border: solid 1px $twitterExtraExtraLightGrey2;
 		color: $white !important;
 	}
@@ -54,7 +54,7 @@
 	}
 
 	.placeholderDiv {
-		color: $lightBlack;
+		color: $white;
 		font-size: 16px;
 		line-height: 1.6;
 		margin-bottom: 12px;

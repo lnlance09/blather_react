@@ -14,6 +14,11 @@
     z-index: 1001 !important; }
     .pageSidebar .ui.inverted.menu.globalSidebar.inverted {
       background: #15202b; }
+    .pageSidebar .ui.inverted.menu.globalSidebar .userItemImg {
+      height: 24px;
+      float: right;
+      right: -4px;
+      width: 24px; }
     .pageSidebar .ui.inverted.menu.globalSidebar .headerMenuItem {
       color: #ffffff !important;
       cursor: pointer;
@@ -28,15 +33,3 @@
       .pageSidebar .ui.inverted.menu.globalSidebar .headerMenuItem:hover {
         background: #1a2835 !important;
         border-radius: 4px !important; }
-  .pageSidebar .ui.list.aboutList {
-    margin-bottom: 12px;
-    text-align: center;
-    width: 100%; }
-    .pageSidebar .ui.list.aboutList .item {
-      color: #dcddde; }
-      .pageSidebar .ui.list.aboutList .item a {
-        color: #dcddde; }
-        .pageSidebar .ui.list.aboutList .item a:hover {
-          border-bottom: solid 1px #ffffff;
-          color: #dcddde !important;
-          padding-bottom: 3px; }

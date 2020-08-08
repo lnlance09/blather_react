@@ -5,7 +5,7 @@
 /*---   Misc  ---*/
 /*---   Social colors  ---*/
 .breakdown .credMessage {
-  background: #15202b !important;
+  background: #1a2835 !important;
   border: solid 1px rgba(245, 248, 250, 0.2);
   color: #ffffff !important; }
 
@@ -38,7 +38,7 @@
     margin-top: 0; }
 
 .breakdown .placeholderDiv {
-  color: #545454;
+  color: #ffffff;
   font-size: 16px;
   line-height: 1.6;
   margin-bottom: 12px; }

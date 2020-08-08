@@ -10,7 +10,7 @@
   .fallacyExample.downloading {
     padding-top: 3px; }
   .fallacyExample .fallacyHeader {
-    margin-top: 0; }
+    margin-top: 10px !important; }
     .fallacyExample .fallacyHeader .editButton {
       color: #2185d0;
       cursor: pointer;
@@ -29,6 +29,9 @@
       white-space: pre !important; }
   .fallacyExample .fallacyMaterial .sourceList .item {
     margin-bottom: 8px; }
+  .fallacyExample .fallacyExplanationSegment {
+    background: #1c2a39 !important;
+    margin-bottom: 25px !important; }
   .fallacyExample .fallacyExplanation {
     padding: 0;
     width: 100%; }

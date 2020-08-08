@@ -9,6 +9,7 @@ import defaultImg from "images/avatar/small/steve.jpg"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import Linkify from "react-linkify"
+import { Fragment } from "react"
 
 class CommentsSection extends Component {
 	constructor(props) {
@@ -117,12 +118,16 @@ class CommentsSection extends Component {
 				{comments.results.length > 0 ? (
 					<Comment.Group size="big">{RenderComments(this.props)}</Comment.Group>
 				) : (
-					<Segment inverted placeholder>
-						<Header icon inverted textAlign="center">
-							<Icon color="blue" inverted name="comment" />
-							No comments
-						</Header>
-					</Segment>
+					<Fragment>
+						{this.props.showEmptyMsg && (
+							<Segment inverted placeholder>
+								<Header icon inverted textAlign="center">
+									<Icon color="blue" inverted name="comment" />
+									No comments
+								</Header>
+							</Segment>
+						)}
+					</Fragment>
 				)}
 			</div>
 		)
@@ -138,6 +143,7 @@ CommentsSection.propTypes = {
 	}),
 	id: PropTypes.number,
 	fetchComments: PropTypes.func,
+	showEmptyMsg: PropTypes.bool,
 	submitComment: PropTypes.func,
 	voteOnComment: PropTypes.func
 }
@@ -149,6 +155,7 @@ CommentsSection.defaultProps = {
 	},
 	fetchComments,
 	postComment,
+	showEmptyMsg: true,
 	voteOnComment
 }
 

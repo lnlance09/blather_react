@@ -14,7 +14,6 @@ import {
 	Image,
 	Input,
 	List,
-	Message,
 	Segment,
 	TextArea
 } from "semantic-ui-react"
@@ -270,7 +269,7 @@ class FallacyExample extends Component {
 						<Header as="h2" className="fallacyHeader" inverted size="large">
 							{props.fallacyName} <EditButton props={props} />
 						</Header>
-						<div>
+						<Segment className="fallacyExplanationSegment" inverted>
 							{editing ? (
 								<Form onSubmit={this.updateFallacy}>
 									<Form.Field>
@@ -319,7 +318,7 @@ class FallacyExample extends Component {
 									}}
 								/>
 							)}
-						</div>
+						</Segment>
 					</div>
 				)
 

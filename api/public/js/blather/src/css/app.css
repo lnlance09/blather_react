@@ -56,6 +56,13 @@
   background: #db2828;
   border-radius: 4px !important; }
 
+.ui.message.warning, .ui.message.error {
+  background: #db2828 !important;
+  box-shadow: none !important;
+  color: #ffffff !important; }
+  .ui.message.warning .header, .ui.message.error .header {
+    color: #ffffff !important; }
+
 body {
   background: #15202b !important;
   height: 100%;
@@ -87,6 +94,8 @@ body {
 .segment.inverted {
   background: #15202b !important;
   border: solid 1px rgba(245, 248, 250, 0.2) !important; }
+  .segment.inverted.placeholder {
+    background: #1a2835 !important; }
 
 .ui.card {
   background: #15202b !important;
@@ -117,7 +126,7 @@ body {
 .ui.vertical.menu .item {
   font-weight: normal !important; }
   .ui.vertical.menu .item.active {
-    background: #2185d0 !important;
+    background: #1c2a39 !important;
     color: #ffffff !important;
     font-weight: bold !important; }
     .ui.vertical.menu .item.active:hover {
@@ -335,9 +344,9 @@ a {
 /* Fallacies page */
 .fallaciesPage .mainContainer {
   padding: 10px 0; }
-  .fallaciesPage .mainContainer .fallacySegment {
+  .fallaciesPage .mainContainer .segments .fallacySegment {
     border-bottom: none !important; }
-    .fallaciesPage .mainContainer .fallacySegment:last-of-type {
+    .fallaciesPage .mainContainer .segments .fallacySegment:last-of-type {
       border-bottom: solid 1px rgba(245, 248, 250, 0.1) !important; }
 
 @media only screen and (max-width: 1025px) {
@@ -404,9 +413,11 @@ a {
     margin-top: 25px;
     width: 100%; }
   .fallacyPage .tagsCard {
-    margin-top: 20px; }
+    margin: 20px 0; }
   .fallacyPage .retractionContent {
     width: 100%; }
+    .fallacyPage .retractionContent .card .content.extra {
+      border-top: solid 1px rgba(245, 248, 250, 0.1) !important; }
     .fallacyPage .retractionContent .card .content .image {
       cursor: pointer; }
   .fallacyPage .ui.container.retractionContainer {
@@ -595,18 +606,22 @@ a {
     .searchPage .mainContainer .ui.grid {
       margin: 0 !important; } }
 
-.searchPage .searchMenu .item.searchItem {
-  padding: 6px 0 10px 18px; }
-  .searchPage .searchMenu .item.searchItem input {
-    padding: 0; }
-
-.searchPage .searchMenu .item .ui.icon.input input {
-  border: none; }
-
-.searchPage .searchMenu .item .icon {
-  font-size: 18px;
-  line-height: 14px;
-  vertical-align: middle; }
+.searchPage .searchSegment {
+  padding: 0 !important; }
+  .searchPage .searchSegment .searchMenu {
+    background: #15202b !important; }
+    .searchPage .searchSegment .searchMenu .item {
+      color: #ffffff !important; }
+      .searchPage .searchSegment .searchMenu .item.searchItem {
+        padding: 6px 0 10px 18px; }
+        .searchPage .searchSegment .searchMenu .item.searchItem input {
+          padding: 0; }
+      .searchPage .searchSegment .searchMenu .item .ui.icon.input input {
+        border: none; }
+      .searchPage .searchSegment .searchMenu .item .icon {
+        font-size: 18px;
+        line-height: 14px;
+        vertical-align: middle; }
 
 .searchPage .ui.container.searchContentContainer {
   min-height: 300px;
@@ -716,7 +731,8 @@ a {
   white-space: pre-line; }
 
 .targetsPage .ui.container .answers .answerField {
-  font-size: 14px; }
+  color: #ffffff;
+  font-size: 15px; }
 
 .targetsPage .ui.container .answers .header.sub {
   margin-top: 5px; }
@@ -736,19 +752,13 @@ a {
 .usersPage .profileMenu {
   margin-top: 20px !important; }
 
-.usersPage .profilePic {
-  height: 185px;
-  width: auto !important; }
-  .usersPage .profilePic img {
-    height: 185px;
-    text-align: center;
-    width: 185px; }
-  .usersPage .profilePic.default {
-    background: #ffffff;
-    height: 185px !important;
-    overflow: hidden;
-    padding: 7px;
-    width: 185px !important; }
+.usersPage .profilePic img {
+  text-align: center; }
+
+.usersPage .profilePic.default {
+  background: #aab8c2;
+  overflow: hidden;
+  padding: 7px; }
 
 .usersPage .profileContentContainer {
   margin: 0 !important;
