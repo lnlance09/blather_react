@@ -20,7 +20,7 @@
   display: flex;
   justify-content: center;
   max-width: none !important;
-  padding: 14px 13px 14px 13px;
+  padding: 10px 13px 10px 13px;
   position: fixed;
   top: 0;
   width: 100% !important;
@@ -32,47 +32,33 @@
       margin-right: 18px; }
     .pageHeader .topHeader .container.mobile .icon.ellipsis {
       margin-right: 0; }
+  .pageHeader .topHeader .menu.inverted {
+    background: #131d28 !important; }
   .pageHeader .topHeader img {
     cursor: pointer;
-    height: 48px;
-    width: 48px; }
-  .pageHeader .topHeader .container.basic {
-    display: flex;
-    justify-content: center;
-    padding: 8px 0; }
+    height: 54px;
+    width: 54px; }
   .pageHeader .topHeader .grid .column.logoColumn {
     align-items: center;
-    display: flex;
-    padding-left: 32px; }
+    display: flex; }
   .pageHeader .topHeader .grid .column input {
     line-height: 25px; }
-  .pageHeader .topHeader .headerContainer .headerLogo {
-    cursor: pointer;
-    display: inline;
-    fill: #2185d0;
-    height: 36px;
-    line-height: 4;
-    margin-right: 12px;
-    vertical-align: middle;
-    width: 36px; }
-  .pageHeader .topHeader .headerContainer .sidebarItem .button {
-    margin-right: 18px; }
-  .pageHeader .topHeader .headerContainer .sidebarItem .icon {
-    cursor: pointer; }
-    .pageHeader .topHeader .headerContainer .sidebarItem .icon:hover {
-      color: #2185d0; }
   @media only screen and (max-width: 1025px) {
-    .pageHeader .topHeader {
-      opacity: 0.95; }
-      .pageHeader .topHeader .container.desktop {
-        display: none; } }
+    .pageHeader .topHeader .container.desktop {
+      display: none; } }
   @media only screen and (min-width: 1025px) {
     .pageHeader .topHeader .container.mobile {
       display: none; } }
 
-.pageHeader .sidebar.menu {
-  padding-top: 135px; }
-  .pageHeader .sidebar.menu .fallacySidebarItem {
-    text-align: left; }
-  .pageHeader .sidebar.menu .sidebarSearchBtn {
-    margin-top: 8px; }
+.pageHeader .sidebar.ui.labeled.icon.menu .item {
+  background: #182532 !important;
+  color: #ffffff !important;
+  font-weight: bold !important;
+  line-height: 24px !important;
+  text-align: left !important; }
+  .pageHeader .sidebar.ui.labeled.icon.menu .item .icon {
+    color: #2185d0;
+    display: inline;
+    font-size: 24px !important;
+    padding-right: 16px;
+    vertical-align: middle; }

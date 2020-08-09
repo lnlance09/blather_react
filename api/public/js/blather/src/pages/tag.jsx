@@ -18,7 +18,6 @@ import { connect, Provider } from "react-redux"
 import {
 	Button,
 	Card,
-	Container,
 	Divider,
 	Form,
 	Header,
@@ -39,7 +38,7 @@ import Lightbox from "react-image-lightbox"
 import Marked from "marked"
 import LazyLoad from "components/primary/lazyLoad/v1/"
 import PropTypes from "prop-types"
-import React, { Component } from "react"
+import React, { Component, Fragment } from "react"
 import store from "store"
 import TitleHeader from "components/primary/titleHeader/v1/"
 import TrumpImg from "images/trump-white.png"
@@ -197,8 +196,12 @@ class Tag extends Component {
 							This tag is empty
 						</Header>
 						{!authenticated && (
-							<Button onClick={() => props.history.push("/signin")} primary>
-								<Icon inverted name="pencil" />
+							<Button
+								color="yellow"
+								inverted
+								onClick={() => props.history.push("/signin")}
+							>
+								<Icon color="yellow" inverted name="pencil" />
 								Edit this article
 							</Button>
 						)}
@@ -359,7 +362,7 @@ class Tag extends Component {
 		const RelatedSection = props => (
 			<div className="relatedContent">
 				<Header inverted size="large">
-					Other platitudes
+					Other tags
 				</Header>
 				<Input
 					fluid
@@ -464,15 +467,15 @@ class Tag extends Component {
 
 		return (
 			<Provider store={store}>
-				<div className="tagsPage">
+				<div className="tagPage">
 					<DisplayMetaTags page="tags" props={this.props} state={this.state} />
 					<DefaultLayout
 						activeItem="tags"
-						containerClassName="tagsPage"
+						containerClassName="tagPage"
 						history={this.props.history}
 					>
 						{!this.props.error ? (
-							<Container className="mainContainer" textAlign="left">
+							<Fragment>
 								<TagTitle props={this.props} />
 								<div className="tagsWrapper">
 									{TagMenu(this.props)}
@@ -506,9 +509,9 @@ class Tag extends Component {
 										)}
 									</Segment>
 								</div>
-							</Container>
+							</Fragment>
 						) : (
-							<Container className="mainContainer" text textAlign="center">
+							<Fragment>
 								<Image
 									centered
 									className="trumpImg404"
@@ -518,7 +521,7 @@ class Tag extends Component {
 								<Header inverted size="medium">
 									This tag does not exist!
 								</Header>
-							</Container>
+							</Fragment>
 						)}
 					</DefaultLayout>
 				</div>

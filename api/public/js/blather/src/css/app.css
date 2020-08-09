@@ -78,18 +78,26 @@ body {
 
 .mainContainer {
   min-height: 100vh;
-  margin-top: 5em;
+  margin-top: 4em;
   padding: 15px 15px 0 15px; }
   .mainContainer.bc {
     margin-top: 2.4em; }
-  .mainContainer.forText {
-    margin-top: 5.3em; }
   .mainContainer .trumpImg404 {
     background-color: #db2828 !important;
     border: solid 5px #2185d0;
     padding: 20px 20px 0 20px; }
   .mainContainer .trumpImg404 + .header.large {
     margin-top: 7px !important; }
+  .mainContainer .grid.mainGrid .column.four.leftColumn {
+    padding-left: 0; }
+    @media only screen and (max-width: 1025px) {
+      .mainContainer .grid.mainGrid .column.four.leftColumn {
+        display: none; } }
+  @media only screen and (max-width: 1025px) {
+    .mainContainer .grid.mainGrid .column.twelve.rightColumn {
+      width: 100% !important; }
+      .mainContainer .grid.mainGrid .column.twelve.rightColumn .ui.grid.stackable {
+        margin-right: 0 !important; } }
 
 .segment.inverted {
   background: #15202b !important;
@@ -115,7 +123,6 @@ body {
 
 @media only screen and (max-width: 1025px) {
   .mainContainer {
-    margin-top: 9.8em;
     padding-left: 0 !important;
     padding-right: 0 !important; } }
 
@@ -159,10 +166,10 @@ body {
   border-color: #96c8da !important; }
 
 .externalUrl {
-  color: #2185d0;
+  color: #54c8ff;
   cursor: pointer; }
   .externalUrl:hover {
-    color: #2d92de; }
+    color: #6ed0ff; }
 
 .profilePicPlaceholder {
   border-radius: 50%;
@@ -257,108 +264,98 @@ a {
     font-size: 13px !important; } }
 
 /* About page */
-.aboutPage p {
-  color: #ffffff !important;
-  font-size: 16px; }
-
-.aboutPage .ui.list .item {
-  color: #ffffff !important; }
-
-.aboutPage .aboutContainer {
-  margin: 0 !important; }
+.aboutPage {
+  padding: 18px 0; }
+  .aboutPage p {
+    color: #ffffff !important;
+    font-size: 16px; }
+  .aboutPage .ui.list .item {
+    color: #ffffff !important; }
+  .aboutPage .aboutContainer {
+    margin: 0 !important; }
 
 /* Create discussion page */
-.createDiscussionPage .contentContainer {
-  padding: 0 !important; }
-  .createDiscussionPage .contentContainer .segment {
-    margin: 0;
-    padding: 0; }
-    .createDiscussionPage .contentContainer .segment .ui.form .field label {
-      font-size: 15px; }
-    .createDiscussionPage .contentContainer .segment .ui.form .provenWrongTextArea {
-      margin-top: 1em; }
-    .createDiscussionPage .contentContainer .segment .ui.form .titleInput input,
-    .createDiscussionPage .contentContainer .segment .ui.form textarea {
-      padding: 8px; }
-    .createDiscussionPage .contentContainer .segment .extraWrapper {
-      margin-top: 15px; }
-    .createDiscussionPage .contentContainer .segment.dimmed.dimmable {
-      padding: 10px; }
-      .createDiscussionPage .contentContainer .segment.dimmed.dimmable .dimmer {
-        background: rgba(21, 32, 43, 0.96) !important; }
-  .createDiscussionPage .contentContainer .btnWrapper {
-    margin-top: 15px; }
-  .createDiscussionPage .contentContainer .previewSegment .descriptionTitle,
-  .createDiscussionPage .contentContainer .previewSegment .extraTitle {
-    margin-bottom: 5px; }
-  .createDiscussionPage .contentContainer .previewSegment .descriptionPreview,
-  .createDiscussionPage .contentContainer .previewSegment .extraPreview {
-    min-height: 80px;
-    padding: 0; }
-  .createDiscussionPage .contentContainer .exitPreviewButton {
-    float: right; }
-
-@media only screen and (max-width: 1025px) {
+.createDiscussionPage {
+  padding: 18px 0; }
   .createDiscussionPage .contentContainer {
-    margin: 0 !important;
-    width: 100% !important; }
-  .createDiscussionPage .discussionHeader {
-    margin-left: -0.5em; } }
-
-.createDiscussionPage .rightSide .discussionTagsHeader {
-  font-size: 24px !important; }
+    padding: 0 !important; }
+    .createDiscussionPage .contentContainer .segment {
+      margin: 0;
+      padding: 0; }
+      .createDiscussionPage .contentContainer .segment .ui.form .field label {
+        font-size: 15px; }
+      .createDiscussionPage .contentContainer .segment .ui.form .provenWrongTextArea {
+        margin-top: 1em; }
+      .createDiscussionPage .contentContainer .segment .ui.form .titleInput input,
+      .createDiscussionPage .contentContainer .segment .ui.form textarea {
+        padding: 8px; }
+      .createDiscussionPage .contentContainer .segment .extraWrapper {
+        margin-top: 15px; }
+      .createDiscussionPage .contentContainer .segment.dimmed.dimmable {
+        padding: 10px; }
+        .createDiscussionPage .contentContainer .segment.dimmed.dimmable .dimmer {
+          background: rgba(21, 32, 43, 0.96) !important; }
+    .createDiscussionPage .contentContainer .btnWrapper {
+      margin-top: 15px; }
+    .createDiscussionPage .contentContainer .previewSegment .descriptionTitle,
+    .createDiscussionPage .contentContainer .previewSegment .extraTitle {
+      margin-bottom: 5px; }
+    .createDiscussionPage .contentContainer .previewSegment .descriptionPreview,
+    .createDiscussionPage .contentContainer .previewSegment .extraPreview {
+      min-height: 80px;
+      padding: 0; }
+    .createDiscussionPage .contentContainer .exitPreviewButton {
+      float: right; }
+  @media only screen and (max-width: 1025px) {
+    .createDiscussionPage .contentContainer {
+      margin: 0 !important;
+      width: 100% !important; }
+    .createDiscussionPage .discussionHeader {
+      margin-left: -0.5em; } }
+  .createDiscussionPage .rightSide .discussionTagsHeader {
+    font-size: 24px !important; }
 
 /* Discussion page */
-.discussionPage .header .editButton {
-  font-size: 18px;
-  line-height: 30px; }
-
-.discussionPage .header:hover .editButton {
-  display: inline !important; }
-
-@media only screen and (max-width: 1025px) {
+.discussionPage {
+  padding: 18px 0; }
+  .discussionPage .header .editButton {
+    font-size: 18px;
+    line-height: 30px; }
+  .discussionPage .header:hover .editButton {
+    display: inline !important; }
+  @media only screen and (max-width: 1025px) {
+    .discussionPage .ui.grid {
+      margin: 0; } }
+  .discussionPage .evidenceSection .evidenceSegment,
+  .discussionPage .evidenceSection .extraSegment {
+    font-size: 16px !important; }
+  .discussionPage .extraLazyLoad {
+    margin-top: 20px; }
   .discussionPage .ui.grid {
-    margin: 0; } }
-
-.discussionPage .evidenceSection .evidenceSegment,
-.discussionPage .evidenceSection .extraSegment {
-  font-size: 16px !important; }
-
-.discussionPage .extraLazyLoad {
-  margin-top: 20px; }
-
-.discussionPage .ui.grid {
-  margin-top: 0 !important; }
+    margin-top: 0 !important; }
 
 /* Discussion page */
-.discussionsPage .discussionsContainer {
-  padding: 0; }
-
-@media only screen and (max-width: 1025px) {
+.discussionsPage {
+  padding: 18px 0; }
   .discussionsPage .discussionsContainer {
-    margin: 0 !important; } }
-
-.discussionsPage .emptyDiscussionContainer {
-  margin-top: 20px; }
+    padding: 0; }
+  @media only screen and (max-width: 1025px) {
+    .discussionsPage .discussionsContainer {
+      margin: 0 !important; } }
+  .discussionsPage .emptyDiscussionContainer {
+    margin-top: 20px; }
 
 /* Fallacies page */
-.fallaciesPage .mainContainer {
-  padding: 10px 0; }
-  .fallaciesPage .mainContainer .segments .fallacySegment {
+.fallaciesPage {
+  padding: 18px 0; }
+  .fallaciesPage .segments .fallacySegment {
     border-bottom: none !important; }
-    .fallaciesPage .mainContainer .segments .fallacySegment:last-of-type {
+    .fallaciesPage .segments .fallacySegment:last-of-type {
       border-bottom: solid 1px rgba(245, 248, 250, 0.1) !important; }
-
-@media only screen and (max-width: 1025px) {
-  .fallaciesPage .ui.container.mainContainer {
-    padding-left: 0 !important;
-    padding-right: 0 !important; } }
 
 /* Fallacy page */
 .fallacyPage {
-  margin-top: 10px !important; }
-  .fallacyPage .mainContainer {
-    padding: 0 !important; }
+  padding: 18px 0; }
   .fallacyPage .fallacyExample {
     margin-top: 5px; }
   .fallacyPage .materialWrapper {
@@ -428,8 +425,6 @@ a {
     height: 720px;
     width: 1280px; }
   @media only screen and (max-width: 1025px) {
-    .fallacyPage .mainContainer .ui.grid {
-      margin: 10px 0 !important; }
     .fallacyPage .statusActionSegment .header {
       font-size: 14px !important; }
     .fallacyPage .statusActionSegment .twitterButton,
@@ -450,26 +445,20 @@ a {
       margin-bottom: 10px; } }
 
 /* Feed page */
-.feedPage .activityHeader {
-  line-height: 1.2;
-  margin-top: 0 !important; }
+.feedPage {
+  padding: 18px 0; }
+  .feedPage .ui.feed > .event > .content .meta .label {
+    cursor: pointer; }
 
-.feedPage .ui.feed > .event > .content .meta .label {
-  cursor: pointer; }
-
-.feedPage .feedWrapper {
-  width: 100%; }
-  .feedPage .feedWrapper .feed {
-    width: 100%; }
-
-.feedPage .mainContainer {
+/* Grifters page */
+.griftersPage {
   padding: 18px 0; }
 
+/* Home page */
 .homePage {
-  background: #15202b; }
-  .homePage .mainContainer {
-    min-height: 100vh;
-    padding: 18px 0; }
+  background: #15202b;
+  min-height: 100vh;
+  padding: 18px 0; }
   .homePage .heroHeader {
     color: #ffffff !important;
     padding-left: 6px !important; }
@@ -486,163 +475,149 @@ a {
         padding-left: 0 !important;
         padding-right: 0 !important; } }
 
-.competitionContainer {
-  background: #ffffff;
-  border-top: solid 1px #f3f4f5;
-  padding-top: 1.2rem; }
-  .competitionContainer .container {
-    padding: 10px 15px; }
-  .competitionContainer .grid img {
-    cursor: pointer; }
+/* Notifications page */
+.notificationsPage {
+  padding: 18px 0; }
 
 /* Pages page */
-@media only screen and (max-width: 1025px) {
-  .socialMediaPage .grid.column {
-    padding: 0; }
-  .socialMediaPage .pageContentRow {
-    padding-top: 0 !important; }
-  .socialMediaPage .titleHeader .ui.header {
-    font-size: 24px !important; }
-    .socialMediaPage .titleHeader .ui.header .sub.header {
-      font-size: 16px !important; } }
-
-.socialMediaPage .imgContainer .segment.circular {
-  display: inline-block;
-  padding: 0; }
-  .socialMediaPage .imgContainer .segment.circular .image.profilePic {
-    height: 185px;
-    width: 185px; }
-
-.socialMediaPage .pageHeaderInfo {
-  margin-top: 0;
-  text-align: center; }
-  .socialMediaPage .pageHeaderInfo p {
-    margin-top: 15px; }
-  .socialMediaPage .pageHeaderInfo .twitterIcon,
-  .socialMediaPage .pageHeaderInfo .youtubeIcon {
-    margin-top: 8px; }
-
-.socialMediaPage .ui.container.profileContentContainer {
-  margin-top: 16px !important;
-  padding: 0 !important;
-  width: 100% !important; }
-  .socialMediaPage .ui.container.profileContentContainer .dimmer {
-    background: rgba(21, 32, 43, 0.96) !important;
-    border: solid 1px rgba(245, 248, 250, 0.1);
-    box-shadow: none !important; }
-  .socialMediaPage .ui.container.profileContentContainer .signInPlaceholder {
-    border: none;
-    box-shadow: none !important;
-    padding: 0; }
+.socialMediaPage {
+  padding: 18px 0; }
   @media only screen and (max-width: 1025px) {
+    .socialMediaPage .grid.column {
+      padding: 0; }
+    .socialMediaPage .pageContentRow {
+      padding-top: 0 !important; }
+    .socialMediaPage .titleHeader .ui.header {
+      font-size: 24px !important; }
+      .socialMediaPage .titleHeader .ui.header .sub.header {
+        font-size: 16px !important; } }
+  .socialMediaPage .imgContainer .segment.circular {
+    display: inline-block;
+    padding: 0; }
+    .socialMediaPage .imgContainer .segment.circular .image.profilePic {
+      height: 185px;
+      width: 185px; }
+  .socialMediaPage .pageHeaderInfo {
+    margin-top: 0;
+    text-align: center; }
+    .socialMediaPage .pageHeaderInfo p {
+      margin-top: 15px; }
+    .socialMediaPage .pageHeaderInfo .twitterIcon,
+    .socialMediaPage .pageHeaderInfo .youtubeIcon {
+      margin-top: 8px; }
+  .socialMediaPage .ui.container.profileContentContainer {
+    margin-top: 16px !important;
+    padding: 0 !important;
+    width: 100% !important; }
+    .socialMediaPage .ui.container.profileContentContainer .dimmer {
+      background: rgba(21, 32, 43, 0.96) !important;
+      border: solid 1px rgba(245, 248, 250, 0.1);
+      box-shadow: none !important; }
     .socialMediaPage .ui.container.profileContentContainer .signInPlaceholder {
-      height: 250px; } }
-  .socialMediaPage .ui.container.profileContentContainer .segment.basic {
-    padding: 0 !important; }
+      border: none;
+      box-shadow: none !important;
+      padding: 0; }
+    @media only screen and (max-width: 1025px) {
+      .socialMediaPage .ui.container.profileContentContainer .signInPlaceholder {
+        height: 250px; } }
+    .socialMediaPage .ui.container.profileContentContainer .segment.basic {
+      padding: 0 !important; }
 
 /* Post page */
-.postPage .ui.container.mainContainer {
-  font-size: 13px;
+.postPage {
   padding: 18px 0; }
-  .postPage .ui.container.mainContainer .fallacyFormWrapper {
+  .postPage .fallacyFormWrapper {
     margin: 20px 0; }
-  .postPage .ui.container.mainContainer .placeholderContainer {
+  .postPage .placeholderContainer {
     text-align: center; }
-  .postPage .ui.container.mainContainer .screenshotMsg {
+  .postPage .screenshotMsg {
     background: #15202b;
     border: solid 1px rgba(245, 248, 250, 0.1);
     color: #ffffff !important;
     margin-top: 18px; }
-    .postPage .ui.container.mainContainer .screenshotMsg .icon.camera {
+    .postPage .screenshotMsg .icon.camera {
       font-size: 15px; }
-    .postPage .ui.container.mainContainer .screenshotMsg span {
+    .postPage .screenshotMsg span {
       cursor: pointer;
       font-size: 13px;
       line-height: 15px;
       margin-left: 4px; }
-      .postPage .ui.container.mainContainer .screenshotMsg span:hover {
+      .postPage .screenshotMsg span:hover {
         text-decoration: underline; }
-  .postPage .ui.container.mainContainer .relatedSearches .content:first-of-type {
+  .postPage .relatedSearches .content:first-of-type {
     border-bottom: solid 1px rgba(245, 248, 250, 0.1) !important; }
-  .postPage .ui.container.mainContainer .tweetWrapper {
+  .postPage .tweetWrapper {
     width: 100%; }
-  .postPage .ui.container.mainContainer .fallaciesWrapper {
+  .postPage .fallaciesWrapper {
     width: 100%; }
-  .postPage .ui.container.mainContainer .relatedRow {
+  .postPage .relatedRow {
     padding-top: 0; }
   @media only screen and (max-width: 1025px) {
-    .postPage .ui.container.mainContainer .grid {
+    .postPage .grid {
       margin: 0; } }
-
-.postPage .sticky div {
-  z-index: 1000; }
-
-.postPage .sticky .breadcrumbContainer {
-  background: #ffffff;
-  border-bottom: solid 1px #dcddde;
-  margin-top: 72px;
-  padding: 8px 30px;
-  width: 100%; }
-  .postPage .sticky .breadcrumbContainer .breadcrumb {
-    line-height: 20px;
-    margin-left: 15px !important;
-    margin-right: 15px !important;
-    padding: 0; }
-
-@media only screen and (max-width: 1025px) {
+  .postPage .sticky div {
+    z-index: 1000; }
   .postPage .sticky .breadcrumbContainer {
-    padding: 8px 15px; }
+    background: #ffffff;
+    border-bottom: solid 1px #dcddde;
+    margin-top: 72px;
+    padding: 8px 30px;
+    width: 100%; }
     .postPage .sticky .breadcrumbContainer .breadcrumb {
-      margin-left: auto !important;
-      margin-right: auto !important; }
-    .postPage .sticky .breadcrumbContainer .container {
-      margin-left: 0 !important;
-      margin-right: 0 !important; } }
+      line-height: 20px;
+      margin-left: 15px !important;
+      margin-right: 15px !important;
+      padding: 0; }
+  @media only screen and (max-width: 1025px) {
+    .postPage .sticky .breadcrumbContainer {
+      padding: 8px 15px; }
+      .postPage .sticky .breadcrumbContainer .breadcrumb {
+        margin-left: auto !important;
+        margin-right: auto !important; }
+      .postPage .sticky .breadcrumbContainer .container {
+        margin-left: 0 !important;
+        margin-right: 0 !important; } }
 
 /* Search page */
-@media only screen and (max-width: 1025px) {
-  .searchPage .mainContainer {
-    padding-top: 0; }
-    .searchPage .mainContainer .ui.grid {
-      margin: 0 !important; } }
-
-.searchPage .searchSegment {
-  padding: 0 !important; }
-  .searchPage .searchSegment .searchMenu {
-    background: #15202b !important; }
-    .searchPage .searchSegment .searchMenu .item {
-      color: #ffffff !important; }
-      .searchPage .searchSegment .searchMenu .item.searchItem {
-        padding: 6px 0 10px 18px; }
-        .searchPage .searchSegment .searchMenu .item.searchItem input {
-          padding: 0; }
-      .searchPage .searchSegment .searchMenu .item .ui.icon.input input {
-        border: none; }
-      .searchPage .searchSegment .searchMenu .item .icon {
-        font-size: 18px;
-        line-height: 14px;
-        vertical-align: middle; }
-
-.searchPage .ui.container.searchContentContainer {
-  min-height: 300px;
-  margin: 0 !important;
-  padding: 0 !important; }
-
-.searchPage .searchResults {
-  width: 100%; }
+.searchPage {
+  padding: 18px 0; }
+  .searchPage .searchSegment {
+    padding: 0 !important; }
+    .searchPage .searchSegment .searchMenu {
+      background: #15202b !important; }
+      .searchPage .searchSegment .searchMenu .item {
+        color: #ffffff !important; }
+        .searchPage .searchSegment .searchMenu .item.searchItem {
+          padding: 6px 0 10px 18px; }
+          .searchPage .searchSegment .searchMenu .item.searchItem input {
+            padding: 0; }
+        .searchPage .searchSegment .searchMenu .item .ui.icon.input input {
+          border: none; }
+        .searchPage .searchSegment .searchMenu .item .icon {
+          font-size: 18px;
+          line-height: 14px;
+          vertical-align: middle; }
+  .searchPage .ui.container.searchContentContainer {
+    min-height: 300px;
+    margin: 0 !important; }
+    .searchPage .ui.container.searchContentContainer .resultsSegment {
+      padding: 8px 0 0 12px !important; }
+  .searchPage .searchResults {
+    width: 100%; }
 
 /* Settings page */
-.settingsPage .settingsMenu {
-  margin-bottom: 0; }
-
-.settingsPage .settingsContent {
-  width: 100%; }
-  .settingsPage .settingsContent .message {
-    background: #15202b;
-    border: solid 1px rgba(245, 248, 250, 0.2);
-    color: #ffffff; }
-  .settingsPage .settingsContent .patreonMsg .icon {
-    color: #f96854; }
+.settingsPage {
+  padding: 18px 0; }
+  .settingsPage .settingsMenu {
+    margin-bottom: 0; }
+  .settingsPage .settingsContent {
+    width: 100%; }
+    .settingsPage .settingsContent .message {
+      background: #15202b;
+      border: solid 1px rgba(245, 248, 250, 0.2);
+      color: #ffffff; }
+    .settingsPage .settingsContent .patreonMsg .icon {
+      color: #f96854; }
 
 /* Signin page */
 .loginContainer {
@@ -656,140 +631,134 @@ a {
     .loginContainer .loginForm .grid .column {
       max-width: 450px; }
 
-/* Tags page */
-.tagsPage .tagsWrapper {
-  width: 100%; }
-  .tagsPage .tagsWrapper .menu.tagMenu {
-    margin-top: 12px !important; }
-    .tagsPage .tagsWrapper .menu.tagMenu .list .item {
-      cursor: pointer; }
-      .tagsPage .tagsWrapper .menu.tagMenu .list .item.selected {
-        background: #ffffff; }
-  .tagsPage .tagsWrapper .editButtonWrapper .editButton {
-    display: inline !important;
-    font-size: 16px !important; }
-  .tagsPage .tagsWrapper .commentsContent .segment {
-    padding-top: 5px; }
-  .tagsPage .tagsWrapper .galleryContent .galleryWrapper {
+/* Tag page */
+.tagPage {
+  padding: 18px 0; }
+  .tagPage .tagsWrapper {
     width: 100%; }
-    .tagsPage .tagsWrapper .galleryContent .galleryWrapper img {
-      cursor: pointer; }
-  .tagsPage .tagsWrapper .segment.placeholder .icon {
-    height: auto !important; }
-  .tagsPage .tagsWrapper .tagsList,
-  .tagsPage .tagsWrapper .usersList {
-    margin-top: 12px !important; }
-  .tagsPage .tagsWrapper .divider .cameraIcon,
-  .tagsPage .tagsWrapper .divider .photoIcon {
-    background: #2185d0;
-    color: #ffffff;
-    cursor: pointer;
-    font-size: 20px;
-    margin-top: 0 !important; }
-  .tagsPage .tagsWrapper .divider .photoIcon {
-    background: #ffffff;
-    color: #2185d0; }
+    .tagPage .tagsWrapper .menu.tagMenu {
+      background: #15202b !important;
+      border: solid 1px rgba(245, 248, 250, 0.2) !important;
+      border-bottom: none !important;
+      margin-top: 12px !important; }
+      .tagPage .tagsWrapper .menu.tagMenu .list .item {
+        cursor: pointer; }
+        .tagPage .tagsWrapper .menu.tagMenu .list .item.selected {
+          background: #ffffff; }
+    .tagPage .tagsWrapper .editButtonWrapper .editButton {
+      display: inline !important;
+      font-size: 16px !important; }
+    .tagPage .tagsWrapper .commentsContent .segment {
+      padding-top: 5px; }
+    .tagPage .tagsWrapper .galleryContent .galleryWrapper {
+      width: 100%; }
+      .tagPage .tagsWrapper .galleryContent .galleryWrapper img {
+        cursor: pointer; }
+    .tagPage .tagsWrapper .segment.placeholder .icon {
+      height: auto !important; }
+    .tagPage .tagsWrapper .tagsList,
+    .tagPage .tagsWrapper .usersList {
+      margin-top: 12px !important; }
+    .tagPage .tagsWrapper .divider .cameraIcon,
+    .tagPage .tagsWrapper .divider .photoIcon {
+      background: #2185d0;
+      color: #ffffff;
+      cursor: pointer;
+      font-size: 20px;
+      margin-top: 0 !important; }
+    .tagPage .tagsWrapper .divider .photoIcon {
+      background: #ffffff;
+      color: #2185d0; }
+  @media only screen and (max-width: 1025px) {
+    .tagPage .tagsWrapper .segment.stacked img {
+      width: 300px; }
+    .tagPage .ui.image.userPic {
+      width: 50px; } }
 
-@media only screen and (max-width: 1025px) {
-  .tagsPage .tagsWrapper .segment.stacked img {
-    width: 300px; }
-  .tagsPage .ui.image.userPic {
-    width: 50px; } }
+/* Tags page */
+.tagsPage {
+  padding: 18px 0; }
 
 /* Targets page */
-.targetsPage .ui.container .summaryHeader .icon {
-  color: #2185d0;
-  cursor: pointer;
-  float: right;
-  font-size: 19.5px;
-  line-height: 19.5px; }
-
-.targetsPage .ui.container .imgContainer {
-  height: 220px; }
-  .targetsPage .ui.container .imgContainer .targetImgDiv {
-    left: 0;
-    margin: auto;
-    padding-right: 50px;
-    position: absolute;
-    right: 0; }
-    .targetsPage .ui.container .imgContainer .targetImgDiv .targetImg {
-      cursor: pointer;
-      margin-top: 15px;
+.targetsPage {
+  padding: 18px 0; }
+  .targetsPage .ui.container .summaryHeader .icon {
+    color: #2185d0;
+    cursor: pointer;
+    float: right;
+    font-size: 19.5px;
+    line-height: 19.5px; }
+  .targetsPage .ui.container .imgContainer {
+    height: 220px; }
+    .targetsPage .ui.container .imgContainer .targetImgDiv {
+      left: 0;
+      margin: auto;
+      padding-right: 50px;
       position: absolute;
-      width: 200px; }
-      .targetsPage .ui.container .imgContainer .targetImgDiv .targetImg + .header.large {
-        margin-top: 8px; }
-      .targetsPage .ui.container .imgContainer .targetImgDiv .targetImg.user {
-        left: 0;
-        right: 160px; }
-
-.targetsPage .ui.container .answers,
-.targetsPage .ui.container .questionnaire {
-  margin-bottom: 16px; }
-
-.targetsPage .ui.container .questionnaire {
-  white-space: pre-line; }
-
-.targetsPage .ui.container .answers .answerField {
-  color: #ffffff;
-  font-size: 15px; }
-
-.targetsPage .ui.container .answers .header.sub {
-  margin-top: 5px; }
-
-@media only screen and (max-width: 1025px) {
-  .targetsPage .ui.container .answers .header {
-    font-size: 16px !important; } }
-
-/* Users page */
-.usersPage .userHeaderSection p {
-  margin-top: 15px; }
-
-@media only screen and (max-width: 1025px) {
-  .usersPage .userContentRow {
-    padding-top: 0 !important; } }
-
-.usersPage .profileMenu {
-  margin-top: 20px !important; }
-
-.usersPage .profilePic img {
-  text-align: center; }
-
-.usersPage .profilePic.default {
-  background: #aab8c2;
-  overflow: hidden;
-  padding: 7px; }
-
-.usersPage .profileContentContainer {
-  margin: 0 !important;
-  padding: 0 !important; }
-  .usersPage .profileContentContainer .profileContentSegment {
-    height: 100%;
-    padding: 0; }
-
-.usersPage .userStat {
-  cursor: pointer; }
-  .usersPage .userStat:hover .value,
-  .usersPage .userStat:hover .label {
-    color: #2185d0 !important; }
-
-@media only screen and (max-width: 1025px) {
-  .usersPage .titleHeader .ui.header {
-    font-size: 24px !important; }
-    .usersPage .titleHeader .ui.header .sub.header {
+      right: 0; }
+      .targetsPage .ui.container .imgContainer .targetImgDiv .targetImg {
+        cursor: pointer;
+        margin-top: 15px;
+        position: absolute;
+        width: 200px; }
+        .targetsPage .ui.container .imgContainer .targetImgDiv .targetImg + .header.large {
+          margin-top: 8px; }
+        .targetsPage .ui.container .imgContainer .targetImgDiv .targetImg.user {
+          left: 0;
+          right: 160px; }
+  .targetsPage .ui.container .answers,
+  .targetsPage .ui.container .questionnaire {
+    margin-bottom: 16px; }
+  .targetsPage .ui.container .questionnaire {
+    white-space: pre-line; }
+  .targetsPage .ui.container .answers .answerField {
+    color: #ffffff;
+    font-size: 15px; }
+  .targetsPage .ui.container .answers .header.sub {
+    margin-top: 5px; }
+  @media only screen and (max-width: 1025px) {
+    .targetsPage .ui.container .answers .header {
       font-size: 16px !important; } }
 
+/* Users page */
+.usersPage {
+  padding: 18px 0; }
+  .usersPage .userHeaderSection p {
+    margin-top: 15px; }
+  @media only screen and (max-width: 1025px) {
+    .usersPage .userContentRow {
+      padding-top: 0 !important; } }
+  .usersPage .profileMenu {
+    margin-top: 20px !important; }
+  .usersPage .profilePic img {
+    text-align: center; }
+  .usersPage .profilePic.default {
+    background: #aab8c2;
+    overflow: hidden;
+    padding: 7px; }
+  .usersPage .profileContentContainer {
+    margin: 0 !important;
+    padding: 0 !important; }
+    .usersPage .profileContentContainer .profileContentSegment {
+      height: 100%;
+      padding: 0; }
+  .usersPage .userStat {
+    cursor: pointer; }
+    .usersPage .userStat:hover .value,
+    .usersPage .userStat:hover .label {
+      color: #2185d0 !important; }
+  @media only screen and (max-width: 1025px) {
+    .usersPage .titleHeader .ui.header {
+      font-size: 24px !important; }
+      .usersPage .titleHeader .ui.header .sub.header {
+        font-size: 16px !important; } }
+
 .signInPageHeader {
-  background: #15202b;
+  background: #131d28;
   margin: 0 !important;
   padding: 10px;
   width: 100%; }
-  .signInPageHeader .svgMainLogo,
-  .signInPageHeader .mainLogo {
+  .signInPageHeader .headerLogo {
     cursor: pointer;
-    display: inline;
-    fill: #2185d0;
-    height: 48px;
-    line-height: 4;
-    vertical-align: middle;
-    width: 48px; }
+    height: 54px;
+    width: 54px; }

@@ -22,7 +22,7 @@ import DefaultLayout from "layouts"
 import FallaciesList from "components/secondary/lists/fallaciesList/v1/"
 import LazyLoad from "components/primary/lazyLoad/v1/"
 import PropTypes from "prop-types"
-import React, { Component } from "react"
+import React, { Component, Fragment } from "react"
 import store from "../store"
 import TitleHeader from "components/primary/titleHeader/v1/"
 import TrumpImg from "images/trump-white.png"
@@ -327,7 +327,7 @@ class Page extends Component {
 						history={this.props.history}
 					>
 						{this.props.exists ? (
-							<Container className="mainContainer" textAlign="left">
+							<Fragment>
 								<Container className="imgContainer" textAlign="center">
 									<Segment circular>
 										{this.props.id ? (
@@ -356,9 +356,9 @@ class Page extends Component {
 								<Container className="profileContentContainer">
 									{ShowContent(this.props)}
 								</Container>
-							</Container>
+							</Fragment>
 						) : (
-							<Container className="mainContainer" text textAlign="center">
+							<Fragment>
 								<Image
 									centered
 									className="trumpImg404"
@@ -366,7 +366,7 @@ class Page extends Component {
 									src={TrumpImg}
 								/>
 								<Header size="medium">This page does not exist!</Header>
-							</Container>
+							</Fragment>
 						)}
 					</DefaultLayout>
 				</div>

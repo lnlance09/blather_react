@@ -215,9 +215,10 @@ class Fallacies extends CI_Controller {
 	public function getComments() {
 		$id = $this->input->get('id');
 		$page = $this->input->get('page');
+		$user = $this->user;
 
-		$count = $this->fallacies->getComments($id, null, true);
-		$comments = $this->fallacies->getComments($id, $page);
+		$count = $this->fallacies->getComments($id, null, null, true);
+		$comments = $this->fallacies->getComments($id, $user->id, null, $page);
 
 		$per_page = 10;
 		$pages = ceil($count/$per_page);
@@ -755,6 +756,44 @@ class Fallacies extends CI_Controller {
 		echo json_encode([
 			'error' => false,
 			'img' => $s3Link
+		]);
+	}
+
+	public function likeComment() {
+		$commentId = $this->input->post('commentId');
+		$responseId = $this->input->post('responseId');
+		$user = $this->user;
+
+		$commentCount = $this->fallacies->getComment($commentId, true);
+		$likeCount = $this->fallacies->getCommentLikedBy($commentId, $responseId, $user->id); 
+
+		validateLoggedIn($user, 'You must be logged in', 100, 401, $this->output);
+		validateItemsMatch($commentCount, 1, 'That comment does not exist', 100, 401, $this->output);
+		validateItemsMatch($likeCount, 0, 'You already like that comment', 100, 401, $this->output);
+
+		$this->fallacies->likeComment($commentId, $responseId, $user->id);
+
+		echo json_encode([
+			'error' => false
+		]);
+	}
+
+	public function unlikeComment() {
+		$commentId = $this->input->post('commentId');
+		$responseId = $this->input->post('responseId');
+		$user = $this->user;
+
+		$commentCount = $this->fallacies->getComment($commentId, true);
+		$likeCount = $this->fallacies->getCommentLikedBy($commentId, $responseId, $user->id); 
+
+		validateLoggedIn($user, 'You must be logged in', 100, 401, $this->output);
+		validateItemsMatch($commentCount, 1, 'That comment does not exist', 100, 401, $this->output);
+		validateItemsMatch($likeCount, 1, 'You do not like that comment', 100, 401, $this->output);
+
+		$this->fallacies->unlikeComment($commentId, $responseId, $user->id);
+
+		echo json_encode([
+			'error' => false
 		]);
 	}
 }

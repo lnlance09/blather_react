@@ -61,7 +61,7 @@ class FeedComponent extends Component {
 
 		const LazyLoadMore = props => {
 			if (loadingMore && props.hasMore) {
-				return <LazyLoad />
+				return <LazyLoad segment={false} />
 			}
 		}
 
@@ -238,7 +238,7 @@ class FeedComponent extends Component {
 					)
 				}
 
-				return <LazyLoad key={`feed_${i}`} />
+				return <LazyLoad key={`feed_${i}`} segment={false} />
 			})
 		}
 

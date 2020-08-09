@@ -11,3 +11,13 @@
     max-width: none; }
     .commentsSection .ui.comments .comment .metadata {
       color: #dcddde !important; }
+    .commentsSection .ui.comments .comment .likeCount {
+      color: #ffffff;
+      font-weight: bold;
+      margin-left: 8px; }
+    .commentsSection .ui.comments .comment .content {
+      background: #1d2d3c !important;
+      border-radius: 4px;
+      padding: 7px 12px 10px 12px !important; }
+  .commentsSection .replyBtn {
+    margin-top: 18px; }

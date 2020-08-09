@@ -1,118 +1,58 @@
 import "./style.css"
 import { logout } from "components/secondary/authentication/v1/actions"
+import { parseJwt } from "utils/tokenFunctions"
 import { Provider, connect } from "react-redux"
-import { Container, Grid, Menu, Responsive } from "semantic-ui-react"
+import { Button, Container, Grid, Icon, Image, Menu, Sidebar } from "semantic-ui-react"
 import LoadingBar from "react-redux-loading-bar"
-import Logo from "./images/logo.svg"
+import Logo from "images/logos/brain-logo.png"
 import NavSearch from "components/primary/search/v1/"
 import PropTypes from "prop-types"
-import React, { Component } from "react"
-import ReactSVG from "react-svg"
+import React, { useEffect, useState } from "react"
 import store from "store"
 
-class Header extends Component {
-	constructor(props) {
-		super(props)
+const Header = ({ history, logout, toggleSearchMode }) => {
+	const [authenticated, setAuthenticated] = useState(null)
+	const [sidebarVisible, setSidebarVisible] = useState(false)
+	const [user, setUser] = useState({})
 
-		this.state = {
-			activeItem: ""
+	useEffect(() => {
+		const userData = parseJwt()
+		if (userData) {
+			setUser(userData)
+			setAuthenticated(true)
+		} else {
+			setAuthenticated(false)
 		}
-	}
+	}, [])
 
-	render() {
-		const SubHeader = (
-			<Responsive className="responsive" maxWidth={1024}>
-				<Menu borderless className="subHeader" fitted="vertically" fixed="top">
-					<Container className="subHeaderContainer">
-						<Menu.Item className="searchItem">
-							<NavSearch history={this.props.history} width="100%" />
-						</Menu.Item>
-					</Container>
-				</Menu>
-			</Responsive>
-		)
+	console.log(sidebarVisible)
 
-		return (
-			<Provider store={store}>
-				<div className="pageHeader">
-					<div className="topHeader">
-						<Container className="headerContainer">
-							<Grid stackable>
-								<Grid.Row>
-									<Grid.Column className="logoColumn" width={4}>
-										<ReactSVG
-											className="headerLogo"
-											evalScripts="always"
-											onClick={() => {
-												this.props.history.push("/activity")
-											}}
-											src={Logo}
-											svgClassName="svgHeaderLogo"
-										/>
-									</Grid.Column>
-									<Grid.Column className="inputColumn" width={12}>
-										<NavSearch history={this.props.history} width="100%" />
-									</Grid.Column>
-								</Grid.Row>
-							</Grid>
-						</Container>
-					</div>
-
-					{SubHeader}
-				</div>
-			</Provider>
-
-			/*
 	return (
-		<div className="pageHeader">
-			<div className="rainbow" />
-			{loading && (
-				<Fragment>
-					<div className="subline inc" />
-					<div className="subline dec" />
-				</Fragment>
-			)}
-
-			<div className="topHeader">
-				<Container className={`desktop ${basicHeader ? "basic" : ""}`}>
-					{basicHeader ? (
-						<Image
-							className="logo"
-							onClick={() => router.push("/")}
-							rounded
-							src={Logo}
-						/>
-					) : (
+		<Provider store={store}>
+			<div className="pageHeader">
+				<div className="topHeader">
+					<Container className="desktop">
 						<Grid stackable>
 							<Grid.Column className="logoColumn" width={4}>
 								<Image
-									className="logo"
-									onClick={() => router.push("/")}
+									className="headerLogo"
+									onClick={() => history.push("/")}
 									rounded
 									src={Logo}
 								/>
 							</Grid.Column>
 							<Grid.Column className="inputColumn" width={12}>
-								<Autocomplete category />
+								<NavSearch history={history} width="100%" />
 							</Grid.Column>
 						</Grid>
-					)}
-				</Container>
-				<Container className={`mobile ${basicHeader ? "basic" : ""}`}>
-					{basicHeader ? (
-						<Image
-							className="logo"
-							onClick={() => router.push("/")}
-							rounded
-							src={Logo}
-						/>
-					) : (
+					</Container>
+					<Container className="mobile">
 						<Menu borderless fitted="vertically" fixed="top" fluid inverted>
 							<Container>
 								<Menu.Item position="left">
 									<Image
-										className="logo"
-										onClick={() => router.push("/")}
+										className="headerLogo"
+										onClick={() => history.push("/")}
 										rounded
 										src={Logo}
 									/>
@@ -125,11 +65,11 @@ class Header extends Component {
 											compact
 											content="Become an ally"
 											inverted
-											onClick={() => router.push("/signin?type=join")}
+											onClick={() => history.push("/signin?type=join")}
 										/>
 									)}
 									<Icon
-										color={sidebarVisible ? "yellow" : null}
+										color={sidebarVisible ? "blue" : null}
 										inverted
 										name="ellipsis horizontal"
 										onClick={() => setSidebarVisible(!sidebarVisible)}
@@ -138,56 +78,53 @@ class Header extends Component {
 								</Menu.Item>
 							</Container>
 						</Menu>
-					)}
-				</Container>
-			</div>
+					</Container>
+				</div>
 
-			<Sidebar
-				as={Menu}
-				animation="push"
-				borderless
-				direction="bottom"
-				icon="labeled"
-				inverted
-				onHide={() => setSidebarVisible(false)}
-				size="massive"
-				style={{ textAlign: "left" }}
-				vertical
-				visible={sidebarVisible}
-			>
-				<Menu.Item as="a" onClick={() => router.push("/")}>
-					<Icon name="home" size="small" />
-					Home
-				</Menu.Item>
-				<Menu.Item as="a" onClick={() => toggleSearchMode()}>
-					<Icon name="search" size="small" />
-					Search
-				</Menu.Item>
-				{authenticated && (
-					<Menu.Item as="a" onClick={() => router.push(`/${user.username}`)}>
-						<Icon name="user" size="small" />
-						Profile
+				<Sidebar
+					as={Menu}
+					animation="push"
+					borderless
+					direction="bottom"
+					icon="labeled"
+					inverted
+					onHide={() => setSidebarVisible(false)}
+					size="massive"
+					style={{ textAlign: "left" }}
+					vertical
+					visible={sidebarVisible}
+				>
+					<Menu.Item as="a" onClick={() => history.push("/")}>
+						<Icon name="home" size="small" />
+						Home
 					</Menu.Item>
-				)}
-				<Menu.Item as="a" onClick={() => router.push("/interactions/create")}>
-					<Icon name="plus" size="small" />
-					Add an interaction
-				</Menu.Item>
-			</Sidebar>
-		</div>
-		*/
-		)
-	}
-}
-
-Header.defaultProps = {
-	authenticated: false,
-	logout
+					<Menu.Item as="a" onClick={() => toggleSearchMode()}>
+						<Icon name="search" size="small" />
+						Search
+					</Menu.Item>
+					{authenticated && (
+						<Menu.Item as="a" onClick={() => history.push(`/${user.username}`)}>
+							<Icon name="user" size="small" />
+							Profile
+						</Menu.Item>
+					)}
+					<Menu.Item as="a" onClick={() => history.push("/interactions/create")}>
+						<Icon name="plus" size="small" />
+						Add an interaction
+					</Menu.Item>
+				</Sidebar>
+			</div>
+		</Provider>
+	)
 }
 
 Header.propTypes = {
-	authenticated: PropTypes.bool,
-	logout: PropTypes.func
+	logout: PropTypes.func,
+	toggleSearchMode: PropTypes.func
+}
+
+Header.defaultProps = {
+	logout
 }
 
 const mapStateToProps = (state, ownProps) => ({

@@ -104,113 +104,109 @@ class Home extends Component {
 						containerClassName="homePage"
 						history={this.props.history}
 					>
-						<Container className="mainContainer" textAlign="left">
-							<Header as="h1" className="heroHeader" inverted>
-								Assign a Logical Fallacy
-							</Header>
+						<Header as="h1" className="heroHeader" inverted>
+							Assign a Logical Fallacy
+						</Header>
 
-							<Input
-								className="heroInput"
-								fluid
-								icon="twitter"
-								iconPosition="left"
-								inverted
-								onKeyUp={this.onKeyUp}
-								onPaste={this.onPaste}
-								placeholder="Paste a link to a Tweet"
-								size="big"
-								value={url}
-							/>
+						<Input
+							className="heroInput"
+							fluid
+							icon="twitter"
+							iconPosition="left"
+							inverted
+							onKeyUp={this.onKeyUp}
+							onPaste={this.onPaste}
+							placeholder="Paste a link to a Tweet"
+							size="big"
+							value={url}
+						/>
 
-							<Divider inverted section />
+						<Divider inverted section />
 
-							{validPost && url !== "" ? (
-								<div>
-									<div className="postContainer">
-										{type === "tweet" && (
-											<Tweet
-												bearer={bearer}
-												created_at={info.created_at}
-												displayTextRange={info.display_text_range}
-												extended_entities={info.extended_entities}
-												externalLink
-												highlight={highlightedText !== ""}
-												highlightedText={highlightedText}
-												full_text={info.full_text}
-												handleHoverOn={this.handleHoverOn}
-												history={this.props.history}
-												id={info.id_str}
-												imageSize="medium"
-												is_quote_status={info.is_quote_status}
-												profileImg={this.props.profileImg}
-												quoted_status={
-													info.quoted_status === undefined &&
-													info.is_quote_status
-														? info.retweeted_status
-														: info.quoted_status
-												}
-												quoted_status_id_str={info.quoted_status_id_str}
-												quoted_status_permalink={
-													info.quoted_status_permalink
-												}
-												retweeted_status={
-													info.retweeted_status === undefined
-														? false
-														: info.retweeted_status
-												}
-												stats={{
-													favorite_count: info.favorite_count,
-													retweet_count: info.retweet_count
-												}}
-												user={info.user}
-											/>
-										)}
-										{type === "video" && (
-											<Message
-												content="Link your YouTube account to assign fallacies to videos"
-												warning
-											/>
-										)}
-									</div>
-
-									<Divider inverted section />
-
-									<FallacyForm
-										authenticated={auth}
-										bearer={bearer}
-										commentId={type === "comment" ? id : null}
-										endTime={endTime}
-										fallacyId={fallacyId}
-										handleSubmit={this.handleSubmit}
-										highlightedText={highlightedText}
-										history={this.props.history}
-										network={this.props.network}
-										objectId={mediaId}
-										pageInfo={page}
-										sendNotification={this.props.sendNotification}
-										startTime={startTime}
-										type={type}
-										user={user}
-									/>
-
-									{!auth && (
-										<Message error>
-											<Message.Content>
-												<Message.Header>Sign in</Message.Header>
-												This will be assigned anonymously. It is recommended
-												that you <Link to="/signin">sign in</Link>.
-											</Message.Content>
-										</Message>
+						{validPost && url !== "" ? (
+							<div>
+								<div className="postContainer">
+									{type === "tweet" && (
+										<Tweet
+											bearer={bearer}
+											created_at={info.created_at}
+											displayTextRange={info.display_text_range}
+											extended_entities={info.extended_entities}
+											externalLink
+											highlight={highlightedText !== ""}
+											highlightedText={highlightedText}
+											full_text={info.full_text}
+											handleHoverOn={this.handleHoverOn}
+											history={this.props.history}
+											id={info.id_str}
+											imageSize="medium"
+											is_quote_status={info.is_quote_status}
+											profileImg={this.props.profileImg}
+											quoted_status={
+												info.quoted_status === undefined &&
+												info.is_quote_status
+													? info.retweeted_status
+													: info.quoted_status
+											}
+											quoted_status_id_str={info.quoted_status_id_str}
+											quoted_status_permalink={info.quoted_status_permalink}
+											retweeted_status={
+												info.retweeted_status === undefined
+													? false
+													: info.retweeted_status
+											}
+											stats={{
+												favorite_count: info.favorite_count,
+												retweet_count: info.retweet_count
+											}}
+											user={info.user}
+										/>
+									)}
+									{type === "video" && (
+										<Message
+											content="Link your YouTube account to assign fallacies to videos"
+											warning
+										/>
 									)}
 								</div>
-							) : (
-								<Segment inverted padded="very" placeholder>
-									<Header icon>
-										<Icon className="twitterIcon" name="twitter" />
-									</Header>
-								</Segment>
-							)}
-						</Container>
+
+								<Divider inverted section />
+
+								<FallacyForm
+									authenticated={auth}
+									bearer={bearer}
+									commentId={type === "comment" ? id : null}
+									endTime={endTime}
+									fallacyId={fallacyId}
+									handleSubmit={this.handleSubmit}
+									highlightedText={highlightedText}
+									history={this.props.history}
+									network={this.props.network}
+									objectId={mediaId}
+									pageInfo={page}
+									sendNotification={this.props.sendNotification}
+									startTime={startTime}
+									type={type}
+									user={user}
+								/>
+
+								{!auth && (
+									<Message error>
+										<Message.Content>
+											<Message.Header>Sign in</Message.Header>
+											This will be assigned anonymously. It is recommended
+											that you <Link to="/signin">sign in</Link>.
+										</Message.Content>
+									</Message>
+								)}
+							</div>
+						) : (
+							<Segment inverted padded="very" placeholder>
+								<Header icon>
+									<Icon className="twitterIcon" name="twitter" />
+								</Header>
+							</Segment>
+						)}
 					</DefaultLayout>
 				</div>
 			</Provider>

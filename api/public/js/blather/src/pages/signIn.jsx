@@ -1,11 +1,10 @@
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { Provider } from "react-redux"
-import { Container, Grid } from "semantic-ui-react"
+import { Container, Grid, Image } from "semantic-ui-react"
 import Authentication from "components/secondary/authentication/v1/"
-import Logo from "components/secondary/header/v1/images/logo.svg"
+import Logo from "images/logos/brain-logo.png"
 import queryString from "query-string"
 import React, { Component } from "react"
-import ReactSVG from "react-svg"
 import store from "store"
 
 class SignInPage extends Component {
@@ -35,14 +34,12 @@ class SignInPage extends Component {
 				<div className="loginContainer">
 					<DisplayMetaTags page="signin" props={this.props} state={this.state} />
 					<Container className="signInPageHeader" fluid textAlign="center">
-						<ReactSVG
-							className="mainLogo"
-							evalScripts="always"
-							onClick={() => {
-								this.props.history.push("/")
-							}}
+						<Image
+							className="headerLogo"
+							inline
+							onClick={() => this.props.history.push("/")}
+							rounded
 							src={Logo}
-							svgClassName="svgMainLogo"
 						/>
 					</Container>
 					<Container textAlign="center">

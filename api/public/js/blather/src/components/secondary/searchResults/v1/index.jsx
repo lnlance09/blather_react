@@ -2,10 +2,9 @@ import "./style.css"
 import { fetchSearchResults, resetSearchData, toggleSearchLoading } from "./actions"
 import { refreshYouTubeToken } from "components/secondary/authentication/v1/actions"
 import { adjustTimezone } from "utils/dateFunctions"
-import { formatNumber, formatPlural } from "utils/textFunctions"
 import { connect, Provider } from "react-redux"
 import { Link } from "react-router-dom"
-import { Container, Icon, Item, Message, Segment, Statistic, Visibility } from "semantic-ui-react"
+import { Container, Icon, Item, Message, Segment, Visibility } from "semantic-ui-react"
 import _ from "lodash"
 import itemPic from "images/images/image-square.png"
 import LazyLoad from "components/primary/lazyLoad/v1/"
@@ -121,6 +120,18 @@ class SearchResults extends Component {
 						useMarked: true
 					}
 
+				case "grifters":
+					return {
+						description: result.about,
+						extra: null,
+						img: result.profile_pic,
+						meta: `${result.fallacy_count} fallacies`,
+						title: result.name,
+						truncate: true,
+						url: `/pages/twitter/${result.username}`,
+						useMarked: false
+					}
+
 				case "profiles":
 					return {
 						description: result.about,
@@ -134,6 +145,24 @@ class SearchResults extends Component {
 						title: result.name,
 						truncate: false,
 						url: `/pages/twitter/${result.username}`,
+						useMarked: false
+					}
+
+				case "tags":
+					return {
+						description: result.description,
+						extra: null,
+						img: result.tag_img,
+						meta: (
+							<div>
+								Edited <Moment date={adjustTimezone(result.date_updated)} fromNow />
+							</div>
+						),
+						sanitize: true,
+						tags: [],
+						title: result.value,
+						truncate: true,
+						url: `/tags/${result.slug}`,
 						useMarked: false
 					}
 

@@ -15,6 +15,27 @@ const fallacyComments = (state = initial(), action) => {
 				}
 			}
 
+		case constants.LIKE_COMMENT:
+			const { commentId, responseId } = payload
+			const comment = state.comments.results.find(comment => comment.id === commentId)
+
+			if (typeof responseId !== "undefined") {
+				const response = comment.responses.find(response => response.id === responseId)
+				response.likeCount++
+				response.likedByMe = "1"
+			} else {
+				comment.likeCount++
+				comment.likedByMe = "1"
+			}
+
+			return {
+				...state,
+				comments: {
+					...state.comments,
+					results: state.comments.results
+				}
+			}
+
 		case constants.POST_COMMENT:
 			const comments = state.comments.results
 				? [payload.comment, ...state.comments.results]
@@ -27,21 +48,25 @@ const fallacyComments = (state = initial(), action) => {
 				}
 			}
 
-		case constants.VOTE_ON_COMMENT:
-			let _comments = state.comments.results
-			let _comment = _comments.filter(c => c.id === payload.commentId)
-			let finalComment = _comment[0]
-			if (payload.upvote) {
-				finalComment.likes = parseInt(finalComment.likes, 10) + 1
+		case constants.UNLIKE_COMMENT:
+			const _commentId = payload.commentId
+			const _responseId = payload.responseId
+			const _comment = state.comments.results.find(comment => comment.id === _commentId)
+
+			if (typeof _responseId !== "undefined") {
+				const _response = _comment.responses.find(response => response.id === _responseId)
+				_response.likeCount--
+				_response.likedByMe = 0
 			} else {
-				finalComment.dislikes = parseInt(finalComment.dislikes, 10) + 1
+				_comment.likeCount--
+				_comment.likedByMe = 0
 			}
 
 			return {
 				...state,
 				comments: {
 					...state.comments,
-					results: _comments
+					results: state.comments.results
 				}
 			}
 

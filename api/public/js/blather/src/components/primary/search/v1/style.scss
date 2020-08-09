@@ -25,6 +25,12 @@
 				color: $white !important;
 			}
 		}
+
+		.message.empty {
+			.header {
+				color: $white;
+			}
+		}
   	}
 
   	.result {

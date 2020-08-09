@@ -194,27 +194,25 @@ class SearchPage extends Component {
 						containerClassName="searchPage"
 						history={this.props.history}
 					>
-						<Container className="mainContainer" textAlign="left">
-							<Responsive maxWidth={1024}>
-								<Grid>
-									<Grid.Row>{SearchMenu(this.props)}</Grid.Row>
-									<Grid.Row>{SearchItems()}</Grid.Row>
-								</Grid>
-							</Responsive>
+						<Responsive maxWidth={1024}>
+							<Grid>
+								<Grid.Row>{SearchMenu(this.props)}</Grid.Row>
+								<Grid.Row>{SearchItems()}</Grid.Row>
+							</Grid>
+						</Responsive>
 
-							<Responsive minWidth={1025}>
-								<Grid>
-									<Grid.Column className="rightSide" width={11}>
-										{SearchItems()}
-									</Grid.Column>
-									<Grid.Column style={{ paddingRight: 0 }} width={5}>
-										<Segment className="searchSegment" inverted>
-											{SearchMenu(this.props)}
-										</Segment>
-									</Grid.Column>
-								</Grid>
-							</Responsive>
-						</Container>
+						<Responsive minWidth={1025}>
+							<Grid>
+								<Grid.Column className="rightSide" width={11}>
+									{SearchItems()}
+								</Grid.Column>
+								<Grid.Column width={5}>
+									<Segment className="searchSegment" inverted>
+										{SearchMenu(this.props)}
+									</Segment>
+								</Grid.Column>
+							</Grid>
+						</Responsive>
 					</DefaultLayout>
 				</div>
 			</Provider>

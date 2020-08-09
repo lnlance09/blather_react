@@ -18,9 +18,7 @@ const Notifications = ({ history }) => {
 					activeItem="notifications"
 					containerClassName="notificationsPage"
 					history={history}
-				>
-					<Container className="mainContainer" textAlign="center"></Container>
-				</DefaultLayout>
+				></DefaultLayout>
 			</div>
 		</Provider>
 	)

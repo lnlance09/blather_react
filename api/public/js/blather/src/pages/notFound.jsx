@@ -15,12 +15,10 @@ class NotFound extends Component {
 					containerClassName="notFoundPage"
 					history={this.props.history}
 				>
-					<Container className="mainContainer" textAlign="center">
-						<Image centered className="trumpImg404" size="medium" src={TrumpImg} />
-						<Header inverted size="large">
-							This page does not exist!
-						</Header>
-					</Container>
+					<Image centered className="trumpImg404" size="medium" src={TrumpImg} />
+					<Header inverted size="large">
+						This page does not exist!
+					</Header>
 				</DefaultLayout>
 			</div>
 		)

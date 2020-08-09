@@ -15,21 +15,21 @@ import {
 import { CopyToClipboard } from "react-copy-to-clipboard"
 import { connect, Provider } from "react-redux"
 import { Link } from "react-router-dom"
-import { FacebookShareButton, RedditShareButton, TwitterShareButton } from "react-share"
+import {
+	EmailShareButton,
+	FacebookShareButton,
+	RedditShareButton,
+	TwitterShareButton
+} from "react-share"
 import {
 	Button,
 	Card,
 	Container,
-	Dimmer,
 	Divider,
-	Form,
 	Header,
 	Icon,
 	Image,
 	List,
-	Message,
-	Radio,
-	Responsive,
 	Segment
 } from "semantic-ui-react"
 import { confetti } from "dom-confetti"
@@ -43,13 +43,12 @@ import ImagePic from "images/images/image-square.png"
 import LazyLoad from "components/primary/lazyLoad/v1/"
 import Moment from "react-moment"
 import PropTypes from "prop-types"
-import React, { Component } from "react"
+import React, { Component, Fragment } from "react"
 import ReactPlayer from "react-player"
 import store from "store"
 import TagsCard from "components/primary/tagsCard/v1/"
 import TitleHeader from "components/primary/titleHeader/v1/"
 import TrumpImg from "images/trump-white.png"
-import { Fragment } from "react"
 
 class Fallacy extends Component {
 	constructor(props) {
@@ -64,6 +63,7 @@ class Fallacy extends Component {
 		}
 
 		const currentState = store.getState()
+		console.log("currentState", currentState)
 		const auth = currentState.user.authenticated
 		const bearer = currentState.user.bearer
 		const twitterId = currentState.user.data.twitterId
@@ -227,19 +227,10 @@ class Fallacy extends Component {
 	}
 
 	render() {
-		const {
-			active,
-			auth,
-			bearer,
-			downloading,
-			exportOpt,
-			id,
-			twitterId,
-			userId,
-			youtubeId
-		} = this.state
-
+		const { auth, bearer, downloading, id, twitterId, userId, youtubeId } = this.state
 		const { createdBy, user } = this.props
+
+		console.log("bearer", bearer)
 		const canEdit = createdBy ? createdBy.id === userId || createdBy.id === 6 : false
 
 		let userLink = ""
@@ -255,6 +246,7 @@ class Fallacy extends Component {
 							Comments
 						</Header>
 						<FallacyComments
+							allowReplies
 							authenticated={auth}
 							bearer={bearer}
 							history={props.history}
@@ -294,6 +286,8 @@ class Fallacy extends Component {
 									canEdit={canEdit}
 									history={props.history}
 									id={id}
+									updatedAt={props.createdAt}
+									user={props.createdBy}
 								/>
 								{SourcesSection(props)}
 								{ReferenceSection}
@@ -491,7 +485,7 @@ class Fallacy extends Component {
 									title={this.props.pageTitle}
 									url={`${window.location.origin}/fallacies/${id}`}
 								>
-									<Button circular color="twitter" icon="twitter" size="large" />
+									<Button circular color="twitter" icon="twitter" size="big" />
 								</TwitterShareButton>
 							</List.Item>
 							<List.Item>
@@ -512,6 +506,15 @@ class Fallacy extends Component {
 										<Button circular color="red" icon="paperclip" size="big" />{" "}
 									</div>
 								</CopyToClipboard>
+							</List.Item>
+							<List.Item>
+								<EmailShareButton
+									body={this.props.explanation}
+									subject={this.props.title}
+									url={`${window.location.origin}/fallacies/${id}`}
+								>
+									<Button circular color="blue" icon="mail" size="big" />
+								</EmailShareButton>
 							</List.Item>
 							<List.Item>
 								<Button
@@ -600,7 +603,7 @@ class Fallacy extends Component {
 						history={this.props.history}
 					>
 						{!this.props.error ? (
-							<Container className="mainContainer" textAlign="left">
+							<Fragment>
 								<FallacyTitle props={this.props} />
 
 								<Segment inverted>
@@ -623,9 +626,9 @@ class Fallacy extends Component {
 										</Fragment>
 									)}
 								</Segment>
-							</Container>
+							</Fragment>
 						) : (
-							<Container className="mainContainer" text textAlign="center">
+							<Fragment>
 								<Image
 									centered
 									className="trumpImg404"
@@ -635,7 +638,7 @@ class Fallacy extends Component {
 								<Header inverted size="medium">
 									This fallacy does not exist!
 								</Header>
-							</Container>
+							</Fragment>
 						)}
 					</DefaultLayout>
 				</div>

@@ -34,9 +34,7 @@ class NewsFeed extends Component {
 						containerClassName="homePage"
 						history={this.props.history}
 					>
-						<Container className="mainContainer">
-							<FeedComponent history={this.props.history} />
-						</Container>
+						<FeedComponent history={this.props.history} />
 					</DefaultLayout>
 				</div>
 			</Provider>

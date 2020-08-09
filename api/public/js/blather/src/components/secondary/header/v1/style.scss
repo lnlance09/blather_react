@@ -19,7 +19,7 @@
     	display: flex;
     	justify-content: center;
     	max-width: none !important;
-    	padding: 14px 13px 14px 13px;
+    	padding: 10px 13px 10px 13px;
     	position: fixed;
     	top: 0;
     	width: 100% !important;
@@ -36,25 +36,22 @@
       		.icon.ellipsis {
         		margin-right: 0;
       		}
-    	}
+		}
+		
+		.menu.inverted {
+			background: darken($invertedBackgroundColor, 1%) !important;
+		}
 
     	img {
       		cursor: pointer;
-      		height: 48px;
-      		width: 48px;
-    	}
-
-    	.container.basic {
-      		display: flex;
-      		justify-content: center;
-      		padding: 8px 0;
+      		height: 54px;
+      		width: 54px;
     	}
 
     	.grid .column {
       		&.logoColumn {
         		align-items: center;
         		display: flex;
-        		padding-left: 32px;
       		}
 
       		input {
@@ -62,36 +59,7 @@
       		}
     	}
 
-    	.headerContainer {
-      		.headerLogo {
-        		cursor: pointer;
-        		display: inline;
-        		fill: $blue;
-        		height: 36px;
-        		line-height: 4;
-        		margin-right: 12px;
-        		vertical-align: middle;
-        		width: 36px;
-      		}
-
-      		.sidebarItem {
-        		.button {
-          			margin-right: 18px;
-        		}
-
-        		.icon {
-          			cursor: pointer;
-
-          			&:hover {
-            			color: $blue;
-          			}
-        		}
-      		}
-    	}
-
     	@media only screen and (max-width: 1025px) {
-      		opacity: 0.95;
-
       		.container.desktop {
         		display: none;
       		}
@@ -103,16 +71,20 @@
       		}
     	}
   	}
+	  
+	.sidebar.ui.labeled.icon.menu .item {
+		background: lighten($invertedBackgroundColor, 2%) !important;
+		color: $white !important;
+        font-weight: bold !important;
+        line-height: 24px !important;
+        text-align: left !important;
 
-  	.sidebar.menu {
-    	padding-top: 135px;
-
-    	.fallacySidebarItem {
-      		text-align: left;
-    	}
-
-    	.sidebarSearchBtn {
-      		margin-top: 8px;
-    	}
-  	}
+        .icon {
+            color: $blue;
+            display: inline;
+            font-size: 24px !important;
+            padding-right: 16px;
+            vertical-align: middle;
+        }
+    }
 }

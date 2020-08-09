@@ -130,9 +130,11 @@ class Target extends Component {
 		)
 
 		const Questionnaire = props => (
-			<Form className="questionnaire" onSubmit={this.submitForm}>
+			<Form className="questionnaire" inverted onSubmit={this.submitForm}>
 				<Form.Field disabled={disabled}>
-					<Header size="small">Summary</Header>
+					<Header inverted size="medium">
+						Summary
+					</Header>
 					<Form.TextArea
 						autoHeight
 						onChange={this.changeSummary}
@@ -142,7 +144,7 @@ class Target extends Component {
 					/>
 				</Form.Field>
 				<Form.Field disabled={disabled}>
-					<Header size="small">
+					<Header inverted size="medium">
 						Does {props.page.name} sincerely believe most of what they talk about?
 					</Header>
 				</Form.Field>
@@ -175,7 +177,7 @@ class Target extends Component {
 					value={props.sincerityExplanation}
 				/>
 				<Form.Field disabled={disabled}>
-					<Header size="small">
+					<Header inverted size="medium">
 						Can {props.page.name} pass an{" "}
 						<a
 							href="https://www.econlib.org/archives/2011/06/the_ideological.html"
@@ -221,6 +223,7 @@ class Target extends Component {
 					disabled={disabled}
 					fluid
 					loading={loading && !props.hasSubmitted}
+					size="big"
 					type="submit"
 				/>
 			</Form>
@@ -318,97 +321,93 @@ class Target extends Component {
 
 					<DefaultLayout
 						activeItem=""
-						containerClassName="targetPage"
+						containerClassName="targetsPage"
 						history={this.props.history}
 					>
-						<Container className="mainContainer" textAlign="left">
-							{error ? (
-								<Container className="mainContainer" text textAlign="center">
-									<Image
-										centered
-										className="trumpImg404"
-										size="medium"
-										src={TrumpImg}
-									/>
-									<Header size="medium">This target does not exist</Header>
-								</Container>
-							) : (
-								<div>
-									{page.pic ? (
-										<Container className="imgContainer" text textAlign="center">
-											<div className="targetImgDiv">
-												<Image
-													bordered
-													centered
-													circular
-													className="targetImg"
-													inline
-													onClick={() =>
-														this.props.history.push(page.link)
+						{error ? (
+							<Container className="mainContainer" text textAlign="center">
+								<Image
+									centered
+									className="trumpImg404"
+									size="medium"
+									src={TrumpImg}
+								/>
+								<Header size="medium">This target does not exist</Header>
+							</Container>
+						) : (
+							<div>
+								{page.pic ? (
+									<Container className="imgContainer" text textAlign="center">
+										<div className="targetImgDiv">
+											<Image
+												bordered
+												centered
+												circular
+												className="targetImg"
+												inline
+												onClick={() => this.props.history.push(page.link)}
+												onError={i => (i.target.src = ImagePic)}
+												size="small"
+												src={page.pic}
+											/>
+											<Image
+												bordered
+												centered
+												circular
+												className="targetImg user"
+												inline
+												onClick={() => {
+													if (user.username) {
+														this.props.history.push(
+															`/users/${user.username}`
+														)
 													}
-													onError={i => (i.target.src = ImagePic)}
-													size="small"
-													src={page.pic}
-												/>
-												<Image
-													bordered
-													centered
-													circular
-													className="targetImg user"
-													inline
-													onClick={() => {
-														if (user.username) {
-															this.props.history.push(
-																`/users/${user.username}`
-															)
-														}
-													}}
-													onError={i => (i.target.src = defaultImg)}
-													size="small"
-													src={user.img ? user.img : defaultImg}
-												/>
-											</div>
-										</Container>
-									) : (
-										<Container textAlign="center">
-											<Placeholder className="profilePicPlaceholder">
-												<Placeholder.Image square />
-											</Placeholder>
-										</Container>
-									)}
-
-									<Header as="h1" inverted size="large" textAlign="center">
-										{page.name}
-										<Header.Subheader>
-											Review by{" "}
-											{user.id ? (
-												<Link to={`/users/${user.id}`}>{user.name}</Link>
-											) : (
-												<Link to={`/signin`}>You</Link>
-											)}
-										</Header.Subheader>
-									</Header>
-									<Divider hidden />
-
-									{showMessage && (
-										<Message
-											content={`You must assign at least 5 fallacies to ${this.props.page.name} before you can submit a review`}
-											warning
-										/>
-									)}
-									{editing ? (
-										<div>{Questionnaire(this.props)}</div>
-									) : (
-										<div>{ShowAnswers(this.props)}</div>
-									)}
-									{page.id && (
-										<div>
-											<DisplayFallacies props={this.props} />
+												}}
+												onError={i => (i.target.src = defaultImg)}
+												size="small"
+												src={user.img ? user.img : defaultImg}
+											/>
 										</div>
-									)}
-								</div>
-							)}
-						</Container>
+									</Container>
+								) : (
+									<Container textAlign="center">
+										<Placeholder className="profilePicPlaceholder">
+											<Placeholder.Image square />
+										</Placeholder>
+									</Container>
+								)}
+
+								<Header as="h1" inverted size="large" textAlign="center">
+									{page.name}
+									<Header.Subheader>
+										Review by{" "}
+										{user.id ? (
+											<Link to={`/users/${user.id}`}>{user.name}</Link>
+										) : (
+											<Link to={`/signin`}>You</Link>
+										)}
+									</Header.Subheader>
+								</Header>
+								<Divider hidden />
+
+								{showMessage && (
+									<Message
+										content={`You must assign at least 5 fallacies to ${this.props.page.name} before you can submit a review`}
+										warning
+									/>
+								)}
+								{editing ? (
+									<div>{Questionnaire(this.props)}</div>
+								) : (
+									<div>{ShowAnswers(this.props)}</div>
+								)}
+								{page.id && (
+									<div>
+										<DisplayFallacies props={this.props} />
+									</div>
+								)}
+							</div>
+						)}
 					</DefaultLayout>
 				</div>
 			</Provider>

@@ -8,6 +8,33 @@ import PropTypes from "prop-types"
 import React, { Component } from "react"
 import store from "store"
 
+const resultRenderer = ({ image, title }) => {
+	return (
+		<div className="searchItem">
+			{image && (
+				<Image
+					className="dropDownItemPic"
+					onError={i => (i.target.src = defaultImg)}
+					rounded={false}
+					src={image}
+				/>
+			)}
+			<Header inverted size="tiny">
+				{title}
+			</Header>
+		</div>
+	)
+}
+
+resultRenderer.propTypes = {
+	description: PropTypes.string,
+	image: PropTypes.string,
+	social_media_id: PropTypes.string,
+	title: PropTypes.string,
+	type: PropTypes.string,
+	username: PropTypes.string
+}
+
 class NavSearch extends Component {
 	constructor(props) {
 		super(props)
@@ -95,35 +122,6 @@ class NavSearch extends Component {
 
 	render() {
 		const { isLoading, results, value } = this.state
-		const resultRenderer = ({ description, image, social_media_id, title, type, username }) => {
-			return (
-				<div className="searchItem">
-					{image && (
-						<Image
-							className="dropDownItemPic"
-							onError={i => (i.target.src = defaultImg)}
-							rounded={false}
-							src={image}
-						/>
-					)}
-					<Header inverted size="tiny">
-						{title}
-					</Header>
-					<span>
-						<Icon className={`${type}Icon`} inverted name={type} />
-					</span>
-				</div>
-			)
-		}
-
-		resultRenderer.propTypes = {
-			description: PropTypes.string,
-			image: PropTypes.string,
-			social_media_id: PropTypes.string,
-			title: PropTypes.string,
-			type: PropTypes.string,
-			username: PropTypes.string
-		}
 
 		const SearchBar = props => (
 			<Search
@@ -140,6 +138,7 @@ class NavSearch extends Component {
 				placeholder={props.placeholder}
 				results={results}
 				resultRenderer={resultRenderer}
+				size="big"
 			/>
 		)
 

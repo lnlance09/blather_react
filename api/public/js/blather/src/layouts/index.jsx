@@ -37,10 +37,10 @@ const DefaultLayout = ({
 				</Container>
 			) : (
 				<Fragment>
-					<PageHeader history={history} />
+					<PageHeader history={history} toggleSearchMode={() => setSearchMode(true)} />
 
 					<Container
-						// className={`mainContainer ${containerClassName}`}
+						className={`mainContainer ${containerClassName}`}
 						text={isText}
 						textAlign={textAlign}
 					>

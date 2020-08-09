@@ -400,15 +400,13 @@ class SettingsPage extends Component {
 						containerClassName="settingsPage"
 						history={this.props.history}
 					>
-						<Container className="mainContainer" textAlign="left">
-							<Header as="h1" inverted>
-								Settings
-							</Header>
-							<div className="settingsContent">
-								{SettingsMenu(this.props)}
-								<Segment inverted>{ActiveItemDiv(activeItem)}</Segment>
-							</div>
-						</Container>
+						<Header as="h1" inverted>
+							Settings
+						</Header>
+						<div className="settingsContent">
+							{SettingsMenu(this.props)}
+							<Segment inverted>{ActiveItemDiv(activeItem)}</Segment>
+						</div>
 					</DefaultLayout>
 				</div>
 			</Provider>

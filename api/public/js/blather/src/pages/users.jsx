@@ -5,7 +5,6 @@ import { fetchUserData, reset } from "redux/actions/user"
 import { Provider, connect } from "react-redux"
 import {
 	Button,
-	Container,
 	Dimmer,
 	Grid,
 	Header,
@@ -16,14 +15,14 @@ import {
 	Placeholder,
 	Segment
 } from "semantic-ui-react"
-import defaultImg from "images/trump.svg"
+import defaultImg from "images/avatar/large/steve.jpg"
 import DefaultLayout from "layouts"
 import ArchivesList from "components/secondary/lists/archivesList/v1/"
 import Dropzone from "react-dropzone"
 import FallaciesList from "components/secondary/lists/fallaciesList/v1/"
 import ImagePic from "images/images/image-square.png"
 import PropTypes from "prop-types"
-import React, { Component } from "react"
+import React, { Component, Fragment } from "react"
 import store from "store"
 import TitleHeader from "components/primary/titleHeader/v1/"
 import TrumpImg from "images/trump-white.png"
@@ -55,7 +54,7 @@ class UserPage extends Component {
 			editing: false,
 			files: [],
 			id,
-			inverted: true,
+			inverted: false,
 			isMyProfile,
 			myUsername,
 			tab,
@@ -149,8 +148,10 @@ class UserPage extends Component {
 				{({ getRootProps, getInputProps }) => (
 					<div {...getRootProps()}>
 						<input {...getInputProps()} />
-						<Header as="h2">Change your pic</Header>
-						<Button className="changePicBtn" color="blue" icon>
+						<Header as="h2" inverted>
+							Change your pic
+						</Header>
+						<Button className="changePicBtn" color="blue" icon inverted>
 							<Icon name="image" />
 						</Button>
 					</div>
@@ -219,12 +220,12 @@ class UserPage extends Component {
 					<DisplayMetaTags page="users" props={this.props} state={this.state} />
 
 					<DefaultLayout
-						activeItem=""
-						containerClassName="notFoundPage"
+						activeItem={isMyProfile ? "profile" : ""}
+						containerClassName="usersPage"
 						history={this.props.history}
 					>
 						{!this.props.error ? (
-							<Container className="mainContainer" textAlign="left">
+							<Fragment>
 								<Grid stackable>
 									<Grid.Column textAlign="left" width={5}>
 										{this.props.user.id ? (
@@ -260,7 +261,7 @@ class UserPage extends Component {
 									>
 										Fallacies{" "}
 										{user.fallacyCount > 0 && (
-											<Label color="blue" floating>
+											<Label color="red" floating>
 												{formatNumber(user.fallacyCount)}
 											</Label>
 										)}
@@ -272,7 +273,7 @@ class UserPage extends Component {
 									>
 										Archives{" "}
 										{user.archiveCount > 0 && (
-											<Label color="yellow" floating>
+											<Label color="red" floating>
 												{formatNumber(user.archiveCount)}
 											</Label>
 										)}
@@ -282,9 +283,9 @@ class UserPage extends Component {
 								<Segment className="profileContentSegment" inverted>
 									{ShowContent(this.props)}
 								</Segment>
-							</Container>
+							</Fragment>
 						) : (
-							<Container className="mainContainer" text textAlign="center">
+							<Fragment>
 								<Image
 									centered
 									className="trumpImg404"
@@ -294,7 +295,7 @@ class UserPage extends Component {
 								<Header inverted size="medium">
 									This user does not exist!
 								</Header>
-							</Container>
+							</Fragment>
 						)}
 					</DefaultLayout>
 				</div>

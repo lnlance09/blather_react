@@ -356,15 +356,59 @@ class FallaciesModel extends CI_Model {
 		return $result[0]['name'];
 	}
 
-	public function getComments($id, $page = null, $just_count = false) {
-		$select = "f.created_at, f.message, f.user_id, CONCAT('".S3_PATH."', u.img) AS img, u.name, u.username";
+	public function getComment($id, $just_count = false) {
+		$select = "created_at, message, user_id";
+		if ($just_count) {
+			$select = 'COUNT(*) AS count';
+		}
+
+		$this->db->select($select);
+		$this->db->where('id', $id);
+		$query = $this->db->get('fallacy_comments');
+
+		if ($just_count) {
+			$result = $query->result_array();
+			return $result[0]['count'];
+		}
+
+		return $query->result_array();
+	}
+
+	public function getCommentLikedBy($id, $response_id, $user_id) {
+		$where = ['comment_id' => $id, 'user_id' => $user_id];
+
+		if ($response_id) {
+			$where['response_id'] = $response_id;
+		}
+
+		$this->db->select('COUNT(*) AS count');
+		$this->db->where($where);
+		$query = $this->db->get('fallacy_comments_likes');
+		$result = $query->result_array();
+		return (int)$result[0]['count'];
+	}
+
+	public function getComments($id, $user_id = null, $page = null, $just_count = false) {
+		$select = "f.id, f.created_at, f.message, f.user_id, CONCAT('".S3_PATH."', u.img) AS img, u.name, u.username, likeCount";
+
+		if ($user_id) {
+			$select .= ', likedByMe';
+		}
+
 		if ($just_count) {
 			$select = 'COUNT(*) AS count';
 		}
 
 		$this->db->select($select);
 		$this->db->join('users u', 'f.user_id=u.id');
+		$this->db->join('(SELECT COUNT(*) as likeCount, comment_id FROM fallacy_comments_likes GROUP BY comment_id) l', 'f.id=l.comment_id', 'left');
+
+		if ($user_id) {
+			$this->db->join('(SELECT COUNT(*) as likedByMe, comment_id, user_id FROM fallacy_comments_likes GROUP BY comment_id) lbm', 'f.id=lbm.comment_id AND lbm.user_id = "'.$user_id.'"', 'left');
+		}
+
 		$this->db->where('fallacy_id', $id);
+		$this->db->group_by('f.id');
 
 		if (!$just_count) {
 			$this->db->order_by('created_at', 'DESC');
@@ -764,6 +808,23 @@ class FallaciesModel extends CI_Model {
 		$this->db->limit(1);
 		$results = $this->db->get('fallacy_conversations')->result_array();
 		return count($results) === 1 ? $results[0] : false;
+	}
+
+	public function likeComment($comment_id, $response_id, $user_id) {
+		$this->db->insert('fallacy_comments_likes', [
+			'comment_id' => $comment_id,
+			'response_id' => $response_id,
+			'user_id' => $user_id
+		]);
+	}
+
+	public function unlikeComment($comment_id, $response_id, $user_id) {
+		$this->db->where([
+			'comment_id' => $comment_id,
+			'response_id' => $response_id,
+			'user_id' => $user_id
+		]);
+		$this->db->delete('fallacy_comments_likes');
 	}
 
 	public function getMostFallacious() {

@@ -54,7 +54,22 @@
 
 	.fallacyExplanationSegment {
 		background: lighten($invertedBackgroundColor, 4%) !important;
+		border: none !important;
+	}
+
+	.aboutAttachedHeader {
+		background: lighten($invertedBackgroundColor, 4%) !important;
+		border-top: solid 1px $twitterExtraExtraLightGrey1 !important;
+		font-style: italic;
 		margin-bottom: 25px !important;
+	
+		a {
+			padding-bottom: 0 !important;
+		}
+	
+		.image {
+			cursor: pointer !important;
+		}
 	}
 
 	.fallacyExplanation {
@@ -97,7 +112,7 @@
 
 		p {
 	  		color: $white !important;
-	  		font-size: 15px;
+	  		font-size: 16px;
 	  		margin: 0;
 		}
   	}

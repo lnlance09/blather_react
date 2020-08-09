@@ -1,10 +1,17 @@
 import * as constants from "./constants"
 import request from "request"
+import { toast } from "react-toastify"
+import { getConfig } from "options/toast"
 
-export const fetchComments = ({ id, page }) => dispatch => {
+toast.configure(getConfig())
+
+export const fetchComments = ({ bearer, id, page }) => dispatch => {
 	request.get(
 		`${window.location.origin}/api/fallacies/getComments`,
 		{
+			headers: {
+				Authorization: bearer
+			},
 			json: true,
 			qs: {
 				id,
@@ -16,6 +23,33 @@ export const fetchComments = ({ id, page }) => dispatch => {
 				payload: body,
 				type: constants.GET_COMMENTS
 			})
+		}
+	)
+}
+
+export const likeComment = ({ bearer, commentId, responseId }) => dispatch => {
+	request.post(
+		`${window.location.origin}/api/fallacies/likeComment`,
+		{
+			form: {
+				commentId,
+				responseId
+			},
+			headers: {
+				Authorization: bearer
+			},
+			json: true
+		},
+		function(err, response, body) {
+			if (!body.error) {
+				dispatch({
+					payload: {
+						commentId,
+						responseId
+					},
+					type: constants.LIKE_COMMENT
+				})
+			}
 		}
 	)
 }
@@ -34,25 +68,29 @@ export const postComment = ({ bearer, callback, id, message }) => dispatch => {
 			json: true
 		},
 		function(err, response, body) {
-			if (!body.error) {
-				callback()
+			if (body.error) {
+				toast.error(body.error)
 			}
 
-			dispatch({
-				payload: body,
-				type: constants.POST_COMMENT
-			})
+			if (!body.error) {
+				callback()
+
+				dispatch({
+					payload: body,
+					type: constants.POST_COMMENT
+				})
+			}
 		}
 	)
 }
 
-export const voteOnComment = ({ bearer, commentId, upvote = 0 }) => dispatch => {
+export const unlikeComment = ({ bearer, commentId, responseId }) => dispatch => {
 	request.post(
-		`${window.location.origin}/api/fallacies/voteOnComment`,
+		`${window.location.origin}/api/fallacies/unlikeComment`,
 		{
 			form: {
 				commentId,
-				upvote
+				responseId
 			},
 			headers: {
 				Authorization: bearer
@@ -60,13 +98,15 @@ export const voteOnComment = ({ bearer, commentId, upvote = 0 }) => dispatch => 
 			json: true
 		},
 		function(err, response, body) {
-			dispatch({
-				payload: {
-					commentId,
-					upvote
-				},
-				type: constants.VOTE_ON_COMMENT
-			})
+			if (!body.error) {
+				dispatch({
+					payload: {
+						commentId,
+						responseId
+					},
+					type: constants.UNLIKE_COMMENT
+				})
+			}
 		}
 	)
 }

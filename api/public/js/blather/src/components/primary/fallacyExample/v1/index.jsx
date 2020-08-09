@@ -20,11 +20,13 @@ import {
 import ImagePic from "images/images/image-square.png"
 import LazyLoad from "components/primary/lazyLoad/v1/"
 import Marked from "marked"
+import Moment from "react-moment"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import request from "request"
 import TimeField from "react-simple-timefield"
 import Tweet from "components/primary/tweet/v1/"
+import UserPic from "images/avatar/large/steve.jpg"
 import YouTubeCommentsSection from "components/secondary/youTubeVideo/v1/comments"
 import YouTubeVideo from "components/secondary/youTubeVideo/v1/"
 
@@ -269,7 +271,7 @@ class FallacyExample extends Component {
 						<Header as="h2" className="fallacyHeader" inverted size="large">
 							{props.fallacyName} <EditButton props={props} />
 						</Header>
-						<Segment className="fallacyExplanationSegment" inverted>
+						<Segment attached className="fallacyExplanationSegment" inverted>
 							{editing ? (
 								<Form onSubmit={this.updateFallacy}>
 									<Form.Field>
@@ -319,6 +321,35 @@ class FallacyExample extends Component {
 								/>
 							)}
 						</Segment>
+						<Header
+							className="aboutAttachedHeader"
+							attached="bottom"
+							inverted
+							size="large"
+						>
+							<Image
+								avatar
+								onClick={() =>
+									this.props.history.push(`/${this.props.user.username}`)
+								}
+								onError={i => (i.target.src = UserPic)}
+								src={this.props.user.img === null ? UserPic : this.props.user.img}
+							/>
+							<Header.Content>
+								<a
+									onClick={() =>
+										this.props.history.push(
+											`/users/${this.props.user.username}`
+										)
+									}
+								>
+									{this.props.user.name}
+								</a>
+								<Header.Subheader>
+									Created <Moment date={this.props.updatedAt} fromNow />
+								</Header.Subheader>
+							</Header.Content>
+						</Header>
 					</div>
 				)
 
@@ -602,6 +633,12 @@ FallacyExample.propTypes = {
 	rawSources: PropTypes.bool,
 	showExplanation: PropTypes.bool,
 	showMaterial: PropTypes.bool,
+	updatedAt: PropTypes.string,
+	user: PropTypes.shape({
+		img: PropTypes.string,
+		name: PropTypes.string,
+		username: PropTypes.string
+	}),
 	width: PropTypes.string
 }
 

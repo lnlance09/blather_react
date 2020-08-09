@@ -200,36 +200,32 @@ class About extends Component {
 						containerClassName="aboutPage"
 						history={this.props.history}
 					>
-						<Container className="mainContainer" textAlign="left">
-							<Header as="h1" inverted>
-								About Blather
-							</Header>
-							<Menu inverted pointing secondary size="big">
-								<Menu.Item
-									active={activeItem === "about"}
-									name="about"
-									onClick={this.handleItemClick}
-								/>
-								<Menu.Item
-									active={activeItem === "rules"}
-									name="rules"
-									onClick={this.handleItemClick}
-								/>
-								<Menu.Item
-									active={activeItem === "privacy"}
-									name="privacy"
-									onClick={this.handleItemClick}
-								/>
-								<Menu.Item
-									active={activeItem === "contact"}
-									name="contact"
-									onClick={this.handleItemClick}
-								/>
-							</Menu>
-							<Container className="aboutContainer">
-								{showContent(this.props)}
-							</Container>
-						</Container>
+						<Header as="h1" inverted>
+							About Blather
+						</Header>
+						<Menu inverted pointing secondary size="big">
+							<Menu.Item
+								active={activeItem === "about"}
+								name="about"
+								onClick={this.handleItemClick}
+							/>
+							<Menu.Item
+								active={activeItem === "rules"}
+								name="rules"
+								onClick={this.handleItemClick}
+							/>
+							<Menu.Item
+								active={activeItem === "privacy"}
+								name="privacy"
+								onClick={this.handleItemClick}
+							/>
+							<Menu.Item
+								active={activeItem === "contact"}
+								name="contact"
+								onClick={this.handleItemClick}
+							/>
+						</Menu>
+						<Container className="aboutContainer">{showContent(this.props)}</Container>
 					</DefaultLayout>
 				</div>
 			</Provider>

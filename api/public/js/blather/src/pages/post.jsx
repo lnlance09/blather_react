@@ -461,75 +461,71 @@ class Post extends Component {
 						containerClassName="notFoundPage"
 						history={this.props.history}
 					>
-						<Container className="mainContainer" textAlign="left">
-							{type === "video" &&
-								(videoExists ? (
-									<Segment inverted>
-										{DisplayPost(this.props)}
-										{!this.props.error && (
-											<DisplayFallacies props={this.props} />
-										)}
-									</Segment>
-								) : (
-									<div>
-										<Image
-											centered
-											className="trumpImg404"
-											size="medium"
-											src={TrumpImg}
-										/>
-										<Header size="large" textAlign="center">
-											This video does not exist
-										</Header>
-									</div>
-								))}
-
-							{type === "tweet" && (
+						{type === "video" &&
+							(videoExists ? (
+								<Segment inverted>
+									{DisplayPost(this.props)}
+									{!this.props.error && <DisplayFallacies props={this.props} />}
+								</Segment>
+							) : (
 								<div>
-									<Responsive maxWidth={1024}>
-										<Grid>
-											<Grid.Row>
-												{DisplayPost(this.props)}
-												{!tweetExists && (
-													<Message
-														content="This tweet does not exist"
-														error
-													/>
-												)}
-											</Grid.Row>
-											<Grid.Row className="relatedRow">
-												{RelatedSearches(this.props)}
-											</Grid.Row>
-											<Grid.Row>
-												{!this.props.error && (
-													<DisplayFallacies props={this.props} />
-												)}
-											</Grid.Row>
-										</Grid>
-									</Responsive>
-
-									<Responsive minWidth={1025}>
-										<Grid>
-											<Grid.Column className="leftSide" width={11}>
-												{DisplayPost(this.props)}
-												{!tweetExists && (
-													<Message
-														content="This tweet does not exist"
-														error
-													/>
-												)}
-												{!this.props.error && (
-													<DisplayFallacies props={this.props} />
-												)}
-											</Grid.Column>
-											<Grid.Column className="rightSide" width={5}>
-												{RelatedSearches(this.props)}
-											</Grid.Column>
-										</Grid>
-									</Responsive>
+									<Image
+										centered
+										className="trumpImg404"
+										size="medium"
+										src={TrumpImg}
+									/>
+									<Header size="large" textAlign="center">
+										This video does not exist
+									</Header>
 								</div>
-							)}
-						</Container>
+							))}
+
+						{type === "tweet" && (
+							<div>
+								<Responsive maxWidth={1024}>
+									<Grid>
+										<Grid.Row>
+											{DisplayPost(this.props)}
+											{!tweetExists && (
+												<Message
+													content="This tweet does not exist"
+													error
+												/>
+											)}
+										</Grid.Row>
+										<Grid.Row className="relatedRow">
+											{RelatedSearches(this.props)}
+										</Grid.Row>
+										<Grid.Row>
+											{!this.props.error && (
+												<DisplayFallacies props={this.props} />
+											)}
+										</Grid.Row>
+									</Grid>
+								</Responsive>
+
+								<Responsive minWidth={1025}>
+									<Grid>
+										<Grid.Column className="leftSide" width={11}>
+											{DisplayPost(this.props)}
+											{!tweetExists && (
+												<Message
+													content="This tweet does not exist"
+													error
+												/>
+											)}
+											{!this.props.error && (
+												<DisplayFallacies props={this.props} />
+											)}
+										</Grid.Column>
+										<Grid.Column className="rightSide" width={5}>
+											{RelatedSearches(this.props)}
+										</Grid.Column>
+									</Grid>
+								</Responsive>
+							</div>
+						)}
 					</DefaultLayout>
 				</div>
 			</Provider>

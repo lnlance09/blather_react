@@ -11,6 +11,22 @@
 			.metadata {
 				color: $lightGrey !important;
 			}
+
+			.likeCount {
+				color: $white;
+				font-weight: bold;
+				margin-left: 8px;
+			}
+
+			.content {
+                background: lighten($invertedBackgroundColor, 5%) !important;
+                border-radius: 4px;
+				padding: 7px 12px 10px 12px !important;
+			}
 		}
-  	}
+	  }
+	  
+	  .replyBtn {
+		  margin-top: 18px;
+	  }
 }
