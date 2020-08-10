@@ -13,9 +13,13 @@
   background: rgba(21, 32, 43, 0.96) !important; }
 
 .searchResults .resultsSegment,
-.searchResults .linkAccountMsg,
 .searchResults .emptyMsg {
   margin-top: 14px !important; }
+
+.searchResults .linkAccountMsg {
+  background: #1a2835 !important;
+  color: #ffffff !important;
+  margin: 0 14px 14px 14px !important; }
 
 .searchResults .resultsSegment {
   background: #15202b !important;

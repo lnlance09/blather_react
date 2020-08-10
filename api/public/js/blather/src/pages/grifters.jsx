@@ -45,15 +45,17 @@ const Grifters = ({ history }) => {
 
 					<Divider hidden />
 
-					<Message info size="big">
+					<Message size="large">
 						<Message.Header as="h1" inverted>
 							What is a grifter?
 						</Message.Header>
 						<Message.Content>
-							A grifter is someone who gets paid to confirm the pre-existing opinions
-							of their audience. This is usually done for money but attention and
-							validation from strangers on the internet is also sometimes a motivating
-							force.
+							A grifter is someone who is in the business of telling gullible people
+							exactly what they want to hear, regardless of whether it makes sense or
+							not. Grifters are typically on the path of least resistance and their
+							strategy often consists of little more than repeating a handful of tired
+							talking points to a group of people that's very desperate to have their
+							pre-existing opinions confirmed.
 						</Message.Content>
 					</Message>
 

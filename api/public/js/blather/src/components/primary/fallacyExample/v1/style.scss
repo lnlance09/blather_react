@@ -4,10 +4,6 @@
 	overflow: hidden;
 	padding: 1px !important;
 
-  	&.downloading {
-		padding-top: 3px;
-  	}
-
   	.fallacyHeader {
 		margin-top: 10px !important;
 
@@ -31,20 +27,29 @@
 		}
   	}
 
-  	.fallacyMaterial {
+	.fallacyMaterial {
 		&.downloading {
-	  		.tweet {
-				.card {
-		  			border: solid 1px $midWhite;
+			background: lighten($invertedBackgroundColor, 3%) !important;
 
-		  			.content .description span b {
+			.tweet {
+				.card {
+					border: solid 1px $twitterExtraExtraLightGrey1;
+		
+					.content .description span b {
 						border-bottom: solid 2px $red;
 						white-space: pre !important;
-		  			}
+					}
 				}
-	  		}
+			}
 		}
 
+		#fallacyDateDiff {
+			display: flex;
+			justify-content: center;
+		}
+	}
+
+  	.fallacyMaterial {
 		.sourceList {
 	  		.item {
 				margin-bottom: 8px;

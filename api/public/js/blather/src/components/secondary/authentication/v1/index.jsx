@@ -95,10 +95,10 @@ class Authentication extends Component {
 	}
 
 	submitEmailVerificationForm = e => {
-		e.preventDefault()
 		const { verificationCode } = this.state
+		const bearer = localStorage.getItem("jwtToken")
 		this.props.verifyEmail({
-			bearer: this.props.bearer,
+			bearer,
 			code: verificationCode
 		})
 	}
@@ -161,14 +161,17 @@ class Authentication extends Component {
 								value={verificationCode}
 							/>
 						</Form.Field>
-						<Button
-							color="green"
-							content="Verify"
-							disabled={verificationCode.length !== 4}
-							fluid
-							size="big"
-							type="submit"
-						/>
+						<Form.Field>
+							<Button
+								color="green"
+								content="Verify"
+								disabled={verificationCode.length !== 4}
+								fluid
+								size="big"
+								type="submit"
+							/>
+						</Form.Field>
+						<div style={{ height: "1px" }} />
 					</Form>
 				)
 			}
@@ -203,6 +206,7 @@ class Authentication extends Component {
 								type="submit"
 							/>
 						</Form.Field>
+						<div style={{ height: "1px" }} />
 					</Form>
 				)
 			}
@@ -251,6 +255,7 @@ class Authentication extends Component {
 							type="submit"
 						/>
 					</Form.Field>
+					<div style={{ height: "1px" }} />
 				</Form>
 			)
 		}
@@ -268,11 +273,13 @@ class Authentication extends Component {
 						{HeaderText(this.props)}
 					</Header>
 					<Segment inverted>
-						{MainForm(this.props)}
-						<Divider inverted section />
-						<Label attached="bottom" className="registerText" size="big">
+						<Label
+							attached="bottom"
+							className={`registerText ${this.props.verify ? "verify" : ""}`}
+							size={this.props.verify ? "small" : "big"}
+						>
 							{this.props.verify ? (
-								<span onClick={() => logout()}>Logout</span>
+								<span onClick={() => this.props.logout()}>Logout</span>
 							) : (
 								<Fragment>
 									{RegisterText()}{" "}
@@ -282,6 +289,7 @@ class Authentication extends Component {
 								</Fragment>
 							)}
 						</Label>
+						{MainForm(this.props)}
 					</Segment>
 					{!this.props.verify && (
 						<Fragment>

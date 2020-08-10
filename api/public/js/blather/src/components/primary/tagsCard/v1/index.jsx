@@ -129,12 +129,7 @@ class TagsCard extends Component {
 		)
 
 		const RenderTags = this.props.tags.map(tag => (
-			<Label
-				color="yellow"
-				onClick={() => this.props.history.push(`/tags/${tag.id.trim()}`)}
-				size="large"
-				tag
-			>
+			<Label onClick={() => this.props.history.push(`/tags/${tag.id.trim()}`)} size="large">
 				{tag.name.trim()}
 				{this.props.canEdit && (
 					<Icon name="close" onClick={() => this.deleteTag(tag.id, tag.name)} />
@@ -144,7 +139,11 @@ class TagsCard extends Component {
 
 		const ShowTags = props => {
 			if (props.tags.length > 0) {
-				return <div>{RenderTags}</div>
+				return (
+					<Label.Group color="yellow" tag>
+						{RenderTags}
+					</Label.Group>
+				)
 			}
 			return <Message content="No tags have been added" inverted size="big" />
 		}

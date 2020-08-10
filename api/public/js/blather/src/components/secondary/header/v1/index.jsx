@@ -58,11 +58,11 @@ const Header = ({ history, logout, toggleSearchMode }) => {
 									{authenticated === false && (
 										<Button
 											className="allyButton"
-											color="yellow"
+											color="blue"
 											compact
-											content="Become an ally"
+											content="Sign In"
 											inverted
-											onClick={() => history.push("/signin?type=join")}
+											onClick={() => history.push("/signin")}
 										/>
 									)}
 									<Icon

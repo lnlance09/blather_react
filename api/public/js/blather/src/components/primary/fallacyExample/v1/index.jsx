@@ -610,7 +610,7 @@ class FallacyExample extends Component {
 					dateTwo = props.contradiction.comment.dateCreated
 				}
 				return (
-					<Divider horizontal id="fallacyDateDiff" inverted>
+					<Divider hidden horizontal id="fallacyDateDiff" inverted>
 						{dateDifference(dateOne, dateTwo)}
 					</Divider>
 				)

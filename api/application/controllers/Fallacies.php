@@ -447,6 +447,8 @@ class Fallacies extends CI_Controller {
 			];
 			$this->fallacies->createCommentResponse($data);
 			$comment_id = $this->db->insert_id();
+			$data['id'] = $comment_id;
+			$data['likeCount'] = 0;
 		} else {
 			$data = [
 				'created_at' => date('Y-m-d H:i:s'),

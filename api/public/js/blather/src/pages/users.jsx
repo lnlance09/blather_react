@@ -153,15 +153,15 @@ class UserPage extends Component {
 					<Dimmer.Dimmable
 						as={Image}
 						centered
+						circular
 						className={`profilePic ${!user.img ? "default" : ""}`}
 						dimmed={active}
 						dimmer={{ active, content, inverted }}
-						fluid
-						inline
 						onError={i => (i.target.src = ImagePic)}
 						onMouseEnter={this.handleShow}
 						onMouseLeave={this.handleHide}
 						rounded
+						size="medium"
 						src={pic}
 					/>
 				)
@@ -169,9 +169,8 @@ class UserPage extends Component {
 			return (
 				<Image
 					centered
+					circular
 					className={`profilePic ${!user.img ? "default" : ""}`}
-					fluid
-					inline
 					onError={i => (i.target.src = ImagePic)}
 					rounded
 					src={pic}
@@ -218,8 +217,8 @@ class UserPage extends Component {
 					>
 						{!this.props.error ? (
 							<Fragment>
-								<Grid stackable>
-									<Grid.Column textAlign="left" width={5}>
+								<Grid>
+									<Grid.Column textAlign="left" width={4}>
 										{this.props.user.id ? (
 											<div>{ProfilePic(this.props)}</div>
 										) : (
@@ -228,7 +227,7 @@ class UserPage extends Component {
 											</Placeholder>
 										)}
 									</Grid.Column>
-									<Grid.Column textAlign="left" width={7}>
+									<Grid.Column textAlign="left" width={12}>
 										<div className="userHeaderSection">
 											<TitleHeader
 												subheader={<div>@{user.username}</div>}

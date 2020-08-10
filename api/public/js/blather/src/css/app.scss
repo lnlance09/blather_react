@@ -391,7 +391,7 @@ a {
 
 /* About page */
 .aboutPage {
-	padding: 18px 0;
+	padding: 18px 0 0 0;
 
 	p {
 		color: $white !important;
@@ -409,7 +409,7 @@ a {
 
 /* Create discussion page */
 .createDiscussionPage {
-	padding: 18px 0;
+	padding: 18px 0 0 0;
 
 	.contentContainer {
 		padding: 0 !important;
@@ -488,7 +488,7 @@ a {
 
 /* Discussion page */
 .discussionPage {
-	padding: 18px 0;
+	padding: 18px 0 0 0;
 
 	.header {
 		.editButton {
@@ -527,7 +527,7 @@ a {
 
 /* Discussion page */
 .discussionsPage {
-	padding: 18px 0;
+	padding: 18px 0 0 0;
 
 	.discussionsContainer {
 		padding: 0;
@@ -546,7 +546,7 @@ a {
 
 /* Fallacies page */
 .fallaciesPage {
-	padding: 18px 0;
+	padding: 18px 0 0 0;
 
 	.ui.container.fallaciesContainer {
 		@media only screen and (max-width: 1025px) {
@@ -568,7 +568,7 @@ a {
 
 /* Fallacy page */
 .fallacyPage {
-	padding: 18px 0;
+	padding: 18px 0 0 0;
 
 	.fallacyExample {
 		margin-top: 5px;
@@ -732,7 +732,7 @@ a {
 
 /* Feed page */
 .feedPage {
-	padding: 18px 0;
+	padding: 18px 0 0 0;
 
 	.ui.feed > .event > .content .meta .label {
 		cursor: pointer;
@@ -741,14 +741,20 @@ a {
 
 /* Grifters page */
 .griftersPage {
-	padding: 18px 0;
+	padding: 18px 0 0 0;
+
+	.ui.message {
+		background: lighten($invertedBackgroundColor, 5%) !important;
+		border: solid 1px $twitterExtraExtraLightGrey1!important;
+		color: $white !important;
+	}
 }
 
 /* Home page */
 .homePage {
 	background: $invertedBackgroundColor;
 	min-height: 100vh;
-	padding: 18px 0;
+	padding: 18px 0 0 0;
 
 	.heroHeader {
 		color: $white !important;
@@ -783,17 +789,17 @@ a {
 
 /* 404 page */
 .notFoundPage {
-	padding: 18px 0;
+	padding: 18px 0 0 0;
 }
 
 /* Notifications page */
 .notificationsPage {
-	padding: 18px 0;
+	padding: 18px 0 0 0;
 }
 
 /* Pages page */
 .socialMediaPage {
-	padding: 18px 0;
+	padding: 18px 0 0 0;
 
 	@media only screen and (max-width: 1025px) {
 		.grid.column {
@@ -871,7 +877,7 @@ a {
 
 /* Post page */
 .postPage {
-	padding: 18px 0;
+	padding: 18px 0 0 0;
 
 	.fallacyFormWrapper {
 		margin: 20px 0;
@@ -914,7 +920,7 @@ a {
 
 /* Search page */
 .searchPage {
-	padding: 18px 0;
+	padding: 18px 0 0 0;
 
 	.searchSegment {
 		padding: 0 !important;
@@ -964,7 +970,7 @@ a {
 
 /* Settings page */
 .settingsPage {
-	padding: 18px 0;
+	padding: 18px 0 0 0;
 
 	.settingsMenu {
 		margin-bottom: 0;
@@ -1010,7 +1016,7 @@ a {
 
 /* Tag page */
 .tagPage {
-	padding: 18px 0;
+	padding: 18px 0 0 0;
 	
 	.tagsWrapper {
 		width: 100%;
@@ -1098,12 +1104,12 @@ a {
 
 /* Tags page */
 .tagsPage {
-	padding: 18px 0;
+	padding: 18px 0 0 0;
 }
 
 /* Targets page */
 .targetsPage {
-	padding: 18px 0;
+	padding: 18px 0 0 0;
 
 	.ui.container {
 		.summaryHeader {
@@ -1174,7 +1180,7 @@ a {
 
 /* Users page */
 .usersPage {
-	padding: 18px 0;
+	padding: 18px 0 0 0;
 
 	.userHeaderSection {
 		p {

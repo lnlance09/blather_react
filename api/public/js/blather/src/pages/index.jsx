@@ -267,11 +267,7 @@ class Page extends Component {
 
 				if (authenticated) {
 					if (activeItem === "tweets" && props.data.linkedTwitter) {
-						return (
-							<Segment inverted>
-								<TweetList bearer={bearer} history={props.history} username={id} />
-							</Segment>
-						)
+						return <TweetList bearer={bearer} history={props.history} username={id} />
 					}
 
 					return (

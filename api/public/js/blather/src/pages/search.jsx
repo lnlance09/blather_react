@@ -156,7 +156,7 @@ class SearchPage extends Component {
 				className="searchMenu"
 				fluid
 				inverted
-				size="big"
+				size="large"
 				vertical
 			>
 				<Menu.Item

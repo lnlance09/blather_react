@@ -265,7 +265,7 @@ a {
 
 /* About page */
 .aboutPage {
-  padding: 18px 0; }
+  padding: 18px 0 0 0; }
   .aboutPage p {
     color: #ffffff !important;
     font-size: 16px; }
@@ -276,7 +276,7 @@ a {
 
 /* Create discussion page */
 .createDiscussionPage {
-  padding: 18px 0; }
+  padding: 18px 0 0 0; }
   .createDiscussionPage .contentContainer {
     padding: 0 !important; }
     .createDiscussionPage .contentContainer .segment {
@@ -317,7 +317,7 @@ a {
 
 /* Discussion page */
 .discussionPage {
-  padding: 18px 0; }
+  padding: 18px 0 0 0; }
   .discussionPage .header .editButton {
     font-size: 18px;
     line-height: 30px; }
@@ -336,7 +336,7 @@ a {
 
 /* Discussion page */
 .discussionsPage {
-  padding: 18px 0; }
+  padding: 18px 0 0 0; }
   .discussionsPage .discussionsContainer {
     padding: 0; }
   @media only screen and (max-width: 1025px) {
@@ -347,7 +347,7 @@ a {
 
 /* Fallacies page */
 .fallaciesPage {
-  padding: 18px 0; }
+  padding: 18px 0 0 0; }
   @media only screen and (max-width: 1025px) {
     .fallaciesPage .ui.container.fallaciesContainer {
       margin-left: 0 !important;
@@ -359,7 +359,7 @@ a {
 
 /* Fallacy page */
 .fallacyPage {
-  padding: 18px 0; }
+  padding: 18px 0 0 0; }
   .fallacyPage .fallacyExample {
     margin-top: 5px; }
   .fallacyPage .materialWrapper {
@@ -449,19 +449,23 @@ a {
 
 /* Feed page */
 .feedPage {
-  padding: 18px 0; }
+  padding: 18px 0 0 0; }
   .feedPage .ui.feed > .event > .content .meta .label {
     cursor: pointer; }
 
 /* Grifters page */
 .griftersPage {
-  padding: 18px 0; }
+  padding: 18px 0 0 0; }
+  .griftersPage .ui.message {
+    background: #1d2d3c !important;
+    border: solid 1px rgba(245, 248, 250, 0.1) !important;
+    color: #ffffff !important; }
 
 /* Home page */
 .homePage {
   background: #15202b;
   min-height: 100vh;
-  padding: 18px 0; }
+  padding: 18px 0 0 0; }
   .homePage .heroHeader {
     color: #ffffff !important;
     padding-left: 6px !important; }
@@ -480,15 +484,15 @@ a {
 
 /* 404 page */
 .notFoundPage {
-  padding: 18px 0; }
+  padding: 18px 0 0 0; }
 
 /* Notifications page */
 .notificationsPage {
-  padding: 18px 0; }
+  padding: 18px 0 0 0; }
 
 /* Pages page */
 .socialMediaPage {
-  padding: 18px 0; }
+  padding: 18px 0 0 0; }
   @media only screen and (max-width: 1025px) {
     .socialMediaPage .grid.column {
       padding: 0; }
@@ -533,7 +537,7 @@ a {
 
 /* Post page */
 .postPage {
-  padding: 18px 0; }
+  padding: 18px 0 0 0; }
   .postPage .fallacyFormWrapper {
     margin: 20px 0; }
   .postPage .screenshotMsg {
@@ -557,7 +561,7 @@ a {
 
 /* Search page */
 .searchPage {
-  padding: 18px 0; }
+  padding: 18px 0 0 0; }
   .searchPage .searchSegment {
     padding: 0 !important; }
     .searchPage .searchSegment .searchMenu {
@@ -584,7 +588,7 @@ a {
 
 /* Settings page */
 .settingsPage {
-  padding: 18px 0; }
+  padding: 18px 0 0 0; }
   .settingsPage .settingsMenu {
     margin-bottom: 0; }
   .settingsPage .settingsContent {
@@ -610,7 +614,7 @@ a {
 
 /* Tag page */
 .tagPage {
-  padding: 18px 0; }
+  padding: 18px 0 0 0; }
   .tagPage .tagsWrapper {
     width: 100%; }
     .tagPage .tagsWrapper .menu.tagMenu {
@@ -654,11 +658,11 @@ a {
 
 /* Tags page */
 .tagsPage {
-  padding: 18px 0; }
+  padding: 18px 0 0 0; }
 
 /* Targets page */
 .targetsPage {
-  padding: 18px 0; }
+  padding: 18px 0 0 0; }
   .targetsPage .ui.container .summaryHeader .icon {
     color: #2185d0;
     cursor: pointer;
@@ -699,7 +703,7 @@ a {
 
 /* Users page */
 .usersPage {
-  padding: 18px 0; }
+  padding: 18px 0 0 0; }
   .usersPage .userHeaderSection p {
     margin-top: 15px; }
   @media only screen and (max-width: 1025px) {

@@ -7,12 +7,6 @@
 		height: 48px;
 		width: 48px;
   	}
-
-  	.authSegment {
-		.error.message {
-	  		margin-bottom: 14px;
-		}
-	}
 	  
 	.ui.form .field.field {
 		input:-webkit-autofill, input::selection, input:active:-webkit-autofill, input:focus:-webkit-autofill {
@@ -28,8 +22,8 @@
 
   	.registerText {
 		background: $invertedBackgroundColor;
-		color: $white;
 		border-top: solid 1px $twitterExtraExtraLightGrey2;
+		color: $white;
 		text-align: center;
 
 		.registerLink {
@@ -39,6 +33,11 @@
 	  		&:hover {
 				text-decoration: underline;
 	  		}
+		}
+
+		&.verify {
+			cursor: pointer;
+			font-size: 14px;
 		}
   	}
 

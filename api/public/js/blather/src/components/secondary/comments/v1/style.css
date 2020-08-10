@@ -13,6 +13,9 @@
       margin-top: 20px !important; }
     .commentsSection .ui.big.comments .comment {
       width: 100% !important; }
+      .commentsSection .ui.big.comments .comment .actions span {
+        color: #dcddde !important;
+        font-weight: bold; }
       .commentsSection .ui.big.comments .comment .avatar {
         cursor: pointer; }
       .commentsSection .ui.big.comments .comment .metadata {

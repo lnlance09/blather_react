@@ -76,78 +76,77 @@ class Fallacy extends Component {
 	captureScreenshot = () => {
 		const { createdAt, fallacyName, id, refId, user } = this.props
 		const filename = `${fallacyName}-by-${user.name}-${createdAt}`
-		const scale = 2
 		let duration = ""
-		let el = "screenshotPicWrapper"
+		let el = "fallacyMaterial"
 
-		this.setState({ downloading: true })
-
-		if (refId === 4 || refId === 5) {
-			this.props.toggleCreateMode()
-			this.props.createVideoFallacy({
-				fallacyName: this.props.fallacyName,
-				id,
-				original: this.props.originalPayload,
-				refId
-			})
-			return
-		}
-
-		if (refId === 6) {
-			this.props.toggleCreateMode()
-			duration = document.getElementById("fallacyDateDiff").textContent
-			this.props.createVideoFallacy({
-				contradiction: this.props.contradictionPayload,
-				duration,
-				id,
-				img: "",
-				original: this.props.originalPayload,
-				refId
-			})
-			return
-		}
-
-		if (this.props.canMakeVideo) {
-			duration = document.getElementById("fallacyDateDiff").textContent
-			el = this.props.screenshotEl
-		}
-
-		html2canvas(document.getElementById(el), {
-			allowTaint: false,
-			scale,
-			useCORS: true
-		}).then(canvas => {
-			const ctx = canvas.getContext("2d")
-			ctx.globalAlpha = 1
-			const img = canvas.toDataURL("image/png")
-
-			if (this.props.canScreenshot) {
-				this.props.saveScreenshot({
-					id,
-					img,
-					slug: this.props.slug
-				})
-
-				let link = document.createElement("a")
-				link.download = `${hyphenateText(filename)}.png`
-				link.href = img
-				link.click()
-
-				this.setState({ downloading: false }, () => {
-					this.toggleModal()
-				})
-			} else if (this.props.canMakeVideo) {
+		this.setState({ downloading: true }, () => {
+			if (refId === 4 || refId === 5) {
 				this.props.toggleCreateMode()
+				this.props.createVideoFallacy({
+					fallacyName: this.props.fallacyName,
+					id,
+					original: this.props.originalPayload,
+					refId
+				})
+				return
+			}
 
+			if (refId === 6) {
+				this.props.toggleCreateMode()
+				duration = document.getElementById("fallacyDateDiff").textContent
 				this.props.createVideoFallacy({
 					contradiction: this.props.contradictionPayload,
 					duration,
 					id,
-					img,
+					img: "",
 					original: this.props.originalPayload,
 					refId
 				})
+				return
 			}
+
+			if (this.props.canMakeVideo) {
+				duration = document.getElementById("fallacyDateDiff").textContent
+				el = this.props.screenshotEl
+			}
+
+			html2canvas(document.getElementById(el), {
+				allowTaint: true,
+				scale: 2,
+				scrollX: -7,
+				scrollY: -window.scrollY,
+				useCORS: true
+			}).then(canvas => {
+				const ctx = canvas.getContext("2d")
+				ctx.globalAlpha = 1
+				const img = canvas.toDataURL("image/png")
+
+				if (this.props.canScreenshot) {
+					this.props.saveScreenshot({
+						id,
+						img,
+						slug: this.props.slug
+					})
+
+					let link = document.createElement("a")
+					link.download = `${hyphenateText(filename)}.png`
+					link.href = img
+					link.click()
+
+					this.setState({ downloading: false })
+				} else if (this.props.canMakeVideo) {
+					this.props.toggleCreateMode()
+
+					this.props.createVideoFallacy({
+						contradiction: this.props.contradictionPayload,
+						duration,
+						id,
+						img,
+						original: this.props.originalPayload,
+						refId
+					})
+				}
+			})
 		})
 	}
 
@@ -271,6 +270,7 @@ class Fallacy extends Component {
 							<div>
 								<FallacyExample
 									bearer={bearer}
+									downloading={downloading}
 									canEdit={canEdit}
 									history={props.history}
 									id={id}
@@ -298,6 +298,7 @@ class Fallacy extends Component {
 										<FallacyExample
 											bearer={bearer}
 											canEdit={canEdit}
+											downloading={downloading}
 											history={props.history}
 											id={id}
 											showMaterial={false}
@@ -508,11 +509,12 @@ class Fallacy extends Component {
 							</List.Item>
 							<List.Item>
 								<Button
-									color="blue"
-									content="Create image"
+									circular
+									color="olive"
 									icon="image"
 									loading={downloading}
 									onClick={this.captureScreenshot}
+									size="big"
 								/>
 							</List.Item>
 						</List>

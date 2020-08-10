@@ -401,12 +401,13 @@ class FallaciesModel extends CI_Model {
 				DISTINCT JSON_OBJECT(
 					'id', fr.id,
 					'created_at', fr.created_at,
-					'message', fr.message,
-					'user_id', fr.user_id,
 					'img', CONCAT('".S3_PATH."', fru.img),
+					'likeCount', responseLikeCount,
+					'likedByMe', responseLikedByMe,
+					'message', fr.message,
 					'name', fru.name,
-					'username', fru.username,
-					'likeCount', responseLikeCount
+					'user_id', fr.user_id,
+					'username', fru.username
 				)
 			),
 		']')
@@ -432,7 +433,7 @@ class FallaciesModel extends CI_Model {
 
 			if ($user_id) {
 				$this->db->join('(SELECT COUNT(*) as likedByMe, comment_id, user_id FROM fallacy_comments_likes WHERE response_id IS NULL GROUP BY comment_id) lbm', 'f.id=lbm.comment_id AND lbm.user_id = "'.$user_id.'"', 'left');
-				$this->db->join('(SELECT COUNT(*) as responseLikedByMe, response_id, user_id FROM fallacy_comments_likes GROUP BY response_id) rlbm', 'f.id=rlbm.response_id AND rlbm.user_id = "'.$user_id.'"', 'left');
+				$this->db->join('(SELECT COUNT(*) as responseLikedByMe, response_id, user_id FROM fallacy_comments_likes GROUP BY response_id) rlbm', 'fr.id=rlbm.response_id AND rlbm.user_id = "'.$user_id.'"', 'left');
 			}
 		}
 
@@ -440,10 +441,11 @@ class FallaciesModel extends CI_Model {
 
 		if (!$just_count) {
 			$this->db->group_by('f.id');
-			$this->db->order_by('created_at', 'DESC');
+			$this->db->order_by('f.created_at', 'DESC');
 			if ($page !== null) {
-				$perPage = 25;
-				$limit = $page*$perPage;
+				$limit = 2;
+				$start = $page*$limit;
+				// $this->db->limit($limit, $start);
 			}
 		}
 
@@ -457,6 +459,9 @@ class FallaciesModel extends CI_Model {
 		for ($i=0;$i<count($results);$i++) {
 			$responses = $results[$i]['responses'];
 			$results[$i]['responses'] = @json_decode($responses, true);
+			usort($results[$i]['responses'], function($a, $b) {
+				return $a['created_at'] <=> $b['created_at'];
+			});
 		}
 
 		return $results;

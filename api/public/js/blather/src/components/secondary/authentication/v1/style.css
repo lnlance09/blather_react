@@ -10,9 +10,6 @@
   height: 48px;
   width: 48px; }
 
-.authComponent .authSegment .error.message {
-  margin-bottom: 14px; }
-
 .authComponent .ui.form .field.field input:-webkit-autofill, .authComponent .ui.form .field.field input::selection, .authComponent .ui.form .field.field input:active:-webkit-autofill, .authComponent .ui.form .field.field input:focus:-webkit-autofill {
   background: #15202b !important;
   background-color: #15202b !important;
@@ -24,14 +21,17 @@
 
 .authComponent .registerText {
   background: #15202b;
-  color: #ffffff;
   border-top: solid 1px rgba(245, 248, 250, 0.2);
+  color: #ffffff;
   text-align: center; }
   .authComponent .registerText .registerLink {
     color: #54c8ff;
     cursor: pointer; }
     .authComponent .registerText .registerLink:hover {
       text-decoration: underline; }
+  .authComponent .registerText.verify {
+    cursor: pointer;
+    font-size: 14px; }
 
 .authComponent .googleBtn {
   font-weight: bold;

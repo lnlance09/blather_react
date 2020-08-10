@@ -24,6 +24,7 @@ class SearchResults extends Component {
 	}
 
 	componentDidMount() {
+		this.props.resetSearchData()
 		this.props.fetchSearchResults({
 			bearer: this.props.bearer,
 			fallacies: this.props.fallacies,
@@ -299,6 +300,7 @@ class SearchResults extends Component {
 					)
 				}
 
+				console.log("result", result)
 				if (
 					result.id ||
 					result.video_id ||

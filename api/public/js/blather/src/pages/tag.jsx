@@ -371,7 +371,7 @@ class Tag extends Component {
 					onChange={this.onChangeRelatedSearchVal}
 					placeholder="Search..."
 					value={relatedSearchVal}
-					size="large"
+					size="big"
 				/>
 				<Card.Group className="tagsList" itemsPerRow={2} stackable>
 					{RenderTags(props)}

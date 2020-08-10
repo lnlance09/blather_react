@@ -99,7 +99,7 @@ const CommentsSection = ({
 											payload.responseId = comment.id
 										}
 
-										if (comment.likedByMe === "1") {
+										if (parseInt(comment.likedByMe, 10) === 1) {
 											unlikeComment(payload)
 										} else {
 											likeComment(payload)
@@ -107,11 +107,13 @@ const CommentsSection = ({
 									}}
 								>
 									<Icon
-										color={comment.likedByMe === "1" ? "yellow" : null}
+										color={
+											parseInt(comment.likedByMe, 10) === 1 ? "yellow" : null
+										}
 										inverted
 										name="thumbs up"
 									/>{" "}
-									{comment.likedByMe === "1" ? (
+									{parseInt(comment.likedByMe, 10) === 1 ? (
 										<span className="likeThis">Liked</span>
 									) : (
 										<span>Like</span>
@@ -126,7 +128,7 @@ const CommentsSection = ({
 									<span
 										onClick={() => {
 											setMessage(`@${comment.username} `)
-											setResponseTo(comment.id)
+											setResponseTo(commentId)
 											window.scrollTo({
 												behavior: "smooth",
 												top: blockRef.current.offsetTop

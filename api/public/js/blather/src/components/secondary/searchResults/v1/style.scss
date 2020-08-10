@@ -14,9 +14,14 @@
   	}
 
   	.resultsSegment,
-  	.linkAccountMsg,
   	.emptyMsg {
     	margin-top: 14px !important;
+	}
+
+	.linkAccountMsg {
+		background: lighten($invertedBackgroundColor, 3%) !important;
+		color: $white !important;
+		margin: 0 14px 14px 14px !important;
 	}
 	  
 	.resultsSegment {

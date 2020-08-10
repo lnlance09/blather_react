@@ -25,14 +25,14 @@
   background: #1c2a39 !important;
   color: #ffffff; }
 
-.tagsCard .tagsList .item .label {
+.tagsCard .ui.label.large {
   cursor: pointer; }
 
-.tagsCard .tagsList .item .icon {
+.tagsCard .icon {
   color: #ff695e !important;
   display: none; }
 
-.tagsCard .tagsList .item:hover .icon {
+.tagsCard:hover .icon {
   cursor: pointer;
   display: inline; }
 

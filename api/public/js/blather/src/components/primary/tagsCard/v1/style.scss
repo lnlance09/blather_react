@@ -33,25 +33,21 @@
 		color: $white;
 	}
 
-  	.tagsList {
-    	.item {
-      		.label {
-        		cursor: pointer;
-      		}
+	.ui.label.large {
+		cursor: pointer;
+	}
 
-      		.icon {
-        		color: $lightRed !important;
-        		display: none;
-      		}
+	.icon {
+		color: $lightRed !important;
+		display: none;
+	}
 
-      		&:hover {
-        		.icon {
-          			cursor: pointer;
-          			display: inline;
-        		}
-      		}
-    	}
-  	}
+	&:hover {
+		.icon {
+			cursor: pointer;
+			display: inline;
+		}
+	}
 }
 
 .ui.small.modal.tagsModal {
