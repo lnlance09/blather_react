@@ -30,7 +30,7 @@ export const formatGrammar = word => {
 	return vowels.indexOf(word.toLowerCase().substring(0, 1)) === -1 ? "a" : "an"
 }
 
-export const formatNumber = (count, format = "0a") => numeral(count).format("0a")
+export const formatNumber = (count, format = "0a") => numeral(count).format(format)
 
 export const formatPlural = (count, term) => {
 	if (term.substr(term.length - 1) === "y") {

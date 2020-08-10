@@ -1,6 +1,10 @@
 import * as constants from "../constants"
-import request from "request"
+import { toast } from "react-toastify"
+import { getConfig } from "options/toast"
 import { showLoading, hideLoading } from "react-redux-loading-bar"
+import request from "request"
+
+toast.configure(getConfig())
 
 export const createVideoFallacy = ({
 	contradiction,
@@ -106,7 +110,13 @@ export const fetchFallacy = ({ bearer, id }) => dispatch => {
 	)
 }
 
-export const removeFallacyTag = ({ bearer, id, tagId, tagName }) => dispatch => {
+export const removeFallacyTag = ({
+	bearer,
+	callback = () => null,
+	id,
+	tagId,
+	tagName
+}) => dispatch => {
 	request.post(
 		`${window.location.origin}/api/fallacies/removeTag`,
 		{
@@ -120,6 +130,11 @@ export const removeFallacyTag = ({ bearer, id, tagId, tagName }) => dispatch => 
 			json: true
 		},
 		function(err, response, body) {
+			if (!body.error) {
+				toast.success("Updated")
+				callback()
+			}
+
 			dispatch({
 				payload: {
 					id: tagId,
@@ -251,6 +266,7 @@ export const updateFallacy = ({
 		function(err, response, body) {
 			if (!body.error) {
 				body.fallacy.fallacyName = fallacyName
+				toast.success("Updated")
 			}
 			dispatch({
 				payload: body,

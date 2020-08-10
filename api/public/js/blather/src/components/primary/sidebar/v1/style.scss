@@ -1,0 +1,46 @@
+@import "../../../../css/colors.scss";
+
+.pageSidebar {
+	position: sticky;
+  	top: 80px;
+
+  	.ui.inverted.menu.globalSidebar {
+    	background: $white;
+    	box-shadow: none;
+    	margin-top: 0;
+    	z-index: 1001 !important;
+
+    	&.inverted {
+      		background: $invertedBackgroundColor;
+    	}
+
+		.userItemImg {
+			height: 24px;
+			float: right;
+			right: -4px;
+			width: 24px;
+		}
+
+    	.headerMenuItem {
+      		color: $white !important;
+      		cursor: pointer;
+      		font-weight: bold !important;
+
+      		&.signIn {
+        		margin-top: 15px;
+        		padding: 0 2px !important;
+      		}
+
+      		&.active {
+        		background: lighten($invertedBackgroundColor, 4%) !important;
+        		border-radius: 4px !important;
+        		color: $lightBlue !important;
+      		}
+
+      		&:hover {
+        		background: lighten($invertedBackgroundColor, 3%) !important;
+        		border-radius: 4px !important;
+      		}
+    	}
+  	}
+}

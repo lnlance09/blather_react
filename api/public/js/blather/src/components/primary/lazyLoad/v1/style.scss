@@ -1,7 +1,13 @@
-@import '../../../css/colors.scss';
+@import "../../../../css/colors.scss";
 
-.placeholder {
-    .placeholderHeader {
-        width: 100px;
-    }
+.ui.inverted.placeholder.fluid {
+	background-color: $invertedBackgroundColor !important;
+	
+	.image.header:after, .line, .line:after, >:before {
+		background-color: $invertedBackgroundColor !important;
+	}
+
+	.placeholderHeader {
+		width: 100px;
+	}
 }

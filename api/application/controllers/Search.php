@@ -96,6 +96,14 @@ class Search extends CI_Controller {
 				}
 				break;
 
+			case 'grifters':
+
+				$count = $this->twitter->getAllStars($q, $page, true);
+				$results = $this->twitter->getAllStars($q, $page);
+				$hasMore = $count === $limit;
+				$limit = 25;
+				break;
+
 			case 'profiles':
 
 				if ($user ? $user->linkedTwitter && !empty($q) : false) {
@@ -124,6 +132,7 @@ class Search extends CI_Controller {
 
 				$count = $this->tags->searchTags($q, $page, true);
 				$results = $this->tags->searchTags($q, $page);
+				$hasMore = $count === $limit;
 				$limit = 25;
 				break;
 
@@ -164,21 +173,15 @@ class Search extends CI_Controller {
 		$q = $this->input->get('q');
 		$category = (int)$this->input->get('category');
 
-		$youtubeResults = $this->youtube->searchPagesFromDb($q);
 		$twitterResults = $this->twitter->searchPagesFromDb($q);
-
-		if (empty($youtubeResults)) {
-			$youtubeResults = [];
-		}
-
 		if (empty($twitterResults)) {
 			$twitterResults = [];
 		}
 
-		$pages = array_merge($youtubeResults, $twitterResults);
+		$pages = $twitterResults;
 		$pages = array_slice($pages, 0, 7);
 
-		for ($i=0;$i<count($pages);$i++) {
+		for ($i=0;$i<count($twitterResults);$i++) {
 			$pages[$i]['image'] = $pages[$i]['profile_pic'];
 			$pages[$i]['key'] = $pages[$i]['social_media_id'];
 			$pages[$i]['title'] = $pages[$i]['name'];

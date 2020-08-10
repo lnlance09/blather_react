@@ -1,19 +1,35 @@
-@import '../../../css/colors.scss';
+@import "../../../../css/colors.scss";
 
 .searchResults {
-    .resultsCount {
-        .ui.statistic {
-            display: inline-block;
-            float: right;
-            margin-right: 3px;
-        }
-    }
+	.resultsCount {
+    	.ui.statistic {
+      		display: inline-block;
+      		float: right;
+      		margin-right: 3px;
+    	}
+  	}
 
-    .ui.active.transition.visible.dimmer {
-        background: $dimmer-background !important;
-    }
+  	.ui.active.transition.visible.dimmer {
+    	background: $dimmer-background !important;
+  	}
 
-    .resultsSegment, .linkAccountMsg, .emptyMsg  {
-        margin-top: 14px !important;
-    }
+  	.resultsSegment {
+    	margin-top: 14px !important;
+	}
+
+	.emptyMsg {
+		margin: 0 14px 14px 0 !important;
+	}
+
+	.linkAccountMsg {
+		background: lighten($invertedBackgroundColor, 3%) !important;
+		color: $white !important;
+		margin: 0 14px 14px 14px !important;
+	}
+	  
+	.resultsSegment {
+		background: $invertedBackgroundColor !important;
+		padding: 0 !important;
+		margin-top: 0 !important;
+	}
 }

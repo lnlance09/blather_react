@@ -92,6 +92,11 @@
             $set = true;
             break;
 
+        case "/grifters";
+            $title = "Grifters";
+            $set = true;
+            break;
+
         case "/search":
             $title = "Search";
             $set = true;
@@ -105,6 +110,11 @@
         case "/signin":
             $title = "Sign In";
             $description = "Sign in to Blather. Create an account.";
+            $set = true;
+            break;
+
+        case "/tags";
+            $title = "Tags";
             $set = true;
             break;
     }

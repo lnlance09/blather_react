@@ -1,29 +1,44 @@
-@import '../../../css/colors.scss';
+@import "../../../../css/colors.scss";
 
-.fallacySegment {
-    .header {
-        margin-bottom: 5px;
-    }
+.ui.inverted.fallacySegment {
+	background: lighten($invertedBackgroundColor, 3%) !important;
 
-    p:not(.header) {
-        margin-bottom: 12px !important;
-    }
+  	.header {
+		color: $lightGrey;
+   		margin-bottom: 5px;
+  	}
 
-    .captureScreenshot {
-        cursor: pointer;
-    }
+  	p:not(.header) {
+		&:not(:last-of-type) {
+			margin-bottom: 12px !important;
+		}
+  	}
 
-    &.click {
-        cursor: pointer;
-    }
+  	.captureScreenshot {
+    	cursor: pointer;
+  	}
 
-    @media only screen and (max-width: 1025px) {
-        .header {
-            font-size: 18px !important;
-        }
+  	&.click {
+    	cursor: pointer;
+  	}
 
-        .captureScreenshot {
-            display: none !important;
-        }
-    }
+  	.comments {
+    	.comment {
+      		.content {
+        		.author, .text {
+          			color: $white !important;
+        		}
+      		}
+    	}
+  	}
+
+  	@media only screen and (max-width: 1025px) {
+    	.header {
+      		font-size: 18px !important;
+    	}
+
+    	.captureScreenshot {
+      		display: none !important;
+    	}
+  	}
 }

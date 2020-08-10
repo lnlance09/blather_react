@@ -7,14 +7,15 @@ import { Route, Router, Switch } from "react-router-dom"
 import ScrollToTop from "react-router-scroll-top"
 import history from "history.js"
 import About from "pages/about"
-import Bot from "pages/bot"
 import Fallacy from "pages/fallacy"
 import Fallacies from "pages/fallacies"
 import FallaciesJSON from "options/fallacyOptions.json"
+import Grifters from "pages/grifters"
 import Home from "pages/home"
 import Logo from "./images/icons/icon-100x100.png"
 import NewsFeed from "pages/newsFeed"
 import NotFound from "pages/notFound"
+import Notifications from "pages/notifications"
 import Page from "pages/"
 import Post from "pages/post"
 import SearchPage from "pages/search"
@@ -24,6 +25,7 @@ import SoundFile from "./sound.mp3"
 import SoundFileAlt from "./sound.ogg"
 import store from "store"
 import Tag from "pages/tag"
+import Tags from "pages/tags"
 import Target from "pages/target"
 import Users from "pages/users"
 
@@ -43,13 +45,9 @@ class App extends Component {
 		window.location.href = e.currentTarget.data.url
 	}
 
-	handleNotificationOnClose(e, tag) {
+	handleNotificationOnClose(e, tag) {}
 
-	}
-
-	handleNotificationOnError(e, tag) {
-
-	}
+	handleNotificationOnError(e, tag) {}
 
 	handleNotificationOnShow(e, tag) {
 		// this.playSound()
@@ -128,6 +126,7 @@ class App extends Component {
 								/>
 
 								<Route component={NewsFeed} exact path="/activity" />
+								<Route component={NewsFeed} exact path="/home" />
 
 								<Route
 									exact
@@ -137,11 +136,16 @@ class App extends Component {
 									)}
 								/>
 
-								<Route component={Bot} path="/bot" />
-
 								<Route
 									path="/comment/:id"
-									render={props => <Post sendNotification={(title, body, url) => this.sendNotification(title, body, url)} {...props} />}
+									render={props => (
+										<Post
+											sendNotification={(title, body, url) =>
+												this.sendNotification(title, body, url)
+											}
+											{...props}
+										/>
+									)}
 								/>
 
 								<Route component={Fallacies} exact path="/fallacies" />
@@ -161,6 +165,18 @@ class App extends Component {
 
 								<Route
 									exact
+									path="/grifters"
+									render={props => <Grifters {...props} />}
+								/>
+
+								<Route
+									exact
+									path="/notifications"
+									render={props => <Notifications {...props} />}
+								/>
+
+								<Route
+									exact
 									path="/pages/:network/:id"
 									render={props => <Page {...props} />}
 								/>
@@ -175,20 +191,35 @@ class App extends Component {
 									render={props => <Page {...props} />}
 								/>
 
-								<Route exact path="/search" render={props => <SearchPage {...props} />} />
-								<Route path="/search/:type" render={props => <SearchPage {...props} />} />
+								<Route
+									exact
+									path="/search"
+									render={props => <SearchPage {...props} />}
+								/>
+								<Route
+									path="/search/:type"
+									render={props => <SearchPage {...props} />}
+								/>
 
 								<Route component={Settings} exact path="/settings" />
 								<Route component={Settings} path="/settings/:tab" />
 
 								<Route component={SignIn} path="/signin" />
 
+								<Route component={Tags} exact path="/tags" />
 								<Route component={Tag} exact path="/tags/create" />
 								<Route component={Tag} path="/tags/:id" />
 
 								<Route
 									path="/tweet/:id"
-									render={props => <Post sendNotification={(title, body, url) => this.sendNotification(title, body, url)} {...props} />}
+									render={props => (
+										<Post
+											sendNotification={(title, body, url) =>
+												this.sendNotification(title, body, url)
+											}
+											{...props}
+										/>
+									)}
 								/>
 
 								<Route component={Target} exact path="/targets/:userId/:pageId" />
@@ -211,15 +242,17 @@ class App extends Component {
 								<Route
 									exact
 									path="/video/:id"
-									render={props => <Post sendNotification={(title, body, url) => this.sendNotification(title, body, url)} {...props} />}
-								/>
-
-								<Route
-									path="*"
 									render={props => (
-										<NotFound />
+										<Post
+											sendNotification={(title, body, url) =>
+												this.sendNotification(title, body, url)
+											}
+											{...props}
+										/>
 									)}
 								/>
+
+								<Route path="*" render={props => <NotFound {...props} />} />
 							</Switch>
 						</ScrollToTop>
 					</Router>

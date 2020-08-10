@@ -1,19 +1,20 @@
 import jwt from "jsonwebtoken"
+const secret = "Htv0McEIy7Zhg1O"
 
 export const parseJwt = () => {
-	let localData = false
-	jwt.verify(localStorage.getItem("jwtToken"), "lancebass", function(err, decoded) {
-		if (decoded) {
-			localData = {}
-			localData = decoded.data
+	const token = localStorage.getItem("jwtToken")
+	const decoded = jwt.verify(token, secret, (err, decoded) => {
+		if (err) {
+			return false
 		}
+		return decoded.data
 	})
-	return localData
+	return decoded
 }
 
-export const setToken = localData => {
-	const token = jwt.sign({ data: localData }, "lancebass", {
-		expiresIn: 60 * 60 * 5
+export const setToken = data => {
+	const token = jwt.sign({ data }, secret, {
+		expiresIn: 60 * 60 * 336
 	})
 	localStorage.setItem("jwtToken", token)
 	return token

@@ -1,6 +1,7 @@
 /*---  Colors  ---*/
 /*---  Light Colors  ---*/
 /*---   Neutrals  ---*/
+/*--- Twitter ---*/
 /*---   Misc  ---*/
 /*---   Social colors  ---*/
 .tweet {
@@ -15,9 +16,13 @@
     box-shadow: none;
     padding: 0.8em; }
   .tweet .archiveMsg {
+    background: #182532 !important;
+    border: solid 1px rgba(245, 248, 250, 0.1) !important;
+    color: #ffffff;
     margin-bottom: 0 !important; }
   .tweet .retweetedText {
-    color: #545454;
+    background: #121b24 !important;
+    color: #dcddde;
     font-size: 13px;
     padding: 6px 10px; }
     .tweet .retweetedText .icon {
@@ -25,13 +30,15 @@
   .tweet .card .content {
     white-space: pre-line; }
     .tweet .card .content .description {
+      color: #ffffff !important;
       font-size: 16px !important;
       line-height: 1.4; }
       .tweet .card .content .description span {
-        color: #1B1C1D; }
+        color: #e1e8ed !important; }
         .tweet .card .content .description span b {
-          border-bottom: solid 2px #DB2828; }
+          border-bottom: solid 2px #db2828; }
     .tweet .card .content.extra {
+      border-top: solid 1px rgba(245, 248, 250, 0.1) !important;
       cursor: default;
       padding: 1px 3px !important; }
       .tweet .card .content.extra .list .item {
@@ -39,17 +46,13 @@
         .tweet .card .content.extra .list .item.favoriteItem {
           margin-left: 0; }
         .tweet .card .content.extra .list .item .label {
-          border: none; }
+          background: transparent;
+          border: none;
+          color: #ffffff; }
         .tweet .card .content.extra .list .item .icon {
           cursor: default;
           display: inline-block;
           margin-right: 5px; }
-        .tweet .card .content.extra .list .item .icon.like {
-          color: #E03997; }
-          .tweet .card .content.extra .list .item .icon.like:hover {
-            opacity: 0.75; }
-        .tweet .card .content.extra .list .item .icon.retweet {
-          color: #2185D0; }
         .tweet .card .content.extra .list .item .icon.twitter {
           color: #0084b4;
           cursor: pointer;

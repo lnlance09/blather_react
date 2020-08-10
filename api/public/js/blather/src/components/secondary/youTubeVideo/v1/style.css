@@ -1,14 +1,13 @@
 /*---  Colors  ---*/
 /*---  Light Colors  ---*/
 /*---   Neutrals  ---*/
+/*--- Twitter ---*/
 /*---   Misc  ---*/
 /*---   Social colors  ---*/
 .youTubeVideo .youTubeTitle {
   background: transparent;
   font-size: 20px !important;
   margin-top: 7px; }
-  .youTubeVideo .youTubeTitle a {
-    color: #1B1C1D; }
 
 .youTubeVideo .progress {
   margin-bottom: 12px !important; }
@@ -19,7 +18,7 @@
   .youTubeVideo .channelSegment.hasComment {
     margin-bottom: 0 !important; }
   .youTubeVideo .channelSegment .header {
-    color: #2185D0;
+    color: #ffffff;
     cursor: pointer;
     font-size: 14px !important; }
     .youTubeVideo .channelSegment .header:hover {
@@ -59,13 +58,13 @@
     cursor: pointer;
     padding: 9px 7px 6px 7px !important; }
     .youTubeVideo .archivesList .archiveItem.selected, .youTubeVideo .archivesList .archiveItem:hover {
-      background: #F9FAFB; }
+      background: #f9fafb; }
     .youTubeVideo .archivesList .archiveItem .extra .list {
       margin: 0 !important; }
       .youTubeVideo .archivesList .archiveItem .extra .list a {
-        color: #2185D0; }
+        color: #2185d0; }
         .youTubeVideo .archivesList .archiveItem .extra .list a:hover {
-          color: #2185D0 !important;
+          color: #2185d0 !important;
           text-decoration: underline; }
 
 .youTubeVideo .ui.divided.items > .item:first-child {
@@ -78,7 +77,7 @@
   margin-top: 0 !important; }
 
 .youTubeVideo .transcriptContent font {
-  color: #1B1C1D !important; }
+  color: #1b1c1d !important; }
 
 .youTubeVideo .transcriptContent.default {
   display: -webkit-box;
@@ -88,7 +87,7 @@
   -webkit-box-orient: vertical; }
 
 .youTubeVideo .seeMore {
-  color: #2185D0;
+  color: #2185d0;
   cursor: pointer;
   display: inline-block;
   margin-top: 10px; }
@@ -108,9 +107,9 @@
   .youtubeCommentsSection .commentsSection .dimmed.dimmable {
     padding: 10px; }
     .youtubeCommentsSection .commentsSection .dimmed.dimmable .dimmer {
-      background: rgba(255, 255, 255, 0.8) !important; }
+      background: rgba(21, 32, 43, 0.96) !important; }
     .youtubeCommentsSection .commentsSection .dimmed.dimmable .content .header {
-      color: #1B1C1D; }
+      color: #1b1c1d; }
   .youtubeCommentsSection .commentsSection .basic.segment {
     margin-top: 0;
     padding: 0; }
@@ -124,13 +123,13 @@
     .youtubeCommentsSection .comments .comment.selectedComment {
       cursor: text; }
       .youtubeCommentsSection .comments .comment.selectedComment .content .text {
-        color: #1B1C1D; }
+        color: #1b1c1d; }
         .youtubeCommentsSection .comments .comment.selectedComment .content .text b {
           background: #ffff00 !important; }
     .youtubeCommentsSection .comments .comment .actions a {
-      color: #1B1C1D; }
+      color: #1b1c1d; }
       .youtubeCommentsSection .comments .comment .actions a .icon {
-        color: #2185D0; }
+        color: #2185d0; }
       .youtubeCommentsSection .comments .comment .actions a.youtubeLink:hover {
         text-decoration: underline; }
     .youtubeCommentsSection .comments .comment .actions .likeComment {
@@ -148,13 +147,13 @@
       margin: 0;
       white-space: pre-line; }
       .youtubeCommentModal .comments .comment .content .text {
-        color: #1B1C1D; }
+        color: #1b1c1d; }
         .youtubeCommentModal .comments .comment .content .text b {
           background: #ffff00 !important; }
       .youtubeCommentModal .comments .comment .actions a {
-        color: #1B1C1D; }
+        color: #1b1c1d; }
         .youtubeCommentModal .comments .comment .actions a .icon {
-          color: #2185D0; }
+          color: #2185d0; }
         .youtubeCommentModal .comments .comment .actions a.youtubeLink:hover {
           text-decoration: underline; }
       .youtubeCommentModal .comments .comment .actions .likeComment {
@@ -162,4 +161,4 @@
       .youtubeCommentModal .comments .comment .actions .archiveComment {
         float: right; }
         .youtubeCommentModal .comments .comment .actions .archiveComment .icon {
-          color: #FBBD08; }
+          color: #fbbd08; }

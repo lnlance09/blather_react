@@ -1,9 +1,19 @@
 import * as constants from "./constants"
 import { parseJwt, setToken } from "utils/tokenFunctions"
+import { toast } from "react-toastify"
+import { getConfig } from "options/toast"
 import jwt from "jsonwebtoken"
 import request from "request"
 
-export const changePassword = ({ bearer, confirmPassword, newPassword, password }) => dispatch => {
+toast.configure(getConfig())
+
+export const changePassword = ({
+	bearer,
+	callback = () => null,
+	confirmPassword,
+	newPassword,
+	password
+}) => dispatch => {
 	request.post(
 		`${window.location.origin}/api/users/changePassword`,
 		{
@@ -18,6 +28,14 @@ export const changePassword = ({ bearer, confirmPassword, newPassword, password 
 			json: true
 		},
 		function(err, response, body) {
+			callback()
+
+			if (body.error) {
+				toast.error(body.error)
+			} else {
+				toast.success("Your password has been changed")
+			}
+
 			dispatch({
 				payload: body,
 				type: constants.CHANGE_PASSWORD
@@ -307,7 +325,7 @@ export const submitGoogleForm = ({ accessToken, email, id, idToken, img, name })
 	)
 }
 
-export const submitLoginForm = ({ email, password }) => dispatch => {
+export const submitLoginForm = ({ callback = () => null, email, password }) => dispatch => {
 	request.post(
 		`${window.location.origin}/api/users/login`,
 		{
@@ -323,6 +341,12 @@ export const submitLoginForm = ({ email, password }) => dispatch => {
 				body.bearer = token
 			}
 
+			if (body.error) {
+				toast.error("Wrong password")
+			}
+
+			callback()
+
 			dispatch({
 				payload: body,
 				type: constants.SET_USER_DATA
@@ -331,7 +355,13 @@ export const submitLoginForm = ({ email, password }) => dispatch => {
 	)
 }
 
-export const submitRegistrationForm = ({ email, name, password, username }) => dispatch => {
+export const submitRegistrationForm = ({
+	callback = () => null,
+	email,
+	name,
+	password,
+	username
+}) => dispatch => {
 	request.post(
 		`${window.location.origin}/api/users/register`,
 		{
@@ -351,6 +381,12 @@ export const submitRegistrationForm = ({ email, name, password, username }) => d
 				localStorage.setItem("jwtToken", token)
 				body.bearer = token
 			}
+
+			if (body.error) {
+				toast.error(body.error)
+			}
+
+			callback()
 
 			dispatch({
 				payload: body,
@@ -404,7 +440,7 @@ export const twitterRequestToken = ({ bearer, reset }) => dispatch => {
 	)
 }
 
-export const updateAbout = ({ bearer, bio }) => dispatch => {
+export const updateAbout = ({ bearer, bio, callback = () => null }) => dispatch => {
 	request.post(
 		`${window.location.origin}/api/users/update`,
 		{
@@ -429,6 +465,9 @@ export const updateAbout = ({ bearer, bio }) => dispatch => {
 					},
 					type: constants.UPDATE_ABOUT
 				})
+
+				toast.success("Edited!")
+				callback()
 			}
 		}
 	)
@@ -449,6 +488,10 @@ export const verifyEmail = ({ code, bearer }) => dispatch => {
 		function(err, response, body) {
 			if (!body.error) {
 				setToken(body.user)
+			}
+
+			if (body.error) {
+				toast.error(body.error)
 			}
 
 			dispatch({

@@ -1,15 +1,91 @@
-@import './colors.scss';
+@import "./colors.scss";
 
-@font-face {
-	font-family: merriweather;
-	src: url("fonts/merriweather/Merriweather-Regular.otf");
+.ui.form .field.field {
+	input:-webkit-autofill, input::selection, input:active:-webkit-autofill, input:focus:-webkit-autofill {
+		background: $invertedBackgroundColor !important;
+		background-color: $invertedBackgroundColor !important;
+		border: solid 1px $white!important;
+		box-shadow: none !important;
+		outline: none !important;
+		-webkit-box-shadow: 0 0 0 50px $invertedBackgroundColor inset !important;
+		-webkit-text-fill-color: $white !important;
+	}
 }
 
-*:not(.icon) {
-	// font-family: 'Merriweather', serif !important;
+.input:not(.autocomplete), .dropdown.selection {
+	.dropdown.icon, .search.icon {
+		color: $white !important;
+	}
+}
+
+:not(.autocomplete1) > input, textarea, .dropdown.selection {
+	background-color: transparent !important;
+	border: solid 1px rgba(255,255,255,0.4) !important;
+	caret-color: $white;
+	color: $white !important;
+	outline: none !important;
+}
+
+.ui.active.selection.visible.dropdown {
+	.text {
+		color: $white !important;
+	}
+
+	.menu.visible.transition {
+		background: $invertedBackgroundColor !important;
+		border: solid 1px rgba(255, 255, 255, 0.4) !important;
+		max-height: 260px;
+
+		.message {
+			color: $white !important;
+		}
+
+		&.upward {
+			border-bottom: none !important;
+		}
+
+		.item {
+			background: $invertedBackgroundColor !important;
+			border: none !important;
+			color: $white;
+			font-size: 15px !important;
+			padding: 13px 18px !important;
+
+			&:hover {
+				background: darken($invertedBackgroundColor, 1%);
+			}
+		}
+	}
+}
+
+.Toastify__toast-container--bottom-left .Toastify__toast-body {
+	color: $white;
+	font-size: 16px;
+    text-align: center;
+}
+
+.Toastify__toast--success {
+	background: $green;
+	border-radius: 4px !important;
+}
+
+.Toastify__toast--error {
+	background: $red;
+	border-radius: 4px !important;
+}
+
+.ui.message.warning, .ui.message.error {
+	background: $red !important;
+	box-shadow: none !important;
+	color: $white !important;
+
+	.header {
+		color: $white !important;
+	}
 }
 
 body {
+	background: $invertedBackgroundColor !important;
 	height: 100%;
 	margin: 0;
 	overflow-x: hidden;
@@ -20,20 +96,16 @@ body {
 }
 
 .app {
-	background: $offWhite !important;
+	background: $invertedBackgroundColor !important;
 }
 
 .mainContainer {
 	min-height: 100vh;
-	margin-top: 5.0em;
+	margin-top: 4em;
 	padding: 15px 15px 0 15px;
 
 	&.bc {
 		margin-top: 2.4em;
-	}
-
-	&.forText {
-		margin-top: 5.3em;
 	}
 
 	.trumpImg404 {
@@ -42,14 +114,74 @@ body {
 		padding: 20px 20px 0 20px;
 	}
 
-	.trumpImg404 + .header.medium {
+	.trumpImg404 + .header.large {
 		margin-top: 7px !important;
+	}
+
+	.grid.mainGrid {
+		.column.four.leftColumn {
+			padding-left: 0;
+
+			@media only screen and (max-width: 1025px) {
+				display: none;
+			}
+		}
+
+		.column.twelve.rightColumn {
+			@media only screen and (max-width: 1025px) {
+				.ui.grid.stackable {
+					// margin-left: 0 !important;
+					margin-right: 0 !important;
+				}
+
+				width: 100% !important;
+			}
+		}
+	}
+}
+
+.segment.inverted {
+	background: $invertedBackgroundColor !important;
+	border: solid 1px $twitterExtraExtraLightGrey2 !important;
+
+	&.placeholder {
+		background: lighten($invertedBackgroundColor, 3%) !important;
+	}
+}
+
+.ui.card {
+	background: $invertedBackgroundColor !important;
+	box-shadow: 0 1px 3px 0 $twitterExtraExtraLightGrey1, 0 0 0 1px $twitterExtraExtraLightGrey1 !important;
+
+	.header {
+		color: $white !important;
+	}
+
+	&.large, &.big {
+		.header.formHeader, .retractionHeader {
+			font-size: 1.71428571em !important;
+		}
+
+		.meta {
+			font-size: 1.14285714rem !important;
+		}
+
+		.description {
+			font-size: 16px !important;
+		}
+	}
+
+	.meta {
+		color: $white !important;
+	}
+
+	.description {
+		color: $twitterExtraLightGrey !important;
 	}
 }
 
 @media only screen and (max-width: 1025px) {
 	.mainContainer {
-		margin-top: 9.8em;
 		padding-left: 0 !important;
 		padding-right: 0 !important;
 	}
@@ -62,10 +194,11 @@ body {
 
 .ui.vertical.menu {
 	.item {
+		background: $invertedBackgroundColor !important;
 		font-weight: normal !important;
 
 		&.active {
-			background: $blue !important;
+			background: lighten($invertedBackgroundColor, 4%) !important;
 			color: $white !important;
 			font-weight: bold !important;
 
@@ -78,10 +211,10 @@ body {
 
 .search.selection.dropdown {
 	.ui.label {
-		background: $blue;
+		background: $yellow;
 		border: none !important;
 		box-shadow: none !important;
-		color: $white;
+		color: $white !important;
 		padding: 6px 12px;
 	}
 }
@@ -119,11 +252,11 @@ body {
 }
 
 .externalUrl {
-	color: $blue;
+	color: $lightBlue;
 	cursor: pointer;
 
 	&:hover {
-		color: lighten($blue, 5%);
+		color: lighten($lightBlue, 5%);
 	}
 }
 
@@ -154,78 +287,6 @@ body {
 	}
 }
 
-.screenshotModal {
-	.screenshotPicWrapper {
-		background-color: $offWhite;
-		padding: 20px;
-
-		.watermarkLabel {
-			margin-bottom: 0;
-		}
-
-		&.basic, &.art02, &.art04, &.art07 {
-			.watermarkLabel, .fallacyExplanation, .fallacyHeader, #fallacyDateDiff {
-				color: $white;
-			}
-		}
-
-		&.basic {
-			background: $blue;
-		}
-
-		&.art01 {
-			background-image: url("../images/art/isometric/01.svg");
-		}
-
-		&.art02 {
-			background-image: url("../images/art/isometric/02.svg");
-		}
-
-		&.art03 {
-			background-image: url("../images/art/isometric/03.svg");
-		}
-
-		&.art04 {
-			background-image: url("../images/art/isometric/04.svg");
-		}
-
-		&.art05 {
-			background-image: url("../images/art/isometric/05.svg");
-		}
-
-		&.art06 {
-			background-image: url("../images/art/isometric/06.svg");
-		}
-
-		&.art07 {
-			background-image: url("../images/art/isometric/07.svg");
-		}
-
-		&.art08 {
-			background-image: url("../images/art/isometric/08.svg");
-		}
-
-		&.art09 {
-			background-image: url("../images/art/isometric/09.svg");
-		}
-
-		&.art10 {
-			background-image: url("../images/art/isometric/10.svg");
-		}
-	}
-
-	.advancedSettings {
-		margin-top: 25px;
-	}
-
-	.advancedSettingsHeader {
-		a {
-			float: right;
-			font-size: 13px;
-		}
-	}
-}
-
 @media only screen and (max-width: 1025px) {
 	.pageHeaderPlaceholder {
 		width: 250px;
@@ -233,14 +294,14 @@ body {
 }
 
 a {
-	color: $blue;
+	color: $lightBlue !important;
 }
 
 .Linkify {
-	color: $black !important;
-	
+	color: $white !important;
+
 	a {
-		color: $blue !important;
+		color: $lightBlue !important;
 	}
 }
 
@@ -329,42 +390,17 @@ a {
 	}
 }
 
-
 /* About page */
 .aboutPage {
-	.logoContainer {
-		background: $white;
-		padding: 16px 0;
+	padding: 18px 0 0 0;
 
-		.header.aboutHeader {
-			line-height: 1;
-
-			.sub.header {
-				margin-top: 6px;
-			}
-
-			.blatherLogo {
-				margin-bottom: 8px;
-				
-				.blatherLogoSvg {
-					fill: $blue;
-					height: 84px;
-					line-height: 96px;
-					vertical-align: middle;
-					width: 84px;
-				}
-			}
-
-			span {
-				line-height: 96px;
-			}
-		}
+	p {
+		color: $white !important;
+		font-size: 16px;
 	}
 
-	.contactForm {
-		button {
-			float: right;
-		}
+	.ui.list .item {
+		color: $white !important;
 	}
 
 	.aboutContainer {
@@ -372,60 +408,10 @@ a {
 	}
 }
 
-
-/* Bot page */
-.botPage {
-	.singleButtons {
-		margin-top: 18px;
-	}
-
-	.tweetContainer {
-		margin-top: 20px;
-		padding: 0 40px;
-
-		.card {
-			.content {
-				font-size: 16px;
-				min-height: 150px;
-			}
-		}
-
-		.button {
-			margin-bottom: 7px;
-		}
-	}
-
-	.pickOneContainer {
-		margin-top: 5px;
-
-		.buttons {
-			padding: 4px 0;
-
-			.button {
-				width: 50%;
-			}
-		}
-	}
-
-	.ui.grid {
-		margin-top: 5px;
-
-		.row {
-			padding: 4px 0;
-
-			.column {
-				.button {
-					height: 100%;
-					margin-bottom: 0;
-				}
-			}
-		}
-	}
-}
-
-
 /* Create discussion page */
 .createDiscussionPage {
+	padding: 18px 0 0 0;
+
 	.contentContainer {
 		padding: 0 !important;
 
@@ -442,7 +428,8 @@ a {
 					margin-top: 1em;
 				}
 
-				.titleInput input, textarea {
+				.titleInput input,
+				textarea {
 					padding: 8px;
 				}
 			}
@@ -465,11 +452,13 @@ a {
 		}
 
 		.previewSegment {
-			.descriptionTitle, .extraTitle {
+			.descriptionTitle,
+			.extraTitle {
 				margin-bottom: 5px;
 			}
 
-			.descriptionPreview, .extraPreview {
+			.descriptionPreview,
+			.extraPreview {
 				min-height: 80px;
 				padding: 0;
 			}
@@ -498,9 +487,10 @@ a {
 	}
 }
 
-
 /* Discussion page */
 .discussionPage {
+	padding: 18px 0 0 0;
+
 	.header {
 		.editButton {
 			font-size: 18px;
@@ -536,9 +526,10 @@ a {
 	}
 }
 
-
 /* Discussion page */
 .discussionsPage {
+	padding: 18px 0 0 0;
+
 	.discussionsContainer {
 		padding: 0;
 	}
@@ -554,64 +545,59 @@ a {
 	}
 }
 
-
 /* Fallacies page */
 .fallaciesPage {
-	@media only screen and (max-width: 1025px) {
-		.ui.container.mainContainer {
-			padding-left: 0 !important;
-			padding-right: 0 !important;
+	padding: 18px 0 0 0;
+
+	.ui.container.fallaciesContainer {
+		@media only screen and (max-width: 1025px) {
+			margin-left: 0 !important;
+			margin-right: 0 !important;
+		}
+	}
+
+	.segments {
+		.fallacySegment {
+			border-bottom: none !important;
+
+			&:last-of-type {
+				border-bottom: solid 1px $twitterExtraExtraLightGrey1 !important;
+			}
 		}
 	}
 }
 
-
 /* Fallacy page */
 .fallacyPage {
-	.fallacyGrid {
-		margin-top: 10px !important;
+	padding: 18px 0 0 0;
 
-		.leftSide, .rightSide {
-			padding: 0 8px !important;
-		}
+	.fallacyExample {
+		margin-top: 5px;
+	}
 
-		.fallacyExample {
-			margin-top: 5px;
-		}
+	.materialWrapper {
+		margin-top: 15px;
+		width: 100%;
+	}
 
-		.materialWrapper {
-			width: 100%;
-		}
+	.materialRow {
+		padding: 0 !important;
+		width: 100%;
+	}
 
-		.row {
-			&:first-of-type {
-				padding-top: 0;
-			}
-		}
+	.divider.seperator {
+		margin: 1rem 0 !important;
+	}
 
-		.materialRow {
-			padding: 0 !important;
-			width: 100%;
-		}
+	.shareList {
+		margin-top: 0 !important;
+		width: 100%;
 
-		.divider.seperator {
-			margin: 1rem 0 !important;
-		}
+		.item {
+			cursor: pointer;
 
-		.callToSignUp {
-			margin-top: 10px;
-		}
-
-		.shareList {
-			margin-top: 0 !important;
-			width: 100%;
-
-			.item {
-				cursor: pointer;
-
-				.icon.linkify {
-					margin-right: 3px;
-				}
+			.icon.linkify {
+				margin-right: 3px;
 			}
 		}
 	}
@@ -651,8 +637,11 @@ a {
 	}
 
 	.shareContent {
-		line-height: 0;
 		width: 100%;
+		
+		.screenshotButton {
+			vertical-align: baseline !important;
+		}
 	}
 
 	.fallacyContent {
@@ -676,7 +665,7 @@ a {
 	}
 
 	.tagsCard {
-		margin-top: 20px;
+		margin: 20px 0;
 	}
 
 	.retractionContent {
@@ -684,6 +673,10 @@ a {
 
 		.card {
 			.content {
+				&.extra {
+					border-top: solid 1px $twitterExtraExtraLightGrey1 !important;
+				}
+
 				.image {
 					cursor: pointer;
 				}
@@ -703,18 +696,13 @@ a {
 	}
 
 	@media only screen and (max-width: 1025px) {
-		.mainContainer {
-			.ui.grid {
-				margin: 10px 0 !important;
-			}
-		}
-
 		.statusActionSegment {
 			.header {
 				font-size: 14px !important;
 			}
 
-			.twitterButton, .youtubeButton {
+			.twitterButton,
+			.youtubeButton {
 				font-size: 12px;
 			}
 		}
@@ -746,74 +734,31 @@ a {
 	}
 }
 
-
 /* Feed page */
 .feedPage {
-	@media only screen and (max-width: 1025px) {
-		.grid {
-			margin-left: 0 !important;
-			margin-right: 0 !important;
-
-			.segment {
-				width: 100% !important;
-
-				.feedRow {
-					word-break: break-word;
-
-					.tweet {
-						max-width: 300px !important;
-					}
-				}
-			}
-		}
-	}
-
-	.activityHeader {
-		line-height: 1.2;
-		margin-top: 0 !important;
-	}
+	padding: 18px 0 0 0;
 
 	.ui.feed > .event > .content .meta .label {
 		cursor: pointer;
 	}
+}
 
-	.mostFallacious {
-		.feedEvent .meta {
-			margin-top: 0 !important;
-		}
-	}
+/* Grifters page */
+.griftersPage {
+	padding: 18px 0 0 0;
 
-	.topList {
-		.item {
-			cursor: pointer;
-		}
-	}
-
-	.feedWrapper {
-		width: 100%;
-
-		.feed {
-			width: 100%;
-		}
-	}
-
-	.feedGrid {
-		margin-top: 0;
+	.ui.message {
+		background: lighten($invertedBackgroundColor, 5%) !important;
+		border: solid 1px $twitterExtraExtraLightGrey1!important;
+		color: $white !important;
 	}
 }
 
-
+/* Home page */
 .homePage {
-	background: $white;
-
-	.assignContainer {
-		background: darken($blue, 4%);
-	}
-
-	.mainContainer {
-		min-height: 60vh;
-		padding-bottom: 40px;
-	}
+	background: $invertedBackgroundColor;
+	min-height: 100vh;
+	padding: 18px 0 0 0;
 
 	.heroHeader {
 		color: $white !important;
@@ -846,25 +791,20 @@ a {
 	}
 }
 
-.competitionContainer {
-	background: $white;
-	border-top: solid 1px $darkWhite;
-	padding-top: 1.2rem;
-
-	.container {
-		padding: 10px 15px;
-	}
-
-	.grid {
-		img {
-			cursor: pointer;
-		}
-	}
+/* 404 page */
+.notFoundPage {
+	padding: 18px 0 0 0;
 }
 
+/* Notifications page */
+.notificationsPage {
+	padding: 18px 0 0 0;
+}
 
 /* Pages page */
 .socialMediaPage {
+	padding: 18px 0 0 0;
+
 	@media only screen and (max-width: 1025px) {
 		.grid.column {
 			padding: 0;
@@ -886,14 +826,10 @@ a {
 	}
 
 	.imgContainer {
-		.segment.circular {
-			display: inline-block;
-			padding: 5px;
-
-			.image.profilePic {
-				height: 185px;
-				width: 185px;
-			}
+		.image.profilePic {
+			height: 185px;
+			margin-bottom: 18px;
+			width: 185px;
 		}
 	}
 
@@ -905,18 +841,22 @@ a {
 			margin-top: 15px;
 		}
 
-		.twitterIcon, .youtubeIcon {
+		.twitterIcon,
+		.youtubeIcon {
 			margin-top: 8px;
 		}
 	}
 
 	.ui.container.profileContentContainer {
-		margin: 0 !important;
-		padding: 0 !important;
+		margin-top: 16px !important;
+		margin-left: 0 !important;
+		margin-right: 0 !important;
 		width: 100% !important;
 
 		.dimmer {
 			background: $dimmer-background !important;
+			border: solid 1px $dimmer-border;
+			box-shadow: none !important;
 		}
 
 		.signInPlaceholder {
@@ -926,6 +866,8 @@ a {
 		}
 
 		@media only screen and (max-width: 1025px) {
+			padding: 8px 10px !important;
+
 			.signInPlaceholder {
 				height: 250px;
 			}
@@ -937,130 +879,81 @@ a {
 	}
 }
 
-
 /* Post page */
 .postPage {
-	.ui.container.mainContainer {
-		font-size: 13px;
-		padding-top: 30px;
+	padding: 18px 0 0 0;
 
-		.fallacyFormWrapper {
-			margin: 20px 0;
+	.fallacyFormWrapper {
+		margin: 20px 0;
+	}
+
+	.screenshotMsg {
+		background: lighten($invertedBackgroundColor, 2%) !important;
+		border: solid 1px $twitterExtraExtraLightGrey1 !important;
+		color: $white !important;
+		margin-top: 18px;
+
+		.icon.camera {
+			font-size: 15px;
 		}
 
-		.placeholderContainer {
-			text-align: center;
-		}
+		span {
+			cursor: pointer;
+			font-size: 13px;
+			line-height: 15px;
+			margin-left: 4px;
 
-		.screenshotMsg {
-			margin-top: 10px;
-
-			.icon.camera {
-				font-size: 15px;
-			}
-
-			span {
-				cursor: pointer;
-				font-size: 13px;
-				line-height: 15px;
-				margin-left: 4px;
-
-				&:hover {
-					text-decoration: underline;
-				}
-			}
-		}
-
-		.tweetWrapper {
-			width: 100%;
-		}
-
-		.fallaciesWrapper {
-			width: 100%;
-		}
-
-		.relatedRow {
-			padding-top: 0;
-		}
-
-		@media only screen and (max-width: 1025px) {
-			.grid {
-				margin: 0;
+			&:hover {
+				text-decoration: underline;
 			}
 		}
 	}
 
-	.sticky {
-		div {
-			z-index: 1000;
-		}
-
-		.breadcrumbContainer {
-			background: $white;
-			border-bottom: solid 1px $lightGrey;
-			margin-top: 72px;
-			padding: 8px 30px;
-			width: 100%;
-
-			.breadcrumb {
-				line-height: 20px;
-				margin-left: 15px !important;
-				margin-right: 15px !important;
-				padding: 0;
+	.relatedSearches {
+		.content {
+			&:first-of-type {
+				border-bottom: solid 1px $twitterExtraExtraLightGrey1 !important;
 			}
 		}
+	}
 
-		@media only screen and (max-width: 1025px) {
-			.breadcrumbContainer {
-				padding: 8px 15px;
-
-				.breadcrumb {
-					margin-left: auto !important;
-					margin-right: auto !important;
-				}
-
-				.container {
-					margin-left: 0 !important;
-					margin-right: 0 !important;
-				}
-			}
-		}
+	.captureTweet {
+		background: $invertedBackgroundColor;
 	}
 }
 
-
 /* Search page */
 .searchPage {
-	@media only screen and (max-width: 1025px) {
-		.mainContainer {
-			padding-top: 0;
+	padding: 18px 0 0 0;
 
-			.ui.grid {
-				margin: 0 !important;
-			}
-		}
-	}
+	.searchSegment {
+		padding: 0 !important;
 
-	.searchMenu {
-		.item {
-			&.searchItem {
-				padding: 6px 0 10px 18px;
-				
-				input {
-					padding: 0;
+		.searchMenu {
+			background: $invertedBackgroundColor !important;
+	
+			.item {
+				color: $white !important;
+
+				&.searchItem {
+					padding: 6px 0 10px 18px;
+	
+					input {
+						padding: 0;
+					}
 				}
-			}
-
-			.ui.icon.input {
-				input {
-					border: none;
+	
+				.ui.icon.input {
+					input {
+						border: none;
+					}
 				}
-			}
-
-			.icon {
-				font-size: 18px;
-				line-height: 14px;
-				vertical-align: middle;
+	
+				.icon {
+					font-size: 18px;
+					line-height: 14px;
+					vertical-align: middle;
+				}
 			}
 		}
 	}
@@ -1068,7 +961,10 @@ a {
 	.ui.container.searchContentContainer {
 		min-height: 300px;
 		margin: 0 !important;
-		padding: 0 !important;
+
+		.resultsSegment {
+			padding: 8px 0 0 12px !important;
+		}
 	}
 
 	.searchResults {
@@ -1076,9 +972,10 @@ a {
 	}
 }
 
-
 /* Settings page */
 .settingsPage {
+	padding: 18px 0 0 0;
+
 	.settingsMenu {
 		margin-bottom: 0;
 	}
@@ -1086,18 +983,35 @@ a {
 	.settingsContent {
 		width: 100%;
 
+		.message {
+			background: $invertedBackgroundColor;
+			border: solid 1px $twitterExtraExtraLightGrey2;
+			color: $white;
+		}
+
 		.patreonMsg {
 			.icon {
 				color: $patreon;
 			}
 		}
 	}
-}
 
+	.ui.form .field.field {
+		input:-webkit-autofill, input::selection, input:active:-webkit-autofill, input:focus:-webkit-autofill {
+			background: $invertedBackgroundColor !important;
+			background-color: $invertedBackgroundColor !important;
+			border: solid 1px $twitterExtraExtraLightGrey2 !important;
+			box-shadow: none !important;
+			outline: none !important;
+			-webkit-box-shadow: 0 0 0 50px $invertedBackgroundColor inset !important;
+			-webkit-text-fill-color: $white !important;
+		}
+	}
+}
 
 /* Signin page */
 .loginContainer {
-	background: $offWhite;
+	background: $invertedBackgroundColor !important;
 	height: 100vh;
 
 	.loginForm {
@@ -1113,16 +1027,20 @@ a {
 				max-width: 450px;
 			}
 		}
-	} 
+	}
 }
 
-
-/* Tags page */
-.tagsPage {
+/* Tag page */
+.tagPage {
+	padding: 18px 0 0 0;
+	
 	.tagsWrapper {
 		width: 100%;
 
 		.menu.tagMenu {
+			background: $invertedBackgroundColor !important;
+			border: solid 1px $twitterExtraExtraLightGrey2 !important;
+			border-bottom: none !important;
 			margin-top: 12px !important;
 
 			.list {
@@ -1165,12 +1083,14 @@ a {
 			}
 		}
 
-		.tagsList, .usersList {
+		.tagsList,
+		.usersList {
 			margin-top: 12px !important;
 		}
 
 		.divider {
-			.cameraIcon, .photoIcon {
+			.cameraIcon,
+			.photoIcon {
 				background: $blue;
 				color: $white;
 				cursor: pointer;
@@ -1198,8 +1118,15 @@ a {
 	}
 }
 
+/* Tags page */
+.tagsPage {
+	padding: 18px 0 0 0;
+}
+
 /* Targets page */
 .targetsPage {
+	padding: 18px 0 0 0;
+
 	.ui.container {
 		.summaryHeader {
 			.icon {
@@ -1227,7 +1154,7 @@ a {
 					position: absolute;
 					width: 200px;
 
-					+ .header.large {
+					+ .header.large	 {
 						margin-top: 8px;
 					}
 
@@ -1239,7 +1166,8 @@ a {
 			}
 		}
 
-		.answers, .questionnaire {
+		.answers,
+		.questionnaire {
 			margin-bottom: 16px;
 		}
 
@@ -1249,7 +1177,8 @@ a {
 
 		.answers {
 			.answerField {
-				font-size: 14px;
+				color: $white;
+				font-size: 15px;
 			}
 
 			.header.sub {
@@ -1265,12 +1194,20 @@ a {
 	}
 }
 
-
 /* Users page */
 .usersPage {
+	padding: 18px 0 0 0;
+
 	.userHeaderSection {
 		p {
 			margin-top: 15px;
+		}
+
+		.header.settingsHeader {
+			color: $lightGrey;
+			margin-top: 15px !important;
+			vertical-align: middle;
+
 		}
 	}
 
@@ -1284,24 +1221,24 @@ a {
 		margin-top: 20px !important;
 	}
 
-	$profile-pic-height: 185px;
+	// $profile-pic-height: 200px;
 
 	.profilePic {
-		height: $profile-pic-height;
-		width: auto !important;
+		// height: $profile-pic-height;
+		// width: auto !important;
 
 		img {
-			height: $profile-pic-height;
+			// height: $profile-pic-height;
 			text-align: center;
-			width: $profile-pic-height;
+			// width: $profile-pic-height;
 		}
 
 		&.default {
-			background: $white;
-			height: $profile-pic-height !important;
+			background: $twitterLightGrey;
+			// height: $profile-pic-height !important;
 			overflow: hidden;
 			padding: 7px;
-			width: $profile-pic-height !important;
+			// width: $profile-pic-height !important;
 		}
 	}
 
@@ -1319,7 +1256,8 @@ a {
 		cursor: pointer;
 
 		&:hover {
-			.value, .label {
+			.value,
+			.label {
 				color: $blue !important;
 			}
 		}
@@ -1339,19 +1277,14 @@ a {
 }
 
 .signInPageHeader {
-	background: $white;
-	border-bottom: solid 1px $lightGrey;
+	background: $invertedBackgroundColor;
 	margin: 0 !important;
 	padding: 10px;
 	width: 100%;
 
-	.svgMainLogo, .mainLogo {
+	.headerLogo {
 		cursor: pointer;
-		display: inline;
-		fill: $blue;
-		height: 36px;
-		line-height: 4;
-		vertical-align: middle;
-		width: 36px;
+		height: 54px;
+		width: 54px;
 	}
 }

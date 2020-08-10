@@ -1,5 +1,9 @@
 import * as constants from "./constants"
 import request from "request"
+import { toast } from "react-toastify"
+import { getConfig } from "options/toast"
+
+toast.configure(getConfig())
 
 export const assignFallacy = ({
 	bearer,
@@ -9,6 +13,7 @@ export const assignFallacy = ({
 	explanation,
 	fallacyId,
 	highlightedText,
+	history,
 	network,
 	objectId,
 	pageId,
@@ -42,10 +47,12 @@ export const assignFallacy = ({
 				payload: body
 			})
 
+			if (body.error) {
+				toast.error(body.error)
+			}
+
 			if (!body.error) {
-				dispatch({
-					type: constants.TOGGLE_MODAL
-				})
+				history.push(`/fallacies/${body.fallacy.id}`)
 			}
 		}
 	)

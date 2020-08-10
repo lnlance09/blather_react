@@ -1,6 +1,7 @@
 /*---  Colors  ---*/
 /*---  Light Colors  ---*/
 /*---   Neutrals  ---*/
+/*--- Twitter ---*/
 /*---   Misc  ---*/
 /*---   Social colors  ---*/
 .titleHeader.editing {
@@ -12,13 +13,13 @@
     line-height: 47px !important; }
 
 .titleHeader .header .editHeaderIcon {
-  color: #2185D0;
+  color: #2185d0;
   cursor: pointer;
   display: none !important;
   float: right;
   line-height: 47px; }
   .titleHeader .header .editHeaderIcon.close {
-    color: #FF695E; }
+    color: #ff695e; }
 
 .titleHeader .header .titleInput {
   width: 92%; }

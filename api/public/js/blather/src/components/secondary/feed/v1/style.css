@@ -1,6 +1,20 @@
+/*---  Colors  ---*/
+/*---  Light Colors  ---*/
+/*---   Neutrals  ---*/
+/*--- Twitter ---*/
+/*---   Misc  ---*/
+/*---   Social colors  ---*/
 .feed .label img {
   border: 1px solid rgba(0, 0, 0, 0.1);
   cursor: pointer; }
+
+.feed .content .summary {
+  color: #ffffff !important; }
+  .feed .content .summary a {
+    color: #54c8ff; }
+
+.feed .content .date {
+  color: #dcddde !important; }
 
 .feed .content .extra.text {
   max-width: 750px !important; }
@@ -10,6 +24,7 @@
     max-width: 600px !important; } }
 
 .feed .content .extra p {
+  color: #ffffff !important;
   cursor: pointer;
   white-space: pre-line;
   word-break: break-word; }

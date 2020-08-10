@@ -176,13 +176,46 @@ class TwitterModel extends CI_Model {
 		return $this->db->get('pages p')->result_array();
 	}
 
-	public function getAllStars() {
-		$this->db->select("p.type, p.about, p.name, CONCAT('".S3_PATH."', s3_pic) AS profile_pic, p.username, COUNT(*) AS fallacy_count");
-		$this->db->join('pages p', 'f.page_id = p.social_media_id');
-		$this->db->group_by('p.id');
-		$this->db->order_by('fallacy_count', 'DESC');
-		$this->db->where('p.all_star', 1);
-		return $this->db->get('fallacy_entries f')->result_array();
+	public function getAllStars($q, $page, $just_count = false) {
+		$params = [];
+		$select = "p.type, p.social_media_id, p.about, p.name, CONCAT('".S3_PATH."', s3_pic) AS profile_pic, p.username, fallacy_count";
+		if ($just_count) {
+			$select = "COUNT(*) AS count";
+		}
+
+		$sql = "SELECT ".$select."
+				FROM pages p
+				LEFT JOIN (
+					SELECT COUNT(*) AS fallacy_count, page_id
+					FROM fallacy_entries f
+					GROUP BY page_id
+				) f ON p.social_media_id = f.page_id ";
+		
+		if ($q) {
+			$params = ['%'.$q.'%', '%'.$q.'%', '%'.$q.'%'];
+			$sql .= " WHERE (p.name LIKE ? OR p.username LIKE ? OR p.about LIKE ?)";
+		}
+
+		$sql .= " ".($q ? " AND " : " WHERE ")." fallacy_count > 5 ";
+		$sql .= " ORDER BY fallacy_count DESC";
+
+		if (!$just_count) {
+			$limit = 25;
+			$start = $page*$limit;
+			$sql .= " LIMIT ".$start.", ".$limit;
+		}
+
+		$results = $this->db->query($sql, $params)->result_array();
+
+		if (empty($results)) {
+			return false;
+		}
+
+		if ($just_count) {
+			return $results[0]['count'];
+		}
+
+		return $results;
 	}
 
 	public function getAllTweets() {
@@ -196,6 +229,10 @@ class TwitterModel extends CI_Model {
 			return $this->authorizeUrl.'?oauth_token='.$token['oauth_token'];
 		}
 		return false;
+	}
+
+	public function getGrifters() {
+
 	}
 
 	public function getPageExtended($id, $auth, $token, $secret) {

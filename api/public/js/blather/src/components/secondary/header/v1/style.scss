@@ -1,121 +1,91 @@
-@import '../../../css/colors.scss';
+@import "../../../../css/colors.scss";
 
 .pageHeader {
-    .loadingBar {
-        background: $blue;
-        height: 5px;
-        margin-top: 72px;
-        position: fixed;
-        z-index: 9999;
+	.loadingBar {
+    	background: $blue;
+    	height: 5px;
+    	margin-top: 72px;
+    	position: fixed;
+    	z-index: 9999;
 
-        @media only screen and (max-width: 1025px) {
-            margin-top: 135px;
-        }
-    }
+    	@media only screen and (max-width: 1025px) {
+      		margin-top: 135px;
+    	}
+  	}
 
-    .menu.subHeader {
-        border: none;
-        border-bottom: solid 1px $lightGrey;
-        border-radius: 0;
-        box-shadow: none !important;
-        margin-top: 71px;
-        width: 100%;
-        z-index: 999 !important;
+  	.topHeader {
+    	align-items: center;
+    	background: darken($invertedBackgroundColor, 1%);
+    	display: flex;
+    	justify-content: center;
+    	max-width: none !important;
+    	padding: 10px 13px 10px 13px;
+    	position: fixed;
+    	top: 0;
+    	width: 100% !important;
+    	z-index: 9999;
 
-        .subHeaderContainer {
-            .searchItem {
-                @media only screen and (min-width: 450px) {
-                    padding-left: 0;
-                    padding-right: 0;
-                }
+    	.container.mobile {
+      		margin: 0 !important;
+      		width: 100% !important;
 
-                width: 100%;
-            }
-        }
-    }
+      		.allyButton {
+        		margin-right: 18px;
+      		}
 
-    .menu.globalHeader {
-        box-shadow: none;
-        height: 72px;
-        z-index: 1001 !important;
+      		.icon.ellipsis {
+        		margin-right: 0;
+      		}
+		}
+		
+		.menu.inverted {
+			background: darken($invertedBackgroundColor, 1%) !important;
+		}
 
-        .headerContainer {
-            .responsive {
-                display: flex;
-                width: 100%;
-            }
+    	img {
+      		cursor: pointer;
+      		height: 54px;
+      		width: 54px;
+    	}
 
-            .headerMenuItem {
-                margin-right: 0 !important;
-                
-                .headerLogo {
-                    cursor: pointer;
-                    display: inline;
-                    fill: $blue;
-                    height: 36px;
-                    line-height: 4;
-                    margin-right: 12px;
-                    vertical-align: middle;
-                    width: 36px;
-                }
-            }
+    	.grid .column {
+      		input {
+        		line-height: 25px;
+      		}
+    	}
 
-            .sidebarItem {
-                .button {
-                    margin-right: 18px;
-                }
+    	@media only screen and (max-width: 1025px) {
+      		.container.desktop {
+        		display: none;
+			  }
+			  
+			  .container.mobile {
+				  .left.item {
+					  padding-left: 8px !important;
+				  }
+			  }
+    	}
 
-                .icon {
-                    cursor: pointer;
+    	@media only screen and (min-width: 1025px) {
+      		.container.mobile {
+        		display: none;
+      		}
+    	}
+  	}
+	  
+	.sidebar.ui.labeled.icon.menu .item {
+		background: lighten($invertedBackgroundColor, 2%) !important;
+		color: $white !important;
+        font-weight: bold !important;
+        line-height: 24px !important;
+        text-align: left !important;
 
-                    &:hover {
-                        color: $blue;
-                    }
-                }
-            }
-
-            .fallaciesLink a {
-                color: $lightBlack;
-                font-size: 15px !important;
-                font-weight: bold !important;
-            }
-
-            .signInLink {
-                text-align: right;
-
-                .ui.grid.relaxed {
-                    margin-right: -1.4rem;
-
-                    .column:first-of-type {
-                        padding-right: 1.4rem;
-                    }
-                }
-
-                a {
-                    color: $lightBlack;
-                    font-size: 15px !important;
-                    font-weight: bold !important;
-                    line-height: 35.5px;
-                }
-            }
-
-            .dropDownMenu {
-                .menu.visible {
-                    z-index: 1001;
-                }
-            }
-        }
-    }
-
-    .sidebar.menu {
-        padding-top: 135px;
-
-        .fallacySidebarItem {
-            text-align: left;
-        }
-
-        .sidebarSearchBtn {
-            margin-top: 8px;
+        .icon {
+            color: $blue;
+            display: inline;
+            font-size: 24px !important;
+            padding-right: 16px;
+            vertical-align: middle;
         }
     }
 }

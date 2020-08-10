@@ -1,71 +1,94 @@
-@import '../../../css/colors.scss';
+@import "../../../../../css/colors.scss";
 
 .fallaciesList {
-    width: 100%;
+	width: 100%;
 
-    .emptyFallaciesContainer {
-        text-align: center;
-    }
+  	.emptyFallaciesContainer {
+		text-align: center;
+  	}
 
-    .targetMsg {
-        .icon.crosshairs {
-            color: $red;
-        }
+  	.targetMsg {
+		background: lighten($invertedBackgroundColor, 5%);
+		border: solid 1px $twitterExtraExtraLightGrey2;
+		color: $white;
 
-        .viewAllTargets {
-            color: $blue;
-            cursor: pointer;
+		.icon.crosshairs {
+	  		color: $red;
+		}
 
-            &:hover {
-                text-decoration: underline;
-            }
-        }
-    }
+		.viewAllTargets {
+	  		color: $lightBlue;
+	  		cursor: pointer;
 
-    .cards {
-        @media only screen and (max-width: 1025px) {
-            margin-top: 10px;
-        }
+	  		&:hover {
+				text-decoration: underline;
+	  		}
+		}
+  	}
 
-        .card {
-            .content {
-                word-break: break-word;
+  	.cards {
+		@media only screen and (max-width: 1025px) {
+	  		margin-top: 10px;
+		}
 
-                .description {
-                    max-height: 240px;
-                    overflow: hidden;
-                    white-space: pre-line;
-                }
-            }
+		&.one {
+			margin: 0 !important;
 
-            .image.parent {
-                background: $blue !important;
-                height: 300px !important;
-                overflow-y: hidden;
-                position: relative;
-                width: 100%;
-            }
+			.card {
+				margin-left: 0 !important;
+				margin-right: 0 !important;
+			}
+		}
 
-            .one, .two {
-                background-size: 300px;
-                height: 300px;
-                position: absolute;
-                width: 65%;
-            }
+		.card {
+	  		color: $white !important;
 
-            .one {
-                clip-path: polygon(0 0, 100% 0%, 50% 100%, 0% 100%);
-                left: 0;
-                top: 0;
-                -webkit-clip-path: polygon(0 0, 100% 0%, 50% 100%, 0% 100%);
-            }
+	  		.content {
+				background: $invertedBackgroundColor;
+				color: $white !important;
+				word-break: break-word;
 
-            .two {
-                clip-path: polygon(50% 0, 100% 0%, 100% 100%, 0% 100%);
-                right: 0;
-                top: 0;
-                -webkit-clip-path: polygon(50% 0, 100% 0%, 100% 100%, 0% 100%);
-            }
-        }
-    }
+				.description {
+		  			color: $lightGrey;
+		  			max-height: 240px;
+		  			overflow: hidden;
+		  			white-space: pre-line;
+				}
+	  		}
+
+	  		.extra {
+		  		border-top: solid 1px $twitterExtraExtraLightGrey1 !important;
+	  		}
+
+	  		.image.parent {
+				background: $blue !important;
+				height: 300px !important;
+				overflow-y: hidden;
+				position: relative;
+				width: 100%;
+	  		}
+
+	  		.one,
+	  		.two {
+				background-size: 300px;
+				height: 300px;
+				position: absolute;
+				width: 65%;
+	  		}
+
+	  		.one {
+				clip-path: polygon(0 0, 100% 0%, 50% 100%, 0% 100%);
+				left: 0;
+				top: 0;
+				-webkit-clip-path: polygon(0 0, 100% 0%, 50% 100%, 0% 100%);
+	  		}
+
+		  	.two {
+				clip-path: polygon(50% 0, 100% 0%, 100% 100%, 0% 100%);
+				right: 0;
+				top: 0;
+				-webkit-clip-path: polygon(50% 0, 100% 0%, 100% 100%, 0% 100%);
+	  		}
+		}
+  	}
 }

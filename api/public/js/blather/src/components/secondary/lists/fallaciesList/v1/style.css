@@ -1,46 +1,64 @@
 /*---  Colors  ---*/
 /*---  Light Colors  ---*/
 /*---   Neutrals  ---*/
+/*--- Twitter ---*/
 /*---   Misc  ---*/
 /*---   Social colors  ---*/
 .fallaciesList {
   width: 100%; }
   .fallaciesList .emptyFallaciesContainer {
     text-align: center; }
-  .fallaciesList .targetMsg .icon.crosshairs {
-    color: #DB2828; }
-  .fallaciesList .targetMsg .viewAllTargets {
-    color: #2185D0;
-    cursor: pointer; }
-    .fallaciesList .targetMsg .viewAllTargets:hover {
-      text-decoration: underline; }
+  .fallaciesList .targetMsg {
+    background: #1d2d3c;
+    border: solid 1px rgba(245, 248, 250, 0.2);
+    color: #ffffff; }
+    .fallaciesList .targetMsg .icon.crosshairs {
+      color: #db2828; }
+    .fallaciesList .targetMsg .viewAllTargets {
+      color: #54c8ff;
+      cursor: pointer; }
+      .fallaciesList .targetMsg .viewAllTargets:hover {
+        text-decoration: underline; }
   @media only screen and (max-width: 1025px) {
     .fallaciesList .cards {
       margin-top: 10px; } }
-  .fallaciesList .cards .card .content {
-    word-break: break-word; }
-    .fallaciesList .cards .card .content .description {
-      max-height: 240px;
-      overflow: hidden;
-      white-space: pre-line; }
-  .fallaciesList .cards .card .image.parent {
-    background: #2185D0 !important;
-    height: 300px !important;
-    overflow-y: hidden;
-    position: relative;
-    width: 100%; }
-  .fallaciesList .cards .card .one, .fallaciesList .cards .card .two {
-    background-size: 300px;
-    height: 300px;
-    position: absolute;
-    width: 65%; }
-  .fallaciesList .cards .card .one {
-    clip-path: polygon(0 0, 100% 0%, 50% 100%, 0% 100%);
-    left: 0;
-    top: 0;
-    -webkit-clip-path: polygon(0 0, 100% 0%, 50% 100%, 0% 100%); }
-  .fallaciesList .cards .card .two {
-    clip-path: polygon(50% 0, 100% 0%, 100% 100%, 0% 100%);
-    right: 0;
-    top: 0;
-    -webkit-clip-path: polygon(50% 0, 100% 0%, 100% 100%, 0% 100%); }
+  .fallaciesList .cards.one {
+    margin: 0 !important; }
+    .fallaciesList .cards.one .card {
+      margin-left: 0 !important;
+      margin-right: 0 !important; }
+  .fallaciesList .cards .card {
+    color: #ffffff !important; }
+    .fallaciesList .cards .card .content {
+      background: #15202b;
+      color: #ffffff !important;
+      word-break: break-word; }
+      .fallaciesList .cards .card .content .description {
+        color: #dcddde;
+        max-height: 240px;
+        overflow: hidden;
+        white-space: pre-line; }
+    .fallaciesList .cards .card .extra {
+      border-top: solid 1px rgba(245, 248, 250, 0.1) !important; }
+    .fallaciesList .cards .card .image.parent {
+      background: #2185d0 !important;
+      height: 300px !important;
+      overflow-y: hidden;
+      position: relative;
+      width: 100%; }
+    .fallaciesList .cards .card .one,
+    .fallaciesList .cards .card .two {
+      background-size: 300px;
+      height: 300px;
+      position: absolute;
+      width: 65%; }
+    .fallaciesList .cards .card .one {
+      clip-path: polygon(0 0, 100% 0%, 50% 100%, 0% 100%);
+      left: 0;
+      top: 0;
+      -webkit-clip-path: polygon(0 0, 100% 0%, 50% 100%, 0% 100%); }
+    .fallaciesList .cards .card .two {
+      clip-path: polygon(50% 0, 100% 0%, 100% 100%, 0% 100%);
+      right: 0;
+      top: 0;
+      -webkit-clip-path: polygon(50% 0, 100% 0%, 100% 100%, 0% 100%); }

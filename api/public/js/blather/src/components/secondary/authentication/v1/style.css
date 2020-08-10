@@ -1,26 +1,37 @@
 /*---  Colors  ---*/
 /*---  Light Colors  ---*/
 /*---   Neutrals  ---*/
+/*--- Twitter ---*/
 /*---   Misc  ---*/
 /*---   Social colors  ---*/
 .authComponent .signInLogo {
   display: inline;
-  fill: #2185D0;
+  fill: #2185d0;
   height: 48px;
   width: 48px; }
 
-.authComponent .authSegment .error.message {
-  margin-bottom: 14px; }
+.authComponent .ui.form .field.field input:-webkit-autofill, .authComponent .ui.form .field.field input::selection, .authComponent .ui.form .field.field input:active:-webkit-autofill, .authComponent .ui.form .field.field input:focus:-webkit-autofill {
+  background: #15202b !important;
+  background-color: #15202b !important;
+  border: solid 1px rgba(245, 248, 250, 0.2) !important;
+  box-shadow: none !important;
+  outline: none !important;
+  -webkit-box-shadow: 0 0 0 50px #15202b inset !important;
+  -webkit-text-fill-color: #ffffff !important; }
 
 .authComponent .registerText {
-  background: #FFFFFF;
-  border-top: solid 1px #DCDDDE;
+  background: #15202b;
+  border-top: solid 1px rgba(245, 248, 250, 0.2);
+  color: #ffffff;
   text-align: center; }
   .authComponent .registerText .registerLink {
-    color: #2185D0;
+    color: #54c8ff;
     cursor: pointer; }
     .authComponent .registerText .registerLink:hover {
       text-decoration: underline; }
+  .authComponent .registerText.verify {
+    cursor: pointer;
+    font-size: 14px; }
 
 .authComponent .googleBtn {
   font-weight: bold;

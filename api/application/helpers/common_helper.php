@@ -135,6 +135,17 @@ function generateAlphaNumString($length) {
 	return $string;
 }
 
+function generateVerificationCode() {
+	$characters = '0123456789';
+	$string = '';
+	$max = strlen($characters) - 1;
+	for ($i=0;$i<4;$i++) {
+		$string .= $characters[mt_rand(0, $max)];
+	}
+
+	return $string;
+}
+
 function getArticle($word) {
 	$vowels = ['a','e','i','o','u'];
 	$subStr = substr(strtolower($word), 0, 1);

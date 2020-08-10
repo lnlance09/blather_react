@@ -118,10 +118,10 @@ class Users extends CI_Controller {
 		$parse = parseUrl($url);
 		validateEmptyField($parse, 'This URL cannot be parsed', 100, 401, $this->output);
 
-		$code = createArchive($url);
+		// $code = createArchive($url);
 		$data = [];
 
-		if ($code && $user) {
+		if ($user) {
 			$page = null;
 			$network = $parse['network'];
 			if ($network == 'twitter') {
@@ -131,7 +131,7 @@ class Users extends CI_Controller {
 			validateEmptyField($page, 'This page does not exist', 100, 401, $this->output);
 
 			$data = [
-				'code' => $code,
+				'code' => null,
 				'comment_id' => $parse['comment_id'],
 				'link' => $url,
 				'network' => $network,
@@ -145,7 +145,7 @@ class Users extends CI_Controller {
 
 		echo json_encode([
 			'archive' => $data,
-			'error' => $code ? false : true
+			'error' => false
 		]);
 	}
 
@@ -272,7 +272,7 @@ class Users extends CI_Controller {
 			'name' => $this->input->post('name'),
 			'password' => $this->input->post('password'),
 			'username' => $this->input->post('username'),
-			'verification_code' => generateAlphaNumString(10)
+			'verification_code' => generateVerificationCode()
 		];
 
 		validateEmptyField($params['name'], 'A name is required', 100, 401, $this->output);
@@ -287,7 +287,6 @@ class Users extends CI_Controller {
 		validateIsFalse($register['error'], $register['msg'], 100, 401, $this->output);
 
 		$subject = 'Please verify your email';
-		$msg = "Hi ".$params['name'].',<br><br>Your verification code is '.$params['verification_code'];
 		$from = EMAILS_SENT_FROM;
 		$to = [
 			[
@@ -295,7 +294,11 @@ class Users extends CI_Controller {
 				'name' => $params['name']
 			]
 		];
-		$mail = $this->media->sendEmail($subject, $msg, $from, $to);
+		require(BASE_PATH.'application/models/emails/signUp.php');
+		$template = str_replace('{NAME}', $params['name'], $template);
+		$template = str_replace('{CODE}', $params['verification_code'], $template);
+
+		$mail = $this->media->sendEmail($subject, $template, $from, $to);
 		validateIsTrue($mail, 'Something went wrong. Please try again.', 100, 400, $this->output);
 
 		echo json_encode($register);

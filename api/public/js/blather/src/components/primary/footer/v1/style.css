@@ -1,12 +1,13 @@
 /*---  Colors  ---*/
 /*---  Light Colors  ---*/
 /*---   Neutrals  ---*/
+/*--- Twitter ---*/
 /*---   Misc  ---*/
 /*---   Social colors  ---*/
 .ui.bottom.attached.segment.footerSegment {
-  background: #FFFFFF !important;
+  background: #15202b !important;
   border-bottom: none;
-  border-top: solid 1px #DCDDDE;
+  border-top: solid 1px rgba(245, 248, 250, 0.1);
   box-shadow: none !important;
   margin-top: 2.5em !important;
   padding: 1em 0em !important;
@@ -15,11 +16,11 @@
     padding-left: 30px;
     padding-right: 30px; }
   .ui.bottom.attached.segment.footerSegment .ui.inverted.list .item a:not(.ui) {
-    color: #545454 !important;
+    color: #f9fafb !important;
     font-weight: bold; }
     .ui.bottom.attached.segment.footerSegment .ui.inverted.list .item a:not(.ui):hover {
       color: #545454; }
   .ui.bottom.attached.segment.footerSegment p {
-    color: #767676 !important;
+    color: #ffffff !important;
     font-size: 12px;
     margin-bottom: 7px; }

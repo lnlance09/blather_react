@@ -1,42 +1,42 @@
-@import '../../../css/colors.scss';
+@import "../../../../../css/colors.scss";
 
 .discussionsList {
-    .discussionsFilter {
-        .fields {
-            &:last-of-type {
-                margin-bottom: 0 !important;
-            }
-        }
+	.discussionsFilter {
+    	.fields {
+      		&:last-of-type {
+        		margin-bottom: 0 !important;
+      		}
+    	}
 
-        .createDiscussionBtn {
-            float: right;
-            height: 100%;
-            margin-right: 0 !important;
-            width: 100%;
+    	.createDiscussionBtn {
+      		float: right;
+      		height: 100%;
+      		margin-right: 0 !important;
+      		width: 100%;
 
-            a {
-                .icon {
-                    margin-right: 0 !important;
-                }
-            }
-        }
+      		a {
+        		.icon {
+          			margin-right: 0 !important;
+        		}
+      		}
+    	}
 
-        .advancedOptions {
-            margin: 12px 0;
-        }
-    }
+    	.advancedOptions {
+      		margin: 12px 0;
+    	}
+  	}
 
-    .advancedOptions {
-        button {
-            height: 100%;
-        }
-    }
+  	.advancedOptions {
+    	button {
+      		height: 100%;
+    	}
+  	}
 
-    .emptyDiscussionContainer {
-        text-align: center;
+  	.emptyDiscussionContainer {
+    	text-align: center;
 
-        .header {
-            font-size: 20px;
-        }
-    }
+    	.header {
+      		font-size: 20px;
+    	}
+  	}
 }

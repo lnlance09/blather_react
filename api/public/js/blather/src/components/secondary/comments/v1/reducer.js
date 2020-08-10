@@ -1,6 +1,11 @@
 import * as constants from "./constants"
 
-const initial = () => ({})
+const initial = () => ({
+	comments: {
+		count: 0,
+		results: [{}, {}, {}, {}, {}, {}, {}]
+	}
+})
 
 const fallacyComments = (state = initial(), action) => {
 	const payload = action.payload
@@ -15,33 +20,70 @@ const fallacyComments = (state = initial(), action) => {
 				}
 			}
 
-		case constants.POST_COMMENT:
-			const comments = state.comments.results
-				? [payload.comment, ...state.comments.results]
-				: payload.comment
-			return {
-				...state,
-				comments: {
-					count: state.comments.count + 1,
-					results: comments
-				}
-			}
+		case constants.LIKE_COMMENT:
+			const { commentId, responseId } = payload
+			const comment = state.comments.results.find(comment => comment.id === commentId)
 
-		case constants.VOTE_ON_COMMENT:
-			let _comments = state.comments.results
-			let _comment = _comments.filter(c => c.id === payload.commentId)
-			let finalComment = _comment[0]
-			if (payload.upvote) {
-				finalComment.likes = parseInt(finalComment.likes, 10) + 1
+			if (typeof responseId !== "undefined") {
+				const response = comment.responses.find(response => response.id === responseId)
+				response.likeCount++
+				response.likedByMe = "1"
 			} else {
-				finalComment.dislikes = parseInt(finalComment.dislikes, 10) + 1
+				comment.likeCount++
+				comment.likedByMe = "1"
 			}
 
 			return {
 				...state,
 				comments: {
 					...state.comments,
-					results: _comments
+					results: state.comments.results
+				}
+			}
+
+		case constants.POST_COMMENT:
+			let results = state.comments.results
+				? [payload.comment, ...state.comments.results]
+				: payload.comment
+
+			if (
+				typeof payload.comment.response_to !== "undefined" &&
+				payload.comment.response_to !== null
+			) {
+				const _comment = state.comments.results.find(
+					comment => comment.id === payload.comment.response_to
+				)
+				_comment.responses.push(payload.comment)
+				results = state.comments.results
+			}
+
+			return {
+				...state,
+				comments: {
+					count: state.comments.count + 1,
+					results
+				}
+			}
+
+		case constants.UNLIKE_COMMENT:
+			const _commentId = payload.commentId
+			const _responseId = payload.responseId
+			const _comment = state.comments.results.find(comment => comment.id === _commentId)
+
+			if (typeof _responseId !== "undefined") {
+				const _response = _comment.responses.find(response => response.id === _responseId)
+				_response.likeCount--
+				_response.likedByMe = 0
+			} else {
+				_comment.likeCount--
+				_comment.likedByMe = 0
+			}
+
+			return {
+				...state,
+				comments: {
+					...state.comments,
+					results: state.comments.results
 				}
 			}
 

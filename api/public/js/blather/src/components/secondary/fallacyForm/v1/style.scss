@@ -1,76 +1,83 @@
-@import '../../../css/colors.scss';
+@import "../../../../css/colors.scss";
 
 .fallacyForm {
-    .formHeader {
-        font-size: 18px !important;
-    }
+	.content {
+		&:first-of-type {
+			border-bottom: solid 1px $twitterExtraExtraLightGrey1 !important;
+		}
+	}
 
-    .field.startTime, .field.contradictionStartTime {
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-    }
+	.formHeader {
+    	font-size: 18px !important;
+  	}
 
-    .selectAssignee {
-        margin-bottom: 15px;
-    }
+  	.field.startTime,
+  	.field.contradictionStartTime {
+    	padding-left: 0 !important;
+    	padding-right: 0 !important;
+  	}
 
-    .contradictionWrapper {
-        margin-top: 0.9em;
+  	.selectAssignee {
+    	margin-bottom: 15px;
+  	}
 
-        &.active {
-            padding: 0;
-        }
-    }
+  	.contradictionWrapper {
+    	margin-top: 0.9em;
 
-    .fallacyRef {
-        margin-top: 12px;
-    }
+    	&.active {
+      		padding: 0;
+    	}
+  	}
 
-    .buttons {
-        button {
-            width: 50%;
-        }
-    }
+  	.fallacyRef {
+    	margin-top: 12px;
+  	}
 
-    .commonMarkLink {
-        margin: 0.2em 0.3em 0 !important;
+  	.buttons {
+    	button {
+      		width: 50%;
+    	}
+  	}
 
-        a {
-            color: $grey;
-            font-size: 12px;
+  	.commonMarkLink {
+    	margin: 0.2em 0.3em 0 !important;
 
-            &:hover {
-                text-decoration: underline;
-            }
-        }
+    	a {
+      		color: $grey;
+      		font-size: 12px;
 
-        .clearfix {
-            display: block;
-        }
-    }
+      		&:hover {
+        		text-decoration: underline;
+      		}
+    	}
 
-    @media only screen and (max-width: 1025px) {
-        .equal.width.fields {
-            margin-bottom: 15px;
+    	.clearfix {
+      		display: block;
+    	}
+  	}
 
-            .field {
-                width: 49% !important;
+  	@media only screen and (max-width: 1025px) {
+    	.equal.width.fields {
+      		margin-bottom: 15px;
 
-                input {
-                    width: 100% !important;
-                }
-            }
-        }
-    }
+      		.field {
+        		width: 49% !important;
+
+        		input {
+          			width: 100% !important;
+        		}
+      		}
+    	}
+  	}
 }
 
 .successModal {
-    a {
-        cursor: pointer;
-    }
+	a {
+    	cursor: pointer;
+  	}
 
-    .modalBtnWrapper {
-        margin-top: 1.6em;
-        text-align: center;
-    }
+  	.modalBtnWrapper {
+    	margin-top: 1.6em;
+    	text-align: center;
+  	}
 }

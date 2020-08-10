@@ -1,37 +1,49 @@
-@import '../../../css/colors.scss';
+@import "../../../../css/colors.scss";
 
 .authComponent {
-    .signInLogo {
-        display: inline;
-        fill: $blue;
-        height: 48px;
-        width: 48px;
-    }
+	.signInLogo {
+		display: inline;
+		fill: $blue;
+		height: 48px;
+		width: 48px;
+  	}
+	  
+	.ui.form .field.field {
+		input:-webkit-autofill, input::selection, input:active:-webkit-autofill, input:focus:-webkit-autofill {
+			background: $invertedBackgroundColor !important;
+			background-color: $invertedBackgroundColor !important;
+			border: solid 1px $twitterExtraExtraLightGrey2 !important;
+			box-shadow: none !important;
+			outline: none !important;
+			-webkit-box-shadow: 0 0 0 50px $invertedBackgroundColor inset !important;
+			-webkit-text-fill-color: $white !important;
+		}
+	}
 
-    .authSegment {
-        .error.message {
-            margin-bottom: 14px;
-        }
-    }
+  	.registerText {
+		background: $invertedBackgroundColor;
+		border-top: solid 1px $twitterExtraExtraLightGrey2;
+		color: $white;
+		text-align: center;
 
-    .registerText {
-        background: $white;
-        border-top: solid 1px $lightGrey;
-        text-align: center;
+		.registerLink {
+	  		color: $lightBlue;
+	  		cursor: pointer;
 
-        .registerLink {
-            color: $blue;
-            cursor: pointer;
+	  		&:hover {
+				text-decoration: underline;
+	  		}
+		}
 
-            &:hover {
-                text-decoration: underline;
-            }
-        }
-    }
+		&.verify {
+			cursor: pointer;
+			font-size: 14px;
+		}
+  	}
 
-    .googleBtn {
-        font-weight: bold;
-        margin-top: 12px;
-        width: 100%;
-    }
+  	.googleBtn {
+		font-weight: bold;
+		margin-top: 12px;
+		width: 100%;
+  	}
 }

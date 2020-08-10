@@ -1,10 +1,11 @@
 /*---  Colors  ---*/
 /*---  Light Colors  ---*/
 /*---   Neutrals  ---*/
+/*--- Twitter ---*/
 /*---   Misc  ---*/
 /*---   Social colors  ---*/
 .pageHeader .loadingBar {
-  background: #2185D0;
+  background: #2185d0;
   height: 5px;
   margin-top: 72px;
   position: fixed;
@@ -13,66 +14,50 @@
     .pageHeader .loadingBar {
       margin-top: 135px; } }
 
-.pageHeader .menu.subHeader {
-  border: none;
-  border-bottom: solid 1px #DCDDDE;
-  border-radius: 0;
-  box-shadow: none !important;
-  margin-top: 71px;
-  width: 100%;
-  z-index: 999 !important; }
-  .pageHeader .menu.subHeader .subHeaderContainer .searchItem {
-    width: 100%; }
-    @media only screen and (min-width: 450px) {
-      .pageHeader .menu.subHeader .subHeaderContainer .searchItem {
-        padding-left: 0;
-        padding-right: 0; } }
+.pageHeader .topHeader {
+  align-items: center;
+  background: #131d28;
+  display: flex;
+  justify-content: center;
+  max-width: none !important;
+  padding: 10px 13px 10px 13px;
+  position: fixed;
+  top: 0;
+  width: 100% !important;
+  z-index: 9999; }
+  .pageHeader .topHeader .container.mobile {
+    margin: 0 !important;
+    width: 100% !important; }
+    .pageHeader .topHeader .container.mobile .allyButton {
+      margin-right: 18px; }
+    .pageHeader .topHeader .container.mobile .icon.ellipsis {
+      margin-right: 0; }
+  .pageHeader .topHeader .menu.inverted {
+    background: #131d28 !important; }
+  .pageHeader .topHeader img {
+    cursor: pointer;
+    height: 54px;
+    width: 54px; }
+  .pageHeader .topHeader .grid .column input {
+    line-height: 25px; }
+  @media only screen and (max-width: 1025px) {
+    .pageHeader .topHeader .container.desktop {
+      display: none; }
+    .pageHeader .topHeader .container.mobile .left.item {
+      padding-left: 8px !important; } }
+  @media only screen and (min-width: 1025px) {
+    .pageHeader .topHeader .container.mobile {
+      display: none; } }
 
-.pageHeader .menu.globalHeader {
-  box-shadow: none;
-  height: 72px;
-  z-index: 1001 !important; }
-  .pageHeader .menu.globalHeader .headerContainer .responsive {
-    display: flex;
-    width: 100%; }
-  .pageHeader .menu.globalHeader .headerContainer .headerMenuItem {
-    margin-right: 0 !important; }
-    .pageHeader .menu.globalHeader .headerContainer .headerMenuItem .headerLogo {
-      cursor: pointer;
-      display: inline;
-      fill: #2185D0;
-      height: 36px;
-      line-height: 4;
-      margin-right: 12px;
-      vertical-align: middle;
-      width: 36px; }
-  .pageHeader .menu.globalHeader .headerContainer .sidebarItem .button {
-    margin-right: 18px; }
-  .pageHeader .menu.globalHeader .headerContainer .sidebarItem .icon {
-    cursor: pointer; }
-    .pageHeader .menu.globalHeader .headerContainer .sidebarItem .icon:hover {
-      color: #2185D0; }
-  .pageHeader .menu.globalHeader .headerContainer .fallaciesLink a {
-    color: #545454;
-    font-size: 15px !important;
-    font-weight: bold !important; }
-  .pageHeader .menu.globalHeader .headerContainer .signInLink {
-    text-align: right; }
-    .pageHeader .menu.globalHeader .headerContainer .signInLink .ui.grid.relaxed {
-      margin-right: -1.4rem; }
-      .pageHeader .menu.globalHeader .headerContainer .signInLink .ui.grid.relaxed .column:first-of-type {
-        padding-right: 1.4rem; }
-    .pageHeader .menu.globalHeader .headerContainer .signInLink a {
-      color: #545454;
-      font-size: 15px !important;
-      font-weight: bold !important;
-      line-height: 35.5px; }
-  .pageHeader .menu.globalHeader .headerContainer .dropDownMenu .menu.visible {
-    z-index: 1001; }
-
-.pageHeader .sidebar.menu {
-  padding-top: 135px; }
-  .pageHeader .sidebar.menu .fallacySidebarItem {
-    text-align: left; }
-  .pageHeader .sidebar.menu .sidebarSearchBtn {
-    margin-top: 8px; }
+.pageHeader .sidebar.ui.labeled.icon.menu .item {
+  background: #182532 !important;
+  color: #ffffff !important;
+  font-weight: bold !important;
+  line-height: 24px !important;
+  text-align: left !important; }
+  .pageHeader .sidebar.ui.labeled.icon.menu .item .icon {
+    color: #2185d0;
+    display: inline;
+    font-size: 24px !important;
+    padding-right: 16px;
+    vertical-align: middle; }

@@ -1,42 +1,24 @@
 /*---  Colors  ---*/
 /*---  Light Colors  ---*/
 /*---   Neutrals  ---*/
+/*--- Twitter ---*/
 /*---   Misc  ---*/
 /*---   Social colors  ---*/
 .tagsCard .header .editTagsIcon {
-  color: #2185D0;
   cursor: pointer;
-  display: none !important;
   float: right;
   font-size: 18px;
   margin-right: 0 !important; }
   .tagsCard .header .editTagsIcon.editing {
-    color: #FF695E; }
-
-.tagsCard .header:hover .editTagsIcon {
-  display: inline !important; }
+    color: #ff695e; }
 
 @media only screen and (max-width: 1025px) {
   .tagsCard .header {
     font-size: 20px !important; } }
 
-.tagsCard .tagsList .item .label {
+.tagsCard .ui.message {
+  background: #1c2a39 !important;
+  color: #ffffff; }
+
+.tagsCard .ui.label.large {
   cursor: pointer; }
-
-.tagsCard .tagsList .item .icon {
-  color: #FF695E !important;
-  display: none; }
-
-.tagsCard .tagsList .item:hover .icon {
-  cursor: pointer;
-  display: inline; }
-
-.ui.small.modal.tagsModal {
-  margin-top: 100px !important; }
-  .ui.small.modal.tagsModal .header {
-    padding: 10px 13px 0 13px; }
-  .ui.small.modal.tagsModal .content {
-    padding: 0.8em; }
-  .ui.small.modal.tagsModal .tagModalBtn {
-    float: right;
-    margin: 15px 0 0; }
