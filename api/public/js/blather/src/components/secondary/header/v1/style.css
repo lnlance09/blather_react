@@ -36,8 +36,8 @@
     background: #131d28 !important; }
   .pageHeader .topHeader img {
     cursor: pointer;
-    height: 54px;
-    width: 54px; }
+    height: 45px;
+    width: 45px; }
   .pageHeader .topHeader .grid .column input {
     line-height: 25px; }
   @media only screen and (max-width: 1025px) {
