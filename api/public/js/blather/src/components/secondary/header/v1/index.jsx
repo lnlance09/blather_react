@@ -114,7 +114,7 @@ const Header = ({ history, q, showResults }) => {
 					</Menu.Item>
 					<Menu.Item as="a" onClick={() => history.push("/fallacies")}>
 						<Icon name="book" size="small" />
-						Refernce
+						Reference
 					</Menu.Item>
 					{authenticated && (
 						<Menu.Item as="a" onClick={() => history.push(`/${user.username}`)}>

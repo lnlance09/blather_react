@@ -269,7 +269,7 @@ class Authentication extends Component {
 		) : (
 			<Provider store={store}>
 				<div className="authComponent">
-					<Header as="h1" inverted size="huge">
+					<Header as="h1" className="loginHeader" inverted size="massive">
 						{HeaderText(this.props)}
 					</Header>
 					<Segment inverted>
