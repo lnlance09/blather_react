@@ -1,7 +1,7 @@
 {
-  "main.css": "/static/css/main.0cd9876f.chunk.css",
-  "main.js": "/static/js/main.00b988a8.chunk.js",
-  "main.js.map": "/static/js/main.00b988a8.chunk.js.map",
+  "main.css": "/static/css/main.e7b1086c.chunk.css",
+  "main.js": "/static/js/main.3eaad2b4.chunk.js",
+  "main.js.map": "/static/js/main.3eaad2b4.chunk.js.map",
   "static/css/1.afd5d2df.chunk.css": "/static/css/1.afd5d2df.chunk.css",
   "static/js/1.60e85972.chunk.js": "/static/js/1.60e85972.chunk.js",
   "static/js/1.60e85972.chunk.js.map": "/static/js/1.60e85972.chunk.js.map",
@@ -9,13 +9,14 @@
   "runtime~main.js.map": "/static/js/runtime~main.229c360f.js.map",
   "static/media/trump-white.png": "/static/media/trump-white.b65f57d1.png",
   "static/media/steve.jpg": "/static/media/steve.1fa81202.jpg",
+  "static/media/brain-logo.svg": "/static/media/brain-logo.de846655.svg",
   "static/media/brain-fart.gif": "/static/media/brain-fart.d8a44fba.gif",
   "static/media/sound.mp3": "/static/media/sound.ec792557.mp3",
   "static/media/sound.ogg": "/static/media/sound.b8da6d65.ogg",
   "static/media/semantic.min.css": "/static/media/brand-icons.a1a749e8.svg",
   "static/css/1.afd5d2df.chunk.css.map": "/static/css/1.afd5d2df.chunk.css.map",
-  "static/css/main.0cd9876f.chunk.css.map": "/static/css/main.0cd9876f.chunk.css.map",
+  "static/css/main.e7b1086c.chunk.css.map": "/static/css/main.e7b1086c.chunk.css.map",
   "index.html": "/index.html",
-  "precache-manifest.ba9b0fe6c81ba29a600e40f7dc14094e.js": "/precache-manifest.ba9b0fe6c81ba29a600e40f7dc14094e.js",
+  "precache-manifest.ed02f94787405d3bd410d84291e70543.js": "/precache-manifest.ed02f94787405d3bd410d84291e70543.js",
   "service-worker.js": "/service-worker.js"
 }
