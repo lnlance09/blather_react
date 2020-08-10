@@ -124,6 +124,7 @@ class Target extends Component {
 					itemsPerRow={2}
 					network={props.page.network}
 					showPics={false}
+					size="large"
 					source="targets"
 				/>
 			</div>

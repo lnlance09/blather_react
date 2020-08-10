@@ -3,21 +3,13 @@
 .tagsCard {
 	.header {
     	.editTagsIcon {
-      		color: $blue;
       		cursor: pointer;
-      		display: none !important;
       		float: right;
       		font-size: 18px;
       		margin-right: 0 !important;
 
       		&.editing {
         		color: $lightRed;
-      		}
-    	}
-
-    	&:hover {
-      		.editTagsIcon {
-        		display: inline !important;
       		}
     	}
   	}
@@ -38,31 +30,6 @@
 	}
 
 	.icon {
-		color: $lightRed !important;
-		display: none;
+		
 	}
-
-	&:hover {
-		.icon {
-			cursor: pointer;
-			display: inline;
-		}
-	}
-}
-
-.ui.small.modal.tagsModal {
-	margin-top: 100px !important;
-
-  	.header {
-    	padding: 10px 13px 0 13px;
-  	}
-
-  	.content {
-    	padding: 0.8em;
-  	}
-
-  	.tagModalBtn {
-    	float: right;
-    	margin: 15px 0 0;
-  	}
 }

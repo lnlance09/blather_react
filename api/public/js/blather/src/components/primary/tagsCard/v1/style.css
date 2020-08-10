@@ -5,17 +5,12 @@
 /*---   Misc  ---*/
 /*---   Social colors  ---*/
 .tagsCard .header .editTagsIcon {
-  color: #2185d0;
   cursor: pointer;
-  display: none !important;
   float: right;
   font-size: 18px;
   margin-right: 0 !important; }
   .tagsCard .header .editTagsIcon.editing {
     color: #ff695e; }
-
-.tagsCard .header:hover .editTagsIcon {
-  display: inline !important; }
 
 @media only screen and (max-width: 1025px) {
   .tagsCard .header {
@@ -27,21 +22,3 @@
 
 .tagsCard .ui.label.large {
   cursor: pointer; }
-
-.tagsCard .icon {
-  color: #ff695e !important;
-  display: none; }
-
-.tagsCard:hover .icon {
-  cursor: pointer;
-  display: inline; }
-
-.ui.small.modal.tagsModal {
-  margin-top: 100px !important; }
-  .ui.small.modal.tagsModal .header {
-    padding: 10px 13px 0 13px; }
-  .ui.small.modal.tagsModal .content {
-    padding: 0.8em; }
-  .ui.small.modal.tagsModal .tagModalBtn {
-    float: right;
-    margin: 15px 0 0; }

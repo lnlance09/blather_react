@@ -8,7 +8,7 @@
   	}
 
   	.targetMsg {
-		background: $invertedBackgroundColor;
+		background: lighten($invertedBackgroundColor, 5%);
 		border: solid 1px $twitterExtraExtraLightGrey2;
 		color: $white;
 

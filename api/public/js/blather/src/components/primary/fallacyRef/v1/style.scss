@@ -1,7 +1,10 @@
 @import "../../../../css/colors.scss";
 
-.fallacySegment {
+.ui.inverted.fallacySegment {
+	background: lighten($invertedBackgroundColor, 3%) !important;
+
   	.header {
+		color: $lightGrey;
    		margin-bottom: 5px;
   	}
 

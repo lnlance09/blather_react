@@ -7,7 +7,13 @@ import request from "request"
 
 toast.configure(getConfig())
 
-export const changePassword = ({ bearer, confirmPassword, newPassword, password }) => dispatch => {
+export const changePassword = ({
+	bearer,
+	callback = () => null,
+	confirmPassword,
+	newPassword,
+	password
+}) => dispatch => {
 	request.post(
 		`${window.location.origin}/api/users/changePassword`,
 		{
@@ -22,6 +28,14 @@ export const changePassword = ({ bearer, confirmPassword, newPassword, password 
 			json: true
 		},
 		function(err, response, body) {
+			callback()
+
+			if (body.error) {
+				toast.error(body.error)
+			} else {
+				toast.success("Your password has been changed")
+			}
+
 			dispatch({
 				payload: body,
 				type: constants.CHANGE_PASSWORD
@@ -426,7 +440,7 @@ export const twitterRequestToken = ({ bearer, reset }) => dispatch => {
 	)
 }
 
-export const updateAbout = ({ bearer, bio }) => dispatch => {
+export const updateAbout = ({ bearer, bio, callback = () => null }) => dispatch => {
 	request.post(
 		`${window.location.origin}/api/users/update`,
 		{
@@ -451,6 +465,9 @@ export const updateAbout = ({ bearer, bio }) => dispatch => {
 					},
 					type: constants.UPDATE_ABOUT
 				})
+
+				toast.success("Edited!")
+				callback()
 			}
 		}
 	)

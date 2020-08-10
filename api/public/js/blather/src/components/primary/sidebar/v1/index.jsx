@@ -101,7 +101,7 @@ const Sidebar = ({ activeItem, basic, history, inverted, logout }) => {
 								onClick={() => history.push("/home")}
 							>
 								<Icon
-									color={activeItem === "home" ? "yellow" : null}
+									color={activeItem === "home" ? "blue" : null}
 									inverted={inverted}
 									name="home"
 								/>
@@ -113,7 +113,7 @@ const Sidebar = ({ activeItem, basic, history, inverted, logout }) => {
 								onClick={() => history.push("/assign")}
 							>
 								<Icon
-									color={activeItem === "addInteraction" ? "yellow" : null}
+									color={activeItem === "addInteraction" ? "blue" : null}
 									inverted={inverted}
 									name="plus"
 								/>
@@ -125,7 +125,7 @@ const Sidebar = ({ activeItem, basic, history, inverted, logout }) => {
 								onClick={() => history.push("/grifters")}
 							>
 								<Icon
-									color={activeItem === "interactions" ? "yellow" : null}
+									color={activeItem === "interactions" ? "blue" : null}
 									inverted={inverted}
 									name="user"
 								/>
@@ -137,7 +137,7 @@ const Sidebar = ({ activeItem, basic, history, inverted, logout }) => {
 								onClick={() => history.push("/tags")}
 							>
 								<Icon
-									color={activeItem === "tags" ? "yellow" : null}
+									color={activeItem === "tags" ? "blue" : null}
 									inverted={inverted}
 									name="tag"
 								/>
@@ -149,7 +149,7 @@ const Sidebar = ({ activeItem, basic, history, inverted, logout }) => {
 								onClick={() => history.push("/fallacies")}
 							>
 								<Icon
-									color={activeItem === "reference" ? "yellow" : null}
+									color={activeItem === "reference" ? "blue" : null}
 									inverted={inverted}
 									name="book"
 								/>
@@ -161,24 +161,26 @@ const Sidebar = ({ activeItem, basic, history, inverted, logout }) => {
 								onClick={() => history.push("/search")}
 							>
 								<Icon
-									color={activeItem === "search" ? "yellow" : null}
+									color={activeItem === "search" ? "blue" : null}
 									inverted={inverted}
 									name="search"
 								/>
 								Search
 							</Menu.Item>
+							{/*
 							<Menu.Item
 								active={activeItem === "notifications"}
 								className="headerMenuItem notifications"
 								onClick={() => history.push("/notifications")}
 							>
 								<Icon
-									color={activeItem === "notifications" ? "yellow" : null}
+									color={activeItem === "notifications" ? "blue" : null}
 									inverted={inverted}
 									name="bell"
 								/>
 								Notifications
 							</Menu.Item>
+							*/}
 							{LoginButton()}
 						</Fragment>
 					)}

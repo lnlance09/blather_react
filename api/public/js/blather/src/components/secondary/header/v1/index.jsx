@@ -9,7 +9,7 @@ import PropTypes from "prop-types"
 import React, { useEffect, useState } from "react"
 import store from "store"
 
-const Header = ({ history, logout, toggleSearchMode }) => {
+const Header = ({ history, q, showResults }) => {
 	const [authenticated, setAuthenticated] = useState(null)
 	const [sidebarVisible, setSidebarVisible] = useState(false)
 	const [user, setUser] = useState({})
@@ -39,7 +39,12 @@ const Header = ({ history, logout, toggleSearchMode }) => {
 								/>
 							</Grid.Column>
 							<Grid.Column className="inputColumn" width={12}>
-								<NavSearch history={history} width="100%" />
+								<NavSearch
+									defaultValue={q}
+									history={history}
+									showResults={showResults}
+									width="100%"
+								/>
 							</Grid.Column>
 						</Grid>
 					</Container>
@@ -95,9 +100,21 @@ const Header = ({ history, logout, toggleSearchMode }) => {
 						<Icon name="home" size="small" />
 						Home
 					</Menu.Item>
-					<Menu.Item as="a" onClick={() => toggleSearchMode()}>
-						<Icon name="search" size="small" />
-						Search
+					<Menu.Item as="a" onClick={() => history.push("/assign")}>
+						<Icon name="plus" size="small" />
+						Assign
+					</Menu.Item>
+					<Menu.Item as="a" onClick={() => history.push("/grifters")}>
+						<Icon name="user" size="small" />
+						Grifters
+					</Menu.Item>
+					<Menu.Item as="a" onClick={() => history.push("/tags")}>
+						<Icon name="tag" size="small" />
+						Tags
+					</Menu.Item>
+					<Menu.Item as="a" onClick={() => history.push("/fallacies")}>
+						<Icon name="book" size="small" />
+						Refernce
 					</Menu.Item>
 					{authenticated && (
 						<Menu.Item as="a" onClick={() => history.push(`/${user.username}`)}>
@@ -105,10 +122,6 @@ const Header = ({ history, logout, toggleSearchMode }) => {
 							Profile
 						</Menu.Item>
 					)}
-					<Menu.Item as="a" onClick={() => history.push("/interactions/create")}>
-						<Icon name="plus" size="small" />
-						Add an interaction
-					</Menu.Item>
 				</Sidebar>
 			</div>
 		</Provider>
@@ -117,11 +130,15 @@ const Header = ({ history, logout, toggleSearchMode }) => {
 
 Header.propTypes = {
 	logout: PropTypes.func,
+	q: PropTypes.string,
+	showResults: PropTypes.func,
 	toggleSearchMode: PropTypes.func
 }
 
 Header.defaultProps = {
-	logout
+	logout,
+	q: "",
+	showResults: true
 }
 
 const mapStateToProps = (state, ownProps) => ({

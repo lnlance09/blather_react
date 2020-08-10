@@ -117,14 +117,15 @@ class SettingsPage extends Component {
 		}
 	}
 
-	setPassword = e => {
-		e.preventDefault()
-		this.setState({ loading: true })
-		this.props.changePassword({
-			bearer: this.props.bearer,
-			confirmPassword: this.state.confirmPassword,
-			newPassword: this.state.newPassword,
-			password: this.state.password
+	setPassword = () => {
+		this.setState({ loading: true }, () => {
+			this.props.changePassword({
+				bearer: this.props.bearer,
+				callback: () => this.setState({ loading: false }),
+				confirmPassword: this.state.confirmPassword,
+				newPassword: this.state.newPassword,
+				password: this.state.password
+			})
 		})
 	}
 
@@ -153,17 +154,7 @@ class SettingsPage extends Component {
 							<Moment date={joinDate} fromNow interval={60000} />
 						</p>
 						<Header inverted>Change Password</Header>
-						<Form
-							error={this.props.passwordError}
-							loading={
-								loading &&
-								!this.props.passwordChangeSuccessful &&
-								!this.props.passwordError
-							}
-							onSubmit={this.setPassword}
-							size="big"
-							success={this.props.passwordChangeSuccessful}
-						>
+						<Form inverted onSubmit={this.setPassword} size="large">
 							<Form.Field>
 								<Input
 									onChange={this.onChangePassword}
@@ -188,12 +179,7 @@ class SettingsPage extends Component {
 									value={confirmPassword}
 								/>
 							</Form.Field>
-							<Message error content={this.props.passwordErrorMsg} />
-							<Message
-								content="Your password has been successfully changed"
-								success
-							/>
-							<Button color="blue" fluid size="big" type="submit">
+							<Button color="blue" fluid loading={loading} size="big" type="submit">
 								Submit
 							</Button>
 						</Form>
@@ -255,21 +241,20 @@ class SettingsPage extends Component {
 					<div>
 						{data.linkedTwitter ? (
 							<div>
-								<p className="firstParagraph">
-									<Icon name="clock" /> You linked your Twitter account{" "}
+								<Header as="p" inverted size="small">
+									You linked your Twitter account{" "}
 									<Moment
 										date={adjustTimezone(data.twitterDate)}
 										fromNow
 										interval={60000}
 									/>
-								</p>
+								</Header>
 								<div className="contentWrapper">
 									<Button
-										as="a"
 										color="twitter"
 										fluid
 										onClick={e => this.props.removeTwitter(bearer)}
-										size="big"
+										size="large"
 									>
 										<Icon name="twitter" /> Remove access
 									</Button>
@@ -359,22 +344,6 @@ class SettingsPage extends Component {
 					onClick={this.handleItemClick}
 				>
 					<Icon className="twitterIcon" name="twitter" /> Twitter
-				</Menu.Item>
-				<Menu.Item
-					active={activeItem === "youtube"}
-					key="youtube"
-					name="youtube"
-					onClick={this.handleItemClick}
-				>
-					<Icon className="youtubeIcon" name="youtube" /> YouTube
-				</Menu.Item>
-				<Menu.Item
-					active={activeItem === "patreon"}
-					key="patreon"
-					name="patreon"
-					onClick={this.handleItemClick}
-				>
-					<Icon className="patreonIcon" name="patreon" /> Patreon
 				</Menu.Item>
 			</Menu>
 		)

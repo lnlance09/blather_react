@@ -2,7 +2,7 @@ import "./style.css"
 import { removeFallacyTag, updateFallacy } from "redux/actions/fallacy"
 import { removeDiscussionTag, updateDiscussion } from "redux/actions/discussion"
 import { connect, Provider } from "react-redux"
-import { Button, Dropdown, Header, Icon, Label, Message, Modal } from "semantic-ui-react"
+import { Button, Divider, Dropdown, Form, Header, Icon, Label, Message } from "semantic-ui-react"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import store from "store"
@@ -16,7 +16,8 @@ class TagsCard extends Component {
 			editing: false,
 			open: false,
 			options: [],
-			tags: null
+			tags: null,
+			tagsLoaded: false
 		}
 	}
 
@@ -24,17 +25,17 @@ class TagsCard extends Component {
 		this.fetchTags()
 	}
 
-	closeModal = () => this.setState({ open: false })
-
 	deleteTag = (id, name) => {
 		if (this.props.type === "fallacy") {
 			this.props.removeFallacyTag({
 				bearer: this.props.bearer,
+				callback: () => this.setState({ open: false }),
 				id: this.props.id,
 				tagId: id,
 				tagName: name
 			})
 		}
+
 		if (this.props.type === "discussion") {
 			this.props.removeDiscussionTag({
 				bearer: this.props.bearer,
@@ -54,7 +55,12 @@ class TagsCard extends Component {
 			.then(response => {
 				if (response.ok) {
 					response.json().then(data => {
-						this.setState({ options: data.tags })
+						this.setState({ options: data.tags }, async () => {
+							const defaultTags = await this.props.tags.map(t => t.name.trim())
+							this.setState({ tags: defaultTags }, () => {
+								this.setState({ tagsLoaded: true })
+							})
+						})
 					})
 				}
 			})
@@ -89,61 +95,32 @@ class TagsCard extends Component {
 	}
 
 	render() {
-		let { open, options, tags } = this.state
-
-		const TagsModal = (
-			<Modal
-				basic
-				centered={false}
-				className="tagsModal"
-				onClose={this.closeModal}
-				open={open}
-				size="small"
-			>
-				<Modal.Header>Add tags</Modal.Header>
-				<Modal.Content>
-					<Modal.Description>
-						<Dropdown
-							allowAdditions
-							closeOnChange
-							fluid
-							multiple
-							onAddItem={this.handleAddition}
-							onChange={this.handleChange}
-							options={options}
-							placeholder="Tags"
-							search
-							selection
-							value={tags}
-						/>
-						<Button
-							className="tagModalBtn"
-							content="Add"
-							onClick={this.updateTags}
-							primary
-						/>
-						<div className="clearfix" />
-					</Modal.Description>
-				</Modal.Content>
-			</Modal>
-		)
+		let { open, options, tags, tagsLoaded } = this.state
 
 		const RenderTags = this.props.tags.map(tag => (
-			<Label onClick={() => this.props.history.push(`/tags/${tag.id.trim()}`)} size="large">
+			<Label
+				onClick={() => {
+					if (!open) {
+						this.props.history.push(`/tags/${tag.id.trim()}`)
+					}
+				}}
+				size="large"
+			>
 				{tag.name.trim()}
-				{this.props.canEdit && (
-					<Icon name="close" onClick={() => this.deleteTag(tag.id, tag.name)} />
+				{this.props.canEdit && open && (
+					<Icon
+						inverted
+						name="close"
+						onClick={() => this.deleteTag(tag.id, tag.name)}
+						size="large"
+					/>
 				)}
 			</Label>
 		))
 
 		const ShowTags = props => {
 			if (props.tags.length > 0) {
-				return (
-					<Label.Group color="yellow" tag>
-						{RenderTags}
-					</Label.Group>
-				)
+				return <Label.Group color="yellow">{RenderTags}</Label.Group>
 			}
 			return <Message content="No tags have been added" inverted size="big" />
 		}
@@ -151,18 +128,49 @@ class TagsCard extends Component {
 		return (
 			<Provider store={store}>
 				<div className="tagsCard">
-					<Header as="h2" inverted size="big">
+					<Header as="h2" inverted size="large">
 						Tags
 						{this.props.canEdit && (
 							<Icon
 								className="editTagsIcon"
-								name="pencil"
-								onClick={() => this.setState({ open: true })}
+								color={open ? "red" : "blue"}
+								inverted
+								name={open ? "close" : "pencil"}
+								onClick={() => this.setState({ open: !open })}
 							/>
 						)}
 					</Header>
 					{ShowTags(this.props)}
-					<div>{TagsModal}</div>
+					{open && tagsLoaded && (
+						<div>
+							<Divider hidden />
+							<Form size="large">
+								<Form.Field>
+									<Dropdown
+										allowAdditions
+										closeOnChange
+										fluid
+										multiple
+										onAddItem={this.handleAddition}
+										onChange={this.handleChange}
+										options={options}
+										placeholder="Tags"
+										search
+										selection
+										value={tags}
+									/>
+								</Form.Field>
+								<Button
+									className="tagModalBtn"
+									content="Add"
+									fluid
+									onClick={this.updateTags}
+									primary
+									size="big"
+								/>
+							</Form>
+						</div>
+					)}
 				</div>
 			</Provider>
 		)

@@ -73,12 +73,16 @@ class NavSearch extends Component {
 	}
 
 	handleSearchChange = (e, { value }) => {
-		const self = this
-		this.setState({ isLoading: value.length > 3, value }, () => {
-			setTimeout(() => {
-				self.fetchResults()
-			}, 500)
-		})
+		if (this.props.showResults) {
+			const self = this
+			this.setState({ isLoading: value.length > 3, value }, () => {
+				setTimeout(() => {
+					self.fetchResults()
+				}, 500)
+			})
+		} else {
+			this.setState({ value })
+		}
 	}
 
 	handleSubmit = e => {
@@ -138,6 +142,7 @@ class NavSearch extends Component {
 				placeholder={props.placeholder}
 				results={results}
 				resultRenderer={resultRenderer}
+				showNoResults={this.props.showResults}
 				size="big"
 			/>
 		)
@@ -162,6 +167,7 @@ NavSearch.propTypes = {
 	onChangeAssignee: PropTypes.func,
 	placeholder: PropTypes.string,
 	selectAssignee: PropTypes.func,
+	showResults: PropTypes.func,
 	source: PropTypes.string,
 	width: PropTypes.string
 }
@@ -170,6 +176,7 @@ NavSearch.defaultProps = {
 	category: true,
 	disabled: false,
 	placeholder: "Search",
+	showResults: true,
 	source: "header",
 	width: "420px"
 }

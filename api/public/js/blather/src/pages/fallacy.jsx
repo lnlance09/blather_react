@@ -507,16 +507,20 @@ class Fallacy extends Component {
 									<Button circular color="blue" icon="mail" size="big" />
 								</EmailShareButton>
 							</List.Item>
-							<List.Item>
-								<Button
-									circular
-									color="olive"
-									icon="image"
-									loading={downloading}
-									onClick={this.captureScreenshot}
-									size="big"
-								/>
-							</List.Item>
+							{this.props.canScreenshot && (
+								<List.Item>
+									<Button
+										circular
+										className="screenshotButton"
+										color="olive"
+										icon="camera"
+										loading={downloading}
+										onClick={this.captureScreenshot}
+										size="big"
+										style={{ verticalAlign: "none" }}
+									/>
+								</List.Item>
+							)}
 						</List>
 					) : (
 						<LazyLoad header={false} />

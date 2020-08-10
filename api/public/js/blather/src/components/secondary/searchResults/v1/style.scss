@@ -13,9 +13,12 @@
     	background: $dimmer-background !important;
   	}
 
-  	.resultsSegment,
-  	.emptyMsg {
+  	.resultsSegment {
     	margin-top: 14px !important;
+	}
+
+	.emptyMsg {
+		margin: 0 14px 14px 0 !important;
 	}
 
 	.linkAccountMsg {

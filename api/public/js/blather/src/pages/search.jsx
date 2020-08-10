@@ -193,6 +193,8 @@ class SearchPage extends Component {
 						activeItem="search"
 						containerClassName="searchPage"
 						history={this.props.history}
+						q={q}
+						showResults={false}
 					>
 						<Responsive maxWidth={1024}>
 							<Grid>

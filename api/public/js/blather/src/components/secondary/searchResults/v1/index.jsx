@@ -136,10 +136,6 @@ class SearchResults extends Component {
 				case "profiles":
 					return {
 						description: result.about,
-						extra: {
-							count: result.like_count,
-							term: "follower"
-						},
 						img: result.profile_pic,
 						meta: `@${result.username}`,
 						tags: [],
@@ -300,7 +296,6 @@ class SearchResults extends Component {
 					)
 				}
 
-				console.log("result", result)
 				if (
 					result.id ||
 					result.video_id ||
@@ -341,17 +336,16 @@ class SearchResults extends Component {
 					{LinkAccountMsg(this.props)}
 					<Container className="searchContentContainer">
 						<Visibility continuous onBottomVisible={this.loadMore}>
-							{this.props.count === 0 && !this.props.loading && (
-								<Message
-									className="emptyMsg"
-									content="Try modifying your search"
-									header="No results..."
-									icon="search"
-									warning
-								/>
-							)}
-
 							<Segment className="resultsSegment">
+								{this.props.count === 0 && !this.props.loading && (
+									<Message
+										className="emptyMsg"
+										content="Try modifying your search"
+										header="No results..."
+										icon="search"
+										warning
+									/>
+								)}
 								{ResultItems(this.props)}
 								{LazyLoadMore(this.props)}
 							</Segment>

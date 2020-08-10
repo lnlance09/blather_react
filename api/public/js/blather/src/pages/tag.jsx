@@ -250,6 +250,7 @@ class Tag extends Component {
 							history={props.history}
 							icon="warning sign"
 							itemsPerRow={2}
+							size="large"
 							source="tag"
 							tagId={props.id}
 						/>
@@ -344,7 +345,7 @@ class Tag extends Component {
 						onClick={() => this.setVersion(edit)}
 					>
 						<Image
-							size="mini"
+							avatar
 							onError={i => (i.target.src = ImagePic)}
 							src={edit.user_img}
 						/>
@@ -371,7 +372,7 @@ class Tag extends Component {
 					onChange={this.onChangeRelatedSearchVal}
 					placeholder="Search..."
 					value={relatedSearchVal}
-					size="big"
+					size="large"
 				/>
 				<Card.Group className="tagsList" itemsPerRow={2} stackable>
 					{RenderTags(props)}
@@ -492,7 +493,12 @@ class Tag extends Component {
 												)}
 
 												{activeItem === "history" && (
-													<List divided inverted relaxed="very">
+													<List
+														divided
+														inverted
+														relaxed="very"
+														size="large"
+													>
 														{HistorySection(this.props)}
 													</List>
 												)}

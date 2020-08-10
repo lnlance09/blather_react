@@ -43,6 +43,7 @@
         color: #fbbd08; }
   .resultItem .content .description {
     color: #ffffff !important;
+    margin-bottom: 12px !important;
     white-space: pre-line;
     word-break: break-word; }
     .resultItem .content .description span {

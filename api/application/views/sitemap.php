@@ -34,6 +34,18 @@
 		<priority>0.9</priority>
 	</url>
 
+	<url>
+		<loc><?php echo $base_url.'grifters'; ?></loc>
+		<changefreq>daily</changefreq>
+		<priority>0.9</priority>
+	</url>
+
+	<url>
+		<loc><?php echo $base_url.'tags'; ?></loc>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+
 
 <?php
 	// Fallacy types
@@ -44,7 +56,7 @@
 	<url>
 		<loc><?php echo $base_url.'fallacies/'.$name; ?></loc>
 		<changefreq>daily</changefreq>
-		<priority>0.9</priority>
+		<priority>0.7</priority>
 	</url>
 <?php
 	}

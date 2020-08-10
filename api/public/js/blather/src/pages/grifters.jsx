@@ -1,6 +1,6 @@
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { connect, Provider } from "react-redux"
-import { Divider, Message } from "semantic-ui-react"
+import { Divider, Header, Message } from "semantic-ui-react"
 import { DebounceInput } from "react-debounce-input"
 import DefaultLayout from "layouts"
 import PropTypes from "prop-types"
@@ -30,6 +30,9 @@ const Grifters = ({ history }) => {
 					containerClassName="griftersPage"
 					history={history}
 				>
+					<Header as="h1" inverted>
+						Grifters
+					</Header>
 					<div className={`ui icon input fluid big inverted`}>
 						<DebounceInput
 							autoCapitalize="none"

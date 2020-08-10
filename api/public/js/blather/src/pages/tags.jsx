@@ -1,6 +1,7 @@
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { connect, Provider } from "react-redux"
 import { DebounceInput } from "react-debounce-input"
+import { Header } from "semantic-ui-react"
 import DefaultLayout from "layouts"
 import PropTypes from "prop-types"
 import React, { useEffect, useState } from "react"
@@ -25,6 +26,10 @@ const Tags = ({ history }) => {
 				<DisplayMetaTags page="tags" />
 
 				<DefaultLayout activeItem="tags" containerClassName="tagsPage" history={history}>
+					<Header as="h1" inverted>
+						Tags
+					</Header>
+
 					<div className={`ui icon input fluid big inverted`}>
 						<DebounceInput
 							autoCapitalize="none"

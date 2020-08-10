@@ -48,8 +48,8 @@
 			background: $invertedBackgroundColor !important;
 			border: none !important;
 			color: $white;
-			font-size: 18px !important;
-			padding: 16px 21px !important;
+			font-size: 15px !important;
+			padding: 13px 18px !important;
 
 			&:hover {
 				background: darken($invertedBackgroundColor, 1%);
@@ -194,6 +194,7 @@ body {
 
 .ui.vertical.menu {
 	.item {
+		background: $invertedBackgroundColor !important;
 		font-weight: normal !important;
 
 		&.active {
@@ -210,10 +211,10 @@ body {
 
 .search.selection.dropdown {
 	.ui.label {
-		background: $blue;
+		background: $yellow;
 		border: none !important;
 		box-shadow: none !important;
-		color: $white;
+		color: $white !important;
 		padding: 6px 12px;
 	}
 }
@@ -636,8 +637,11 @@ a {
 	}
 
 	.shareContent {
-		line-height: 0;
 		width: 100%;
+		
+		.screenshotButton {
+			vertical-align: baseline !important;
+		}
 	}
 
 	.fallacyContent {
@@ -991,6 +995,18 @@ a {
 			}
 		}
 	}
+
+	.ui.form .field.field {
+		input:-webkit-autofill, input::selection, input:active:-webkit-autofill, input:focus:-webkit-autofill {
+			background: $invertedBackgroundColor !important;
+			background-color: $invertedBackgroundColor !important;
+			border: solid 1px $twitterExtraExtraLightGrey2 !important;
+			box-shadow: none !important;
+			outline: none !important;
+			-webkit-box-shadow: 0 0 0 50px $invertedBackgroundColor inset !important;
+			-webkit-text-fill-color: $white !important;
+		}
+	}
 }
 
 /* Signin page */
@@ -1186,6 +1202,13 @@ a {
 		p {
 			margin-top: 15px;
 		}
+
+		.header.settingsHeader {
+			color: $lightGrey;
+			margin-top: 15px !important;
+			vertical-align: middle;
+
+		}
 	}
 
 	@media only screen and (max-width: 1025px) {
@@ -1254,7 +1277,7 @@ a {
 }
 
 .signInPageHeader {
-	background: darken($invertedBackgroundColor, 1%);
+	background: $invertedBackgroundColor;
 	margin: 0 !important;
 	padding: 10px;
 	width: 100%;

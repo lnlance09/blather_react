@@ -142,7 +142,6 @@ class ArchivesList extends Component {
 					let meta = (
 						<div>
 							<p>
-								<Icon className={`${archive.network}Icon`} name={archive.network} />{" "}
 								<Moment date={adjustTimezone(archive.date_created)} fromNow />
 							</p>
 						</div>
@@ -175,7 +174,7 @@ class ArchivesList extends Component {
 		return (
 			<div className="archivesList">
 				<Visibility className="archiveWrapper" continuous onBottomVisible={this.loadMore}>
-					<Form inverted size="big">
+					<Form inverted size="large">
 						<Form.Group widths="equal">
 							<Form.Field>
 								<div className="ui icon input">

@@ -2,7 +2,18 @@ import { changeProfilePic, updateAbout } from "components/secondary/authenticati
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { fetchUserData, reset } from "redux/actions/user"
 import { Provider, connect } from "react-redux"
-import { Button, Dimmer, Grid, Header, Icon, Image, Menu, Placeholder } from "semantic-ui-react"
+import {
+	Button,
+	Dimmer,
+	Form,
+	Grid,
+	Header,
+	Icon,
+	Image,
+	Menu,
+	Placeholder,
+	TextArea
+} from "semantic-ui-react"
 import defaultImg from "images/avatar/large/steve.jpg"
 import DefaultLayout from "layouts"
 import ArchivesList from "components/secondary/lists/archivesList/v1/"
@@ -115,15 +126,18 @@ class UserPage extends Component {
 	reloadAbout = () => this.setState({ reaload: !this.state.reload })
 
 	updateAbout = () => {
-		this.setState({ editing: false })
 		this.props.updateAbout({
 			bearer: this.state.bearer,
-			bio: this.state.about
+			bio: this.state.about,
+			callback: () =>
+				this.setState({
+					editing: false
+				})
 		})
 	}
 
 	render() {
-		const { active, activeItem, id, inverted, isMyProfile } = this.state
+		const { about, active, activeItem, editing, id, inverted, isMyProfile } = this.state
 		const { data, user } = this.props
 
 		let pic = !user.img ? defaultImg : user.img
@@ -194,6 +208,7 @@ class UserPage extends Component {
 								icon="warning sign"
 								itemsPerRow={2}
 								name={props.user.name}
+								size="large"
 								source="users"
 							/>
 						)
@@ -229,11 +244,87 @@ class UserPage extends Component {
 									</Grid.Column>
 									<Grid.Column textAlign="left" width={12}>
 										<div className="userHeaderSection">
-											<TitleHeader
-												subheader={<div>@{user.username}</div>}
-												textAlign="left"
-												title={user.name}
-											/>
+											{this.props.user.id && (
+												<Fragment>
+													<TitleHeader
+														subheader={
+															<div>
+																@{user.username}{" "}
+																{isMyProfile && (
+																	<Button
+																		compact
+																		color={
+																			editing ? "red" : "blue"
+																		}
+																		content={
+																			editing
+																				? "Cancel"
+																				: "Edit"
+																		}
+																		onClick={() =>
+																			this.setState({
+																				editing: !editing
+																			})
+																		}
+																		size="mini"
+																		style={{
+																			marginLeft: "6px"
+																		}}
+																	/>
+																)}{" "}
+															</div>
+														}
+														textAlign="left"
+														title={
+															<div>
+																{user.name}{" "}
+																{isMyProfile && (
+																	<Icon
+																		inverted
+																		name="setting"
+																		onClick={() =>
+																			this.props.history.push(
+																				"/settings"
+																			)
+																		}
+																		style={{
+																			cursor: "pointer",
+																			float: "right"
+																		}}
+																	/>
+																)}
+															</div>
+														}
+													/>
+													{isMyProfile && editing ? (
+														<Form
+															inverted
+															style={{ marginTop: "15px" }}
+														>
+															<TextArea
+																onChange={(e, { value }) =>
+																	this.setState({
+																		about: value
+																	})
+																}
+																placeholder="Write something about yourself"
+																value={about}
+															/>
+															<Button
+																color="blue"
+																content="Edit"
+																fluid
+																onClick={() => this.updateAbout()}
+																style={{ marginTop: "10px" }}
+															/>
+														</Form>
+													) : (
+														<Header as="p" inverted size="small">
+															{about}
+														</Header>
+													)}
+												</Fragment>
+											)}
 										</div>
 									</Grid.Column>
 								</Grid>
@@ -271,7 +362,7 @@ class UserPage extends Component {
 									size="medium"
 									src={TrumpImg}
 								/>
-								<Header inverted size="medium">
+								<Header inverted size="large" textAlign="center">
 									This user does not exist!
 								</Header>
 							</Fragment>
@@ -288,6 +379,7 @@ UserPage.propTypes = {
 	error: PropTypes.bool,
 	fetchUserData: PropTypes.func,
 	reset: PropTypes.func,
+	updateAbout: PropTypes.func,
 	user: PropTypes.shape({
 		archiveCount: PropTypes.number,
 		bio: PropTypes.string,
@@ -309,6 +401,7 @@ UserPage.defaultProps = {
 	changeProfilePic,
 	fetchUserData,
 	reset,
+	updateAbout,
 	user: {}
 }
 

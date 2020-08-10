@@ -4,23 +4,21 @@
 /*--- Twitter ---*/
 /*---   Misc  ---*/
 /*---   Social colors  ---*/
-.fallacySegment .header {
-  margin-bottom: 5px; }
-
-.fallacySegment p:not(.header):not(:last-of-type) {
-  margin-bottom: 12px !important; }
-
-.fallacySegment .captureScreenshot {
-  cursor: pointer; }
-
-.fallacySegment.click {
-  cursor: pointer; }
-
-.fallacySegment .comments .comment .content .author, .fallacySegment .comments .comment .content .text {
-  color: #ffffff !important; }
-
-@media only screen and (max-width: 1025px) {
-  .fallacySegment .header {
-    font-size: 18px !important; }
-  .fallacySegment .captureScreenshot {
-    display: none !important; } }
+.ui.inverted.fallacySegment {
+  background: #1a2835 !important; }
+  .ui.inverted.fallacySegment .header {
+    color: #dcddde;
+    margin-bottom: 5px; }
+  .ui.inverted.fallacySegment p:not(.header):not(:last-of-type) {
+    margin-bottom: 12px !important; }
+  .ui.inverted.fallacySegment .captureScreenshot {
+    cursor: pointer; }
+  .ui.inverted.fallacySegment.click {
+    cursor: pointer; }
+  .ui.inverted.fallacySegment .comments .comment .content .author, .ui.inverted.fallacySegment .comments .comment .content .text {
+    color: #ffffff !important; }
+  @media only screen and (max-width: 1025px) {
+    .ui.inverted.fallacySegment .header {
+      font-size: 18px !important; }
+    .ui.inverted.fallacySegment .captureScreenshot {
+      display: none !important; } }

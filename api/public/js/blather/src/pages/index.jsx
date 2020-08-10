@@ -227,6 +227,7 @@ class Page extends Component {
 							network={network}
 							setFallacyId={this.setFallacyId}
 							showPics={false}
+							size="large"
 							source="pages"
 						/>
 					)
@@ -360,7 +361,9 @@ class Page extends Component {
 									size="medium"
 									src={TrumpImg}
 								/>
-								<Header size="medium">This page does not exist!</Header>
+								<Header inverted size="large" textAlign="center">
+									This page does not exist!
+								</Header>
 							</Fragment>
 						)}
 					</DefaultLayout>

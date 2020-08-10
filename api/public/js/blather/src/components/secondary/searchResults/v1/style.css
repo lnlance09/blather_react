@@ -12,9 +12,11 @@
 .searchResults .ui.active.transition.visible.dimmer {
   background: rgba(21, 32, 43, 0.96) !important; }
 
-.searchResults .resultsSegment,
-.searchResults .emptyMsg {
+.searchResults .resultsSegment {
   margin-top: 14px !important; }
+
+.searchResults .emptyMsg {
+  margin: 0 14px 14px 0 !important; }
 
 .searchResults .linkAccountMsg {
   background: #1a2835 !important;

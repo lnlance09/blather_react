@@ -110,7 +110,13 @@ export const fetchFallacy = ({ bearer, id }) => dispatch => {
 	)
 }
 
-export const removeFallacyTag = ({ bearer, id, tagId, tagName }) => dispatch => {
+export const removeFallacyTag = ({
+	bearer,
+	callback = () => null,
+	id,
+	tagId,
+	tagName
+}) => dispatch => {
 	request.post(
 		`${window.location.origin}/api/fallacies/removeTag`,
 		{
@@ -124,6 +130,11 @@ export const removeFallacyTag = ({ bearer, id, tagId, tagName }) => dispatch => 
 			json: true
 		},
 		function(err, response, body) {
+			if (!body.error) {
+				toast.success("Updated")
+				callback()
+			}
+
 			dispatch({
 				payload: {
 					id: tagId,

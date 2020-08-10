@@ -396,6 +396,7 @@ class FallaciesModel extends CI_Model {
 
 	public function getComments($id, $user_id = null, $page = null, $just_count = false) {
 		$select = "f.id, f.created_at, f.message, f.user_id, CONCAT('".S3_PATH."', u.img) AS img, u.name, u.username, likeCount,
+		".($user_id !== null ? "likedByMe, " : "")." 
 		CONCAT('[',
 			GROUP_CONCAT(
 				DISTINCT JSON_OBJECT(
@@ -403,7 +404,7 @@ class FallaciesModel extends CI_Model {
 					'created_at', fr.created_at,
 					'img', CONCAT('".S3_PATH."', fru.img),
 					'likeCount', responseLikeCount,
-					'likedByMe', responseLikedByMe,
+					".($user_id !== null ? "'likedByMe', responseLikedByMe, " : "")." 
 					'message', fr.message,
 					'name', fru.name,
 					'user_id', fr.user_id,
@@ -459,9 +460,15 @@ class FallaciesModel extends CI_Model {
 		for ($i=0;$i<count($results);$i++) {
 			$responses = $results[$i]['responses'];
 			$results[$i]['responses'] = @json_decode($responses, true);
-			usort($results[$i]['responses'], function($a, $b) {
-				return $a['created_at'] <=> $b['created_at'];
-			});
+	
+			if ($results[$i]['responses'][0]['id'] === null) {
+				$results[$i]['responses'] = null;
+			} else {
+				
+				usort($results[$i]['responses'], function($a, $b) {
+					return $a['created_at'] <=> $b['created_at'];
+				});
+			}
 		}
 
 		return $results;

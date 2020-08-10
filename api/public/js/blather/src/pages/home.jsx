@@ -185,6 +185,7 @@ class Home extends Component {
 									objectId={mediaId}
 									pageInfo={page}
 									sendNotification={this.props.sendNotification}
+									size="large"
 									startTime={startTime}
 									type={type}
 									user={user}
