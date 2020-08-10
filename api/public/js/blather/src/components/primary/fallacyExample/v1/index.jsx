@@ -332,10 +332,14 @@ class FallacyExample extends Component {
 							<Image
 								avatar
 								onClick={() =>
-									this.props.history.push(`/${this.props.user.username}`)
+									this.props.history.push(`/${this.props.creator.username}`)
 								}
 								onError={i => (i.target.src = UserPic)}
-								src={this.props.user.img === null ? UserPic : this.props.user.img}
+								src={
+									this.props.creator.img === null
+										? UserPic
+										: this.props.creator.img
+								}
 							/>
 							<Header.Content>
 								<a
@@ -343,11 +347,11 @@ class FallacyExample extends Component {
 									href="#"
 									onClick={() =>
 										this.props.history.push(
-											`/users/${this.props.user.username}`
+											`/users/${this.props.creator.username}`
 										)
 									}
 								>
-									{this.props.user.name}
+									{this.props.creator.name}
 								</a>
 								<Header.Subheader>
 									Created <Moment date={this.props.updatedAt} fromNow />
@@ -630,6 +634,11 @@ class FallacyExample extends Component {
 FallacyExample.propTypes = {
 	bearer: PropTypes.string,
 	canEdit: PropTypes.bool,
+	creator: PropTypes.shape({
+		img: PropTypes.string,
+		name: PropTypes.string,
+		username: PropTypes.string
+	}),
 	downloading: PropTypes.bool,
 	editExplanation: PropTypes.func,
 	exportOpt: PropTypes.string,
@@ -638,11 +647,6 @@ FallacyExample.propTypes = {
 	showExplanation: PropTypes.bool,
 	showMaterial: PropTypes.bool,
 	updatedAt: PropTypes.string,
-	user: PropTypes.shape({
-		img: PropTypes.string,
-		name: PropTypes.string,
-		username: PropTypes.string
-	}),
 	width: PropTypes.string
 }
 
