@@ -96,7 +96,7 @@ const Header = ({ history, q, showResults }) => {
 					vertical
 					visible={sidebarVisible}
 				>
-					<Menu.Item as="a" onClick={() => history.push("/")}>
+					<Menu.Item as="a" onClick={() => history.push("/activity")}>
 						<Icon name="home" size="small" />
 						Home
 					</Menu.Item>
