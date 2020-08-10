@@ -7,18 +7,20 @@ import TrumpImg from "images/trump-white.png"
 class NotFound extends Component {
 	render() {
 		return (
-			<div className="404Page">
-				<DisplayMetaTags page="notFound" props={this.props} state={this.state} />
+			<div className="notFoundPage">
+				<DisplayMetaTags page="notFound" />
 
 				<DefaultLayout
 					activeItem=""
 					containerClassName="notFoundPage"
 					history={this.props.history}
 				>
-					<Image centered className="trumpImg404" size="medium" src={TrumpImg} />
-					<Header inverted size="large">
-						This page does not exist!
-					</Header>
+					<Container textAlign="center">
+						<Image centered className="trumpImg404" size="medium" src={TrumpImg} />
+						<Header inverted size="large">
+							This page does not exist!
+						</Header>
+					</Container>
 				</DefaultLayout>
 			</div>
 		)

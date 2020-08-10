@@ -157,7 +157,7 @@ body {
 		color: $white !important;
 	}
 
-	&.large {
+	&.large, &.big {
 		.header.formHeader, .retractionHeader {
 			font-size: 1.71428571em !important;
 		}
@@ -548,6 +548,13 @@ a {
 .fallaciesPage {
 	padding: 18px 0;
 
+	.ui.container.fallaciesContainer {
+		@media only screen and (max-width: 1025px) {
+			margin-left: 0 !important;
+			margin-right: 0 !important;
+		}
+	}
+
 	.segments {
 		.fallacySegment {
 			border-bottom: none !important;
@@ -568,6 +575,7 @@ a {
 	}
 
 	.materialWrapper {
+		margin-top: 15px;
 		width: 100%;
 	}
 
@@ -578,10 +586,6 @@ a {
 
 	.divider.seperator {
 		margin: 1rem 0 !important;
-	}
-
-	.callToSignUp {
-		margin-top: 10px;
 	}
 
 	.shareList {
@@ -777,6 +781,11 @@ a {
 	}
 }
 
+/* 404 page */
+.notFoundPage {
+	padding: 18px 0;
+}
+
 /* Notifications page */
 .notificationsPage {
 	padding: 18px 0;
@@ -807,14 +816,10 @@ a {
 	}
 
 	.imgContainer {
-		.segment.circular {
-			display: inline-block;
-			padding: 0;
-
-			.image.profilePic {
-				height: 185px;
-				width: 185px;
-			}
+		.image.profilePic {
+			height: 185px;
+			margin-bottom: 18px;
+			width: 185px;
 		}
 	}
 
@@ -834,7 +839,8 @@ a {
 
 	.ui.container.profileContentContainer {
 		margin-top: 16px !important;
-		padding: 0 !important;
+		margin-left: 0 !important;
+		margin-right: 0 !important;
 		width: 100% !important;
 
 		.dimmer {
@@ -850,6 +856,8 @@ a {
 		}
 
 		@media only screen and (max-width: 1025px) {
+			padding: 8px 10px !important;
+
 			.signInPlaceholder {
 				height: 250px;
 			}
@@ -869,13 +877,9 @@ a {
 		margin: 20px 0;
 	}
 
-	.placeholderContainer {
-		text-align: center;
-	}
-
 	.screenshotMsg {
-		background: $invertedBackgroundColor;
-		border: solid 1px $twitterExtraExtraLightGrey1;
+		background: lighten($invertedBackgroundColor, 2%) !important;
+		border: solid 1px $twitterExtraExtraLightGrey1 !important;
 		color: $white !important;
 		margin-top: 18px;
 
@@ -903,59 +907,8 @@ a {
 		}
 	}
 
-	.tweetWrapper {
-		width: 100%;
-	}
-
-	.fallaciesWrapper {
-		width: 100%;
-	}
-
-	.relatedRow {
-		padding-top: 0;
-	}
-
-	@media only screen and (max-width: 1025px) {
-		.grid {
-			margin: 0;
-		}
-	}
-
-	.sticky {
-		div {
-			z-index: 1000;
-		}
-
-		.breadcrumbContainer {
-			background: $white;
-			border-bottom: solid 1px $lightGrey;
-			margin-top: 72px;
-			padding: 8px 30px;
-			width: 100%;
-
-			.breadcrumb {
-				line-height: 20px;
-				margin-left: 15px !important;
-				margin-right: 15px !important;
-				padding: 0;
-			}
-		}
-
-		@media only screen and (max-width: 1025px) {
-			.breadcrumbContainer {
-				padding: 8px 15px;
-
-				.breadcrumb {
-					margin-left: auto !important;
-					margin-right: auto !important;
-				}
-
-				.container {
-					margin-left: 0 !important;
-					margin-right: 0 !important;
-				}
-			}
-		}
+	.captureTweet {
+		background: $invertedBackgroundColor;
 	}
 }
 
@@ -1179,7 +1132,7 @@ a {
 					position: absolute;
 					width: 200px;
 
-					+ .header.large {
+					+ .header.large	 {
 						margin-top: 8px;
 					}
 

@@ -49,11 +49,6 @@
     	}
 
     	.grid .column {
-      		&.logoColumn {
-        		align-items: center;
-        		display: flex;
-      		}
-
       		input {
         		line-height: 25px;
       		}
@@ -62,7 +57,13 @@
     	@media only screen and (max-width: 1025px) {
       		.container.desktop {
         		display: none;
-      		}
+			  }
+			  
+			  .container.mobile {
+				  .left.item {
+					  padding-left: 8px !important;
+				  }
+			  }
     	}
 
     	@media only screen and (min-width: 1025px) {

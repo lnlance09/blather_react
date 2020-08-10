@@ -9,6 +9,7 @@ import defaultImg from "images/avatar/small/steve.jpg"
 import Linkify from "react-linkify"
 import PropTypes from "prop-types"
 import React, { Fragment, useEffect, useRef, useState } from "react"
+import ReactTooltip from "react-tooltip"
 
 const CommentsSection = ({
 	allowReplies,
@@ -20,7 +21,9 @@ const CommentsSection = ({
 	id,
 	likeComment,
 	postComment,
+	redirectToComment,
 	showEmptyMsg,
+	showReplies,
 	unlikeComment
 }) => {
 	const blockRef = useRef(null)
@@ -37,22 +40,27 @@ const CommentsSection = ({
 		})
 	}, [])
 
-	const onSubmitForm = e => {
+	const onSubmitForm = () => {
 		if (message !== "") {
 			postComment({
 				bearer,
 				callback: () => setMessage(""),
 				id,
-				message
+				message,
+				responseTo
 			})
 		}
 	}
 
-	const RenderComments = () => {
-		return comments.results.map((comment, i) => {
-			return (
-				<Comment key={`fallacy_comment_${i}`}>
+	const SingleComment = (comment, commentId, isReply, key) => {
+		return (
+			<Fragment>
+				<Comment key={key}>
 					<Comment.Avatar
+						as="a"
+						data-for={key}
+						data-iscapture="true"
+						data-tip={`${comment.username}`}
 						onError={i => (i.target.src = ImagePic)}
 						size="tiny"
 						src={comment.img ? comment.img : defaultImg}
@@ -86,9 +94,9 @@ const CommentsSection = ({
 											commentId: comment.id
 										}
 
-										if (comment.isReply) {
-											payload.commentId = comment.id
-											payload.responseId = comment.responseId
+										if (isReply) {
+											payload.commentId = commentId
+											payload.responseId = comment.id
 										}
 
 										if (comment.likedByMe === "1") {
@@ -133,8 +141,17 @@ const CommentsSection = ({
 						</Comment.Actions>
 					</Comment.Content>
 				</Comment>
-			)
-		})
+
+				<ReactTooltip
+					className="tooltipClass"
+					effect="solid"
+					id={key}
+					multiline={false}
+					place="left"
+					type="light"
+				/>
+			</Fragment>
+		)
 	}
 
 	const ReplyForm = (
@@ -178,7 +195,47 @@ const CommentsSection = ({
 		<div className="commentsSection">
 			{ReplyForm}
 			{comments.results.length > 0 ? (
-				<Comment.Group size="big">{RenderComments()}</Comment.Group>
+				<Comment.Group className="commentsGroup" size="big">
+					{comments.results.map((comment, i) => {
+						const { responses } = comment
+						return (
+							<Comment
+								className={`${redirectToComment ? "redirect" : ""}`}
+								key={`individualComment${i}`}
+								id={comment.id}
+							>
+								{SingleComment(comment, comment.id, false, `individualComment${i}`)}
+
+								{responses && showReplies && (
+									<Comment.Group size="big">
+										{responses.map((response, x) => {
+											if (response.id !== null) {
+												return (
+													<Comment
+														className={`${
+															redirectToComment ? "redirect" : ""
+														}`}
+														id={`${comment.id}${response.id}`}
+														key={`replyComment${x}`}
+													>
+														{SingleComment(
+															response,
+															comment.id,
+															true,
+															`replyComment${i}`
+														)}
+													</Comment>
+												)
+											}
+
+											return null
+										})}
+									</Comment.Group>
+								)}
+							</Comment>
+						)
+					})}
+				</Comment.Group>
 			) : (
 				<Fragment>
 					{showEmptyMsg && (
@@ -205,7 +262,9 @@ CommentsSection.propTypes = {
 	id: PropTypes.number,
 	fetchComments: PropTypes.func,
 	likeComment: PropTypes.func,
+	redirectToComment: PropTypes.bool,
 	showEmptyMsg: PropTypes.bool,
+	showReplies: PropTypes.bool,
 	submitComment: PropTypes.func,
 	unlikeComment: PropTypes.func
 }
@@ -218,7 +277,9 @@ CommentsSection.defaultProps = {
 	fetchComments,
 	likeComment,
 	postComment,
+	redirectToComment: false,
 	showEmptyMsg: true,
+	showReplies: true,
 	unlikeComment
 }
 

@@ -1,6 +1,6 @@
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { connect, Provider } from "react-redux"
-import { Container, Divider, Header, Message, Segment } from "semantic-ui-react"
+import { Divider, Message } from "semantic-ui-react"
 import { DebounceInput } from "react-debounce-input"
 import DefaultLayout from "layouts"
 import PropTypes from "prop-types"

@@ -38,14 +38,13 @@
     cursor: pointer;
     height: 54px;
     width: 54px; }
-  .pageHeader .topHeader .grid .column.logoColumn {
-    align-items: center;
-    display: flex; }
   .pageHeader .topHeader .grid .column input {
     line-height: 25px; }
   @media only screen and (max-width: 1025px) {
     .pageHeader .topHeader .container.desktop {
-      display: none; } }
+      display: none; }
+    .pageHeader .topHeader .container.mobile .left.item {
+      padding-left: 8px !important; } }
   @media only screen and (min-width: 1025px) {
     .pageHeader .topHeader .container.mobile {
       display: none; } }

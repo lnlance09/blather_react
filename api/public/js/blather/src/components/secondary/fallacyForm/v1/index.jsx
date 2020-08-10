@@ -409,7 +409,7 @@ class FallacyForm extends Component {
 										className="startTime"
 										icon="hourglass start"
 										placeholder="Start time"
-										size="big"
+										size={props.size}
 									/>
 								}
 								onChange={this.onChangeStartTime}
@@ -425,7 +425,7 @@ class FallacyForm extends Component {
 										className="endTime"
 										icon="hourglass end"
 										placeholder="End time"
-										size="big"
+										size={props.size}
 									/>
 								}
 								onChange={this.onChangeEndTime}
@@ -490,7 +490,7 @@ class FallacyForm extends Component {
 								content="Assign another one"
 								onClick={this.closeModal}
 								positive
-								size="big"
+								size={props.size}
 							/>
 						</Modal.Actions>
 					</Modal>
@@ -503,7 +503,7 @@ class FallacyForm extends Component {
 			<Form
 				error={props.fallacyFormError || cError || !cValid}
 				onSubmit={this.onSubmitForm}
-				size="big"
+				size={props.size}
 				unstackable
 			>
 				{canAssign && (
@@ -530,6 +530,7 @@ class FallacyForm extends Component {
 						id={parseInt(id, 10)}
 						includeHeader={false}
 						showDialogue={false}
+						size={props.size}
 					/>
 				</Form.Field>
 				{ContradictionInput(props)}
@@ -552,7 +553,7 @@ class FallacyForm extends Component {
 						value={explanation}
 					/>
 				</Form.Field>
-				<Button color="blue" content="Assign" fluid size="big" type="submit" />
+				<Button color="blue" content="Assign" fluid size={props.size} type="submit" />
 				<div className="clearfix" />
 			</Form>
 		)
@@ -560,7 +561,7 @@ class FallacyForm extends Component {
 		return (
 			<Provider store={store}>
 				{this.props.useCard ? (
-					<Card className="fallacyForm large" fluid>
+					<Card className={`fallacyForm ${this.props.size}`} fluid>
 						<Card.Content>
 							<Card.Header className="formHeader">Does this make sense?</Card.Header>
 							<Card.Meta>Assign a fallacy</Card.Meta>
@@ -627,6 +628,7 @@ FallacyForm.propTypes = {
 	setContradictionBeginTime: PropTypes.func,
 	setContradictionEndTime: PropTypes.func,
 	setContradictionHighlight: PropTypes.func,
+	size: PropTypes.string,
 	startTime: PropTypes.string,
 	toggleModal: PropTypes.func,
 	useCard: PropTypes.bool
@@ -648,6 +650,7 @@ FallacyForm.defaultProps = {
 	setContradictionBeginTime,
 	setContradictionEndTime,
 	setContradictionHighlight,
+	size: "big",
 	startTime: "0",
 	toggleModal,
 	useCard: true

@@ -21,17 +21,7 @@ import {
 	RedditShareButton,
 	TwitterShareButton
 } from "react-share"
-import {
-	Button,
-	Card,
-	Container,
-	Divider,
-	Header,
-	Icon,
-	Image,
-	List,
-	Segment
-} from "semantic-ui-react"
+import { Button, Card, Container, Divider, Header, Icon, Image, List } from "semantic-ui-react"
 import { confetti } from "dom-confetti"
 import DefaultLayout from "layouts"
 import FallacyComments from "components/secondary/comments/v1/"
@@ -63,7 +53,6 @@ class Fallacy extends Component {
 		}
 
 		const currentState = store.getState()
-		console.log("currentState", currentState)
 		const auth = currentState.user.authenticated
 		const bearer = currentState.user.bearer
 		const twitterId = currentState.user.data.twitterId
@@ -230,7 +219,6 @@ class Fallacy extends Component {
 		const { auth, bearer, downloading, id, twitterId, userId, youtubeId } = this.state
 		const { createdBy, user } = this.props
 
-		console.log("bearer", bearer)
 		const canEdit = createdBy ? createdBy.id === userId || createdBy.id === 6 : false
 
 		let userLink = ""
@@ -324,8 +312,10 @@ class Fallacy extends Component {
 					</div>
 				) : (
 					<div>
-						<LazyLoad header={false} />
-						<LazyLoad header={false} />
+						<LazyLoad header={false} segment={false} />
+						<LazyLoad header={false} segment={false} />
+						<LazyLoad header={false} segment={false} />
+						<LazyLoad header={false} segment={false} />
 					</div>
 				)}
 			</div>
@@ -605,27 +595,23 @@ class Fallacy extends Component {
 						{!this.props.error ? (
 							<Fragment>
 								<FallacyTitle props={this.props} />
-
-								<Segment inverted>
-									{MaterialSection(this.props)}
-
-									{this.props.id && (
-										<Fragment>
-											{RetractionSegment(this.props)}
-											{ShareSection(true)}
-											<TagsCard
-												bearer={bearer}
-												canEdit={canEdit}
-												history={this.props.history}
-												id={this.props.id}
-												tags={tags()}
-												type="fallacy"
-											/>
-											{CommentsSection(this.props)}
-											{SimilarSection(this.props)}
-										</Fragment>
-									)}
-								</Segment>
+								{MaterialSection(this.props)}
+								{this.props.id && (
+									<Fragment>
+										{RetractionSegment(this.props)}
+										{ShareSection(true)}
+										<TagsCard
+											bearer={bearer}
+											canEdit={canEdit}
+											history={this.props.history}
+											id={this.props.id}
+											tags={tags()}
+											type="fallacy"
+										/>
+										{CommentsSection(this.props)}
+										{SimilarSection(this.props)}
+									</Fragment>
+								)}
 							</Fragment>
 						) : (
 							<Fragment>

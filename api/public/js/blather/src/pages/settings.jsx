@@ -14,17 +14,7 @@ import {
 } from "components/secondary/authentication/v1/actions"
 import { Provider, connect } from "react-redux"
 import { Redirect } from "react-router-dom"
-import {
-	Button,
-	Container,
-	Form,
-	Header,
-	Icon,
-	Input,
-	Menu,
-	Message,
-	Segment
-} from "semantic-ui-react"
+import { Button, Form, Header, Icon, Input, Menu, Message, Segment } from "semantic-ui-react"
 import DefaultLayout from "layouts"
 import Moment from "react-moment"
 import PropTypes from "prop-types"

@@ -1,6 +1,5 @@
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { connect, Provider } from "react-redux"
-import { Input } from "semantic-ui-react"
 import { DebounceInput } from "react-debounce-input"
 import DefaultLayout from "layouts"
 import PropTypes from "prop-types"

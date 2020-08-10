@@ -1,7 +1,6 @@
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { mostFallacious } from "redux/actions/feed"
 import { Provider, connect } from "react-redux"
-import { Container } from "semantic-ui-react"
 import DefaultLayout from "layouts"
 import FeedComponent from "components/secondary/feed/v1/"
 import PropTypes from "prop-types"

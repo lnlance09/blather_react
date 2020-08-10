@@ -216,9 +216,10 @@ class Fallacies extends CI_Controller {
 		$id = $this->input->get('id');
 		$page = $this->input->get('page');
 		$user = $this->user;
+		$userId = $user ? $user->id : null;
 
 		$count = $this->fallacies->getComments($id, null, null, true);
-		$comments = $this->fallacies->getComments($id, $user->id, null, $page);
+		$comments = $this->fallacies->getComments($id, $userId, $page, false);
 
 		$per_page = 10;
 		$pages = ceil($count/$per_page);
@@ -424,27 +425,48 @@ class Fallacies extends CI_Controller {
 
 	public function postComment() {
 		$id = $this->input->post('id');
+		$responseTo = $this->input->post('responseTo');
 		$msg = $this->input->post('message');
 		$user = $this->user;
 
 		validateLoggedIn($user, 'You must be logged in', 100, 401, $this->output);
 		validateEmptyField($msg, 'Your comment cannot be blank', 100, 401, $this->output);
 
-		$this->fallacies->createComment([
-			'created_at' => date('Y-m-d H:i:s'),
-			'fallacy_id' => $id,
-			'message' => strip_tags($msg),
-			'user_id' => $user->id
-		]);
+		$fallacyExists = $this->fallacies->getFallacy($id, true);
+		validateItemsMatch($fallacyExists, 1, 'That item does not exist', 100, 401, $this->output);
+
+		if ($responseTo) {
+			$comment = $this->fallacies->getComment($responseTo, true);
+			validateItemsMatch($comment, 1, 'That comment does not exist', 100, 401, $this->output);
+
+			$data = [
+				'created_at' => date('Y-m-d H:i:s'),
+				'message' => strip_tags($msg),
+				'response_to' => $responseTo,
+				'user_id' => $user->id
+			];
+			$this->fallacies->createCommentResponse($data);
+			$comment_id = $this->db->insert_id();
+		} else {
+			$data = [
+				'created_at' => date('Y-m-d H:i:s'),
+				'fallacy_id' => $id,
+				'message' => strip_tags($msg),
+				'user_id' => $user->id
+			];
+			$this->fallacies->createComment($data);
+			$comment_id = $this->db->insert_id();
+			$data['id'] = $comment_id;
+			$data['likeCount'] = 0;
+		}
+
+		$data['img'] = $user->img;
+		$data['name'] = $user->name;
+		$data['user_id'] = $user->id;
+		$data['username'] = $user->username;
 
 		echo json_encode([
-			'comment' => [
-				'created_at' => date('Y-m-d H:i:s'),
-				'img' => $user->img,
-				'message' => strip_tags($msg),
-				'name' => $user->name,
-				'user_id' => $user->id
-			],
+			'comment' => $data,
 			'error' => false
 		]);
 	}

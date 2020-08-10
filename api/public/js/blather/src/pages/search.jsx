@@ -1,7 +1,7 @@
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { setValue } from "redux/actions/search"
 import { connect, Provider } from "react-redux"
-import { Accordion, Container, Form, Grid, Menu, Responsive, Segment } from "semantic-ui-react"
+import { Accordion, Form, Grid, Menu, Responsive, Segment } from "semantic-ui-react"
 import DefaultLayout from "layouts"
 import PropTypes from "prop-types"
 import qs from "query-string"

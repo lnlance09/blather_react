@@ -1,6 +1,11 @@
 import * as constants from "./constants"
 
-const initial = () => ({})
+const initial = () => ({
+	comments: {
+		count: 0,
+		results: [{}, {}, {}, {}, {}, {}, {}]
+	}
+})
 
 const fallacyComments = (state = initial(), action) => {
 	const payload = action.payload
@@ -37,14 +42,26 @@ const fallacyComments = (state = initial(), action) => {
 			}
 
 		case constants.POST_COMMENT:
-			const comments = state.comments.results
+			let results = state.comments.results
 				? [payload.comment, ...state.comments.results]
 				: payload.comment
+
+			if (
+				typeof payload.comment.response_to !== "undefined" &&
+				payload.comment.response_to !== null
+			) {
+				const _comment = state.comments.results.find(
+					comment => comment.id === payload.comment.response_to
+				)
+				_comment.responses.push(payload.comment)
+				results = state.comments.results
+			}
+
 			return {
 				...state,
 				comments: {
 					count: state.comments.count + 1,
-					results: comments
+					results
 				}
 			}
 

@@ -97,7 +97,7 @@ class Fallacies extends Component {
 						containerClassName="fallaciesPage"
 						history={this.props.history}
 					>
-						<Container ref={this.handleContextRef}>
+						<Container className="fallaciesContainer" ref={this.handleContextRef}>
 							<Header as="h1" inverted>
 								{activeItem ? activeItemName : "Reference"}
 							</Header>

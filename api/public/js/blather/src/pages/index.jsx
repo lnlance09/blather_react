@@ -329,23 +329,22 @@ class Page extends Component {
 						{this.props.exists ? (
 							<Fragment>
 								<Container className="imgContainer" textAlign="center">
-									<Segment circular>
-										{this.props.id ? (
-											<Image
-												centered
-												circular
-												className="profilePic"
-												onError={i => (i.target.src = defaultImg)}
-												rounded
-												size="medium"
-												src={this.props.img}
-											/>
-										) : (
-											<Placeholder className="profilePicPlaceholder">
-												<Placeholder.Image square />
-											</Placeholder>
-										)}
-									</Segment>
+									{this.props.id ? (
+										<Image
+											centered
+											circular
+											className="profilePic"
+											onError={i => (i.target.src = defaultImg)}
+											rounded
+											size="medium"
+											src={this.props.img}
+										/>
+									) : (
+										<Placeholder className="profilePicPlaceholder" inverted>
+											<Placeholder.Image square />
+										</Placeholder>
+									)}
+
 									{PageHeaderInfo(this.props)}
 								</Container>
 

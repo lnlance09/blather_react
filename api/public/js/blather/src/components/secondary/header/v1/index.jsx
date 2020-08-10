@@ -3,7 +3,6 @@ import { logout } from "components/secondary/authentication/v1/actions"
 import { parseJwt } from "utils/tokenFunctions"
 import { Provider, connect } from "react-redux"
 import { Button, Container, Grid, Icon, Image, Menu, Sidebar } from "semantic-ui-react"
-import LoadingBar from "react-redux-loading-bar"
 import Logo from "images/logos/brain-logo.png"
 import NavSearch from "components/primary/search/v1/"
 import PropTypes from "prop-types"
@@ -24,8 +23,6 @@ const Header = ({ history, logout, toggleSearchMode }) => {
 			setAuthenticated(false)
 		}
 	}, [])
-
-	console.log(sidebarVisible)
 
 	return (
 		<Provider store={store}>

@@ -118,10 +118,10 @@ class Users extends CI_Controller {
 		$parse = parseUrl($url);
 		validateEmptyField($parse, 'This URL cannot be parsed', 100, 401, $this->output);
 
-		$code = createArchive($url);
+		// $code = createArchive($url);
 		$data = [];
 
-		if ($code && $user) {
+		if ($user) {
 			$page = null;
 			$network = $parse['network'];
 			if ($network == 'twitter') {
@@ -131,7 +131,7 @@ class Users extends CI_Controller {
 			validateEmptyField($page, 'This page does not exist', 100, 401, $this->output);
 
 			$data = [
-				'code' => $code,
+				'code' => null,
 				'comment_id' => $parse['comment_id'],
 				'link' => $url,
 				'network' => $network,
@@ -145,7 +145,7 @@ class Users extends CI_Controller {
 
 		echo json_encode([
 			'archive' => $data,
-			'error' => $code ? false : true
+			'error' => false
 		]);
 	}
 

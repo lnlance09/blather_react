@@ -7,7 +7,6 @@ import defaultImg from "images/avatar/small/steve.jpg"
 import PropTypes from "prop-types"
 import React, { Fragment, useEffect, useState } from "react"
 import store from "store"
-import Url from "url-parse"
 
 const Sidebar = ({ activeItem, basic, history, inverted, logout }) => {
 	const [authenticated, setAuthenticated] = useState(null)
@@ -27,7 +26,6 @@ const Sidebar = ({ activeItem, basic, history, inverted, logout }) => {
 
 	const onLogout = () => {
 		logout()
-		const parsed = new Url(window.location)
 		window.location.reload()
 	}
 

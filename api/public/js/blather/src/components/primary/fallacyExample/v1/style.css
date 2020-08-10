@@ -38,6 +38,7 @@
     font-style: italic;
     margin-bottom: 25px !important; }
     .fallacyExample .aboutAttachedHeader a {
+      cursor: pointer !important;
       padding-bottom: 0 !important; }
     .fallacyExample .aboutAttachedHeader .image {
       cursor: pointer !important; }

@@ -1,7 +1,7 @@
 import "./style.css"
 import { selectAssignee } from "components/secondary/fallacyForm/v1/actions"
 import { connect, Provider } from "react-redux"
-import { Form, Header, Icon, Image, Search } from "semantic-ui-react"
+import { Form, Header, Image, Search } from "semantic-ui-react"
 import _ from "lodash"
 import defaultImg from "images/images/image-square.png"
 import PropTypes from "prop-types"

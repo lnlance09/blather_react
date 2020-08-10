@@ -90,14 +90,7 @@ class Tweet extends Component {
 				return (
 					<Transition animation={animation} duration={duration} visible={visible}>
 						<Message className="archiveMsg" data-html2canvas-ignore>
-							<Icon color="green" inverted name="checkmark" /> Archived this{" "}
-							<a
-								href={`http://archive.is/${props.archive.code}`}
-								rel="noopener noreferrer"
-								target="_blank"
-							>
-								tweet
-							</a>{" "}
+							<Icon color="green" inverted name="checkmark" /> Archived this tweet{" "}
 							<Moment date={archiveDate} fromNow />
 						</Message>
 					</Transition>

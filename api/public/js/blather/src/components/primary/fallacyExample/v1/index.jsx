@@ -220,6 +220,7 @@ class FallacyExample extends Component {
 					inverted
 					name={contradiction ? "contradictionTimeForm" : "timeForm"}
 					onSubmit={this.updateTimes}
+					size="big"
 				>
 					<Form.Group widths="equal">
 						<Form.Field>
@@ -273,7 +274,7 @@ class FallacyExample extends Component {
 						</Header>
 						<Segment attached className="fallacyExplanationSegment" inverted>
 							{editing ? (
-								<Form onSubmit={this.updateFallacy}>
+								<Form onSubmit={this.updateFallacy} size="big">
 									<Form.Field>
 										<Dropdown
 											className="fallacyDropdown"
@@ -299,6 +300,7 @@ class FallacyExample extends Component {
 										color="blue"
 										content="Update"
 										fluid
+										size="big"
 										type="submit"
 									/>
 									<p className="commonMarkLink">
@@ -337,6 +339,8 @@ class FallacyExample extends Component {
 							/>
 							<Header.Content>
 								<a
+									className="userLink"
+									href="#"
 									onClick={() =>
 										this.props.history.push(
 											`/users/${this.props.user.username}`

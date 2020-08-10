@@ -5,7 +5,6 @@ import { fetchPostData } from "redux/actions/post"
 import { Provider, connect } from "react-redux"
 import {
 	Card,
-	Container,
 	Divider,
 	Grid,
 	Header,
@@ -138,9 +137,12 @@ class Post extends Component {
 
 	captureScreenshot = () => {
 		const filename = "blather-tweet-screenshot"
-		html2canvas(document.getElementById("captureTweet"), {
-			allowTaint: false,
+		const el = document.querySelector("#captureTweet .fluid.card")
+		html2canvas(el, {
+			allowTaint: true,
 			scale: 2,
+			scrollX: -7,
+			scrollY: -window.scrollY,
 			useCORS: true
 		}).then(canvas => {
 			const ctx = canvas.getContext("2d")
@@ -240,13 +242,14 @@ class Post extends Component {
 						</Header>
 						<FallaciesList
 							commentId={type === "comment" ? id : null}
-							emptyMsgContent={`No fallacies have been assigned to this ${type}`}
+							emptyMsgContent={`No fallacies yet...`}
 							history={props.history}
 							icon={network}
 							itemsPerRow={1}
 							network={network}
 							objectId={id}
 							page={0}
+							size="medium"
 							source="post"
 						/>
 					</div>
@@ -278,6 +281,7 @@ class Post extends Component {
 					objectId={id}
 					pageInfo={pageInfo}
 					sendNotification={props.sendNotification}
+					size="medium"
 					startTime={startTime}
 					type={type}
 					useCard={type === "tweet"}
@@ -356,7 +360,7 @@ class Post extends Component {
 									/>
 								</div>
 								<Message className="screenshotMsg">
-									<Icon name="camera" />
+									<Icon inverted name="camera" />
 									<span onClick={this.captureScreenshot}>Capture screenshot</span>
 								</Message>
 								{DisplayFallacyForm(props)}
@@ -458,7 +462,7 @@ class Post extends Component {
 					<DisplayMetaTags page="post" props={this.props} state={this.state} />
 					<DefaultLayout
 						activeItem=""
-						containerClassName="notFoundPage"
+						containerClassName="postPage"
 						history={this.props.history}
 					>
 						{type === "video" &&

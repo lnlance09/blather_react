@@ -135,6 +135,10 @@ class FallaciesModel extends CI_Model {
 		$this->db->insert('fallacy_comments', $data);
 	}
 
+	public function createCommentResponse($data) {
+		$this->db->insert('fallacy_comment_responses', $data);
+	}
+
 	public function createReview($data) {
 		$this->db->insert('criticisms', $data);
 	}
@@ -379,6 +383,8 @@ class FallaciesModel extends CI_Model {
 
 		if ($response_id) {
 			$where['response_id'] = $response_id;
+		} else {
+			$where['response_id'] = null;
 		}
 
 		$this->db->select('COUNT(*) AS count');
@@ -389,7 +395,22 @@ class FallaciesModel extends CI_Model {
 	}
 
 	public function getComments($id, $user_id = null, $page = null, $just_count = false) {
-		$select = "f.id, f.created_at, f.message, f.user_id, CONCAT('".S3_PATH."', u.img) AS img, u.name, u.username, likeCount";
+		$select = "f.id, f.created_at, f.message, f.user_id, CONCAT('".S3_PATH."', u.img) AS img, u.name, u.username, likeCount,
+		CONCAT('[',
+			GROUP_CONCAT(
+				DISTINCT JSON_OBJECT(
+					'id', fr.id,
+					'created_at', fr.created_at,
+					'message', fr.message,
+					'user_id', fr.user_id,
+					'img', CONCAT('".S3_PATH."', fru.img),
+					'name', fru.name,
+					'username', fru.username,
+					'likeCount', responseLikeCount
+				)
+			),
+		']')
+		AS responses";
 
 		if ($user_id) {
 			$select .= ', likedByMe';
@@ -400,30 +421,45 @@ class FallaciesModel extends CI_Model {
 		}
 
 		$this->db->select($select);
-		$this->db->join('users u', 'f.user_id=u.id');
-		$this->db->join('(SELECT COUNT(*) as likeCount, comment_id FROM fallacy_comments_likes GROUP BY comment_id) l', 'f.id=l.comment_id', 'left');
 
-		if ($user_id) {
-			$this->db->join('(SELECT COUNT(*) as likedByMe, comment_id, user_id FROM fallacy_comments_likes GROUP BY comment_id) lbm', 'f.id=lbm.comment_id AND lbm.user_id = "'.$user_id.'"', 'left');
+		if (!$just_count) {
+			$this->db->join('users u', 'f.user_id=u.id');
+			$this->db->join('fallacy_comment_responses fr', 'f.id=fr.response_to', 'left');
+			$this->db->join('users fru', 'fr.user_id=fru.id', 'left');
+
+			$this->db->join('(SELECT COUNT(*) as likeCount, comment_id FROM fallacy_comments_likes WHERE response_id IS NULL GROUP BY comment_id) l', 'f.id=l.comment_id', 'left');
+			$this->db->join('(SELECT COUNT(*) as responseLikeCount, response_id FROM fallacy_comments_likes GROUP BY response_id) lr', 'fr.id=lr.response_id', 'left');
+
+			if ($user_id) {
+				$this->db->join('(SELECT COUNT(*) as likedByMe, comment_id, user_id FROM fallacy_comments_likes WHERE response_id IS NULL GROUP BY comment_id) lbm', 'f.id=lbm.comment_id AND lbm.user_id = "'.$user_id.'"', 'left');
+				$this->db->join('(SELECT COUNT(*) as responseLikedByMe, response_id, user_id FROM fallacy_comments_likes GROUP BY response_id) rlbm', 'f.id=rlbm.response_id AND rlbm.user_id = "'.$user_id.'"', 'left');
+			}
 		}
 
 		$this->db->where('fallacy_id', $id);
-		$this->db->group_by('f.id');
 
 		if (!$just_count) {
+			$this->db->group_by('f.id');
 			$this->db->order_by('created_at', 'DESC');
-			if($page !== null) {
-				$perPage = 10;
+			if ($page !== null) {
+				$perPage = 25;
 				$limit = $page*$perPage;
 			}
 		}
 
 		$query = $this->db->get('fallacy_comments f');
+		$results = $query->result_array();
+
 		if ($just_count) {
-			$result = $query->result_array();
-			return $result[0]['count'];
+			return $results[0]['count'];
 		}
-		return $query->result_array();
+
+		for ($i=0;$i<count($results);$i++) {
+			$responses = $results[$i]['responses'];
+			$results[$i]['responses'] = @json_decode($responses, true);
+		}
+
+		return $results;
 	}
 
 	public function getConversation($id) {
@@ -562,10 +598,18 @@ class FallaciesModel extends CI_Model {
 		$this->db->where('fe.id', $id);
 		$this->db->or_where('fe.slug', $id);
 		$result = $this->db->get('fallacy_entries fe')->result_array();
-		$fallacy = $result[0];
 
+		if (count($result) === 0) {
+			return false;
+		}
+
+		$fallacy = $result[0];
 		if ($fallacy['id'] === null) {
 			return false;
+		}
+
+		if ($just_count) {
+			return 1;
 		}
 
 		$ref_id = 0;

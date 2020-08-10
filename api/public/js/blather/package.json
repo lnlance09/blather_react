@@ -64,6 +64,7 @@
     "react-svg": "^7.2.14",
     "react-text-truncate": "^0.13.1",
     "react-toastify": "^5.5.0",
+    "react-tooltip": "^4.2.8",
     "react-twitter-widgets": "^1.7.1",
     "react-typist": "^2.0.5",
     "redux": "^4.0.4",

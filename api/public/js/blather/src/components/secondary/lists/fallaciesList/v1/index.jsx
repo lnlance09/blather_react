@@ -290,7 +290,7 @@ class FallaciesList extends Component {
 					)}
 					{filterVisible && (
 						<div>
-							<Form inverted size="big">
+							<Form inverted size={this.props.size}>
 								<Form.Field>
 									<div className="ui icon input">
 										<DebounceInput
@@ -599,7 +599,7 @@ class FallaciesList extends Component {
 					) : (
 						<div className="emptyFallaciesContainer">
 							<Segment inverted placeholder>
-								<Header icon>
+								<Header icon size="medium">
 									<Icon
 										className={`${this.props.icon}Icon`}
 										name={this.props.icon}
@@ -639,6 +639,7 @@ FallaciesList.propTypes = {
 	setFallacyId: PropTypes.func,
 	showPics: PropTypes.bool,
 	shuffle: PropTypes.bool,
+	size: PropTypes.string,
 	source: PropTypes.string,
 	tagId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 	targets: PropTypes.shape({
@@ -668,6 +669,7 @@ FallaciesList.defaultProps = {
 	results: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
 	showPics: true,
 	shuffle: false,
+	size: "big",
 	targets: {
 		page: 0,
 		results: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}]

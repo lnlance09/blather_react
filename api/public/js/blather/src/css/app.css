@@ -110,11 +110,11 @@ body {
   box-shadow: 0 1px 3px 0 rgba(245, 248, 250, 0.1), 0 0 0 1px rgba(245, 248, 250, 0.1) !important; }
   .ui.card .header {
     color: #ffffff !important; }
-  .ui.card.large .header.formHeader, .ui.card.large .retractionHeader {
+  .ui.card.large .header.formHeader, .ui.card.large .retractionHeader, .ui.card.big .header.formHeader, .ui.card.big .retractionHeader {
     font-size: 1.71428571em !important; }
-  .ui.card.large .meta {
+  .ui.card.large .meta, .ui.card.big .meta {
     font-size: 1.14285714rem !important; }
-  .ui.card.large .description {
+  .ui.card.large .description, .ui.card.big .description {
     font-size: 16px !important; }
   .ui.card .meta {
     color: #ffffff !important; }
@@ -348,6 +348,10 @@ a {
 /* Fallacies page */
 .fallaciesPage {
   padding: 18px 0; }
+  @media only screen and (max-width: 1025px) {
+    .fallaciesPage .ui.container.fallaciesContainer {
+      margin-left: 0 !important;
+      margin-right: 0 !important; } }
   .fallaciesPage .segments .fallacySegment {
     border-bottom: none !important; }
     .fallaciesPage .segments .fallacySegment:last-of-type {
@@ -359,14 +363,13 @@ a {
   .fallacyPage .fallacyExample {
     margin-top: 5px; }
   .fallacyPage .materialWrapper {
+    margin-top: 15px;
     width: 100%; }
   .fallacyPage .materialRow {
     padding: 0 !important;
     width: 100%; }
   .fallacyPage .divider.seperator {
     margin: 1rem 0 !important; }
-  .fallacyPage .callToSignUp {
-    margin-top: 10px; }
   .fallacyPage .shareList {
     margin-top: 0 !important;
     width: 100%; }
@@ -475,6 +478,10 @@ a {
         padding-left: 0 !important;
         padding-right: 0 !important; } }
 
+/* 404 page */
+.notFoundPage {
+  padding: 18px 0; }
+
 /* Notifications page */
 .notificationsPage {
   padding: 18px 0; }
@@ -491,12 +498,10 @@ a {
       font-size: 24px !important; }
       .socialMediaPage .titleHeader .ui.header .sub.header {
         font-size: 16px !important; } }
-  .socialMediaPage .imgContainer .segment.circular {
-    display: inline-block;
-    padding: 0; }
-    .socialMediaPage .imgContainer .segment.circular .image.profilePic {
-      height: 185px;
-      width: 185px; }
+  .socialMediaPage .imgContainer .image.profilePic {
+    height: 185px;
+    margin-bottom: 18px;
+    width: 185px; }
   .socialMediaPage .pageHeaderInfo {
     margin-top: 0;
     text-align: center; }
@@ -507,7 +512,8 @@ a {
       margin-top: 8px; }
   .socialMediaPage .ui.container.profileContentContainer {
     margin-top: 16px !important;
-    padding: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
     width: 100% !important; }
     .socialMediaPage .ui.container.profileContentContainer .dimmer {
       background: rgba(21, 32, 43, 0.96) !important;
@@ -518,8 +524,10 @@ a {
       box-shadow: none !important;
       padding: 0; }
     @media only screen and (max-width: 1025px) {
-      .socialMediaPage .ui.container.profileContentContainer .signInPlaceholder {
-        height: 250px; } }
+      .socialMediaPage .ui.container.profileContentContainer {
+        padding: 8px 10px !important; }
+        .socialMediaPage .ui.container.profileContentContainer .signInPlaceholder {
+          height: 250px; } }
     .socialMediaPage .ui.container.profileContentContainer .segment.basic {
       padding: 0 !important; }
 
@@ -528,11 +536,9 @@ a {
   padding: 18px 0; }
   .postPage .fallacyFormWrapper {
     margin: 20px 0; }
-  .postPage .placeholderContainer {
-    text-align: center; }
   .postPage .screenshotMsg {
-    background: #15202b;
-    border: solid 1px rgba(245, 248, 250, 0.1);
+    background: #182532 !important;
+    border: solid 1px rgba(245, 248, 250, 0.1) !important;
     color: #ffffff !important;
     margin-top: 18px; }
     .postPage .screenshotMsg .icon.camera {
@@ -546,37 +552,8 @@ a {
         text-decoration: underline; }
   .postPage .relatedSearches .content:first-of-type {
     border-bottom: solid 1px rgba(245, 248, 250, 0.1) !important; }
-  .postPage .tweetWrapper {
-    width: 100%; }
-  .postPage .fallaciesWrapper {
-    width: 100%; }
-  .postPage .relatedRow {
-    padding-top: 0; }
-  @media only screen and (max-width: 1025px) {
-    .postPage .grid {
-      margin: 0; } }
-  .postPage .sticky div {
-    z-index: 1000; }
-  .postPage .sticky .breadcrumbContainer {
-    background: #ffffff;
-    border-bottom: solid 1px #dcddde;
-    margin-top: 72px;
-    padding: 8px 30px;
-    width: 100%; }
-    .postPage .sticky .breadcrumbContainer .breadcrumb {
-      line-height: 20px;
-      margin-left: 15px !important;
-      margin-right: 15px !important;
-      padding: 0; }
-  @media only screen and (max-width: 1025px) {
-    .postPage .sticky .breadcrumbContainer {
-      padding: 8px 15px; }
-      .postPage .sticky .breadcrumbContainer .breadcrumb {
-        margin-left: auto !important;
-        margin-right: auto !important; }
-      .postPage .sticky .breadcrumbContainer .container {
-        margin-left: 0 !important;
-        margin-right: 0 !important; } }
+  .postPage .captureTweet {
+    background: #15202b; }
 
 /* Search page */
 .searchPage {

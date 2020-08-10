@@ -1,20 +1,8 @@
 import { changeProfilePic, updateAbout } from "components/secondary/authentication/v1/actions"
 import { DisplayMetaTags } from "utils/metaFunctions"
-import { formatNumber } from "utils/textFunctions"
 import { fetchUserData, reset } from "redux/actions/user"
 import { Provider, connect } from "react-redux"
-import {
-	Button,
-	Dimmer,
-	Grid,
-	Header,
-	Icon,
-	Image,
-	Label,
-	Menu,
-	Placeholder,
-	Segment
-} from "semantic-ui-react"
+import { Button, Dimmer, Grid, Header, Icon, Image, Menu, Placeholder } from "semantic-ui-react"
 import defaultImg from "images/avatar/large/steve.jpg"
 import DefaultLayout from "layouts"
 import ArchivesList from "components/secondary/lists/archivesList/v1/"
@@ -164,22 +152,26 @@ class UserPage extends Component {
 				return (
 					<Dimmer.Dimmable
 						as={Image}
+						centered
 						className={`profilePic ${!user.img ? "default" : ""}`}
 						dimmed={active}
 						dimmer={{ active, content, inverted }}
+						fluid
+						inline
 						onError={i => (i.target.src = ImagePic)}
 						onMouseEnter={this.handleShow}
 						onMouseLeave={this.handleHide}
 						rounded
-						size="medium"
 						src={pic}
 					/>
 				)
 			}
 			return (
 				<Image
+					centered
 					className={`profilePic ${!user.img ? "default" : ""}`}
 					fluid
+					inline
 					onError={i => (i.target.src = ImagePic)}
 					rounded
 					src={pic}
@@ -259,30 +251,18 @@ class UserPage extends Component {
 										name="fallacies"
 										onClick={this.handleItemClick}
 									>
-										Fallacies{" "}
-										{user.fallacyCount > 0 && (
-											<Label color="red" floating>
-												{formatNumber(user.fallacyCount)}
-											</Label>
-										)}
+										Fallacies
 									</Menu.Item>
 									<Menu.Item
 										active={activeItem === "archives"}
 										name="archives"
 										onClick={this.handleItemClick}
 									>
-										Archives{" "}
-										{user.archiveCount > 0 && (
-											<Label color="red" floating>
-												{formatNumber(user.archiveCount)}
-											</Label>
-										)}
+										Archives
 									</Menu.Item>
 								</Menu>
 
-								<Segment className="profileContentSegment" inverted>
-									{ShowContent(this.props)}
-								</Segment>
+								{ShowContent(this.props)}
 							</Fragment>
 						) : (
 							<Fragment>

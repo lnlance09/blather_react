@@ -54,13 +54,14 @@ export const likeComment = ({ bearer, commentId, responseId }) => dispatch => {
 	)
 }
 
-export const postComment = ({ bearer, callback, id, message }) => dispatch => {
+export const postComment = ({ bearer, callback, id, message, responseTo }) => dispatch => {
 	request.post(
 		`${window.location.origin}/api/fallacies/postComment`,
 		{
 			form: {
 				id,
-				message
+				message,
+				responseTo
 			},
 			headers: {
 				Authorization: bearer

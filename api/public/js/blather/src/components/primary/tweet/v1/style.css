@@ -16,6 +16,9 @@
     box-shadow: none;
     padding: 0.8em; }
   .tweet .archiveMsg {
+    background: #182532 !important;
+    border: solid 1px rgba(245, 248, 250, 0.1) !important;
+    color: #ffffff;
     margin-bottom: 0 !important; }
   .tweet .retweetedText {
     background: #121b24 !important;
