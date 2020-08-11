@@ -652,6 +652,7 @@ FallacyExample.propTypes = {
 
 FallacyExample.defaultProps = {
 	canEdit: false,
+	creator: {},
 	downloading: false,
 	editExplanation,
 	opacity: 1,
