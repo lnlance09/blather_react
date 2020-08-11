@@ -120,7 +120,7 @@ class TagsCard extends Component {
 
 		const ShowTags = props => {
 			if (props.tags.length > 0) {
-				return <Label.Group color="yellow">{RenderTags}</Label.Group>
+				return <Label.Group color="red">{RenderTags}</Label.Group>
 			}
 			return <Message content="No tags have been added" inverted size="big" />
 		}
