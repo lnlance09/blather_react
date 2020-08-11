@@ -113,7 +113,7 @@ class Fallacy extends Component {
 			html2canvas(document.getElementById(el), {
 				allowTaint: true,
 				scale: 2,
-				scrollX: -7,
+				scrollX: -1,
 				scrollY: -window.scrollY,
 				useCORS: true
 			}).then(canvas => {
