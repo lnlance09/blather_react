@@ -302,6 +302,7 @@ class Fallacy extends Component {
 										<FallacyExample
 											bearer={bearer}
 											canEdit={canEdit}
+											creator={props.createdBy}
 											downloading={downloading}
 											history={props.history}
 											id={id}
