@@ -131,7 +131,7 @@ const Header = ({ history, q, showResults }) => {
 Header.propTypes = {
 	logout: PropTypes.func,
 	q: PropTypes.string,
-	showResults: PropTypes.func,
+	showResults: PropTypes.bool,
 	toggleSearchMode: PropTypes.func
 }
 

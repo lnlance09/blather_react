@@ -167,7 +167,7 @@ NavSearch.propTypes = {
 	onChangeAssignee: PropTypes.func,
 	placeholder: PropTypes.string,
 	selectAssignee: PropTypes.func,
-	showResults: PropTypes.func,
+	showResults: PropTypes.bool,
 	source: PropTypes.string,
 	width: PropTypes.string
 }
