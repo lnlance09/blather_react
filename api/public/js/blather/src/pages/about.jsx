@@ -16,6 +16,7 @@ class About extends Component {
 
 		this.state = {
 			activeItem: "about",
+			loading: false,
 			msg: ""
 		}
 	}
@@ -36,16 +37,18 @@ class About extends Component {
 
 	onChangeMsg = (e, { value }) => this.setState({ msg: value })
 
-	resetForm = () => this.setState({ msg: "" })
+	resetForm = () => this.setState({ loading: false, msg: "" })
 
 	sendContactMsg = e => {
 		if (this.state.msg !== "") {
-			this.props.sendContactMsg({ callback: this.resetForm, msg: this.state.msg })
+			this.setState({ loading: true }, () => {
+				this.props.sendContactMsg({ callback: this.resetForm, msg: this.state.msg })
+			})
 		}
 	}
 
 	render() {
-		const { activeItem, msg } = this.state
+		const { activeItem, loading, msg } = this.state
 
 		const AboutSection = () => (
 			<div>
@@ -81,7 +84,7 @@ class About extends Component {
 			</div>
 		)
 
-		const ContactSection = props => (
+		const ContactSection = () => (
 			<div>
 				<Form className="contactForm" onSubmit={this.sendContactMsg} size="big">
 					<Form.Field>
@@ -93,9 +96,15 @@ class About extends Component {
 							value={msg}
 						/>
 					</Form.Field>
-					<Button color="blue" fluid size="big" type="submit">
-						Send
-					</Button>
+					<Button
+						color="blue"
+						content="Send"
+						disabled={msg.length === 0}
+						fluid
+						loading={loading}
+						size="big"
+						type="submit"
+					/>
 					<div className="clearfix" />
 				</Form>
 			</div>
