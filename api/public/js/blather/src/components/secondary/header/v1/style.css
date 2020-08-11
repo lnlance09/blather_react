@@ -48,7 +48,8 @@
     .pageHeader .topHeader .container.desktop {
       display: none; }
     .pageHeader .topHeader .container.mobile {
-      opacity: 0.93; }
+      background: #101821;
+      opacity: 0.94; }
       .pageHeader .topHeader .container.mobile .left.item {
         padding-left: 8px !important; }
       .pageHeader .topHeader .container.mobile img {
