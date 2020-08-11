@@ -75,7 +75,7 @@ class FeedComponent extends Component {
 					return (
 						<Feed.Event key={`feed_${i}`}>
 							<Feed.Label
-								color="yellow"
+								color="red"
 								image={result.page_profile_pic}
 								onClick={() => props.history.push(userLink)}
 								onError={i => (i.target.src = ImagePic)}
@@ -245,7 +245,7 @@ class FeedComponent extends Component {
 		const RenderTags = tags =>
 			tags.map((tag, i) => (
 				<Label
-					color="yellow"
+					color="red"
 					key={`label_${i}`}
 					onClick={() => this.props.history.push(`/tags/${tag.id.trim()}`)}
 				>

@@ -156,7 +156,7 @@ class ResultItem extends Component {
 
 		const RenderTags = tags =>
 			tags.map((tag, i) => (
-				<Label color="yellow" key={`label_${i}`}>
+				<Label color="red" key={`label_${i}`}>
 					{tag}
 				</Label>
 			))
