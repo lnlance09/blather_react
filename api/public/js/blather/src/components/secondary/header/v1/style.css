@@ -47,12 +47,14 @@
   @media only screen and (max-width: 1025px) {
     .pageHeader .topHeader .container.desktop {
       display: none; }
-    .pageHeader .topHeader .container.mobile .left.item {
-      padding-left: 8px !important; }
-    .pageHeader .topHeader .container.mobile img {
-      height: 38px;
-      margin-left: 7px;
-      width: 38px; } }
+    .pageHeader .topHeader .container.mobile {
+      opacity: 0.96; }
+      .pageHeader .topHeader .container.mobile .left.item {
+        padding-left: 8px !important; }
+      .pageHeader .topHeader .container.mobile img {
+        height: 38px;
+        margin-left: 7px;
+        width: 38px; } }
   @media only screen and (min-width: 1025px) {
     .pageHeader .topHeader .container.mobile {
       display: none; } }

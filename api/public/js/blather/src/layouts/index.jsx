@@ -78,7 +78,7 @@ DefaultLayout.propTypes = {
 	isText: PropTypes.bool,
 	q: PropTypes.string,
 	showFooter: PropTypes.bool,
-	showResults: PropTypes.func,
+	showResults: PropTypes.bool,
 	textAlign: PropTypes.string,
 	useGrid: PropTypes.bool
 }

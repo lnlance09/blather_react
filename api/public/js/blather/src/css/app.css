@@ -402,6 +402,9 @@ a {
     width: 100%; }
     .fallacyPage .shareContent .screenshotButton {
       vertical-align: baseline !important; }
+      @media only screen and (max-width: 1025px) {
+        .fallacyPage .shareContent .screenshotButton {
+          display: none !important; } }
   .fallacyPage .fallacyContent {
     margin-bottom: 25px;
     margin-top: 25px;
