@@ -634,7 +634,7 @@ class Fallacy extends Component {
 									size="medium"
 									src={TrumpImg}
 								/>
-								<Header inverted size="medium">
+								<Header inverted size="large" textAlign="center">
 									This fallacy does not exist!
 								</Header>
 							</Fragment>
