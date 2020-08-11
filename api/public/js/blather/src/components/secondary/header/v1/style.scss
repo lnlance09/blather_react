@@ -43,7 +43,8 @@
 		}
 
     	img {
-      		cursor: pointer;
+			cursor: pointer;
+			flex: 1;
       		height: 45px;
       		width: 45px;
     	}
@@ -51,7 +52,11 @@
     	.grid .column {
       		input {
         		line-height: 25px;
-      		}
+			  }
+			  
+			  &.logoColumn {
+				  flex-direction: column;
+			  }
     	}
 
     	@media only screen and (max-width: 1025px) {
