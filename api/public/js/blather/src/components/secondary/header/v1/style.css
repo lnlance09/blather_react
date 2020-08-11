@@ -36,18 +36,23 @@
     background: #131d28 !important; }
   .pageHeader .topHeader img {
     cursor: pointer;
-    flex: 1;
-    height: 45px;
-    width: 45px; }
+    flex: 1 1;
+    height: 42px;
+    width: 42px; }
   .pageHeader .topHeader .grid .column input {
     line-height: 25px; }
   .pageHeader .topHeader .grid .column.logoColumn {
+    display: flex;
     flex-direction: column; }
   @media only screen and (max-width: 1025px) {
     .pageHeader .topHeader .container.desktop {
       display: none; }
     .pageHeader .topHeader .container.mobile .left.item {
-      padding-left: 8px !important; } }
+      padding-left: 8px !important; }
+    .pageHeader .topHeader .container.mobile img {
+      height: 38px;
+      margin-left: 7px;
+      width: 38px; } }
   @media only screen and (min-width: 1025px) {
     .pageHeader .topHeader .container.mobile {
       display: none; } }
