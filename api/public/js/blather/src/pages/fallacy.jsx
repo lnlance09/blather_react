@@ -435,6 +435,7 @@ class Fallacy extends Component {
 											fluid
 											negative
 											onClick={this.retractLogic}
+											size="large"
 										>
 											Retract
 										</Button>

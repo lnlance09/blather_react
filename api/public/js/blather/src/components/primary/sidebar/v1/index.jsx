@@ -58,10 +58,10 @@ const Sidebar = ({ activeItem, basic, history, inverted, logout }) => {
 				<Menu.Item className="headerMenuItem signIn">
 					<Button
 						color="blue"
-						content="Sign Up"
+						content="Sign In"
 						fluid
 						inverted={inverted}
-						onClick={() => history.push("/signin?type=join")}
+						onClick={() => history.push("/signin")}
 						size="big"
 					/>
 				</Menu.Item>
@@ -70,11 +70,11 @@ const Sidebar = ({ activeItem, basic, history, inverted, logout }) => {
 				</Divider>
 				<Menu.Item className="headerMenuItem signIn">
 					<Button
-						color="yellow"
-						content="Sign In"
+						color="red"
+						content="Sign Up"
 						fluid
 						inverted={inverted}
-						onClick={() => history.push("/signin")}
+						onClick={() => history.push("/signin?type=join")}
 						size="big"
 					/>
 				</Menu.Item>

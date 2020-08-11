@@ -33,7 +33,7 @@
 
 			.tweet {
 				.card {
-					border: solid 1px $tw;
+					border: solid 1px $twitterExtraExtraLightGrey1;
 		
 					.content .description span b {
 						border-bottom: solid 2px $red;
@@ -65,6 +65,7 @@
 	.aboutAttachedHeader {
 		background: lighten($invertedBackgroundColor, 4%) !important;
 		border-top: solid 1px $twitterExtraExtraLightGrey1 !important;
+		font-style: italic;
 		margin-bottom: 25px !important;
 	
 		a {

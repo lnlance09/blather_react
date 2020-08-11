@@ -926,6 +926,20 @@ a {
 	.captureTweet {
 		background: $invertedBackgroundColor;
 	}
+
+	.fallaciesWrapper {
+		width: 100% !important;
+
+		.ui.stackable.one.cards {
+			.card {
+				width: 100% !important;
+			}
+		}
+	}
+
+	.tweetWrapper {
+		width: 100% !important;
+	}
 }
 
 /* Search page */
