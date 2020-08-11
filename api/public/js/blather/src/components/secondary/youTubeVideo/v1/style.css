@@ -107,7 +107,7 @@
   .youtubeCommentsSection .commentsSection .dimmed.dimmable {
     padding: 10px; }
     .youtubeCommentsSection .commentsSection .dimmed.dimmable .dimmer {
-      background: rgba(21, 32, 43, 0.96) !important; }
+      background: rgba(21, 32, 43, 0.6) !important; }
     .youtubeCommentsSection .commentsSection .dimmed.dimmable .content .header {
       color: #1b1c1d; }
   .youtubeCommentsSection .commentsSection .basic.segment {

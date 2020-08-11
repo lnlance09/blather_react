@@ -157,7 +157,14 @@ class Page extends Component {
 
 		const LazyLoadDefault = [{}, {}, {}, {}, {}].map((post, i) => {
 			let marginTop = i === 0 ? 0 : 15
-			return <LazyLoad key={`lazy_load_${i}`} style={{ marginTop: `${marginTop}px` }} />
+			return (
+				<LazyLoad
+					header={false}
+					key={`lazy_load_${i}`}
+					segment={false}
+					style={{ marginTop: `${marginTop}px` }}
+				/>
+			)
 		})
 
 		const PageHeaderInfo = props => {
