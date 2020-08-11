@@ -115,11 +115,17 @@ class Breakdown extends Component {
 						>
 							<Header inverted size="small">
 								{result.key}{" "}
-								<Label basic color="black" horizontal>
+								<Label color="blue" horizontal>
 									{result.count}
 								</Label>
 							</Header>
-							<Progress inverted percent={percent} progress size="medium" />
+							<Progress
+								color="blue"
+								inverted
+								percent={percent}
+								progress
+								size="medium"
+							/>
 						</div>
 					)
 				}

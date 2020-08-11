@@ -23,6 +23,8 @@ import {
 } from "react-share"
 import { Button, Card, Container, Divider, Header, Icon, Image, List } from "semantic-ui-react"
 import { confetti } from "dom-confetti"
+import { toast } from "react-toastify"
+import { getConfig } from "options/toast"
 import DefaultLayout from "layouts"
 import FallacyComments from "components/secondary/comments/v1/"
 import FallacyExample from "components/primary/fallacyExample/v1/"
@@ -39,6 +41,8 @@ import store from "store"
 import TagsCard from "components/primary/tagsCard/v1/"
 import TitleHeader from "components/primary/titleHeader/v1/"
 import TrumpImg from "images/trump-white.png"
+
+toast.configure(getConfig())
 
 class Fallacy extends Component {
 	constructor(props) {
@@ -492,7 +496,10 @@ class Fallacy extends Component {
 								</RedditShareButton>
 							</List.Item>
 							<List.Item>
-								<CopyToClipboard text={`${window.location.origin}/fallacies/${id}`}>
+								<CopyToClipboard
+									onCopy={() => toast.success("Copied")}
+									text={`${window.location.origin}/fallacies/${id}`}
+								>
 									<div>
 										<Button circular color="red" icon="paperclip" size="big" />{" "}
 									</div>
