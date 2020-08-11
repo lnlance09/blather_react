@@ -6,7 +6,7 @@
 /*---   Social colors  ---*/
 .ui.bottom.attached.segment.footerSegment {
   background: #15202b !important;
-  border-bottom: none;
+  border: none;
   border-top: solid 1px rgba(245, 248, 250, 0.1);
   box-shadow: none !important;
   margin-top: 2.5em !important;

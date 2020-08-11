@@ -177,11 +177,14 @@ body {
   display: inline-block;
   max-width: none;
   text-align: center; }
-  .profilePicPlaceholder.square {
-    border-radius: 0%; }
   .profilePicPlaceholder .square {
+    border-radius: 0%;
     height: 220px;
     width: 220px; }
+  @media only screen and (max-width: 1025px) {
+    .profilePicPlaceholder {
+      height: 70px;
+      width: 70px; } }
 
 .pageHeaderPlaceholder {
   display: inline-block;
@@ -758,5 +761,5 @@ a {
   width: 100%; }
   .signInPageHeader .headerLogo {
     cursor: pointer;
-    height: 54px;
-    width: 54px; }
+    height: 48px;
+    width: 48px; }

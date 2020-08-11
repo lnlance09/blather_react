@@ -106,7 +106,7 @@ class App extends Component {
 									exact
 									path="/"
 									render={props => (
-										<Home key={window.location.pathname} {...props} />
+										<NewsFeed key={window.location.pathname} {...props} />
 									)}
 								/>
 

@@ -329,30 +329,34 @@ class UserPage extends Component {
 									</Grid.Column>
 								</Grid>
 
-								<Menu
-									inverted
-									pointing
-									secondary
-									size="big"
-									style={{ marginTop: "40px" }}
-								>
-									<Menu.Item
-										active={activeItem === "fallacies"}
-										name="fallacies"
-										onClick={this.handleItemClick}
-									>
-										Fallacies
-									</Menu.Item>
-									<Menu.Item
-										active={activeItem === "archives"}
-										name="archives"
-										onClick={this.handleItemClick}
-									>
-										Archives
-									</Menu.Item>
-								</Menu>
+								{this.props.user.id && (
+									<Fragment>
+										<Menu
+											inverted
+											pointing
+											secondary
+											size="big"
+											style={{ marginTop: "40px" }}
+										>
+											<Menu.Item
+												active={activeItem === "fallacies"}
+												name="fallacies"
+												onClick={this.handleItemClick}
+											>
+												Fallacies
+											</Menu.Item>
+											<Menu.Item
+												active={activeItem === "archives"}
+												name="archives"
+												onClick={this.handleItemClick}
+											>
+												Archives
+											</Menu.Item>
+										</Menu>
 
-								{ShowContent(this.props)}
+										{ShowContent(this.props)}
+									</Fragment>
+								)}
 							</Fragment>
 						) : (
 							<Fragment>

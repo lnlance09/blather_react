@@ -299,7 +299,7 @@ class Page extends Component {
 								<Button
 									color="blue"
 									onClick={() => props.history.push("/signin")}
-									size="big"
+									size="large"
 								>
 									Sign in
 								</Button>
