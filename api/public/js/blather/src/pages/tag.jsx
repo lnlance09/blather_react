@@ -192,7 +192,7 @@ class Tag extends Component {
 				return (
 					<Segment inverted placeholder>
 						<Header icon inverted>
-							<Icon name="warning sign" />
+							<Icon color="yellow" name="warning sign" />
 							This tag is empty
 						</Header>
 						{!authenticated && (

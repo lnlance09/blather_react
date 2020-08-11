@@ -267,14 +267,9 @@ body {
 	text-align: center;
 
 	.square {
-		border-radius: 0%;
+		border-radius: 0;
 		height: 220px;
 		width: 220px;
-	}
-
-	@media only screen and (max-width: 1025px) {
-		height: 70px;
-		width: 70px;
 	}
 }
 
@@ -1269,6 +1264,13 @@ a {
 		.profileContentSegment {
 			height: 100%;
 			padding: 0;
+		}
+	}
+
+	.profilePicPlaceholder {
+		@media only screen and (max-width: 1025px) {
+			height: 70px;
+			width: 70px;
 		}
 	}
 

@@ -178,13 +178,9 @@ body {
   max-width: none;
   text-align: center; }
   .profilePicPlaceholder .square {
-    border-radius: 0%;
+    border-radius: 0;
     height: 220px;
     width: 220px; }
-  @media only screen and (max-width: 1025px) {
-    .profilePicPlaceholder {
-      height: 70px;
-      width: 70px; } }
 
 .pageHeaderPlaceholder {
   display: inline-block;
@@ -749,6 +745,10 @@ a {
     .usersPage .profileContentContainer .profileContentSegment {
       height: 100%;
       padding: 0; }
+  @media only screen and (max-width: 1025px) {
+    .usersPage .profilePicPlaceholder {
+      height: 70px;
+      width: 70px; } }
   .usersPage .userStat {
     cursor: pointer; }
     .usersPage .userStat:hover .value,
