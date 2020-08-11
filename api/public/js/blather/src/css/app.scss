@@ -861,14 +861,14 @@ a {
 
 		.dimmer {
 			background: $dimmer-background !important;
-			border: solid 1px $dimmer-border;
+			border: none;
 			box-shadow: none !important;
 		}
 
 		.signInPlaceholder {
 			border: none;
 			box-shadow: none !important;
-			padding: 0;
+			padding: 16px;
 		}
 
 		@media only screen and (max-width: 1025px) {

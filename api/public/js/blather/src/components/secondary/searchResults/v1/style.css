@@ -10,7 +10,7 @@
   margin-right: 3px; }
 
 .searchResults .ui.active.transition.visible.dimmer {
-  background: rgba(21, 32, 43, 0.96) !important; }
+  background: rgba(21, 32, 43, 0.6) !important; }
 
 .searchResults .resultsSegment {
   margin-top: 14px !important; }
