@@ -161,7 +161,7 @@ class UserPage extends Component {
 			</Dropzone>
 		)
 
-		const ProfilePic = props => {
+		const ProfilePic = () => {
 			if (isMyProfile) {
 				return (
 					<Dimmer.Dimmable
@@ -235,7 +235,7 @@ class UserPage extends Component {
 								<Grid>
 									<Grid.Column textAlign="left" width={4}>
 										{this.props.user.id ? (
-											<div>{ProfilePic(this.props)}</div>
+											<div>{ProfilePic()}</div>
 										) : (
 											<Placeholder className="profilePicPlaceholder" inverted>
 												<Placeholder.Image square />

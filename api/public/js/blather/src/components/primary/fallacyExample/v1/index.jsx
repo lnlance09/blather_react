@@ -615,6 +615,7 @@ class FallacyExample extends Component {
 				}
 				return (
 					<Divider hidden horizontal id="fallacyDateDiff" inverted>
+						<Icon inverted name="clock outline" style={{ marginRight: "5px" }} />{" "}
 						{dateDifference(dateOne, dateTwo)}
 					</Divider>
 				)
