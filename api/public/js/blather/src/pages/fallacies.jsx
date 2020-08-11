@@ -102,7 +102,7 @@ class Fallacies extends Component {
 								{activeItem ? activeItemName : "Reference"}
 							</Header>
 							<Segment inverted>
-								<Form size="big">
+								<Form size="large">
 									<Dropdown
 										clearable
 										fluid
@@ -110,7 +110,6 @@ class Fallacies extends Component {
 										onChange={this.onChangeFallacy}
 										options={fallacyOptions}
 										placeholder="Select a fallacy"
-										search
 										selection
 										value={activeItem}
 									/>
