@@ -36,10 +36,13 @@
     background: #131d28 !important; }
   .pageHeader .topHeader img {
     cursor: pointer;
+    flex: 1;
     height: 45px;
     width: 45px; }
   .pageHeader .topHeader .grid .column input {
     line-height: 25px; }
+  .pageHeader .topHeader .grid .column.logoColumn {
+    flex-direction: column; }
   @media only screen and (max-width: 1025px) {
     .pageHeader .topHeader .container.desktop {
       display: none; }
