@@ -38,5 +38,11 @@
   margin: 12px 0 !important;
   width: 65% !important; }
 
+.feed .content .meta .like {
+  color: #dcddde !important;
+  font-weight: bold; }
+  .feed .content .meta .like:hover .icon {
+    color: #dcddde !important; }
+
 .feed .archiveExtra {
   margin: 16px 0 10px 0 !important; }

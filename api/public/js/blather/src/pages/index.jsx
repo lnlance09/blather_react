@@ -362,15 +362,35 @@ class Page extends Component {
 							</Fragment>
 						) : (
 							<Fragment>
-								<Image
-									centered
-									className="trumpImg404"
-									size="medium"
-									src={TrumpImg}
-								/>
-								<Header inverted size="large" textAlign="center">
-									This page does not exist!
-								</Header>
+								{authenticated ? (
+									<Fragment>
+										<Image
+											centered
+											className="trumpImg404"
+											size="medium"
+											src={TrumpImg}
+										/>
+										<Header inverted size="large" textAlign="center">
+											This page does not exist!
+										</Header>
+									</Fragment>
+								) : (
+									<Segment inverted placeholder>
+										<Header inverted size="huge" textAlign="center">
+											We don't have any records of this account
+											<Header.Subheader>
+												Link your twitter to help us keep tabs
+											</Header.Subheader>
+										</Header>
+										<Button
+											color="twitter"
+											content="Sign In"
+											icon="twitter"
+											onClick={() => this.props.history.push("/signin")}
+											size="large"
+										/>
+									</Segment>
+								)}
 							</Fragment>
 						)}
 					</DefaultLayout>

@@ -24,7 +24,7 @@ export const linkHashtags = url => {
 	})
 }
 
-export const linkMentions = network => {
+export const linkMentions = page => {
 	linkify.add("@", {
 		validate: function(text, pos, self) {
 			var tail = text.slice(pos)
@@ -43,8 +43,7 @@ export const linkMentions = network => {
 			return 0
 		},
 		normalize: function(match) {
-			match.url =
-				window.location.origin + "/pages/" + network + "/" + match.url.replace(/^@/, "")
+			match.url = window.location.origin + `${page}${match.url.replace(/^@/, "")}`
 		}
 	})
 }

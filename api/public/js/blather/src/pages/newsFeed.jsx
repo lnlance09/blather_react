@@ -1,6 +1,5 @@
 import { DisplayMetaTags } from "utils/metaFunctions"
-import { mostFallacious } from "redux/actions/feed"
-import { Provider, connect } from "react-redux"
+import { Provider } from "react-redux"
 import DefaultLayout from "layouts"
 import FeedComponent from "components/secondary/feed/v1/"
 import PropTypes from "prop-types"
@@ -19,9 +18,7 @@ class NewsFeed extends Component {
 		}
 	}
 
-	componentDidMount() {
-		this.props.mostFallacious()
-	}
+	componentDidMount() {}
 
 	render() {
 		return (
@@ -42,22 +39,11 @@ class NewsFeed extends Component {
 }
 
 NewsFeed.propTypes = {
-	mostFallacious: PropTypes.func,
 	results: PropTypes.array
 }
 
 NewsFeed.defaultProps = {
-	mostFallacious,
 	results: []
 }
 
-const mapStateToProps = (state, ownProps) => {
-	return {
-		...state.newsFeed,
-		...ownProps
-	}
-}
-
-export default connect(mapStateToProps, {
-	mostFallacious
-})(NewsFeed)
+export default NewsFeed

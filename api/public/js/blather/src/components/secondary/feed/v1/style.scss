@@ -50,6 +50,19 @@
                 width: 65% !important;
             }
         }
+
+        .meta {
+            .like {
+                color: $lightGrey !important;
+                font-weight: bold;
+
+                &:hover {
+                    .icon {
+                        color: $lightGrey !important;
+                    }
+                }
+            }
+        }
     }
 
     .archiveExtra {

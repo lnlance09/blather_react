@@ -466,6 +466,7 @@ class Fallacies extends CI_Controller {
 			$comment_id = $this->db->insert_id();
 			$data['id'] = $comment_id;
 			$data['likeCount'] = 0;
+			$data['responses'] = [];
 		}
 
 		$data['img'] = $user->img;

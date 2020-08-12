@@ -26,7 +26,7 @@ class Tweet extends Component {
 			visible: false
 		}
 
-		linkMentions("twitter")
+		linkMentions("/pages/twitter/")
 		linkHashtags("https://www.twitter.com/hashtag/")
 	}
 

@@ -101,7 +101,7 @@ class ArchivesList extends Component {
 
 		const LazyLoadMore = props => {
 			if (loadingMore && props.hasMore) {
-				return <LazyLoad />
+				return <LazyLoad segment={false} />
 			}
 		}
 
@@ -166,7 +166,7 @@ class ArchivesList extends Component {
 						/>
 					)
 				} else {
-					return <LazyLoad key={`archive_${i}`} />
+					return <LazyLoad key={`archive_${i}`} segment={false} />
 				}
 			})
 		}

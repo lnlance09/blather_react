@@ -31,6 +31,7 @@ class Home extends CI_Controller {
 	}
 
 	public function feed() {
+		$lastId = $this->input->get('lastId');
 		$page = $this->input->get('page');
 
 		$results = null;
@@ -43,6 +44,7 @@ class Home extends CI_Controller {
 			'comment_id' => null,
 			'fallacies' => null,
 			'fallacy_id' => null,
+			'last_id' => $lastId,
 			'network' => null,
 			'object_id' => null,
 			'page' => $page,
