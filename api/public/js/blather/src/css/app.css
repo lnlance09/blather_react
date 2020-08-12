@@ -111,9 +111,9 @@ body {
   .ui.card .header {
     color: #ffffff !important; }
   .ui.card.large .header.formHeader, .ui.card.large .retractionHeader, .ui.card.big .header.formHeader, .ui.card.big .retractionHeader {
-    font-size: 1.71428571em !important; }
+    font-size: 22px !important; }
   .ui.card.large .meta, .ui.card.big .meta {
-    font-size: 1.14285714rem !important; }
+    font-size: 16px !important; }
   .ui.card.large .description, .ui.card.big .description {
     font-size: 16px !important; }
   .ui.card .meta {

@@ -8,7 +8,7 @@
 	}
 
 	.formHeader {
-    	font-size: 18px !important;
+    	// font-size: 18px !important;
   	}
 
   	.field.startTime,
@@ -68,16 +68,5 @@
         		}
       		}
     	}
-  	}
-}
-
-.successModal {
-	a {
-    	cursor: pointer;
-  	}
-
-  	.modalBtnWrapper {
-    	margin-top: 1.6em;
-    	text-align: center;
   	}
 }

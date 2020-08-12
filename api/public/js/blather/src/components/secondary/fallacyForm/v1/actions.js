@@ -7,6 +7,7 @@ toast.configure(getConfig())
 
 export const assignFallacy = ({
 	bearer,
+	callback = () => null,
 	commentId,
 	contradiction,
 	endTime,
@@ -42,6 +43,8 @@ export const assignFallacy = ({
 			json: true
 		},
 		function(err, response, body) {
+			callback()
+
 			dispatch({
 				type: constants.ASSIGN_FALLACY,
 				payload: body

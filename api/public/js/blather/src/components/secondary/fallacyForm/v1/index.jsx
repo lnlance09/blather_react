@@ -51,6 +51,7 @@ class FallacyForm extends Component {
 			formVisible: false,
 			highlightedText: "",
 			id: this.props.fallacyId,
+			loading: false,
 			title: "",
 			url: "",
 			visible: true
@@ -182,6 +183,7 @@ class FallacyForm extends Component {
 	}
 
 	onSubmitForm = e => {
+		this.setState({ loading: true })
 		let type = this.props.type
 		if (type === "video" && this.props.info.comment) {
 			type = "comment"
@@ -201,6 +203,7 @@ class FallacyForm extends Component {
 		const _state = store.getState()
 		this.props.assignFallacy({
 			bearer: this.props.bearer,
+			callback: () => this.setState({ loading: false }),
 			contradiction,
 			commentId: this.props.commentId,
 			endTime: convertTimeToSeconds(_state.fallacyForm.endTime),
@@ -236,7 +239,7 @@ class FallacyForm extends Component {
 	}
 
 	render() {
-		const { explanation, highlightedText, id, title, url } = this.state
+		const { explanation, highlightedText, id, loading, title, url } = this.state
 		let { bearer, fallacy, info, type } = this.props
 
 		if (type === "video" && info !== undefined && info.comment) {
@@ -553,7 +556,14 @@ class FallacyForm extends Component {
 						value={explanation}
 					/>
 				</Form.Field>
-				<Button color="blue" content="Assign" fluid size={props.size} type="submit" />
+				<Button
+					color="blue"
+					content="Assign"
+					fluid
+					loading={loading}
+					size={props.size}
+					type="submit"
+				/>
 				<div className="clearfix" />
 			</Form>
 		)
