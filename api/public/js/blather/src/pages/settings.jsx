@@ -42,6 +42,7 @@ class SettingsPage extends Component {
 		) {
 			this.props.linkTwitter({
 				bearer: this.props.bearer,
+				callback: () => window.location.reload(),
 				secret: parsed.oauth_secret,
 				token: parsed.oauth_token,
 				verifier: parsed.oauth_verifier
