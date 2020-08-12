@@ -224,12 +224,12 @@ class MediaModel extends CI_Model {
 		$mail->IsSMTP();
 		$mail->SMTPAuth = true;
 		// $mail->SMTPDebug = 2;
-		$mail->SMTPSecure = 'ssl';
+		$mail->SMTPSecure = 'tls';
 		$mail->Host = 'smtpout.secureserver.net';
-		$mail->Port = 465;
+		$mail->Port = 587;
 		$mail->Username = 'noreply@alliesonly.com';
 		$mail->Password = 't3hT!Pvs94wt1Wk';
-		$mail->SetFrom('noreply@blather.io', 'Blather');
+		// $mail->SetFrom('noreply@blather.io', 'Blather');
 		$mail->Subject = $subject;
 		$mail->Body = $msg;
 		$mail->AltBody = $msg;
