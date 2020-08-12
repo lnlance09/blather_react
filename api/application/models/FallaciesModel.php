@@ -462,7 +462,7 @@ class FallaciesModel extends CI_Model {
 			$results[$i]['responses'] = @json_decode($responses, true);
 	
 			if ($results[$i]['responses'][0]['id'] === null) {
-				$results[$i]['responses'] = null;
+				$results[$i]['responses'] = [];
 			} else {
 				
 				usort($results[$i]['responses'], function($a, $b) {
@@ -926,6 +926,9 @@ class FallaciesModel extends CI_Model {
 			fe.title,
 			fe.view_count,
 
+			fc.commentCount,
+			fc.responseCount,
+
 			p.name AS page_name,
 			CONCAT('".S3_PATH."', p.s3_pic) AS page_profile_pic,
 			p.social_media_id AS page_id,
@@ -970,6 +973,17 @@ class FallaciesModel extends CI_Model {
 			}
 		}
 
+		$this->db->join('(
+			SELECT COUNT(*) AS commentCount, responseCount, fc.id, fallacy_id
+			FROM fallacy_comments fc
+			LEFT JOIN (
+				SELECT COUNT(*) AS responseCount, id, response_to
+				FROM fallacy_comment_responses
+				GROUP BY id
+			) fcr ON fc.id=fcr.response_to 
+			GROUP BY fallacy_id
+		) fc', 'fe.id=fc.fallacy_id', 'left');
+
 		if ($data['q']) {
 			$this->db->where("(title LIKE '%".$data['q']."%' OR explanation LIKE '%".$data['q']."%' OR p.name LIKE '%".$data['q']."%')");
 		}
@@ -1013,6 +1027,10 @@ class FallaciesModel extends CI_Model {
 
 		if (array_key_exists('exclude', $data)) {
 			$this->db->where_not_in('fe.id', $data['exclude']);
+		}
+
+		if (array_key_exists('last_id', $data) && is_numeric($data['last_id'])) {
+			$this->db->where('fe.id >', $data['last_id']);
 		}
 
 		if (!$just_count) {

@@ -51,7 +51,8 @@ const fallacyComments = (state = initial(), action) => {
 				payload.comment.response_to !== null
 			) {
 				const _comment = state.comments.results.find(
-					comment => comment.id === payload.comment.response_to
+					comment =>
+						parseInt(comment.id, 10) === parseInt(payload.comment.response_to, 10)
 				)
 				_comment.responses.push(payload.comment)
 				results = state.comments.results

@@ -28,6 +28,8 @@
         background: #1d2d3c !important;
         border-radius: 4px;
         padding: 7px 12px 10px 12px !important; }
+        .commentsSection .ui.big.comments .comment .content .text {
+          color: #ffffff !important; }
       .commentsSection .ui.big.comments .comment .comments {
         margin: 0 !important;
         padding-bottom: 0 !important; }

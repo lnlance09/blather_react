@@ -1,6 +1,6 @@
 import "./style.css"
 import { mapIdsToNames } from "utils/arrayFunctions"
-import { getFeed } from "./actions"
+import { getFeed, getFeedUpdates } from "./actions"
 import { adjustTimezone } from "utils/dateFunctions"
 import { formatGrammar, formatPlural } from "utils/textFunctions"
 import { connect } from "react-redux"
@@ -42,6 +42,8 @@ class FeedComponent extends Component {
 	componentDidMount() {
 		if (this.props.count === 0) {
 			this.props.getFeed({ page: 0 })
+		} else {
+			this.props.getFeedUpdates({ lastId: this.props.lastId })
 		}
 	}
 
@@ -68,6 +70,17 @@ class FeedComponent extends Component {
 		const RenderFeed = props => {
 			return props.results.map((result, i) => {
 				if (result.id && result.item_type === "fallacy") {
+					let { commentCount, responseCount } = result
+					if (commentCount === null) {
+						commentCount = 0
+					}
+
+					if (responseCount === null) {
+						responseCount = 0
+					}
+
+					const totalCommentCount =
+						parseInt(commentCount, 10) + parseInt(responseCount, 10)
 					let userLink = `/pages/${result.page_type}/${
 						result.page_type === "twitter" ? result.page_username : result.page_id
 					}`
@@ -113,12 +126,34 @@ class FeedComponent extends Component {
 								{result.tag_ids !== null ? (
 									<Feed.Meta>
 										<Feed.Content>
-											<Label.Group size="large">
+											<Label.Group style={{ marginTop: "8px" }}>
 												{RenderTags(tags(result))}
 											</Label.Group>
 										</Feed.Content>
 									</Feed.Meta>
 								) : null}
+								<div
+									onClick={e => {
+										if (!e.metaKey) {
+											props.history.push(`/fallacies/${result.slug}`)
+										} else {
+											window
+												.open(`/fallacies/${result.slug}`, "_blank")
+												.focus()
+										}
+									}}
+								>
+									<Feed.Meta>
+										<Feed.Like>
+											{totalCommentCount}{" "}
+											{formatPlural(totalCommentCount, "comment")}
+										</Feed.Like>
+										<Feed.Like>
+											{result.view_count}{" "}
+											{formatPlural(result.view_count, "view")}
+										</Feed.Like>
+									</Feed.Meta>
+								</div>
 							</Feed.Content>
 						</Feed.Event>
 					)
@@ -285,7 +320,9 @@ class FeedComponent extends Component {
 FeedComponent.propTypes = {
 	count: PropTypes.number,
 	getFeed: PropTypes.func,
+	getFeedUpdates: PropTypes.func,
 	hasMore: PropTypes.bool,
+	lastId: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
 	loadingMore: PropTypes.bool,
 	page: PropTypes.number,
 	pages: PropTypes.number,
@@ -296,6 +333,7 @@ FeedComponent.propTypes = {
 FeedComponent.defaultProps = {
 	count: 0,
 	getFeed,
+	getFeedUpdates,
 	page: 0,
 	results: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
 	size: "large"
@@ -306,4 +344,4 @@ const mapStateToProps = (state, ownProps) => ({
 	...ownProps
 })
 
-export default connect(mapStateToProps, { getFeed })(FeedComponent)
+export default connect(mapStateToProps, { getFeed, getFeedUpdates })(FeedComponent)

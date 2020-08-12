@@ -17,13 +17,31 @@ export const getFeed = ({ page }) => dispatch => {
 		},
 		function(err, response, body) {
 			dispatch({
-				type: constants.GET_FEED,
-				payload: body
+				payload: body,
+				type: constants.GET_FEED
 			})
 
 			if (page === 0) {
 				dispatch(hideLoading())
 			}
+		}
+	)
+}
+
+export const getFeedUpdates = ({ lastId }) => dispatch => {
+	request.get(
+		`${window.location.origin}/api/home/feed`,
+		{
+			json: true,
+			qs: {
+				lastId
+			}
+		},
+		function(err, response, body) {
+			dispatch({
+				payload: body,
+				type: constants.GET_FEED_UPDATES
+			})
 		}
 	)
 }

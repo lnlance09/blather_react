@@ -1,4 +1,5 @@
 import "./style.css"
+import * as linkify from "linkifyjs"
 import { fetchComments, likeComment, postComment, unlikeComment } from "./actions"
 import { adjustTimezone } from "utils/dateFunctions"
 import { connect } from "react-redux"
@@ -6,10 +7,13 @@ import { Button, Comment, Form, Header, Icon, Segment, TextArea } from "semantic
 import ImagePic from "images/images/image-square.png"
 import Moment from "react-moment"
 import defaultImg from "images/avatar/small/steve.jpg"
-import Linkify from "react-linkify"
+import Linkify from "linkifyjs/react"
+import mention from "linkifyjs/plugins/mention"
 import PropTypes from "prop-types"
 import React, { Fragment, useEffect, useRef, useState } from "react"
 import ReactTooltip from "react-tooltip"
+
+mention(linkify)
 
 const CommentsSection = ({
 	allowReplies,
@@ -44,7 +48,10 @@ const CommentsSection = ({
 		if (message !== "") {
 			postComment({
 				bearer,
-				callback: () => setMessage(""),
+				callback: () => {
+					setMessage("")
+					setResponseTo(null)
+				},
 				id,
 				message,
 				responseTo
@@ -61,6 +68,7 @@ const CommentsSection = ({
 						data-for={key}
 						data-iscapture="true"
 						data-tip={`${comment.username}`}
+						onClick={() => history.push(`/users/${comment.username}`)}
 						onError={i => (i.target.src = ImagePic)}
 						size="tiny"
 						src={comment.img ? comment.img : defaultImg}
@@ -78,7 +86,14 @@ const CommentsSection = ({
 							</div>
 						</Comment.Metadata>
 						<Comment.Text>
-							<Linkify properties={{ target: "_blank" }}>{comment.message}</Linkify>
+							<Linkify
+								options={{
+									formatHref: { mention: val => `/users${val}` },
+									target: "_blank"
+								}}
+							>
+								{comment.message}
+							</Linkify>
 						</Comment.Text>
 						<Comment.Actions>
 							<Comment.Action>
@@ -208,7 +223,7 @@ const CommentsSection = ({
 							>
 								{SingleComment(comment, comment.id, false, `individualComment${i}`)}
 
-								{responses && showReplies && (
+								{responses && responses.length > 0 && showReplies && (
 									<Comment.Group size="big">
 										{responses.map((response, x) => {
 											if (response.id !== null) {
