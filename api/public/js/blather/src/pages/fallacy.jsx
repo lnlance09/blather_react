@@ -307,6 +307,7 @@ class Fallacy extends Component {
 											history={props.history}
 											id={id}
 											showMaterial={false}
+											updatedAt={props.createdAt}
 										/>
 										{SourcesSection(props)}
 										{ReferenceSection}
