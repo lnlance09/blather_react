@@ -84,7 +84,7 @@ export const changeProfilePic = ({ bearer, file }) => dispatch => {
 	fr.readAsArrayBuffer(file)
 }
 
-export const linkTwitter = ({ bearer, secret, token, verifier }) => dispatch => {
+export const linkTwitter = ({ bearer, callback = () => null, token, verifier }) => dispatch => {
 	request.post(
 		`${window.location.origin}/api/twitter/getCredentials`,
 		{
@@ -123,6 +123,8 @@ export const linkTwitter = ({ bearer, secret, token, verifier }) => dispatch => 
 
 				token = setToken(body.user)
 				body.bearer = token
+
+				callback()
 				dispatch({
 					payload: body,
 					type: constants.SET_USER_DATA
