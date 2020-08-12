@@ -1,6 +1,6 @@
 import "./style.css"
 import { editExplanation, updateFallacy } from "redux/actions/fallacy"
-import { dateDifference, formatTime } from "utils/dateFunctions"
+import { adjustTimezone, dateDifference, formatTime } from "utils/dateFunctions"
 import { fallacyDropdownOptions } from "utils/fallacyFunctions"
 import { convertTimeToSeconds, formatDuration, sanitizeText } from "utils/textFunctions"
 import { connect } from "react-redux"
@@ -354,7 +354,8 @@ class FallacyExample extends Component {
 									{this.props.creator.name}
 								</a>
 								<Header.Subheader>
-									Created <Moment date={this.props.updatedAt} fromNow />
+									Created{" "}
+									<Moment date={adjustTimezone(this.props.updatedAt)} fromNow />
 								</Header.Subheader>
 							</Header.Content>
 						</Header>
