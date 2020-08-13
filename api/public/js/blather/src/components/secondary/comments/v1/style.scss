@@ -40,6 +40,10 @@
 
 				.text {
 					color: $white !important;
+
+					span {
+						white-space: pre-wrap !important;
+					}
 				}
 			}
 
