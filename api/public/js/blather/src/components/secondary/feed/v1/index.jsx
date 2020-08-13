@@ -5,7 +5,7 @@ import { adjustTimezone } from "utils/dateFunctions"
 import { formatGrammar, formatPlural } from "utils/textFunctions"
 import { connect } from "react-redux"
 import { Link } from "react-router-dom"
-import { Feed, Image, Label, Visibility } from "semantic-ui-react"
+import { Feed, Icon, Image, Label, Visibility } from "semantic-ui-react"
 import ImagePic from "images/images/image-square.png"
 import LazyLoad from "components/primary/lazyLoad/v1/"
 import Lightbox from "react-image-lightbox"
@@ -145,11 +145,11 @@ class FeedComponent extends Component {
 								>
 									<Feed.Meta>
 										<Feed.Like>
-											{totalCommentCount}{" "}
+											<Icon inverted name="comment" /> {totalCommentCount}{" "}
 											{formatPlural(totalCommentCount, "comment")}
 										</Feed.Like>
 										<Feed.Like>
-											{result.view_count}{" "}
+											<Icon inverted name="eye" /> {result.view_count}{" "}
 											{formatPlural(result.view_count, "view")}
 										</Feed.Like>
 									</Feed.Meta>
