@@ -1049,7 +1049,8 @@ class FallaciesModel extends CI_Model {
 						$this->db->order_by('fe.view_count DESC');
 					}
 				} else {
-					$this->db->order_by('fe.id DESC');
+					$this->db->order_by('commentCount DESC, fe.id DESC');
+					// $this->db->order_by('fe.id DESC');
 				}
 			}
 
