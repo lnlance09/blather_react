@@ -372,7 +372,7 @@ class Target extends Component {
 									</Container>
 								) : (
 									<Container textAlign="center">
-										<Placeholder className="profilePicPlaceholder">
+										<Placeholder className="profilePicPlaceholder" inverted>
 											<Placeholder.Image square />
 										</Placeholder>
 									</Container>
