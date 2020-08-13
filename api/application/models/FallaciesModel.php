@@ -974,10 +974,10 @@ class FallaciesModel extends CI_Model {
 		}
 
 		$this->db->join('(
-			SELECT COUNT(*) AS commentCount, responseCount, fc.id, fallacy_id
+			SELECT COUNT(*) AS commentCount, responseCount, fc.id, fallacy_id, MAX(created_at) AS latestCommentDate, latestResponseDate
 			FROM fallacy_comments fc
 			LEFT JOIN (
-				SELECT COUNT(*) AS responseCount, id, response_to
+				SELECT COUNT(*) AS responseCount, id, response_to, MAX(created_at) AS latestResponseDate
 				FROM fallacy_comment_responses
 				GROUP BY id
 			) fcr ON fc.id=fcr.response_to 
@@ -1049,7 +1049,7 @@ class FallaciesModel extends CI_Model {
 						$this->db->order_by('fe.view_count DESC');
 					}
 				} else {
-					$this->db->order_by('commentCount DESC, fe.id DESC');
+					$this->db->order_by('latestCommentDate DESC, latestResponseDate DESC, fe.id DESC');
 					// $this->db->order_by('fe.id DESC');
 				}
 			}
