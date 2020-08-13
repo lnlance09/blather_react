@@ -125,7 +125,7 @@ const Sidebar = ({ activeItem, basic, history, inverted, logout }) => {
 								onClick={() => history.push("/grifters")}
 							>
 								<Icon
-									color={activeItem === "interactions" ? "blue" : null}
+									color={activeItem === "grifters" ? "blue" : null}
 									inverted={inverted}
 									name="user"
 								/>
