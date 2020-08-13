@@ -63,7 +63,11 @@ class FeedComponent extends Component {
 
 		const LazyLoadMore = props => {
 			if (loadingMore && props.hasMore) {
-				return <LazyLoad segment={false} />
+				return (
+					<div style={{ marginTop: "15px" }}>
+						<LazyLoad segment={false} />
+					</div>
+				)
 			}
 		}
 
