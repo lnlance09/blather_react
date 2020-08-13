@@ -71,7 +71,7 @@ const Sidebar = ({ activeItem, basic, history, inverted, logout }) => {
 				<Menu.Item className="headerMenuItem signIn">
 					<Button
 						color="red"
-						content="Sign Up"
+						content="Take Action"
 						fluid
 						inverted={inverted}
 						onClick={() => history.push("/signin?type=join")}
