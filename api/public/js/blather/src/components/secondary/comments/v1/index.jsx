@@ -7,6 +7,7 @@ import { Button, Comment, Form, Header, Icon, Segment, TextArea } from "semantic
 import ImagePic from "images/images/image-square.png"
 import Moment from "react-moment"
 import defaultImg from "images/avatar/small/steve.jpg"
+import LazyLoad from "components/primary/lazyLoad/v1/"
 import Linkify from "linkifyjs/react"
 import mention from "linkifyjs/plugins/mention"
 import PropTypes from "prop-types"
@@ -215,6 +216,10 @@ const CommentsSection = ({
 				<Comment.Group className="commentsGroup" size="big">
 					{comments.results.map((comment, i) => {
 						const { responses } = comment
+						if (typeof comment.id === "undefined") {
+							return <LazyLoad />
+						}
+
 						return (
 							<Comment
 								className={`${redirectToComment ? "redirect" : ""}`}
