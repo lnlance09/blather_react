@@ -1,10 +1,10 @@
 {
-  "main.css": "/static/css/main.d534bc68.chunk.css",
-  "main.js": "/static/js/main.0a341b49.chunk.js",
-  "main.js.map": "/static/js/main.0a341b49.chunk.js.map",
+  "main.css": "/static/css/main.8ed57b34.chunk.css",
+  "main.js": "/static/js/main.d7b73b6e.chunk.js",
+  "main.js.map": "/static/js/main.d7b73b6e.chunk.js.map",
   "static/css/1.12cc540d.chunk.css": "/static/css/1.12cc540d.chunk.css",
-  "static/js/1.c523611c.chunk.js": "/static/js/1.c523611c.chunk.js",
-  "static/js/1.c523611c.chunk.js.map": "/static/js/1.c523611c.chunk.js.map",
+  "static/js/1.ddc3acd2.chunk.js": "/static/js/1.ddc3acd2.chunk.js",
+  "static/js/1.ddc3acd2.chunk.js.map": "/static/js/1.ddc3acd2.chunk.js.map",
   "runtime~main.js": "/static/js/runtime~main.229c360f.js",
   "runtime~main.js.map": "/static/js/runtime~main.229c360f.js.map",
   "static/media/trump-white.png": "/static/media/trump-white.b65f57d1.png",
@@ -14,9 +14,9 @@
   "static/media/sound.mp3": "/static/media/sound.ec792557.mp3",
   "static/media/sound.ogg": "/static/media/sound.b8da6d65.ogg",
   "static/media/semantic.min.css": "/static/media/brand-icons.a1a749e8.svg",
-  "static/css/main.d534bc68.chunk.css.map": "/static/css/main.d534bc68.chunk.css.map",
+  "static/css/main.8ed57b34.chunk.css.map": "/static/css/main.8ed57b34.chunk.css.map",
   "static/css/1.12cc540d.chunk.css.map": "/static/css/1.12cc540d.chunk.css.map",
   "index.html": "/index.html",
-  "precache-manifest.fb776f2433e065073f6acf7502445800.js": "/precache-manifest.fb776f2433e065073f6acf7502445800.js",
+  "precache-manifest.3c988cc21d43a0417469279f2d3ed865.js": "/precache-manifest.3c988cc21d43a0417469279f2d3ed865.js",
   "service-worker.js": "/service-worker.js"
 }
