@@ -43,7 +43,7 @@ class FeedComponent extends Component {
 		if (this.props.count === 0) {
 			this.props.getFeed({ page: 0 })
 		} else {
-			this.props.getFeedUpdates({ lastId: this.props.lastId })
+			// this.props.getFeedUpdates({ lastId: this.props.lastId })
 		}
 	}
 

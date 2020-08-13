@@ -533,7 +533,7 @@ a {
       padding: 16px; }
     @media only screen and (max-width: 1025px) {
       .socialMediaPage .ui.container.profileContentContainer {
-        padding: 8px 10px !important; }
+        padding: 4px 0 !important; }
         .socialMediaPage .ui.container.profileContentContainer .signInPlaceholder {
           height: 250px; } }
     .socialMediaPage .ui.container.profileContentContainer .segment.basic {
@@ -677,6 +677,9 @@ a {
 /* Tags page */
 .tagsPage {
   padding: 18px 0 0 0; }
+  @media only screen and (max-width: 1025px) {
+    .tagsPage .ui.container.searchContentContainer {
+      margin: 0 5px !important; } }
 
 /* Targets page */
 .targetsPage {

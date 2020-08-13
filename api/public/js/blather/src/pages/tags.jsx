@@ -42,7 +42,7 @@ const Tags = ({ history }) => {
 						/>
 						<i aria-hidden="true" className="search icon" />
 					</div>
-					<div style={{ marginTop: "40px" }}>{SearchItems()}</div>
+					<div style={{ marginTop: "25px" }}>{SearchItems()}</div>
 				</DefaultLayout>
 			</div>
 		</Provider>
