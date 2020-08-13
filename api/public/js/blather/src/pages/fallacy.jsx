@@ -441,7 +441,7 @@ class Fallacy extends Component {
 											Retract
 										</Button>
 									) : (
-										<Button disabled fluid negative>
+										<Button disabled fluid negative size="large">
 											Retract
 										</Button>
 									)}

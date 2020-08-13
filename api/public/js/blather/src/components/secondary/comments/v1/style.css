@@ -6,33 +6,33 @@
 /*---   Social colors  ---*/
 .commentsSection {
   width: 100%; }
-  .commentsSection .ui.big.comments {
+  .commentsSection .ui.large.comments {
     max-width: none !important;
     width: 100% !important; }
-    .commentsSection .ui.big.comments.commentsGroup {
+    .commentsSection .ui.large.comments.commentsGroup {
       margin-top: 20px !important; }
-    .commentsSection .ui.big.comments .comment {
+    .commentsSection .ui.large.comments .comment {
       width: 100% !important; }
-      .commentsSection .ui.big.comments .comment .actions span {
+      .commentsSection .ui.large.comments .comment .actions span {
         color: #dcddde !important;
         font-weight: bold; }
-      .commentsSection .ui.big.comments .comment .avatar {
+      .commentsSection .ui.large.comments .comment .avatar {
         cursor: pointer; }
-      .commentsSection .ui.big.comments .comment .metadata {
+      .commentsSection .ui.large.comments .comment .metadata {
         color: #dcddde !important; }
-      .commentsSection .ui.big.comments .comment .likeCount {
+      .commentsSection .ui.large.comments .comment .likeCount {
         color: #ffffff;
         font-weight: bold;
         margin-left: 8px; }
-      .commentsSection .ui.big.comments .comment .content {
+      .commentsSection .ui.large.comments .comment .content {
         background: #1d2d3c !important;
         border-radius: 4px;
         padding: 7px 12px 10px 12px !important; }
-        .commentsSection .ui.big.comments .comment .content .text {
+        .commentsSection .ui.large.comments .comment .content .text {
           color: #ffffff !important; }
-          .commentsSection .ui.big.comments .comment .content .text span {
+          .commentsSection .ui.large.comments .comment .content .text span {
             white-space: pre-wrap !important; }
-      .commentsSection .ui.big.comments .comment .comments {
+      .commentsSection .ui.large.comments .comment .comments {
         margin: 0 !important;
         padding-bottom: 0 !important; }
   .commentsSection .replyBtn {
