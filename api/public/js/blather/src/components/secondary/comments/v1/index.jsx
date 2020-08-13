@@ -174,7 +174,7 @@ const CommentsSection = ({
 
 	const ReplyForm = (
 		<div ref={blockRef}>
-			<Form inverted onSubmit={onSubmitForm} size="big">
+			<Form inverted onSubmit={onSubmitForm} size="large">
 				<TextArea
 					autoHeight
 					inverted
@@ -193,7 +193,7 @@ const CommentsSection = ({
 						disabled={message.length === 0}
 						fluid
 						type="submit"
-						size="big"
+						size="large"
 					/>
 				) : (
 					<Button
@@ -202,7 +202,7 @@ const CommentsSection = ({
 						content="Comment"
 						fluid
 						onClick={() => history.push(`/signin`)}
-						size="big"
+						size="large"
 					/>
 				)}
 			</Form>
@@ -213,7 +213,7 @@ const CommentsSection = ({
 		<div className="commentsSection">
 			{ReplyForm}
 			{comments.results.length > 0 ? (
-				<Comment.Group className="commentsGroup" size="big">
+				<Comment.Group className="commentsGroup" size="large">
 					{comments.results.map((comment, i) => {
 						const { responses } = comment
 						if (typeof comment.id === "undefined") {
@@ -229,7 +229,7 @@ const CommentsSection = ({
 								{SingleComment(comment, comment.id, false, `individualComment${i}`)}
 
 								{responses && responses.length > 0 && showReplies && (
-									<Comment.Group size="big">
+									<Comment.Group size="large">
 										{responses.map((response, x) => {
 											if (response.id !== null) {
 												return (
