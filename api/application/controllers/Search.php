@@ -180,7 +180,7 @@ class Search extends CI_Controller {
 
 		$pages = count($twitterResults) > 5 ? array_slice($twitterResults, 0, 6) : $twitterResults;
 
-		for ($i=0;$i<count($twitterResults);$i++) {
+		for ($i=0;$i<count($pages);$i++) {
 			$pages[$i]['image'] = $pages[$i]['profile_pic'];
 			$pages[$i]['key'] = $pages[$i]['social_media_id'];
 			$pages[$i]['title'] = $pages[$i]['name'];
