@@ -8,6 +8,8 @@
   width: 100%; }
   .fallaciesList .emptyFallaciesContainer {
     text-align: center; }
+    .fallaciesList .emptyFallaciesContainer.targets {
+      margin-top: 16px; }
   .fallaciesList .targetMsg {
     background: #1d2d3c;
     border: solid 1px rgba(245, 248, 250, 0.2);

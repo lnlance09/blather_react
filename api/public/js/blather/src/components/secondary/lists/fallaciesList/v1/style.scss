@@ -4,6 +4,10 @@
 	width: 100%;
 
   	.emptyFallaciesContainer {
+		&.targets {
+			margin-top: 16px;
+		}
+
 		text-align: center;
   	}
 
