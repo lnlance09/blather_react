@@ -277,7 +277,7 @@ class FallaciesList extends Component {
 										className="viewAllTargets"
 										onClick={e => {
 											e.preventDefault()
-											this.setState({ showTargets: showTargets === false })
+											this.setState({ showTargets: !showTargets })
 										}}
 									>
 										{showTargets ? "View all fallacies" : "View all targets"}
@@ -597,7 +597,7 @@ class FallaciesList extends Component {
 							</Visibility>
 						</div>
 					) : (
-						<div className="emptyFallaciesContainer">
+						<div className={`emptyFallaciesContainer ${showTargets ? "targets" : ""}`}>
 							<Segment inverted placeholder>
 								<Header icon size="medium">
 									<Icon

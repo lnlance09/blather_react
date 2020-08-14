@@ -178,8 +178,7 @@ class Search extends CI_Controller {
 			$twitterResults = [];
 		}
 
-		$pages = $twitterResults;
-		$pages = array_slice($pages, 0, 7);
+		$pages = count($twitterResults) > 5 ? array_slice($twitterResults, 0, 6) : $twitterResults;
 
 		for ($i=0;$i<count($twitterResults);$i++) {
 			$pages[$i]['image'] = $pages[$i]['profile_pic'];
