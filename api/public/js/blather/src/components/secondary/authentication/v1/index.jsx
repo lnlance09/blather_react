@@ -12,9 +12,8 @@ import { Provider, connect } from "react-redux"
 import { Redirect } from "react-router-dom"
 import { Button, Divider, Form, Header, Icon, Input, Label, Segment } from "semantic-ui-react"
 import PropTypes from "prop-types"
-import React, { Component } from "react"
+import React, { Component, Fragment } from "react"
 import store from "store"
-import { Fragment } from "react"
 
 class Authentication extends Component {
 	constructor(props) {
@@ -152,7 +151,7 @@ class Authentication extends Component {
 		const MainForm = props => {
 			if (props.verify) {
 				return (
-					<Form inverted onSubmit={this.submitEmailVerificationForm} size="big">
+					<Form inverted onSubmit={this.submitEmailVerificationForm} size={props.size}>
 						<Form.Field>
 							<Input
 								maxLength={4}
@@ -167,7 +166,7 @@ class Authentication extends Component {
 								content="Verify"
 								disabled={verificationCode.length !== 4}
 								fluid
-								size="big"
+								size={props.size}
 								type="submit"
 							/>
 						</Form.Field>
@@ -178,7 +177,7 @@ class Authentication extends Component {
 
 			if (login) {
 				return (
-					<Form inverted size="big">
+					<Form inverted size={props.size}>
 						<Form.Field>
 							<Input
 								autoComplete="off"
@@ -202,7 +201,7 @@ class Authentication extends Component {
 								fluid
 								loading={loadingLogin}
 								onClick={this.submitLoginForm}
-								size="big"
+								size={props.size}
 								type="submit"
 							/>
 						</Form.Field>
@@ -212,7 +211,7 @@ class Authentication extends Component {
 			}
 
 			return (
-				<Form inverted size="big">
+				<Form inverted size={props.size}>
 					<Form.Field>
 						<Input
 							autoComplete="off"
@@ -251,7 +250,7 @@ class Authentication extends Component {
 							fluid
 							loading={loadingRegistration}
 							onClick={this.submitRegistrationForm}
-							size="big"
+							size={props.size}
 							type="submit"
 						/>
 					</Form.Field>
@@ -303,7 +302,7 @@ class Authentication extends Component {
 								color="twitter"
 								fluid
 								onClick={() => this.redirectToUrl(this.props.data.twitterUrl)}
-								size="big"
+								size={this.props.size}
 							>
 								<Icon name="twitter" /> {login ? "Sign in" : "Sign up"} with Twitter
 							</Button>
@@ -351,6 +350,7 @@ Authentication.propTypes = {
 	loginError: PropTypes.bool,
 	loginErrorMsg: PropTypes.string,
 	logout: PropTypes.func,
+	size: PropTypes.string,
 	submitGoogleForm: PropTypes.func,
 	submitLoginForm: PropTypes.func.isRequired,
 	submitRegistrationForm: PropTypes.func.isRequired,
@@ -365,6 +365,7 @@ Authentication.propTypes = {
 Authentication.defaultProps = {
 	login: true,
 	logout,
+	size: "large",
 	submitGoogleForm,
 	submitLoginForm,
 	submitRegistrationForm,

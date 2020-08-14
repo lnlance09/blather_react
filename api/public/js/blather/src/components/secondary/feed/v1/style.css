@@ -42,7 +42,7 @@
   color: #dcddde !important;
   font-weight: bold; }
   .feed .content .meta .like:hover .icon {
-    color: #dcddde !important; }
+    color: default !important; }
 
 .feed .archiveExtra {
   margin: 16px 0 10px 0 !important; }
