@@ -323,12 +323,7 @@ class FallacyExample extends Component {
 								/>
 							)}
 						</Segment>
-						<Header
-							className="aboutAttachedHeader"
-							attached="bottom"
-							inverted
-							size="large"
-						>
+						<Header className="aboutAttachedHeader" attached="bottom" inverted>
 							<Image
 								avatar
 								onClick={() =>
