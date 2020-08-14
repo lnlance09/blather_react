@@ -416,9 +416,9 @@ class Fallacy extends Component {
 											</div>
 										) : (
 											<p>
-												<Link to={userLink}>{props.user.name}</Link>, if you
-												have the courage to admit that you're wrong, please{" "}
-												<Link to="/signin">sign in</Link> to retract this.
+												<Link to={userLink}>{props.user.name}</Link>, you
+												can retract this by{" "}
+												<Link to="/signin">signing in</Link>.
 											</p>
 										)}
 									</Card.Description>
