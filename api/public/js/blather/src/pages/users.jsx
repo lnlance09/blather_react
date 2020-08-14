@@ -64,6 +64,7 @@ class UserPage extends Component {
 		this.props.reset()
 		this.props.fetchUserData({
 			bearer,
+			callback: about => this.setState({ about }),
 			username
 		})
 	}
