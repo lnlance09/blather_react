@@ -744,7 +744,7 @@
     </body>
 
     <script src="/static/js/1.ddc3acd2.chunk.js"></script>
-    <script src="/static/js/main.eef95f97.chunk.js"></script>
+    <script src="/static/js/main.9cd9b2bf.chunk.js"></script>
     <script src="/static/js/runtime~main.229c360f.js"></script>
 
     <script>
