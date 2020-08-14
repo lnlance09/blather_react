@@ -83,6 +83,8 @@ class FeedComponent extends Component {
 						responseCount = 0
 					}
 
+					const tagCount = tags(result).length
+
 					const totalCommentCount =
 						parseInt(commentCount, 10) + parseInt(responseCount, 10)
 					let userLink = `/pages/${result.page_type}/${
@@ -127,15 +129,19 @@ class FeedComponent extends Component {
 										}}
 									/>
 								</Feed.Extra>
-								{result.tag_ids !== null ? (
-									<Feed.Meta>
-										<Feed.Content>
-											<Label.Group style={{ marginTop: "8px" }}>
-												{RenderTags(tags(result))}
-											</Label.Group>
-										</Feed.Content>
-									</Feed.Meta>
-								) : null}
+								{result.tag_ids !== null && (
+									<div>
+										{/*
+											<Feed.Meta>
+												<Feed.Content>
+													<Label.Group style={{ marginTop: "8px" }}>
+														{RenderTags(tags(result))}
+													</Label.Group>
+												</Feed.Content>
+											</Feed.Meta>
+										*/}
+									</div>
+								)}
 								<div
 									onClick={e => {
 										if (!e.metaKey) {
@@ -156,6 +162,12 @@ class FeedComponent extends Component {
 											<Icon inverted name="eye" /> {result.view_count}{" "}
 											{formatPlural(result.view_count, "view")}
 										</Feed.Like>
+										{tagCount && (
+											<Feed.Like>
+												<Icon inverted name="tag" /> {tagCount}{" "}
+												{formatPlural(tagCount, "tag")}
+											</Feed.Like>
+										)}
 									</Feed.Meta>
 								</div>
 							</Feed.Content>
