@@ -94,6 +94,7 @@
 
         case "/grifters";
             $title = "Grifters";
+            $description = "A grifter is someone who is in the business of telling gullible people exactly what they want to hear, regardless of whether it makes sense or not. Grifters are typically on the path of least resistance and their strategy often consists of little more than repeating a handful of tired talking points to a group of people that's very desperate to have their pre-existing opinions confirmed.";
             $set = true;
             break;
 
