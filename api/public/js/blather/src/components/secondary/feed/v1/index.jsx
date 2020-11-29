@@ -5,7 +5,7 @@ import { adjustTimezone } from "utils/dateFunctions"
 import { formatGrammar, formatPlural } from "utils/textFunctions"
 import { connect } from "react-redux"
 import { Link } from "react-router-dom"
-import { Feed, Icon, Image, Label, Visibility } from "semantic-ui-react"
+import { Divider, Dropdown, Feed, Form, Icon, Image, Label, Visibility } from "semantic-ui-react"
 import ImagePic from "images/images/image-square.png"
 import LazyLoad from "components/primary/lazyLoad/v1/"
 import Lightbox from "react-image-lightbox"
@@ -20,6 +20,7 @@ class FeedComponent extends Component {
 		super(props)
 		this.state = {
 			currentImg: "",
+			filter: "newest",
 			lightboxOpen: false,
 			loadingMore: false,
 			page: 0
@@ -41,7 +42,7 @@ class FeedComponent extends Component {
 
 	componentDidMount() {
 		if (this.props.count === 0) {
-			this.props.getFeed({ page: 0 })
+			this.props.getFeed({ filter: this.state.filter, page: 0 })
 		} else {
 			// this.props.getFeedUpdates({ lastId: this.props.lastId })
 		}
@@ -52,14 +53,14 @@ class FeedComponent extends Component {
 			const newPage = parseInt(this.props.page + 1, 10)
 			if (newPage > this.state.page) {
 				this.setState({ loadingMore: true, page: newPage }, () => {
-					this.props.getFeed({ page: newPage })
+					this.props.getFeed({ filter: this.state.filter, page: newPage })
 				})
 			}
 		}
 	}
 
 	render() {
-		const { currentImg, lightboxOpen, loadingMore } = this.state
+		const { currentImg, filter, lightboxOpen, loadingMore } = this.state
 
 		const LazyLoadMore = props => {
 			if (loadingMore && props.hasMore) {
@@ -313,6 +314,37 @@ class FeedComponent extends Component {
 
 		return (
 			<Visibility className="feedWrapper" continuous onBottomVisible={this.loadMore}>
+				<Form size="large">
+					<Dropdown
+						fluid
+						onChange={(e, { value }) => {
+							this.setState({ filter: value }, () => {
+								this.props.getFeed({ filter: value, page: 0 })
+							})
+						}}
+						options={[
+							{
+								key: "newest",
+								text: "Recently Submitted",
+								value: "newest"
+							},
+							{
+								key: "active",
+								text: "Last Active",
+								value: "active"
+							},
+							{
+								key: "views",
+								text: "Most Views",
+								value: "views"
+							}
+						]}
+						placeholder="Sort by"
+						selection
+						value={filter}
+					/>
+				</Form>
+				<Divider inverted />
 				<Feed inverted size={this.props.size}>
 					{RenderFeed(this.props)}
 					{LazyLoadMore(this.props)}

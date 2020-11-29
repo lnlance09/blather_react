@@ -278,7 +278,7 @@ class FallacyForm extends Component {
 					<Form.Field>
 						<Input
 							className="contradictionInput"
-							icon="paperclip"
+							icon="paperclip inverted"
 							onKeyUp={this.onChangeContradiction}
 							onPaste={this.onPaste}
 							placeholder="Link to contradiction"

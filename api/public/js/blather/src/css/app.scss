@@ -1,5 +1,15 @@
 @import "./colors.scss";
 
+::-moz-selection { /* Code for Firefox */
+	background: $lightBlue;
+	color: $white !important;
+}
+  
+::selection {
+	background: $lightBlue !important;
+	color: $white !important;
+}
+
 .ui.form .field.field {
 	input:-webkit-autofill, input::selection, input:active:-webkit-autofill, input:focus:-webkit-autofill {
 		background: $invertedBackgroundColor !important;
