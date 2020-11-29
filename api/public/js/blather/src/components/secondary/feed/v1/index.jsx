@@ -320,6 +320,7 @@ class FeedComponent extends Component {
 			<Visibility className="feedWrapper" continuous onBottomVisible={this.loadMore}>
 				<Form size="large">
 					<Dropdown
+						disabled={this.props.loadingMore}
 						fluid
 						onChange={(e, { value }) => {
 							this.setState({ filter: value }, () => {
