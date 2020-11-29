@@ -1,8 +1,10 @@
 import * as constants from "./constants"
 
-const initial = () => ({})
+const initial = () => ({
+	loadingMore: true
+})
 
-const test = (state = initial(), action) => {
+const feed = (state = initial(), action) => {
 	switch (action.type) {
 		case constants.GET_FEED:
 			const { count } = action.payload
@@ -42,9 +44,15 @@ const test = (state = initial(), action) => {
 				results: _results
 			}
 
+		case constants.TOGGLE_LOADING_MORE:
+			return {
+				...state,
+				loadingMore: !state.loadingMore
+			}
+
 		default:
 			return state
 	}
 }
 
-export default test
+export default feed

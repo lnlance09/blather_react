@@ -1,6 +1,6 @@
 import "./style.css"
 import { mapIdsToNames } from "utils/arrayFunctions"
-import { getFeed, getFeedUpdates } from "./actions"
+import { getFeed, getFeedUpdates, toggleLoadingMore } from "./actions"
 import { adjustTimezone } from "utils/dateFunctions"
 import { formatGrammar, formatPlural } from "utils/textFunctions"
 import { connect } from "react-redux"
@@ -74,6 +74,10 @@ class FeedComponent extends Component {
 
 		const RenderFeed = props => {
 			return props.results.map((result, i) => {
+				if (props.loadingMore) {
+					return <LazyLoad key={`feed_${i}`} segment={false} />
+				}
+
 				if (result.id && result.item_type === "fallacy") {
 					let { commentCount, responseCount } = result
 					if (commentCount === null) {
@@ -290,7 +294,7 @@ class FeedComponent extends Component {
 					)
 				}
 
-				return <LazyLoad key={`feed_${i}`} segment={false} />
+				return null
 			})
 		}
 
@@ -319,6 +323,7 @@ class FeedComponent extends Component {
 						fluid
 						onChange={(e, { value }) => {
 							this.setState({ filter: value }, () => {
+								this.props.toggleLoadingMore()
 								this.props.getFeed({ filter: value, page: 0 })
 							})
 						}}
@@ -375,7 +380,8 @@ FeedComponent.propTypes = {
 	page: PropTypes.number,
 	pages: PropTypes.number,
 	results: PropTypes.array,
-	size: PropTypes.string
+	size: PropTypes.string,
+	toggleLoadingMore: PropTypes.func
 }
 
 FeedComponent.defaultProps = {
@@ -384,7 +390,8 @@ FeedComponent.defaultProps = {
 	getFeedUpdates,
 	page: 0,
 	results: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
-	size: "large"
+	size: "large",
+	toggleLoadingMore
 }
 
 const mapStateToProps = (state, ownProps) => ({
@@ -392,4 +399,4 @@ const mapStateToProps = (state, ownProps) => ({
 	...ownProps
 })
 
-export default connect(mapStateToProps, { getFeed, getFeedUpdates })(FeedComponent)
+export default connect(mapStateToProps, { getFeed, getFeedUpdates, toggleLoadingMore })(FeedComponent)

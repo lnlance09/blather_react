@@ -46,3 +46,9 @@ export const getFeedUpdates = ({ lastId }) => dispatch => {
 		}
 	)
 }
+
+export const toggleLoadingMore = () => dispatch => {
+	dispatch({
+		type: constants.TOGGLE_LOADING_MORE
+	})
+}
