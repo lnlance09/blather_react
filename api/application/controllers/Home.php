@@ -31,6 +31,7 @@ class Home extends CI_Controller {
 	}
 
 	public function feed() {
+		$filter = $this->input->get('filter');
 		$lastId = $this->input->get('lastId');
 		$page = $this->input->get('page');
 
@@ -51,6 +52,15 @@ class Home extends CI_Controller {
 			'q' => null,
 			'tag_id' => null
 		];
+
+		if ($filter === 'newest') {
+			$params['sort'] = 'date';
+		}
+
+		if ($filter === 'views') {
+			$params['sort'] = 'views';
+		}
+
 		$fallacies = $this->fallacies->search($params);
 		$count = $this->fallacies->search($params, true);
 

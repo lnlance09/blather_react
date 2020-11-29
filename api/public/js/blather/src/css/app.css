@@ -4,6 +4,15 @@
 /*--- Twitter ---*/
 /*---   Misc  ---*/
 /*---   Social colors  ---*/
+::-moz-selection {
+  /* Code for Firefox */
+  background: #54c8ff;
+  color: #ffffff !important; }
+
+::selection {
+  background: #54c8ff !important;
+  color: #ffffff !important; }
+
 .ui.form .field.field input:-webkit-autofill, .ui.form .field.field input::selection, .ui.form .field.field input:active:-webkit-autofill, .ui.form .field.field input:focus:-webkit-autofill {
   background: #15202b !important;
   background-color: #15202b !important;

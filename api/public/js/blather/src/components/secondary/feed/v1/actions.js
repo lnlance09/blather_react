@@ -2,7 +2,7 @@ import * as constants from "./constants"
 import request from "request"
 import { showLoading, hideLoading } from "react-redux-loading-bar"
 
-export const getFeed = ({ page }) => dispatch => {
+export const getFeed = ({ filter, page }) => dispatch => {
 	if (page === 0) {
 		dispatch(showLoading())
 	}
@@ -12,6 +12,7 @@ export const getFeed = ({ page }) => dispatch => {
 		{
 			json: true,
 			qs: {
+				filter,
 				page
 			}
 		},
