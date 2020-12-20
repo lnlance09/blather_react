@@ -1,0 +1,13 @@
+@import "../../../../css/colors.scss";
+
+.arguments {
+	.segment {
+		&.contSegment {
+			cursor: pointer;
+		}
+
+		.ui.large.header.argumentHeader {
+			margin-top: 0 !important;
+		}
+	}
+}
