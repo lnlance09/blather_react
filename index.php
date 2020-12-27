@@ -142,8 +142,8 @@
                     return $arg["argument"] === $id;
                 });
 
-                var_dump($argument);
                 if (count($argument) === 1) {
+                    print_r($argument(0));
                     $tips = $argument[0]["tips"];
                     $title = $argument[0]["description"];
                     $description = count($tips) > 0 ? $tips[0] : "";
