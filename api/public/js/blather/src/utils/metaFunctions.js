@@ -11,9 +11,16 @@ export const DisplayMetaTags = ({ page, props, state }) => {
 	switch (page) {
 		case "about":
 			metaTags = {
-				description: description,
+				description,
 				img,
 				title: capitalizeWord(state.activeItem)
+			}
+			break
+		case "arguments":
+			metaTags = {
+				description: "",
+				img,
+				title: "Arguments"
 			}
 			break
 		case "bot":

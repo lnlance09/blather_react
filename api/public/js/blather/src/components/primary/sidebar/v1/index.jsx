@@ -57,12 +57,13 @@ const Sidebar = ({ activeItem, basic, history, inverted, logout }) => {
 			<Fragment>
 				<Menu.Item className="headerMenuItem signIn">
 					<Button
+						active
 						color="blue"
 						content="Sign In"
 						fluid
 						inverted={inverted}
 						onClick={() => history.push("/signin")}
-						size="big"
+						size="large"
 					/>
 				</Menu.Item>
 				<Divider horizontal inverted={inverted}>
@@ -70,12 +71,13 @@ const Sidebar = ({ activeItem, basic, history, inverted, logout }) => {
 				</Divider>
 				<Menu.Item className="headerMenuItem signIn">
 					<Button
+						active
 						color="red"
 						content="Take Action"
 						fluid
 						inverted={inverted}
 						onClick={() => history.push("/signin?type=join")}
-						size="big"
+						size="large"
 					/>
 				</Menu.Item>
 			</Fragment>
@@ -132,6 +134,18 @@ const Sidebar = ({ activeItem, basic, history, inverted, logout }) => {
 								Grifters
 							</Menu.Item>
 							<Menu.Item
+								active={activeItem === "arguments"}
+								className="headerMenuItem arguments"
+								onClick={() => history.push("/arguments")}
+							>
+								<Icon
+									color={activeItem === "arguments" ? "blue" : null}
+									inverted={inverted}
+									name="gavel"
+								/>
+								Arguments
+							</Menu.Item>
+							<Menu.Item
 								active={activeItem === "tags"}
 								className="headerMenuItem tags"
 								onClick={() => history.push("/tags")}
@@ -166,6 +180,18 @@ const Sidebar = ({ activeItem, basic, history, inverted, logout }) => {
 									name="search"
 								/>
 								Search
+							</Menu.Item>
+							<Menu.Item
+								active={activeItem === "about"}
+								className="headerMenuItem about"
+								onClick={() => history.push("/about")}
+							>
+								<Icon
+									color={activeItem === "about" ? "blue" : null}
+									inverted={inverted}
+									name="info circle"
+								/>
+								About
 							</Menu.Item>
 							{/*
 							<Menu.Item

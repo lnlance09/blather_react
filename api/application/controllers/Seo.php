@@ -19,6 +19,8 @@ class Seo extends CI_Controller {
 	}
 
 	public function index() {
+		$arguments = @file_get_contents('./public/js/blather/src/options/arguments.json');
+		$arguments = @json_decode($arguments, true);
 		$fallacies = $this->fallacies->getFallacies();
 		$fallacyTypes = $this->fallacies->getFallacyTypes();
 		$reviews = $this->fallacies->getReviews();
@@ -30,6 +32,7 @@ class Seo extends CI_Controller {
 		$youtubePages = $this->youtube->getAllPages(true);
 
 		$this->load->view('sitemap', [
+			'arguments' => $arguments,
 			'fallacies' => $fallacies,
 			'fallacyTypes' => $fallacyTypes,
 			'reviews' => $reviews,

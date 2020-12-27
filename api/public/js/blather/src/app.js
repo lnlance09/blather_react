@@ -7,6 +7,7 @@ import { Route, Router, Switch } from "react-router-dom"
 import ScrollToTop from "react-router-scroll-top"
 import history from "history.js"
 import About from "pages/about"
+import Arguments from "pages/arguments"
 import Fallacy from "pages/fallacy"
 import Fallacies from "pages/fallacies"
 import FallaciesJSON from "options/fallacyOptions.json"
@@ -115,6 +116,21 @@ class App extends Component {
 									path="/about"
 									render={props => (
 										<About key={window.location.pathname} {...props} />
+									)}
+								/>
+
+								<Route
+									exact
+									path="/arguments"
+									render={props => (
+										<Arguments key={window.location.pathname} {...props} />
+									)}
+								/>
+
+								<Route
+									path="/arguments/:argument"
+									render={props => (
+										<Arguments key={window.location.pathname} {...props} />
 									)}
 								/>
 
