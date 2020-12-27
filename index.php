@@ -145,7 +145,7 @@
 
                 if (count($argument) === 1) {
                     $keys = array_keys($argument);
-                    $key = $key[0];
+                    $key = $keys[0];
                     $tips = $argument[$key]["tips"];
                     $title = $argument[$key]["description"];
                     $description = count($tips) > 0 ? $tips[0] : "";
