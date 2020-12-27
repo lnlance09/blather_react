@@ -143,8 +143,8 @@ const Sidebar = ({ activeItem, basic, history, inverted, logout }) => {
 									inverted={inverted}
 									name="gavel"
 								/>
-								<Label color="green">New</Label>
 								Arguments
+								<Label color="olive" horizontal>New</Label>
 							</Menu.Item>
 							<Menu.Item
 								active={activeItem === "tags"}
