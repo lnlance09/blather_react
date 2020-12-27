@@ -143,6 +143,10 @@
                     return $arg["argument"] === $id;
                 });
 
+                echo '<pre>';
+                print_r($argument);
+                echo '</pre>';
+
                 if (count($argument) === 1) {
                     $tips = $argument[1]["tips"];
                     $title = $argument[1]["description"];
