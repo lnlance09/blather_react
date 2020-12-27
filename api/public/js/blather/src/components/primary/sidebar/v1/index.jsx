@@ -181,6 +181,18 @@ const Sidebar = ({ activeItem, basic, history, inverted, logout }) => {
 								/>
 								Search
 							</Menu.Item>
+							<Menu.Item
+								active={activeItem === "about"}
+								className="headerMenuItem about"
+								onClick={() => history.push("/about")}
+							>
+								<Icon
+									color={activeItem === "about" ? "blue" : null}
+									inverted={inverted}
+									name="info circle"
+								/>
+								About
+							</Menu.Item>
 							{/*
 							<Menu.Item
 								active={activeItem === "notifications"}

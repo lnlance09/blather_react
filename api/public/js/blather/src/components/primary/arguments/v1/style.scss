@@ -3,11 +3,34 @@
 .arguments {
 	.segment {
 		&.contSegment {
+			background: lighten($invertedBackgroundColor, 2%) !important;
 			cursor: pointer;
 		}
 
 		.ui.large.header.argumentHeader {
 			margin-top: 0 !important;
+		}
+
+		.list {
+			.item {
+				line-height: 1.45;
+
+				a.link {
+					color: $lightBlue !important;
+					
+					&:hover {
+						color: lighten($lightBlue, 4%) !important;
+					}
+				}
+			}
+		}
+
+		.shareList {
+			margin-top: 0 !important;
+		}
+
+		img {
+			cursor: pointer !important;
 		}
 	}
 }

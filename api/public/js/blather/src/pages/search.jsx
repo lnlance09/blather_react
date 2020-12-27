@@ -1,7 +1,7 @@
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { setValue } from "redux/actions/search"
 import { connect, Provider } from "react-redux"
-import { Accordion, Form, Grid, Menu, Responsive, Segment } from "semantic-ui-react"
+import { Accordion, Form, Icon, Grid, Menu, Responsive, Segment } from "semantic-ui-react"
 import DefaultLayout from "layouts"
 import PropTypes from "prop-types"
 import qs from "query-string"
@@ -164,18 +164,23 @@ class SearchPage extends Component {
 					name="profiles"
 					onClick={this.handleItemClick}
 				>
-					Twitter users
+					<Icon className="twitterIcon" name="twitter" />
+					Twitter Users
 				</Menu.Item>
 				<Menu.Item
 					active={activeItem === "tweets"}
 					name="tweets"
 					onClick={this.handleItemClick}
-				/>
+				>
+					<Icon color="green" name="retweet" />
+					Tweets
+				</Menu.Item>
 				<Menu.Item
 					active={activeItem === "users"}
 					name="users"
 					onClick={this.handleItemClick}
 				>
+					<Icon color="orange" inverted name="user" />
 					Users
 				</Menu.Item>
 				<Menu.Item>

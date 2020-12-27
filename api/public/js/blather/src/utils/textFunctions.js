@@ -3,6 +3,7 @@ import moment from "moment"
 import momentDurationFormatSetup from "moment-duration-format"
 import React from "react"
 import sanitizeHtml from "sanitize-html"
+import parse from "url-parse"
 momentDurationFormatSetup(moment)
 
 export const capitalizeWord = word => word.slice(0, 1).toUpperCase() + word.slice(1)
@@ -53,6 +54,13 @@ export const getHighlightedText = (text, higlight, className = "") => {
 			part
 		)
 	)
+}
+
+export const getUsernameFromTweetUrl = url => {
+	const parsed = parse(url)
+	const { pathname } = parsed
+	let paths = pathname.split("/")
+	return paths[1]
 }
 
 export const hyphenateText = text =>

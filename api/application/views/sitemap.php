@@ -23,28 +23,49 @@
 	</url>
 
 	<url>
-		<loc><?php echo $base_url; ?>activity</loc> 
+		<loc><?php echo $base_url.'arguments'; ?></loc>
 		<changefreq>daily</changefreq>
 		<priority>0.9</priority>
+	</url>
+
+	<url>
+		<loc><?php echo $base_url; ?>activity</loc> 
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
 	</url>
 
 	<url>
 		<loc><?php echo $base_url.'fallacies'; ?></loc>
 		<changefreq>daily</changefreq>
-		<priority>0.9</priority>
+		<priority>0.8</priority>
 	</url>
 
 	<url>
 		<loc><?php echo $base_url.'grifters'; ?></loc>
 		<changefreq>daily</changefreq>
-		<priority>0.9</priority>
+		<priority>0.7</priority>
 	</url>
 
 	<url>
 		<loc><?php echo $base_url.'tags'; ?></loc>
 		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
+		<priority>0.6</priority>
 	</url>
+
+
+<?php
+	// Arguments
+	for ($i=0;$i<count($arguments);$i++) {
+		$name = $arguments[$i]['argument'];
+?>
+	<url>
+		<loc><?php echo $base_url.'arguments/'.$name; ?></loc>
+		<changefreq>daily</changefreq>
+		<priority>0.9</priority>
+	</url>
+<?php
+	}
+?>
 
 
 <?php
@@ -56,7 +77,7 @@
 	<url>
 		<loc><?php echo $base_url.'fallacies/'.$name; ?></loc>
 		<changefreq>daily</changefreq>
-		<priority>0.7</priority>
+		<priority>0.6</priority>
 	</url>
 <?php
 	}
@@ -86,7 +107,7 @@
 	<url>
 		<loc><?php echo $base_url.'tags/'.$tags[$i]['slug']; ?></loc>
 		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
+		<priority>0.6</priority>
 	</url>
 <?php
 	}
@@ -118,7 +139,7 @@
 	<url>
 		<loc><?php echo $url; ?></loc>
 		<changefreq>daily</changefreq>
-		<priority>0.7</priority>
+		<priority>0.6</priority>
 	</url>
 <?php
 	}

@@ -19,6 +19,8 @@
     $s3Path = "https://s3.amazonaws.com/blather22/";
     $img = $base_url."images/icons/icon-512x512.png";
     $appleIcon = $base_url."images/icons/icon-128x128.png";
+    $arguments = file_get_contents($dir."api/public/js/blather/src/options/arguments.json");
+    $arguments = @json_decode($arguments, true);
 
     $set = false;
     $author = false;
@@ -61,6 +63,11 @@
 
         case "/about/rules";
             $title = "Rules";
+            $set = true;
+            break;
+
+        case "/arguments":
+            $title = "Arguments";
             $set = true;
             break;
 
@@ -130,6 +137,20 @@
         $id = $paths[1];
 
         switch ($paths[0]) {
+            case "arguments":
+                $argument = array_filter($arguments, function ($arg) {
+                    return ($arg["argument"] == $id);
+                });
+
+                if ($argument) {
+                    $tips = $argument["tips"];
+                    $title = $argument["description"];
+                    $description = count($tips) > 0 ? $tips[0] : "";
+                    $img = $argument["meme"];
+                }
+            
+                break;
+
             case "fallacies":
 
                 $name = ucwords(str_replace('-', ' ', $id));

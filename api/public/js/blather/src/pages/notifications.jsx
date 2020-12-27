@@ -1,9 +1,8 @@
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { connect, Provider } from "react-redux"
-import { Container } from "semantic-ui-react"
 import DefaultLayout from "layouts"
 import PropTypes from "prop-types"
-import React, { useEffect, useState } from "react"
+import React, { useEffect } from "react"
 import store from "store"
 
 const Notifications = ({ history }) => {

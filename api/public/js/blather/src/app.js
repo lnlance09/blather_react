@@ -128,6 +128,13 @@ class App extends Component {
 								/>
 
 								<Route
+									path="/arguments/:argument"
+									render={props => (
+										<Arguments key={window.location.pathname} {...props} />
+									)}
+								/>
+
+								<Route
 									path="/about/:tab(contact|privacy|rules)"
 									render={props => (
 										<About key={window.location.pathname} {...props} />

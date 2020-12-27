@@ -5,7 +5,21 @@
 /*---   Misc  ---*/
 /*---   Social colors  ---*/
 .arguments .segment.contSegment {
+  background: #182532 !important;
   cursor: pointer; }
 
 .arguments .segment .ui.large.header.argumentHeader {
   margin-top: 0 !important; }
+
+.arguments .segment .list .item {
+  line-height: 1.45; }
+  .arguments .segment .list .item a.link {
+    color: #54c8ff !important; }
+    .arguments .segment .list .item a.link:hover {
+      color: #68cfff !important; }
+
+.arguments .segment .shareList {
+  margin-top: 0 !important; }
+
+.arguments .segment img {
+  cursor: pointer !important; }

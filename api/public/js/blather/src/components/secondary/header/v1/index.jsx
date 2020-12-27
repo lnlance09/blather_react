@@ -108,9 +108,9 @@ const Header = ({ history, q, showResults }) => {
 						<Icon name="user" size="small" />
 						Grifters
 					</Menu.Item>
-					<Menu.Item as="a" onClick={() => history.push("/tags")}>
-						<Icon name="tag" size="small" />
-						Tags
+					<Menu.Item as="a" onClick={() => history.push("/arguments")}>
+						<Icon name="gavel" size="small" />
+						Arguments
 					</Menu.Item>
 					<Menu.Item as="a" onClick={() => history.push("/fallacies")}>
 						<Icon name="book" size="small" />
