@@ -370,7 +370,9 @@
 		"description": "Communism is when stuff happens that I don't like",
 		"examples": [],
 		"fallacies": [],
-		"images": [],
+		"images": [
+			"https://blather22.s3.amazonaws.com/memes/concentration-camps.jpg"
+		],
 		"meme": "https://blather22.s3.amazonaws.com/memes/communism-as-catch-all-term.jpeg",
 		"tips": [
 			"Words like \"fascism\", \"communism\", \"socialism\", \"totalitarianism\", and \"tyranny\" are used as catch-all terms to describe any and all situations where the government does stuff that they don't like",
@@ -709,7 +711,9 @@
 			688,
 			890
 		],
-		"images": [],
+		"images": [
+			"https://blather22.s3.amazonaws.com/memes/love_it_or_leave_it.jpg"
+		],
 		"meme": "https://blather22.s3.amazonaws.com/memes/fix-your-problems-in-your-own-country.jpg",
 		"tips": [
 			"If the pilgrims had this attitude, would America even exist today?"
@@ -960,7 +964,9 @@
 			688,
 			890
 		],
-		"images": [],
+		"images": [
+			"https://blather22.s3.amazonaws.com/memes/love_it_or_leave_it.jpg"
+		],
 		"meme": "https://blather22.s3.amazonaws.com/memes/love-it-or-leave-it.png",
 		"tips": [
 			"Does the person making this argument like all of the laws in America? The ones about guns? The ones about taxes? The ones about welfare?",
@@ -1079,17 +1085,26 @@
 			{
 				"argument": "back-the-blue",
 				"description": "If you're someone who backs the blue, why is Kamala being a cop a bad thing?"
+			},
+			{
+				"argument": "systemic-racism-does-not-exist",
+				"description": "If Kamala is responsible for incarcerating tons of black people just for petty drug crimes, then isn't that a characteristic of systemic racism?"
 			}
 		],
 		"description": "Kamala Harris is a cop",
 		"examples": [
-			"https://twitter.com/FDRLST/status/1144263981395304450"
+			"https://twitter.com/FDRLST/status/1144263981395304450",
+			"https://twitter.com/TheOfficerTatum/status/1314304794434121728"
 		],
 		"fallacies": [
-			1268
+			1268,
+			1350
 		],
 		"images": [],
-		"meme": "https://blather22.s3.amazonaws.com/memes/kamala-is-a-cop.jpg",
+		"meme": [
+			"https://blather22.s3.amazonaws.com/memes/kamala-mosaic.jpg",
+			"https://blather22.s3.amazonaws.com/memes/kamala-is-a-cop.jpg"
+		],
 		"tips": [
 			"Kamala Harris did work for many years as a district attorney in San Francisco",
 			"Her record as DA has been spotty",
@@ -1173,7 +1188,10 @@
 			"https://twitter.com/TPUSA/status/929805466292457472"
 		],
 		"images": [],
-		"meme": "https://blather22.s3.amazonaws.com/memes/leftists-are-rich.jpg",
+		"meme": [
+			"https://blather22.s3.amazonaws.com/memes/leftists-are-rich-1.jpeg",
+			"https://blather22.s3.amazonaws.com/memes/leftists-are-rich.jpg"
+		],
 		"tips": [
 			"Owning a smart phone doesn't discredit anyone's arguments about socialism",
 			"Just like using public services doesn't discredit anyone's opinions about capitalism"
@@ -1245,7 +1263,7 @@
 			360
 		],
 		"images": [],
-		"meme": "https://blather22.s3.amazonaws.com/memes/look-at-all-these-non-white-republicans.jpg",
+		"meme": "https://blather22.s3.amazonaws.com/memes/gay_black_veteran.jpg",
 		"tips": []
 	},
 	{
@@ -1485,6 +1503,10 @@
 			{
 				"argument": "party-that-hates-white-ppl",
 				"description": "So it does actually exist but it only affects white people?"
+			},
+			{
+				"argument": "kamala-is-a-cop",
+				"description": "If Kamala is responsible for incarcerating tons of black people just for petty drug crimes, then isn't that a characteristic of systemic racism?"
 			}
 		],
 		"description": "Systemic racism doesn't exist",
@@ -1601,7 +1623,9 @@
 			"https://twitter.com/RealCandaceO/status/1335027636985335808"
 		],
 		"fallacies": [],
-		"images": [],
+		"images": [
+			"https://blather22.s3.amazonaws.com/memes/woke-poison.jpg"
+		],
 		"meme": "https://blather22.s3.amazonaws.com/memes/covid-vaccine-is-dangerous.jpg",
 		"tips": [
 			"The COVID-19 vaccine has earned the FDA's seal of approval",
@@ -1981,7 +2005,12 @@
 		],
 		"images": [],
 		"meme": "https://blather22.s3.amazonaws.com/memes/welfare-recipients-should-have-to-take-drug-tests.png",
-		"tips": []
+		"tips": [
+			"This is much more about hating on poor people than it is about balancing the budget",
+			"The amount of money that's spent on social services is dwarfed in comparison to the amount that's spent on the military and corporate subsidies",
+			"If someone was genuinely concerned about cutting spending or balancing the budget they'd start with those two sectors first",
+			"A strange hill to die on, for sure"
+		]
 	},
 	{
 		"argument": "you-arent-entitled-to-anything",
