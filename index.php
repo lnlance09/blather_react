@@ -20,7 +20,6 @@
     $img = $base_url."images/icons/icon-512x512.png";
     $appleIcon = $base_url."images/icons/icon-128x128.png";
     $arguments = file_get_contents("api/public/js/blather/src/options/arguments.json");
-    var_dump($arguments);
     $arguments = @json_decode($arguments, true);
 
     $set = false;
@@ -143,6 +142,7 @@
                     return $arg["argument"] === $id;
                 });
 
+                var_dump($argument);
                 if (count($argument) === 1) {
                     $tips = $argument[0]["tips"];
                     $title = $argument[0]["description"];
