@@ -68,6 +68,7 @@
 
         case "/arguments":
             $title = "Arguments";
+            $description = "These are some of the most ubiquitous right-wing talking points. These aren't particularly good arguments but they're certainly some of the most common.";
             $set = true;
             break;
 
