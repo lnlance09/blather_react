@@ -143,10 +143,10 @@
                 });
 
                 if (count($argument) === 1) {
-                    $tips = $argument["tips"];
-                    $title = $argument["description"];
+                    $tips = $argument[0]["tips"];
+                    $title = $argument[0]["description"];
                     $description = count($tips) > 0 ? $tips[0] : "";
-                    $img = $argument["meme"];
+                    $img = $argument[0]["meme"];
                 }
                 break;
 
