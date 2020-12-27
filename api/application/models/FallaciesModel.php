@@ -985,7 +985,22 @@ class FallaciesModel extends CI_Model {
 		) fc', 'fe.id=fc.fallacy_id', 'left');
 
 		if ($data['q']) {
-			$this->db->where("(title LIKE '%".$data['q']."%' OR explanation LIKE '%".$data['q']."%' OR p.name LIKE '%".$data['q']."%')");
+			$exp = explode(' ', $data['q']);
+			if (count($exp) > 1) {
+				$where = '(';
+				for ($i = 0; $i < count($exp); $i++) {
+					if ($i > 0) {
+						$where .= ' OR ';
+					}
+					$where .= "title LIKE '%".$exp[$i]."%' 
+							OR explanation LIKE '%".$exp[$i]."%' 
+							OR p.name LIKE '%".$exp[$i]."%'";
+				}
+				$where .= ')';
+				$this->db->where($where);
+			} else {
+				$this->db->where("(title LIKE '%".$data['q']."%' OR explanation LIKE '%".$data['q']."%' OR p.name LIKE '%".$data['q']."%')");
+			}
 		}
 
 		if (!empty($data['fallacies'])) {
