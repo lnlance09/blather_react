@@ -1,7 +1,7 @@
 import "./style.css"
 import { parseJwt } from "utils/tokenFunctions"
 import { logout } from "components/secondary/authentication/v1/actions"
-import { Button, Divider, Icon, Image, Menu } from "semantic-ui-react"
+import { Button, Divider, Icon, Image, Label, Menu } from "semantic-ui-react"
 import { Provider, connect } from "react-redux"
 import defaultImg from "images/avatar/small/steve.jpg"
 import PropTypes from "prop-types"
@@ -143,6 +143,7 @@ const Sidebar = ({ activeItem, basic, history, inverted, logout }) => {
 									inverted={inverted}
 									name="gavel"
 								/>
+								<Label color="green">New</Label>
 								Arguments
 							</Menu.Item>
 							<Menu.Item

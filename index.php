@@ -143,15 +143,13 @@
                     return $arg["argument"] === $id;
                 });
 
-                echo '<pre>';
-                print_r($argument);
-                echo '</pre>';
-
                 if (count($argument) === 1) {
-                    $tips = $argument[1]["tips"];
-                    $title = $argument[1]["description"];
+                    $keys = array_keys($argument);
+                    $key = $key[0];
+                    $tips = $argument[$key]["tips"];
+                    $title = $argument[$key]["description"];
                     $description = count($tips) > 0 ? $tips[0] : "";
-                    $img = $argument[1]["meme"];
+                    $img = $argument[$key]["meme"];
                 }
                 break;
 
