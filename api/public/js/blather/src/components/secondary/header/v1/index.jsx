@@ -31,12 +31,22 @@ const Header = ({ history, q, showResults }) => {
 					<Container className="desktop">
 						<Grid stackable>
 							<Grid.Column className="logoColumn" width={4}>
-								<Image
-									className="headerLogo"
-									onClick={() => history.push("/")}
-									rounded
-									src={Logo}
-								/>
+								<div>
+									<Image
+										className="headerLogo"
+										onClick={() => history.push("/")}
+										rounded
+										src={Logo}
+									/>
+								</div>
+								<div className="slogan">
+									<div className="sloganTop">
+										talking a lot
+									</div>
+									<div className="sloganBottom">
+										saying nothing
+									</div>
+								</div>
 							</Grid.Column>
 							<Grid.Column className="inputColumn" width={12}>
 								<NavSearch

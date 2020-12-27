@@ -45,8 +45,8 @@
     	img {
 			cursor: pointer;
 			flex: 1 1;
-      		height: 42px;
-      		width: 42px;
+      		height: 48px;
+      		width: 48px;
     	}
 
     	.grid .column {
@@ -56,7 +56,26 @@
 			  
 			&.logoColumn {
 				display: flex;
-				flex-direction: column;		
+				flex-direction: column;	
+				
+				.slogan {
+					display: inline-block;
+					margin-left: 68px;
+					margin-top: -54px;
+					transform: rotate(352deg) !important;
+
+					.sloganTop, .sloganBottom {
+						color: $white;
+						font-size: 16px;
+						vertical-align: sub !important;
+					}
+
+					.sloganBottom {
+						color: $yellow;
+						margin-top: 0;
+						// transform: none !important;
+					}
+				}
 			}
     	}
 

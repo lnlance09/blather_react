@@ -1,6 +1,6 @@
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { Provider } from "react-redux"
-import { Container, Divider, Header, Message, Segment } from "semantic-ui-react"
+import { Divider, Header, Message, Segment } from "semantic-ui-react"
 import Arguments from "components/primary/arguments/v1/"
 import DefaultLayout from "layouts"
 import React, { Component } from "react"
