@@ -144,7 +144,10 @@
 
                 if (count($argument) === 1) {
                     echo '<pre>';
-                    print_r($argument[0]);
+                    print_r($argument['tips']);
+                    echo '</pre>';
+                    echo '<pre>';
+                    print_r($argument->tips);
                     echo '</pre>';
                     $tips = $argument[0]["tips"];
                     $title = $argument[0]["description"];
