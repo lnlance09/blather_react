@@ -322,7 +322,7 @@
 				"description": "Why was it wrong when China did it but perfectly okay when Trump did it?"
 			}
 		],
-		"description": "China kept COVID-19 a secret and more people died as a result",
+		"description": "China downplayed COVID and people died as a result",
 		"examples": [
 			"https://twitter.com/benshapiro/status/1252611064635654146",
 			"https://twitter.com/ACTBrigitte/status/1263104983047659525"
@@ -800,7 +800,7 @@
 		"tips": [
 			"This is an obvious straw man",
 			"People who want the government to run health care want hospitals to be staffed with the best doctors, surgeons, nurses, and so on",
-			"No one who wants universal health care wants desk jockies and DMV flunkies to be in charge of running health care",
+			"No one who wants universal health care wants desk jockies and DMV type flunkies to be in charge of running health care",
 			"How come no one ever argues securing more funding for NASA, the CDC, or the CIA will turn it into the DMV?"
 		]
 	},
@@ -1413,11 +1413,11 @@
 		"contradictions": [
 			{
 				"argument": "slap-in-the-face-to-legal-immigrants",
-				"description": "Why should all immigrants have to suffer through a cruel immigration process just becase some have had to?"
+				"description": "Why should all immigrants have to suffer through a cruel immigration process just becase some have had to? Why must the anguish and suffering be distributed equally amongst all immigrants?"
 			},
 			{
 				"argument": "free-college-is-a-slap-in-the-face",
-				"description": "Why should people continue to be burdened with student debt just because people in the past were?"
+				"description": "Why should people continue to be burdened with student debt just because other people are?"
 			}
 		],
 		"description": "Socialism ensures that everyone is equally miserable",
@@ -1428,7 +1428,7 @@
 		"images": [],
 		"meme": "https://blather22.s3.amazonaws.com/memes/socialism-creates-equal-misery.png",
 		"tips": [
-			"The goal is to reduce suffering",
+			"The goal is to reduce misery and suffering",
 			"So that people no longer have to declare bankrupty just because they got sick",
 			"So people won't be burdened down by a bunch of school debt"
 		]
@@ -1934,7 +1934,9 @@
 			"https://twitter.com/charliekirk11/status/1087153219887759360",
 			"https://twitter.com/RyanAFournier/status/1270471395202514944"
 		],
-		"fallacies": [],
+		"fallacies": [
+			783
+		],
 		"images": [
 			"https://blather22.s3.amazonaws.com/memes/silent-majority-image.jpg"
 		],
