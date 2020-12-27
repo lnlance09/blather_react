@@ -1,7 +1,7 @@
 <?php
     $uri = $_SERVER['REQUEST_URI'];
     $paths = explode('/', $uri);
-    array_splice($paths, 0, 2);
+    array_splice($paths, 0, 1);
 
     $dir = "/blather/";
     $base_url = "https://blather.io/";
@@ -84,7 +84,7 @@
 
             $html = "<h1>Logical Fallacies</h1>";
 
-            $mysqli = new mysqli("127.0.0.1:8889", "root", "root", "blather_react");
+            $mysqli = new mysqli("blather.cni5l9jtlymn.us-west-2.rds.amazonaws.com:3306", "lnlance09", ":~dYCVk'9_W9arZ", "blather");
             if ($mysqli->connect_errno) {
                 printf("Connect failed: %s\n", $mysqli->connect_error);
                 exit();
@@ -129,7 +129,7 @@
     }
 
     if (!$set) {
-        $mysqli = new mysqli("127.0.0.1:8889", "root", "root", "blather_react");
+        $mysqli = new mysqli("blather.cni5l9jtlymn.us-west-2.rds.amazonaws.com:3306", "lnlance09", ":~dYCVk'9_W9arZ", "blather");
         if ($mysqli->connect_errno) {
             printf("Connect failed: %s\n", $mysqli->connect_error);
             exit();
@@ -143,15 +143,13 @@
                     return $arg["argument"] === $id;
                 });
 
-                echo '<pre>';
-                print_r($argument);
-                echo '</pre>';
-
                 if (count($argument) === 1) {
-                    $tips = $argument[1]["tips"];
-                    $title = $argument[1]["description"];
+                    $keys = array_keys($argument);
+                    $key = $key[0];
+                    $tips = $argument[$key]["tips"];
+                    $title = $argument[$key]["description"];
                     $description = count($tips) > 0 ? $tips[0] : "";
-                    $img = $argument[1]["meme"];
+                    $img = $argument[$key]["meme"];
                 }
                 break;
 
@@ -736,10 +734,12 @@
     }
 ?>
 
+        <link rel="stylesheet" type="text/css" href="/static/css/1.7d258906.chunk.css">
+        <link rel="stylesheet" type="text/css" href="/static/css/main.6faacd60.chunk.css">
+
         <link rel="canonical" href="<?php echo $canonical_url; ?>" />
         <link rel="home" href="<?php echo $base_url; ?>" />
 
-        <link rel="stylesheet" type="text/css" href="static/css/main.21dde373.css">
         <link rel="manifest" href="/manifest.json">
         <link rel="shortcut icon" href="/favicon.ico?v=3">
         <link rel="apple-touch-icon" sizes="128x128" href="/favicon.ico?v=3">
@@ -767,7 +767,9 @@
         </div>
     </body>
 
-    <script src="static/js/main.c3e74a8e.js"></script>
+    <script src="/static/js/1.a7fe6011.chunk.js"></script>
+    <script src="/static/js/main.c8c69d65.chunk.js"></script>
+    <script src="/static/js/runtime~main.229c360f.js"></script>
 
     <script>
         var sc_project=11316702;
