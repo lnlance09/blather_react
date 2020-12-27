@@ -143,7 +143,9 @@
                 });
 
                 if (count($argument) === 1) {
-                    print_r($argument(0));
+                    echo '<pre>';
+                    print_r($argument[0]);
+                    echo '</pre>';
                     $tips = $argument[0]["tips"];
                     $title = $argument[0]["description"];
                     $description = count($tips) > 0 ? $tips[0] : "";
