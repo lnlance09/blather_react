@@ -144,7 +144,7 @@
 
                 if (count($argument) === 1) {
                     echo '<pre>';
-                    print_r($argument['tips']);
+                    print_r($argument);
                     echo '</pre>';
                     echo '<pre>';
                     print_r($argument->tips);
