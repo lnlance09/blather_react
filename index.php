@@ -138,17 +138,16 @@
 
         switch ($paths[0]) {
             case "arguments":
-                $argument = array_filter($arguments, function ($arg) {
-                    return ($arg["argument"] == $id);
+                $argument = array_filter($arguments, function ($arg) use ($id) {
+                    return $arg["argument"] === $id;
                 });
 
-                if ($argument) {
+                if (count($argument) === 1) {
                     $tips = $argument["tips"];
                     $title = $argument["description"];
                     $description = count($tips) > 0 ? $tips[0] : "";
                     $img = $argument["meme"];
                 }
-            
                 break;
 
             case "fallacies":
