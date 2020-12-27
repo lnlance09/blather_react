@@ -37,13 +37,25 @@
   .pageHeader .topHeader img {
     cursor: pointer;
     flex: 1 1;
-    height: 42px;
-    width: 42px; }
+    height: 48px;
+    width: 48px; }
   .pageHeader .topHeader .grid .column input {
     line-height: 25px; }
   .pageHeader .topHeader .grid .column.logoColumn {
     display: flex;
     flex-direction: column; }
+    .pageHeader .topHeader .grid .column.logoColumn .slogan {
+      display: inline-block;
+      margin-left: 68px;
+      margin-top: -54px;
+      transform: rotate(352deg) !important; }
+      .pageHeader .topHeader .grid .column.logoColumn .slogan .sloganTop, .pageHeader .topHeader .grid .column.logoColumn .slogan .sloganBottom {
+        color: #ffffff;
+        font-size: 16px;
+        vertical-align: sub !important; }
+      .pageHeader .topHeader .grid .column.logoColumn .slogan .sloganBottom {
+        color: #fbbd08;
+        margin-top: 0; }
   @media only screen and (max-width: 1025px) {
     .pageHeader .topHeader .container.desktop {
       display: none; }
