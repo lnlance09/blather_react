@@ -373,10 +373,14 @@
 		"images": [
 			"https://blather22.s3.amazonaws.com/memes/concentration-camps.jpg"
 		],
-		"meme": "https://blather22.s3.amazonaws.com/memes/communism-as-catch-all-term.jpeg",
+		"meme": [
+			"https://blather22.s3.amazonaws.com/memes/communism-as-catch-all-term.jpeg",
+			"https://blather22.s3.amazonaws.com/memes/communism-as-catch-all-term-1.png"
+		],
 		"tips": [
-			"Words like \"fascism\", \"communism\", \"socialism\", \"totalitarianism\", and \"tyranny\" are used as catch-all terms to describe any and all situations where the government does stuff that they don't like",
-			"Sort of like how teenagers in the 2000's would use the word <a class='link' href='https://www.youtube.com/watch?v=sWS0GVOQPs0' _target='blank'>gay</a> to describe any person, place, or event that they didn't like. \"That's so gay!\""
+			"Words like \"fascism\", \"communism\", \"socialism\", \"marxism\", \"totalitarianism\", and \"tyranny\" are used as catch-all terms to describe any and all situations where the government does stuff that they don't like",
+			"Sort of like how teenagers in the early 2000's would use the word <a class='link' href='https://www.youtube.com/watch?v=sWS0GVOQPs0' _target='blank'>gay</a> to describe any person, place, or event that they didn't like. \"That's so gay!\"",
+			"Ask them what the definitions of any of those words are and they'll draw blanks"
 		]
 	},
 	{
