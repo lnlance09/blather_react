@@ -40,12 +40,8 @@ const Header = ({ history, q, showResults }) => {
 									/>
 								</div>
 								<div className="slogan">
-									<div className="sloganTop">
-										talking a lot
-									</div>
-									<div className="sloganBottom">
-										saying nothing
-									</div>
+									<div className="sloganTop">talking a lot</div>
+									<div className="sloganBottom">saying nothing</div>
 								</div>
 							</Grid.Column>
 							<Grid.Column className="inputColumn" width={12}>

@@ -144,7 +144,9 @@ const Sidebar = ({ activeItem, basic, history, inverted, logout }) => {
 									name="gavel"
 								/>
 								Arguments
-								<Label color="olive" horizontal>New</Label>
+								<Label color="olive" horizontal>
+									New
+								</Label>
 							</Menu.Item>
 							<Menu.Item
 								active={activeItem === "tags"}

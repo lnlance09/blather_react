@@ -471,7 +471,12 @@ class YouTubeVideo extends Component {
 								<Form.Field>
 									<TimeField
 										input={
-											<Input fluid icon="hourglass end" placeholder="End time" size="large" />
+											<Input
+												fluid
+												icon="hourglass end"
+												placeholder="End time"
+												size="large"
+											/>
 										}
 										onChange={this.props.changeEndTime}
 										showSeconds
