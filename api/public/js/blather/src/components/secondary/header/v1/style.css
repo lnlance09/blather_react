@@ -45,6 +45,7 @@
     display: flex;
     flex-direction: column; }
     .pageHeader .topHeader .grid .column.logoColumn .slogan {
+      cursor: pointer;
       display: inline-block;
       margin-left: 68px;
       margin-top: -54px;

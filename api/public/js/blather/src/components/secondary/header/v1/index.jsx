@@ -39,7 +39,7 @@ const Header = ({ history, q, showResults }) => {
 										src={Logo}
 									/>
 								</div>
-								<div className="slogan">
+								<div className="slogan" onClick={() => history.push("/")}>
 									<div className="sloganTop">talking a lot</div>
 									<div className="sloganBottom">saying nothing</div>
 								</div>
