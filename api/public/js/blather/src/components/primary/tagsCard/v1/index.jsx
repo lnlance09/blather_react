@@ -166,7 +166,7 @@ class TagsCard extends Component {
 									fluid
 									onClick={this.updateTags}
 									primary
-									size="big"
+									size="large"
 								/>
 							</Form>
 						</div>
