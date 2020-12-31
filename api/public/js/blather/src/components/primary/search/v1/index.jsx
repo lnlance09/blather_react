@@ -142,8 +142,8 @@ class NavSearch extends Component {
 				placeholder={props.placeholder}
 				results={results}
 				resultRenderer={resultRenderer}
-				showNoResults={this.props.showResults}
-				size="big"
+				showNoResults={props.showResults}
+				size={props.size}
 			/>
 		)
 
@@ -168,6 +168,7 @@ NavSearch.propTypes = {
 	placeholder: PropTypes.string,
 	selectAssignee: PropTypes.func,
 	showResults: PropTypes.bool,
+	size: PropTypes.string,
 	source: PropTypes.string,
 	width: PropTypes.string
 }
@@ -177,6 +178,7 @@ NavSearch.defaultProps = {
 	disabled: false,
 	placeholder: "Search",
 	showResults: true,
+	size: "big",
 	source: "header",
 	width: "420px"
 }

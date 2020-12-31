@@ -396,6 +396,7 @@ class FallacyForm extends Component {
 				defaultValue={page ? page.name : null}
 				onChangeAssignee={this.onChangeAssignee}
 				placeholder="Who should this fallacy be assigned to?"
+				size="medium"
 				source="fallacyForm"
 				width={"100%"}
 			/>
