@@ -43,6 +43,15 @@
 .youTubeVideo .stats .statistic {
   margin-bottom: 0; }
 
+.youTubeVideo .equal.width.fields .field {
+  display: inline-block !important;
+  width: 50%; }
+  .youTubeVideo .equal.width.fields .field:first-of-type {
+    margin-right: 12px;
+    width: 48% !important; }
+  .youTubeVideo .equal.width.fields .field .input .icon {
+    color: #ffffff !important; }
+
 .youTubeVideo .archiveForm .form {
   margin-top: 0;
   padding: 0; }

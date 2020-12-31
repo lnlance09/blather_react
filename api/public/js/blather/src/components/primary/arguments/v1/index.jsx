@@ -28,9 +28,8 @@ class Arguments extends Component {
 		}
 	}
 
-	componentDidMount() {
+	async componentDidMount() {
 		const { argument } = this.props
-		console.log("argument", argument)
 		if (argument !== null) {
 			this.scrollToItem(argument)
 		}

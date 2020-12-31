@@ -457,24 +457,24 @@ class YouTubeVideo extends Component {
 									<TimeField
 										input={
 											<Input
+												fluid
 												icon="hourglass start"
 												placeholder="Start time"
+												size="large"
 											/>
 										}
 										onChange={this.props.changeStartTime}
 										showSeconds
-										style={{ width: "100%", fontSize: 14 }}
 										value={this.props.startTime}
 									/>
 								</Form.Field>
 								<Form.Field>
 									<TimeField
 										input={
-											<Input icon="hourglass end" placeholder="End time" />
+											<Input fluid icon="hourglass end" placeholder="End time" size="large" />
 										}
 										onChange={this.props.changeEndTime}
 										showSeconds
-										style={{ width: "100%", fontSize: 14 }}
 										value={this.props.endTime}
 									/>
 								</Form.Field>
