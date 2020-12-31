@@ -768,7 +768,7 @@
     </body>
 
     <script src="/static/js/1.d52dc8bc.chunk.js"></script>
-    <script src="/static/js/main.7b964e3d.chunk.js"></script>
+    <script src="/static/js/main.6f5ca98a.chunk.js"></script>
     <script src="/static/js/runtime~main.229c360f.js"></script>
 
     <script>
