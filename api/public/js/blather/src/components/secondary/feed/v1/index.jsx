@@ -400,4 +400,6 @@ const mapStateToProps = (state, ownProps) => ({
 	...ownProps
 })
 
-export default connect(mapStateToProps, { getFeed, getFeedUpdates, toggleLoadingMore })(FeedComponent)
+export default connect(mapStateToProps, { getFeed, getFeedUpdates, toggleLoadingMore })(
+	FeedComponent
+)

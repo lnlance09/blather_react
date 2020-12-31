@@ -417,7 +417,6 @@ class FallacyForm extends Component {
 								}
 								onChange={this.onChangeStartTime}
 								showSeconds
-								style={{ width: "100%", fontSize: 14 }}
 								value={props.startTime}
 							/>
 						</Form.Field>
@@ -433,7 +432,6 @@ class FallacyForm extends Component {
 								}
 								onChange={this.onChangeEndTime}
 								showSeconds
-								style={{ width: "100%", fontSize: 14 }}
 								value={props.endTime}
 							/>
 						</Form.Field>

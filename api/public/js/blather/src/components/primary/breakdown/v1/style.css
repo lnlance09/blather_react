@@ -18,6 +18,10 @@
     padding: 0 !important; }
     .breakdown .breakdownSegment .percentages .ui.header.small {
       margin-bottom: 8px !important; }
+      .breakdown .breakdownSegment .percentages .ui.header.small .ui.label.fallacyCount {
+        background: #15202b !important;
+        border: solid 2px #767676 !important;
+        color: #dcddde !important; }
     .breakdown .breakdownSegment .percentages .fallacyPercentage {
       cursor: pointer;
       margin-top: 15px; }
@@ -41,7 +45,7 @@
   margin-bottom: 12px; }
 
 .breakdown .icon.question {
-  color: #db2828; }
+  color: #ff695e !important; }
 
 @media only screen and (max-width: 1025px) {
   .breakdown .ui.header.medium {

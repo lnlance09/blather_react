@@ -43,3 +43,6 @@
       width: 49% !important; }
       .fallacyForm .equal.width.fields .field input {
         width: 100% !important; } }
+
+.fallacyForm .equal.width.fields .field .input .icon {
+  color: #ffffff !important; }

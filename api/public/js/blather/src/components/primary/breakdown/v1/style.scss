@@ -19,6 +19,12 @@
 
 			.ui.header.small {
 				margin-bottom: 8px !important;
+
+				.ui.label.fallacyCount {
+					background: $invertedBackgroundColor !important;
+					border: solid 2px $grey !important;
+					color: $lightGrey !important;
+				}
 			}
 
 			.fallacyPercentage {
@@ -33,6 +39,7 @@
 					margin-bottom: 0;
 
 					.bar {
+						// background: $blue !important;
 						min-width: 50px;
 					}
 				}
@@ -56,7 +63,7 @@
 	}
 
 	.icon.question {
-		color: $red;
+		color: $lightRed !important;
 	}
 
 	@media only screen and (max-width: 1025px) {

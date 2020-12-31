@@ -1,291 +1,304 @@
 @import "../../../../css/colors.scss";
 
 .youTubeVideo {
-  .youTubeTitle {
-    background: transparent;
-    font-size: 20px !important;
-    margin-top: 7px;
-  }
+	.youTubeTitle {
+		background: transparent;
+		font-size: 20px !important;
+		margin-top: 7px;
+ 	}
 
-  .progress {
-    margin-bottom: 12px !important;
-  }
+  	.progress {
+		margin-bottom: 12px !important;
+  	}
 
-  .channelSegment {
-    margin: 1px !important;
-    padding: 0;
+  	.channelSegment {
+		margin: 1px !important;
+		padding: 0;
 
-    &.hasComment {
-      margin-bottom: 0 !important;
-    }
+		&.hasComment {
+	  		margin-bottom: 0 !important;
+		}
 
-    .header {
-      color: $white;
-      cursor: pointer;
-      font-size: 14px !important;
+		.header {
+			color: $white;
+			cursor: pointer;
+			font-size: 14px !important;
 
-      &:hover {
-        text-decoration: underline;
-      }
+			&:hover {
+				text-decoration: underline;
+			}
 
-      &.subheader {
-        font-size: 11px;
-      }
+			&.subheader {
+				font-size: 11px;
+			}
 
-      img {
-        margin-right: 2px;
-      }
+			img {
+				margin-right: 2px;
+			}
 
-      .sub.header {
-        font-size: 12px !important;
+	  		.sub.header {
+				font-size: 12px !important;
 
-        &:hover {
-          text-decoration: none;
-        }
-      }
-    }
+				&:hover {
+		  			text-decoration: none;
+				}
+	  		}
+		}
 
-    .videoDescription {
-      color: $grey;
-    }
-  }
+		.videoDescription {
+	  		color: $grey;
+		}
+  	}
 
-  .videoPlayer {
-    width: 100% !important;
-  }
+  	.videoPlayer {
+		width: 100% !important;
+  	}
 
-  .stats {
-    .likeCount {
-      float: left;
-    }
+  	.stats {
+		.likeCount {
+	  		float: left;
+		}
 
-    .statistic {
-      margin-bottom: 0;
-    }
-  }
+		.statistic {
+	  		margin-bottom: 0;
+		}
+	}
+	  
+	.equal.width.fields .field {
+		display: inline-block !important;
+		width: 50%;
 
-  .archiveForm {
-    .form {
-      margin-top: 0;
-      padding: 0;
+		&:first-of-type {
+			margin-right: 12px;
+			width: 48% !important;
+		}
 
-      @media only screen and (max-width: 1025px) {
-        .equal.width.fields {
-          .field {
-            width: 49% !important;
+		.input {
+			.icon {
+				color: $white !important;
+			}
+		}
+	}
 
-            input {
-              width: 100% !important;
-            }
-          }
-        }
-      }
-    }
-  }
+  	.archiveForm {
+		.form {
+	  		margin-top: 0;
+	  		padding: 0;
 
-  .archivesList {
-    margin-top: 2px !important;
+	  		@media only screen and (max-width: 1025px) {
+				.equal.width.fields {
+		  			.field {
+						width: 49% !important;
 
-    .archiveItem {
-      cursor: pointer;
-      padding: 9px 7px 6px 7px !important;
+						input {
+			  				width: 100% !important;
+						}
+		  			}
+				}
+			}
+		}
+  	}
 
-      &.selected,
-      &:hover {
-        background: $offWhite;
-      }
+  	.archivesList {
+		margin-top: 2px !important;
 
-      .extra {
-        .list {
-          margin: 0 !important;
+		.archiveItem {
+	  		cursor: pointer;
+	  		padding: 9px 7px 6px 7px !important;
 
-          a {
-            color: $blue;
+	  		&.selected,
+	  		&:hover {
+				background: $offWhite;
+	  		}
 
-            &:hover {
-              color: $blue !important;
-              text-decoration: underline;
-            }
-          }
-        }
-      }
-    }
-  }
+	  		.extra {
+				.list {
+		  			margin: 0 !important;
 
-  .ui.divided.items > .item:first-child {
-    padding: 9px 7px 6px 7px !important;
-  }
+		  			a {
+						color: $blue;
 
-  .editVideoTimes {
-    margin: 20px 0 0 0 !important;
-  }
+						&:hover {
+			  				color: $blue !important;
+			  				text-decoration: underline;
+						}
+		  			}
+				}
+	  		}
+		}
+  	}
 
-  .transcriptHeader {
-    margin-top: 0 !important;
-  }
+  	.ui.divided.items > .item:first-child {
+		padding: 9px 7px 6px 7px !important;
+  	}
 
-  .transcriptContent {
-    font {
-      color: $black !important;
-    }
+  	.editVideoTimes {
+		margin: 20px 0 0 0 !important;
+  	}
 
-    &.default {
-      display: -webkit-box;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      -webkit-line-clamp: 10;
-      -webkit-box-orient: vertical;
-    }
-  }
+  	.transcriptHeader {
+		margin-top: 0 !important;
+  	}
 
-  .seeMore {
-    color: $blue;
-    cursor: pointer;
-    display: inline-block;
-    margin-top: 10px;
+  	.transcriptContent {
+		font {
+	  		color: $black !important;
+		}
 
-    &:hover {
-      text-decoration: underline;
-    }
-  }
+		&.default {
+	  		display: -webkit-box;
+	  		overflow: hidden;
+	  		text-overflow: ellipsis;
+	  		-webkit-line-clamp: 10;
+	  		-webkit-box-orient: vertical;
+		}
+  	}
+
+  	.seeMore {
+		color: $blue;
+		cursor: pointer;
+		display: inline-block;
+		margin-top: 10px;
+
+		&:hover {
+	  		text-decoration: underline;
+		}
+  	}
 }
 
 .youtubeCommentsSection {
-  .toggleComments {
-    float: right;
-    margin-right: 0;
-    vertical-align: middle;
-  }
+	.toggleComments {
+		float: right;
+		margin-right: 0;
+		vertical-align: middle;
+ 	}
 
-  .emptyCommentMsg {
-    text-align: center;
-  }
+  	.emptyCommentMsg {
+		text-align: center;
+  	}
 
-  .commentsSection {
-    margin: 20px 0;
+  	.commentsSection {
+		margin: 20px 0;
 
-    .dimmed.dimmable {
-      padding: 10px;
+		.dimmed.dimmable {
+	  		padding: 10px;
 
-      .dimmer {
-        background: $dimmer-background !important;
-      }
+	  		.dimmer {
+				background: $dimmer-background !important;
+	  		}
 
-      .content {
-        .header {
-          color: $black;
-        }
-      }
-    }
+	  		.content {
+				.header {
+		  			color: $black;
+				}
+	  		}
+		}
 
-    .basic.segment {
-      margin-top: 0;
-      padding: 0;
-    }
-  }
+		.basic.segment {
+	  		margin-top: 0;
+	  		padding: 0;
+		}
+  	}
 
-  .comments {
-    max-width: none !important;
+  	.comments {
+		max-width: none !important;
 
-    .comment {
-      cursor: pointer;
-      margin: 0;
-      white-space: pre-line;
+		.comment {
+	  		cursor: pointer;
+	  		margin: 0;
+	  		white-space: pre-line;
 
-      &.selectedComment {
-        cursor: text;
+	  		&.selectedComment {
+				cursor: text;
 
-        .content {
-          .text {
-            color: $black;
+				.content {
+		  			.text {
+						color: $black;
 
-            b {
-              background: $higlighterYellow !important;
-            }
-          }
-        }
-      }
+						b {
+			  				background: $higlighterYellow !important;
+						}
+		  			}
+				}
+	  		}
 
-      .actions {
-        a {
-          color: $black;
+	  		.actions {
+				a {
+		  			color: $black;
 
-          .icon {
-            color: $blue;
-          }
+		  			.icon {
+						color: $blue;
+		  			}
 
-          &.youtubeLink {
-            &:hover {
-              text-decoration: underline;
-            }
-          }
-        }
+		  			&.youtubeLink {
+						&:hover {
+			  				text-decoration: underline;
+						}
+		  			}
+				}
 
-        .likeComment {
-          cursor: default !important;
-        }
-      }
-    }
-  }
-
-  .selectedCommentWrapper {
-  }
+				.likeComment {
+		  			cursor: default !important;
+				}
+	  		}
+		}
+  	}
 }
 
 .modals.dimmer {
-  .ui.scrolling.modal.youtubeCommentModal {
-    margin-top: 0 !important;
-  }
+	.ui.scrolling.modal.youtubeCommentModal {
+		margin-top: 0 !important;
+  	}
 }
 
 .youtubeCommentModal {
-  margin-top: 0 !important;
+	margin-top: 0 !important;
 
-  .comments {
-    max-width: none !important;
+	.comments {
+		max-width: none !important;
 
-    .comment {
-      cursor: text;
-      margin: 0;
-      white-space: pre-line;
+		.comment {
+	  		cursor: text;
+	  		margin: 0;
+	  		white-space: pre-line;
 
-      .content {
-        .text {
-          color: $black;
+	  		.content {
+				.text {
+		  			color: $black;
 
-          b {
-            background: $higlighterYellow !important;
-          }
-        }
-      }
+		  			b {
+						background: $higlighterYellow !important;
+		  			}
+				}
+	  		}
 
-      .actions {
-        a {
-          color: $black;
+	  		.actions {
+				a {
+		  			color: $black;
 
-          .icon {
-            color: $blue;
-          }
+		  			.icon {
+						color: $blue;
+		  			}
 
-          &.youtubeLink {
-            &:hover {
-              text-decoration: underline;
-            }
-          }
-        }
+		  			&.youtubeLink {
+						&:hover {
+			  				text-decoration: underline;
+						}
+		  			}
+				}
 
-        .likeComment {
-          cursor: default !important;
-        }
+				.likeComment {
+		  			cursor: default !important;
+				}
 
-        .archiveComment {
-          float: right;
+				.archiveComment {
+		  			float: right;
 
-          .icon {
-            color: $yellow;
-          }
-        }
-      }
-    }
-  }
+		  			.icon {
+						color: $yellow;
+		  			}
+				}
+	  		}
+		}
+  	}
 }

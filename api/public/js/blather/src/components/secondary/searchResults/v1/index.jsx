@@ -92,6 +92,7 @@ class SearchResults extends Component {
 						extra: extra,
 						img: result.profile_pic,
 						meta: result.username,
+						sanitize: true,
 						tags: [],
 						title: result.name,
 						truncate: false,
@@ -114,6 +115,7 @@ class SearchResults extends Component {
 						extra: null,
 						img: result.page_profile_pic,
 						meta: dateCreated,
+						sanitize: true,
 						tags: [`${result.fallacy_name}`],
 						title: result.title,
 						truncate: false,
@@ -127,6 +129,7 @@ class SearchResults extends Component {
 						extra: null,
 						img: result.profile_pic,
 						meta: `${result.fallacy_count} fallacies`,
+						sanitize: false,
 						title: result.name,
 						truncate: true,
 						url: `/pages/twitter/${result.username}`,
@@ -168,6 +171,7 @@ class SearchResults extends Component {
 						description: result.about,
 						img: result.profile_pic ? result.profile_pic : itemPic,
 						meta: `@${result.username}`,
+						sanitize: true,
 						tags: [],
 						title: result.name,
 						truncate: true,
@@ -188,6 +192,7 @@ class SearchResults extends Component {
 								</p>
 							</div>
 						),
+						sanitize: true,
 						tags: [],
 						title: result.title,
 						truncate: true,
@@ -315,7 +320,7 @@ class SearchResults extends Component {
 							img={itemData.img}
 							key={`${props.type}_${i}`}
 							meta={itemData.meta}
-							sanitize
+							sanitize={itemData.sanitize}
 							tags={itemData.tags}
 							title={itemData.title}
 							truncate={itemData.truncate}

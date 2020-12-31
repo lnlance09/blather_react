@@ -115,7 +115,7 @@ class Breakdown extends Component {
 						>
 							<Header inverted size="small">
 								{result.key}{" "}
-								<Label color="blue" horizontal>
+								<Label basic color="red" className="fallacyCount" horizontal>
 									{result.count}
 								</Label>
 							</Header>

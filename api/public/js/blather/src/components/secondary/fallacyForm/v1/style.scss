@@ -68,5 +68,13 @@
         		}
       		}
     	}
-  	}
+	}
+	  
+	.equal.width.fields .field {
+		.input {
+			.icon {
+				color: $white !important;
+			}
+		}
+	}
 }

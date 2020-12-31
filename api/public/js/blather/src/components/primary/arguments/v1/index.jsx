@@ -5,11 +5,7 @@ import { Button, Header, Image, List, Segment } from "semantic-ui-react"
 import { CopyToClipboard } from "react-copy-to-clipboard"
 import { Link } from "react-router-dom"
 import { getUsernameFromTweetUrl } from "utils/textFunctions"
-import {
-	FacebookShareButton,
-	RedditShareButton,
-	TwitterShareButton
-} from "react-share"
+import { FacebookShareButton, RedditShareButton, TwitterShareButton } from "react-share"
 import { toast } from "react-toastify"
 import { getConfig } from "options/toast"
 import Lightbox from "react-image-lightbox"
@@ -28,9 +24,8 @@ class Arguments extends Component {
 		}
 	}
 
-	componentDidMount() {
+	async componentDidMount() {
 		const { argument } = this.props
-		console.log("argument", argument)
 		if (argument !== null) {
 			this.scrollToItem(argument)
 		}
@@ -52,7 +47,7 @@ class Arguments extends Component {
 		return (
 			<div className="arguments" id="arguments">
 				<Segment.Group>
-					{args.map((arg) => {
+					{args.map(arg => {
 						const { contradictions, description, examples, images, meme, tips } = arg
 						let { fallacies } = arg
 						if (typeof fallacies === "undefined") {
@@ -79,12 +74,14 @@ class Arguments extends Component {
 
 								{Array.isArray(meme) && (
 									<Image.Group>
-										{meme.map((item) => (
+										{meme.map(item => (
 											<Image
 												bordered
 												centered
 												key={item}
-												onClick={() => this.setState({ img: item, isOpen: true })}
+												onClick={() =>
+													this.setState({ img: item, isOpen: true })
+												}
 												onError={i => (i.target.src = PlaceholderPic)}
 												rounded
 												size="medium"
@@ -93,19 +90,20 @@ class Arguments extends Component {
 										))}
 									</Image.Group>
 								)}
-							
-								{tips.length > 0 && (	
+
+								{tips.length > 0 && (
 									<Fragment>
-										<Header inverted>
-											Tips
-										</Header>
-										<div className="ui large bulleted inverted relaxed list" role="list">
-											{tips.map((item) => (
+										<Header inverted>Tips</Header>
+										<div
+											className="ui large bulleted inverted relaxed list"
+											role="list"
+										>
+											{tips.map(item => (
 												<div
 													className="item"
 													key={item}
 													role="listitem"
-													dangerouslySetInnerHTML={{__html: item }}	
+													dangerouslySetInnerHTML={{ __html: item }}
 												/>
 											))}
 										</div>
@@ -114,12 +112,12 @@ class Arguments extends Component {
 
 								{contradictions.length > 0 && (
 									<Fragment>
-										<Header inverted>
-											What this contradicts...
-										</Header>
+										<Header inverted>What this contradicts...</Header>
 										<List className="contList" size="large">
-											{contradictions.map((item) => {
-												let cont = args.filter(arg => arg.argument === item.argument)
+											{contradictions.map(item => {
+												let cont = args.filter(
+													arg => arg.argument === item.argument
+												)
 												if (cont.length > 0) {
 													cont = cont[0]
 												}
@@ -151,10 +149,12 @@ class Arguments extends Component {
 								)}
 
 								<Image.Group size="small">
-									{images.map((item) => (
+									{images.map(item => (
 										<Image
 											key={item}
-											onClick={() => this.setState({ img: item, isOpen: true })}
+											onClick={() =>
+												this.setState({ img: item, isOpen: true })
+											}
 											onError={i => (i.target.src = PlaceholderPic)}
 											rounded
 											src={item}
@@ -164,13 +164,22 @@ class Arguments extends Component {
 
 								{examples.length > 0 && (
 									<Fragment>
-										<Header inverted>
-											Examples
-										</Header>
-										<List bulleted className="examplesList" inverted size="large">
-											{examples.map((item) => (
+										<Header inverted>Examples</Header>
+										<List
+											bulleted
+											className="examplesList"
+											inverted
+											size="large"
+										>
+											{examples.map(item => (
 												<List.Item key={item}>
-													<a href={item} rel="noopener noreferrer" target="_blank">{getUsernameFromTweetUrl(item)}</a>
+													<a
+														href={item}
+														rel="noopener noreferrer"
+														target="_blank"
+													>
+														{getUsernameFromTweetUrl(item)}
+													</a>
 												</List.Item>
 											))}
 										</List>
@@ -179,11 +188,14 @@ class Arguments extends Component {
 
 								{fallacies.length > 0 && (
 									<Fragment>
-										<Header inverted>
-											Fallacies
-										</Header>
-										<List bulleted className="examplesList" inverted size="large">
-											{fallacies.map((item) => (
+										<Header inverted>Fallacies</Header>
+										<List
+											bulleted
+											className="examplesList"
+											inverted
+											size="large"
+										>
+											{fallacies.map(item => (
 												<List.Item key={item}>
 													<Link to={`/fallacies/${item}`}>{item}</Link>
 												</List.Item>
@@ -192,9 +204,7 @@ class Arguments extends Component {
 									</Fragment>
 								)}
 
-								<Header inverted>
-									Share
-								</Header>
+								<Header inverted>Share</Header>
 
 								<List className="shareList" horizontal size="large">
 									<List.Item>
@@ -214,7 +224,12 @@ class Arguments extends Component {
 											title={description}
 											url={`${window.location.origin}/arguments/${arg.argument}`}
 										>
-											<Button circular color="twitter" icon="twitter" size="big" />
+											<Button
+												circular
+												color="twitter"
+												icon="twitter"
+												size="big"
+											/>
 										</TwitterShareButton>
 									</List.Item>
 									<List.Item>
@@ -235,12 +250,17 @@ class Arguments extends Component {
 											text={`${window.location.origin}/arguments/${arg.argument}`}
 										>
 											<div>
-												<Button circular color="red" icon="paperclip" size="big" />{" "}
+												<Button
+													circular
+													color="red"
+													icon="paperclip"
+													size="big"
+												/>{" "}
 											</div>
 										</CopyToClipboard>
 									</List.Item>
 								</List>
-							</Segment>	
+							</Segment>
 						)
 					})}
 				</Segment.Group>
@@ -266,22 +286,23 @@ class Arguments extends Component {
 }
 
 Arguments.propTypes = {
-	args: PropTypes.arrayOf(PropTypes.shape({
-		argument: PropTypes.string,
-		contradictions: PropTypes.arrayOf(PropTypes.shape({
+	args: PropTypes.arrayOf(
+		PropTypes.shape({
 			argument: PropTypes.string,
-			description: PropTypes.string
-		})),
-		description: PropTypes.string,
-		examples: PropTypes.array,
-		fallacies: PropTypes.array,
-		images: PropTypes.array,
-		tips: PropTypes.array
-	})),
-	argument: PropTypes.oneOfType([
-		PropTypes.bool,
-		PropTypes.string
-	])
+			contradictions: PropTypes.arrayOf(
+				PropTypes.shape({
+					argument: PropTypes.string,
+					description: PropTypes.string
+				})
+			),
+			description: PropTypes.string,
+			examples: PropTypes.array,
+			fallacies: PropTypes.array,
+			images: PropTypes.array,
+			tips: PropTypes.array
+		})
+	),
+	argument: PropTypes.oneOfType([PropTypes.bool, PropTypes.string])
 }
 
 Arguments.defaultProps = {
