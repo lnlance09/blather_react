@@ -22,7 +22,7 @@ class Footer extends Component {
 							<Link to="/about/rules">Rules</Link>
 						</List.Item>
 					</List>
-					<p>© 2018 - 2020, Blather</p>
+					<p>© 2018 - 2021, Blather</p>
 				</Container>
 			</Segment>
 		)
