@@ -121,7 +121,11 @@
 			{
 				"argument": "never-sacrifice-liberty-for-security",
 				"description": "If liberty is more important than security then what's with all of this police worship for keeping streets safe?"
-			}
+			},
+			{
+				"argument": "taxation-is-theft",
+				"description": "If taxation is theft then why are conservatives so opposed to the idea of defunding the police? How do they think police departments are funded?"
+			},
 		],
 		"description": "Back the blue",
 		"examples": [
@@ -354,8 +358,8 @@
 			"https://twitter.com/PrisonPlanet/status/1250368020297457664"
 		],
 		"fallacies": [
-			1311,
-			1335
+			1145,
+			1311
 		],
 		"images": [],
 		"meme": "https://blather22.s3.amazonaws.com/memes/china-must-pay-for-covid.jpg",
@@ -484,7 +488,7 @@
 		],
 		"fallacies": [
 			91,
-			501
+			505
 		],
 		"images": [],
 		"meme": "https://blather22.s3.amazonaws.com/memes/trump-cant-be-a-nazi-because-his-daugher-is-jewish.jpg",
@@ -504,7 +508,8 @@
 		],
 		"description": "Donald Trump deserves credit for developing a vaccine in such a short amount of time",
 		"examples": [
-			"https://twitter.com/scrowder/status/1327999962735669248"
+			"https://twitter.com/scrowder/status/1327999962735669248",
+			"https://twitter.com/ACTBrigitte/status/1325866408169902080"
 		],
 		"fallacies": [
 			1347
@@ -523,6 +528,10 @@
 			{
 				"argument": "china-covered-up-covid",
 				"description": ""
+			},
+			{
+				"argument": "china-covered-up-covid",
+				"description": "Why was it wrong when China did it but perfectly okay when Trump did it?"
 			}
 		],
 		"description": "Donald Trump downplayed the risks of COVID-19 to prevent panic and it was the right thing to do",
@@ -545,6 +554,7 @@
 			"https://twitter.com/charliekirk11/status/1215667936280506368"
 		],
 		"fallacies": [
+			30,
 			239,
 			755,
 			1161
@@ -569,7 +579,10 @@
 			"https://twitter.com/ryanafournier/status/1163525310060617731"
 		],
 		"fallacies": [
-			1161
+			516,
+			1011,
+			1050,
+			1374
 		],
 		"images": [
 			"https://blather22.s3.amazonaws.com/memes/trump_economy_graph.jpg",
@@ -670,7 +683,10 @@
 			"https://twitter.com/prageru/status/1064649415502127104"
 		],
 		"fallacies": [
-			418
+			418,
+			503,
+			506,
+			862
 		],
 		"images": [],
 		"meme": "https://blather22.s3.amazonaws.com/memes/europe-is-a-socialist-shit-hole.jpg",
@@ -808,8 +824,7 @@
 		"tips": [
 			"This is an obvious straw man",
 			"People who want the government to run health care want hospitals to be staffed with the best doctors, surgeons, nurses, and so on",
-			"No one who wants universal health care wants desk jockies and DMV type flunkies to be in charge of running health care",
-			"How come no one ever argues securing more funding for NASA, the CDC, or the CIA will turn it into the DMV?"
+			"No one who wants universal health care wants desk jockies and DMV type flunkies to be in charge of running health care"
 		]
 	},
 	{
@@ -817,7 +832,7 @@
 		"contradictions": [
 			{
 				"argument": "you-arent-entitled-to-anything",
-				"description": ""
+				"description": "If no one is entitled to anything, then why are homeless Americans deserving of assistance?"
 			}
 		],
 		"description": "Help homeless Americans before helping illegals",
@@ -919,6 +934,7 @@
 			""
 		],
 		"fallacies": [
+			542,
 			805
 		],
 		"images": [],
@@ -944,7 +960,9 @@
 			"https://twitter.com/prageru/status/647104374330626048",
 			"https://twitter.com/prageru/status/1220488129158627328"
 		],
-		"fallacies": [],
+		"fallacies": [
+			1363
+		],
 		"images": [],
 		"meme": "https://blather22.s3.amazonaws.com/memes/attack-you-personally.jpg",
 		"tips": [
@@ -999,7 +1017,7 @@
 		"meme": "https://blather22.s3.amazonaws.com/memes/illegals-have-not-suffered-as-much-as-holocaust-victims.jpg",
 		"tips": [
 			"Whenever conservatives find themselves in a situation where they have to acknowledge the oppression of minorities in America, their default response to to go to the Holocaust",
-			"[insert group] hasn't suffered as much as another group therefore they're just looking for handouts and victim status",
+			"[insert group] hasn't suffered as much as holocaust victims have therefore they're just looking for handouts and victim status",
 			"Oppression isn't a competition and just because there are disparities among how oppressed groups are doesn't mean that their grievances aren't legitimate"
 		]
 	},
@@ -1131,7 +1149,9 @@
 		],
 		"fallacies": [
 			1225,
-			1228
+			1228,
+			1331,
+			1364
 		],
 		"images": [],
 		"meme": "https://blather22.s3.amazonaws.com/memes/law-and-order.jpg",
@@ -1145,7 +1165,7 @@
 		"contradictions": [
 			{
 				"argument": "illegals-have-not-suffered-as-much-as-holocaust-victims",
-				"description": ""
+				"description": "Why should it matter which group has suffered more? It's not like this is supposed to be a competition."
 			}
 		],
 		"description": "Leftists always want to win the oppression olympics",
@@ -1217,7 +1237,8 @@
 		],
 		"fallacies": [
 			193,
-			468
+			353,
+			466
 		],
 		"images": [],
 		"meme": "https://blather22.s3.amazonaws.com/memes/liberalism-is-a-mental-disorder.jpg",
@@ -1230,7 +1251,7 @@
 		"contradictions": [
 			{
 				"argument": "law-and-order",
-				"description": "Obeying the law is important unless it's a law that I don't like. Then it's communism."
+				"description": "Obeying the law is important unless it's a law that they don't like. Then it's communism."
 			}
 		],
 		"description": "Lockdown orders should be disobeyed",
@@ -1307,7 +1328,11 @@
 		"examples": [
 			"https://twitter.com/prageru/status/1075881983966830593"
 		],
-		"fallacies": [],
+		"fallacies": [
+			201,
+			298,
+			1002
+		],
 		"images": [],
 		"meme": "https://blather22.s3.amazonaws.com/memes/private-businesses-can-refuse-service.jpg",
 		"tips": [
@@ -1789,7 +1814,8 @@
 			"https://twitter.com/PeterSweden7/status/1045005475820044288"
 		],
 		"fallacies": [
-			874
+			874,
+			1370
 		],
 		"images": [],
 		"meme": "https://blather22.s3.amazonaws.com/memes/nazis-were-socialists.png",
