@@ -1,7 +1,7 @@
 {
   "main.css": "/static/css/main.68876399.chunk.css",
-  "main.js": "/static/js/main.c2b297eb.chunk.js",
-  "main.js.map": "/static/js/main.c2b297eb.chunk.js.map",
+  "main.js": "/static/js/main.c41c9977.chunk.js",
+  "main.js.map": "/static/js/main.c41c9977.chunk.js.map",
   "static/css/1.4be76564.chunk.css": "/static/css/1.4be76564.chunk.css",
   "static/js/1.d52dc8bc.chunk.js": "/static/js/1.d52dc8bc.chunk.js",
   "static/js/1.d52dc8bc.chunk.js.map": "/static/js/1.d52dc8bc.chunk.js.map",
@@ -13,10 +13,10 @@
   "static/media/brain-fart.gif": "/static/media/brain-fart.d8a44fba.gif",
   "static/media/sound.mp3": "/static/media/sound.ec792557.mp3",
   "static/media/sound.ogg": "/static/media/sound.b8da6d65.ogg",
-  "static/media/semantic.min.css": "/static/media/brand-icons.a1a749e8.svg",
-  "static/css/1.4be76564.chunk.css.map": "/static/css/1.4be76564.chunk.css.map",
+  "static/media/semantic.min.css": "/static/media/brand-icons.c5ebe0b3.ttf",
   "static/css/main.68876399.chunk.css.map": "/static/css/main.68876399.chunk.css.map",
+  "static/css/1.4be76564.chunk.css.map": "/static/css/1.4be76564.chunk.css.map",
   "index.html": "/index.html",
-  "precache-manifest.5334b9e5767d9d82252599c543050ddc.js": "/precache-manifest.5334b9e5767d9d82252599c543050ddc.js",
+  "precache-manifest.8f89a3a831eb686ed476c9c10776d8f7.js": "/precache-manifest.8f89a3a831eb686ed476c9c10776d8f7.js",
   "service-worker.js": "/service-worker.js"
 }
