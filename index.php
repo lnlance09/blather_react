@@ -150,6 +150,7 @@
                     $title = $argument[$key]["description"];
                     $description = count($tips) > 0 ? $tips[0] : "";
                     $img = $argument[$key]["meme"];
+                    $canonical_url = $base_url."arguments/".$id;
                 }
                 break;
 
