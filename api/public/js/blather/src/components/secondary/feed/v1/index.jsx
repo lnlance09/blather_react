@@ -89,7 +89,6 @@ class FeedComponent extends Component {
 					}
 
 					const tagCount = tags(result).length
-
 					const totalCommentCount =
 						parseInt(commentCount, 10) + parseInt(responseCount, 10)
 					let userLink = `/pages/${result.page_type}/${
@@ -167,7 +166,7 @@ class FeedComponent extends Component {
 											<Icon inverted name="eye" /> {result.view_count}{" "}
 											{formatPlural(result.view_count, "view")}
 										</Feed.Like>
-										{tagCount && (
+										{tagCount > 0 && (
 											<Feed.Like>
 												<Icon inverted name="tag" /> {tagCount}{" "}
 												{formatPlural(tagCount, "tag")}
