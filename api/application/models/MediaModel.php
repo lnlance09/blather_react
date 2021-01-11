@@ -193,6 +193,7 @@ class MediaModel extends CI_Model {
 			}
 
 			$command .= ' https://www.youtube.com/watch\?v\='.$video_id;
+			$command .= ' --verbose 2>&1';
 			exec($command, $output);
 			echo $command;
 			var_dump($output);
