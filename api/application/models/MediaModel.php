@@ -194,6 +194,8 @@ class MediaModel extends CI_Model {
 
 			$command .= ' https://www.youtube.com/watch\?v\='.$video_id;
 			exec($command, $output);
+			echo $command;
+			var_dump($output);
 		}
 
 		return $file;
