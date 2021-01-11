@@ -138,12 +138,14 @@ class Page extends Component {
 		} = this.state
 
 		if (this.props.error && this.props.errorCode !== 404 && network === "youtube") {
+			/*
 			this.props.refreshYouTubeToken({
 				bearer
 			})
 			setTimeout(() => {
 				window.location.reload()
 			}, 1000)
+			*/
 		}
 
 		const DimmerMsg = ({ btn, msg, props }) => (
@@ -199,11 +201,13 @@ class Page extends Component {
 					name="credibility"
 					onClick={this.handleItemClick}
 				/>
-				<Menu.Item
-					active={activeItem === itemsLabel}
-					name={itemsLabel}
-					onClick={this.handleItemClick}
-				/>
+				{network === "twitter" && (
+					<Menu.Item
+						active={activeItem === itemsLabel}
+						name={itemsLabel}
+						onClick={this.handleItemClick}
+					/>
+				)}
 				<Menu.Item
 					active={activeItem === "fallacies"}
 					name="fallacies"

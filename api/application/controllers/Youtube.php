@@ -532,6 +532,7 @@ class YouTube extends CI_Controller {
 				'about' => null,
 				'is_verified' => null,
 				'name' => $channelName,
+				'profile_pic' => $img,
 				'social_media_id' => $channelId,
 				'type' => 'youtube',
 				'username' => null
@@ -572,6 +573,7 @@ class YouTube extends CI_Controller {
 			}
 		}
 
+		/*
 		$transcript = '';
 		$captions = $this->youtube->searchVideosForTerms(null, null, null, null, $id);
 
@@ -595,6 +597,7 @@ class YouTube extends CI_Controller {
 				$this->elasticsearch->indexDoc(ES_INDEX, $id, $body);
 			}
 		}
+		*/
 
 		echo json_encode([
 			'archives' => [],
@@ -602,7 +605,7 @@ class YouTube extends CI_Controller {
 			'data' => $data,
 			'error' => false,
 			'exists_on_yt' => $existsOnYt,
-			'transcript' => $transcript,
+			'transcript' => null,
 			'type' => 'video'
 		]);
 	}

@@ -517,7 +517,7 @@ class Fallacy extends Component {
 									<Button circular color="blue" icon="mail" size="big" />
 								</EmailShareButton>
 							</List.Item>
-							{this.props.canScreenshot && (
+							{(this.props.canScreenshot || this.props.canMakeVideo) && (
 								<List.Item>
 									<Button
 										circular

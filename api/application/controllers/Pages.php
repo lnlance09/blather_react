@@ -40,7 +40,7 @@ class Pages extends CI_Controller {
 
 				$auth = $user ? $user->linkedYoutube : false;
 				$token = $auth ? $user->youtubeAccessToken : null;
-				$page = $this->youtube->getPageExtended($id, null, $auth, $token);
+				$page = $this->youtube->getPageExtended($id, null, false, $token);
 				break;
 		}
 
