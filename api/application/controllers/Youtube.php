@@ -213,7 +213,7 @@ class YouTube extends CI_Controller {
 		$ext = $audio ? 'mp3' : 'mp4';
 		$key = 'youtube_videos/'.$id.'.'.$ext;
 		$video = $this->media->downloadYouTubeVideo($id, $audio);
-		$s3Link = $this->media->addToS3($key, $video);
+		// $s3Link = $this->media->addToS3($key, $video);
 		$this->youtube->insertVideo([
 			's3_link' => $key,
 			'video_id' => $id
