@@ -176,6 +176,7 @@ class MediaModel extends CI_Model {
 				-loop 1 -framerate 20 -t 3 \
 				-c:v copy -map 0:v:0 -map 1:a:0 -c:a aac -b:a 192k '.$output;
 		exec($command);
+		echo $command;
 	}
 
 	public function downloadYouTubeVideo($video_id, $audio_only = false) {
