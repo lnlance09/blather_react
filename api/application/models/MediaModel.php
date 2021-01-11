@@ -183,7 +183,7 @@ class MediaModel extends CI_Model {
 		$file = $this->youtubePath.$video_id.'.'.$file_type;
 
 		if (!file_exists($file)) {
-			$command = 'sudo /usr/local/bin/youtube-dl -o "'.$file.'" ';
+			$command = '/usr/local/bin/youtube-dl -o "'.$file.'" ';
 			if ($audio_only) {
 				$command .= '--extract-audio --audio-format '.$file_type.' ';
 			}
