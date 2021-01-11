@@ -170,13 +170,14 @@ class MediaModel extends CI_Model {
 	}
 
 	public function createVideoFromImg($input, $output) {
-		$command = FFMPEG.' \
-				-i '.$input.' \
-				-i '.$this->placeholderVideoPath.'spongebob_fail.mp3 \
-				-loop 1 -framerate 20 -t 3 \
-				-c:v copy -map 0:v:0 -map 1:a:0 -c:a aac -b:a 192k '.$output;
-		exec($command);
+		$command = FFMPEG.'
+				-i '.$input.'
+				-i '.$this->placeholderVideoPath.'spongebob_fail.mp3
+				-loop 1 -framerate 20 -t 3
+				-c:v copy -map 0:v:0 -map 1:a:0 -c:a aac -b:a 192k '.$output. '2>&1';
+		exec($command, $output);
 		echo $command;
+		var_dump($output);
 	}
 
 	public function downloadYouTubeVideo($video_id, $audio_only = false) {
