@@ -13,6 +13,7 @@ class Home extends CI_Controller {
 		$this->load->model('FallaciesModel', 'fallacies');
 		$this->load->model('YouTubeModel', 'youtube');
 		$this->load->model('TagsModel', 'tags');
+		$this->load->model('TwitterModel', 'twitter');
 		$this->load->model('UsersModel', 'users');
 	}
 
@@ -87,6 +88,20 @@ class Home extends CI_Controller {
 			'page' => (int)$page,
 			'pages' => $pages,
 			'results' => !$fallacies ? [] : $fallacies
+		]);
+	}
+
+	public function getTweetsForAssignment() {
+		$tokens = $this->users->getDefaultTwitterTokens();
+		$token = $tokens->twitter_access_token;
+		$secret = $tokens->twitter_access_secret;
+	
+		$listId = '1095482595847127040';
+		$tweets = $this->twitter->getListFeed($listId, $token, $secret);
+
+		echo json_encode([
+			'error' => false,
+			'tweets' => $tweets
 		]);
 	}
 }

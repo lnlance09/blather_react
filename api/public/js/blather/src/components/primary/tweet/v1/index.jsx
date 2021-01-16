@@ -181,13 +181,19 @@ class Tweet extends Component {
 
 		const QuotedTweet = props => {
 			let quotedExtEntities = props.quoted_status.extended_entities
-			let quotedFullText = props.quoted_status.full_text
+			let quotedFullText =
+				typeof props.quoted_status.full_text === "undefined"
+					? props.quoted_status.text
+					: props.quoted_status.full_text
 			let quotedName = props.quoted_status.user.name
 			let quotedScreenName = props.quoted_status.user.screen_name
 			let quotedTweetId = props.quoted_status.id_str
 			if (retweeted_status) {
 				quotedExtEntities = props.retweeted_status.quoted_status.extended_entities
-				quotedFullText = props.retweeted_status.quoted_status.full_text
+				quotedFullText =
+					typeof props.retweeted_status.quoted_status.full_text === "undefined"
+						? props.retweeted_status.quoted_status.text
+						: props.retweeted_status.quoted_status.full_text
 				quotedName = props.retweeted_status.quoted_status.user.name
 				quotedScreenName = props.retweeted_status.quoted_status.user.screen_name
 				quotedTweetId = props.retweeted_status.quoted_status.id_str
@@ -266,9 +272,13 @@ class Tweet extends Component {
 			const start = props.displayTextRange[0]
 			const end = props.displayTextRange[1]
 			const length = parseInt(end, 10) - parseInt(start, 10)
+			const retweetedText =
+				typeof retweeted_status.full_text === "undefined"
+					? retweeted_status.text
+					: retweeted_status.full_text
 			return Parser(
 				retweeted_status
-					? runes.substr(retweeted_status.full_text, start, length)
+					? runes.substr(retweetedText, start, length)
 					: runes.substr(props.full_text, start, length)
 			)
 		}
@@ -288,7 +298,11 @@ class Tweet extends Component {
 
 		return (
 			<Provider store={store}>
-				<div className={className} style={{ opacity: this.props.opacity }}>
+				<div
+					className={className}
+					onClick={() => this.props.onClickCallback(this.props)}
+					style={{ opacity: this.props.opacity }}
+				>
 					<Card color={this.props.color} fluid raised={this.props.raised}>
 						{RetweetedText(this.props)}
 						<Card.Content
@@ -390,6 +404,7 @@ Tweet.propTypes = {
 	imageSize: PropTypes.string,
 	is_quote_status: PropTypes.bool,
 	key: PropTypes.string,
+	onClickCallback: PropTypes.func,
 	opacity: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 	profileImg: PropTypes.string,
 	quoted_status: PropTypes.shape({
@@ -463,6 +478,7 @@ Tweet.defaultProps = {
 	full_text: "",
 	highlight: false,
 	imageSize: "tiny",
+	onClickCallback: () => null,
 	opacity: 1,
 	quoted_status: {
 		user: {}

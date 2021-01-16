@@ -1,4 +1,6 @@
-import { getPostFromUrl } from "redux/actions/home"
+import "slick-carousel/slick/slick.css"
+import "slick-carousel/slick/slick-theme.css"
+import { getPostFromUrl, getTweetsForAssignment } from "redux/actions/home"
 import { connect, Provider } from "react-redux"
 import { Link } from "react-router-dom"
 import { DisplayMetaTags } from "utils/metaFunctions"
@@ -8,8 +10,17 @@ import FallacyForm from "components/secondary/fallacyForm/v1/"
 import queryString from "query-string"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
+import Slider from "react-slick"
 import store from "store"
 import Tweet from "components/primary/tweet/v1/"
+
+const settings = {
+	dots: false,
+	infinite: true,
+	slidesToScroll: 1,
+	slidesToShow: 2,
+	speed: 500
+}
 
 class Home extends Component {
 	constructor(props) {
@@ -39,6 +50,8 @@ class Home extends Component {
 	}
 
 	componentDidMount() {
+		this.props.getTweetsForAssignment()
+
 		const qs = queryString.parse(this.props.location.search)
 		const url = qs.url
 		this.setState({ url }, () => {
@@ -71,10 +84,19 @@ class Home extends Component {
 
 	onPaste = e => {
 		const url = e.clipboardData.getData("Text")
-		this.setState({ url })
-		this.props.getPostFromUrl({
-			bearer: this.state.bearer,
-			url
+		this.setState({ url }, () => {
+			this.props.getPostFromUrl({
+				bearer: this.state.bearer,
+				url
+			})
+		})
+	}
+
+	scrollToTop() {
+		window.scroll({
+			top: 0,
+			left: 0,
+			behavior: "smooth"
 		})
 	}
 
@@ -90,7 +112,7 @@ class Home extends Component {
 			url,
 			user
 		} = this.state
-		const { info, mediaId, page, type } = this.props
+		const { info, mediaId, page, tweets, type } = this.props
 
 		const validPost = type === "tweet"
 
@@ -104,7 +126,7 @@ class Home extends Component {
 						containerClassName="homePage"
 						history={this.props.history}
 					>
-						<Header as="h1" className="heroHeader" inverted>
+						<Header as="h1" className="heroHeader" id="assignHeader" inverted>
 							Assign a Logical Fallacy
 						</Header>
 
@@ -208,6 +230,55 @@ class Home extends Component {
 								</Header>
 							</Segment>
 						)}
+
+						<Divider inverted horizontal section>
+							<Header as="h3" inverted>
+								Trending
+							</Header>
+						</Divider>
+
+						<Slider className="slickSlide" {...settings}>
+							{tweets.map(tweet => {
+								return (
+									<div className="basicSegment">
+										<Tweet
+											created_at={tweet.created_at}
+											extended_entities={tweet.extended_entities}
+											full_text={tweet.text}
+											id={tweet.id_str}
+											is_quote_status={tweet.is_quote_status}
+											onClickCallback={tweet => {
+												this.scrollToTop()
+												const url = `https://twitter.com/${tweet.user.screen_name}/status/${tweet.id}`
+												this.setState({ url }, () => {
+													this.props.getPostFromUrl({
+														bearer,
+														url
+													})
+												})
+											}}
+											quoted_status={
+												typeof tweet.quoted_status === "undefined" &&
+												tweet.is_quote_status
+													? tweet.retweeted_status
+													: tweet.quoted_status
+											}
+											quoted_status_id_str={tweet.quoted_status_id}
+											retweeted_status={
+												typeof tweet.retweeted_status === "undefined"
+													? false
+													: tweet.retweeted_status
+											}
+											stats={{
+												favorite_count: tweet.favorite_count,
+												retweet_count: tweet.retweet_count
+											}}
+											user={tweet.user}
+										/>
+									</div>
+								)
+							})}
+						</Slider>
 					</DefaultLayout>
 				</div>
 			</Provider>
@@ -217,6 +288,7 @@ class Home extends Component {
 
 Home.propTypes = {
 	getPostFromUrl: PropTypes.func,
+	getTweetsForAssignment: PropTypes.func,
 	info: PropTypes.object,
 	mediaId: PropTypes.string,
 	network: PropTypes.string,
@@ -225,13 +297,16 @@ Home.propTypes = {
 		name: PropTypes.string,
 		username: PropTypes.string
 	}),
+	tweets: PropTypes.array,
 	type: PropTypes.string
 }
 
 Home.defaultProps = {
 	getPostFromUrl,
+	getTweetsForAssignment,
 	info: {},
-	page: {}
+	page: {},
+	tweets: []
 }
 
 const mapStateToProps = (state, ownProps) => {
@@ -242,5 +317,6 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 export default connect(mapStateToProps, {
-	getPostFromUrl
+	getPostFromUrl,
+	getTweetsForAssignment
 })(Home)
