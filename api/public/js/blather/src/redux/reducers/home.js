@@ -97,7 +97,7 @@ const home = (state = initial(), action) => {
 
 		case constants.GET_TWEETS_FOR_ASSIGNMENT:
 			return {
-				...state.post,
+				...state,
 				tweets: payload.tweets
 			}
 
