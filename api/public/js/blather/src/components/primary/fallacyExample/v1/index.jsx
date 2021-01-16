@@ -195,17 +195,14 @@ class FallacyExample extends Component {
 		} = this.state
 
 		const EditButton = ({ props }) => {
-			if (props.explanation) {
-				if (props.canEdit) {
-					return (
-						<Icon
-							className={`editButton ${editing ? "editing" : ""}`}
-							inverted
-							name={editing ? "close" : "pencil"}
-							onClick={this.onClickEdit}
-						/>
-					)
-				}
+			if (props.explanation && props.canEdit) {
+				return (
+					<Icon
+						className={`editButton ${editing ? "editing" : ""}`}
+						name={editing ? "close" : "pencil"}
+						onClick={this.onClickEdit}
+					/>
+				)
 			}
 			return null
 		}
@@ -274,7 +271,7 @@ class FallacyExample extends Component {
 						</Header>
 						<Segment attached className="fallacyExplanationSegment" inverted>
 							{editing ? (
-								<Form onSubmit={this.updateFallacy} size="big">
+								<Form onSubmit={this.updateFallacy} size="large">
 									<Form.Field>
 										<Dropdown
 											className="fallacyDropdown"
@@ -300,7 +297,7 @@ class FallacyExample extends Component {
 										color="blue"
 										content="Update"
 										fluid
-										size="big"
+										size="large"
 										type="submit"
 									/>
 									<p className="commonMarkLink">
