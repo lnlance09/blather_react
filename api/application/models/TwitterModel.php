@@ -237,8 +237,10 @@ class TwitterModel extends CI_Model {
 	}
 
 	public function getListFeed($id, $token, $secret, $decode = true) {
-		$nonce = $this->generateNonce();
 		$data['list_id'] = $id;
+		$data['include_rts'] = 0;
+
+		$nonce = $this->generateNonce();
 		$headers = [
 			'oauth_consumer_key' => $this->appId,
 			'oauth_nonce' => $nonce,
