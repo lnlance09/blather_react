@@ -54,12 +54,15 @@ class Home extends Component {
 
 		const qs = queryString.parse(this.props.location.search)
 		const url = qs.url
-		this.setState({ url }, () => {
-			this.props.getPostFromUrl({
-				bearer: this.state.bearer,
-				url
+
+		if (typeof url !== "undefined" && url !== "") {
+			this.setState({ url }, () => {
+				this.props.getPostFromUrl({
+					bearer: this.state.bearer,
+					url
+				})
 			})
-		})
+		}
 	}
 
 	handleHoverOn = e => {
