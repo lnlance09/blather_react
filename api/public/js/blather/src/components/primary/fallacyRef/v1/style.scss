@@ -4,15 +4,24 @@
 	background: lighten($invertedBackgroundColor, 3%) !important;
 
   	.header {
-		color: $lightGrey;
    		margin-bottom: 5px;
   	}
 
   	p:not(.header) {
+		&.description {
+			font-weight: bold;
+		}
+
 		&:not(:last-of-type) {
 			margin-bottom: 12px !important;
 		}
-  	}
+	}
+
+	&.includeHeader {
+		  p.description {
+			  color: $white !important;
+		  }
+	}
 
   	.captureScreenshot {
     	cursor: pointer;

@@ -7,6 +7,7 @@ import { DisplayMetaTags } from "utils/metaFunctions"
 import { Divider, Header, Icon, Input, Message, Segment } from "semantic-ui-react"
 import DefaultLayout from "layouts"
 import FallacyForm from "components/secondary/fallacyForm/v1/"
+import LazyLoad from "components/primary/lazyLoad/v1/"
 import queryString from "query-string"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
@@ -146,7 +147,7 @@ class Home extends Component {
 							value={url}
 						/>
 
-						<Divider inverted section />
+						<Divider hidden />
 
 						{validPost && url !== "" ? (
 							<div>
@@ -197,24 +198,27 @@ class Home extends Component {
 
 								<Divider inverted section />
 
-								<FallacyForm
-									authenticated={auth}
-									bearer={bearer}
-									commentId={type === "comment" ? id : null}
-									endTime={endTime}
-									fallacyId={fallacyId}
-									handleSubmit={this.handleSubmit}
-									highlightedText={highlightedText}
-									history={this.props.history}
-									network={this.props.network}
-									objectId={mediaId}
-									pageInfo={page}
-									sendNotification={this.props.sendNotification}
-									size="large"
-									startTime={startTime}
-									type={type}
-									user={user}
-								/>
+								<Segment inverted>
+									<FallacyForm
+										authenticated={auth}
+										bearer={bearer}
+										commentId={type === "comment" ? id : null}
+										endTime={endTime}
+										fallacyId={fallacyId}
+										handleSubmit={this.handleSubmit}
+										highlightedText={highlightedText}
+										history={this.props.history}
+										network={this.props.network}
+										objectId={mediaId}
+										pageInfo={page}
+										sendNotification={this.props.sendNotification}
+										size="large"
+										startTime={startTime}
+										type={type}
+										useCard={false}
+										user={user}
+									/>
+								</Segment>
 
 								{!auth && (
 									<Message error>
@@ -235,13 +239,21 @@ class Home extends Component {
 						)}
 
 						<Divider inverted horizontal section>
-							<Header as="h3" inverted>
+							<Header as="h3" color="blue" inverted>
 								Trending
 							</Header>
 						</Divider>
 
 						<Slider className="slickSlide" {...settings}>
 							{tweets.map(tweet => {
+								if (typeof tweet.id === "undefined") {
+									return (
+										<div className="basicSegment">
+											<LazyLoad />
+										</div>
+									)
+								}
+
 								return (
 									<div className="basicSegment">
 										<Tweet
@@ -309,7 +321,7 @@ Home.defaultProps = {
 	getTweetsForAssignment,
 	info: {},
 	page: {},
-	tweets: []
+	tweets: [{}, {}]
 }
 
 const mapStateToProps = (state, ownProps) => {

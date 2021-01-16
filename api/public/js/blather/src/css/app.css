@@ -500,6 +500,8 @@ a {
     background: #1d2d3c !important;
     border: solid 1px rgba(245, 248, 250, 0.1) !important;
     color: #ffffff !important; }
+    .griftersPage .ui.message .header {
+      color: #54c8ff !important; }
 
 /* Home page */
 .homePage {
