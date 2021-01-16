@@ -809,6 +809,10 @@ a {
 		background: lighten($invertedBackgroundColor, 5%) !important;
 		border: solid 1px $twitterExtraExtraLightGrey1!important;
 		color: $white !important;
+
+		.header {
+			color: $lightBlue !important;
+		}
 	}
 }
 

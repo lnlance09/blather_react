@@ -16,7 +16,6 @@ import { connect, Provider } from "react-redux"
 import {
 	Button,
 	Card,
-	Divider,
 	Dropdown,
 	Form,
 	Header,
@@ -536,7 +535,6 @@ class FallacyForm extends Component {
 					/>
 				</Form.Field>
 				{ContradictionInput(props)}
-				<Divider />
 				<Form.Field>
 					<Input
 						className="titleField"

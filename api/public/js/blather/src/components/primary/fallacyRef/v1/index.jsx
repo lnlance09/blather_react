@@ -59,6 +59,7 @@ class FallacyRef extends Component {
 
 	render() {
 		const { fallacy } = this.state
+		const { click, includeHeader, opacity, size } = this.props
 
 		const FallacyConversation = dialogue =>
 			dialogue.map((item, i) => {
@@ -92,23 +93,25 @@ class FallacyRef extends Component {
 		) : (
 			fallacy && (
 				<Segment
-					className={`fallacySegment ${this.props.click ? "click" : null}`}
+					className={`fallacySegment ${click ? "click" : ""} ${
+						includeHeader ? "includeHeader" : null
+					}`}
 					inverted
 					onClick={() => this.props.onClick(fallacy.id)}
-					size={this.props.size}
+					size={size}
 					stacked={this.props.stacked}
-					style={{ opacity: this.props.opacity }}
+					style={{ opacity }}
 				>
-					{this.props.includeHeader && (
-						<Header as="p" inverted>
+					{includeHeader && (
+						<Header as="p" color="blue" inverted>
 							{fallacy.name}
 						</Header>
 					)}
 
-					<p>{fallacy.description}</p>
+					<p className="description">{fallacy.description}</p>
 
 					{this.props.showDialogue && (
-						<Comment.Group size={this.props.size}>
+						<Comment.Group size={size}>
 							{FallacyConversation(fallacy.dialogue)}
 						</Comment.Group>
 					)}

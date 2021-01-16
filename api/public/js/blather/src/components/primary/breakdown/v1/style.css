@@ -30,6 +30,7 @@
       .breakdown .breakdownSegment .percentages .fallacyPercentage .progress {
         margin-bottom: 0; }
         .breakdown .breakdownSegment .percentages .fallacyPercentage .progress .bar {
+          background: #2185d0 !important;
           min-width: 50px; }
 
 .breakdown .questionnaire {
