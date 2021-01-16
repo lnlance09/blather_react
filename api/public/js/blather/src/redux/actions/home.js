@@ -36,3 +36,18 @@ export const getPostFromUrl = ({ bearer, url }) => dispatch => {
 		}
 	)
 }
+
+export const getTweetsForAssignment = () => dispatch => {
+	request.get(
+		`${window.location.origin}/api/home/getTweetsForAssignment`,
+		{
+			json: true
+		},
+		function(err, response, body) {
+			dispatch({
+				payload: body,
+				type: constants.GET_TWEETS_FOR_ASSIGNMENT
+			})
+		}
+	)
+}

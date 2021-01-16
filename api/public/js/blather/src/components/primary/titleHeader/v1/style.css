@@ -15,7 +15,6 @@
 .titleHeader .header .editHeaderIcon {
   color: #2185d0;
   cursor: pointer;
-  display: none !important;
   float: right;
   line-height: 47px; }
   .titleHeader .header .editHeaderIcon.close {
@@ -25,9 +24,6 @@
   width: 92%; }
   .titleHeader .header .titleInput input {
     font-size: 18px; }
-
-.titleHeader .header:hover .editHeaderIcon {
-  display: inline !important; }
 
 @media only screen and (max-width: 1025px) {
   .titleHeader .header .titleInput {

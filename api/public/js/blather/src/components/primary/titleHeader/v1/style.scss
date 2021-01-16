@@ -17,7 +17,6 @@
     	.editHeaderIcon {
       		color: $blue;
       		cursor: pointer;
-      		display: none !important;
       		float: right;
       		line-height: 47px;
 
@@ -31,12 +30,6 @@
 
       		input {
         		font-size: 18px;
-      		}
-    	}
-
-    	&:hover {
-      		.editHeaderIcon {
-        		display: inline !important;
       		}
     	}
 

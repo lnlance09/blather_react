@@ -95,6 +95,12 @@ const home = (state = initial(), action) => {
 				type: payload.type
 			}
 
+		case constants.GET_TWEETS_FOR_ASSIGNMENT:
+			return {
+				...state.post,
+				tweets: payload.tweets
+			}
+
 		default:
 			return state
 	}

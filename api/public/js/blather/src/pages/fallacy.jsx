@@ -116,13 +116,15 @@ class Fallacy extends Component {
 
 			html2canvas(document.getElementById(el), {
 				allowTaint: true,
+				background: "#000",
 				scale: 2,
-				scrollX: -1,
+				scrollX: 0,
 				scrollY: -window.scrollY,
 				useCORS: true
 			}).then(canvas => {
 				const ctx = canvas.getContext("2d")
 				ctx.globalAlpha = 1
+				ctx.fillStyle = "#000"
 				const img = canvas.toDataURL("image/png")
 
 				if (this.props.canScreenshot) {
@@ -140,7 +142,6 @@ class Fallacy extends Component {
 					this.setState({ downloading: false })
 				} else if (this.props.canMakeVideo) {
 					this.props.toggleCreateMode()
-
 					this.props.createVideoFallacy({
 						contradiction: this.props.contradictionPayload,
 						duration,

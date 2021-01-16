@@ -847,6 +847,21 @@ a {
 			}
 		}
 	}
+
+	.slickSlide {
+		div {
+			cursor: pointer !important;
+
+			&:focus {
+				outline: 0 !important;
+			}
+		}
+	}
+
+	.basicSegment {
+		background: $invertedBackgroundColor;
+		padding: 1px 10px;
+	}
 }
 
 /* 404 page */

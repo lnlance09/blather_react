@@ -521,6 +521,13 @@ a {
       .homePage .translationContainer .ui.grid .row .column {
         padding-left: 0 !important;
         padding-right: 0 !important; } }
+  .homePage .slickSlide div {
+    cursor: pointer !important; }
+    .homePage .slickSlide div:focus {
+      outline: 0 !important; }
+  .homePage .basicSegment {
+    background: #15202b;
+    padding: 1px 10px; }
 
 /* 404 page */
 .notFoundPage {

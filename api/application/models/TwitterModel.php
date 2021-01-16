@@ -23,6 +23,7 @@ class TwitterModel extends CI_Model {
 		$this->verifyUrl = 'https://api.twitter.com/1.1/account/verify_credentials.json';
 
 		// Define the regular API endpoints
+		$this->listFeedUrl = 'https://api.twitter.com/1.1/lists/statuses.json';
 		$this->mentionsUrl = 'https://api.twitter.com/1.1/statuses/mentions_timeline.json';
 		$this->searchUrl = 'https://api.twitter.com/1.1/users/search.json';
 		$this->statusesUrl = 'https://api.twitter.com/1.1/statuses/user_timeline.json';
@@ -233,6 +234,21 @@ class TwitterModel extends CI_Model {
 
 	public function getGrifters() {
 
+	}
+
+	public function getListFeed($id, $token, $secret, $decode = true) {
+		$nonce = $this->generateNonce();
+		$data['list_id'] = $id;
+		$headers = [
+			'oauth_consumer_key' => $this->appId,
+			'oauth_nonce' => $nonce,
+			'oauth_signature_method' => 'HMAC-SHA1',
+			'oauth_timestamp' => time(),
+			'oauth_token' => $token,
+			'oauth_version' => $this->version
+		];
+		$info = $this->sendRequest($this->listFeedUrl, false, $data, $headers, $token, $secret);
+		return $decode ? @json_decode($info, true) : $info;
 	}
 
 	public function getPageExtended($id, $auth, $token, $secret) {

@@ -1,0 +1,128 @@
+@import "../../../../css/colors.scss";
+
+.fallacyExample {
+	overflow: hidden;
+	padding: 1px !important;
+  
+	.fallacyHeader {
+		margin-top: 10px !important;
+  
+		.editButton {
+			color: $blue;
+			cursor: pointer;
+			display: inline-block !important;
+			float: right;
+			font-size: 20px;
+			margin-right: 10px !important;
+  
+			&.editing {
+		  		color: $lightRed;
+			}
+	  	}
+	}
+  
+	.fallacyMaterial {
+		&.downloading {
+			background: #1a2835 !important;
+			border: solid 1px $black !important;
+			padding: 8px;
+  
+			.tweet .card {
+		  		border: solid 1px rgba(245, 248, 250, 0.1);
+  
+		  		.content .description span b {
+					border-bottom: $twitterExtraExtraLightGrey1;
+					white-space: pre !important;
+		  		}
+			}
+	  	}
+  
+	  	#fallacyDateDiff {
+			display: flex;
+			justify-content: center;
+	  	}
+  
+	  	.sourceList .item {
+			margin-bottom: 8px;
+	  	}
+	}
+  
+	.fallacyExplanationSegment {
+		background: #1c2a39 !important;
+		border: none !important;
+	}
+  
+	.aboutAttachedHeader {
+		background: #1c2a39 !important;
+		border-top: solid 1px$twitterExtraExtraLightGrey1 !important;
+		margin-bottom: 25px !important;
+  
+	  	a {
+			cursor: pointer !important;
+			padding-bottom: 0 !important;
+	  	}
+  
+	  	.image {
+			cursor: pointer !important;
+	  	}
+	}
+  
+	.fallacyExplanation {
+		padding: 0;
+	  	width: 100%;
+  
+	  	&.downloading {
+			padding: 5px;
+	  	}
+	}
+  
+	span.clearfix {
+		display: block;
+	}
+  
+	.commonMarkLink {
+		margin: 0.5em 0.3em 0 !important;
+  
+	  	a {
+			color: $white !important;
+			float: right;
+			font-size: 12px;
+  
+			&:hover {
+		  		text-decoration: underline;
+			}
+	  	}
+	}
+  
+	.explanation {
+		white-space: pre-line;
+  
+	  	p {
+			color: $white !important;
+			font-size: 16px;
+			margin: 0;
+	  	}
+	}
+  
+	.editTimesForm {
+		margin-top: 12px !important;
+  
+	  	.fields {
+			margin-bottom: 0;
+  
+			.icon {
+		  		color: $white !important;
+			}
+	  	}
+  
+	  	.button {
+			margin-top: 12px;
+	  	}
+	}
+}
+  
+@media only screen and (max-width: 1025px) {
+	.fallacyExample .fallacyExplanation .header {
+		font-size: 18px;
+	}
+}
