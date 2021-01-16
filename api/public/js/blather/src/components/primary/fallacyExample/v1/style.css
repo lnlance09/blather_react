@@ -25,7 +25,7 @@
     .fallacyExample .fallacyMaterial.downloading .tweet .card {
       border: solid 1px rgba(245, 248, 250, 0.1); }
       .fallacyExample .fallacyMaterial.downloading .tweet .card .content .description span b {
-        border-bottom: rgba(245, 248, 250, 0.1);
+        border-bottom: solid 2px #db2828;
         white-space: pre !important; }
   .fallacyExample .fallacyMaterial #fallacyDateDiff {
     display: flex;
