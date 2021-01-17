@@ -42,6 +42,11 @@ import YouTubeVideo from "components/secondary/youTubeVideo/v1/"
 class FallacyForm extends Component {
 	constructor(props) {
 		super(props)
+
+		const { fallacyId } = this.props
+		const fallacy = fallacyDropdownOptions.filter(item => item.value.toString() === fallacyId)
+		const title = fallacy[0].text
+
 		this.state = {
 			changed: false,
 			contradictionBeginTime: "0",
@@ -49,9 +54,9 @@ class FallacyForm extends Component {
 			explanation: "",
 			formVisible: false,
 			highlightedText: "",
-			id: this.props.fallacyId,
+			id: fallacyId,
 			loading: false,
-			title: "",
+			title,
 			url: "",
 			visible: true
 		}
@@ -164,7 +169,9 @@ class FallacyForm extends Component {
 
 	onChangeFallacy = (e, { value }) => {
 		this.props.clearContradiction()
-		this.setState({ id: value })
+		const fallacy = fallacyDropdownOptions.filter(item => item.value === value)
+		const title = fallacy[0].text
+		this.setState({ id: value, title })
 	}
 
 	onChangeStartTime = time => this.props.setBeginTime({ value: time })
@@ -238,7 +245,7 @@ class FallacyForm extends Component {
 	}
 
 	render() {
-		const { explanation, highlightedText, id, loading, title, url } = this.state
+		const { explanation, highlightedText, id, loading, url } = this.state
 		let { bearer, fallacy, info, type } = this.props
 
 		if (type === "video" && info !== undefined && info.comment) {
@@ -535,15 +542,6 @@ class FallacyForm extends Component {
 					/>
 				</Form.Field>
 				{ContradictionInput(props)}
-				<Form.Field>
-					<Input
-						className="titleField"
-						fluid
-						onChange={this.onChangeTitle}
-						placeholder="Title"
-						value={title}
-					/>
-				</Form.Field>
 				<Form.Field className="explanationField">
 					<TextArea
 						autoHeight

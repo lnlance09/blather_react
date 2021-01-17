@@ -15,11 +15,13 @@ import Slider from "react-slick"
 import store from "store"
 import Tweet from "components/primary/tweet/v1/"
 
+const width = window.innerWidth
+console.log("width", width)
 const settings = {
 	dots: false,
 	infinite: true,
 	slidesToScroll: 1,
-	slidesToShow: 2,
+	slidesToShow: width > 414 ? 2 : 1,
 	speed: 500
 }
 
@@ -196,9 +198,9 @@ class Home extends Component {
 									)}
 								</div>
 
-								<Divider inverted section />
+								<Divider hidden />
 
-								<Segment inverted>
+								<Segment className="fallacyFormSegmentWrapper" inverted>
 									<FallacyForm
 										authenticated={auth}
 										bearer={bearer}

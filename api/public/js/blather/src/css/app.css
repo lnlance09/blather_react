@@ -113,9 +113,9 @@ body {
       .mainContainer .grid.mainGrid .column.four.leftColumn {
         display: none; } }
   @media only screen and (max-width: 1025px) {
-    .mainContainer .grid.mainGrid .column.twelve.rightColumn {
+    .mainContainer .grid.mainGrid .column.twelve {
       width: 100% !important; }
-      .mainContainer .grid.mainGrid .column.twelve.rightColumn .ui.grid.stackable {
+      .mainContainer .grid.mainGrid .column.twelve .ui.grid.stackable {
         margin-right: 0 !important; } }
 
 .segment.inverted {
@@ -523,6 +523,8 @@ a {
       .homePage .translationContainer .ui.grid .row .column {
         padding-left: 0 !important;
         padding-right: 0 !important; } }
+  .homePage .fallacyFormSegmentWrapper {
+    background: #182532 !important; }
   .homePage .slickSlide div {
     cursor: pointer !important; }
     .homePage .slickSlide div:focus {
