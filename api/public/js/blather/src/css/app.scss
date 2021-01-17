@@ -151,7 +151,7 @@ body {
 			}
 		}
 
-		.column.twelve.rightColumn {
+		.column.twelve {
 			@media only screen and (max-width: 1025px) {
 				.ui.grid.stackable {
 					// margin-left: 0 !important;
@@ -850,6 +850,10 @@ a {
 				padding-right: 0 !important;
 			}
 		}
+	}
+
+	.fallacyFormSegmentWrapper {
+		background: lighten($invertedBackgroundColor, 2%) !important;
 	}
 
 	.slickSlide {
