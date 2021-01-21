@@ -19,3 +19,5 @@ export const setToken = data => {
 	localStorage.setItem("jwtToken", token)
 	return token
 }
+
+export default secret

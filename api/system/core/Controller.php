@@ -90,7 +90,6 @@ class CI_Controller {
 					$this->user = $data->data;
 				} else {
 					$date = new \DateTime('now', new \DateTimeZone('America/New_York'));
-					$date->setTimestamp($exp);
 					error_log('Token '.$auth.' expired at '.$date->format('Y-m-d H:i:s'));
 				}
 			}

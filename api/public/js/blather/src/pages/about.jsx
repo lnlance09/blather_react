@@ -223,11 +223,13 @@ class About extends Component {
 								name="rules"
 								onClick={this.handleItemClick}
 							/>
+							{/*
 							<Menu.Item
 								active={activeItem === "privacy"}
 								name="privacy"
 								onClick={this.handleItemClick}
 							/>
+							*/}
 							<Menu.Item
 								active={activeItem === "contact"}
 								name="contact"
