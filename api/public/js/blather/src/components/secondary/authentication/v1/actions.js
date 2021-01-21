@@ -1,5 +1,5 @@
 import * as constants from "./constants"
-import { parseJwt, setToken } from "utils/tokenFunctions"
+import secret, { parseJwt, setToken } from "utils/tokenFunctions"
 import { toast } from "react-toastify"
 import { getConfig } from "options/toast"
 import jwt from "jsonwebtoken"
@@ -312,7 +312,7 @@ export const submitGoogleForm = ({ accessToken, email, id, idToken, img, name })
 		},
 		function(err, response, body) {
 			if (!body.error) {
-				const token = jwt.sign({ data: body.user }, "secret", {
+				const token = jwt.sign({ data: body.user }, secret, {
 					expiresIn: 60 * 60 * 5
 				})
 				localStorage.setItem("jwtToken", token)
@@ -377,7 +377,7 @@ export const submitRegistrationForm = ({
 		},
 		function(err, response, body) {
 			if (!body.error) {
-				const token = jwt.sign({ data: body.user }, "secret", {
+				const token = jwt.sign({ data: body.user }, secret, {
 					expiresIn: 60 * 60 * 5
 				})
 				localStorage.setItem("jwtToken", token)
