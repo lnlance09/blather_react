@@ -292,46 +292,46 @@ class Fallacy extends Component {
 								{ReferenceSection}
 							</div>
 						) : (
-							<div>
-								{props.id && (
-									<div>
-										{props.s3Link && props.canMakeVideo ? (
-											<div>
-												<ReactPlayer
-													className="exportEmbed"
-													controls
-													url={props.s3Link}
-												/>
-											</div>
-										) : (
-											<Image centered size="large" src={ImagePic} />
-										)}
-										<FallacyExample
-											bearer={bearer}
-											canEdit={canEdit}
-											creator={props.createdBy}
-											downloading={downloading}
-											history={props.history}
-											id={id}
-											showMaterial={false}
-											updatedAt={props.createdAt}
-										/>
-										{SourcesSection(props)}
-										{ReferenceSection}
-									</div>
-								)}
-							</div>
-						)}
+								<div>
+									{props.id && (
+										<div>
+											{props.s3Link && props.canMakeVideo ? (
+												<div>
+													<ReactPlayer
+														className="exportEmbed"
+														controls
+														url={props.s3Link}
+													/>
+												</div>
+											) : (
+													<Image centered size="large" src={ImagePic} />
+												)}
+											<FallacyExample
+												bearer={bearer}
+												canEdit={canEdit}
+												creator={props.createdBy}
+												downloading={downloading}
+												history={props.history}
+												id={id}
+												showMaterial={false}
+												updatedAt={props.createdAt}
+											/>
+											{SourcesSection(props)}
+											{ReferenceSection}
+										</div>
+									)}
+								</div>
+							)}
 						<canvas id="materialCanvas" />
 					</div>
 				) : (
-					<div>
-						<LazyLoad header={false} segment={false} />
-						<LazyLoad header={false} segment={false} />
-						<LazyLoad header={false} segment={false} />
-						<LazyLoad header={false} segment={false} />
-					</div>
-				)}
+						<div>
+							<LazyLoad header={false} segment={false} />
+							<LazyLoad header={false} segment={false} />
+							<LazyLoad header={false} segment={false} />
+							<LazyLoad header={false} segment={false} />
+						</div>
+					)}
 			</div>
 		)
 
@@ -359,8 +359,8 @@ class Fallacy extends Component {
 						</div>
 					</div>
 				) : (
-					<LazyLoad header={false} />
-				)}
+						<LazyLoad header={false} />
+					)}
 			</div>
 		)
 
@@ -387,24 +387,24 @@ class Fallacy extends Component {
 										{props.retracted ? (
 											<div>Retracted</div>
 										) : (
-											<div>Still waiting for a retraction...</div>
-										)}
+												<div>Still waiting for a retraction...</div>
+											)}
 									</Card.Header>
 									<Card.Meta>
 										{props.retracted ? (
 											<div>Nice work, {props.createdBy.name}</div>
 										) : (
-											<div>
-												<Icon inverted name="clock outline" />
+												<div>
+													<Icon inverted name="clock outline" />
 												waiting for{" "}
-												<Moment
-													ago
-													date={adjustTimezone(props.createdAt)}
-													fromNow
-													interval={60000}
-												/>
-											</div>
-										)}
+													<Moment
+														ago
+														date={adjustTimezone(props.createdAt)}
+														fromNow
+														interval={60000}
+													/>
+												</div>
+											)}
 									</Card.Meta>
 									<Card.Description>
 										{props.retracted ? (
@@ -413,21 +413,21 @@ class Fallacy extends Component {
 												admitted that this is poor reasoning.
 											</div>
 										) : props.user.id === twitterId ||
-										  props.user.id === youtubeId ? (
-											<div>
-												<p>
-													{props.user.name}, this is an opportunity to
+											props.user.id === youtubeId ? (
+													<div>
+														<p>
+															{props.user.name}, this is an opportunity to
 													show your followers that you have enough courage
 													to admit that you were wrong.
 												</p>
-											</div>
-										) : (
-											<p>
-												<Link to={userLink}>{props.user.name}</Link>, you
+													</div>
+												) : (
+													<p>
+														<Link to={userLink}>{props.user.name}</Link>, you
 												can retract this by{" "}
-												<Link to="/signin">signing in</Link>.
-											</p>
-										)}
+														<Link to="/signin">signing in</Link>.
+													</p>
+												)}
 									</Card.Description>
 								</Card.Content>
 								<Card.Content extra>
@@ -437,29 +437,29 @@ class Fallacy extends Component {
 											Retracted
 										</Button>
 									) : props.user.id === twitterId ||
-									  props.user.id === youtubeId ? (
-										<Button
-											className="retractBtn"
-											fluid
-											negative
-											onClick={this.retractLogic}
-											size="large"
-										>
-											Retract
-										</Button>
-									) : (
-										<Button disabled fluid negative size="large">
-											Retract
-										</Button>
-									)}
+										props.user.id === youtubeId ? (
+												<Button
+													className="retractBtn"
+													fluid
+													negative
+													onClick={this.retractLogic}
+													size="large"
+												>
+													Retract
+												</Button>
+											) : (
+												<Button disabled fluid negative size="large">
+													Retract
+												</Button>
+											)}
 								</Card.Content>
 							</Card>
 						</Container>
 						<Divider hidden />
 					</div>
 				) : (
-					<LazyLoad header={false} />
-				)}
+						<LazyLoad header={false} />
+					)}
 			</div>
 		)
 
@@ -540,8 +540,8 @@ class Fallacy extends Component {
 							)}
 						</List>
 					) : (
-						<LazyLoad header={false} />
-					)}
+							<LazyLoad header={false} />
+						)}
 				</div>
 			)
 		}
@@ -610,6 +610,7 @@ class Fallacy extends Component {
 				<div className="fallacyPage">
 					<DisplayMetaTags page="fallacy" props={this.props} state={this.state} />
 
+					<canvas id="confettiCanvas"></canvas>
 					<DefaultLayout
 						activeItem="fallacy"
 						containerClassName="fallacyPage"
@@ -617,7 +618,6 @@ class Fallacy extends Component {
 					>
 						{!this.props.error ? (
 							<Fragment>
-								<canvas id="confettiCanvas"></canvas>
 								<FallacyTitle props={this.props} />
 								{MaterialSection(this.props)}
 								{this.props.id && (
@@ -638,18 +638,18 @@ class Fallacy extends Component {
 								)}
 							</Fragment>
 						) : (
-							<Fragment>
-								<Image
-									centered
-									className="trumpImg404"
-									size="medium"
-									src={TrumpImg}
-								/>
-								<Header inverted size="large" textAlign="center">
-									This fallacy does not exist!
+								<Fragment>
+									<Image
+										centered
+										className="trumpImg404"
+										size="medium"
+										src={TrumpImg}
+									/>
+									<Header inverted size="large" textAlign="center">
+										This fallacy does not exist!
 								</Header>
-							</Fragment>
-						)}
+								</Fragment>
+							)}
 					</DefaultLayout>
 				</div>
 			</Provider>
