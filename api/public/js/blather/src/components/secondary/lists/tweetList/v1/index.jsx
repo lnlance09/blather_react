@@ -82,7 +82,7 @@ class TweetList extends Component {
 							key={`tweet_key_${i}`}
 							is_quote_status={post.is_quote_status}
 							quoted_status={
-								post.quoted_status === undefined && post.is_quote_status
+								typeof post.quoted_status === "undefined" && post.is_quote_status
 									? post.retweeted_status
 									: post.quoted_status
 							}
@@ -90,7 +90,7 @@ class TweetList extends Component {
 							quoted_status_permalink={post.quoted_status_permalink}
 							redirect
 							retweeted_status={
-								post.retweeted_status === undefined ? false : post.retweeted_status
+								typeof post.retweeted_status === "undefined" ? false : post.retweeted_status
 							}
 							stats={{
 								favorite_count: post.favorite_count,
