@@ -745,12 +745,25 @@ a {
 	.ui.container.retractionContainer {
 		margin-left: 0 !important;
 		margin-right: 0 !important;
+
+		.retractionCard {
+			z-index: 999 !important;
+		}
 	}
 
 	canvas {
 		display: none;
 		height: 720px;
 		width: 1280px;
+
+		&#confettiCanvas {
+			display: block;
+			height: 100%;
+			left: 0;
+			position: fixed;
+			top: 0;
+			width: 100%;
+		}
 	}
 
 	@media only screen and (max-width: 1025px) {

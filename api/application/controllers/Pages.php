@@ -33,14 +33,14 @@ class Pages extends CI_Controller {
 				$token = $auth ? $user->twitterAccessToken : null;
 				$secret = $auth ? $user->twitterAccessSecret : null;
 				$this->twitter->getPageExtended($id, $auth, $token, $secret);
-				$page = $this->twitter->getPageExtended($id, null, $token, $secret);
+				$page = $this->twitter->getPageExtended($id, false, $token, $secret);
 				break;
 
 			case 'youtube':
 
 				$auth = $user ? $user->linkedYoutube : false;
 				$token = $auth ? $user->youtubeAccessToken : null;
-				$page = $this->youtube->getPageExtended($id, null, false, $token);
+				$page = $this->youtube->getPageExtended($id, false, false, $token);
 				break;
 		}
 

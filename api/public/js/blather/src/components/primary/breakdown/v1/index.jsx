@@ -158,7 +158,7 @@ class Breakdown extends Component {
 							{options.length > 0 ? (
 								<div>
 									{OverallReliability(this.props)}
-									<Divider inverted section />
+									<Divider hidden />
 									<Segment basic className="percentages">
 										{RenderFallacies()}
 									</Segment>
