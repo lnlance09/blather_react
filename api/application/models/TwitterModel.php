@@ -675,7 +675,7 @@ class TwitterModel extends CI_Model {
 		$name = str_replace(' ', '-', $name);
 		savePic($pic, $path);
 
-		$key = 'pages/twitter/'.$name.'-'.$id.'.jpg';
+		$key = 'pages/twitter/'.$name.'-'.$id.'-'.time().'.jpg';
 		if (filesize($path) == 0) {
 			return 'https://s3.amazonaws.com/blather22/'.$key;
 		}
@@ -689,10 +689,6 @@ class TwitterModel extends CI_Model {
 		$this->db->update('pages', [
 			's3_pic' => $key
 		]);
-
-		if (file_exists($path)) {
-			unlink($path);
-		}
 
 		return $s3Link;
 	}

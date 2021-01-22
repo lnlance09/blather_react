@@ -349,7 +349,7 @@ class FeedComponent extends Component {
 						value={filter}
 					/>
 				</Form>
-				<Divider inverted />
+				<Divider hidden />
 				<Feed inverted size={this.props.size}>
 					{RenderFeed(this.props)}
 					{LazyLoadMore(this.props)}

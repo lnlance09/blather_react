@@ -22,9 +22,9 @@ import {
 	TwitterShareButton
 } from "react-share"
 import { Button, Card, Container, Divider, Header, Icon, Image, List } from "semantic-ui-react"
-import { confetti } from "dom-confetti"
 import { toast } from "react-toastify"
 import { getConfig } from "options/toast"
+import ConfettiGenerator from "confetti-js"
 import DefaultLayout from "layouts"
 import FallacyComments from "components/secondary/comments/v1/"
 import FallacyExample from "components/primary/fallacyExample/v1/"
@@ -198,20 +198,26 @@ class Fallacy extends Component {
 	}
 
 	retractLogic = () => {
-		const button = document.querySelector(".retractBtn")
-		confetti(button, {
-			angle: 90,
-			colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"],
-			dragFriction: 0.1,
-			duration: 3000,
-			elementCount: 50,
-			height: "12px",
-			spread: "45",
-			stagger: 0,
-			startVelocity: 45,
-			width: "12px"
+		const confetti = new ConfettiGenerator({
+			target: "confettiCanvas",
+			max: "400",
+			size: "0.8",
+			animate: true,
+			props: ["circle", "square", "triangle", "line"],
+			colors: [
+				[165, 104, 246],
+				[230, 61, 135],
+				[0, 199, 228],
+				[253, 214, 126]
+			],
+			clock: "50",
+			rotate: false,
+			// width: "1400",
+			// height: "764",
+			start_from_edge: true,
+			respawn: false
 		})
-
+		confetti.render()
 		this.props.retractLogic({
 			bearer: this.state.bearer,
 			id: this.state.id,
@@ -426,7 +432,7 @@ class Fallacy extends Component {
 								</Card.Content>
 								<Card.Content extra>
 									{props.retracted ? (
-										<Button active color="green" fluid>
+										<Button active color="green" fluid size="large">
 											<Icon name="checkmark" />
 											Retracted
 										</Button>
@@ -611,6 +617,7 @@ class Fallacy extends Component {
 					>
 						{!this.props.error ? (
 							<Fragment>
+								<canvas id="confettiCanvas"></canvas>
 								<FallacyTitle props={this.props} />
 								{MaterialSection(this.props)}
 								{this.props.id && (

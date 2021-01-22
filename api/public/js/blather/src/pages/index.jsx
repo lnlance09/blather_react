@@ -345,7 +345,11 @@ class Page extends Component {
 											onError={i => (i.target.src = defaultImg)}
 											rounded
 											size="medium"
-											src={this.props.img}
+											src={
+												this.props.img === null
+													? defaultImg
+													: this.props.img
+											}
 										/>
 									) : (
 										<Placeholder className="profilePicPlaceholder" inverted>

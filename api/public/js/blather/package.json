@@ -18,6 +18,7 @@
   "dependencies": {
     "axios": "^0.19.2",
     "babel-preset-react-app": "^7.0.2",
+    "confetti-js": "0.0.18",
     "depcheck": "^0.7.2",
     "dom-confetti": "^0.1.1",
     "express": "^4.17.1",
