@@ -188,7 +188,7 @@ class Tweet extends Component {
 			let quotedName = props.quoted_status.user.name
 			let quotedScreenName = props.quoted_status.user.screen_name
 			let quotedTweetId = props.quoted_status.id_str
-			if (retweeted_status) {
+			if (retweeted_status && typeof props.retweeted_status.quoted_status !== "undefined") {
 				quotedExtEntities = props.retweeted_status.quoted_status.extended_entities
 				quotedFullText =
 					typeof props.retweeted_status.quoted_status.full_text === "undefined"
@@ -478,6 +478,7 @@ Tweet.defaultProps = {
 	full_text: "",
 	highlight: false,
 	imageSize: "tiny",
+	is_quote_status: false,
 	onClickCallback: () => null,
 	opacity: 1,
 	quoted_status: {
