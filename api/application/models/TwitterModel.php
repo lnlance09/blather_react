@@ -673,7 +673,7 @@ class TwitterModel extends CI_Model {
 		$path = 'public/img/pages/twitter/'.$id.'.jpg';
 		$name = preg_replace("/[^A-Za-z0-9 ]/", '', $name);
 		$name = str_replace(' ', '-', $name);
-		savePic($pic, $path);
+		savePic($pic, $path, true);
 
 		$key = 'pages/twitter/'.$name.'-'.$id.'-'.time().'.jpg';
 		if (filesize($path) == 0) {

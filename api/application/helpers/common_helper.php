@@ -343,8 +343,8 @@ function removeStopWords($string) {
 	return implode(' ', $unique);
 }
 
-function savePic($pic, $path) {
-	if (!file_exists($path)) {
+function savePic($pic, $path, $overwrite = false) {
+	if (!file_exists($path) || $overwrite) {
 		if (!is_dir(dirname($path))) {
 			mkdir(dirname($path));
 		}
