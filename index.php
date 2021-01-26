@@ -770,7 +770,7 @@
     </body>
 
     <script src="/static/js/1.709c17ca.chunk.js"></script>
-    <script src="/static/js/main.61f27ea2.chunk.js"></script>
+    <script src="/static/js/main.2fddd2e9.chunk.js"></script>
     <script src="/static/js/runtime~main.229c360f.js"></script>
 
     <script>
