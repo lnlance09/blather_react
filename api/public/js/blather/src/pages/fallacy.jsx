@@ -293,33 +293,27 @@ class Fallacy extends Component {
 							</div>
 						) : (
 								<div>
-									{props.id && (
+									{props.s3Link && props.canMakeVideo ? (
 										<div>
-											{props.s3Link && props.canMakeVideo ? (
-												<div>
-													<ReactPlayer
-														className="exportEmbed"
-														controls
-														url={props.s3Link}
-													/>
-												</div>
-											) : (
-													<Image centered size="large" src={ImagePic} />
-												)}
-											<FallacyExample
-												bearer={bearer}
-												canEdit={canEdit}
-												creator={props.createdBy}
-												downloading={downloading}
-												history={props.history}
-												id={id}
-												showMaterial={false}
-												updatedAt={props.createdAt}
+											<ReactPlayer
+												className="exportEmbed"
+												controls
+												url={props.s3Link}
 											/>
-											{SourcesSection(props)}
-											{ReferenceSection}
 										</div>
-									)}
+									) : null}
+									<FallacyExample
+										bearer={bearer}
+										canEdit={canEdit}
+										creator={props.createdBy}
+										downloading={downloading}
+										history={props.history}
+										id={id}
+										showMaterial={false}
+										updatedAt={props.createdAt}
+									/>
+									{SourcesSection(props)}
+									{ReferenceSection}
 								</div>
 							)}
 						<canvas id="materialCanvas" />
