@@ -20,7 +20,7 @@ export const DisplayMetaTags = ({ page, props, state }) => {
 			metaTags = {
 				description,
 				img,
-				title: "Actvity"
+				title: "Activity"
 			}
 			break
 		case "arguments":
@@ -28,6 +28,13 @@ export const DisplayMetaTags = ({ page, props, state }) => {
 				description: "",
 				img,
 				title: "Arguments"
+			}
+			break
+		case "assign":
+			metaTags = {
+				description: "",
+				img,
+				title: "Assign a Logical Fallacy"
 			}
 			break
 		case "bot":
@@ -92,7 +99,7 @@ export const DisplayMetaTags = ({ page, props, state }) => {
 			metaTags = {
 				description: "",
 				img,
-				title: "Assign a Logical Fallacy"
+				title: "Home"
 			}
 			break
 		case "notifications":

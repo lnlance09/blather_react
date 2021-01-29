@@ -8,6 +8,7 @@ import ScrollToTop from "react-router-scroll-top"
 import history from "history.js"
 import About from "pages/about"
 import Arguments from "pages/arguments"
+import Assign from "pages/assign"
 import Fallacy from "pages/fallacy"
 import Fallacies from "pages/fallacies"
 import FallaciesJSON from "options/fallacyOptions.json"
@@ -28,7 +29,6 @@ import store from "store"
 import Tag from "pages/tag"
 import Tags from "pages/tags"
 import Target from "pages/target"
-import TwitterFeed from "pages/twitterFeed"
 import Users from "pages/users"
 
 class App extends Component {
@@ -108,11 +108,11 @@ class App extends Component {
 									exact
 									path="/"
 									render={props => (
-										<TwitterFeed key={window.location.pathname} {...props} />
+										<Home key={window.location.pathname} {...props} />
 									)}
 								/>
 
-								<Route component={TwitterFeed} exact path="/home" />
+								<Route component={Home} exact path="/home" />
 
 								<Route
 									exact
@@ -156,7 +156,7 @@ class App extends Component {
 									exact
 									path="/assign"
 									render={props => (
-										<Home key={window.location.pathname} {...props} />
+										<Assign key={window.location.pathname} {...props} />
 									)}
 								/>
 
