@@ -1,13 +1,14 @@
 import * as constants from "./constants"
 import request from "request"
 
-export const fetchListPosts = ({ lastId = null }) => dispatch => {
+export const fetchListPosts = ({ lastId = null, page = 0 }) => dispatch => {
 	request.get(
 		`${window.location.origin}/api/home/getTweetsForAssignment`,
 		{
 			json: true,
 			qs: {
-				lastId
+				lastId,
+				page
 			}
 		},
 		function(err, response, body) {

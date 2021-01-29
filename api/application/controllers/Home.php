@@ -93,6 +93,7 @@ class Home extends CI_Controller {
 
 	public function getTweetsForAssignment() {
 		$lastId = $this->input->get('lastId');
+		$page = $this->input->get('page');
 
 		$tokens = $this->users->getDefaultTwitterTokens();
 		$token = $tokens->twitter_access_token;
@@ -122,6 +123,7 @@ class Home extends CI_Controller {
 
 		echo json_encode([
 			'error' => $error,
+			'page' => $page,
 			'posts' => $posts,
 			'token' => $token
 		]);

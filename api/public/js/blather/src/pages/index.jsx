@@ -283,7 +283,7 @@ class Page extends Component {
 					}
 
 					return (
-						<Dimmer.Dimmable as={Segment} dimmed>
+						<Dimmer.Dimmable as={Segment} dimmed inverted>
 							{LazyLoadDefault}
 							<DimmerMsg
 								btn={

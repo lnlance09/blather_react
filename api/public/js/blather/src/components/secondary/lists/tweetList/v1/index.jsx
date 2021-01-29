@@ -47,7 +47,7 @@ class TweetList extends Component {
 			const newPage = parseInt(this.state.page + 1, 10)
 			this.setState({ loading: true, page: newPage }, () => {
 				if (this.props.useList) {
-					this.props.fetchListPosts({ lastId })
+					this.props.fetchListPosts({ lastId, page: newPage })
 				} else {
 					this.props.fetchPagePosts({
 						bearer: this.props.bearer,
