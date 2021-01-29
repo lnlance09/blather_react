@@ -6,6 +6,7 @@ const tweetList = (state = initial(), action) => {
 	const payload = action.payload
 
 	switch (action.type) {
+		case constants.GET_LIST_POSTS:
 		case constants.GET_PAGE_POSTS:
 			if (payload.error) {
 				let data = []
