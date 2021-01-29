@@ -241,6 +241,7 @@ class TwitterModel extends CI_Model {
 			'count' => 40,
 			'include_rts' => false,
 			'list_id' => $id,
+			'tweet_mode' => 'extended'
 		];
 
 		if ($lastId) {

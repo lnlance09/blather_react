@@ -86,7 +86,7 @@ class TweetList extends Component {
 							created_at={post.created_at}
 							displayTextRange={post.display_text_range}
 							extended_entities={post.extended_entities}
-							full_text={useList ? post.text : post.full_text}
+							full_text={post.full_text}
 							id={post.id_str}
 							imageSize="medium"
 							key={`tweet_key_${i}`}
