@@ -341,7 +341,7 @@ class SearchResults extends Component {
 					{LinkAccountMsg(this.props)}
 					<Container className="searchContentContainer">
 						<Visibility continuous onBottomVisible={this.loadMore}>
-							<Segment className="resultsSegment" inverted>
+							<Segment className="resultsSegment">
 								{this.props.count === 0 && !this.props.loading && (
 									<Message
 										className="emptyMsg"
