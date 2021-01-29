@@ -1,5 +1,5 @@
 import "./style.css"
-import { fetchPagePosts } from "./actions"
+import { fetchListPosts, fetchPagePosts } from "./actions"
 import { connect } from "react-redux"
 import { Item, Message, Visibility } from "semantic-ui-react"
 import _ from "lodash"
@@ -20,15 +20,19 @@ class TweetList extends Component {
 	}
 
 	componentDidMount() {
-		this.props.fetchPagePosts({
-			bearer: this.props.bearer,
-			id: this.props.username,
-			type: "twitter"
-		})
+		if (this.props.useList) {
+			this.props.fetchListPosts({})
+		} else {
+			this.props.fetchPagePosts({
+				bearer: this.props.bearer,
+				id: this.props.username,
+				type: "twitter"
+			})
+		}
 	}
 
 	componentDidUpdate(prevProps) {
-		if (this.props.username !== prevProps.username) {
+		if (!this.props.useList && this.props.username !== prevProps.username) {
 			this.props.fetchPagePosts({
 				bearer: this.props.bearer,
 				id: this.props.username,
@@ -41,20 +45,25 @@ class TweetList extends Component {
 		if (this.props.posts.hasMore) {
 			const lastId = this.props.posts.lastId
 			const newPage = parseInt(this.state.page + 1, 10)
-			this.setState({ loading: true, page: newPage })
-			this.props.fetchPagePosts({
-				bearer: this.props.bearer,
-				id: this.props.username,
-				lastId,
-				page: newPage,
-				type: "twitter"
+			this.setState({ loading: true, page: newPage }, () => {
+				if (this.props.useList) {
+					this.props.fetchListPosts({ lastId })
+				} else {
+					this.props.fetchPagePosts({
+						bearer: this.props.bearer,
+						id: this.props.username,
+						lastId,
+						page: newPage,
+						type: "twitter"
+					})
+				}
 			})
 		}
 	}
 
 	render() {
 		const { loading } = this.state
-		const { posts } = this.props
+		const { assignable, posts, useList } = this.props
 
 		const EmptyMsg = props => {
 			if (!props.posts.loading && props.posts.count === 0) {
@@ -73,10 +82,11 @@ class TweetList extends Component {
 				return (
 					<div key={`tweet_${i}`} style={{ marginTop: `${marginTop}px` }}>
 						<Tweet
+							assignable={assignable}
 							created_at={post.created_at}
 							displayTextRange={post.display_text_range}
 							extended_entities={post.extended_entities}
-							full_text={post.full_text}
+							full_text={useList ? post.text : post.full_text}
 							id={post.id_str}
 							imageSize="medium"
 							key={`tweet_key_${i}`}
@@ -88,9 +98,11 @@ class TweetList extends Component {
 							}
 							quoted_status_id_str={post.quoted_status_id_str}
 							quoted_status_permalink={post.quoted_status_permalink}
-							redirect
+							redirect={!useList}
 							retweeted_status={
-								typeof post.retweeted_status === "undefined" ? false : post.retweeted_status
+								typeof post.retweeted_status === "undefined"
+									? false
+									: post.retweeted_status
 							}
 							stats={{
 								favorite_count: post.favorite_count,
@@ -130,9 +142,11 @@ class TweetList extends Component {
 }
 
 TweetList.propTypes = {
+	assignable: PropTypes.bool,
 	bearer: PropTypes.string,
 	emptyMsgContent: PropTypes.string,
 	emptyMsgHeader: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+	fetchListPosts: PropTypes.func,
 	fetchPagePosts: PropTypes.func,
 	page: PropTypes.number,
 	posts: PropTypes.shape({
@@ -145,12 +159,15 @@ TweetList.propTypes = {
 		hasMore: PropTypes.bool,
 		loading: PropTypes.bool
 	}),
+	useList: PropTypes.bool,
 	username: PropTypes.string
 }
 
 TweetList.defaultProps = {
+	assignable: false,
 	emptyMsgContent: "",
 	emptyMsgHeader: "This user has not tweeted yet",
+	fetchListPosts,
 	fetchPagePosts,
 	page: 0,
 	posts: {
@@ -158,7 +175,8 @@ TweetList.defaultProps = {
 		error: false,
 		data: [{}, {}, {}, {}, {}],
 		loading: true
-	}
+	},
+	useList: false
 }
 
 const mapStateToProps = (state, ownProps) => ({
@@ -166,4 +184,4 @@ const mapStateToProps = (state, ownProps) => ({
 	...ownProps
 })
 
-export default connect(mapStateToProps, { fetchPagePosts })(TweetList)
+export default connect(mapStateToProps, { fetchListPosts, fetchPagePosts })(TweetList)

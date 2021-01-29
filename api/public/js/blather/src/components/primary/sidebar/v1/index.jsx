@@ -110,6 +110,18 @@ const Sidebar = ({ activeItem, basic, history, inverted, logout }) => {
 								Home
 							</Menu.Item>
 							<Menu.Item
+								active={activeItem === "activity"}
+								className="headerMenuItem activity"
+								onClick={() => history.push("/activity")}
+							>
+								<Icon
+									color={activeItem === "activity" ? "blue" : null}
+									inverted={inverted}
+									name="chart line"
+								/>
+								Activity
+							</Menu.Item>
+							<Menu.Item
 								active={activeItem === "addInteraction"}
 								className="headerMenuItem addInteraction"
 								onClick={() => history.push("/assign")}

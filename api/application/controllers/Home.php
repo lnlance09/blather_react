@@ -92,16 +92,38 @@ class Home extends CI_Controller {
 	}
 
 	public function getTweetsForAssignment() {
+		$lastId = $this->input->get('lastId');
+
 		$tokens = $this->users->getDefaultTwitterTokens();
 		$token = $tokens->twitter_access_token;
 		$secret = $tokens->twitter_access_secret;
 	
+		$error = false;
 		$listId = '1095482595847127040';
-		$tweets = $this->twitter->getListFeed($listId, $token, $secret);
+		$posts['data'] = $this->twitter->getListFeed($listId, $lastId, $token, $secret);
+		$posts['blocked'] = false;
+
+		if (!array_key_exists('errors', $posts['data'])) {
+			$count = count($posts['data']);
+			$posts['count'] = $count;
+			if ($count > 0) {
+				$posts['hasMore'] = true;
+				$x = $count > 0 ? $count-1 : 0;
+				$posts['lastId'] = $posts['data'][$x]['id'];
+			}
+		} else {
+			$error = true;
+			$posts['count'] = 0;
+			if ($posts['data']['errors'][0]['code'] == 136) {
+				$posts['blocked'] = true;
+				$error = "This user has blocked you";
+			}
+		}
 
 		echo json_encode([
-			'error' => false,
-			'tweets' => $tweets
+			'error' => $error,
+			'posts' => $posts,
+			'token' => $token
 		]);
 	}
 }

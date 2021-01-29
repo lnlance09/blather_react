@@ -51,7 +51,7 @@ class Tweet extends Component {
 		const { animation, duration, img, visible } = this.state
 		const { extended_entities, highlight, retweeted_status, stats } = this.props
 
-		const className = `tweet${this.props.redirect ? " clickable" : ""}`
+		const className = `tweet${this.props.redirect || this.props.assignable ? " clickable" : ""}`
 		const extEntities = retweeted_status
 			? retweeted_status.extended_entities
 			: extended_entities
@@ -200,7 +200,12 @@ class Tweet extends Component {
 			}
 
 			return (
-				<Card className={`quotedTweet ${!props.redirect ? " clickable" : ""}`} fluid>
+				<Card
+					className={`quotedTweet ${
+						!props.redirect && !props.assignable ? " clickable" : ""
+					}`}
+					fluid
+				>
 					<Card.Content
 						className="quotedTweetContent"
 						onClick={e => {
@@ -311,6 +316,13 @@ class Tweet extends Component {
 									e.stopPropagation()
 									this.props.push(`/tweet/${this.props.id}`)
 								}
+
+								if (this.props.assignable) {
+									e.stopPropagation()
+									this.props.push(
+										`/assign?url=https://twitter.com/${this.props.user.screen_name}/status/${this.props.id}`
+									)
+								}
 							}}
 						>
 							{CardHeader(this.props)}
@@ -385,6 +397,7 @@ Tweet.propTypes = {
 			network: PropTypes.string
 		})
 	]),
+	assignable: PropTypes.bool,
 	bearer: PropTypes.string,
 	canArchive: PropTypes.bool,
 	color: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
@@ -467,6 +480,7 @@ Tweet.propTypes = {
 }
 
 Tweet.defaultProps = {
+	assignable: false,
 	canArchive: false,
 	color: null,
 	createArchive,

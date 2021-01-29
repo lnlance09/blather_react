@@ -7,23 +7,11 @@ import { DisplayMetaTags } from "utils/metaFunctions"
 import { Divider, Header, Icon, Input, Message, Segment } from "semantic-ui-react"
 import DefaultLayout from "layouts"
 import FallacyForm from "components/secondary/fallacyForm/v1/"
-import LazyLoad from "components/primary/lazyLoad/v1/"
 import queryString from "query-string"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
-import Slider from "react-slick"
 import store from "store"
 import Tweet from "components/primary/tweet/v1/"
-
-const width = window.innerWidth
-console.log("width", width)
-const settings = {
-	dots: false,
-	infinite: true,
-	slidesToScroll: 1,
-	slidesToShow: width > 414 ? 2 : 1,
-	speed: 500
-}
 
 class Home extends Component {
 	constructor(props) {
@@ -53,7 +41,7 @@ class Home extends Component {
 	}
 
 	componentDidMount() {
-		this.props.getTweetsForAssignment()
+		// this.props.getTweetsForAssignment()
 
 		const qs = queryString.parse(this.props.location.search)
 		const url = qs.url
@@ -118,7 +106,7 @@ class Home extends Component {
 			url,
 			user
 		} = this.state
-		const { info, mediaId, page, tweets, type } = this.props
+		const { info, mediaId, page, type } = this.props
 
 		const validPost = type === "tweet"
 
@@ -239,63 +227,6 @@ class Home extends Component {
 								</Header>
 							</Segment>
 						)}
-
-						<Divider inverted horizontal section>
-							<Header as="h3" color="blue" inverted>
-								Trending
-							</Header>
-						</Divider>
-
-						<Slider className="slickSlide" {...settings}>
-							{tweets.map(tweet => {
-								if (typeof tweet.id === "undefined") {
-									return (
-										<div className="basicSegment">
-											<LazyLoad />
-										</div>
-									)
-								}
-
-								return (
-									<div className="basicSegment">
-										<Tweet
-											created_at={tweet.created_at}
-											extended_entities={tweet.extended_entities}
-											full_text={tweet.text}
-											id={tweet.id_str}
-											is_quote_status={tweet.is_quote_status}
-											onClickCallback={tweet => {
-												this.scrollToTop()
-												const url = `https://twitter.com/${tweet.user.screen_name}/status/${tweet.id}`
-												this.setState({ url }, () => {
-													this.props.getPostFromUrl({
-														bearer,
-														url
-													})
-												})
-											}}
-											quoted_status={
-												typeof tweet.quoted_status === "undefined" &&
-												tweet.is_quote_status
-													? tweet.retweeted_status
-													: tweet.quoted_status
-											}
-											quoted_status_id_str={tweet.quoted_status_id}
-											retweeted_status={
-												typeof tweet.retweeted_status === "undefined"
-													? false
-													: tweet.retweeted_status
-											}
-											stats={{
-												favorite_count: tweet.favorite_count,
-												retweet_count: tweet.retweet_count
-											}}
-											user={tweet.user}
-										/>
-									</div>
-								)
-							})}
-						</Slider>
 					</DefaultLayout>
 				</div>
 			</Provider>

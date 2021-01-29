@@ -1,12 +1,13 @@
 import { DisplayMetaTags } from "utils/metaFunctions"
 import { Provider } from "react-redux"
+import { Header } from "semantic-ui-react"
 import DefaultLayout from "layouts"
-import FeedComponent from "components/secondary/feed/v1/"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import store from "store"
+import TweetList from "components/secondary/lists/tweetList/v1/"
 
-class NewsFeed extends Component {
+class TwitterFeed extends Component {
 	constructor(props) {
 		super(props)
 
@@ -26,11 +27,17 @@ class NewsFeed extends Component {
 				<div className="feedPage">
 					<DisplayMetaTags page="feed" props={this.props} state={this.state} />
 					<DefaultLayout
-						activeItem="activity"
+						activeItem="home"
 						containerClassName="homePage"
 						history={this.props.history}
 					>
-						<FeedComponent history={this.props.history} />
+						<Header as="h1" inverted>
+							Tales from the grift
+							<Header.Subheader>
+								Almost everything here will be fallacious
+							</Header.Subheader>
+						</Header>
+						<TweetList assignable history={this.props.history} useList />
 					</DefaultLayout>
 				</div>
 			</Provider>
@@ -38,12 +45,12 @@ class NewsFeed extends Component {
 	}
 }
 
-NewsFeed.propTypes = {
+TwitterFeed.propTypes = {
 	results: PropTypes.array
 }
 
-NewsFeed.defaultProps = {
+TwitterFeed.defaultProps = {
 	results: []
 }
 
-export default NewsFeed
+export default TwitterFeed

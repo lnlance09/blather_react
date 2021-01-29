@@ -28,6 +28,7 @@ import store from "store"
 import Tag from "pages/tag"
 import Tags from "pages/tags"
 import Target from "pages/target"
+import TwitterFeed from "pages/twitterFeed"
 import Users from "pages/users"
 
 class App extends Component {
@@ -46,9 +47,9 @@ class App extends Component {
 		window.location.href = e.currentTarget.data.url
 	}
 
-	handleNotificationOnClose(e, tag) {}
+	handleNotificationOnClose(e, tag) { }
 
-	handleNotificationOnError(e, tag) {}
+	handleNotificationOnError(e, tag) { }
 
 	handleNotificationOnShow(e, tag) {
 		// this.playSound()
@@ -107,15 +108,25 @@ class App extends Component {
 									exact
 									path="/"
 									render={props => (
-										<NewsFeed key={window.location.pathname} {...props} />
+										<TwitterFeed key={window.location.pathname} {...props} />
 									)}
 								/>
+
+								<Route component={TwitterFeed} exact path="/home" />
 
 								<Route
 									exact
 									path="/about"
 									render={props => (
 										<About key={window.location.pathname} {...props} />
+									)}
+								/>
+
+								<Route
+									exact
+									path="/activity"
+									render={props => (
+										<NewsFeed key={window.location.pathname} {...props} />
 									)}
 								/>
 
@@ -140,9 +151,6 @@ class App extends Component {
 										<About key={window.location.pathname} {...props} />
 									)}
 								/>
-
-								<Route component={NewsFeed} exact path="/activity" />
-								<Route component={NewsFeed} exact path="/home" />
 
 								<Route
 									exact

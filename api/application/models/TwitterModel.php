@@ -236,9 +236,16 @@ class TwitterModel extends CI_Model {
 
 	}
 
-	public function getListFeed($id, $token, $secret, $decode = true) {
-		$data['list_id'] = $id;
-		$data['include_rts'] = 0;
+	public function getListFeed($id, $lastId, $token, $secret, $decode = true) {
+		$data = [
+			'count' => 40,
+			'include_rts' => false,
+			'list_id' => $id,
+		];
+
+		if ($lastId) {
+			$data['max_id'] = $lastId;
+		}
 
 		$nonce = $this->generateNonce();
 		$headers = [
