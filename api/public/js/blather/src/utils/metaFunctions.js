@@ -16,6 +16,13 @@ export const DisplayMetaTags = ({ page, props, state }) => {
 				title: capitalizeWord(state.activeItem)
 			}
 			break
+		case "activity":
+			metaTags = {
+				description,
+				img,
+				title: "Actvity"
+			}
+			break
 		case "arguments":
 			metaTags = {
 				description: "",
@@ -71,7 +78,7 @@ export const DisplayMetaTags = ({ page, props, state }) => {
 			metaTags = {
 				description: "",
 				img,
-				title: "Home"
+				title: "Activity"
 			}
 			break
 		case "grifters":
