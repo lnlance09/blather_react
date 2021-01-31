@@ -7,6 +7,9 @@
 .fallacyForm .content:first-of-type {
   border-bottom: solid 1px rgba(245, 248, 250, 0.1) !important; }
 
+.fallacyForm .searchContradictionSegment {
+  background: rgba(28, 42, 57, 0.8) !important; }
+
 .fallacyForm .field.startTime,
 .fallacyForm .field.contradictionStartTime {
   padding-left: 0 !important;

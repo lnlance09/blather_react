@@ -29,7 +29,7 @@ class Home extends Component {
 			auth,
 			bearer,
 			endTime: "",
-			fallacyId: "1",
+			fallacyId: "21",
 			formVisible: true,
 			highlightedText: "IF YOU ARE NOT HAPPY HERE, YOU CAN LEAVE!",
 			startTime: "",
