@@ -9,7 +9,11 @@
 
 	.formHeader {
     	// font-size: 18px !important;
-  	}
+	}
+	  
+	.searchContradictionSegment {
+		background: lighten($invertedBackgroundColor08, 4%) !important;
+	}
 
   	.field.startTime,
   	.field.contradictionStartTime {

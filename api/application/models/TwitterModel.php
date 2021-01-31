@@ -238,7 +238,7 @@ class TwitterModel extends CI_Model {
 
 	public function getListFeed($id, $lastId, $token, $secret, $decode = true) {
 		$data = [
-			'count' => 40,
+			'count' => 25,
 			'include_rts' => false,
 			'list_id' => $id,
 			'tweet_mode' => 'extended'

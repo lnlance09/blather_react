@@ -23,6 +23,7 @@ import {
 	Input,
 	Message,
 	Modal,
+	Segment,
 	TextArea
 } from "semantic-ui-react"
 import { fallacyDropdownOptions } from "utils/fallacyFunctions"
@@ -31,7 +32,7 @@ import _ from "lodash"
 import fallacies from "options/fallacies.json"
 import FallacyRef from "components/primary/fallacyRef/v1/"
 import PropTypes from "prop-types"
-import React, { Component } from "react"
+import React, { Component, Fragment } from "react"
 import SearchForm from "components/primary/search/v1/"
 import store from "store"
 import TimeField from "react-simple-timefield"
@@ -51,6 +52,7 @@ class FallacyForm extends Component {
 			changed: false,
 			contradictionBeginTime: "0",
 			contradictionEndTime: "0",
+			contradictionQ: "",
 			explanation: "",
 			formVisible: false,
 			highlightedText: "",
@@ -163,6 +165,8 @@ class FallacyForm extends Component {
 		}
 	}
 
+	onChangeContradictionQ = (e, { value }) => this.setState({ contradictionQ: value })
+
 	onChangeEndTime = time => this.props.setEndTime({ value: time })
 
 	onChangeExplanation = (e, { value }) => this.setState({ explanation: value })
@@ -245,7 +249,7 @@ class FallacyForm extends Component {
 	}
 
 	render() {
-		const { explanation, highlightedText, id, loading, url } = this.state
+		const { contradictionQ, explanation, highlightedText, id, loading, url } = this.state
 		let { bearer, fallacy, info, type } = this.props
 
 		if (type === "video" && info !== undefined && info.comment) {
@@ -281,22 +285,53 @@ class FallacyForm extends Component {
 			if (id === "21") {
 				const contClassName = c ? " active" : ""
 				return (
-					<Form.Field>
-						<Input
-							className="contradictionInput"
-							icon="paperclip inverted"
-							onKeyUp={this.onChangeContradiction}
-							onPaste={this.onPaste}
-							placeholder="Link to contradiction"
-							value={url}
-						/>
-						{hasContradiction && (
-							<div className={`contradictionWrapper${contClassName}`}>
-								{DisplayContradiction(props)}
-								{ContradictionMsg(props)}
-							</div>
-						)}
-					</Form.Field>
+					<Fragment>
+						<Form.Field>
+							<Input
+								className="contradictionInput"
+								icon="paperclip inverted"
+								onKeyUp={this.onChangeContradiction}
+								onPaste={this.onPaste}
+								placeholder="Link to contradiction"
+								value={url}
+							/>
+							{hasContradiction && (
+								<div className={`contradictionWrapper${contClassName}`}>
+									{DisplayContradiction(props)}
+									{ContradictionMsg(props)}
+								</div>
+							)}
+						</Form.Field>
+						<Segment className="searchContradictionSegment" inverted>
+							<Form.Field>
+								<Input
+									className="contradictionInput"
+									icon="search inverted"
+									onChange={this.onChangeContradictionQ}
+									placeholder="Search for an old tweet"
+									size="large"
+									value={contradictionQ}
+								/>
+							</Form.Field>
+							<Form.Field>
+								<Button
+									color="blue"
+									content={`Search old tweets for "${contradictionQ}"`}
+									disabled={contradictionQ === ""}
+									fluid
+									inverted
+									onClick={e => {
+										e.preventDefault()
+										window.open(
+											`https://twitter.com/search?q=${contradictionQ} from:${props.pageInfo.username}&src=typed_query`,
+											"_blank"
+										)
+									}}
+									size="large"
+								/>
+							</Form.Field>
+						</Segment>
+					</Fragment>
 				)
 			}
 			return null
@@ -649,7 +684,7 @@ FallacyForm.defaultProps = {
 	fallacy: {
 		contradiction: {}
 	},
-	fallacyId: "1",
+	fallacyId: "21",
 	handleSubmit: () => null,
 	modalOpen: false,
 	setContradictionBeginTime,
