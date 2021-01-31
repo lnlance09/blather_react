@@ -87,6 +87,7 @@ const home = (state = initial(), action) => {
 				archives,
 				error: payload.error,
 				errorCode: payload.code,
+				fetched: true,
 				info,
 				mediaId,
 				network,
@@ -99,6 +100,12 @@ const home = (state = initial(), action) => {
 			return {
 				...state,
 				tweets: payload.tweets
+			}
+
+		case constants.RESET_FETCHED:
+			return {
+				...state,
+				fetched: !state.fetched
 			}
 
 		default:

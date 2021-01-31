@@ -1,6 +1,6 @@
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
-import { getPostFromUrl, getTweetsForAssignment } from "redux/actions/home"
+import { getPostFromUrl, getTweetsForAssignment, resetFetched } from "redux/actions/home"
 import { connect, Provider } from "react-redux"
 import { Link } from "react-router-dom"
 import { DisplayMetaTags } from "utils/metaFunctions"
@@ -35,14 +35,15 @@ class Home extends Component {
 			startTime: "",
 			text: "",
 			type: null,
-			url,
+			url: typeof url === "undefined" ? null : url,
 			user
 		}
 	}
 
 	componentDidMount() {
+		console.log("did mount")
 		// this.props.getTweetsForAssignment()
-
+		this.props.resetFetched()
 		const qs = queryString.parse(this.props.location.search)
 		const url = qs.url
 
@@ -106,9 +107,7 @@ class Home extends Component {
 			url,
 			user
 		} = this.state
-		const { info, mediaId, page, type } = this.props
-
-		const validPost = type === "tweet"
+		const { fetched, info, mediaId, page, type } = this.props
 
 		return (
 			<Provider store={store}>
@@ -139,85 +138,102 @@ class Home extends Component {
 
 						<Divider hidden />
 
-						{validPost && url !== "" ? (
+						{url ? (
 							<div>
-								<div className="postContainer">
-									{type === "tweet" && (
-										<Tweet
-											bearer={bearer}
-											created_at={info.created_at}
-											displayTextRange={info.display_text_range}
-											extended_entities={info.extended_entities}
-											externalLink
-											highlight={highlightedText !== ""}
-											highlightedText={highlightedText}
-											full_text={info.full_text}
-											handleHoverOn={this.handleHoverOn}
-											history={this.props.history}
-											id={info.id_str}
-											imageSize="medium"
-											is_quote_status={info.is_quote_status}
-											profileImg={this.props.profileImg}
-											quoted_status={
-												info.quoted_status === undefined &&
-												info.is_quote_status
-													? info.retweeted_status
-													: info.quoted_status
-											}
-											quoted_status_id_str={info.quoted_status_id_str}
-											quoted_status_permalink={info.quoted_status_permalink}
-											retweeted_status={
-												info.retweeted_status === undefined
-													? false
-													: info.retweeted_status
-											}
-											stats={{
-												favorite_count: info.favorite_count,
-												retweet_count: info.retweet_count
-											}}
-											user={info.user}
-										/>
-									)}
-									{type === "video" && (
-										<Message
-											content="Link your YouTube account to assign fallacies to videos"
-											warning
-										/>
-									)}
-								</div>
+								{fetched ? (
+									<div>
+										<div className="postContainer">
+											{type === "tweet" && (
+												<Tweet
+													bearer={bearer}
+													created_at={info.created_at}
+													displayTextRange={info.display_text_range}
+													extended_entities={info.extended_entities}
+													externalLink
+													highlight={highlightedText !== ""}
+													highlightedText={highlightedText}
+													full_text={info.full_text}
+													handleHoverOn={this.handleHoverOn}
+													history={this.props.history}
+													id={info.id_str}
+													imageSize="medium"
+													is_quote_status={info.is_quote_status}
+													profileImg={this.props.profileImg}
+													quoted_status={
+														info.quoted_status === undefined &&
+														info.is_quote_status
+															? info.retweeted_status
+															: info.quoted_status
+													}
+													quoted_status_id_str={info.quoted_status_id_str}
+													quoted_status_permalink={
+														info.quoted_status_permalink
+													}
+													retweeted_status={
+														info.retweeted_status === undefined
+															? false
+															: info.retweeted_status
+													}
+													stats={{
+														favorite_count: info.favorite_count,
+														retweet_count: info.retweet_count
+													}}
+													user={info.user}
+												/>
+											)}
+											{type === "video" && (
+												<Message
+													content="Link your YouTube account to assign fallacies to videos"
+													warning
+												/>
+											)}
+										</div>
 
-								<Divider hidden />
+										<Divider hidden />
 
-								<Segment className="fallacyFormSegmentWrapper" inverted>
-									<FallacyForm
-										authenticated={auth}
-										bearer={bearer}
-										commentId={type === "comment" ? id : null}
-										endTime={endTime}
-										fallacyId={fallacyId}
-										handleSubmit={this.handleSubmit}
-										highlightedText={highlightedText}
-										history={this.props.history}
-										network={this.props.network}
-										objectId={mediaId}
-										pageInfo={page}
-										sendNotification={this.props.sendNotification}
-										size="large"
-										startTime={startTime}
-										type={type}
-										useCard={false}
-										user={user}
-									/>
-								</Segment>
+										<Segment className="fallacyFormSegmentWrapper" inverted>
+											<FallacyForm
+												authenticated={auth}
+												bearer={bearer}
+												commentId={type === "comment" ? id : null}
+												endTime={endTime}
+												fallacyId={fallacyId}
+												handleSubmit={this.handleSubmit}
+												highlightedText={highlightedText}
+												history={this.props.history}
+												network={this.props.network}
+												objectId={mediaId}
+												pageInfo={page}
+												sendNotification={this.props.sendNotification}
+												size="large"
+												startTime={startTime}
+												type={type}
+												useCard={false}
+												user={user}
+											/>
+										</Segment>
 
-								{!auth && (
-									<Message error>
-										<Message.Content>
-											<Message.Header>Sign in</Message.Header>
-											This will be assigned anonymously. It is recommended
-											that you <Link to="/signin">sign in</Link>.
-										</Message.Content>
-									</Message>
+										{!auth && (
+											<Message error>
+												<Message.Content>
+													<Message.Header>Sign in</Message.Header>
+													This will be assigned anonymously. It is
+													recommended that you{" "}
+													<Link to="/signin">sign in</Link>.
+												</Message.Content>
+											</Message>
+										)}
+									</div>
+								) : (
+									<Segment inverted padded="very" placeholder>
+										<Header icon>
+											<Icon
+												className="twitterIcon"
+												loading
+												name="circle notch"
+											/>
+										</Header>
+									</Segment>
 								)}
 							</div>
 						) : (
@@ -235,6 +251,7 @@ class Home extends Component {
 }
 
 Home.propTypes = {
+	fetched: PropTypes.bool,
 	getPostFromUrl: PropTypes.func,
 	getTweetsForAssignment: PropTypes.func,
 	info: PropTypes.object,
@@ -245,15 +262,18 @@ Home.propTypes = {
 		name: PropTypes.string,
 		username: PropTypes.string
 	}),
+	resetFetched: PropTypes.func,
 	tweets: PropTypes.array,
 	type: PropTypes.string
 }
 
 Home.defaultProps = {
+	fetched: false,
 	getPostFromUrl,
 	getTweetsForAssignment,
 	info: {},
 	page: {},
+	resetFetched,
 	tweets: [{}, {}]
 }
 
@@ -266,5 +286,6 @@ const mapStateToProps = (state, ownProps) => {
 
 export default connect(mapStateToProps, {
 	getPostFromUrl,
-	getTweetsForAssignment
+	getTweetsForAssignment,
+	resetFetched
 })(Home)

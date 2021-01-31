@@ -6,7 +6,7 @@
 /*---   Social colors  ---*/
 .ui.inverted.fallacySegment {
   background: #1a2835 !important;
-  border-width: 2px !important; }
+  border-width: 1px !important; }
   .ui.inverted.fallacySegment .header {
     margin-bottom: 5px; }
   .ui.inverted.fallacySegment p:not(.header).description {

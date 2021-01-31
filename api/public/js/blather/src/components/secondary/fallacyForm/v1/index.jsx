@@ -292,7 +292,7 @@ class FallacyForm extends Component {
 								icon="paperclip inverted"
 								onKeyUp={this.onChangeContradiction}
 								onPaste={this.onPaste}
-								placeholder="Link to contradiction"
+								placeholder="Link to contradicting tweet"
 								value={url}
 							/>
 							{hasContradiction && (
@@ -307,6 +307,7 @@ class FallacyForm extends Component {
 								<Input
 									className="contradictionInput"
 									icon="search inverted"
+									iconPosition="left"
 									onChange={this.onChangeContradictionQ}
 									placeholder="Search for an old tweet"
 									size="large"
@@ -315,11 +316,12 @@ class FallacyForm extends Component {
 							</Form.Field>
 							<Form.Field>
 								<Button
-									color="blue"
+									color="twitter"
 									content={`Search old tweets for "${contradictionQ}"`}
 									disabled={contradictionQ === ""}
 									fluid
-									inverted
+									icon="twitter"
+									// inverted
 									onClick={e => {
 										e.preventDefault()
 										window.open(

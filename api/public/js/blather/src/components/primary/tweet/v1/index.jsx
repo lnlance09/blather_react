@@ -319,9 +319,13 @@ class Tweet extends Component {
 
 								if (this.props.assignable) {
 									e.stopPropagation()
-									this.props.push(
-										`/assign?url=https://twitter.com/${this.props.user.screen_name}/status/${this.props.id}`
-									)
+
+									const url = `/assign?url=https://twitter.com/${this.props.user.screen_name}/status/${this.props.id}`
+									if (!e.metaKey) {
+										this.props.push(url)
+									} else {
+										window.open(url, "_blank").focus()
+									}
 								}
 							}}
 						>
