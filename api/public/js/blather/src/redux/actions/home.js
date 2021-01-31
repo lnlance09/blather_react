@@ -51,3 +51,9 @@ export const getTweetsForAssignment = () => dispatch => {
 		}
 	)
 }
+
+export const resetFetched = () => dispatch => {
+	dispatch({
+		type: constants.RESET_FETCHED
+	})
+}
