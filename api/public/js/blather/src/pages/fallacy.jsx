@@ -348,7 +348,6 @@ class Fallacy extends Component {
 								canScreenshot={false}
 								id={this.props.fallacyId}
 								showDialogue={false}
-								size="medium"
 							/>
 						</div>
 					</div>
