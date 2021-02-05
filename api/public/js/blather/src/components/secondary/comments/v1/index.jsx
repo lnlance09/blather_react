@@ -177,7 +177,6 @@ const CommentsSection = ({
 			<Form inverted onSubmit={onSubmitForm} size="large">
 				<TextArea
 					autoHeight
-					inverted
 					onChange={(e, { value }) => setMessage(value)}
 					placeholder={
 						comments.count === 0 ? "Be the first to comment..." : "Add a comment..."
@@ -217,7 +216,7 @@ const CommentsSection = ({
 					{comments.results.map((comment, i) => {
 						const { responses } = comment
 						if (typeof comment.id === "undefined") {
-							return <LazyLoad />
+							return <LazyLoad key={`comment${i}`} />
 						}
 
 						return (

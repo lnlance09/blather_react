@@ -99,6 +99,7 @@ class TagsCard extends Component {
 
 		const RenderTags = this.props.tags.map(tag => (
 			<Label
+				key={`fallacyLabel${tag.id}`}
 				onClick={() => {
 					if (!open) {
 						this.props.history.push(`/tags/${tag.id.trim()}`)
